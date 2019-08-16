@@ -1,0 +1,51 @@
+﻿@model StaffItemViewModel
+
+<form method="post" asp-action="index" asp-controller="Staffs" class="form-inline filter" >
+    <div class="form-group">
+        <select asp-items="Model.Parents" asp-for="SelectedParentId"
+                class="form-control select2"
+                style="width:300px"
+                title="@StaffResource.Restaurant">
+            <option value="">--@StaffResource.Restaurant--</option>
+        </select>
+
+    </div>
+    <div class="form-group">
+        <input type="submit"
+               class="btn btn-default"
+               value="@SharedAdminResource.Search" />
+    </div>
+</form>
+<table class="table">
+    <thead class="thead-inverse">
+        <tr>
+
+            <th>
+                @StaffResource.FirstName
+            </th>
+            <th>
+                @StaffResource.LastName
+            </th>
+
+            <th>
+                @StaffResource.Restaurant
+            </th>
+            <th>
+                @StaffResource.Role
+            </th>
+            <th>
+                @BaseResource.IsDisabled
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Entities != null)
+        {
+            foreach (var item in Model.Entities)
+            {
+                <partial name="_StaffListItemView" model="item" />
+            }
+        }
+    </tbody>
+</table>

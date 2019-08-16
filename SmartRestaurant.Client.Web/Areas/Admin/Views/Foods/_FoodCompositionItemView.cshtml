@@ -1,0 +1,49 @@
+﻿@model FoodCompositionViewModel
+@{ 
+    ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix = $"Compositions[{Model.Index}]";
+}
+<tr id="food-composition-@Model.Index">
+    <td>
+        <input type="hidden" asp-for="Composition.Id" />
+        <input type="hidden" asp-for="Index" />
+
+        <select asp-items="Model.Categories" 
+                class="form-control get-foods"
+                data-action-url="@Url.Action("GetFoodsPartialByCategory","Foods",new { area="Admin"})"
+                data-index="@Model.Index">
+            <option value="">--Catégorie--</option>
+        </select>
+    </td>
+    <td>
+        <select asp-items="Model.Foods" asp-for="Composition.FoodId" class="form-control">
+            <option value="">--@FoodCompositionResource.FoodId--</option>
+        </select>
+        <span asp-validation-for="Composition.FoodId" class="text-danger"></span>
+    </td>
+    <td>
+        <input asp-for="Composition.Alias" class="form-control" />
+        <span asp-validation-for="Composition.Alias" class="text-danger"></span>
+    </td>
+    <td>
+        <div class="form-group">            
+            <input asp-for="Composition.Quantity.Value" class="form-control" />
+            <span asp-validation-for="Composition.Quantity.Value" class="text-danger"></span>
+        </div>
+    </td>
+    <td>
+        <select asp-items="Model.Units" asp-for="Composition.Quantity.UniteId" class="form-control">
+            <option value="">--Unité--</option>
+        </select>
+        <span asp-validation-for="Composition.Quantity.UniteId" class="text-danger"></span>
+    </td>
+    <td>
+        <a data-action-url="@Url.Action("DeletePartialCompositionItem","Foods",new { area="Admin"})"
+           data-index="@Model.Index"
+           data-target="#food-composition-@Model.Index"           
+           class="action-link augment delete-partial-food-composition">
+            <i class="fa fa-trash-o"></i>
+        </a>
+    </td>
+</tr>
+
+

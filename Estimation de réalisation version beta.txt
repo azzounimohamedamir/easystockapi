@@ -1,0 +1,54 @@
+Avancement du projet Smart Restaurant
+A. Application Xamarin (43 jours)
+     1. Application Xamarin navigation terminée;
+     2. SignalR pas encore
+     3. Système de commande et payment en cours;
+     4. Template d'affiche pour produit en cours;
+     5. Les interfaces terminées;
+     6. Template d'affiche pour un plat terminé;
+     7. Les options de notation et de partage et envoie pas mail en cours(2eme version);
+     8. Multilangue (2eme version); Première version en français;
+     9. Déclaration des maladies et des allergies en cours 
+     (les interfaces terminées reste l'impémentation en cours);
+     10. La modification des ingredients d'un plat en cours,
+     (les interfaces terminées reste l'implementation deu code);
+     11. Commande à la carte (2eme version);
+     12. Plat du jour en cours;
+     13. La selection du chef en cours;
+
+B. Web API (17 jours)
+     1. Les langues définie pour le restaurant
+     2. Restaurant informations ( les étages, les zones, les tables, les places?, les serveurs, les chefs)
+     3. Login OAuth2.0 JWT
+     4. Création de compte pour les utilisateurs
+     5. Création de profile (FirstName, LastName, Email, BirthDate, BirthPlace, PhoneNumber, Address);
+     6. Utilisation de compte externe pour se connecter(2eme version).
+     7. Liste des maladies
+     8. Liste des allergies
+     9. Historique des consomations par utilisateur(2eme version)
+     10.la génération de Json Services 
+     (Les familles, et par famille la liste des plats et par plat la liste des ingrédients
+     Le plat du jour et la selection du chef).
+
+
+
+C. Web MVC Admin (5 jours)
+     1. CRUD les plats (code implémenté reste les interfaces)
+     2. CRUD les Menu (code implémenté reste les interfaces)
+     3. CRUD les services (code implémenté reste les interfaces)
+
+D. Web MVC Client (Restaurant) (interface plus simple) 15 jours 
+     1. Création de l'application (code implémenté reste les interfaces)
+     2. Création de la navigation (code implémenté reste les interfaces)
+     3. CRUD plats (code implémenté reste les interfaces)
+     4. CRUD les menu (code implémenté reste les interfaces)
+     5. CRUD les Sevices (code implémenté reste les interfaces)
+     6. CRUD tarification (code implémenté reste les interfaces)
+     7. CRUD les étages (code implémenté reste les interfaces)
+     8. CRUD les zones (code implémenté reste les interfaces)
+     9. CRUD les tables (code implémenté reste les interfaces)
+     10. CRUD Personnel (code implémenté reste les interfaces)
+     11. Les statistiques (ouvrable view par service, par plat etc ...) 2eme version
+     12. La caise (implémentation code et interfaces)
+
+

@@ -1,0 +1,26 @@
+﻿@model AllergyItemModel
+    <tr id="Allergy-@Model.Id">
+
+        <td>
+            @Html.DisplayFor(modelItem => Model.Name)
+        </td>     
+        <td>
+            @Html.DisplayFor(modelItem => Model.IsDisabled)
+        </td>
+        <td class="align-content-end">
+            <a asp-action="Edit"
+               asp-controller="Allergies"
+               asp-area="Admin"
+               asp-route-id="@Model.Id"
+               class="action-link action-edit">
+                <i class="fa fa-pencil"></i>
+            </a>
+
+            <a data-action-url=@Url.Action("Delete","Allergies",new { area="Admin"})
+               data-target="#Allergies-@Model.Id"
+               data-id="@Model.Id"
+               class="action-link action-delete">
+                <i class="fa fa-trash-o"></i>
+            </a>
+        </td>
+    </tr>

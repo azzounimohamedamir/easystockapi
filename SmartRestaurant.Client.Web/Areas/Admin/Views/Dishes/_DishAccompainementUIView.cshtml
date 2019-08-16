@@ -1,0 +1,65 @@
+﻿@model DishAccompanimentViewModel
+@{
+    ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix = $"Accompaniments[{Model.Index}]";
+}
+<input type="hidden" asp-for="Index" />
+<input type="hidden" asp-for="Text" />
+
+<div class="col-xl-12 col-md-12 col-lg-12">
+    <div class="card-outline-primary" id="accompaniment-@Model.Index">
+        <div class="card-header no-border">
+            <h4 class="card-title">@Model.Title</h4>
+            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    <li><a data-action="collapse2" data-target="#accompaniment-@Model.Index"><i class="ft-minus"></i></a></li>
+                    <li><a 
+                           data-index="@Model.Index"
+                           class="delete-accompaniment"
+                           data-action-url="@Url.Action("DeleteAccompaniment","Dishes",new {area="Admin" })">
+                        <i class="fa fa-trash-o"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-12 col-md-12">
+                    <div class="form-inline">
+
+                        <div class="form-group">
+                            <select asp-items="Model.Accompaniments" asp-for="Accompaniment.AccompanyingId"
+                                    class="form-control select2"
+                                    title="@DishAccompanyingResource.AccompanyingId">
+                                <option value="">-- @DishAccompanyingResource.AccompanyingId --</option>
+                            </select>
+                            <span asp-validation-for="Accompaniment.AccompanyingId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input asp-for="Accompaniment.Quantity.Value" class="form-control" placeholder="@QuantityResource.Value" />
+                            <span asp-validation-for="Accompaniment.Quantity.Value" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <select asp-items="Model.Units" asp-for="Accompaniment.Quantity.UnitId" class="form-control select2" title="@QuantityResource.UnitId">
+                                <option value="">-- @QuantityResource.UnitId --</option>
+                            </select>
+                            <span asp-validation-for="Accompaniment.Quantity.UnitId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-inline" style="padding-top:15px;">
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="Accompaniment.IsDisabled" /> @BaseResource.IsDisabled
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>           
+
+            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+﻿@model CityItemViewModel
+@{
+    ViewData["Title"] = CityUtilsResource.HomePageTitle;
+}
+
+<div class="card">
+    <div class="card-header">
+        <a data-action="add" class="btn btn-default add-entity"
+           asp-controller="cities"
+           asp-action="add">@CityUtilsResource.ButtonAddNewText</a>
+
+        <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+
+        <div class="heading-elements">
+            <ul class="list-inline mb-0">
+                <li>
+
+                </li>
+                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                <li><a data-action="reload" asp-controller="Cities" asp-action="Reload"><i class="ft-rotate-cw"></i></a></li>
+                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-body collapse in">
+        <div class="container">
+            <form class="form-inline">
+                <div class="form-group">
+                    <select asp-items="Model.CityFilterViewModel.Countries" asp-for="CityFilterViewModel.SelectedCountryId"
+                            class="form-control select2"
+                            title="@CityResource.CountryId">
+                        <option value="">--@CityResource.CountryId--</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select asp-items="Model.CityFilterViewModel.States" asp-for="CityFilterViewModel.SelectedStateId"
+                            class="form-control select2"
+                            title="@CityResource.StateId">
+                        <option value="">--@CityResource.StateId--</option>
+                    </select>
+                </div>
+                <input type="submit"
+                       data-action="Index"
+                       data-controller="Cities"
+                       data-area="Admin"
+                       value="@SharedAdminResource.Search"
+                       id="sr-form-submit"
+                       class="btn btn-primary" />
+            </form>
+        </div>
+        <div class="table-responsive"
+             id="table-cities">
+            <partial name="_CitiesView" model="Model" />
+        </div>
+    </div>
+</div>

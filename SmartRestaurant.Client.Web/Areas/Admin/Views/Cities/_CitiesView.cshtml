@@ -1,0 +1,65 @@
+﻿@model CityItemViewModel
+    <div class="container">
+        <form method="post" class="form-inline">
+            
+                    <div class="form-group">
+                        <label class="control-label">@CityResource.CountryId</label>
+                        <select id="countryDropDownList" asp-items="Model.CityFilterViewModel.Countries" asp-for="CityFilterViewModel.SelectedCountryId"
+                                class="form-control select2"
+                                title="@CityResource.CountryId">
+                            <option value="">--@CityResource.CountryId--</option>
+                        </select>
+               
+            
+                    <div class="form-group">
+                        <label class="control-label">@CityResource.StateId</label>
+                        <select id="stateDropDownList" asp-items="Model.CityFilterViewModel.States" asp-for="CityFilterViewModel.SelectedStateId"
+                                class="form-control select2"
+                                title="@CityResource.StateId">
+                            <option value="">--@CityResource.StateId--</option>
+                        </select>
+                    </div>
+              
+
+                <input type="submit"
+                       data-action="Index"
+                       data-controller="Cities"
+                       data-area="Admin"
+                       value="@SharedAdminResource.Search"
+                       id="sr-form-submit"
+                       class="btn btn-primary" />
+
+            </div>
+        </form>
+
+        </div>
+        <table class="table">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>
+                        @BaseResource.Name
+                    </th>
+                    <th>
+                        @BaseResource.Alias
+                    </th>
+                    <th>
+                        @BaseResource.IsoCode
+                    </th>
+                    <th>
+                        @BaseResource.IsDisabled
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Cities != null)
+                {
+
+                    @foreach (var item in Model.Cities)
+                    {
+                        <partial name="_CityListItemView" model="item" />
+                    }
+                }
+            </tbody>
+        </table>
+

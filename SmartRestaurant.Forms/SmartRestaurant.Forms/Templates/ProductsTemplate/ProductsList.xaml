@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="SmartRestaurant.Forms.Pages.ProductsList"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cells="clr-namespace:SmartRestaurant.Forms.Templates"
+    xmlns:sync="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:vm="clr-namespace:SmartRestaurant.Forms.ViewModels"
+    x:Name="sampleView">
+    <ContentView.Content>
+        <sync:SfListView
+            x:Name="listView"
+            Grid.Row="2"
+            ItemSize="120"
+            ItemsSource="{Binding Items, Source={x:Reference sampleView}}"
+            LoadMoreOption="Auto">
+            <!--    -->
+            <sync:SfListView.ItemTemplate>
+                <DataTemplate>
+
+                    <cells:ProductTemplate Commands="{Binding Source={x:Reference sampleView}, Path=BindingContext.AddCommand}" />
+
+                </DataTemplate>
+            </sync:SfListView.ItemTemplate>
+        </sync:SfListView>
+    </ContentView.Content>
+</ContentView>

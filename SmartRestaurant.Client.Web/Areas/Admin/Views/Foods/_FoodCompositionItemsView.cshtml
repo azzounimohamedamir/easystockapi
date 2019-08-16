@@ -1,0 +1,5 @@
+﻿@model IEnumerable<FoodCompositionViewModel>
+@foreach (var item in Model)
+{
+    <partial name="_FoodCompositionItemView" model="item" />
+}

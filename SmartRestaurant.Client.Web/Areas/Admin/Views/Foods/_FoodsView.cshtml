@@ -1,0 +1,28 @@
+﻿@model PaginatedList<FoodItemModel>
+
+<table class="table">
+    <thead  class="thead-inverse">
+        <tr>
+
+            <th>
+                @BaseResource.PictureUrl
+            </th>
+            <th>
+                @BaseResource.Name
+            </th>
+            <th>
+                @FoodResource.FoodCategoryId
+            </th>            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <partial name="_FoodListItemView" model="item" />
+}
+    </tbody>
+</table>
+
+
+
+

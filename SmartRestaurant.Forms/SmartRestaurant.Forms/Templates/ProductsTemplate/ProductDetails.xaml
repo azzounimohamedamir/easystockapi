@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SmartRestaurant.Forms.Templates.ProductDetails"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helpers="clr-namespace:SmartRestaurant.Forms.Helpers"
+    xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:numeric="clr-namespace:Syncfusion.SfNumericUpDown.XForms;assembly=Syncfusion.SfNumericUpDown.XForms"
+    Title="Dobara">
+
+
+    <ContentPage.Content>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+
+            </Grid.RowDefinitions>
+
+
+
+
+
+
+            <StackLayout
+                Margin="0,20,0,10"
+                HorizontalOptions="CenterAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <Image
+                    Aspect="AspectFit"
+                    HeightRequest="50"
+                    Source="like"
+                    WidthRequest="50" />
+                <Image
+                    Aspect="AspectFit"
+                    HeightRequest="50"
+                    Source="share"
+                    WidthRequest="50" />
+                <Image
+                    Aspect="AspectFit"
+                    HeightRequest="50"
+                    Source="comment"
+                    WidthRequest="50" />
+                <Image
+                    Aspect="AspectFit"
+                    HeightRequest="50"
+                    Source="send"
+                    WidthRequest="50" />
+
+            </StackLayout>
+
+            <Image
+                Grid.Row="1"
+                Margin="0,20,0,20"
+                Aspect="AspectFill"
+                HeightRequest="300"
+                HorizontalOptions="Center"
+                Source="img1"
+                VerticalOptions="Center"
+                WidthRequest="300" />
+            <ListView
+                x:Name="Ingrediantlist"
+                Grid.Row="2"
+                HasUnevenRows="True"
+                ItemsSource="{Binding IngrediantItems}"
+                RowHeight="120"
+                SeparatorColor="DarkGray">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ScrollView>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+
+                                    </Grid.ColumnDefinitions>
+                                    <ic:CircleImage
+                                        Grid.Column="0"
+                                        Aspect="AspectFit"
+                                        HeightRequest="80"
+                                        Source="img1"
+                                        WidthRequest="80" />
+                                    <Label
+                                        Grid.Column="1"
+                                        FontSize="20"
+                                        HorizontalOptions="Center"
+                                        Text="{Binding IngrediantName}"
+                                        VerticalOptions="Center" />
+
+                                    <numeric:SfNumericUpDown
+                                        x:Name="numericUpDown"
+                                        Grid.Column="2"
+                                        FormatString="n"
+                                        VerticalOptions="Center"
+                                        WidthRequest="150"
+                                        Value="{Binding Quentity}" />
+                                    <Label
+                                        Grid.Column="3"
+                                        FontSize="24"
+                                        Text="{Binding Units}"
+                                        VerticalOptions="Center" />
+                                    <helpers:Checkbox
+                                        Grid.Column="4"
+                                        CheckColor="#42a5f5"
+                                        CheckedOutlineColor="#42a5f5"
+                                        HeightRequest="120"
+                                        IsChecked="{Binding IsInDish}"
+                                        OutlineColor="#42a5f5"
+                                        WidthRequest="120" />
+
+
+                                </Grid>
+
+                            </ScrollView>
+
+
+
+
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+
+            <Button
+                Grid.Row="3"
+                BackgroundColor="#CA5100"
+                FontSize="Large"
+                HeightRequest="80"
+                Text="Add To Card "
+                TextColor="White" />
+
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

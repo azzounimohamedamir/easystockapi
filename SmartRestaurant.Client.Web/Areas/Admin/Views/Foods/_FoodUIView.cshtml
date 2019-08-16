@@ -1,0 +1,130 @@
+﻿@model FoodViewModel
+
+<section id="add-food">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-body collapse in">
+                    <div class="card-block">
+                        <form asp-action="@Model.Action" id="food-form" class="steps-create-food wizard-circle" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="FoodModel.Picture.Url" />
+                            <input type="hidden" asp-for="FoodModel.Id" />
+                            <!-- Step 1 -->
+                            <h6>@FoodResource.Infos</h6>
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="FoodModel.Name" class="control-label">@BaseResource.Name</label>
+                                            <input asp-for="FoodModel.Name" class="form-control" placeholder="@BaseResource.Name" />
+                                            <span asp-validation-for="FoodModel.Name" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="FoodModel.Alias" class="control-label">@BaseResource.Alias</label>
+                                            <input asp-for="FoodModel.Alias" class="form-control" placeholder="@BaseResource.Alias" />
+                                            <span asp-validation-for="FoodModel.Alias" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="FoodModel.UnitId" class="control-label">@FoodResource.UnitId</label>
+                                            <select asp-items="Model.Units" asp-for="FoodModel.UnitId" class="form-control">
+                                                <option value="">-- @FoodResource.UnitId --</option>
+                                            </select>                                            
+                                            <span asp-validation-for="FoodModel.UnitId" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" asp-for="FoodModel.IsDisabled" /> @BaseResource.IsDisabled
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="FoodModel.Picture.Url" class="control-label">@BaseResource.PictureUrl</label>
+                                            <partial name="_FileViewModel" for="Picture" />
+                                            <span asp-validation-for="FoodModel.Picture.Url" class="text-danger"></span>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" asp-for="FoodModel.FoodCategoryId" class="hidden" />
+                                            <label asp-for="FoodModel.FoodCategoryId" class="control-label">@FoodResource.FoodCategoryId</label>
+                                            <partial name="_CascadingSelectListView" model="Model.Categories" />
+                                            <span asp-validation-for="FoodModel.FoodCategoryId" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="FoodModel.Description" class="control-label">@BaseResource.Description</label>
+                                            <textarea asp-for="FoodModel.Description" class="form-control" placeholder="@BaseResource.Description"></textarea>
+                                            <span asp-validation-for="FoodModel.Description" class="text-danger"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <!-- Step 2 -->
+                            <h6>@FoodResource.Nutrition</h6>
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Nutrition.Quantity.Value" class="control-label">@FoodResource.Nutrition_Value</label>
+                                            <input asp-for="Nutrition.Quantity.Value" class="form-control" placeholder="@FoodResource.Nutrition_Value" />
+                                            <span asp-validation-for="Nutrition.Quantity.Value" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Nutrition.Quantity.UnitId" class="control-label">@FoodResource.Nutrition_UnitId</label>
+                                            <select asp-items="Model.Units" asp-for="Nutrition.Quantity.UnitId" class="form-control select2">
+                                                <option value="">-- @FoodResource.Nutrition_UnitId --</option>
+                                            </select>
+                                            <span asp-validation-for="Nutrition.Quantity.UnitId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Nutrition.GlycemicIndex" class="control-label">@FoodResource.Nutrition_GlycemicIndex</label>
+                                            <input asp-for="Nutrition.GlycemicIndex" class="form-control" placeholder="@FoodResource.Nutrition_GlycemicIndex" />
+                                            <span asp-validation-for="Nutrition.GlycemicIndex" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Nutrition.Fibre" class="control-label">@FoodResource.Nutrition_Fibre</label>
+                                            <input asp-for="Nutrition.Fibre" class="form-control" placeholder="@FoodResource.Nutrition_Fibre" />
+                                            <span asp-validation-for="Nutrition.Fibre" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label asp-for="Nutrition.Calorie" class="control-label">@FoodResource.Nutrition_Calorie</label>
+                                            <input asp-for="Nutrition.Calorie" class="form-control" placeholder="@FoodResource.Nutrition_Calorie" />
+                                            <span asp-validation-for="Nutrition.Calorie" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Nutrition.Protein" class="control-label">@FoodResource.Nutrition_Protein</label>
+                                            <input asp-for="Nutrition.Protein" class="form-control" placeholder="@FoodResource.Nutrition_Protein" />
+                                            <span asp-validation-for="Nutrition.Protein" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label asp-for="Nutrition.Carbohydrate" class="control-label">@FoodResource.Nutrition_Carbohydrate</label>
+                                            <input asp-for="Nutrition.Carbohydrate" class="form-control" placeholder="@FoodResource.Nutrition_Carbohydrate" />
+                                            <span asp-validation-for="Nutrition.Carbohydrate" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Nutrition.Lipid" class="control-label">@FoodResource.Lipid</label>
+                                            <input asp-for="Nutrition.Lipid" class="form-control" placeholder="@FoodResource.Lipid" />
+                                            <span asp-validation-for="Nutrition.Lipid" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

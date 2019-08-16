@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="SmartRestaurant.Forms.Pages.DishesList"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cells="clr-namespace:SmartRestaurant.Forms.Pages"
+    xmlns:sync="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:vm="clr-namespace:SmartRestaurant.Forms.ViewModels"
+    xmlns:event="clr-namespace:Behaviors;assembly=Behaviors"
+    xmlns:converter="clr-namespace:SmartRestaurant.Converters"
+    x:Name="sampleView">
+    <ContentView.Resources>
+        <converter:SelectedItemEventArgsConverter x:Key="SelectedltemArgsToBinding" />
+    </ContentView.Resources>
+    <ContentView.Content>
+        <sync:SfListView
+            x:Name="listView"
+            Grid.Row="2"
+            ItemSize="120"
+            ItemsSource="{Binding Items, Source={x:Reference sampleView}}"
+     
+            LoadMoreOption="Auto">
+            <sync:SfListView.Behaviors>
+                <event:EventHandlerBehavior EventName="ItemTapped">
+                    <event:InvokeCommandAction
+                        
+                        Command="{Binding Path=BindingContext.DishDetailsPage,Source={x:Reference sampleView}}"           
+                        Converter="{StaticResource SelectedltemArgsToBinding}" 
+                        
+                        
+                        />
+                </event:EventHandlerBehavior>
+            </sync:SfListView.Behaviors>
+            <!--    -->
+            <sync:SfListView.ItemTemplate>
+                <DataTemplate>
+                    <cells:DishTemplate Commands="{Binding Source={x:Reference sampleView}, Path=BindingContext.AddCommand}" />
+                </DataTemplate>
+            </sync:SfListView.ItemTemplate>
+        </sync:SfListView>
+    </ContentView.Content>
+</ContentView>

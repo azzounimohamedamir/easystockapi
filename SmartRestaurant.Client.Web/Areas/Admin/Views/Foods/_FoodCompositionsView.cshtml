@@ -1,0 +1,43 @@
+﻿@model IEnumerable<FoodCompositionViewModel>
+@{ 
+    ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix = $"Compositions";
+}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    catégorie
+                </th>
+                <th>
+                    nourriture
+                </th>
+                <th>
+                    Alias
+                </th>
+                <th>
+                    quantité
+                </th>
+                <th>
+                    unité
+                </th>
+                <th>
+                    
+                </th>
+            </tr>
+        </thead>
+        <tbody id="food-compositions">
+            <partial name="_FoodCompositionItemsView" model="Model" />
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">
+                    <a id="add-partial-food-composition" 
+                       data-action-url="@Url.Action("addpartialcomposition","foods",new {area="Admin" })" 
+                       class="btn btn-default">
+                        <i class="fa fa-plus"></i> @FoodUtilsResource.AddFoodComposition
+                    </a>
+                </td>
+                
+            </tr>
+        </tfoot>
+    </table>    

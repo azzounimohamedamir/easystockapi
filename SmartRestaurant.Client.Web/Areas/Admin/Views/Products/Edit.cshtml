@@ -1,0 +1,181 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = ProductUtilsResource.EditPageTitle;
+}
+
+<hr />
+<section>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-body collapse in">
+                    <div class="card-block">
+                        <form asp-action="Edit" class="steps-wizard-form wizard-circle" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="UpdateModel.Id" />
+
+                            <!-- Step 1 -->
+                            <h6>@FoodResource.Infos</h6>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label asp-for="UpdateModel.Name" class="control-label">@BaseResource.Name</label>
+                                    <input asp-for="UpdateModel.Name" class="form-control" placeholder="@BaseResource.Name" />
+                                    <span asp-validation-for="UpdateModel.Name" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="RestauratId" class="control-label">@RestaurantResource.Restaurant</label>
+                                    <select asp-items="Model.Restaurants"
+                                            asp-for="RestauratId"
+                                            id="restaurantsList"
+                                            class="form-control select2"
+                                            title="@RestaurantResource.Restaurant">
+                                        <option value="">--@RestaurantResource.Restaurant--</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="UpdateModel.ProductFamilyId" class="control-label">@ProductFamilyResource.ProductFamily</label>
+                                    <select asp-items="Model.ProductFamilies"
+                                            asp-for="UpdateModel.ProductFamilyId"
+                                            class="form-control select2"
+                                            id="productFamiliesList"
+                                            title="@ProductFamilyResource.ProductFamily">
+                                        <option value="">--@ProductFamilyResource.ProductFamily--</option>
+                                    </select>
+                                    <span asp-validation-for="UpdateModel.ProductFamilyId" class="text-danger"></span>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label asp-for="UpdateModel.Alias" class="control-label col-md-2">@BaseResource.Alias</label>
+                                    <input asp-for="UpdateModel.Alias" class="form-control" placeholder="@BaseResource.Alias" />
+                                    <span asp-validation-for="UpdateModel.Alias" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="UpdateModel.Description" class="control-label col-md-2">@BaseResource.Description</label>
+                                    <textarea asp-for="UpdateModel.Description" class="form-control" placeholder="@BaseResource.Description"></textarea>
+                                    <span asp-validation-for="UpdateModel.Description" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" asp-for="UpdateModel.IsDisabled" /> @BaseResource.IsDisabled
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="UpdateModel.PictureUrl" class="control-label">@BaseResource.PictureUrl</label>
+                                    <partial name="_FileViewModel" for="Picture" />
+                                    <span asp-validation-for="UpdateModel.PictureUrl" class="text-danger"></span>
+                                </div>
+
+                            </fieldset>
+                            <!-- Step 2 -->
+                            <h6>@PricingResource.Pricing</h6>
+                            <fieldset>
+
+                                <div class="form-group">
+                                    <label asp-for="UpdateModel.Pricing.CurrencyId" class="control-label">@CurrencyResource.Currency</label>
+                                    <select asp-items="Model.Currencies"
+                                            asp-for="UpdateModel.Pricing.CurrencyId"
+                                            class="form-control select2"
+                                            id="productFamiliesList"
+                                            title="@CurrencyResource.Currency">
+                                        <option value="">--@CurrencyResource.Currency--</option>
+                                    </select>
+                                    <span asp-validation-for="UpdateModel.Pricing.CurrencyId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+
+                                    <label asp-for="UpdateModel.Pricing.Tva" class="control-label">@PricingResource.Tva</label>
+                                    <input asp-for="UpdateModel.Pricing.Tva" onchange="RefrechAll()" id="tva" class="form-control" placeholder="@PricingResource.Tva" />
+
+                                </div>
+                                <div class="row" style="margin-bottom:20px">
+                                    <div class="col-md-6">
+                                        <label asp-for="UpdateModel.Pricing.PurchasePriceHT" class="control-label">@PricingResource.PurchasePriceHT</label>
+                                        <input asp-for="UpdateModel.Pricing.PurchasePriceHT" id="purchasePriceHT" onchange="RefrechPurchaceTTC()" class="form-control" placeholder="@PricingResource.PurchasePriceHT" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="UpdateModel.Pricing.PurchasePriceTTC" class="control-label">@PricingResource.PurchasePriceTTC</label>
+                                        <input asp-for="UpdateModel.Pricing.PurchasePriceTTC" readonly id="purchasePriceTTC" class="form-control" placeholder="@PricingResource.PurchasePriceTTC" />
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom:20px">
+                                    <div class="col-md-6">
+                                        <label asp-for="UpdateModel.Pricing.Gain" class="control-label">@PricingResource.Gain</label>
+                                        <input asp-for="UpdateModel.Pricing.Gain" onchange="RefrechSaleHT()" id="gain" class="form-control" placeholder="@PricingResource.Gain" />
+                                    </div>
+
+                                    <div class="form-check form-check-inline col-md-6" style="margin-top:45px">
+                                        <input asp-for="UpdateModel.Pricing.IsPercentage" id="percentage" onchange="RefrechSaleHT()" class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" asp-for="@PricingResource.Percentage">@PricingResource.Percentage</label>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom:20px">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="UpdateModel.Pricing.SalePriceHT" onchange="RefrechSaleTTC()" class="control-label">@PricingResource.SalePriceHT</label>
+                                        <input asp-for="UpdateModel.Pricing.SalePriceHT" id="salePriceHT" class="form-control" placeholder="@PricingResource.SalePriceHT" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="UpdateModel.Pricing.SalePriceTTC" class="control-label">@PricingResource.SalePriceTTC</label>
+                                        <input asp-for="UpdateModel.Pricing.SalePriceTTC" id="salePriceTTC" class="form-control" placeholder="@PricingResource.SalePriceTTC" readonly />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $.validator.setDefaults({ ignore: '' });
+        var form = $(".steps-wizard-form").show();
+        $(".steps-wizard-form").steps({
+            headerTag: "h6",
+            bodyTag: "fieldset",
+            transitionEffect: "fade",
+            titleTemplate: '<span class="step">#index#</span> #title#',
+            labels: {
+                finish: 'Enregistrer',
+                previous: 'Précédent',
+                next: 'Suivant'
+            },
+            onStepChanging: function (event, currentIndex, newIndex) {
+                // Allways allow previous action even if the current form is not valid!
+                if (currentIndex > newIndex) {
+                    return true;
+                }
+                // Needed in some cases if the user went back (clean up)
+                if (currentIndex < newIndex) {
+                    // To remove error styles
+                    form.find(".body:eq(" + newIndex + ") label.error").remove();
+                    form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+                }
+                form.validate().settings.ignore = ":disabled";
+
+                //return form.valid();
+                var target = $(".current");
+                return !Validate(target);
+
+            },
+            onFinishing: function (event, currentIndex) {
+                form.validate().settings.ignore = ":disabled";
+                return form.valid();
+
+            },
+            onFinished: function (event, currentIndex) {
+                form.submit();
+            }
+        });
+    </script>
+}
+<partial name="_BacktoListView" />

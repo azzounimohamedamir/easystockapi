@@ -1,0 +1,15 @@
+﻿<ResourceDictionary
+    x:Class="SmartRestaurant.Forms.Styles.Colors"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Color x:Key="Primary">#4BD5C5</Color>
+    <Color x:Key="Secondary">#ffffff</Color>
+    <Color x:Key="BackgroundColor">#ffffff</Color>
+    <Color x:Key="ForegroundTextColor">#000000</Color>
+    <Color x:Key="ButtonBackgroundColor">#F54E5E</Color>
+    <Color x:Key="EntryPlaceholderColor">#FFFFFF</Color>
+    <Color x:Key="BorderBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="ErrorColor">#FF4A4A</Color>
+    <Color x:Key="GradientStartColor">#E8EDF0</Color>
+    <Color x:Key="GradientEndColor">#C5D2D9</Color>
+</ResourceDictionary>

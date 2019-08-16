@@ -1,0 +1,7 @@
+﻿<ResourceDictionary
+    x:Class="SmartRestaurant.Forms.Styles.Localization.FlowAr"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <FlowDirection x:Key="RTL">RightToLeft</FlowDirection>
+
+</ResourceDictionary>

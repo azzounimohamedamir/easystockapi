@@ -1,0 +1,25 @@
+﻿@model IEnumerable<AllergyItemModel>
+
+<table class="table">
+    <thead class="thead-inverse">
+        <tr>
+
+            <th>
+                @BaseResource.Name
+            </th>
+            <th>
+                @BaseResource.Description
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <partial name="_AllergyListItemView" model="item" />
+            }
+        }
+    </tbody>
+</table>

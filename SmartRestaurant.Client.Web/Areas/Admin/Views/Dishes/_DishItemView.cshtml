@@ -1,0 +1,40 @@
+﻿@model  DishItemModel
+    <tr id="dish-@Model.Id">
+        <td>
+            @if (!string.IsNullOrEmpty(Model.PictureUrl))
+            {
+                <img src="@Model.PictureUrl" class="list-img-preview" />
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.RestaurantName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.FamilyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.IsDisabled)
+        </td>
+        <td>
+            <a asp-action="Edit"
+               asp-controller="Dishes"
+               asp-area="Admin"
+               asp-route-id="@Model.Id"
+               class="action-link action-edit">
+                <i class="fa fa-pencil"></i>
+            </a>
+
+            <a data-action-url=@Url.Action("Delete","Dishes",new { area="Admin"})
+               data-target="#Dish-@Model.Id"
+               data-id="@Model.Id"
+               class="action-link action-delete">
+                <i class="fa fa-trash-o"></i>
+            </a>
+        </td>
+    </tr>

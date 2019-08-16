@@ -1,0 +1,258 @@
+﻿.navbar-semi-dark {
+    background: #FFFFFF;
+}
+
+    .navbar-semi-dark .navbar-header {
+        background: #6c3c72;
+    }
+
+        .navbar-semi-dark .navbar-header .brand-text {
+            color: #FFFFFF;
+        }
+
+    .navbar-semi-dark .navbar-nav li {
+        line-height: 1;
+    }
+
+    .navbar-semi-dark .navbar-nav .nav-link {
+        color: #6c3c72;
+    }
+
+    .navbar-semi-dark .navbar-nav .active.nav-link {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    .navbar-semi-dark .navbar-nav .disabled.nav-link {
+        color: #626E82;
+    }
+
+.main-menu.menu-dark {
+    color: #dcdcdc;
+    background: #6c3c72;
+}
+
+    .main-menu.menu-dark .main-menu-header {
+        padding: 20px;
+    }
+
+        .main-menu.menu-dark .main-menu-header .menu-search {
+            background: #2c3648;
+            padding: 0.5rem 1rem;
+            color: #c3c3c3;
+        }
+
+            .main-menu.menu-dark .main-menu-header .menu-search:focus {
+                border-color: #232a38;
+            }
+
+    .main-menu.menu-dark .navigation {
+        background: #6c3c72;
+    }
+
+        .main-menu.menu-dark .navigation .navigation-header {
+            color: #dcdcdc;
+            padding: 24px 20px 8px 20px;
+        }
+
+            .main-menu.menu-dark .navigation .navigation-header span {
+                font-weight: 500;
+            }
+
+        .main-menu.menu-dark .navigation li a {
+            color: #dcdcdc;
+        }
+
+            .main-menu.menu-dark .navigation li a span.menu-sub-title {
+                color: white;
+            }
+
+        .main-menu.menu-dark .navigation li.hover > a, .main-menu.menu-dark .navigation li.open > a, .main-menu.menu-dark .navigation li.active > a {
+            color: #FFFFFF;
+        }
+
+        .main-menu.menu-dark .navigation > li {
+            padding: 0;
+            border-left: 4px solid transparent;
+        }
+
+            .main-menu.menu-dark .navigation > li > a {
+                padding: 10px 30px 10px 18px;
+            }
+
+                .main-menu.menu-dark .navigation > li > a .label {
+                    margin-top: 4px;
+                    margin-right: 5px;
+                }
+
+                .main-menu.menu-dark .navigation > li > a i {
+                    position: relative;
+                    top: 3px;
+                }
+
+            .main-menu.menu-dark .navigation > li.open {
+                border-left: 4px solid #00B5B8;
+            }
+
+                .main-menu.menu-dark .navigation > li.open > a {
+                    color: #c3c3c3;
+                    background: #5d3062;
+                }
+
+                .main-menu.menu-dark .navigation > li.open .hover > a {
+                    background: #4e2853;
+                }
+
+            .main-menu.menu-dark .navigation > li:not(.open) > ul {
+                display: none;
+            }
+
+            .main-menu.menu-dark .navigation > li.hover > a, .main-menu.menu-dark .navigation > li:hover > a, .main-menu.menu-dark .navigation > li.active > a {
+                color: #c3c3c3;
+                background-color: #5d3062;
+            }
+
+                .main-menu.menu-dark .navigation > li.hover > a.mm-next, .main-menu.menu-dark .navigation > li:hover > a.mm-next, .main-menu.menu-dark .navigation > li.active > a.mm-next {
+                    background-color: inherit;
+                }
+
+            .main-menu.menu-dark .navigation > li.active > a {
+                color: #00B5B8;
+                font-weight: 400;
+            }
+
+            .main-menu.menu-dark .navigation > li .active {
+                background: #4e2853;
+            }
+
+                .main-menu.menu-dark .navigation > li .active > a {
+                    color: #00B5B8;
+                    font-weight: 500;
+                }
+
+                .main-menu.menu-dark .navigation > li .active .hover > a {
+                    background: #5d3062;
+                }
+
+            .main-menu.menu-dark .navigation > li ul {
+                padding: 0;
+                margin: 0;
+                font-size: 1rem;
+            }
+
+                .main-menu.menu-dark .navigation > li ul li {
+                    color: #dcdcdc;
+                    background: transparent;
+                }
+
+                    .main-menu.menu-dark .navigation > li ul li > a {
+                        padding: 10px 18px 10px 50px;
+                    }
+
+                .main-menu.menu-dark .navigation > li ul .has-sub:not(.open) > ul {
+                    display: none;
+                }
+
+                .main-menu.menu-dark .navigation > li ul .open > a {
+                    color: #dcdcdc;
+                }
+
+                .main-menu.menu-dark .navigation > li ul .open > ul {
+                    display: block;
+                }
+
+                    .main-menu.menu-dark .navigation > li ul .open > ul li > a {
+                        padding: 10px 18px 10px 60px;
+                    }
+
+                    .main-menu.menu-dark .navigation > li ul .open > ul .open > ul {
+                        display: block;
+                    }
+
+                        .main-menu.menu-dark .navigation > li ul .open > ul .open > ul li > a {
+                            padding: 10px 18px 10px 70px;
+                        }
+
+                .main-menu.menu-dark .navigation > li ul .open .hover > a {
+                    background: #5d3062;
+                }
+
+                .main-menu.menu-dark .navigation > li ul .hover > a, .main-menu.menu-dark .navigation > li ul:hover > a {
+                    color: #e6e6e6;
+                    background-color: #5d3062;
+                }
+
+                .main-menu.menu-dark .navigation > li ul .active {
+                    background: transparent;
+                }
+
+                    .main-menu.menu-dark .navigation > li ul .active > a {
+                        color: #00B5B8;
+                        font-weight: 500;
+                    }
+
+                    .main-menu.menu-dark .navigation > li ul .active .hover > a {
+                        background-color: transparent;
+                    }
+
+            .main-menu.menu-dark .navigation > li > ul {
+                background: #6c3c72;
+            }
+
+    .main-menu.menu-dark ul.menu-popout {
+        background: #6c3c72;
+    }
+
+        .main-menu.menu-dark ul.menu-popout li a {
+            color: #dcdcdc;
+        }
+
+            .main-menu.menu-dark ul.menu-popout li a span.menu-sub-title {
+                color: white;
+            }
+
+        .main-menu.menu-dark ul.menu-popout li.hover > a, .main-menu.menu-dark ul.menu-popout li:hover > a, .main-menu.menu-dark ul.menu-popout li.open > a {
+            background: #4e2853;
+        }
+
+        .main-menu.menu-dark ul.menu-popout .has-sub:not(.open) > ul {
+            display: none;
+        }
+
+        .main-menu.menu-dark ul.menu-popout .open > a {
+            color: #dcdcdc;
+        }
+
+        .main-menu.menu-dark ul.menu-popout .open > ul {
+            display: block;
+        }
+
+            .main-menu.menu-dark ul.menu-popout .open > ul .open {
+                background: #2e394b;
+            }
+
+                .main-menu.menu-dark ul.menu-popout .open > ul .open > ul {
+                    display: block;
+                    background: #2e394b;
+                }
+
+        .main-menu.menu-dark ul.menu-popout .open li.hover > a, .main-menu.menu-dark ul.menu-popout .open li:hover > a {
+            background: #5d3062;
+        }
+
+        .main-menu.menu-dark ul.menu-popout .hover > a, .main-menu.menu-dark ul.menu-popout:hover > a {
+            color: #e6e6e6;
+            background-color: #5d3062;
+        }
+
+        .main-menu.menu-dark ul.menu-popout .active {
+            background: rgba(0, 0, 0, 0.06);
+        }
+
+            .main-menu.menu-dark ul.menu-popout .active > a {
+                color: #f6f6f6;
+                background-color: #5d3062;
+            }
+
+            .main-menu.menu-dark ul.menu-popout .active .hover > a, .main-menu.menu-dark ul.menu-popout .active :hover > a {
+                background-color: transparent;
+            }

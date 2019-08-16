@@ -1,0 +1,223 @@
+﻿@* Application Models *@
+@using SmartRestaurant.Client.Web.Models
+@using SmartRestaurant.Client.Web.Models.Restaurants
+
+
+@* Admin Shared Ressources *@
+@using SmartRestaurant.Resources.UI.Areas.Admin
+@using SmartRestaurant.Resources.UI.Areas.Admin.Breadcrumb
+@using SmartRestaurant.Resources.UI.Areas.Admin.Navigation
+@* Entities Ressources *@
+@using SmartRestaurant.Resources.Commun.Address
+@using SmartRestaurant.Resources.Commun.City
+@using SmartRestaurant.Resources.Commun.Contact
+@using SmartRestaurant.Resources.Commun.Country
+@using SmartRestaurant.Resources.Commun.Currency
+@using SmartRestaurant.Resources.Commun.Gallery
+@using SmartRestaurant.Resources.Commun.Language
+@using SmartRestaurant.Resources.Commun.Nutrition
+@using SmartRestaurant.Resources.Commun.Picture
+@using SmartRestaurant.Resources.Commun.Quantity
+@using SmartRestaurant.Resources.Commun.ServiceDateTime
+@using SmartRestaurant.Resources.Commun.State
+@using SmartRestaurant.Resources.Commun.Time
+@using SmartRestaurant.Resources.Commun.Translator
+@using SmartRestaurant.Resources.Commun.UIDictionary
+@using SmartRestaurant.Resources.Commun.Unit
+@using SmartRestaurant.Resources.Restaurants
+@using SmartRestaurant.Resources.Restaurants.Restaurants
+@using SmartRestaurant.Resources.Restaurants.Owners
+@using SmartRestaurant.Resources.Restaurants.Staffs
+@using SmartRestaurant.Resources.Restaurants.RestaurantTypes
+@using SmartRestaurant.Resources.Restaurants.Floors
+@using SmartRestaurant.Resources.Restaurants.Tables
+@using SmartRestaurant.Resources.Restaurants.Places
+@using SmartRestaurant.Resources.Products.Products
+@using SmartRestaurant.Resources.Products.ProductFamilies
+@using SmartRestaurant.Resources.Foods.FoodCategories
+@using SmartRestaurant.Resources.Foods.Foods
+@using SmartRestaurant.Resources.Subscriptions.Subscription
+@using SmartRestaurant.Resources.Billing
+@using SmartRestaurant.Resources.Menus.Menu
+@using SmartRestaurant.Resources.Commun.BaseEntity
+@using SmartRestaurant.Resources.Restaurants.Areas
+@using SmartRestaurant.Resources.Templates
+@using SmartRestaurant.Resources.Notification
+@using SmartRestaurant.Resources.Mailing
+@using SmartRestaurant.Resources.Allergies.Allergies
+@using SmartRestaurant.Resources.Allergies.Illnesses
+@using SmartRestaurant.Resources.Pricings.Tarifications
+@using SmartRestaurant.Resources.Dishes.DishFamily
+@using SmartRestaurant.Resources.Restaurants.Chains
+@using SmartRestaurant.Resources.Commun.Pricings
+@using SmartRestaurant.Resources.Commun.Specialities
+@using SmartRestaurant.Resources.Dishes.Dish
+@* Admin Models *@
+@*@using SmartRestaurant.Client.Web.Areas.Admin.Models*@
+@using SmartRestaurant.Application.FoodCategories.Commands
+@using SmartRestaurant.Application.Foods.Models
+@using SmartRestaurant.Application.Foods.Queries
+@using SmartRestaurant.Application.Dishes.DishFamillies.Queries.Models
+@using SmartRestaurant.Application.Dishes.Dishes.Commands.Models
+@using SmartRestaurant.Application.Dishes.Dishes.Queries.Models
+@* Extensions *@
+@using SmartRestaurant.Client.Web.Extensions
+
+@* Utils *@
+@using SmartRestaurant.Resources.Utils
+
+
+
+@* Area Models *@
+@using SmartRestaurant.Application.Restaurants.Areas
+@using SmartRestaurant.Application.Restaurants.Areas.Queries.GetById
+
+@* Owner Models *@
+@using SmartRestaurant.Application.Restaurants.Owners
+@using SmartRestaurant.Application.Restaurants.Owners.Commands.Create
+@using SmartRestaurant.Application.Restaurants.Owners.Commands.Update
+@using SmartRestaurant.Application.Restaurants.Owners.Commands.Delete
+@using SmartRestaurant.Application.Restaurants.Owners.Queries
+@using SmartRestaurant.Application.Restaurants.Owners.Queries.GetById
+@using SmartRestaurant.Application.Restaurants.Owners.Queries.GetAll
+@using SmartRestaurant.Application.Restaurants.Owners.Queries.GetBySpecification
+@* RestaurantType Models *@
+@using SmartRestaurant.Application.Restaurants.RestaurantTypes
+@using SmartRestaurant.Application.Restaurants.RestaurantTypes.Commands.Create
+@using SmartRestaurant.Application.Restaurants.RestaurantTypes.Commands.Update
+@using SmartRestaurant.Application.Restaurants.RestaurantTypes.Commands.Delete
+@using SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries
+@using SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetById
+@using SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetAll
+@using SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetBySpecification
+@* Staff Models *@
+@using SmartRestaurant.Application.Restaurants.Staffs
+@using SmartRestaurant.Application.Restaurants.Staffs.Commands.Create
+@using SmartRestaurant.Application.Restaurants.Staffs.Commands.Update
+@using SmartRestaurant.Application.Restaurants.Staffs.Commands.Delete
+@using SmartRestaurant.Application.Restaurants.Staffs.Queries
+@using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetById
+@using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetAll
+@using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetBySpecification
+
+@* ProductFamilies Models *@
+@using SmartRestaurant.Application.Products.ProductFamilies
+@using SmartRestaurant.Application.Products.ProductFamilies.Commands.Create
+@using SmartRestaurant.Application.Products.ProductFamilies.Commands.Update
+@using SmartRestaurant.Application.Products.ProductFamilies.Commands.Delete
+@using SmartRestaurant.Application.Products.ProductFamilies.Queries
+@using SmartRestaurant.Application.Products.ProductFamilies.Queries.GetById
+@using SmartRestaurant.Application.Products.ProductFamilies.Queries.GetByRestaurantId
+
+@* Products Models *@
+@using SmartRestaurant.Application.Products.Products
+@using SmartRestaurant.Application.Products.Products.Commands.Create
+@using SmartRestaurant.Application.Products.Products.Commands.Update
+@using SmartRestaurant.Application.Products.Products.Commands.Delete
+@using SmartRestaurant.Application.Products.Products.Queries
+@using SmartRestaurant.Application.Products.Products.Queries.GetById
+@using SmartRestaurant.Application.Products.Products.Queries.GetByRestaurantId
+@using SmartRestaurant.Application.Products.Products.Queries.GetByFamilyId
+@using SmartRestaurant.Client.Web.Models.Products
+@using SmartRestaurant.Application.Products.Products.Queries.GetAll
+
+@* Restaurant Models *@
+@using SmartRestaurant.Application.Restaurants.Restaurants
+@using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create
+@using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Update
+@using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Delete
+@using SmartRestaurant.Application.Restaurants.Restaurants.Queries
+@using SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetById
+@using SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetAll
+@* Floor Models *@
+@using SmartRestaurant.Application.Restaurants.Floors
+@using SmartRestaurant.Application.Restaurants.Floors.Queries.GetById
+@* Place Models *@
+@using SmartRestaurant.Application.Restaurants.Places
+@using SmartRestaurant.Application.Restaurants.Places.Queries.GetById
+@* Table Models *@
+@using SmartRestaurant.Application.Restaurants.Tables
+@using SmartRestaurant.Application.Restaurants.Tables.Queries.GetById
+
+@* Allergy Models *@
+@using SmartRestaurant.Application.Allergies.Allergies
+@using SmartRestaurant.Application.Allergies.Allergies.Queries.GetById
+@using SmartRestaurant.Application.Allergies.Allergies.Queries
+
+@* Tarification Models *@
+@using SmartRestaurant.Application.Pricings.Tarifications
+@using SmartRestaurant.Application.Pricings.Tarifications.Queries.GetById
+@using SmartRestaurant.Application.Pricings.Tarifications.Queries
+
+@* Illness Models *@
+@using SmartRestaurant.Application.Allergies.Illnesses
+@using SmartRestaurant.Application.Allergies.Illnesses.Queries.GetById
+@using SmartRestaurant.Application.Allergies.Illnesses.Queries
+
+@using SmartRestaurant.Application.Commun.Countries.Commands
+@using SmartRestaurant.Application.Commun.Countries
+
+@* Floor Models *@
+@using SmartRestaurant.Application.Restaurants.Chains
+@using SmartRestaurant.Application.Restaurants.Chains.Queries.GetById
+
+@*Application*@
+@*Country Models*@
+@using SmartRestaurant.Application.Commun.Countries.Commands.Create
+@using SmartRestaurant.Application.Commun.Countries.Commands.Update
+
+@*City Models*@
+@using SmartRestaurant.Application.Commun.Cities.Queries
+
+@*Unit Models*@
+@using SmartRestaurant.Application.Commun.Units.Commands.Create
+@using SmartRestaurant.Application.Commun.Units.Commands.Update
+@using SmartRestaurant.Application.Commun.Units.Commands.Delete
+@using SmartRestaurant.Application.Commun.Units.Queries
+
+@*State Models *@
+@using SmartRestaurant.Application.Commun.States.Queries
+@*Language Models *@
+@using SmartRestaurant.Application.Commun.Languages.Queries
+@*Currency Models*@
+@using SmartRestaurant.Application.Commun.Currencies.Queries
+@*Template Models*@
+@using SmartRestaurant.Application.Templates.Queries
+@* Notification Models*@
+@using SmartRestaurant.Application.Notifications.Queries
+@*Mailing Models*@
+@using SmartRestaurant.Application.Mails.Queries
+@* Food Categoy *@
+@using SmartRestaurant.Application.FoodCategories.Commands.Update
+@using SmartRestaurant.Application.FoodCategories.Commands.Delete
+@using SmartRestaurant.Application.FoodCategories.Queries
+@* Speciality *@
+@using SmartRestaurant.Application.Commun.Specialites.Queries.Models
+@using SmartRestaurant.Application.Commun.Specialites.Commands.Create
+@using SmartRestaurant.Application.Commun.Specialites.Commands.Update
+
+@* Gallery *@
+@using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Models
+
+@* MVC Models *@
+@using SmartRestaurant.Client.Web.Models.Foods
+@using SmartRestaurant.Client.Web.Models.Countries
+@using SmartRestaurant.Client.Web.Models.Cities
+@using SmartRestaurant.Client.Web.Models.States
+@using SmartRestaurant.Client.Web.Models.Languages
+@using SmartRestaurant.Client.Web.Models.Templates
+@using SmartRestaurant.Client.Web.Models.Notification
+@using SmartRestaurant.Client.Web.Models.Mails
+@using SmartRestaurant.Client.Web.Models.Allergies
+@using SmartRestaurant.Client.Web.Models.Pricings
+@using SmartRestaurant.Client.Web.Models.Dishes
+@using SmartRestaurant.Client.Web.Models.Galleries
+@* App MVC Models *@
+@using SmartRestaurant.Client.Web.Models.Utils
+
+@* Menu Models *@
+@using SmartRestaurant.Client.Web.Models.Menu
+
+@using SmartRestaurant.Client.Web.Models.Currencies
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, SmartRestaurant.Client.Web

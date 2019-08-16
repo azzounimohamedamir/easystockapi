@@ -1,0 +1,29 @@
+﻿@model SelectListViewModel
+@{
+    if (Model != null && Model.Items != null)
+    {
+        string uniqueId = Guid.NewGuid().ToString();
+        <input type="hidden" asp-for="AppendInput" />
+        <select asp-items="Model.Items"
+                class="form-control select2 dynamic-load-childs"
+                data-action-url="@Model.ActionUrl"
+                data-target="#@Model.TargetId"
+                data-childs-container="#@uniqueId">
+            <option value="">--@Model.EmptyOptionText--</option>
+        </select>
+        <div id="@uniqueId">
+            @if (Model.NestedItems != null)
+            {
+                <partial name="_CascadingSelectListView" model="Model.NestedItems" />
+            }
+        </div>
+    }
+    else
+    {
+        <select class="form-control select2">
+            <option value="">--@Model.EmptyOptionText--</option>
+        </select>
+    }
+
+}
+

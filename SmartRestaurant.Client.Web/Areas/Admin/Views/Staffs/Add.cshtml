@@ -1,0 +1,75 @@
+﻿@model StaffViewModel
+
+@{
+    ViewData["Title"] = FoodCategoryUtilsResource.AddPageTitle;
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <div class="form-group">
+                <label asp-for="CreateModel.FirstName" class="control-label">@StaffResource.FirstName</label>
+                <input asp-for="CreateModel.FirstName" class="form-control" placeholder="@StaffResource.FirstName" />
+                <span asp-validation-for="CreateModel.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateModel.LastName" class="control-label">@StaffResource.LastName</label>
+                <input asp-for="CreateModel.LastName" class="form-control" placeholder="@StaffResource.LastName" />
+                <span asp-validation-for="CreateModel.LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CreateModel.RestaurantId" class="control-label">@StaffResource.Restaurant</label>
+                <select asp-items="Model.Parents" asp-for="CreateModel.RestaurantId"
+                        class="form-control select2"
+                        title="@StaffResource.Restaurant">
+                    <option value="">--@StaffResource.Restaurant--</option>
+                </select>
+                <span asp-validation-for="CreateModel.RestaurantId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="CreateModel.DateOfBirth" class="control-label">@OwnerResource.BirthDate</label>
+                <input asp-for="CreateModel.DateOfBirth" class="form-control datepicker" />
+                <span asp-validation-for="CreateModel.DateOfBirth" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CreateModel.StaffRole" class="control-label col-md-2">@StaffResource.Role</label>
+                <select asp-for="CreateModel.StaffRole"
+                        asp-items="Model.Roles"
+                        class="form-control" placeholder="@StaffResource.Role" >
+                    <option value="">--@StaffResource.Role--</option>
+                    </select>
+                <span asp-validation-for="CreateModel.StaffRole" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CreateModel.Alias" class="control-label col-md-2">@BaseResource.Alias</label>
+                <input asp-for="CreateModel.Alias" class="form-control" placeholder="@BaseResource.Alias" />
+                <span asp-validation-for="CreateModel.Alias" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="CreateModel.IsDisabled" /> @BaseResource.IsDisabled
+                </label>
+            </div>
+
+            <partial name="_FormCommandsView" />
+        </form>
+    </div>
+</div>
+
+<partial name="_BacktoListView" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

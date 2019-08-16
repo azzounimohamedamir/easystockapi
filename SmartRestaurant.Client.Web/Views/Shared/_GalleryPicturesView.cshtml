@@ -1,0 +1,5 @@
+﻿@model IEnumerable<GalleryPictureViewModel>
+@foreach (var picture in Model)
+{
+    <partial name="_GalleryPictureUIView" model="picture" />
+}

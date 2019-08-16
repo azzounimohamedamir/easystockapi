@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:PopupPage
+    x:Class="SmartRestaurant.Forms.Pages.IngrediantPopUp"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helpers="clr-namespace:SmartRestaurant.Forms.Helpers"
+    xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:local="clr-namespace:SmartRestaurant.Forms.ViewModels"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+
+    <Grid
+        BackgroundColor="White"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+
+            </Grid.ColumnDefinitions>
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="30"
+                Text="Edit Ingrediant " />
+            <Image
+                HeightRequest="30"
+                HorizontalOptions="End"
+                Source="close"
+                WidthRequest="30" />
+
+        </Grid>
+
+        <ListView
+            x:Name="Ingrediantlist"
+            Grid.Row="1"
+            Margin="10,20,10,20"
+            HasUnevenRows="True"
+            
+            ItemsSource="{Binding IngrediantItems}"
+            RowHeight="100">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+
+                        <StackLayout Orientation="Horizontal">
+                            <helpers:Checkbox
+                                CheckColor="#42a5f5"
+                                CheckedOutlineColor="#42a5f5"
+                                HeightRequest="50"
+                                IsChecked="{Binding IsInDish}"
+                                OutlineColor="#42a5f5"
+                                WidthRequest="50" />
+                            <Label
+                                Grid.Column="1"
+                                FontSize="Large"
+                                Text="{Binding IngrediantName}"
+                                VerticalOptions="Center" />
+                            <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                                <helpers:CustomStepper Text="{Binding Quentity}" />
+                                <Label
+                                    FontSize="Large"
+                                    Text="{Binding Units}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+                        </StackLayout>
+
+
+
+
+
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+        <StackLayout
+            Grid.Row="2"
+            HorizontalOptions="EndAndExpand"
+            Orientation="Horizontal">
+            <Button
+                Margin="10,0,10,0"
+                FontSize="Medium"
+                Text="Close"
+                TextColor="AliceBlue" />
+            <Button
+                FontSize="Medium"
+                Text="Validate"
+                TextColor="AliceBlue" />
+        </StackLayout>
+    </Grid>
+
+
+
+</pages:PopupPage>  

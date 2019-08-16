@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage
+    x:Class="SmartRestaurant.Forms.Pages.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helper="clr-namespace:SmartRestaurant.Forms.Helpers"
+    xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:pages="clr-namespace:SmartRestaurant.Forms.Pages"
+  
+    IsPresented="False"
+   Title="Main"
+    >
+
+    <MasterDetailPage.BindingContext>
+        <Binding Path="Main" Source="{StaticResource Locator}" />
+    </MasterDetailPage.BindingContext>
+    <MasterDetailPage.Master>
+        <ContentPage Title="Menu" BackgroundColor="White" Opacity="0.6"  >
+            <ContentPage.Content>
+
+
+                <StackLayout Margin="4" Orientation="Vertical">
+                    <ic:CircleImage Source="user.png" Style="{DynamicResource MainImage}" />
+                    <!--<Label
+                        Margin="5,10,0,10"
+                        HorizontalOptions="Center"
+                        Text="Kernel"
+                        TextColor="White" />-->
+
+                    <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+
+
+                        <Label
+                            FontSize="Large"
+                            Style="{DynamicResource MenuItem}"
+                            Text="{helper:Loc RegisterTxt}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SignUpClick" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <BoxView
+                            Margin="10,0,10,0"
+                            HeightRequest="40"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            WidthRequest="1"
+                            Color="#4BD5C5" />
+                        <Label
+                            FontSize="Large"
+                            Style="{DynamicResource MenuItem}"
+                            Text="{helper:Loc LogInTxt}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="LogInClick" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+
+                    <ListView
+                        Margin="10,0,0,0"
+                        ItemSelected="MenuItemSelected"
+                        ItemsSource="{Binding MenuItems}"
+                        RowHeight="80">
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <pages:MainMenu />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ContentPage.Content>
+        </ContentPage>
+    </MasterDetailPage.Master>
+
+    <MasterDetailPage.Detail>
+        <ContentPage />
+    </MasterDetailPage.Detail>
+</MasterDetailPage>

@@ -1,0 +1,110 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!--<PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>-->
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <AspNetCoreModuleName>AspNetCoreModuleV2</AspNetCoreModuleName>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Areas\Admin\Data\**" />
+    <Compile Remove="Areas\Admin\Views\EmailTemplates\**" />
+    <Compile Remove="design\**" />
+    <Compile Remove="Utilities\**" />
+    <Content Remove="Areas\Admin\Data\**" />
+    <Content Remove="Areas\Admin\Views\EmailTemplates\**" />
+    <Content Remove="design\**" />
+    <Content Remove="Utilities\**" />
+    <EmbeddedResource Remove="Areas\Admin\Data\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\EmailTemplates\**" />
+    <EmbeddedResource Remove="design\**" />
+    <EmbeddedResource Remove="Utilities\**" />
+    <None Remove="Areas\Admin\Data\**" />
+    <None Remove="Areas\Admin\Views\EmailTemplates\**" />
+    <None Remove="design\**" />
+    <None Remove="Utilities\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Admin\Controllers\EmailTemplatesController.cs" />
+    <Compile Remove="Areas\Admin\Controllers\TestController.cs" />
+    <Compile Remove="Areas\Admin\Models\PictureViewModel.cs" />
+    <Compile Remove="LanguageActionFilter.cs" />
+    <Compile Remove="Utils\LanguageActionFilter.cs" />
+    <Compile Remove="Utils\LanguageRouteConstraint.cs" />
+    <Compile Remove="Utils\PrefixConvention.cs" />
+    <Compile Remove="Utils\RouteDataRequestCultureProvider.cs" />
+    <Compile Remove="Utils\ServicesInscription\SRServices.cs" />
+    <Compile Remove="Utils\SmartRestaurantEntitiesValidation.cs" />
+    <Compile Remove="Utils\SmartRestaurantServices.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Admin\Views\Countries\Add-old.cshtml" />
+    <Content Remove="Areas\Admin\Views\Countries\Edit-old.cshtml" />
+    <Content Remove="Areas\Admin\Views\FoodsCategories\_AddUI.cshtml" />
+    <Content Remove="Areas\Admin\Views\Foods\_FoodCompositionItemsView.cshtml" />
+    <Content Remove="Areas\Admin\Views\Foods\_FoodCompositionItemView.cshtml" />
+    <Content Remove="Areas\Admin\Views\Foods\_FoodCompositionsView.cshtml" />
+    <Content Remove="Areas\Admin\Views\Home\AddPicture.cshtml" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Clients\Data\" />
+    <Folder Include="Areas\Clients\Models\" />
+    <Folder Include="Areas\Guest\Data\" />
+    <Folder Include="Areas\Guest\Models\" />
+    <Folder Include="Areas\Guest\Views\" />
+    <Folder Include="Areas\Translate\Data\" />
+    <Folder Include="Utils\ServicesInscription\" />
+    <Folder Include="wwwroot\app-assets\images\" />
+    <Folder Include="wwwroot\resources\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="Areas\Admin\Views\Cities\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Countries\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_AppNavigationView.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_TopNavigationView.cshtml" />
+    <None Include="Areas\Admin\Views\States\Index.cshtml" />
+    <None Include="Areas\Admin\Views\_ViewImports.cshtml" />
+    <None Include="Areas\Admin\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Helpers\Helpers.csproj" />
+    <ProjectReference Include="..\SmartRestaurant.Application\SmartRestaurant.Application.csproj" />
+    <ProjectReference Include="..\SmartRestaurant.Client.Commun\SmartRestaurant.Client.Commun.csproj" />
+    <ProjectReference Include="..\SmartRestaurant.Globalisation\SmartRestaurant.Resources.csproj" />
+    <ProjectReference Include="..\SmartRestaurant.Persistance.Identity\SmartRestaurant.Persistance.Identity.csproj" />
+    <ProjectReference Include="..\SmartRestaurant.Persistence.ApplicationDataBase\SmartRestaurant.Persistence.ApplicationDataBase.csproj" />
+    <ProjectReference Include="..\SmartRestaurant.Persistence\SmartRestaurant.Persistence.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="Areas\Admin\Views\Units\Index.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

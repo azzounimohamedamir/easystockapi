@@ -1,0 +1,45 @@
+﻿@model MailingItemModel
+    <tr id="mail-@Model.Id">
+
+
+        <td>
+            @Html.DisplayFor(modelItem => Model.Name)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => Model.TableName)
+        </td>
+
+
+        <td>
+            @Html.DisplayFor(modelItem => Model.Action)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => Model.UserNames)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => Model.IsDisabled)
+        </td>
+
+        <td class="align-content-end">
+            <a asp-action="Edit"
+               asp-controller="Mails"
+               asp-area="Admin"
+               asp-route-id="@Model.Id"
+               class="action-link action-edit">
+                <i class="fa fa-pencil"></i>
+            </a>
+
+
+            <a data-action-url=@Url.Action("Delete","Mails",new { area="Admin"})
+               data-target="#mail-@Model.Id"
+               data-id="@Model.Id"
+               class="action-link action-delete">
+                <i class="fa fa-trash-o"></i>
+            </a>
+
+        </td>
+    </tr>
+

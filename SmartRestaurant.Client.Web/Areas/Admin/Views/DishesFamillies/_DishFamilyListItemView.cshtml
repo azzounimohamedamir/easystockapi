@@ -1,0 +1,54 @@
+﻿@model DishFamilyItemModel
+    <tr id="dish-family-@Model.Id">
+        <td class="marge">
+            <a class="load-childs"
+               data-action-url=@Url.Action("LoadChilds","DishesFamillies",new { area="Admin"})
+               data-id="@Model.Id"
+               data-target="#childs-@Model.Id">
+                <i class="fa fa-plus"></i>
+            </a>
+        </td>
+        <td>
+            @if (!string.IsNullOrEmpty(Model.PictureUrl))
+            {
+                <img src="@Model.PictureUrl" class="list-img-preview" />
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.ParentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.RestaurantName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.IsDisabled)
+        </td>
+        <td class="align-content-end">
+            <a asp-action="Edit"
+               asp-controller="DishesFamillies"
+               asp-area="Admin"
+               asp-route-id="@Model.Id"
+               class="action-link action-edit">
+                <i class="fa fa-pencil"></i>
+            </a>
+
+            <a data-action-url=@Url.Action("Delete","DishesFamillies",new { area="Admin"})
+               data-target="#dish-family-@Model.Id"
+               data-id="@Model.Id"
+               class="action-link action-delete">
+                <i class="fa fa-trash-o"></i>
+            </a>
+        </td>
+    </tr>
+<tr id="childs-@Model.Id" class="hidden">
+    <td class="marge">
+        
+    </td>
+    <td colspan="6" class="childs">
+        <partial name="_ProgressJobInListView" />
+    </td>
+
+</tr>

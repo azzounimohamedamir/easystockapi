@@ -1,0 +1,56 @@
+﻿@model DishViewModel
+
+@{
+    ViewData["Title"] = DishUtilsResource.AddPageTitle;
+}
+
+<partial name="_DishUIView" model="Model" />
+
+<partial name="_BacktoListView" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        $.validator.setDefaults({ ignore: '' });
+        var form = $(".steps-create-dish").show();
+        $(".steps-create-dish").steps({
+            headerTag: "h6",
+            bodyTag: "fieldset",
+            transitionEffect: "fade",
+            titleTemplate: '<span class="step">#index#</span> #title#',
+            labels: {
+                finish: '@SharedAdminResource.WizardFinishBottonText',
+                previous: '@SharedAdminResource.WizardPreviousBottonText',
+                next: '@SharedAdminResource.WizardNextBottonText'
+            },
+            onStepChanging: function (event, currentIndex, newIndex) {
+                // Allways allow previous action even if the current form is not valid!
+                if (currentIndex > newIndex) {
+                    return true;
+                }
+                // Needed in some cases if the user went back (clean up)
+                if (currentIndex < newIndex) {
+                    // To remove error styles
+                    form.find(".body:eq(" + newIndex + ") label.error").remove();
+                    form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+                }
+                form.validate().settings.ignore = ":disabled";
+
+                //return form.valid();
+                var target = $(".current");
+                return !Validate(target);
+
+            },
+            onFinishing: function (event, currentIndex) {
+                form.validate().settings.ignore = ":disabled";
+                return form.valid();
+
+            },
+            onFinished: function (event, currentIndex) {
+                form.submit();
+            }
+        });
+    </script>
+    <script src="~/js/dish.js"></script>
+}

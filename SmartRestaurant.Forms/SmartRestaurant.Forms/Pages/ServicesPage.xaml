@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SmartRestaurant.Forms.Pages.ServicesPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busy="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+    xmlns:cells="clr-namespace:SmartRestaurant.Forms.Pages"
+    xmlns:converter="clr-namespace:SmartRestaurant.Forms.Converters"
+    xmlns:helper="clr-namespace:SmartRestaurant.Forms.Helpers"
+    xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:local="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:tab="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
+    x:Name="sampleView"
+    BackgroundImageSource = "background.jpg"
+    BindingContext="{Binding Source={StaticResource Locator}, Path=Service}"
+    FlowDirection="{DynamicResource RTL}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:InverseZeroVisibilityConverter x:Key="inverseZeroVisibilityConverter" />
+            <converter:ZeroVisibilityConverter x:Key="zeroVisibilityConverter" />
+            <converter:CurrencyFormatConverter x:Key="currencyFormatConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <busy:SfBusyIndicator
+            x:Name="BusyIndicator"
+            AnimationType="SlicedCircle"
+            HeightRequest="100"
+            IsBusy="True"
+            WidthRequest="100" />
+        <Grid
+            x:Name="sampleLayout"
+            Grid.Row="1"
+            RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <!--  Head Titles  -->
+            <Frame
+                Margin="0"
+                Padding="0"
+               BackgroundColor="Transparent"
+                HasShadow="True">
+                <Grid Padding="0" HeightRequest="56">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid
+                        x:Name="grid"
+                        Grid.Column="0"
+                        Margin="16,0,8,0">
+                        <!--<Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            Opacity="0.87"
+                            Text="Product List"
+                            TextColor="White"
+                            VerticalOptions="Center" />-->
+
+          <!--<SearchBar x:Name="filterText" HeightRequest="40"
+           
+                        BackgroundColor="White"
+                        Opacity="0.8"
+                        TextColor="#ff0000"
+                        HorizontalOptions="CenterAndExpand"
+                     
+            />-->
+
+                    </Grid>
+                    <Grid
+                        Grid.Column="1"
+                        Margin="0"
+                        Padding="20,0,0,0"
+                      
+                        ColumnSpacing="0"
+                        HorizontalOptions="EndAndExpand"
+                        RowSpacing="0"
+                        VerticalOptions="FillAndExpand">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OrderListCommand}" CommandParameter="{Binding Source={x:Reference Name=sampleView}}" />
+                        </Grid.GestureRecognizers>
+                        <ic:CircleImage
+                            Margin="0,0,16,0"
+                            Aspect="AspectFill"
+                            HeightRequest="20"
+                            InputTransparent="True"
+                            Source="checkout.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                        <Frame
+                            Margin="0,12,6,0"
+                            Padding="0"
+                           
+                            CornerRadius="8"
+                            HasShadow="False"
+                            HeightRequest="14"
+                            HorizontalOptions="End"
+                            InputTransparent="True"
+                            IsVisible="{Binding TotalOrderedItems, Mode=OneWay, Converter={StaticResource inverseZeroVisibilityConverter}}"
+                            OutlineColor="Transparent"
+                            VerticalOptions="Start"
+                            WidthRequest="20">
+                            <Label
+                                Margin="0"
+                                FontSize="11"
+                                HorizontalOptions="Center"
+                                InputTransparent="True"
+                                Text="{Binding TotalOrderedItems}"
+                                TextColor="#FF0000"
+                                VerticalOptions="Center" />
+                        </Frame>
+                    </Grid>
+                </Grid>
+            </Frame>
+            <BoxView
+                x:Name="boxView"
+                Grid.Row="1"
+                BackgroundColor="#EAEAEA"
+                HeightRequest="0" />
+        </Grid>
+
+        <tab:SfTabView
+            Grid.Row="2"
+            FlowDirection="{DynamicResource RTL}"
+            VisibleHeaderCount="3"
+          
+            >
+            <tab:SfTabView.SelectionIndicatorSettings>
+                <tab:SelectionIndicatorSettings
+                    Color="#62E249" 
+                    Position="Bottom" 
+                    StrokeThickness="8"/>
+            </tab:SfTabView.SelectionIndicatorSettings>
+            <tab:SfTabItem Title="{helper:Loc MenuTxt}" 
+                          TitleFontColor="White" 
+                           TitleFontAttributes="Bold"
+                           TitleFontSize="14"
+                           SelectionColor="White"
+                           >
+                <tab:SfTabItem.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <ContentView x:Name="Menue" />
+                    </Grid>
+                </tab:SfTabItem.Content>
+            </tab:SfTabItem>
+            <tab:SfTabItem  TitleFontColor="White" 
+                           TitleFontAttributes="Bold"
+                               SelectionColor="White"
+                           TitleFontSize="14" Title="{helper:Loc DishOfTheDayTxt}" />
+            <tab:SfTabItem  TitleFontColor="White" 
+                           TitleFontAttributes="Bold"
+                               SelectionColor="White"
+                           TitleFontSize="14"
+                            Title="{helper:Loc ChefSelectionTxt}" />
+            <!--<tab:SfTabItem Title=" Make your dich " />-->
+        </tab:SfTabView>
+    </Grid>
+
+</ContentPage>

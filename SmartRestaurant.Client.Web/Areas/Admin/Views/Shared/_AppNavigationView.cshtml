@@ -1,0 +1,478 @@
+﻿<div data-scroll-to-active="true" class="main-menu menu-fixed menu-dark menu-accordion menu-shadow">
+    <div class="main-menu-content">
+        <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+            <li class=" navigation-header">
+                <span>@AppNavigationResource.General</span>
+                <i data-toggle="tooltip" data-placement="right" data-original-title="@AppNavigationResource.General" class=" ft-minus"></i>
+            </li>
+            <li class=" nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="ft-home"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Dashboard
+                    </span>
+                </a>
+                @*<ul class="menu-content">
+                    <li>
+                        <a href="dashboard-ecommerce.html" class="menu-item">eCommerce</a>
+                    </li>
+                    <li class="active">
+                        <a href="dashboard-analytics.html" class="menu-item">Analytics</a>
+                    </li>
+
+            </ul>*@
+            </li>
+            <!--Subscriptions-->
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="ft-activity"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Subscription
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a asp-controller="Subscriptions" asp-action="SoonToExpire" asp-area="Admin" class="menu-item">@AppNavigationResource.SubscriptionSoonToExpire</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Subscriptions" asp-action="Expired" asp-area="Admin" class="menu-item">@AppNavigationResource.SubscriptionExpired</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Subscriptions" asp-action="Renewal" asp-area="Admin" class="menu-item">@AppNavigationResource.SubscriptionReNew</a>
+                    </li>
+                    <li>
+                        @* class="active" *@
+                        <a asp-controller="Subscriptions" asp-action="Index" asp-area="Admin" class="menu-item">@AppNavigationResource.SubscriptionAll</a>
+                    </li>
+                </ul>
+            </li>
+            <!--End Subscriptions-->
+            <!--Billing-->
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="fa fa-print"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Billing
+                    </span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="#">@AppNavigationResource.BillingInvoices</a>
+                        <ul>
+                            <li>
+                                <a asp-controller="Billing" asp-action="AddInvoice" asp-area="Admin" class="menu-item">@AppNavigationResource.BillingInvoicesNew</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Billing" asp-action="Invoices" asp-area="Admin" class="menu-item">@AppNavigationResource.BillingInvoicesAll</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#">@AppNavigationResource.BillingQuotations</a>
+                        <ul>
+                            <li>
+                                <a asp-controller="Billing" asp-action="AddQuotation" asp-area="Admin" class="menu-item">@AppNavigationResource.BillingQuotationsNew</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Billing" asp-action="Quotations" asp-area="Admin" class="menu-item">@AppNavigationResource.BillingQuotationsAll</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <!--End Billing-->
+            <li class=" navigation-header">
+                <span>@AppNavigationResource.Clients</span>
+                <i data-toggle="tooltip" data-placement="right" data-original-title="@AppNavigationResource.General" class=" ft-minus"></i>
+            </li>
+            <!--Restaurant Chains-->
+            <li class=" nav-item">
+                <a asp-controller="Chains" asp-action="Index"><i class="icon-vector"></i> @AppNavigationResource.Chains</a>
+            </li>
+            <!--End Restaurant Chains-->
+            <!--Restaurant Owners-->
+            <li class=" nav-item">
+                <a asp-controller="Owners" asp-action="Index"><i class="icon-users"></i> @AppNavigationResource.Owners</a>
+            </li>
+            <!--End Restaurant Owners-->
+            <!--Restaurants-->
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="ft-folder"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Restaurants
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a asp-controller="Restaurants" asp-action="Index" asp-area="Admin" class="menu-item">@AppNavigationResource.AllRestaurants</a>
+                    </li>
+                    <li>
+                        @* class="active" *@
+                        <a asp-controller="Restaurants" asp-action="Add" asp-area="Admin" class="menu-item">@AppNavigationResource.AddNewRestaurant</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Restaurants" asp-action="Search" asp-area="Admin" class="menu-item">@AppNavigationResource.SearchRestaurant</a>
+                    </li>
+                </ul>
+            </li>
+            <!--End Restaurants-->
+            <!--Menu-->
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="icon-book-open"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Menus
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a asp-controller="Menu" asp-action="Index" asp-area="Admin" class="menu-item">@AppNavigationResource.MenusAll</a>
+                    </li>
+                    <li>
+                        @* class="active" *@
+                        <a asp-controller="Menu" asp-action="AddMenu" asp-area="Admin" class="menu-item">@AppNavigationResource.MenusAddNew</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Menu" asp-action="Search" asp-area="Admin" class="menu-item">@AppNavigationResource.MenusSearch</a>
+                    </li>
+                </ul>
+            </li>
+            <!--End Menu-->
+            <!--Dishes-->
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="fa fa-fire"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Dishes
+                    </span>
+                </a>
+                <ul>
+                    <li>
+                        <a asp-controller="DishesFamillies" asp-action="Index" asp-area="Admin" class="menu-item">@AppNavigationResource.DishesFamillies</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Dishes" asp-action="Index" asp-area="Admin" class="menu-item">@AppNavigationResource.DishesAll</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Dishes" asp-action="Add" asp-area="Admin" class="menu-item">@AppNavigationResource.DishesAddNew</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Dishes" asp-action="Search" asp-area="Admin" class="menu-item">@AppNavigationResource.DishesSearch</a>
+                    </li>
+                </ul>
+            </li>
+            <!--End Dishes-->
+            <!--Restaurants Staff-->
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="fa fa-users"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Staff
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a asp-controller="Staffs" asp-action="Index" asp-area="Admin" class="menu-item">@AppNavigationResource.Staff</a>
+                    </li>
+                    <li>
+                        @* class="active" *@
+                        <a asp-controller="Staffs" asp-action="Add" asp-area="Admin" class="menu-item">@AppNavigationResource.AddNewStaff</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Staffs" asp-action="Search" asp-area="Admin" class="menu-item">@AppNavigationResource.SearchStaffs</a>
+                    </li>
+                </ul>
+            </li>
+            <!--End Staff-->
+            <!--Services-->
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="fa fa-cutlery"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Services
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a asp-controller="Restaurants" asp-action="Index" asp-area="Admin" class="menu-item">@AppNavigationResource.AllRestaurants</a>
+                    </li>
+                    <li>
+                        @* class="active" *@
+                        <a asp-controller="Restaurants" asp-action="Add" asp-area="Admin" class="menu-item">@AppNavigationResource.AddNewRestaurant</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Restaurants" asp-action="Search" asp-area="Admin" class="menu-item">@AppNavigationResource.SearchRestaurant</a>
+                    </li>
+                </ul>
+            </li>
+            <!--End Services-->
+            <!--Restaurants Staff-->
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="fa fa-barcode"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Products
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a asp-controller="ProductFamilies" asp-action="Index" asp-area="Admin" class="menu-item">@AppNavigationResource.ProductsFamillies</a>
+                    </li>
+                    <li>
+                        @* class="active" *@
+                        <a asp-controller="Products" asp-action="Index" asp-area="Admin" class="menu-item">@AppNavigationResource.Products</a>
+                    </li>                    
+                </ul>
+            </li>
+            <!--End Staff-->
+            <!--Galleries-->
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="ft-image"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Galleries
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a asp-controller="Restaurants" asp-action="Index" asp-area="Admin" class="menu-item">@AppNavigationResource.AllRestaurants</a>
+                    </li>
+                    <li>
+                        @* class="active" *@
+                        <a asp-controller="Restaurants" asp-action="Add" asp-area="Admin" class="menu-item">@AppNavigationResource.AddNewRestaurant</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Restaurants" asp-action="Search" asp-area="Admin" class="menu-item">@AppNavigationResource.SearchRestaurant</a>
+                    </li>
+                </ul>
+            </li>
+            <!--End Galleries-->
+            <!--Restaurant Floors-->
+            <li class=" nav-item">
+                <a asp-controller="Floors" asp-action="Index"><i class="ft-align-justify"></i> @AppNavigationResource.Floors</a>
+            </li>
+            <!--End Restaurant Floors-->
+            <!--Restaurant Areas-->
+            <li class=" nav-item">
+                <a asp-controller="Areas" asp-action="Index"><i class="ft-square"></i> @AppNavigationResource.Areas</a>
+            </li>
+            <!--End Restaurant Areas-->
+            <!--Restaurant Tables-->
+            <li class=" nav-item">
+                <a asp-controller="Tables" asp-action="Index"><i class="ft-grid"></i> @AppNavigationResource.Tables</a>
+            </li>
+            <!--End Restaurant Tables-->
+            <!--Restaurant Type-->
+            <li class=" nav-item">
+                <a asp-controller="RestaurantsTypes" asp-action="Index"><i class="icon-badge"></i> @AppNavigationResource.RetaurantsTypes</a>
+            </li>
+            <!--End Restaurant Type-->
+            <!--Commun-->
+            <li class=" navigation-header">
+                <span>@AppNavigationResource.Commun</span>
+                <i data-toggle="tooltip" data-placement="right" data-original-title="@AppNavigationResource.Commun" class=" ft-minus"></i>
+            </li>
+
+            <li class=" nav-item">
+                <a href="#">
+                    <i class="ft-map"></i>
+                    <span class="menu-title">@AppNavigationResource.Geographie</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a asp-controller="Countries" asp-action="Index">@AppNavigationResource.Countries</a>
+                    </li>
+                    <li>
+                        <a asp-controller="States" asp-action="Index" asp-route-countryId="">@AppNavigationResource.States</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Cities" asp-action="Index" asp-route-countryId="" asp-route-stateId="">@AppNavigationResource.Cities</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class=" nav-item">
+                <a href="#">
+                    <i class="fa fa-leaf"></i>
+                    <span class="menu-title">@AppNavigationResource.Foods</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a asp-controller="FoodsCategories" asp-action="Index">@AppNavigationResource.FoodsCategories</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Foods" asp-action="Index">@AppNavigationResource.FoodsFoods</a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item">
+                <a asp-controller="Units" asp-action="Index"><i class="icon-crop"></i> @AppNavigationResource.Units</a>
+            </li>
+            <li class=" nav-item">
+                <a asp-controller="Currencies" asp-action="Index"><i class="fa fa-money"></i> @AppNavigationResource.Currencies</a>
+            </li>
+            <li class=" nav-item">
+                <a asp-controller="Allergies" asp-action="Index"><i class="icon-ghost"></i> @AppNavigationResource.Allergies</a>
+            </li>
+            <li class=" nav-item">
+                <a asp-controller="Illnesses" asp-action="Index"><i class="icon-ban"></i> @AppNavigationResource.Illnesses</a>
+            </li>
+            <!--Kitchens-->
+            <li class=" nav-item">
+                <a asp-controller="Kitchens" asp-action="Index"><i class="fa fa-bookmark"></i> @AppNavigationResource.Kitchens</a>
+            </li>
+            <!--End Kitchens-->
+            <!--Specialties-->
+            <li class=" nav-item">
+                <a asp-controller="Specialties" asp-action="Index"><i class="fa fa-book"></i> @AppNavigationResource.Specialties</a>
+            </li>
+            <!--End Specialties-->
+            <!--End Commun-->
+            <!--Settings-->
+            <li class=" navigation-header">
+                <span>@AppNavigationResource.Settings</span>
+                <i data-toggle="tooltip" data-placement="right" data-original-title="@AppNavigationResource.Settings" class=" ft-minus"></i>
+            </li>
+            <li class=" nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="ft-cog"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Configurations
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"><i class="ft-user"></i> @AppNavigationResource.Users</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Languages" asp-action="Index"><i class="fa fa-language"></i> @AppNavigationResource.Languages</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Languages" asp-action="Index"><i class="ft-info"></i> @AppNavigationResource.PlansPricing</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Languages" asp-action="Index"><i class="ft-info"></i> @AppNavigationResource.SendingMailing</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Languages" asp-action="Index"><i class="ft-info"></i> @AppNavigationResource.SendingNotification</a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item">
+                <a href="#">
+                    <i class="ft-eye"></i>
+                    <span class="menu-title">@AppNavigationResource.Templates</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a asp-controller="Languages" asp-action="Index"><i class="icon-credit-card"></i> @AppNavigationResource.InvoiceTemplate</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Templates" asp-action="Index"><i class="icon-paper-plane"></i> @AppNavigationResource.MailingTemplate</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Templates" asp-action="Index"><i class="ft-info"></i> @AppNavigationResource.NotificationTemplate</a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+            <li class=" navigation-header">
+                <span>@AppNavigationResource.Application</span>
+                <i data-toggle="tooltip" data-placement="right" data-original-title="@AppNavigationResource.Application" class=" ft-minus"></i>
+            </li>
+
+            <li class=" nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="ft-mail"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Tickets
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.TicketsIn</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.TicketsInProcess</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.TicketsClosed</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.TicketsAll</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class=" nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="ft-mail"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.BoxEmails
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.BoxEmailsIn</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.BoxEmailsSends</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.BoxEmailsCompose</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.BoxEmailsAll</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class=" nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="ft-comment-square"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.BoxNotifications
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.BoxNotificationsIn</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.BoxNotificationsSends</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.BoxNotificationsCompose</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.BoxNotificationsAll</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class=" nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="ft-alert-triangle"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Bugs
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.BugsNew</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.BugsIssues</a>
+                    </li>
+                    <li class=" nav-item">
+                        <a asp-controller="Accounts" asp-action="Index"> @AppNavigationResource.BugsAll</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

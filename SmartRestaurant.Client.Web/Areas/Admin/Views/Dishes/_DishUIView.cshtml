@@ -1,0 +1,135 @@
+﻿@model DishViewModel
+
+<section id="add-food">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-body collapse in">
+                    <div class="card-block">
+                        <form asp-action="@Model.Action" id="dish-form" class="steps-create-dish wizard-circle" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>    
+                            <input type="hidden" asp-for="Id" />
+                            <input type="hidden" asp-for="IngredientIndex" />
+                            <input type="hidden" asp-for="AccompanyingIndex" />
+                            <input type="hidden" asp-for="EquivalenceIndex" />
+                            <input type="hidden" asp-for="IngredientToDeleteIndex" />
+                            <input type="hidden" asp-for="AccompanyingToDeleteIndex" />
+                            <input type="hidden" asp-for="EquivalenceToDeleteIndex" />
+                            <input type="hidden" asp-for="GalleryPictureIndex" />
+                            <input type="hidden" asp-for="GalleryPictureToDeleteIndex" />
+                            <!-- Step 1 -->
+                            <h6>@DishResource.Infos</h6>
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="DishModel.RestaurantId" class="control-label">@DishResource.RestaurantId</label>
+                                            <select asp-items="Model.Restaurants" asp-for="DishModel.RestaurantId" class="form-control restaurant">
+                                                <option value="">-- @DishResource.RestaurantId --</option>
+                                            </select>
+                                            <span asp-validation-for="DishModel.RestaurantId" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="DishModel.Type" class="control-label">@DishResource.Type</label>
+                                            <select asp-items="Model.DishTypes" asp-for="DishModel.Type" class="form-control restaurant">
+                                                <option value="">-- @DishResource.Type --</option>
+                                            </select>
+                                            <span asp-validation-for="DishModel.RestaurantId" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="DishModel.Name" class="control-label">@BaseResource.Name</label>
+                                            <input asp-for="DishModel.Name" class="form-control" placeholder="@BaseResource.Name" />
+                                            <span asp-validation-for="DishModel.Name" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="DishModel.Alias" class="control-label">@BaseResource.Alias</label>
+                                            <input asp-for="DishModel.Alias" class="form-control" placeholder="@BaseResource.Alias" />
+                                            <span asp-validation-for="DishModel.Alias" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="DishModel.PreparationTime" class="control-label">@DishResource.PreparationTime</label>
+                                            <input asp-for="DishModel.PreparationTime" class="form-control" placeholder="@DishResource.PreparationTime" />
+                                            <span asp-validation-for="DishModel.PreparationTime" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="DishModel.ServiceTime" class="control-label">@DishResource.ServiceTime</label>
+                                            <input asp-for="DishModel.ServiceTime" class="form-control" placeholder="@DishResource.ServiceTime" />
+                                            <span asp-validation-for="DishModel.ServiceTime" class="text-danger"></span>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" asp-for="DishModel.FamillyId" class="hidden" />
+                                            <label asp-for="DishModel.FamillyId" class="control-label">@DishResource.FamillyId</label>
+                                            <div id="dish-famillies">
+                                                <partial name="_CascadingSelectListView" model="Model.Famillies" />
+                                            </div>
+
+                                            <span asp-validation-for="DishModel.FamillyId" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="DishModel.Description" class="control-label">@BaseResource.Description</label>
+                                            <textarea asp-for="DishModel.Description" class="form-control" placeholder="@BaseResource.Description"></textarea>
+                                            <span asp-validation-for="DishModel.Description" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" asp-for="DishModel.CanBeAccompanying" /> @DishResource.CanBeAccompanying
+                                            </label>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" asp-for="DishModel.IsDisabled" /> @BaseResource.IsDisabled
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <!-- Step 2 -->
+                            <h6>@DishResource.Ingredients</h6>
+                            <fieldset>
+                                <div id="dishes-ingredients">
+                                    <partial name="_DishIngredientsView" model="Model.Ingredients" />
+                                </div>
+                                
+                                <input type="button"
+                                       class="btn btn-default"
+                                       data-action-url="@Url.Action("AddNewIngredient","Dishes",new {area="Admin"})"
+                                       value="@DishIngredientUtilsResource.ButtonAddIngredient"
+                                       id="add-ingredient" />
+
+                            </fieldset>
+
+                            <!-- Step 3 -->
+                            <h6>@DishResource.Accompaniments</h6>
+                            <fieldset>
+                                <div id="dishes-accompaniments">
+                                    <partial name="_DishAccompanimentsView" model="Model.Accompaniments" />
+                                </div>
+                                
+                                <input type="button"
+                                       class="btn btn-default"
+                                       data-action-url="@Url.Action("AddNewAccompaniment","Dishes",new {area="Admin"})"
+                                       value="@DishAccompanyingUtilsResource.ButtonAddAccompaniment"
+                                       id="add-accompaniment" />
+                            </fieldset>
+                            <!-- Step 4 -->
+                            @*<h6>@DishResource.Equivalences</h6>
+                            <fieldset></fieldset>*@
+                            <!-- Step 5 -->
+                            <h6>@DishResource.GalleryId</h6>
+                            <fieldset>
+                                <div class="row" id="dish-gallery">
+                                    <partial name="_GalleryUIView" model="Model.GalleryViewModel" />
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

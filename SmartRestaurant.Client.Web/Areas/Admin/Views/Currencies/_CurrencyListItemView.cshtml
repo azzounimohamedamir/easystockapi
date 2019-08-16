@@ -1,0 +1,46 @@
+﻿@model CurrencyItemModel
+    <tr id="currency-@Model.Id">
+
+        <td>
+            @Html.DisplayFor(modelItem => Model.Name)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => Model.Alias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.IsoCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.IsDisabled)
+        </td>
+
+        <td class="align-content-end">
+            <a asp-action="Edit"
+               asp-controller="currencies"
+               asp-area="Admin"
+               asp-route-id="@Model.Id"
+               class="action-link action-edit">
+                <i class="fa fa-pencil"></i>
+            </a>
+
+            @*<a data-action="Delete"
+               data-controller="currencies"
+               data-area="Admin"
+               data-target="#currencies-@Model.Id"
+               data-id="@Model.Id"
+               class="action-link action-delete">
+                <i class="fa fa-trash-o"></i>
+            </a>*@
+
+            <a data-action-url=@Url.Action("Delete","Currencies",new { area="Admin"})
+               data-target="#currency-@Model.Id"
+               data-id="@Model.Id"
+               class="action-link action-delete">
+                <i class="fa fa-trash-o"></i>
+            </a>
+
+        </td>
+    </tr>
+
+

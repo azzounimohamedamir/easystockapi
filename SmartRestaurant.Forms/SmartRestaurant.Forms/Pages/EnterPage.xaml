@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SmartRestaurant.Forms.EnterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:btn="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:busy="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:helpers="clr-namespace:SmartRestaurant.Forms.Helpers"
+    xmlns:gradient ="clr-namespace:Syncfusion.XForms.Graphics;assembly=Syncfusion.Core.XForms"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    BindingContext="{Binding Source={StaticResource Locator}, Path=Enter}"
+    x:Name="enterpannel"
+        xmlns:sync="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+
+    >
+    <ContentPage.Content>
+        <!--<Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <busy:SfBusyIndicator
+                x:Name="BusyIndicator"
+                AnimationType="SlicedCircle"
+                HeightRequest="100"
+                IsBusy="False"
+                WidthRequest="100" />
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="260" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Picker
+                    x:Name="Languages"
+                    Title="{helpers:Loc SelectLanguageTxt}"
+                    Grid.Row="0"
+                    FontSize="Large"
+                    HorizontalOptions="Center"
+                    ItemDisplayBinding="{Binding LanguageName}"
+                    ItemsSource="{Binding Languages}"
+                    SelectedIndex="0"
+                    SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
+                    VerticalOptions="Center"
+                    WidthRequest="400" />
+                <buttons:SfButton
+                    Grid.Row="2"
+                    Clicked="OrderButton_Clicked"
+                    FontSize="18"
+                    Style="{StaticResource SfFlatButtonStyle}"
+                    Text="GoToOrder" />
+                -->
+        <!--<buttons:SfButton
+                    x:Name="Chairs"
+                    Grid.Row="2"
+                    BackgroundColor="#112211"
+                    BorderWidth="0"
+                    Clicked="Chairs_Clicked"
+                    CornerRadius="230"
+                    FontSize="20"
+                    HeightRequest="230"
+                    HorizontalOptions="Center"
+                    Text="Scan your QR code"
+                    VerticalOptions="Center"
+                    WidthRequest="230">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="40"
+                            HorizontalOptions="Center"
+                            Text="SCAN"
+                            TextColor="Green"
+                            VerticalOptions="Center" />
+                        <Image
+                            Grid.Row="1"
+                            HorizontalOptions="Center"
+                            Source="icon.png"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </buttons:SfButton>-->
+        <!--
+            </Grid>
+
+
+        </Grid>-->
+
+        <Grid HorizontalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <border:SfBorder  Padding="20"   
+                              Margin="0,20,0,0"
+                              Opacity="0.6"             
+                              HorizontalOptions="CenterAndExpand"
+                              VerticalOptions="CenterAndExpand"
+                              CornerRadius="10,10,10,10"
+                              BorderWidth="1"
+                              BorderColor="#707070"
+                              BackgroundColor="#000000"
+                              
+                              >
+
+
+
+
+
+                <!--<StackLayout x:Name="LanguagesPannel" Orientation="Vertical"
+                       
+                         >
+
+                </StackLayout>-->
+
+
+                <sync:SfListView 
+                ItemSize="30"
+                   HeightRequest="200"
+                    WidthRequest="200"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="Start"
+                   ItemsSource="{Binding Languages }"
+                       SelectedItem="{Binding SelectedLanguage,Mode=TwoWay}"
+                       >
+
+                    <sync:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell >
+                                <Grid Margin="0,5,5,0">        
+                                    <Label 
+                                       
+                                        Text="{Binding SelectLanguage}" 
+                                     TextColor="White"
+                                       HorizontalOptions ="Center"
+                                      FontSize ="20"
+                                      FontAttributes = "Bold"
+                                   FontFamily = "Segoe UI"/>
+                                </Grid>
+                        
+                            </ViewCell>
+                        </DataTemplate>
+                    </sync:SfListView.ItemTemplate>
+
+                </sync:SfListView>
+
+            </border:SfBorder>
+
+            <!--qr scan -->
+            <buttons:SfButton
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                BorderWidth="0"
+                Grid.Row="1"
+               BackgroundColor="#000000"
+                Opacity="0.6"
+                IsCheckable="true"
+                Clicked="Chairs_Clicked"
+                WidthRequest="216"
+                HeightRequest="216"
+                CornerRadius="100">
+                <buttons:SfButton.Content>
+                    <Image Source="qrcode.png" 
+                       HeightRequest="133" 
+                       WidthRequest="133"
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Center"/>
+                </buttons:SfButton.Content>
+
+            </buttons:SfButton>
+        </Grid>
+
+
+    </ContentPage.Content>
+</ContentPage>

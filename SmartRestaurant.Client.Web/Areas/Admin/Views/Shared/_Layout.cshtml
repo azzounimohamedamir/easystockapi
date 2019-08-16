@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>@ViewData["Title"] - Smart Restaurant Admin</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Hadj Ahmed Ghassan ghassannet@gmail.com">
+
+    <link rel="apple-touch-icon" href="~/app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/app-assets/images/ico/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+    <!-- BEGIN VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/fonts/feather/style.min.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/fonts/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/fonts/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/extensions/pace.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/charts/jquery-jvectormap-2.0.3.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/charts/morris.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/extensions/unslider.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/weather-icons/climacons.min.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/extensions/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/extensions/toastr.css">
+    <!-- END VENDOR CSS-->
+    <!-- BEGIN STACK CSS-->
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/app.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/colors.css">
+    <!-- END STACK CSS-->
+    <!-- BEGIN Page Level CSS-->
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/core/menu/menu-types/vertical-overlay-menu.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/plugins/extensions/toastr.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/plugins/forms/wizard.css">
+    <!-- link(rel='stylesheet', type='text/css', href='~/app-assets/css#{rtl}/pages/users.css')-->
+    <!-- END Page Level CSS-->
+    <!-- BEGIN Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
+    <!-- END Custom CSS-->
+
+    <link rel="stylesheet" href="~/css/admin.css" />
+</head>
+
+<body data-open="click"
+      data-menu="vertical-menu"
+      data-col="2-columns"
+      class="vertical-layout vertical-menu 2-columns  fixed-navbar">
+
+    <!-- navbar-fixed-top-->
+    <partial name="_TopNavigationView" />
+
+    <!-- app navbar-->
+    <partial name="_AppNavigationView" />
+
+    <div class="app-content content container-fluid">
+        <div class="content-wrapper">
+            <div class="content-header row">
+
+            </div>
+            <div class="content-body">
+                @if (ViewBag.AppBreadcrumb != null)
+                {
+                    <partial name="_BreadcrumbView" model="(BreadcrumbViewModel)@ViewBag.AppBreadcrumb" />
+                }
+                @RenderBody()
+
+            </div>
+        </div>
+    </div>
+
+    @*<footer class="footer footer-static footer-light navbar-border">
+            <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
+                <span class="float-md-left d-xs-block d-md-inline-block">
+                    Copyright  &copy; @DateTime.Now.Year
+                    <a href="https://www.g22rie.com" target="_blank" class="text-bold-800 grey darken-2">G22RIE </a>, All rights reserved.
+                </span><span class="float-md-right d-xs-block d-md-inline-block">L'équipe G22RIE <i class="ft-heart pink"></i></span>
+            </p>
+        </footer>*@
+
+    <!-- BEGIN VENDOR JS-->
+    <script src="~/app-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
+    <!-- BEGIN VENDOR JS-->
+    <!-- BEGIN PAGE VENDOR JS-->
+    <script src="~/app-assets/vendors/js/extensions/jquery.steps.min.js" type="text/javascript"></script>
+    <script src="~/app-assets/vendors/js/extensions/jquery.knob.min.js" type="text/javascript"></script>
+    <script src="~/app-assets/js/scripts/extensions/knob.js" type="text/javascript"></script>
+
+    <script src="~/app-assets/vendors/js/pagination/jquery.bootpag.min.js" type="text/javascript"></script>
+    @*<script src="~/app-assets/vendors/js/pagination/jquery.twbsPagination.min.js" type="text/javascript"></script>*@
+
+
+    <script src="~/app-assets/vendors/js/extensions/sweetalert.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/core/colors/palette-climacon.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/fonts/simple-line-icons/style.min.css">
+    <!-- END PAGE VENDOR JS-->
+    <!-- BEGIN STACK JS-->
+    <script src="~/app-assets/js/core/app-menu.js" type="text/javascript"></script>
+    <script src="~/app-assets/js/core/app.js" type="text/javascript"></script>
+    <script src="~/app-assets/vendors/js/extensions/toastr.min.js" type="text/javascript"></script>
+
+    <!-- END STACK JS-->
+
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <partial name="_RemoveEntityView" />
+    <script src="~/js/orders.js"></script>
+    @RenderSection("Scripts", required: false)
+    <script src="~/js/upload-file.js" asp-append-version="true"></script>
+</body>
+</html>
