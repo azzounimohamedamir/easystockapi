@@ -1,9 +1,0 @@
-﻿@model IEnumerable<DishAccompanimentViewModel>
-@if (Model != null)
-{
-    foreach (var accompaniment in Model)
-    {
-        <partial name="_DishAccompainementUIView" model="accompaniment" />
-    }
-}
-
