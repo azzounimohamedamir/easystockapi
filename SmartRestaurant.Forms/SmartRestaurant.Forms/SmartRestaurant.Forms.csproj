@@ -36,18 +36,18 @@
     <PackageReference Include="PCLStorage" Version="1.0.2" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.0.0" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.1.0.48" />
-    <PackageReference Include="Syncfusion.Xamarin.Core" Version="17.1.0.50" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="17.1.0.50" />
-    <PackageReference Include="Syncfusion.Xamarin.SfComboBox" Version="17.1.0.48" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.1.0.48" />
-    <PackageReference Include="Syncfusion.Xamarin.SfNumericUpDown" Version="17.1.0.48" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRating" Version="17.1.0.48" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="17.1.0.50" />
-    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="17.1.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.1.0.53" />
+    <PackageReference Include="Syncfusion.Xamarin.Core" Version="17.1.0.53" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="17.1.0.53" />
+    <PackageReference Include="Syncfusion.Xamarin.SfComboBox" Version="17.1.0.53" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.1.0.53" />
+    <PackageReference Include="Syncfusion.Xamarin.SfNumericUpDown" Version="17.1.0.53" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRating" Version="17.1.0.53" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="17.1.0.53" />
+    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="17.1.0.53" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
-    <PackageReference Include="Xamarin.Forms" Version="4.1.0.581479" />
+    <PackageReference Include="Xamarin.Forms" Version="4.1.0.778454" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
     <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />

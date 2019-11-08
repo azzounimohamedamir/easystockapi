@@ -33,3 +33,5 @@
 /SmartRestaurant.Persistence.Guest.Identity/obj
 /SmartRestaurant.Presentation.Web/obj
 /Translator/obj
+/SmartRestaurant.Client.Commun/bin/Debug/netcoreapp2.2
+/SmartRestaurant.Client.Web/bin/Debug/netcoreapp2.2
