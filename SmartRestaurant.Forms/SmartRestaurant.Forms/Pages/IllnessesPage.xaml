@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SmartRestaurant.Forms.Pages.IllnessesPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:comboBox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms">
+    <ContentPage.Content>
+        <Grid>
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+
+                <Image
+                    Aspect="AspectFill"
+                    HeightRequest="200"
+                    HorizontalOptions="Center"
+                    Source="Illnesses"
+                    VerticalOptions="Center"
+                    WidthRequest="200" />
+
+
+
+                <comboBox:SfComboBox
+                    x:Name="comboBox"
+                    Grid.Row="1"
+                    Margin="10,10,10,0"
+                    DataSource="{Binding IllnessCollection}"
+                    DisplayMemberPath="IllnessName"
+                    DropDownItemHeight="80"
+                    HorizontalOptions="CenterAndExpand"
+                    ImageMemberPath="IllnessImage"
+                    IsEditableMode="true"
+                    IsSelectedItemsVisibleInDropDown="false"
+                    ItemPadding="0,0,10,0"
+                    MaximumDropDownHeight="180"
+                    MultiSelectMode="Token"
+                    SelectionChanged="Handle_SelectionChanged"
+                    SuggestionMode="Contains"
+                    Watermark="Choose here">
+                    <comboBox:SfComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout
+                                Padding="15,10"
+                                BackgroundColor="Transparent"
+                                HorizontalOptions="Start"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center">
+                                <Grid>
+
+                                    <Image
+                                        HeightRequest="30"
+                                        HorizontalOptions="Center"
+                                        Source="{Binding IllnessImage}"
+                                        VerticalOptions="Center"
+                                        WidthRequest="30" />
+                                </Grid>
+                                <Label
+                                    Margin="10,5"
+                                    FontSize="14"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding IllnessName}"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </comboBox:SfComboBox.ItemTemplate>
+                </comboBox:SfComboBox>
+                <!--  Buttons to update or uninistal  -->
+                <StackLayout Grid.Row="2" Padding="0,30,0,0">
+                    <ListView
+                        x:Name="listView"
+                        ItemsSource="{Binding Source={x:Reference comboBox}, Path=SelectedItem}"
+                        RowHeight="80">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell IsEnabled="false">
+                                    <Grid Padding="0,5,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition>
+                                                <ColumnDefinition.Width>
+                                                    <OnPlatform
+                                                        x:TypeArguments="GridLength"
+                                                        Android="60"
+                                                        WinPhone="40"
+                                                        iOS="60" />
+                                                </ColumnDefinition.Width>
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="50" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image
+                                            Grid.Column="0"
+                                            Margin="0,5,0,5"
+                                            Source="{Binding IllnessImage}" />
+                                        <StackLayout
+                                            Grid.Column="1"
+                                            Padding="0,5,0,0"
+                                            Orientation="Vertical"
+                                            Spacing="2">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="20"
+                                                Text="{Binding IllnessName}"
+                                                TextColor="Black" />
+                                            <StackLayout Orientation="Horizontal" />
+
+                                        </StackLayout>
+
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+                <Button
+                    Grid.Row="3"
+                    BackgroundColor="#f49242"
+                    HeightRequest="50"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Valider"
+                    TextColor="White" />
+
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

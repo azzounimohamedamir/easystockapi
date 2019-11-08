@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Application.Exceptions
+{
+    public class NotValidOperation: Exception
+    {
+        public NotValidOperation(string message): base(message)
+        {
+        }
+        public NotValidOperation(string message, Exception innerExcepsion) 
+            : base(message, innerExcepsion)
+        {
+            
+        }
+    }
+}

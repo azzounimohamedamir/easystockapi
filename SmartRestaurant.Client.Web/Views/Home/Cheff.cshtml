@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Cheff"] = "Cheffs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1>Cheffs Manager</h1>
+
+
+<div class="container">
+    <div class="row  justify-content-center">
+        <div class="col-5 ">
+
+            <div class="container">
+                <h3>Waiting Orders</h3>
+                <div class="accordion" id="exampleAccordion">
+                    <div class="card">
+                        <div class="card-header" id="exItem1Header">
+                            <h5 class="mb-0">
+                                <button id="ordername" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#exItem1" aria-expanded="false" aria-controls="exItem1">Value</button>
+                            </h5>
+                        </div>
+                        <div id="exItem1" class="collapse" aria-labelledby="exItem1Header" data-parent="#exampleAccordion">
+                            <div class="card-body">
+                                <ul id="clientsOrder" class="list-group mymenus"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="card">
+                            <div class="card-header" id="exItem2Header">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#exItem2" aria-expanded="true" aria-controls="exItem2">Expandable Item 2</button>
+                                </h5>
+                            </div>
+                            <div id="exItem2" class="collapse show" aria-labelledby="exItem2Header" data-parent="#exampleAccordion">
+                                <div class="card-body">This is the card body. Your content is hidden initially. It is shown by clicking on the card header.</div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" id="exItem3Header">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#exItem3" aria-expanded="false" aria-controls="exItem3">Expandable Item 3</button>
+                                </h5>
+                            </div>
+                            <div id="exItem3" class="collapse" aria-labelledby="exItem3Header" data-parent="#exampleAccordion">
+                                <div class="card-body">This is the card body. Your content is hidden initially. It is shown by clicking on the card header.</div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+        <div class="col-2"></div>
+
+
+        <div class="col-5">
+
+
+            <button onclick="nextOrder()" class="btn btn-primary col-12 mymenus">Next Order </button>
+        </div>
+
+
+
+    </div>
+</div>
+

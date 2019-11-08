@@ -1,0 +1,87 @@
+﻿﻿@using System.Collections.Generic
+@model SmartRestaurant.Client.Web.Models.Account.LoginViewModel
+
+
+
+
+@{
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="~/css/login.css">
+    <link href="~/app-assets/fonts/fonts/fonts.css" rel="stylesheet" />
+</head>
+<body>
+    <h2>@ViewData["Title"]</h2>
+
+<!-- js injected for mobile menu display -->
+<aside class="site-aside">
+    <div class="site-aside__brand"><a href="/"><img src="https://www.restopolitan.com/dist/images/logo-icon-light.svg" alt=""></a></div>
+</aside>
+<div class="overlay"></div>
+
+    <main class="main-content" role="main">
+        <!-- body yield -->
+
+
+
+<div class="wrap">
+    <section class="section-user section-user--sm">
+
+        <h1 class="tt-1">Connexion</h1>
+
+        <form id="frmLogin"  method="post">
+            <input id="ReturnUrl" name="ReturnUrl" type="hidden" value="/" />
+
+            <div class="input-wrap">
+
+                <div class="spacing" style="display: none;">
+                    <p>Un compte Restopilitan existe d&#xE9;ja avec cet email. Merci de renseigner le mot de passe de ce compte pour finaliser la connexion.</p>
+                </div>
+
+
+            </div>
+
+            <div class="input-wrap">
+                <input  asp-for="UserName"  class="input-text js-input-text" data-trim-mode="both" />
+                <label for="Email">Pseudo</label>
+                <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+            </div>
+            <div class="input-wrap">
+                <input class="input-text js-input-text" asp-for="Password" />
+                <label for="Password">Mot de passe</label>
+                <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+
+                <button type="button" class="toggle-pwd js-toggle-pwd"><i class="icon icon--eye"></i></button>
+                <a href="/mot-de-passe-oublie.html" class="forget-pwd">Mot de passe oubli&#xE9; ?</a>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="button button--default button--orange button--block"><span>Se connecter</span></button>
+                <div class="button-separator text-center"><span>ou</span></div>
+                <a id="fb-login" href="#" class="button button--default button--block button--icon-left button--facebook" data-request-url="/facebook-authenticate.html?returnurl=%2F"><i class="icon icon--facebook"></i><span>Connexion avec Facebook</span></a>
+            </div>
+            <div class="helper text-center">
+                    <a href="/inscription.html?returnUrl=%2F" class="link">Je n&#x27;ai pas encore de compte</a>
+
+
+            </div>
+        </form>
+
+    </section>
+</div>
+
+    </main>
+
+
+</body>
+</html>
+
+

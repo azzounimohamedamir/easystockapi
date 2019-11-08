@@ -1,0 +1,28 @@
+﻿@using SmartRestaurant.Application.Commun.Currencies.Queries
+@model IEnumerable<SmartRestaurant.Application.Commun.Currencies.Queries.CurrencyItemModel>
+
+<table class="table">
+    <thead class="thead-inverse">
+        <tr>
+            <th>
+                @BaseResource.Name
+            </th>
+            <th>
+                @BaseResource.Alias
+            </th>
+            <th>
+                @BaseResource.IsoCode
+            </th>
+            <th>
+                @BaseResource.IsDisabled
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <partial name="_CurrencyListItemView" model="item" />
+        }
+    </tbody>
+</table>

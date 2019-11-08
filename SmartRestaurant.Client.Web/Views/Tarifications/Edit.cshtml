@@ -1,0 +1,142 @@
+﻿@using SmartRestaurant.Client.Web.Models.Pricings
+@using SmartRestaurant.Resources.Pricings.Tarifications
+@using SmartRestaurant.Resources.Products.ProductFamilies
+@using SmartRestaurant.Resources.Restaurants.Staffs
+@model SmartRestaurant.Client.Web.Models.Pricings.TarificationViewModel
+
+@{
+    ViewData["Title"] = TarificationUtilsResource.EditPageTitle;
+}
+
+<hr />
+<form asp-action="Edit" method="post" id="selectAllForm">
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="UpdateModel.Id" />
+
+            <div class="form-group">
+                <label asp-for="UpdateModel.Name" class="control-label">@BaseResource.Name</label>
+                <input asp-for="UpdateModel.Name" class="form-control" placeholder="@BaseResource.Name" />
+                <span asp-validation-for="UpdateModel.Name" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="UpdateModel.Alias" class="control-label col-md-2">@BaseResource.Alias</label>
+                <input asp-for="UpdateModel.Alias" class="form-control" placeholder="@BaseResource.Alias" />
+                <span asp-validation-for="UpdateModel.Alias" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="UpdateModel.Amount" class="control-label col-md-2">@TarificationResource.Amount</label>
+                        <input asp-for="UpdateModel.Amount" class="form-control" placeholder="@TarificationResource.Amount" />
+                        <span asp-validation-for="UpdateModel.Amount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check col-md-6" style="vertical-align:central">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="UpdateModel.IsPercentage" /> @TarificationResource.Percentage
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="UpdateModel.Description" class="control-label col-md-2">@BaseResource.Description</label>
+                <textarea asp-for="UpdateModel.Description" class="form-control" placeholder="@BaseResource.Description"></textarea>
+                <span asp-validation-for="UpdateModel.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="UpdateModel.IsDisabled" /> @BaseResource.IsDisabled
+                </label>
+            </div>
+
+
+        </div>
+    </div>
+
+    <label>@TarificationUtilsResource.TarificationProductsText</label>
+    <div class="form-group">
+        <label asp-for="Restaurants" class="control-label">@StaffResource.Restaurant</label>
+        <select asp-items="Model.Restaurants"
+                asp-for="UpdateModel.RestaurantId"
+                id="restaurantsList"
+                class="form-control select2"
+                style="width:300px"
+                title="@StaffResource.Restaurant">
+            <option value="">--@StaffResource.Restaurant--</option>
+        </select>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="ProductFamilies" class="control-label">@ProductFamilyResource.ProductFamily</label>
+        <select asp-items="Model.ProductFamilies"
+                asp-for="SelectedProductFamily"
+                id="productFamiliesList"
+                class="form-control select2"
+                style="width:300px"
+                title="@ProductFamilyResource.ProductFamily">
+            <option value="">--@ProductFamilyResource.ProductFamily--</option>
+        </select>
+    </div>
+    <div class="row" style="margin-bottom:20px">
+        <div class="col-md-4">
+
+            <select asp-items="Model.Products"
+                    multiple="multiple"
+                    size="7"
+                    style="width:200px"
+                    id="productsList"></select>
+            <button type="button"
+                    class="btn btn-primary"
+                    style="vertical-align:top"
+                    onclick="SelectListTransfer('#productsList','#distList')">
+                <i class="fa fa-plus"></i>
+            </button>
+            <button type="button"
+                    class="btn btn-primary"
+                    style="vertical-align:top"
+                    onclick="SelectListTransferAll('#productsList','#distList')">
+                <i class="fa fa-plus-square-o"></i>
+            </button>
+        </div>
+        <div class="col-md-8">
+            <select multiple="multiple"
+                    size="7"
+                    asp-items="Model.SelectedProducts"
+                    asp-for="UpdateModel.ProductsIds"
+                    style="width:200px"
+                    id="distList"></select>
+
+            <button type="button"
+                    class="btn btn-primary"
+                    style="vertical-align:top"
+                    onclick="RemoveSelectListItem('#distList')">
+                <i class="fa fa-trash-o"></i>
+            </button>
+            <button type="button"
+                    class="btn btn-primary"
+                    style="vertical-align:top"
+                    onclick="RemoveAllSelectListItem('#distList')">
+                <i class="fa fa-trash"></i>
+            </button>
+
+        </div>
+    </div>
+
+    <partial name="_FormCommandsView" />
+</form>
+
+<partial name="_BacktoListView" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

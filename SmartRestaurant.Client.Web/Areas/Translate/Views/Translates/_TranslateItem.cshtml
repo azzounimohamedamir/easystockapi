@@ -1,0 +1,29 @@
+﻿@model ItemTranslatesModel
+@{
+    //ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix = $"Translates[{Model.Index}]";
+}
+<input type="hidden" asp-for="Index" />
+<input type="hidden" asp-for="PrimaryKeyValue" />
+<input type="hidden" asp-for="ColumnName" />
+<input type="hidden" asp-for="TableName" />
+<input type="hidden" asp-for="OriginalText" />
+
+
+<tr id="Translate-@Model.PrimaryKeyValue">
+
+    <td>
+        <label>@Model.OriginalText</label>
+    </td>
+
+    @foreach (var item in Model.TextTraslations)
+    {
+        <partial name="_TranslateColumn" model="item" />
+    }
+
+    <td>
+            
+        <div id="result-@Model.Index"></div>
+        
+    </td>
+
+</tr>

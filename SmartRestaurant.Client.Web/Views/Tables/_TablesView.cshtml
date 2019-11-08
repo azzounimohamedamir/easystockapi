@@ -1,0 +1,75 @@
+﻿@using SmartRestaurant.Client.Web.Models.Restaurants
+@using SmartRestaurant.Resources.Restaurants.Areas
+@using SmartRestaurant.Resources.Restaurants.Floors
+@using SmartRestaurant.Resources.Restaurants.Restaurants
+@using SmartRestaurant.Resources.UI.Areas.Admin
+@model SmartRestaurant.Client.Web.Models.Restaurants.TableItemViewModel
+
+<form method="post" class="form-inline filter">
+    <div class="form-group">
+        <input type="text" id="Name" class="form-control" placeholder="Name" />
+    </div>
+    <div class="form-group">
+        <select id="restaurantsList" asp-items="Model.TableFilterViewModel.Restaurants" asp-for="TableFilterViewModel.SelectedRestaurantId"
+                class="form-control select2"
+                title="@RestaurantResource.Restaurant">
+            <option value="">--@RestaurantResource.Restaurant--</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <select id="floorsList"
+                asp-items="Model.TableFilterViewModel.Floors"
+                asp-for="TableFilterViewModel.SelectedFloorId"
+                class="form-control select2"
+                title="@AreaResource.FloorId">
+            <option value="">--@AreaResource.FloorId--</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <select id="areasList"
+                asp-items="Model.TableFilterViewModel.Areas"
+                asp-for="TableFilterViewModel.SelectedAreaId"
+                class="form-control select2"
+                title="@AreaResource.Area">
+            <option value="">--@AreaResource.Area--</option>
+        </select>
+    </div>
+    <input type="submit"
+           data-action="Index"
+           data-controller="Tables"
+           data-Table="Admin"
+           value="@SharedAdminResource.Search"
+           id="sr-form-submit"
+           class="btn btn-default" />
+
+</form>
+
+<table class="table">
+    <thead class="thead-inverse">
+        <tr>
+
+            <th>
+                @BaseResource.Name
+            </th>
+            <th>
+                @FloorResource.Floor
+            </th>
+            <th>
+                @AreaResource.Area
+            </th>
+            <th>
+                @BaseResource.IsDisabled
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Tables != null)
+        {
+            foreach (var item in Model.Tables)
+            {
+                <partial name="_TableListItemView" model="item" />
+            }
+        }
+    </tbody>
+</table>

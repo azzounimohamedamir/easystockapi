@@ -1,0 +1,157 @@
+﻿@using SmartRestaurant.Resources.UI.Areas.Admin.Navigation
+@using SmartRestaurant.Resources.UI.Areas.Clients.Navigation
+<div data-scroll-to-active="true" 
+     class="main-menu menu-fixed menu-dark menu-accordion menu-shadow">
+    <div class="main-menu-content">
+        <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+            <li class=" navigation-header">
+                <span>@AppClientNavigationResource.General</span>
+                <i data-toggle="tooltip" data-placement="right" data-original-title="@AppClientNavigationResource.General" class=" ft-minus"></i>
+            </li>
+            <li class=" nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="ft-home"></i>
+                    <span class="menu-title">
+                        @AppClientNavigationResource.Dashboard
+                    </span>
+                </a>
+                @*<ul class="menu-content">
+                    <li>
+                        <a href="dashboard-ecommerce.html" class="menu-item">eCommerce</a>
+                    </li>
+                    <li class="active">
+                        <a href="dashboard-analytics.html" class="menu-item">Analytics</a>
+                    </li>
+
+            </ul>*@
+            </li>
+
+
+            <li class=" navigation-header">
+                <span>@AppClientNavigationResource.MyProperty</span>
+                <i data-toggle="tooltip" data-placement="right" data-original-title="@AppClientNavigationResource.General" class=" ft-minus"></i>
+            </li>
+
+            <!--Menu-->
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class="icon-book-open"></i>
+                    <span class="menu-title">
+                        @AppNavigationResource.Menus
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a asp-controller="Menu" asp-action="Index" class="menu-item">@AppNavigationResource.MenusAll</a>
+                    </li>
+                    <li>
+                        @* class="active" *@
+                        <a asp-controller="Menu" asp-action="AddMenu" class="menu-item">@AppNavigationResource.MenusAddNew</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Menu" asp-action="Search" class="menu-item">@AppNavigationResource.MenusSearch</a>
+                    </li>
+                </ul>
+            </li>
+            <!--End Menu-->
+            <!--Dishes-->
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="Index" asp-area="Clients">
+                    <i class="fa fa-fire"></i>
+                    <span class="menu-title">
+                        @AppClientNavigationResource.Dishes
+                    </span>
+                </a>
+                <ul>
+                    <li>
+                        <a asp-controller="DishesFamillies" asp-action="Index" asp-area="Clients" class="menu-item">@AppClientNavigationResource.DishesFamillies</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Dishes" asp-action="Index" asp-area="Clients" class="menu-item">@AppClientNavigationResource.Dishes</a>
+                    </li>
+                </ul>
+            </li>
+            <!--End Dishes-->
+            <!--Services-->
+            <li class="nav-item">
+                <a asp-controller="Services" asp-action="Index">
+                    <i class="fa fa-cutlery"></i>
+                    <span class="menu-title">
+                        @AppClientNavigationResource.Services
+                    </span>
+                </a>
+            </li>
+            <!--End Services-->
+            <!--Restaurants Staff-->
+            <li class="nav-item">
+                <a asp-controller="Products" asp-action="Index" asp-area="Clients">
+                    <i class="fa fa-barcode"></i>
+                    <span class="menu-title">
+                        @AppClientNavigationResource.Products
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a asp-controller="ProductFamillies" asp-action="Index" asp-area="Clients" class="menu-item">@AppClientNavigationResource.ProductsFamillies</a>
+                    </li>
+                    <li>
+                        @* class="active" *@
+                        <a asp-controller="Products" asp-action="Index" asp-area="Clients" class="menu-item">@AppClientNavigationResource.Products</a>
+                    </li>
+                </ul>
+            </li>
+            <!--End Staff-->
+
+
+
+
+            <li class=" navigation-header">
+                <span>@AppClientNavigationResource.Settings</span>
+                <i data-toggle="tooltip" data-placement="right" data-original-title="@AppClientNavigationResource.General" class=" ft-minus"></i>
+            </li>
+            <li>
+                <a asp-controller="Restaurants" asp-action="Index" asp-area="Clients">
+                    <i class="ft-folder"></i>
+                    <span class="menu-title">
+                        @AppClientNavigationResource.Restaurants
+                    </span>
+                </a>
+            </li>
+            <!--Restaurants Staff-->
+            <li class="nav-item">
+                <a asp-controller="Staff" asp-action="Index" asp-area="Clients">
+                    <i class="fa fa-users"></i>
+                    <span class="menu-title">
+                        @AppClientNavigationResource.Staff
+                    </span>
+                </a>
+            </li>
+            <!--End Staff-->
+            <!--Restaurant Floors-->
+            <li class=" nav-item">
+                <a asp-controller="Floors" asp-action="Index" asp-area="Clients"><i class="ft-align-justify"></i> @AppClientNavigationResource.Floors</a>
+            </li>
+            <!--End Restaurant Floors-->
+            <!--Restaurant Areas-->
+            <li class=" nav-item">
+                <a asp-controller="Areas" asp-action="Index" asp-area="Clients"><i class="ft-square"></i> @AppClientNavigationResource.Areas</a>
+            </li>
+            <!--End Restaurant Areas-->
+            <!--Restaurant Tables-->
+            <li class=" nav-item">
+                <a asp-controller="Tables" asp-action="Index" asp-area="Clients"><i class="ft-grid"></i> @AppClientNavigationResource.Tables</a>
+            </li>
+            <!--End Restaurant Tables-->
+            <!--Galleries-->
+            <li class="nav-item">
+                <a asp-controller="Galleries" asp-action="Index" asp-area="Clients">
+                    <i class="ft-image"></i>
+                    <span class="menu-title">
+                        @AppClientNavigationResource.Galleries
+                    </span>
+                </a>
+            </li>
+            <!--End Galleries-->
+        </ul>
+    </div>
+</div>

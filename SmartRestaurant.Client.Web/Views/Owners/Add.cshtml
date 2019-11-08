@@ -1,0 +1,57 @@
+﻿@using SmartRestaurant.Application.Restaurants.Owners.Commands.Create
+@using SmartRestaurant.Resources.Foods.FoodCategories
+@using SmartRestaurant.Resources.Restaurants.Owners
+@model SmartRestaurant.Application.Restaurants.Owners.Commands.Create.CreateOwnerModel
+
+@{
+    ViewData["Title"] = FoodCategoryUtilsResource.AddPageTitle;
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label">@OwnerResource.FirstName</label>
+                <input asp-for="FirstName" class="form-control" placeholder="@OwnerResource.FirstName" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label">@OwnerResource.LastName</label>
+                <input asp-for="LastName" class="form-control" placeholder="@OwnerResource.LastName" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label">@OwnerResource.BirthDate</label>
+                <input asp-for="DateOfBirth" class="form-control datepicker" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Alias" class="control-label col-md-2">@BaseResource.Alias</label>
+                <input asp-for="Alias" class="form-control" placeholder="@BaseResource.Alias" />
+                <span asp-validation-for="Alias" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDisabled" /> @BaseResource.IsDisabled
+                </label>
+            </div>
+            <partial name="_FormCommandsView" />
+        </form>
+    </div>
+</div>
+
+<partial name="_BacktoListView" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

@@ -1,0 +1,10 @@
+﻿@using SmartRestaurant.Client.Web.Models.Dishes
+@model IEnumerable<SmartRestaurant.Client.Web.Models.Dishes.DishAccompanimentViewModel>
+@if (Model != null)
+{
+    foreach (var accompaniment in Model)
+    {
+        <partial name="_DishAccompainementUIView" model="accompaniment" />
+    }
+}
+

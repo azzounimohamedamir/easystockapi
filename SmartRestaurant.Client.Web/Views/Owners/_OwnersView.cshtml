@@ -1,0 +1,34 @@
+﻿@using SmartRestaurant.Application.Restaurants.Owners.Queries
+@using SmartRestaurant.Resources.Restaurants.Owners
+@model IEnumerable<SmartRestaurant.Application.Restaurants.Owners.Queries.OwnerItemModel>
+
+<table class="table">
+    <thead class="thead-inverse">
+        <tr>
+
+            <th>
+                @OwnerResource.FirstName
+            </th>
+            <th>
+                @OwnerResource.LastName
+            </th>
+
+            <th>
+                @OwnerResource.City
+            </th>
+            <th>
+                @BaseResource.IsDisabled
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <partial name="_OwnerListItemView" model="item" />
+            }
+        }
+    </tbody>
+</table>

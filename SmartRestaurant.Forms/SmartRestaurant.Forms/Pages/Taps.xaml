@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage
+    x:Class="SmartRestaurant.Forms.Pages.Taps"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cells="clr-namespace:SmartRestaurant.Forms.Pages"
+    xmlns:helpers="clr-namespace:SmartRestaurant.Forms.Helpers"
+    xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:local="clr-namespace:SmartRestaurant.Forms.ViewModels"
+    x:Name="dishmenu"
+    Title="Today's Menu">
+
+    <ContentPage Title="Tabb 1 ">
+
+        <ScrollView>
+            <!--<ListView
+                x:Name="DishesList"
+                ItemSelected="SelectedDish"
+                ItemsSource="{Binding menulist}"
+                ListView.HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <cells:DishCell ParentContext="{Binding Source={x:Reference Name=dishmenu}, Path=BindingContext}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>-->
+        </ScrollView>
+
+
+    </ContentPage>
+    <ContentPage Title="Tabb 2 ">
+
+        <Label Text="I am Tabb 2 " />
+    </ContentPage>
+    <ContentPage Title="Tabb 3 ">
+        <Label Text="I am Tabb 3 " />
+    </ContentPage>
+    <ContentPage Title="Tabb 4 ">
+        <Label Text="I am Tabb 4 " />
+    </ContentPage>
+
+</TabbedPage>

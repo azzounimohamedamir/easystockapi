@@ -1,0 +1,60 @@
+﻿@model AddressViewModel
+
+<div class="form-control">
+    <label asp-for="@CountryResource.Country">@CountryResource.Country</label>
+    <select asp-items="Model.Countries"
+            asp-for="AddressModel.Country"
+            id="countriesList"
+            title="@CountryResource.Country">
+        <option value="">--@CountryResource.Country"--</option>
+    </select>
+    <span asp-validation-for="AddressModel.Country" class="text-danger"></span>
+</div>
+<div class="form-control">
+    <label asp-for="@CountryResource.Country">@StateResource.State</label>
+    <select asp-items="Model.States"
+            asp-for="AddressModel.State"
+            id="statesList"
+            title="@StateResource.State">
+        <option value="">--@StateResource.State"--</option>
+    </select>
+    <span asp-validation-for="AddressModel.State" class="text-danger"></span>
+</div>
+<div class="form-control">
+    <label asp-for="@CityResource.City">@CityResource.City</label>
+    <select asp-items="Model.Cities"
+            asp-for="AddressModel.City"
+            id="citiesList"
+            title="@CityResource.City">
+        <option value="">--@CityResource.City"--</option>
+    </select>
+    <span asp-validation-for="AddressModel.City" class="text-danger"></span>
+</div>
+<div class="form-control">
+    <label asp-for="@AddressResource.Street">@AddressResource.Street</label>
+    <input type="text"
+           asp-for="AddressModel.Street" 
+           placeholder="@AddressResource.Street" />    
+</div>
+<div class="form-control">
+    <label asp-for="@AddressResource.ZipCode">@AddressResource.ZipCode</label>
+    <input type="text"
+           asp-for="AddressModel.ZipCode"
+           placeholder="@AddressResource.ZipCode" />
+</div>
+
+<div class="container form-inline">
+
+    <div class="form-control">
+        <label asp-for="@AddressResource.Latitude">@AddressResource.Latitude</label>
+        <input type="text"
+               asp-for="AddressModel.Latitude"
+               placeholder="@AddressResource.Latitude" />
+    </div>
+    <div class="form-control">
+        <label asp-for="@AddressResource.Longitude">@AddressResource.Longitude</label>
+        <input type="text"
+               asp-for="AddressModel.Longitude"
+               placeholder="@AddressResource.Longitude" />
+    </div>
+</div>

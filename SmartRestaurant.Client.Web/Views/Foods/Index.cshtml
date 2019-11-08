@@ -1,0 +1,61 @@
+﻿@using SmartRestaurant.Client.Web.Models.Foods
+@using SmartRestaurant.Resources.Foods.Foods
+@using SmartRestaurant.Resources.UI.Areas.Admin
+@model SmartRestaurant.Client.Web.Models.Foods.FoodListViewModel
+@{
+    ViewData["Title"] = FoodUtilsResource.HomePageTitle;
+}
+    
+    <div class="card">
+        <div class="card-header">
+            <a class="btn btn-default add-entity"
+               asp-controller="Foods"
+               asp-action="add">@FoodUtilsResource.ButtonAddNewText</a>
+
+            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    <li>
+
+                    </li>
+                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                    <li><a data-action="reload" asp-controller="FoodsCategories" asp-action="Reload"><i class="ft-rotate-cw"></i></a></li>
+                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body collapse in">
+            <div>
+                <form method="get" asp-action="index" asp-controller="Foods" class="form-inline filter">
+                    <div class="form-group">
+                        <input type="text" class="form-control" asp-for="Filter.Name" name="name" />
+                    </div>
+                    <div class="form-group">
+                        <select asp-items="Model.Filter.Categories"
+                                asp-for="Filter.FoodCategoryId" name="categoryId"
+                                class="form-control select2"
+                                title="@FoodResource.FoodCategoryId">
+                            <option value="">--@FoodResource.FoodCategoryId--</option>
+                        </select>
+                    </div>                    
+                    <input type="submit"
+                           class="btn btn-default"
+                           value="@SharedAdminResource.Search" />
+                </form>
+            </div>
+            <div class="table-responsive"
+                 id="table-foods-categories">
+                <partial name="_FoodsView" model="Model.List" />
+                <div class="col-md-12">
+                    <div class="text-xs-center mb-3">
+                        <nav aria-label="Page navigation">
+                            <sr-pagination area="Admin" controller="Foods" action="Index"
+                                           current-page="@Model.List.PageIndex" 
+                                           total-pages="@Model.List.TotalPages"></sr-pagination>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

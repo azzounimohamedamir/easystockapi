@@ -1,0 +1,57 @@
+﻿@model TranslatesViewModel
+
+<form method="post" asp-action="index" asp-controller="Translates" class="form-inline filter">
+    <div class="form-group">
+        <select asp-items="Model.TablesNames" asp-for="SelectedTableName"
+                class="form-control select2"
+                style="width:300px"
+                title="@TranslatorResource.TableName">
+            <option value="">--@TranslatorResource.TableName--</option>
+        </select>
+
+    </div>
+    <div class="form-group">
+        <input type="submit"
+               class="btn btn-default"
+               value="@SharedAdminResource.Search" />
+    </div>
+</form>
+<table class="table" id="translateTable">
+    <thead class="thead-inverse">
+
+        <tr>
+            <th>Original Text</th>
+            @foreach (var item in Model.Languages)
+            {
+                <th>@item.EnglishName</th>
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="5">
+                @if (Model != null && Model.Translates != null)
+                {
+                    foreach (var item in Model.Translates)
+                    {
+                <form method="post" id="translate-@item.Index" asp-action="save" asp-controller="Translates" class="form-inline filter form-translate">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <partial name="_TranslateItem" model="item" />
+                            </tr>
+                        </tbody>
+                    </table>
+                    <input type="submit" id="btnSave-@item.Index"
+                           class="btn btn-default btn-translate"
+                           value="@SharedAdminResource.Save" data-index="@item.Index" />
+                </form>
+                    }
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+

@@ -1,0 +1,69 @@
+﻿@using SmartRestaurant.Client.Web.Models.Dishes
+@using SmartRestaurant.Resources.Dishes.Dish
+@using SmartRestaurant.Resources.UI.Areas.Admin
+@model SmartRestaurant.Client.Web.Models.Dishes.DishListViewModel
+@{
+    ViewData["Title"] = DishUtilsResource.HomePageTitle;
+}
+    <div class="card">
+        <div class="card-header">
+            <a class="btn btn-default add-entity"
+               asp-controller="Dishes"
+               asp-action="add">@DishUtilsResource.ButtonAddNewText</a>
+
+            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    <li>
+
+                    </li>
+                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                    <li><a data-action="reload" asp-controller="Dishes" asp-action="Reload"><i class="ft-rotate-cw"></i></a></li>
+                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body collapse in">
+            <div>
+                <form method="get" asp-action="index" asp-controller="Dishes" class="form-inline filter">
+                    <div class="form-group">
+                        <input type="text" class="form-control" asp-for="Filter.Name" name="name" />
+                    </div>
+                    <div class="form-group">
+                        <select asp-items="Model.Filter.Restaurants"
+                                asp-for="Filter.RestaurantId" name="restaurantId"
+                                class="form-control select2"
+                                title="@DishResource.RestaurantId">
+                            <option value="">--@DishResource.RestaurantId--</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select asp-items="Model.Filter.Types"
+                                asp-for="Filter.Type" name="type"
+                                class="form-control select2"
+                                title="@DishResource.Type">
+                            <option value="">--@DishResource.Type--</option>
+                        </select>
+                    </div>
+                    <input type="submit"
+                           class="btn btn-default"
+                           value="@SharedAdminResource.Search" />
+                </form>
+            </div>
+            <div class="table-responsive"
+                 id="table-dishes">
+                <partial name="_DishesView" model="Model.List" />
+                
+                <div class="col-md-12">
+                    <div class="text-xs-center mb-3">
+                        <nav aria-label="Page navigation">
+                            <sr-pagination area="Admin" controller="Foods" action="Index"
+                                           current-page="@Model.List.PageIndex"
+                                           total-pages="@Model.List.TotalPages"></sr-pagination>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,48 @@
+﻿@using SmartRestaurant.Resources.Commun.Unit
+@model SmartRestaurant.Application.Commun.Units.Commands.Update.UpdateUnitModel
+
+@{
+    ViewData["Title"] = CityUtilsResource.EditPageTitle;
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">@BaseResource.Name</label>
+                <input asp-for="Name" class="form-control" placeholder="@BaseResource.Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Alias" class="control-label">@BaseResource.Alias</label>
+                <input asp-for="Alias" class="form-control" placeholder="@BaseResource.Alias" />
+                <span asp-validation-for="Alias" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Symbol" class="control-label">@UnitResource.Symbol</label>
+                <input asp-for="Symbol" class="form-control" placeholder="@UnitResource.Symbol" />
+                <span asp-validation-for="Symbol" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDisabled" /> @BaseResource.IsDisabled
+                </label>
+            </div>
+
+            <partial name="_FormCommandsView" />
+        </form>
+    </div>
+</div>
+
+<partial name="_BacktoListView" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

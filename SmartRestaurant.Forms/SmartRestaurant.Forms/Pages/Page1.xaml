@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SmartRestaurant.Forms.Pages.Page1"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cells="clr-namespace:SmartRestaurant.Forms.Pages"
+    xmlns:converter="clr-namespace:SmartRestaurant.Forms.Converters"
+    xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:numeric="clr-namespace:Syncfusion.SfNumericUpDown.XForms;assembly=Syncfusion.SfNumericUpDown.XForms"
+    xmlns:sync="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:vm="clr-namespace:SmartRestaurant.Forms.ViewModels"
+    x:Name="sampleView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:InverseZeroVisibilityConverter x:Key="inverseZeroVisibilityConverter" />
+            <converter:ZeroVisibilityConverter x:Key="zeroVisibilityConverter" />
+            <converter:CurrencyFormatConverter x:Key="currencyFormatConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:TestVM />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid x:Name="sampleLayout" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <!--  Head Titles  -->
+            <Frame
+                Margin="0"
+                Padding="0"
+                BackgroundColor="White"
+                HasShadow="True">
+                <Grid Padding="0" HeightRequest="56">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid
+                        x:Name="grid"
+                        Grid.Column="0"
+                        Margin="16,0,8,0">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            Opacity="0.87"
+                            Text="Product List"
+                            TextColor="White"
+                            VerticalOptions="Center" />
+                    </Grid>
+                    <Grid
+                        Grid.Column="1"
+                        Margin="0"
+                        Padding="20,0,0,0"
+                        BackgroundColor="White"
+                        ColumnSpacing="0"
+                        HorizontalOptions="EndAndExpand"
+                        RowSpacing="0"
+                        VerticalOptions="FillAndExpand">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OrderListCommand}" CommandParameter="{Binding Source={x:Reference Name=sampleView}}" />
+                        </Grid.GestureRecognizers>
+                        <ic:CircleImage
+                            Margin="0,0,16,0"
+                            Aspect="AspectFill"
+                            HeightRequest="20"
+                            InputTransparent="True"
+                            Source="img1"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                        <Frame
+                            Margin="0,12,6,0"
+                            Padding="0"
+                            BackgroundColor="#009688"
+                            CornerRadius="8"
+                            HasShadow="False"
+                            HeightRequest="14"
+                            HorizontalOptions="End"
+                            InputTransparent="True"
+                            IsVisible="{Binding TotalOrderedItems, Mode=OneWay, Converter={StaticResource inverseZeroVisibilityConverter}}"
+                            OutlineColor="Transparent"
+                            VerticalOptions="Start"
+                            WidthRequest="20">
+                            <Label
+                                Margin="0"
+                                FontSize="11"
+                                HorizontalOptions="Center"
+                                InputTransparent="True"
+                                Text="{Binding TotalOrderedItems}"
+                                TextColor="White"
+                                VerticalOptions="Center" />
+                        </Frame>
+                    </Grid>
+                </Grid>
+            </Frame>
+            <BoxView
+                x:Name="boxView"
+                Grid.Row="1"
+                BackgroundColor="#EAEAEA"
+                HeightRequest="0" />
+            <!--  End  -->
+            <!--  List View Items  -->
+            <sync:SfListView
+                x:Name="listView"
+                Grid.Row="2"
+                ItemSize="120"
+                ItemsSource="{Binding Products}"
+                LoadMoreCommand="{Binding LoadMoreItemsCommand}"
+                LoadMoreCommandParameter="{Binding Source={x:Reference Name=listView}}"
+                LoadMoreOption="Auto">
+                <!--    -->
+                <sync:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <!--<Grid
+                            Margin="0"
+                            Padding="0"
+                            BackgroundColor="White"
+                            HeightRequest="120"
+                            RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="1" />
+                            </Grid.RowDefinitions>
+                            <Grid
+                                Margin="{OnPlatform Default='15,12,15,12',
+                                                    Android='16'}"
+                                Padding="0"
+                                ColumnSpacing="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <ic:CircleImage
+                                    Aspect="AspectFit"
+                                    HorizontalOptions="Center"
+                                    Source="img1"
+                                    VerticalOptions="Center" />
+                                <Grid
+                                    Grid.Column="1"
+                                    Margin="{OnPlatform Default='12,0,0,0',
+                                                        Android='16,0,0,0'}"
+                                    Padding="0"
+                                    RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label
+                                        Margin="0,0,0,4"
+                                        FontSize="16"
+                                        HorizontalOptions="Start"
+                                        Opacity="0.87"
+                                        Text="{Binding Name}"
+                                        TextColor="{OnPlatform Default=#333333,
+                                                               Android=#000000}" />
+                                    <Label
+                                        Grid.Row="1"
+                                        FontSize="14"
+                                        HorizontalOptions="Start"
+                                        Opacity="{OnPlatform Default=1,
+                                                             Android=0.54}"
+                                        Text="{Binding Weight}"
+                                        TextColor="{OnPlatform Default=#757575,
+                                                               Android=#000000,
+                                                               UWP=#4C4C4C}" />
+                                    <Grid
+                                        Grid.Row="2"
+                                        Padding="0"
+                                        ColumnSpacing="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label
+                                            Margin="0,16,0,0"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            HorizontalOptions="Start"
+                                            Text="{Binding Price, Converter={StaticResource currencyFormatConverter}}"
+                                            TextColor="Green"
+                                            VerticalOptions="Start" />
+                                        <numeric:SfNumericUpDown
+                                            x:Name="numericUpDown"
+                                            Grid.Column="1"
+                                            AllowNull="false"
+                                            BackgroundColor="Green"
+                                            FormatString="n"
+                                            HorizontalOptions="End"
+                                            IsEditable="False"
+                                            IsVisible="{Binding Quantity, Converter={StaticResource inverseZeroVisibilityConverter}}"
+                                            Maximum="9"
+                                            MaximumDecimalDigits="0"
+                                            Minimum="0"
+                                            SpinButtonAlignment="Both"
+                                            TextAlignment="Center"
+                                            TextColor="#FFFFFF"
+                                            UpDownButtonColor="White"
+                                            VerticalOptions="Center"
+                                            Watermark="Units"
+                                            WidthRequest="150"
+                                            Value="{Binding Quantity, Mode=TwoWay}" />
+                                        <Button
+                                            x:Name="addButton"
+                                            Grid.Column="1"
+                                            BackgroundColor="#009688"
+                                            BorderColor="#009688"
+                                            BorderWidth="1"
+                                            Command="{Binding Path=BindingContext.AddCommand, Source={x:Reference Name=listView}}"
+                                            CommandParameter="{Binding .}"
+                                            FontSize="16"
+                                            HorizontalOptions="End"
+                                            IsVisible="{Binding Quantity, Converter={StaticResource zeroVisibilityConverter}}"
+                                            Text="ADD"
+                                            TextColor="#FFFFFF"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="80" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <BoxView
+                                x:Name="boxView"
+                                Grid.Row="1"
+                                BackgroundColor="#EAEAEA" />
+                        </Grid>-->
+                        <cells:DishTemplate Commands="{Binding Source={x:Reference sampleView}, Path=BindingContext.AddCommand}" />
+
+                    </DataTemplate>
+                </sync:SfListView.ItemTemplate>
+            </sync:SfListView>
+            <!--  End  -->
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

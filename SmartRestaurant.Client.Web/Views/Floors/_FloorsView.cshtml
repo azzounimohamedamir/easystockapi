@@ -1,0 +1,50 @@
+﻿@using SmartRestaurant.Client.Web.Models.Restaurants
+@using SmartRestaurant.Resources.Restaurants.Restaurants
+@using SmartRestaurant.Resources.UI.Areas.Admin
+@model SmartRestaurant.Client.Web.Models.Restaurants.FloorItemViewModel
+
+<form method="post" class="form-inline filter" >
+
+    <div class="form-group">       
+        <select id="restaurantsList" asp-items="Model.FloorFilterViewModel.Restaurants" asp-for="FloorFilterViewModel.SelectedRestaurantId"
+                class="form-control select2"
+                title="@RestaurantResource.Restaurant">
+            <option value="">--@RestaurantResource.Restaurant--</option>
+        </select>
+    </div> 
+    <input type="submit"
+           data-action="Index"
+           data-controller="Floors"
+           data-Floor="Admin"
+           value="@SharedAdminResource.Search"
+           id="sr-form-submit"           
+           class="btn btn-default" />
+
+</form>
+
+<table class="table">
+    <thead class="thead-inverse">
+        <tr>
+
+            <th>
+                @BaseResource.Name
+            </th>
+            <th>
+                @RestaurantResource.Restaurant
+            </th>
+            <th>
+                @BaseResource.IsDisabled
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Floors != null)
+        {
+            foreach (var item in Model.Floors)
+            {
+                <partial name="_FloorListItemView" model="item" />
+            }
+        }
+    </tbody>
+</table>

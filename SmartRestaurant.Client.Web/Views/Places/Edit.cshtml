@@ -1,0 +1,101 @@
+﻿@using SmartRestaurant.Client.Web.Models.Restaurants
+@using SmartRestaurant.Resources.Restaurants.Areas
+@using SmartRestaurant.Resources.Restaurants.Floors
+@using SmartRestaurant.Resources.Restaurants.Places
+@using SmartRestaurant.Resources.Restaurants.Restaurants
+@using SmartRestaurant.Resources.Restaurants.Tables
+@model SmartRestaurant.Client.Web.Models.Restaurants.PlaceViewModel
+
+@{
+    ViewData["Title"] = PlaceUtilsResource.EditPageTitle;
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="UpdateModel.Id" />
+
+
+            <div class="form-group">
+                <label asp-for="UpdateModel.Name" class="control-label">@BaseResource.Name</label>
+                <input asp-for="UpdateModel.Name" class="form-control" placeholder="@BaseResource.Name" />
+                <span asp-validation-for="UpdateModel.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="RestaurantId" class="control-label">@RestaurantResource.Restaurant</label>
+                <select asp-items="Model.Restaurants"
+                        asp-for="RestaurantId"
+                        id="restaurantsList"
+                        class="form-control select2"
+                        title="@RestaurantResource.Restaurant">
+                    <option value="">--@RestaurantResource.Restaurant--</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FloorId" class="control-label">@FloorResource.Floor</label>
+                <select asp-items="Model.Floors"
+                        asp-for="FloorId"
+                        id="floorsList"
+                        class="form-control select2"
+                        title="@FloorResource.Floor">
+                    <option value="">--@FloorResource.Floor--</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="AreaId" class="control-label">@AreaResource.Area</label>
+                <select id="areasList"
+                        asp-items="Model.Areas"
+                        asp-for="AreaId"
+                        class="form-control select2"
+                        title="@AreaResource.Area">
+                    <option value="">--@AreaResource.Area--</option>
+                </select>
+                <span asp-validation-for="UpdateModel.AreaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdateModel.TableId" class="control-label">@TableResource.Table</label>
+                <select id="areasList"
+                        asp-items="Model.Tables"
+                        asp-for="UpdateModel.TableId"
+                        class="form-control select2"
+                        title="@TableResource.Table">
+                    <option value="">--@TableResource.Table--</option>
+                </select>
+                <span asp-validation-for="UpdateModel.AreaId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="UpdateModel.Alias" class="control-label col-md-2">@BaseResource.Alias</label>
+                <input asp-for="UpdateModel.Alias" class="form-control" placeholder="@BaseResource.Alias" />
+                <span asp-validation-for="UpdateModel.Alias" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UpdateModel.Description" class="control-label">@BaseResource.Description</label>
+                <textarea asp-for="UpdateModel.Description" class="form-control" placeholder="@BaseResource.Description"></textarea>
+                <span asp-validation-for="UpdateModel.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="UpdateModel.IsDisabled" /> @BaseResource.IsDisabled
+                </label>
+            </div>
+            <partial name="_FormCommandsView" />
+        </form>
+    </div>
+</div>
+
+<partial name="_BacktoListView" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
