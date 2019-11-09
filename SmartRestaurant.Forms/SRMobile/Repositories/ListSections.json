@@ -1,0 +1,67 @@
+{
+  "SectionsList": [
+    {
+      "Id": 1,
+      "NameAr": "√ÿ»«ﬁ",
+      "NameFr": "Plats",
+      "NameEn": "Dish",
+      "Image": "dish.png"
+    },
+    {
+      "Id": 2,
+      "NameAr": "«·”‰œÊÌ‘« ",
+      "NameFr": "sandwichs",
+      "NameEn": "sandwiches",
+      "Image": "sandwich.png"
+    },
+    {
+      "Id": 3,
+      "NameAr": "«·»Ì “«",
+      "NameFr": "Pizzas",
+      "NameEn": "Pizzas",
+      "Image": "pizzas.png"
+    },
+    {
+      "Id": 4,
+      "NameAr": "”·ÿ…",
+      "NameFr": "Salades",
+      "NameEn": "Salad",
+      "Image": "salads.png"
+    },
+    {
+      "Id": 5,
+      "NameAr": "„‘—Ê»« ",
+      "NameFr": "Boissons",
+      "NameEn": "Drinks",
+      "Image": "soda.png"
+    },
+    {
+      "Id": 6,
+      "NameAr": "›Ê«ﬂÂ",
+      "NameFr": "Fruits",
+      "NameEn": "Fruits",
+      "Image": "fruits.png"
+    },
+    {
+      "Id": 7,
+      "NameAr": "Â«„»—€—",
+      "NameFr": "Hamburgers",
+      "NameEn": "Hamburgers",
+      "Image": "hamburger.png"
+    },
+    {
+      "Id": 8,
+      "NameAr": "»«” «",
+      "NameFr": "Pasta",
+      "NameEn": "Pasta",
+      "Image": "pasta.png"
+    },
+    {
+      "Id": 9,
+      "NameAr": " «ﬂÊ",
+      "NameFr": "Tacos",
+      "NameEn": "Tacos",
+      "Image": "tacos.png"
+    }
+  ]
+}

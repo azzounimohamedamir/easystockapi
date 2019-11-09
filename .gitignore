@@ -35,3 +35,9 @@
 /Translator/obj
 /SmartRestaurant.Client.Commun/bin/Debug/netcoreapp2.2
 /SmartRestaurant.Client.Web/bin/Debug/netcoreapp2.2
+/SmartRestaurant.Forms/SRMobile/bin/Debug
+/SmartRestaurant.Forms/SRMobile/obj
+/SmartRestaurant.Forms/SRMobile.Android/obj
+/SmartRestaurant.Forms/SRMobile.Android/bin/Debug
+/SmartRestaurant.Forms/SRMobile.UWP/obj
+/SmartRestaurant.Forms/SRMobile.iOS/obj

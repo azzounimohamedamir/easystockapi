@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ia="clr-namespace:IntelliAbb.Xamarin.Controls;assembly=IntelliAbb.Xamarin.Controls"
+             xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers"
+             mc:Ignorable="d"
+             x:Class="SmartRestaurant.Diner.Views.DeseasesAllergiesPage">
+    <ContentPage.Content>
+        <ScrollView Padding="5">
+            <StackLayout Orientation="Vertical" BackgroundColor="White">
+                <StackLayout Orientation="Vertical">
+                    <!--Deseases caption -->
+                    <Label HorizontalOptions="FillAndExpand" Text="{translator:Translate ListDeseasesCaption}" FontSize="48" Margin="10,0,0,0" TextColor="#3C536A"
+                        FontFamily="Roboto" FontAttributes="Bold" VerticalOptions="Center" Opacity="100">
+                    </Label>
+
+                    <!--Deseases sentence to ask the customer about his deseases-->
+                    <Label HorizontalOptions="FillAndExpand" Text="{translator:Translate ListDeseasesComment}" 
+                       FontSize="32" Margin="10,0,0,0"
+                       FontFamily="Roboto" VerticalOptions="Center" TextColor="#707070"/>
+                </StackLayout>
+                <Frame RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Constant=-70}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                   HasShadow="True" >
+                    <!--Deseases list-->
+                    <ListView x:Name="lvDeseases" ItemsSource="{Binding Deseases}" RowHeight="50"
+                    CachingStrategy="RecycleElement" SeparatorVisibility="Default" SeparatorColor="#01A9AC" SelectionMode="Single"
+                    SelectedItem="{Binding Path=SelectedDesease, Mode=TwoWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid HorizontalOptions="FillAndExpand">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <ia:Checkbox HorizontalOptions="Center" Shape="Rectangle" WidthRequest="35" HeightRequest="35"
+                                        OutlineColor="#01A9AC" FillColor="#01A9AC" CheckColor="White"
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay}" IsVisible="{Binding LeftCheck}"/> 
+                                        
+                                        <Label Grid.Column="1" HorizontalOptions="FillAndExpand" Text="{Binding Name, Mode=TwoWay}" Margin="0,0,0,0"
+                                            FontSize="24" FontFamily="Roboto" TextColor="Black" HorizontalTextAlignment="{Binding OrientationText}"
+                                            VerticalOptions="Center"/>
+                                        
+                                        <ia:Checkbox Grid.Column="2" HorizontalOptions="Center" Shape="Rectangle" WidthRequest="35" HeightRequest="35"
+                                        OutlineColor="#01A9AC" FillColor="#01A9AC" CheckColor="White"
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay}" IsVisible="{Binding RightCheck}"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </Frame>
+                <!--Button to navigate to the next page-->
+                <Button Text="{translator:Translate DeseasesAllergiesNext}" BackgroundColor="#01A9AC" FontSize="18" ImageSource="Next.PNG" ContentLayout="Right,20" 
+                    TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" Command="{Binding NextCommand}" Padding="0,0,30,0" Margin="0,0,0,5">
+                    <Button.WidthRequest>
+                        <OnIdiom x:TypeArguments="x:Double" Phone="200" Tablet="300" />
+                    </Button.WidthRequest>
+                    <Button.HeightRequest>
+                        <OnIdiom x:TypeArguments="x:Double" Phone="60" Tablet="60" />
+                    </Button.HeightRequest>
+                    <Button.BorderRadius>
+                        <OnIdiom x:TypeArguments="x:Int32" Phone="40" Tablet="40" />
+                    </Button.BorderRadius>
+                </Button>
+                
+                <StackLayout Orientation="Vertical">
+                    <!--Allergies caption-->
+                    <Label HorizontalOptions="FillAndExpand" Text="{translator:Translate ListAllergiesCaption}" FontSize="48" Margin="10,0,0,0" TextColor="#3C536A"
+                        FontFamily="Roboto" FontAttributes="Bold" VerticalOptions="Center" Opacity="100">
+                    </Label>
+                    
+                    <!--Allergies sentence to ask the customer about his allergies-->
+                    <Label HorizontalOptions="FillAndExpand" Text="{translator:Translate ListAllergiesComment}"
+                       FontSize="32" Margin="10,0,0,0" FontFamily="Roboto" VerticalOptions="Center" TextColor="#707070"/>
+                </StackLayout>
+
+                <Frame RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Constant=-70}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                   HasShadow="True" >
+                    <!--Allergies list-->
+                    <ListView x:Name="lvAllergies" ItemsSource="{Binding Allergies}" RowHeight="50"
+                    CachingStrategy="RecycleElement" SeparatorVisibility="Default" SeparatorColor="#01A9AC" SelectionMode="Single"
+                    SelectedItem="{Binding Path=SelectedAllergy, Mode=TwoWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid HorizontalOptions="FillAndExpand">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <ia:Checkbox HorizontalOptions="Center" Shape="Rectangle" WidthRequest="35" HeightRequest="35"
+                                            OutlineColor="#01A9AC" FillColor="#01A9AC" CheckColor="White"
+                                            IsChecked="{Binding IsSelected, Mode=TwoWay}" IsVisible="{Binding LeftCheck}"/>
+
+                                        <Label Grid.Column="1" HorizontalOptions="FillAndExpand" Text="{Binding Name, Mode=TwoWay}" Margin="0,0,0,0"
+                                            FontSize="24" FontFamily="Roboto" TextColor="Black" HorizontalTextAlignment="{Binding OrientationText}"
+                                            VerticalOptions="Center"/>
+
+                                        <ia:Checkbox Grid.Column="2" HorizontalOptions="Center" Shape="Rectangle" WidthRequest="35" HeightRequest="35"
+                                            OutlineColor="#01A9AC" FillColor="#01A9AC" CheckColor="White"
+                                            IsChecked="{Binding IsSelected, Mode=TwoWay}" IsVisible="{Binding RightCheck}"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Frame>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
