@@ -1158,8 +1158,6 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Migrations
                     b.Property<string>("Alias")
                         .HasMaxLength(5);
 
-                    b.Property<Guid>("ChefId");
-
                     b.Property<System.DateTime>("CreatedDate");
 
                     b.Property<string>("Description");
@@ -1174,11 +1172,13 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Migrations
 
                     b.Property<string>("SlugUrl");
 
+                    b.Property<Guid?>("StaffId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ChefId");
-
                     b.HasIndex("RestaurantId");
+
+                    b.HasIndex("StaffId");
 
                     b.ToTable("Menus");
                 });
@@ -2245,15 +2245,14 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Migrations
 
             modelBuilder.Entity("SmartRestaurant.Domain.Restaurants.Menu", b =>
                 {
-                    b.HasOne("SmartRestaurant.Domain.Restaurants.Staff", "Chef")
-                        .WithMany("Menus")
-                        .HasForeignKey("ChefId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("SmartRestaurant.Domain.Restaurants.Restaurant", "Restaurant")
                         .WithMany("Menus")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SmartRestaurant.Domain.Restaurants.Staff", "Staff")
+                        .WithMany("Menus")
+                        .HasForeignKey("StaffId");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Restaurants.MenuItem", b =>

@@ -44,7 +44,6 @@
     <Folder Include="Identity\Clients\" />
     <Folder Include="Identity\Guests\" />
     <Folder Include="Restaurants\Menu\Items\Queries\" />
-    <Folder Include="Restaurants\Menu\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

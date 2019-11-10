@@ -21,9 +21,9 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Restaur
                 .WithMany(r => r.Menus)
                 .HasForeignKey(m => m.RestaurantId);
 
-            //b.HasOne(m => m.Chef)
-            //     .WithMany(r => r.Menus)
-            //     .HasForeignKey(m => m.ChefId);
+            b.HasOne(m => m.Staff)
+                 .WithMany(r => r.Menus)
+                 .HasForeignKey(m => m.StaffId);
 
             b.HasMany(m => m.Items)
                 .WithOne(it => it.Menu)
