@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage
+    xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+    xmlns:lc="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+    xmlns:lb="clr-namespace:XLabs.Forms.Behaviors;assembly=XLabs.Forms"
+    mc:Ignorable="d"
+             x:Class="SmartRestaurant.Diner.Views.Popups.ChairSelectionPopup"
+    CloseWhenBackgroundIsClicked="False"
+    x:Name="instance"
+    BackgroundColor="Transparent"
+    IsAnimating="True"
+    >
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="0" Margin="0" >
+        <Frame WidthRequest="450" HeightRequest="350" Padding="15" BorderColor="#EEE" BackgroundColor="White" CornerRadius="10">
+            <Grid RowSpacing="0" ColumnSpacing="0"  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" TextColor="Black" HorizontalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Table : " FontSize="16"/>
+                            <Span Text="{Binding Numero_Table, Mode=TwoWay}" FontSize="16"/>
+                        </FormattedString>
+
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Grid.Row="1" TextColor="Black" FontSize="12" Text="Choisir le numéro de la chaise" HorizontalTextAlignment="Center"/>
+
+
+
+                <flv:FlowListView Grid.Row="2" FlowColumnCount="6" Margin="10" SeparatorVisibility="None"  HasUnevenRows="false"
+	FlowLastTappedItem ="{Binding Path=viewmodel.SelectedChair, Source={x:Reference Name=instance} , Mode=TwoWay}"
+                                                                  RowHeight="60"
+                                                                      
+                                                                      VerticalOptions="CenterAndExpand"
+                                FlowItemTapped="FlowListView_ItemTapped"                                      
+                                                                      HorizontalOptions="Center"
+                                 
+                                                                SelectionMode="Single"
+	FlowItemsSource="{Binding Chairs}" >
+                    <flv:FlowListView.FlowColumnTemplate
+                         
+                        >
+                        <DataTemplate>
+
+                            <Frame  Padding="5" Margin="5"
+                                                               WidthRequest="55" HeightRequest="55"                                    
+                                                               BorderColor="{Binding BorderColor}"
+                                    BackgroundColor="{Binding BackgroundColor}"
+                                                               CornerRadius="10"  >
+
+                                <lc:GesturesContentView ExcludeChildren="False" 
+                                                                                    GestureRecognized="GesturesContentView_GestureRecognized">
+                                    <lb:Gestures.Interests>
+                                        <lb:GestureCollection>
+                                            <lb:GestureInterest GestureType="SingleTap"/>
+                                            
+                                        </lb:GestureCollection>
+                                    </lb:Gestures.Interests>
+
+                                    <Label                                                                         
+                                                                    HeightRequest="40"
+                                        WidthRequest="40"
+                                                                    FontSize="14" FontAttributes="Bold" 
+                                                                    VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                                                                    BackgroundColor="{Binding BackgroundColor}"                                                                                                                                    
+                                                                    HorizontalOptions="Center"
+                                                                    >
+                                        <Label.FormattedText>
+                                            <FormattedString>
+
+                                                <Span Text="{Binding Numero, Mode=TwoWay}" FontSize="14"/>
+                                            </FormattedString>
+
+                                        </Label.FormattedText>
+
+
+                                    </Label>
+                                    <!--</multigestureviewplugin:MultiGestureView.Content>
+                                                            </multigestureviewplugin:MultiGestureView>-->
+                                </lc:GesturesContentView>
+                            </Frame>
+                            <!--<Stepper Value="{Binding NombreChaises, Mode=TwoWay}" Minimum="1" Maximum="12" Increment="1" HorizontalOptions="Center"/>-->
+
+
+
+                        </DataTemplate>
+                    </flv:FlowListView.FlowColumnTemplate>
+
+                </flv:FlowListView>
+
+
+                <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button  Text="Annuler" BackgroundColor="WhiteSmoke" FontSize="16" 
+                             Clicked="Cancel_Clicked"
+                    TextColor="#01A9AC" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End"
+                      Padding="5" Margin="5">
+                        <Button.WidthRequest>
+                            <OnIdiom x:TypeArguments="x:Double" Phone="100" Tablet="100" />
+                        </Button.WidthRequest>
+                        <Button.HeightRequest>
+                            <OnIdiom x:TypeArguments="x:Double" Phone="60" Tablet="60" />
+                        </Button.HeightRequest>
+                        <Button.BorderRadius>
+                            <OnIdiom x:TypeArguments="x:Int32" Phone="20" Tablet="20" />
+                        </Button.BorderRadius>
+                    </Button>
+                    <Button  Text="CHOISIR" Clicked="Choose_Clicked"  BackgroundColor="#01A9AC" FontSize="16" 
+                    TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End"
+                      Padding="5" Margin="5">
+                    <Button.WidthRequest>
+                        <OnIdiom x:TypeArguments="x:Double" Phone="100" Tablet="100" />
+                    </Button.WidthRequest>
+                    <Button.HeightRequest>
+                        <OnIdiom x:TypeArguments="x:Double" Phone="60" Tablet="60" />
+                    </Button.HeightRequest>
+                    <Button.BorderRadius>
+                        <OnIdiom x:TypeArguments="x:Int32" Phone="20" Tablet="20" />
+                    </Button.BorderRadius>
+                </Button>
+                </StackLayout>
+            </Grid>
+        </Frame>
+    </StackLayout>
+
+    
+</popup:PopupPage>

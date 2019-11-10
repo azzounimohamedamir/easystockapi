@@ -136,7 +136,7 @@ namespace SmartRestaurant.Diner.ViewModels
             string pw = GetPassword().Result;
             if ((pw == password)|| (password == "0000"))
             {
-                App.Current.MainPage = new NavigationPage(new LanguageView(new LanguageViewModel()));
+                App.Current.MainPage = new NavigationPage(new ZonesAndTablesPage(new Zones.ZonesListViewModel()));
             }
             else
             {

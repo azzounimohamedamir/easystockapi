@@ -3,6 +3,7 @@ using SmartRestaurant.Diner.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Tables
@@ -10,60 +11,42 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
     /// <summary>
     /// Used to manage tables as a ViewModel
     /// </summary>
-    public class TablesViewModel: SimpleViewModel
+    public class ChairsViewModel: SimpleViewModel
     {
-        public readonly TableModel table;
+        public readonly int table_Id;
+        public readonly int numero;
 
         /// <summary>
         /// Get the TableModel from the Model.
         /// </summary>
         /// <param name="_table"></param>
-        public TablesViewModel(TableModel _table)
+        public ChairsViewModel(int _table_Id,int _numero)
         {
-            this.table = _table;
+            table_Id = _table_Id;
+            numero = _numero;
+
         }
 
-        public int Id { get { return table.Id; } }
+        public int Id { get; }
+        
+        public int Numero
+        {
+            get { return numero; }
+            set
+            {
+                if (numero != value)
+                {
+                    Numero = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+ 
 
-        public string Numero
-        {
-            get { return table.Numero; }
-            set
-            {
-                if (table.Numero != value)
-                {
-                    table.Numero = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-        public short NombreChaises
-        {
-            get { return table.NombreChaises; }
-            set
-            {
-                if (table.NombreChaises != value)
-                {
-                    table.NombreChaises = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-        public int? ZoneId
-        {
-            get { return table.ZoneId; }
-            set
-            {
-                if (table.ZoneId != value)
-                {
-                    table.ZoneId = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+   
 
         /// <summary>
-        /// Used to indicate when a table is selected.
+        /// Used to indicate when a chair is selected.
         /// </summary>
         private bool isSelected;
         public bool IsSelected
@@ -73,16 +56,14 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 return isSelected;
             }
             set
-            {
-                if (isSelected != value)
-                {
+            { 
                     isSelected = value;
                     RaisePropertyChanged();
                     if (isSelected) BorderColor = Color.LightBlue;
                     else
-                        BorderColor = Color.Transparent;
+                    BorderColor = Color.Transparent;
                     RaisePropertyChanged("BorderColor");
-                }
+                    
             }
         }
         private Color bordercolor;
@@ -98,34 +79,29 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             set
             {
                 if (bordercolor != value)
+
                     bordercolor = value;
             }
         }
-        private List<int> takenChairs;
-        public List<int> TakenChairs
+
+
+        private bool isTaken;
+        public bool IsTaken
         {
             get
             {
-                if (takenChairs == null)
-                    takenChairs = new List<int>();
-                return takenChairs;
+                return isTaken;
             }
-            
             set
             {
-                
-
-                    takenChairs = value;
-                    if (takenChairs!=null && takenChairs.Count >0)
-                    {
-
-                    BackgroundColor = Color.LightBlue; }
-
-                        else
+                isTaken = value;
+                RaisePropertyChanged();
+                if (isTaken)
+                    BackgroundColor = Color.Orange;
+                else
                     BackgroundColor = Color.Transparent;
-                        RaisePropertyChanged("BackgroundColor");
-                   
-                
+                RaisePropertyChanged("BackgroundColor");
+
             }
         }
         private Color backgroundcolor;
@@ -133,7 +109,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         {
             get
             {
-                if (takenChairs != null && takenChairs.Count > 0)
+                if (IsTaken)
                     return Color.Orange;
                 else
                     return Color.Transparent;
@@ -145,6 +121,5 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                     backgroundcolor = value;
             }
         }
-
     }
 }

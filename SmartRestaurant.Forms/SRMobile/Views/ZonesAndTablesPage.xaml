@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:ia="clr-namespace:IntelliAbb.Xamarin.Controls;assembly=IntelliAbb.Xamarin.Controls"
+             xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers"
+             xmlns:controls="clr-namespace:SmartRestaurant.Diner.CustomControls"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             xmlns:effects="clr-namespace:SmartRestaurant.Diner.CustomEffects"
+             xmlns:lc="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             xmlns:lb="clr-namespace:XLabs.Forms.Behaviors;assembly=XLabs.Forms"
+             xmlns:multigestureviewplugin="clr-namespace:MultiGestureViewPlugin;assembly=MultiGestureViewPlugin"
+             mc:Ignorable="d"
+             x:Class="SmartRestaurant.Diner.Views.ZonesAndTablesPage"
+             x:Name="instance">
+
+    <ContentPage.Content>
+
+        <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="#FAF3F6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="0">
+                <StackLayout Padding="2">
+                    <controls:CustomListView ItemsSource = "{Binding Zones}" 
+                  
+                  HasUnevenRows = "true"
+                  SeparatorVisibility="Default" SeparatorColor="#000000"     
+                  SelectionMode="Single"
+                          SelectedItem="{Binding Path=SelectedZone}"                  
+                  ItemTapped    = "Handle_ItemTapped"
+                  Footer        = "">
+                        <controls:CustomListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+
+                                        <Grid Padding="10,20,10,20" Margin="5" BackgroundColor="#EEE">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="32"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0"  Text  ="{Binding Name}" FontSize="18"
+                                                   HorizontalTextAlignment="Center" TextColor="Black"  
+                                                   VerticalTextAlignment="Center"/>
+                                            <ffimageloading:CachedImage Aspect="AspectFit" Grid.Column="1" WidthRequest="20" HeightRequest="20">
+                                                <ffimageloading:CachedImage.Source>
+                                                    <OnPlatform x:TypeArguments="FileImageSource">
+                                                        <On Platform="iOS, Android" Value="arrow_down.png" />
+                                                        <On Platform="UWP" Value="Assets/france.png" />
+                                                    </OnPlatform>
+                                                </ffimageloading:CachedImage.Source>
+                                            </ffimageloading:CachedImage>
+                                        </Grid>
+
+
+                                        <Grid IsVisible="{Binding IsVisible}" HorizontalOptions="FillAndExpand"
+                                              Padding="2" Margin="2" VerticalOptions="FillAndExpand">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="1" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="1" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="1" />
+                                            </Grid.RowDefinitions>
+                                            <BoxView   Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="Gray" />
+                                            <BoxView   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BackgroundColor="Gray" />
+                                            <BoxView  Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="Gray" />
+                                            <BoxView  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="Gray" />
+                                            <ScrollView Padding="2" Margin="2" Grid.Row="1" Grid.Column="1" VerticalOptions="FillAndExpand">
+
+
+                                                <flv:FlowListView FlowColumnCount="3" Margin="2" SeparatorVisibility="None"  HasUnevenRows="false"
+	FlowLastTappedItem ="{Binding Path=viewmodel.SelectedTable, Source={x:Reference Name=instance} , Mode=TwoWay}"
+                                                                  RowHeight="120"
+                                                                      
+                                                                      VerticalOptions="CenterAndExpand"
+                                                                      FlowItemTapped="FlowListView_ItemTapped"
+                                                                      
+                                                                SelectionMode="Single"
+	FlowItemsSource="{Binding Tables.Tables}" >
+                                                    <flv:FlowListView.FlowColumnTemplate>
+                                                        <DataTemplate>
+                                                            
+                                                                <Frame Padding="15" Margin="10"
+                                                               WidthRequest="150" HeightRequest="80"
+                                                               BackgroundColor="{Binding BackgroundColor}"
+                                                               BorderColor="{Binding BorderColor}"
+                                                               CornerRadius="10" >
+                                                                   
+                                                                    <lc:GesturesContentView ExcludeChildren="False" 
+                                                                                    GestureRecognized="GesturesContentView_GestureRecognized">
+                                                                        <lb:Gestures.Interests>
+                                                                            <lb:GestureCollection>
+                                                                                <lb:GestureInterest GestureType="SingleTap"/>
+                                                                                <lb:GestureInterest GestureType="LongPress"/>
+                                                                                <lb:GestureInterest GestureType="DoubleTap"/>
+                                                                            </lb:GestureCollection>
+                                                                        </lb:Gestures.Interests>
+
+                                                                        <Label                                                                         
+                                                                    HeightRequest="85"
+                                                                    FontSize="16" FontAttributes="Bold" 
+                                                                    VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                                                                                                                                                                                                       
+                                                                    HorizontalOptions="Fill"
+                                                                    >
+                                                                            <Label.FormattedText>
+                                                                                <FormattedString>
+                                                                                    <Span Text="Table : " FontSize="16"/>
+                                                                                    <Span Text="{Binding Numero, Mode=TwoWay}" FontSize="16"/>
+                                                                                    <Span Text="&#10;Chaises : " FontSize="14" />
+                                                                                    <Span Text="{Binding NombreChaises, Mode=TwoWay}" FontSize="14" />
+                                                                                </FormattedString>
+
+                                                                            </Label.FormattedText>
+
+
+                                                                        </Label>
+                                                                        <!--</multigestureviewplugin:MultiGestureView.Content>
+                                                            </multigestureviewplugin:MultiGestureView>-->
+                                                                    </lc:GesturesContentView>
+                                                                </Frame>
+                                                                <!--<Stepper Value="{Binding NombreChaises, Mode=TwoWay}" Minimum="1" Maximum="12" Increment="1" HorizontalOptions="Center"/>-->
+
+                                                             
+
+                                                        </DataTemplate>
+                                                    </flv:FlowListView.FlowColumnTemplate>
+
+                                                </flv:FlowListView>
+
+
+                                            </ScrollView>
+                                        </Grid>
+
+
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </controls:CustomListView.ItemTemplate>
+                    </controls:CustomListView >
+                    <!--Button to navigate to the next page-->
+
+                </StackLayout>
+            </ScrollView>
+            <Button Grid.Row="0" Text="Confirmer" BackgroundColor="#01A9AC" FontSize="18" ImageSource="Next.PNG" ContentLayout="Right,20" 
+                    TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End"
+                            Command="{Binding NextCommand}" Padding="0,0,30,0" Margin="0,0,0,5">
+                <Button.WidthRequest>
+                    <OnIdiom x:TypeArguments="x:Double" Phone="200" Tablet="300" />
+                </Button.WidthRequest>
+                <Button.HeightRequest>
+                    <OnIdiom x:TypeArguments="x:Double" Phone="60" Tablet="60" />
+                </Button.HeightRequest>
+                <Button.BorderRadius>
+                    <OnIdiom x:TypeArguments="x:Int32" Phone="40" Tablet="40" />
+                </Button.BorderRadius>
+            </Button>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
