@@ -6,6 +6,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Java.Lang;
+using Java.Lang.Reflect;
+using Android.Graphics;
+using Android.Content;
+using Android.Util;
 
 namespace SmartRestaurant.Diner.Droid
 {
@@ -44,5 +49,6 @@ namespace SmartRestaurant.Diner.Droid
                 OnBackPressed();
             }
         }
+
     }
 }

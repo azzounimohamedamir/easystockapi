@@ -29,17 +29,12 @@ namespace SmartRestaurant.Diner.Views
 
             BindingContext = _model;
             viewmodel = (ZonesListViewModel)BindingContext;
-            Title = "Choix de table";
+            
 
 
         }
         public ZonesListViewModel viewmodel { get; private set; }
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightBlue;
-            ((NavigationPage)Application.Current.MainPage).BarTextColor = Color.MidnightBlue;
-        }
+
         void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
         {
             try
