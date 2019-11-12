@@ -49,15 +49,44 @@ namespace SmartRestaurant.Diner.Views
             }
         }
 
-     
-
-
-        private void FlowListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void FlowListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
-                t.IsSelected = false;
-            if(((ZonesListViewModel)BindingContext).SelectedTable !=null)
-            ((ZonesListViewModel)BindingContext).SelectedTable.IsSelected = true;
+            //foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
+            //    t.IsSelected = false;
+            //if(((ZonesListViewModel)BindingContext).SelectedTable !=null)
+            //((ZonesListViewModel)BindingContext).SelectedTable.IsSelected = true;
+
+            if (!((TablesViewModel)(((((View)sender))).BindingContext)).IsSelected)
+            {
+                foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
+                    if (t.Numero != ((TablesViewModel)(((View)sender).BindingContext)).Numero)
+                        t.IsSelected = false;
+                //((TablesViewModel)(((Label)sender).BindingContext)).IsSelected=!((TablesViewModel)(((Label)sender).BindingContext)).IsSelected;
+                if (!((TablesViewModel)(((((View)sender))).BindingContext)).IsSelected)
+                    this.viewmodel.SelectedTable = ((TablesViewModel)(((View)sender).BindingContext));
+                else
+                    this.viewmodel.SelectedTable = null;
+            }
+            var scaleAnimation = new ScaleAnimation
+            {
+                PositionIn = MoveAnimationOptions.Right,
+                PositionOut = MoveAnimationOptions.Left
+            };
+
+            cs_popup =
+            new ChairSelectionPopup(
+                (TablesViewModel)(((View)sender).BindingContext))
+            {
+                Animation = scaleAnimation
+            };
+            await PopupNavigation.PushAsync(cs_popup
+            , true);
+            bool anyselectedchair = true;
+            if (!anyselectedchair)
+            {
+                //Deselect the last selected table also its chairs
+                //Select this table also its selected chairs
+            }
 
 
         }

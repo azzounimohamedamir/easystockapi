@@ -134,7 +134,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             get
             {
                 if (takenChairs != null && takenChairs.Count > 0)
-                    return Color.Orange;
+                    return Color.FromHex("#FFA374");
                 else
                     return Color.Transparent;
             }

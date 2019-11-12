@@ -97,7 +97,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 isTaken = value;
                 RaisePropertyChanged();
                 if (isTaken)
-                    BackgroundColor = Color.Orange;
+                    BackgroundColor = Color.FromHex("#FFA374");
                 else
                     BackgroundColor = Color.Transparent;
                 RaisePropertyChanged("BackgroundColor");
@@ -110,7 +110,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             get
             {
                 if (IsTaken)
-                    return Color.Orange;
+                    return Color.FromHex("#FFA374");
                 else
                     return Color.Transparent;
             }
