@@ -134,7 +134,7 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
                            //Deselect chair/Update Table status
 
                         }
-                       // App.Current.MainPage.Navigation.PushAsync(new WelcomePage(new WelcomeViewModel()));
+                       App.Current.MainPage.Navigation.PushAsync(new LanguageView(new LanguageViewModel()));
                     }
                     catch (Exception)
                     {
