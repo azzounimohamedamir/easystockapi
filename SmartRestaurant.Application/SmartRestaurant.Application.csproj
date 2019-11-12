@@ -50,6 +50,7 @@
     <PackageReference Include="FluentValidation" Version="8.2.3" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="microsoft.entityframeworkcore" Version="2.2.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.19" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,6 +60,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="DataTables.AspNetCore.Mvc">
+      <HintPath>..\..\..\..\.nuget\packages\datatables.aspnetcore.mvc\1.4.2\lib\netstandard2.0\DataTables.AspNetCore.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Mvc.Abstractions">
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.mvc.abstractions\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Abstractions.dll</HintPath>
     </Reference>

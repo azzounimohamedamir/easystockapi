@@ -1,19 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using DataTables.AspNetCore.Mvc.Binder;
+using Helpers;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Commun.Datatables;
 using SmartRestaurant.Application.Interfaces;
+using System.Linq.Dynamic.Core;
 
 namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd
 {
-    public interface IGetAllMenuFiltredQuery
+    public interface IGetAllMenuFilterdQuery
     {
-        DataatablesQueryModel<MenuQueryModel> Execute(int page , int skipe, string term, Guid? restaurantId);
+        DatatablesQueryModel<MenuQueryModel> Execute(int page , int skipe, string term, IEnumerable<Order> orderClause, Guid? restaurantId);
     }
-    public class GetAllMenuFiltredQuery :IGetAllMenuFiltredQuery
+    public class GetAllMenuFilterdQuery :IGetAllMenuFilterdQuery
     {
         private ISmartRestaurantDatabaseService _db;
-        private ILoggerService<GetAllMenuFiltredQuery> _logger;
+        private ILoggerService<GetAllMenuFilterdQuery> _logger;
         private IMailingService _mailing;
         private INotifyService _notify;
         /// <summary>
@@ -23,8 +27,8 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd
         /// <param name="logger"></param>
         /// <param name="mailing"></param>
         /// <param name="notify"></param>
-        public GetAllMenuFiltredQuery(ISmartRestaurantDatabaseService db,
-            ILoggerService<GetAllMenuFiltredQuery> logger, IMailingService mailing,
+        public GetAllMenuFilterdQuery(ISmartRestaurantDatabaseService db,
+            ILoggerService<GetAllMenuFilterdQuery> logger, IMailingService mailing,
             INotifyService notify)
         {
             _db = db;
@@ -33,7 +37,7 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd
             _notify = notify;
         }
 
-        public DataatablesQueryModel<MenuQueryModel> Execute(int page, int skipe, string term, Guid? restaurantId)
+        public DatatablesQueryModel<MenuQueryModel> Execute(int page, int skipe, string term,IEnumerable<Order> orderClause, Guid? restaurantId)
         {
             var total = _db.Menus.Count();
             // build the query
@@ -48,9 +52,24 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd
             if (restaurantId.HasValue)
                 query = query.Where(x => x.RestaurantId == restaurantId);
             // order  by  clause   
-            var data = query
-                .OrderBy(x => x.Name)
-                .Skip(page)
+            if (orderClause !=null)
+            {
+                foreach (var order in orderClause)
+                {
+                    var propertyNam = LinqHelper.GetPropertyNameByIndex<MenuQueryModel>(order.Column);
+                    if (propertyNam.Contains("Restaurant"))
+                        propertyNam = "Restaurant.Name";
+                    query = query.OrderBy(String.Concat( propertyNam, order.Dir =="asc"? "" : " descending"));
+                }
+                
+                
+            }
+            else
+                query = query
+                    .OrderBy(x => x.Name);
+
+
+            var data = query.Skip(page)
                 // ReSharper disable once TooManyChainedReferences
                 .Take(skipe).Select(x => new MenuQueryModel
                 {
@@ -61,7 +80,7 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd
                     Restaurant = x.Restaurant.Name
                 });
             var totalFiltred = data.ToList().Count;
-            return new DataatablesQueryModel<MenuQueryModel>
+            return new DatatablesQueryModel<MenuQueryModel>
             {
                 Data = data,
                 RecordsTotal = total,

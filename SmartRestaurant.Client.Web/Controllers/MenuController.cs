@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using DataTables.AspNetCore.Mvc.Binder;
 using Microsoft.AspNetCore.Authorization;
@@ -28,7 +27,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly IGetAllRestaurantsQuery _getAllRestaurantsQuery;
         private readonly IGetChefsByRestaurantIdQuery _getChefsByRestaurantIdQuery;
         private readonly ICreateMenuCommand _createMenuCommand;
-        private readonly IGetAllMenuFiltredQuery _getAllMenuFiltredQuery;
+        private readonly IGetAllMenuFilterdQuery _getAllMenuFilterdQuery;
         private readonly UserManager<SRIdentityUser> _userManager;
         public MenuController(
             IConfiguration configuration, 
@@ -39,14 +38,14 @@ namespace SmartRestaurant.Client.Web.Controllers
             IGetAllRestaurantsQuery getAllRestaurantsQuery,
             IGetChefsByRestaurantIdQuery getChefsByRestaurantIdQuery, 
             ICreateMenuCommand createMenuCommand, 
-            IGetAllMenuFiltredQuery getAllMenuFiltredQuery,
+            IGetAllMenuFilterdQuery getAllMenuFilterdQuery,
             UserManager<SRIdentityUser> userManager) : base(configuration, mailing, notify, baselog)
         {
             _log = log;
             _getAllRestaurantsQuery = getAllRestaurantsQuery ?? throw new ArgumentNullException(nameof(getAllRestaurantsQuery));
             _getChefsByRestaurantIdQuery = getChefsByRestaurantIdQuery ?? throw new ArgumentNullException(nameof(getChefsByRestaurantIdQuery));
             _createMenuCommand = createMenuCommand;
-            _getAllMenuFiltredQuery = getAllMenuFiltredQuery;
+            _getAllMenuFilterdQuery = getAllMenuFilterdQuery;
             _userManager = userManager;
         }
 
@@ -98,10 +97,11 @@ namespace SmartRestaurant.Client.Web.Controllers
                     restarantId = Guid.Parse(owner.RestaurantId);
             }
 
-            var result = _getAllMenuFiltredQuery
+            var result = _getAllMenuFilterdQuery
                 .Execute(Convert.ToInt32(dataRequest.Start),
                     Convert.ToInt32(dataRequest.Length),
                     dataRequest.Search?.Value,
+                    dataRequest.Orders,
                     restarantId);
             return Json(result.Data.ToDataTablesResponse(dataRequest, result.RecordsTotal, result.RecordsFilterd));
 

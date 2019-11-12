@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace SmartRestaurant.Application.Commun.Datatables
 {
-    public class DataatablesQueryModel <T>
+    public class DatatablesQueryModel <T>
     {
         [JsonProperty("recordsTotal")]
         public int RecordsTotal { get; set; }

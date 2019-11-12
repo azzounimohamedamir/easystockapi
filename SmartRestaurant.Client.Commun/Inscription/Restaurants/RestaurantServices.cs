@@ -86,7 +86,7 @@ namespace SmartRestaurant.Client.Commun.Inscription.Restaurants
         public static IServiceCollection AddMenuServices(this IServiceCollection services)
         {
             services.AddScoped<ICreateMenuCommand, CreateMenuCommand>();
-            services.AddScoped<IGetAllMenuFiltredQuery, GetAllMenuFiltredQuery>();
+            services.AddScoped<IGetAllMenuFilterdQuery, GetAllMenuFilterdQuery>();
             return services;
         }
         public static IServiceCollection AddChainService(this IServiceCollection services)
