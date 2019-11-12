@@ -73,7 +73,19 @@ namespace SmartRestaurant.Diner.Views.Popups
         {
             ((ZonesListViewModel)BindingContext).SelectedTable.TakenChairs = oldvalue;
             PopupNavigation.PopAllAsync(true);
+            ((ZonesAndTablesPage)(((NavigationPage)Application.Current.MainPage)).CurrentPage).SetOpacity(1);
         }
-    
+
+        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                if ((Convert.ToInt32(e.NewTextValue))> ((ZonesListViewModel)BindingContext).SelectedTable.NombreChaises)
+                {
+                    ((ZonesListViewModel)BindingContext).SelectedTable.TakenChairs = ((ZonesListViewModel)BindingContext).SelectedTable.NombreChaises;
+                }
+                    }
+            catch { ((ZonesListViewModel)BindingContext).SelectedTable.TakenChairs = ((ZonesListViewModel)BindingContext).SelectedTable.NombreChaises; }
+        }
     }
 }

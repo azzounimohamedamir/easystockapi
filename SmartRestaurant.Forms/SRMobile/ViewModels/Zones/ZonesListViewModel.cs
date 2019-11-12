@@ -118,6 +118,7 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
                     try
                     {
                         PopupNavigation.PopAllAsync(true);
+                        ((ZonesAndTablesPage)(((NavigationPage)Application.Current.MainPage)).CurrentPage).SetOpacity (1);
                         var s = selectedTable;
                         //Post new state of chair
                         if (ZonesAndTablesPage.cs_popup.viewmodel.selectedTable.TakenChairs>0)
@@ -138,7 +139,7 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
                     catch (Exception)
                     {
 
-                        throw;
+                         
                     }
                 });
             }

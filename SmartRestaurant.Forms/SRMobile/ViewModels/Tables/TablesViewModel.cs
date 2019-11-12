@@ -116,7 +116,8 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 
 
                     takenChairs = value;
-                    if (takenChairs >0)
+                RaisePropertyChanged();
+                if (takenChairs >0)
                     {
 
                     BackgroundColor = Color.FromHex("#FFA374"); }

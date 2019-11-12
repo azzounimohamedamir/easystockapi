@@ -27,7 +27,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>-->
 
-        <ScrollView Padding="42,42,42,42" >
+        <ScrollView x:Name="mainscv" Padding="42,42,42,42" >
             <StackLayout>
                 <controls:CustomListView
                   ItemsSource = "{Binding Zones}"                   
@@ -168,7 +168,7 @@
                                                                             </lb:Gestures.Interests>
 
                                                                             <Label 
-                                                                            
+                                                                            TextColor="Black"
                                                                             HeightRequest="85"
                                                                             WidthRequest="208"
                                                                             FontAttributes="Bold" 
@@ -176,10 +176,11 @@
                                                                             HorizontalTextAlignment="Center"
                                                                             HorizontalOptions="Center"
                                                                             VerticalOptions="Center"
+                                                                                FontFamily="Assets/Fonts/Roboto.ttf" 
                                                                     >
                                                                                 <Label.FormattedText>
                                                                                     <FormattedString>
-                                                                                        <Span Text="Table : " FontSize="20"/>
+                                                                                        <Span Text="Table : " FontSize="20" />
                                                                                         <Span Text="{Binding Numero, Mode=TwoWay}" FontSize="20"/>
                                                                                         
                                                                                         <Span Text="&#10;Chaises : " FontSize="12" />

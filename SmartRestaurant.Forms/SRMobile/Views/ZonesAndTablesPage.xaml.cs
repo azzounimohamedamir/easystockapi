@@ -69,12 +69,20 @@ namespace SmartRestaurant.Diner.Views
             }
             var scaleAnimation = new ScaleAnimation
             {
-                PositionIn = MoveAnimationOptions.Right,
-                PositionOut = MoveAnimationOptions.Left
-            };
 
+                PositionIn = MoveAnimationOptions.Center,
+                PositionOut = MoveAnimationOptions.Center,
+                ScaleIn = 1.2,
+                ScaleOut = 0.8,
+                DurationIn = 400,
+                DurationOut = 300,
+            HasBackgroundAnimation =true,
+                EasingIn = Easing.SinOut, 
+                EasingOut = Easing.SinIn, 
+            };
+            mainscv.Opacity = 0.53;
             cs_popup =
-            new ChairSelectionPopup(viewmodel)
+            new ChairSelectionPopup((ZonesListViewModel)BindingContext)
             {
                 Animation = scaleAnimation
             };
@@ -125,12 +133,20 @@ namespace SmartRestaurant.Diner.Views
                     }
                     var scaleAnimation = new ScaleAnimation
                     {
-                        PositionIn = MoveAnimationOptions.Right,
-                        PositionOut = MoveAnimationOptions.Left
-                    };
 
+                        PositionIn = MoveAnimationOptions.Center,
+                        PositionOut = MoveAnimationOptions.Center,
+                        ScaleIn = 1.2,
+                        ScaleOut = 0.8,
+                        DurationIn = 400,
+                        DurationOut = 300,
+                        HasBackgroundAnimation = true,
+                        EasingIn = Easing.SinOut,
+                        EasingOut = Easing.SinIn,
+                    };
+                    mainscv.Opacity = 0.53;
                     cs_popup =
-                    new ChairSelectionPopup(viewmodel)
+                    new ChairSelectionPopup((ZonesListViewModel)BindingContext)
                     {
                         Animation = scaleAnimation
                     };
@@ -160,6 +176,11 @@ namespace SmartRestaurant.Diner.Views
                     break;
             }
 
+        }
+
+        internal void SetOpacity(double v)
+        {
+            mainscv.Opacity = v;
         }
     }
 }
