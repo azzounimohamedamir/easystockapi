@@ -1,4 +1,5 @@
-﻿using SmartRestaurant.Diner.Infrastructures;
+﻿using Rg.Plugins.Popup.Services;
+using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Services;
 using SmartRestaurant.Diner.ViewModels.Tables;
@@ -83,19 +84,19 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
             }
         }
 
-        private int selectedChair;
-        public int SelectedChair
-        {
-            get { return selectedChair; }
-            set
-            {
-                if (selectedChair != value)
-                {
-                    SetPropertyValue(ref selectedChair, value);
+        //private int selectedChair;
+        //public int SelectedChair
+        //{
+        //    get { return selectedChair; }
+        //    set
+        //    {
+        //        if (selectedChair != value)
+        //        {
+        //            SetPropertyValue(ref selectedChair, value);
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
         private ZonesViewModel selectedZone;
         public ZonesViewModel SelectedZone
         {
@@ -116,14 +117,15 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
                 return new Command(() => {
                     try
                     {
+                        PopupNavigation.PopAllAsync(true);
                         var s = selectedTable;
                         //Post new state of chair
-                        if (ZonesAndTablesPage.cs_popup.viewmodel.SelectedChair != null && ZonesAndTablesPage.cs_popup.viewmodel.SelectedChair.IsSelected)
+                        if (ZonesAndTablesPage.cs_popup.viewmodel.selectedTable.TakenChairs>0)
                         {
-                            ZonesAndTablesPage.cs_popup.viewmodel.SelectedChair.IsTaken = true;
-                            var temp = selectedTable.TakenChairs;
-                            temp.Add(ZonesAndTablesPage.cs_popup.viewmodel.SelectedChair.Numero);
-                            selectedTable.TakenChairs = temp;
+                            //ZonesAndTablesPage.cs_popup.viewmodel.SelectedChair.IsTaken = true;
+                            //var temp = selectedTable.TakenChairs;
+                            //temp.Add(ZonesAndTablesPage.cs_popup.viewmodel.SelectedChair.Numero);
+                            selectedTable.TakenChairs = ZonesAndTablesPage.cs_popup.viewmodel.selectedTable.TakenChairs;
                             
                         }
                         else

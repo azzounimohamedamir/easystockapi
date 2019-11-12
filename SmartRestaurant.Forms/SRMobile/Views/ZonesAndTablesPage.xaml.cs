@@ -56,14 +56,14 @@ namespace SmartRestaurant.Diner.Views
             //if(((ZonesListViewModel)BindingContext).SelectedTable !=null)
             //((ZonesListViewModel)BindingContext).SelectedTable.IsSelected = true;
 
-            if (!((TablesViewModel)(((((View)sender))).BindingContext)).IsSelected)
+            if (!((TablesViewModel)(e.Item)).IsSelected)
             {
                 foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
-                    if (t.Numero != ((TablesViewModel)(((View)sender).BindingContext)).Numero)
+                    if (t.Numero !=((TablesViewModel)( e.Item)).Numero)
                         t.IsSelected = false;
                 //((TablesViewModel)(((Label)sender).BindingContext)).IsSelected=!((TablesViewModel)(((Label)sender).BindingContext)).IsSelected;
-                if (!((TablesViewModel)(((((View)sender))).BindingContext)).IsSelected)
-                    this.viewmodel.SelectedTable = ((TablesViewModel)(((View)sender).BindingContext));
+                if (!((TablesViewModel)(e.Item)).IsSelected)
+                    this.viewmodel.SelectedTable = ((TablesViewModel)(e.Item));
                 else
                     this.viewmodel.SelectedTable = null;
             }
@@ -74,8 +74,7 @@ namespace SmartRestaurant.Diner.Views
             };
 
             cs_popup =
-            new ChairSelectionPopup(
-                (TablesViewModel)(((View)sender).BindingContext))
+            new ChairSelectionPopup(viewmodel)
             {
                 Animation = scaleAnimation
             };
@@ -111,7 +110,7 @@ namespace SmartRestaurant.Diner.Views
         {
             switch (e.GestureType)
             {
-                case GestureType.LongPress:
+                case GestureType.SingleTap:
 
                     if (!((TablesViewModel)(((((View)sender))).BindingContext)).IsSelected)
                     {
@@ -131,8 +130,7 @@ namespace SmartRestaurant.Diner.Views
                     };
 
                     cs_popup =
-                    new ChairSelectionPopup(
-                        (TablesViewModel)(((GesturesContentView)sender).BindingContext))
+                    new ChairSelectionPopup(viewmodel)
                     {
                         Animation = scaleAnimation
                     };
@@ -145,15 +143,15 @@ namespace SmartRestaurant.Diner.Views
                         //Select this table also its selected chairs
                     }
                     break;
-                case GestureType.SingleTap:
-                    foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
-                        if (t.Numero != ((TablesViewModel)(((GesturesContentView)sender).BindingContext)).Numero)
-                            t.IsSelected = false;
-                    //((TablesViewModel)(((Label)sender).BindingContext)).IsSelected=!((TablesViewModel)(((Label)sender).BindingContext)).IsSelected;
-                    if (!((TablesViewModel)(((((View)sender))).BindingContext)).IsSelected)
-                        this.viewmodel.SelectedTable = ((TablesViewModel)(((GesturesContentView)sender).BindingContext));
-                    else
-                        this.viewmodel.SelectedTable = null;
+                case GestureType.LongPress:
+                    //foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
+                    //    if (t.Numero != ((TablesViewModel)(((GesturesContentView)sender).BindingContext)).Numero)
+                    //        t.IsSelected = false;
+                    ////((TablesViewModel)(((Label)sender).BindingContext)).IsSelected=!((TablesViewModel)(((Label)sender).BindingContext)).IsSelected;
+                    //if (!((TablesViewModel)(((((View)sender))).BindingContext)).IsSelected)
+                    //    this.viewmodel.SelectedTable = ((TablesViewModel)(((GesturesContentView)sender).BindingContext));
+                    //else
+                    //    this.viewmodel.SelectedTable = null;
                     break;
                 case GestureType.DoubleTap:
                     // Add code here

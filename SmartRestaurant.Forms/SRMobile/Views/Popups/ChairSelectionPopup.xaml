@@ -36,8 +36,9 @@
                 <Label Grid.Row="1" TextColor="Black" FontSize="12" Text="Choisir le numéro de la chaise" HorizontalTextAlignment="Center"/>
 
 
-
-                <flv:FlowListView Grid.Row="2" FlowColumnCount="6" Margin="10" SeparatorVisibility="None"  HasUnevenRows="false"
+                <Stepper Grid.Row="2" Value="{Binding TakenChairs, Mode=TwoWay}" Minimum="0"
+                         Maximum="{Binding NombreChaises, Mode=TwoWay}"  Increment="1" HorizontalOptions="Center"/>
+                <!--<flv:FlowListView Grid.Row="2" FlowColumnCount="6" Margin="10" SeparatorVisibility="None"  HasUnevenRows="false"
 	FlowLastTappedItem ="{Binding Path=viewmodel.SelectedChair, Source={x:Reference Name=instance} , Mode=TwoWay}"
                                                                   RowHeight="60"
                                                                       
@@ -63,7 +64,7 @@
                                     <lb:Gestures.Interests>
                                         <lb:GestureCollection>
                                             <lb:GestureInterest GestureType="SingleTap"/>
-                                            
+
                                         </lb:GestureCollection>
                                     </lb:Gestures.Interests>
 
@@ -85,18 +86,20 @@
 
 
                                     </Label>
-                                    <!--</multigestureviewplugin:MultiGestureView.Content>
-                                                            </multigestureviewplugin:MultiGestureView>-->
+
+                                    
+
                                 </lc:GesturesContentView>
                             </Frame>
-                            <!--<Stepper Value="{Binding NombreChaises, Mode=TwoWay}" Minimum="1" Maximum="12" Increment="1" HorizontalOptions="Center"/>-->
-
+                            
+                                    
+                            
 
 
                         </DataTemplate>
                     </flv:FlowListView.FlowColumnTemplate>
 
-                </flv:FlowListView>
+                </flv:FlowListView>-->
 
 
                 <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Center">
@@ -114,7 +117,8 @@
                             <OnIdiom x:TypeArguments="x:Int32" Phone="20" Tablet="20" />
                         </Button.BorderRadius>
                     </Button>
-                    <Button  Text="CHOISIR" Clicked="Choose_Clicked"  BackgroundColor="#01A9AC" FontSize="16" 
+                    <Button  Text="CHOISIR"   BackgroundColor="#01A9AC" FontSize="16" 
+                             Command="{Binding NextCommand}"
                     TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End"
                       Padding="5" Margin="5">
                     <Button.WidthRequest>

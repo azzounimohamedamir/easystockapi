@@ -80,7 +80,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                     RaisePropertyChanged();
                     if (isSelected) BorderColor = Color.LightBlue;
                     else
-                        BorderColor = Color.Transparent;
+                        BorderColor = Color.FromHex("#E5E5E5");
                     RaisePropertyChanged("BorderColor");
                 }
             }
@@ -93,7 +93,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 if (isSelected)
                     return Color.LightBlue;
                 else
-                    return Color.LightGray;
+                    return Color.FromHex("#E5E5E5");
             }
             set
             {
@@ -101,13 +101,13 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                     bordercolor = value;
             }
         }
-        private List<int> takenChairs;
-        public List<int> TakenChairs
+        private int takenChairs;
+        public  int TakenChairs
         {
             get
             {
-                if (takenChairs == null)
-                    takenChairs = new List<int>();
+                //if (takenChairs == null) **** if we consider that chairs are numbered
+                //    takenChairs = new List<int>();
                 return takenChairs;
             }
             
@@ -116,10 +116,10 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 
 
                     takenChairs = value;
-                    if (takenChairs!=null && takenChairs.Count >0)
+                    if (takenChairs >0)
                     {
 
-                    BackgroundColor = Color.LightBlue; }
+                    BackgroundColor = Color.FromHex("#FFA374"); }
 
                         else
                     BackgroundColor = Color.Transparent;
@@ -133,7 +133,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         {
             get
             {
-                if (takenChairs != null && takenChairs.Count > 0)
+                if (takenChairs > 0)
                     return Color.FromHex("#FFA374");
                 else
                     return Color.Transparent;

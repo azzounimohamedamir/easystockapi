@@ -4,79 +4,80 @@
       "Id": 1,
       "Numero": 1,
       "NombreChaises": 6,
-      "ZoneId": 1
+      "ZoneId": 1,"NombreChaises_Occupées":0
     },
     {
       "Id": 2,
       "Numero": 2,
       "NombreChaises": 8,
-      "ZoneId": 1
+      "ZoneId": 1,"NombreChaises_Occupées":0
     },
     {
       "Id": 3,
       "Numero": 3,
       "NombreChaises": 10,
-      "ZoneId": 1
+      "ZoneId": 1,"NombreChaises_Occupées":0
     },
     {
       "Id": 4,
       "Numero": 4,
       "NombreChaises": 4,
-      "ZoneId": 1
+      "ZoneId": 1,"NombreChaises_Occupées":0
     },
     {
       "Id": 5,
       "Numero": 5,
       "NombreChaises": 4,
-      "ZoneId": 1
+      "ZoneId": 1,"NombreChaises_Occupées":0
     },
     {
       "Id": 6,
       "Numero": 6,
       "NombreChaises": 5,
-      "ZoneId": 1
+      "ZoneId": 1,"NombreChaises_Occupées":0
     },
     {
       "Id": 7,
       "Numero": 7,
       "NombreChaises": 4,
-      "ZoneId": 1
+      "ZoneId": 1,"NombreChaises_Occupées":0
     },
     {
       "Id": 8,
       "Numero": 8,
       "NombreChaises": 4,
-      "ZoneId": 1
+      "ZoneId": 1,"NombreChaises_Occupées":0
     },
     {
       "Id": 9,
       "Numero": 9,
       "NombreChaises": 4,
-      "ZoneId": 1
+      "ZoneId": 1,"NombreChaises_Occupées":0
     },
     {
       "Id": 10,
       "Numero": 10,
       "NombreChaises": 4,
-      "ZoneId": 1
+      "ZoneId": 1,"NombreChaises_Occupées":0
     },
     {
       "Id": 11,
       "Numero": 11,
       "NombreChaises": 4,
-      "ZoneId": 1
+      "ZoneId": 1,"NombreChaises_Occupées":0
     },
     {
       "Id": 12,
       "Numero": 12,
       "NombreChaises": 4,
-      "ZoneId": 1
+      "ZoneId": 1,"NombreChaises_Occupées":0
     },
     {
       "Id": 13,
       "Numero": 13,
       "NombreChaises": 4,
-      "ZoneId": 1
+      "ZoneId": 1,"NombreChaises_Occupées":0
+      
     }
   ]
 }
