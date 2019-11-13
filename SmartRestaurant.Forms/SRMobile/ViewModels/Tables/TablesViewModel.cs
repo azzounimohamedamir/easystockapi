@@ -106,8 +106,6 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         {
             get
             {
-                //if (takenChairs == null) **** if we consider that chairs are numbered
-                //    takenChairs = new List<int>();
                 return takenChairs;
             }
             

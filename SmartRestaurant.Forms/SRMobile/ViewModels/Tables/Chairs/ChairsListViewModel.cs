@@ -28,13 +28,6 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         public ChairsListViewModel(TablesViewModel table)
         {
 
-            //TableModel selectedtable = TableService.GetListTables().FirstOrDefault(t=>t.Id==table.Id);
-            //Numero_Table = selectedtable.Numero;
-            //Chairs = new ObservableCollection<ChairsViewModel>();
-            //for(int i=1;i<=selectedtable.NombreChaises;i++)
-            //{
-            //    Chairs.Add(new ChairsViewModel(table.Id, i) { IsTaken=table.TakenChairs==null?false: table.TakenChairs.Contains(i)});
-            //}
         }
  
 

@@ -20,13 +20,6 @@
              BackgroundColor="White">
 
     <ContentPage.Content>
-
-        <!--<Grid RowSpacing="0" ColumnSpacing="0" Padding="42,42,42,42">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>-->
-
         <ScrollView x:Name="mainscv" Padding="42,42,42,42" >
             <StackLayout>
                 <controls:CustomListView
@@ -182,60 +175,28 @@
                                                                                     <FormattedString>
                                                                                         <Span Text="Table : " FontSize="20" />
                                                                                         <Span Text="{Binding Numero, Mode=TwoWay}" FontSize="20"/>
-                                                                                        
                                                                                         <Span Text="&#10;Chaises : " FontSize="12" />
-                                                                                        <Span Text="{Binding TakenChairs, Mode=TwoWay}"
-                                                                                              TextColor="Black"
-                                                                                              FontSize="12" />
-                                                                                        <Span Text="/" FontSize="12" />
                                                                                         <Span Text="{Binding NombreChaises, Mode=TwoWay}" FontSize="12" />
                                                                                     </FormattedString>
 
                                                                                 </Label.FormattedText>
-
-
                                                                             </Label>
-
                                                                         </lc:GesturesContentView>
                                                                     </Frame>
                                                                 </StackLayout>
                                                             </DataTemplate>
                                                         </flv:FlowListView.FlowColumnTemplate>
-
                                                     </flv:FlowListView>
-
-
                                                 </ScrollView>
                                             </Grid>
                                         </Frame>
-
-
                                     </Grid>
-
                                 </Grid>
-
-
                             </ViewCell>
                         </DataTemplate>
                     </controls:CustomListView.ItemTemplate>
                 </controls:CustomListView >
-                <!--Button to navigate to the next page-->
-
             </StackLayout>
         </ScrollView>
-        <!--<Button Grid.Row="0" Text="Confirmer" BackgroundColor="#01A9AC" FontSize="18" ImageSource="Next.PNG" ContentLayout="Right,20" 
-                    TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End"
-                            Command="{Binding NextCommand}" Padding="0,0,30,0" Margin="0,0,0,5">
-                <Button.WidthRequest>
-                    <OnIdiom x:TypeArguments="x:Double" Phone="200" Tablet="300" />
-                </Button.WidthRequest>
-                <Button.HeightRequest>
-                    <OnIdiom x:TypeArguments="x:Double" Phone="60" Tablet="60" />
-                </Button.HeightRequest>
-                <Button.BorderRadius>
-                    <OnIdiom x:TypeArguments="x:Int32" Phone="40" Tablet="40" />
-                </Button.BorderRadius>
-            </Button>
-        </Grid>-->
     </ContentPage.Content>
 </ContentPage>

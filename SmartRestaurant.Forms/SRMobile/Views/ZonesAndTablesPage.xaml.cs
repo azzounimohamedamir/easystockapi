@@ -51,17 +51,11 @@ namespace SmartRestaurant.Diner.Views
 
         private async void FlowListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            //foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
-            //    t.IsSelected = false;
-            //if(((ZonesListViewModel)BindingContext).SelectedTable !=null)
-            //((ZonesListViewModel)BindingContext).SelectedTable.IsSelected = true;
-
             if (!((TablesViewModel)(e.Item)).IsSelected)
             {
                 foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
                     if (t.Numero !=((TablesViewModel)( e.Item)).Numero)
                         t.IsSelected = false;
-                //((TablesViewModel)(((Label)sender).BindingContext)).IsSelected=!((TablesViewModel)(((Label)sender).BindingContext)).IsSelected;
                 if (!((TablesViewModel)(e.Item)).IsSelected)
                     this.viewmodel.SelectedTable = ((TablesViewModel)(e.Item));
                 else
@@ -72,15 +66,17 @@ namespace SmartRestaurant.Diner.Views
 
                 PositionIn = MoveAnimationOptions.Center,
                 PositionOut = MoveAnimationOptions.Center,
-                ScaleIn = 1.2,
-                ScaleOut = 0.8,
-                DurationIn = 400,
-                DurationOut = 300,
+                ScaleIn = 3.2,
+                ScaleOut = 0.1,
+                DurationIn = 1500,
+                DurationOut = 1500,
             HasBackgroundAnimation =true,
                 EasingIn = Easing.SinOut, 
                 EasingOut = Easing.SinIn, 
             };
+            BackgroundColor = Color.FromHex("#777777");
             mainscv.Opacity = 0.53;
+
             cs_popup =
             new ChairSelectionPopup((ZonesListViewModel)BindingContext)
             {
@@ -89,97 +85,57 @@ namespace SmartRestaurant.Diner.Views
             await PopupNavigation.PushAsync(cs_popup
             , true);
             bool anyselectedchair = true;
-            if (!anyselectedchair)
-            {
-                //Deselect the last selected table also its chairs
-                //Select this table also its selected chairs
-            }
-
 
         }
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        { 
 
-
-        }
-
-        private void MultiGestureView_LongPressed(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MultiGestureView_Tapped(object sender, EventArgs e)
-        {
-
-        }
         public static ChairSelectionPopup cs_popup;
         private async void GesturesContentView_GestureRecognized(object sender, XLabs.Forms.Behaviors.GestureResult e)
         {
-            switch (e.GestureType)
+            if (e.GestureType == GestureType.SingleTap)
             {
-                case GestureType.SingleTap:
-
+                if (!((TablesViewModel)(((((View)sender))).BindingContext)).IsSelected)
+                {
+                    foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
+                        if (t.Numero != ((TablesViewModel)(((GesturesContentView)sender).BindingContext)).Numero)
+                            t.IsSelected = false;
+                    //((TablesViewModel)(((Label)sender).BindingContext)).IsSelected=!((TablesViewModel)(((Label)sender).BindingContext)).IsSelected;
                     if (!((TablesViewModel)(((((View)sender))).BindingContext)).IsSelected)
-                    {
-                        foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
-                            if (t.Numero != ((TablesViewModel)(((GesturesContentView)sender).BindingContext)).Numero)
-                                t.IsSelected = false;
-                        //((TablesViewModel)(((Label)sender).BindingContext)).IsSelected=!((TablesViewModel)(((Label)sender).BindingContext)).IsSelected;
-                        if (!((TablesViewModel)(((((View)sender))).BindingContext)).IsSelected)
-                            this.viewmodel.SelectedTable = ((TablesViewModel)(((GesturesContentView)sender).BindingContext));
-                        else
-                            this.viewmodel.SelectedTable = null;
-                    }
-                    var scaleAnimation = new ScaleAnimation
-                    {
+                        this.viewmodel.SelectedTable = ((TablesViewModel)(((GesturesContentView)sender).BindingContext));
+                    else
+                        this.viewmodel.SelectedTable = null;
+                }
+                var scaleAnimation = new ScaleAnimation
+                {
 
-                        PositionIn = MoveAnimationOptions.Center,
-                        PositionOut = MoveAnimationOptions.Center,
-                        ScaleIn = 1.2,
-                        ScaleOut = 0.8,
-                        DurationIn = 400,
-                        DurationOut = 300,
-                        HasBackgroundAnimation = true,
-                        EasingIn = Easing.SinOut,
-                        EasingOut = Easing.SinIn,
-                    };
-                    mainscv.Opacity = 0.53;
-                    cs_popup =
-                    new ChairSelectionPopup((ZonesListViewModel)BindingContext)
-                    {
-                        Animation = scaleAnimation
-                    };
-                    await PopupNavigation.PushAsync(cs_popup
-                    , true) ;
-                    bool anyselectedchair = true;
-                    if(!anyselectedchair)
-                    {
-                        //Deselect the last selected table also its chairs
-                        //Select this table also its selected chairs
-                    }
-                    break;
-                case GestureType.LongPress:
-                    //foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
-                    //    if (t.Numero != ((TablesViewModel)(((GesturesContentView)sender).BindingContext)).Numero)
-                    //        t.IsSelected = false;
-                    ////((TablesViewModel)(((Label)sender).BindingContext)).IsSelected=!((TablesViewModel)(((Label)sender).BindingContext)).IsSelected;
-                    //if (!((TablesViewModel)(((((View)sender))).BindingContext)).IsSelected)
-                    //    this.viewmodel.SelectedTable = ((TablesViewModel)(((GesturesContentView)sender).BindingContext));
-                    //else
-                    //    this.viewmodel.SelectedTable = null;
-                    break;
-                case GestureType.DoubleTap:
-                    // Add code here
-                    break;
-                default:
-                    break;
+                    PositionIn = MoveAnimationOptions.Center,
+                    PositionOut = MoveAnimationOptions.Center,
+                    ScaleIn = 1.2,
+                    ScaleOut = 0.8,
+                    DurationIn = 400,
+                    DurationOut = 300,
+                    HasBackgroundAnimation = true,
+                    EasingIn = Easing.SinOut,
+                    EasingOut = Easing.SinIn,
+                };
+                BackgroundColor = Color.FromHex("#777777");
+                mainscv.Opacity = 0.53;
+                cs_popup =
+                new ChairSelectionPopup((ZonesListViewModel)BindingContext)
+                {
+                    Animation = scaleAnimation
+                };
+                await PopupNavigation.PushAsync(cs_popup
+                , true);
+                bool anyselectedchair = true;
+
             }
-
         }
 
         internal void SetOpacity(double v)
         {
+
+            BackgroundColor = Color.White;
             mainscv.Opacity = v;
         }
     }

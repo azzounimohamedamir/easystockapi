@@ -84,19 +84,7 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
             }
         }
 
-        //private int selectedChair;
-        //public int SelectedChair
-        //{
-        //    get { return selectedChair; }
-        //    set
-        //    {
-        //        if (selectedChair != value)
-        //        {
-        //            SetPropertyValue(ref selectedChair, value);
 
-        //        }
-        //    }
-        //}
         private ZonesViewModel selectedZone;
         public ZonesViewModel SelectedZone
         {
@@ -114,18 +102,15 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
         {
             get
             {
-                return new Command(() => {
+                return new Command(async() => {
                     try
                     {
-                        PopupNavigation.PopAllAsync(true);
+                        await PopupNavigation.PopAllAsync(true);
                         ((ZonesAndTablesPage)(((NavigationPage)Application.Current.MainPage)).CurrentPage).SetOpacity (1);
                         var s = selectedTable;
-                        //Post new state of chair
+                        //Post new state 
                         if (ZonesAndTablesPage.cs_popup.viewmodel.selectedTable.TakenChairs>0)
                         {
-                            //ZonesAndTablesPage.cs_popup.viewmodel.SelectedChair.IsTaken = true;
-                            //var temp = selectedTable.TakenChairs;
-                            //temp.Add(ZonesAndTablesPage.cs_popup.viewmodel.SelectedChair.Numero);
                             selectedTable.TakenChairs = ZonesAndTablesPage.cs_popup.viewmodel.selectedTable.TakenChairs;
                             
                         }

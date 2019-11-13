@@ -12,118 +12,58 @@
     CloseWhenBackgroundIsClicked="False"
     x:Name="instance"
     BackgroundColor="Transparent"
-    IsAnimating="True"
+    IsAnimating="True"  
     >
     <StackLayout VerticalOptions="Center" HorizontalOptions="Center"  >
-        <Frame WidthRequest="520"  HeightRequest="390" Padding="1"  BackgroundColor="White" CornerRadius="20">
+        <Frame WidthRequest="460"  HeightRequest="390" Padding="1"  BackgroundColor="#FDFFFF" Opacity="1" CornerRadius="20">
             <Grid RowSpacing="0" ColumnSpacing="0"  >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="35" />
+                    <RowDefinition Height="60" />
                     <RowDefinition Height="30" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="60" />
+                    <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
-                <Label Margin="27,0,0,0" Grid.Row="0" FontFamily="Assets/Fonts/Roboto.ttf"  TextColor="Black" HorizontalTextAlignment="Start">
+                <Label Margin="27,0,0,0" Grid.Row="0" FontFamily="Assets/Fonts/Roboto.ttf"  
+                       VerticalTextAlignment="Center" VerticalOptions="Center" 
+                       TextColor="Black" HorizontalTextAlignment="Start">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Table : " FontSize="26"/>
-                            <Span Text="{Binding SelectedTable.Numero, Mode=TwoWay}" FontSize="26"/>
+                            <Span Text="Table : " FontSize="20"/>
+                            <Span Text="{Binding SelectedTable.Numero, Mode=TwoWay}" FontSize="20"/>
                         </FormattedString>
 
                     </Label.FormattedText>
                 </Label>
 
-                <Label  Margin="27,0,0,0"  Grid.Row="1" TextColor="Black" FontSize="15" FontFamily="Assets/Fonts/Roboto.ttf"  Text="Choisir le nombre de chaises" HorizontalTextAlignment="Start"/>
-                <StackLayout Grid.Row="2" VerticalOptions="Center">
+                <Label  Margin="27,0,0,0"  Grid.Row="1" TextColor="Black" FontSize="15"
+                        VerticalTextAlignment="Center" VerticalOptions="Center" 
+                        FontFamily="Assets/Fonts/Roboto.ttf"  Text="Choisir le nombre de chaises" HorizontalTextAlignment="Start"/>
+                <StackLayout Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center" Padding="20,0,20,0">
                     <Entry Keyboard="Numeric"   TextColor="Black" FontSize="26"  FontFamily="Assets/Fonts/Roboto.ttf"  WidthRequest="100"
                        Text="{Binding SelectedTable.TakenChairs, Mode=TwoWay}" TextChanged="Entry_TextChanged" HorizontalTextAlignment="Center"/>
 
-                <Stepper  Value="{Binding SelectedTable.TakenChairs, Mode=TwoWay}" Minimum="0"
+                    <Stepper  Value="{Binding SelectedTable.TakenChairs, Mode=TwoWay}" Minimum="0"
                          VerticalOptions="Center" HeightRequest="80" InputTransparent="False"
                          Maximum="{Binding SelectedTable.NombreChaises, Mode=TwoWay}"  Increment="1" HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
-                <!--<flv:FlowListView Grid.Row="2" FlowColumnCount="6" Margin="10" SeparatorVisibility="None"  HasUnevenRows="false"
-	FlowLastTappedItem ="{Binding Path=viewmodel.SelectedChair, Source={x:Reference Name=instance} , Mode=TwoWay}"
-                                                                  RowHeight="60"
-                                                                      
-                                                                      VerticalOptions="CenterAndExpand"
-                                FlowItemTapped="FlowListView_ItemTapped"                                      
-                                                                      HorizontalOptions="Center"
-                                 
-                                                                SelectionMode="Single"
-	FlowItemsSource="{Binding Chairs}" >
-                    <flv:FlowListView.FlowColumnTemplate
-                         
-                        >
-                        <DataTemplate>
-
-                            <Frame  Padding="5" Margin="5"
-                                                               WidthRequest="55" HeightRequest="55"                                    
-                                                               BorderColor="{Binding BorderColor}"
-                                    BackgroundColor="{Binding BackgroundColor}"
-                                                               CornerRadius="10"  >
-
-                                <lc:GesturesContentView ExcludeChildren="False" 
-                                                                                    GestureRecognized="GesturesContentView_GestureRecognized">
-                                    <lb:Gestures.Interests>
-                                        <lb:GestureCollection>
-                                            <lb:GestureInterest GestureType="SingleTap"/>
-
-                                        </lb:GestureCollection>
-                                    </lb:Gestures.Interests>
-
-                                    <Label                                                                         
-                                                                    HeightRequest="40"
-                                        WidthRequest="40"
-                                                                    FontSize="14" FontAttributes="Bold" 
-                                                                    VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
-                                                                    BackgroundColor="{Binding BackgroundColor}"                                                                                                                                    
-                                                                    HorizontalOptions="Center"
-                                                                    >
-                                        <Label.FormattedText>
-                                            <FormattedString>
-
-                                                <Span Text="{Binding Numero, Mode=TwoWay}" FontSize="14"/>
-                                            </FormattedString>
-
-                                        </Label.FormattedText>
-
-
-                                    </Label>
-
-                                    
-
-                                </lc:GesturesContentView>
-                            </Frame>
-                            
-                                    
-                            
-
-
-                        </DataTemplate>
-                    </flv:FlowListView.FlowColumnTemplate>
-
-                </flv:FlowListView>-->
-
-
-                <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="End">
-                    <Button  Text="Annuler" BackgroundColor="White" FontSize="20" 
-                             Clicked="Cancel_Clicked"  CornerRadius="10"
+                <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="End" Padding="20,0,20,0">
+                    <Button  Text="Annuler" BackgroundColor="White" FontSize="16" 
+                             Clicked="Cancel_Clicked"  CornerRadius="20"
                     TextColor="#01A9AC" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End" 
-                                WidthRequest="180"
+                                WidthRequest="150"
                              FontFamily="Assets/Fonts/Roboto.ttf" 
                              HeightRequest="48"
-                      Padding="5" Margin="5">
+                      >
 
                         
                     </Button>
-                    <Button  Text="CHOISIR"   BackgroundColor="#01A9AC" FontSize="20"  CornerRadius="20"
+                    <Button  Text="CHOISIR"   BackgroundColor="#01A9AC" FontSize="16"  CornerRadius="20"
                              Command="{Binding NextCommand}"
                              FontFamily="Assets/Fonts/Roboto.ttf" 
-                              WidthRequest="180"
+                              WidthRequest="150"
                              HeightRequest="48"
-                    TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End"
-                      Padding="5" Margin="5">
+                    TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End">
                    
                         
                 </Button>
