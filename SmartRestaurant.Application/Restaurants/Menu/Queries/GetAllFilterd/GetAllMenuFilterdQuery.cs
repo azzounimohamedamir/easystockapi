@@ -77,7 +77,8 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd
                     Name = x.Name,
                     Description = x.Description,
                     RestaurantId = x.RestaurantId.ToString(),
-                    Restaurant = x.Restaurant.Name
+                    Restaurant = x.Restaurant.Name,
+                    IsDisabled = x.IsDisabled
                 });
             var totalFiltred = data.ToList().Count;
             return new DatatablesQueryModel<MenuQueryModel>

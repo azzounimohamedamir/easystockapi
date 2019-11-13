@@ -25,6 +25,8 @@
                         cols.Add(c => c.Name).Data("name").Title(@BaseResource.Name);
                         cols.Add(c => c.Description).Data("description").Title(BaseResource.Description);
                         cols.Add(c => c.Restaurant).Data("restaurant").Render(() => "onRenderRestaurant").Title(RestaurantResource.Restaurant);
+                        cols.Add(c => c.IsDisabled).Data("isDisabled").Render(() => "onRenderDisabled").Title(BaseResource.IsDisabled);
+
                         cols.Add(c => c.Id).Data("id").Render(() => "onRender").Click("onClick");
                     })
                     .ServerSide(true)
@@ -49,6 +51,9 @@
     function onRenderRestaurant(data, type, row, meta) {
         console.log(row);
         return '<a href="@Url.Action("Edit","Restaurants")/?id=' + row.restaurantId+'">'+data+'</a>'
+    }
+    function onRenderDisabled(data, type, row, meta) {
+        return data === false ? "Non" : "Oui";
     }
     function onClick(e) {
         //if (e.data.type == 'remove') {

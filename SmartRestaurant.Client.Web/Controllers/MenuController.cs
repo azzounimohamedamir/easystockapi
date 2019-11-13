@@ -92,7 +92,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             var restarantId = default(Guid?);
             if (User.IsInRole("Owner"))
             {
-                var owner = await GetCurentowner();
+                var owner = await GetCurrentOwner();
                 if (owner != null)
                     restarantId = Guid.Parse(owner.RestaurantId);
             }
@@ -131,7 +131,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             // si l'utilisateur en cours n'est pas un admin (owner) on ramene son restaurant id
             if (User.IsInRole("Owner"))
             {
-                var owner = await GetCurentowner();
+                var owner = await GetCurrentOwner();
                 menu = new MenuViewModel
                 {
                     RestaurantId = Guid.Parse(owner.RestaurantId)
@@ -142,7 +142,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
         }
 
-        private async Task<SRIdentityUser> GetCurentowner()
+        private async Task<SRIdentityUser> GetCurrentOwner()
         {
             var owner = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             return owner;
