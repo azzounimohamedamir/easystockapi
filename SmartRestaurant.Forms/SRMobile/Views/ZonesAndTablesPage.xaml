@@ -139,17 +139,17 @@
                                                         FlowColumnCount="3"  SeparatorVisibility="None"  HasUnevenRows="false"
                                                                       FlowLastTappedItem =
                                                         "{Binding Path=viewmodel.SelectedTable, Source={x:Reference Name=instance} , Mode=TwoWay}"                                                                  
-                                                                      RowHeight="97"                                                                      
+                                                                      RowHeight="102"                                                                      
                                                                       VerticalOptions="CenterAndExpand"  
                                                         FlowItemTapped="FlowListView_ItemTapped"
                                                                       SelectionMode="Single"
                                                                       FlowItemsSource="{Binding Tables.Tables}" >
                                                         <flv:FlowListView.FlowColumnTemplate>
                                                             <DataTemplate>
-                                                                <StackLayout WidthRequest="216" HeightRequest="97" Margin="8,12,12,8"  >
+                                                                <StackLayout WidthRequest="216" HeightRequest="102" Margin="8,12,12,8"  >
                                                                     <Frame 
                                                                     HasShadow="False"
-                                                               WidthRequest="208" HeightRequest="85"
+                                                               WidthRequest="208" HeightRequest="90"
                                                                VerticalOptions="Center"
                                                                HorizontalOptions="Center"
                                                                BackgroundColor="{Binding BackgroundColor}"
@@ -169,7 +169,7 @@
 
                                                                             <Label 
                                                                             TextColor="Black"
-                                                                            HeightRequest="85"
+                                                                            HeightRequest="90"
                                                                             WidthRequest="208"
                                                                             FontAttributes="Bold" 
                                                                             VerticalTextAlignment="Center" 
