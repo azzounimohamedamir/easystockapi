@@ -15,12 +15,12 @@
              xmlns:multigestureviewplugin="clr-namespace:MultiGestureViewPlugin;assembly=MultiGestureViewPlugin"
              mc:Ignorable="d"
              x:Class="SmartRestaurant.Diner.Views.ZonesAndTablesPage"
-             Title="Choix de table"
+             Title="{translator:Translate ChooseTable}"
              x:Name="instance"
              BackgroundColor="White">
 
     <ContentPage.Content>
-        <ScrollView x:Name="mainscv" Padding="42,42,42,42" >
+        <ScrollView x:Name="mainscv" Padding="42,42,42,42" BackgroundColor="White">
             <StackLayout>
                 <controls:CustomListView
                   ItemsSource = "{Binding Zones}"                   
@@ -124,13 +124,9 @@
                                                 </Grid.RowDefinitions>
 
                                                 <ScrollView Grid.Row="0" Grid.Column="0" VerticalOptions="FillAndExpand" Margin="1">
-
-
-                                                    <flv:FlowListView 
-                                                        
-                                                        
+                                                    <flv:FlowListView                                                                                                                 
                                                         FlowColumnCount="3"  SeparatorVisibility="None"  HasUnevenRows="false"
-                                                                      FlowLastTappedItem =
+                                                        FlowLastTappedItem =
                                                         "{Binding Path=viewmodel.SelectedTable, Source={x:Reference Name=instance} , Mode=TwoWay}"                                                                  
                                                                       RowHeight="102"                                                                      
                                                                       VerticalOptions="CenterAndExpand"  
@@ -173,9 +169,12 @@
                                                                     >
                                                                                 <Label.FormattedText>
                                                                                     <FormattedString>
-                                                                                        <Span Text="Table : " FontSize="20" />
+                                                                                        <Span Text="{translator:Translate Table}" FontSize="20" />
+                                                                                        <Span Text=" : " FontSize="20" />
                                                                                         <Span Text="{Binding Numero, Mode=TwoWay}" FontSize="20"/>
-                                                                                        <Span Text="&#10;Chaises : " FontSize="12" />
+                                                                                        <Span Text="&#10;" FontSize="12" />
+                                                                                        <Span Text="{translator:Translate Chairs}" FontSize="12" />
+                                                                                        <Span Text=" : " FontSize="12" />
                                                                                         <Span Text="{Binding NombreChaises, Mode=TwoWay}" FontSize="12" />
                                                                                     </FormattedString>
 
