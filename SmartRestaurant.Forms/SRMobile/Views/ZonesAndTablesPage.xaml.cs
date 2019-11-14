@@ -98,8 +98,7 @@ namespace SmartRestaurant.Diner.Views
                 {
                     foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
                         if (t.Numero != ((TablesViewModel)(((GesturesContentView)sender).BindingContext)).Numero)
-                            t.IsSelected = false;
-                    //((TablesViewModel)(((Label)sender).BindingContext)).IsSelected=!((TablesViewModel)(((Label)sender).BindingContext)).IsSelected;
+                            t.IsSelected = false;                   
                     if (!((TablesViewModel)(((((View)sender))).BindingContext)).IsSelected)
                         this.viewmodel.SelectedTable = ((TablesViewModel)(((GesturesContentView)sender).BindingContext));
                     else
