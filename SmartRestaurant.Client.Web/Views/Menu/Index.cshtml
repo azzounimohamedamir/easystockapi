@@ -53,7 +53,7 @@
         return '<a href="@Url.Action("Edit","Restaurants")/?id=' + row.restaurantId+'">'+data+'</a>'
     }
     function onRenderDisabled(data, type, row, meta) {
-        return data === false ? "Non" : "Oui";
+        return data === false ? "@BaseResource.Activated" : "@BaseResource.Deactivated";
     }
     function onClick(e) {
         //if (e.data.type == 'remove') {

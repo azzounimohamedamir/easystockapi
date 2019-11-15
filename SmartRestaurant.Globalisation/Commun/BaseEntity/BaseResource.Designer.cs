@@ -19,7 +19,7 @@ namespace SmartRestaurant.Resources.Commun.BaseEntity {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class BaseResource {
@@ -61,6 +61,15 @@ namespace SmartRestaurant.Resources.Commun.BaseEntity {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activé.
+        /// </summary>
+        public static string Activated {
+            get {
+                return ResourceManager.GetString("Activated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alias.
         /// </summary>
         public static string Alias {
@@ -75,6 +84,15 @@ namespace SmartRestaurant.Resources.Commun.BaseEntity {
         public static string BirthDate {
             get {
                 return ResourceManager.GetString("BirthDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Désactivé.
+        /// </summary>
+        public static string Deactivated {
+            get {
+                return ResourceManager.GetString("Deactivated", resourceCulture);
             }
         }
         
@@ -97,7 +115,7 @@ namespace SmartRestaurant.Resources.Commun.BaseEntity {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Désactiver.
+        ///   Looks up a localized string similar to Statut.
         /// </summary>
         public static string IsDisabled {
             get {
