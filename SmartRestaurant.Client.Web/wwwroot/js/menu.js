@@ -236,8 +236,11 @@ function InitGalleryPictureEvents() {
     });
 }
 
-
-
+function onRender(data, type, row, meta) {
+    // <!--Trigger the modal with a button -- >
+    // <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+    return '<button type="button" data-type="view" class="btn btn-sm btn-default"><i class="fa fa-lg fa-fw fa-search"></i></button> <button type="button" data-type="remove" class="btn btn-sm btn-danger"><i class="fa fa-lg fa-fw fa-trash"></i></button>';
+}
 
 InitRestaurantEvent();
 InitIngredientEvents();

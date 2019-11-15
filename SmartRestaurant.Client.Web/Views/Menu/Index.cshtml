@@ -1,4 +1,7 @@
-﻿@using SmartRestaurant.Resources.Menus.Menu
+﻿@using DataTables.AspNetCore.Mvc
+@using SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd
+@using SmartRestaurant.Resources.Menus.Menu
+@using SmartRestaurant.Resources.Restaurants.Restaurants
 @{
     ViewData["Title"] = MenuUtilsResource.HomePageTitle;
 }
@@ -7,3 +10,74 @@
        asp-controller="Menu"
        asp-action="AddMenu">@MenuUtilsResource.ButtonAddNewText</a>
 </p>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<div class="row">
+    <div>
+
+        @*<table id="example" class="display" cellspacing="0" width="100%">
+            </table>*@
+
+        @(Html.Ext().Grid<MenuQueryModel>()
+              .Name("example").RowId("id").ClassName("table table-bordered")
+                    .Columns(cols =>
+                    {
+                        cols.Add(c => c.Name).Data("name").Title(@BaseResource.Name);
+                        cols.Add(c => c.Description).Data("description").Title(BaseResource.Description);
+                        cols.Add(c => c.Restaurant).Data("restaurant").Render(() => "onRenderRestaurant").Title(RestaurantResource.Restaurant);
+                        cols.Add(c => c.IsDisabled).Data("isDisabled").Render(() => "onRenderDisabled").Title(BaseResource.IsDisabled);
+
+                        cols.Add(c => c.Id).Data("id").Render(() => "onRender").Click("onClick");
+                    })
+                    .ServerSide(true)
+                    .LengthMenu(c =>
+                    {
+                        c.Add(new int[] { 10, 25, 50 });
+                        c.Add(-1, "All");
+                    })
+                    .DataSource(c =>
+                        c.Ajax().Url(Url.Action("Get")).Method("GET").DataSrc("data")
+                    )
+        )
+    </div>
+</div>
+
+<script>
+    function onRender(data, type, row, meta) {
+        // <!--Trigger the modal with a button -- >
+        // <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+        return '<button type="button" data-type="view" class="btn btn-sm btn-default"><i class="fa fa-lg fa-fw fa-edit"></i></button> <button type="button" data-type="remove" class="btn btn-sm btn-danger"><i class="fa fa-lg fa-fw fa-trash"></i></button>';
+    }
+    function onRenderRestaurant(data, type, row, meta) {
+        console.log(row);
+        return '<a href="@Url.Action("Edit","Restaurants")/?id=' + row.restaurantId+'">'+data+'</a>'
+    }
+    function onRenderDisabled(data, type, row, meta) {
+        return data === false ? "@BaseResource.Activated" : "@BaseResource.Deactivated";
+    }
+    function onClick(e) {
+        //if (e.data.type == 'remove') {
+        //    $("#itemId").val(e.row.id);
+        //    $("#myModal").modal();
+        //} else if (e.data.type == 'view') {
+        //    console.log(e);
+        //}
+    }
+    function onDelete() {
+        $("#myModal").modal("hide");
+        var id = $("#itemId").val();
+        var row = $("#example").DataTable().row('#' + id);
+        // Call HttpDelete on server
+        $.ajax({
+            url: '/api/value/' + id,
+            type: 'DELETE',
+            success: function (result) {
+                // Do something with the result
+                row.remove().draw(false);
+            }
+        });
+    }
+
+
+</script>
+

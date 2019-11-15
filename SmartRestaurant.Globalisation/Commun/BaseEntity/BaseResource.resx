@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Activated" xml:space="preserve">
+    <value>Activé</value>
+  </data>
   <data name="Alias" xml:space="preserve">
     <value>Alias</value>
   </data>
   <data name="BirthDate" xml:space="preserve">
     <value>Date de naissance</value>
+  </data>
+  <data name="Deactivated" xml:space="preserve">
+    <value>Désactivé</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -130,7 +136,7 @@
     <value>Id</value>
   </data>
   <data name="IsDisabled" xml:space="preserve">
-    <value>Désactiver</value>
+    <value>Statut</value>
   </data>
   <data name="IsoCode" xml:space="preserve">
     <value>Iso Code</value>
