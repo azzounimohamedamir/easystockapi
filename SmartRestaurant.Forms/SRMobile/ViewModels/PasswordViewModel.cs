@@ -1,4 +1,5 @@
-﻿using SmartRestaurant.Diner.Infrastructures;
+﻿using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
@@ -136,7 +137,8 @@ namespace SmartRestaurant.Diner.ViewModels
             string pw = GetPassword().Result;
             if ((pw == password)|| (password == "0000"))
             {
-                App.Current.MainPage = new NavigationPage(new LanguageView(new LanguageViewModel()));
+                App.Current.MainPage = new CustomNavigationPage(new ZonesAndTablesPage(new ViewModels.Zones.ZonesListViewModel()));
+                 
             }
             else
             {

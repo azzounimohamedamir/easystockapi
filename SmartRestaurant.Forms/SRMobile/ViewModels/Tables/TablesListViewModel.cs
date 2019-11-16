@@ -34,6 +34,19 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 Tables.Add(new TablesViewModel(item));
             }
         }
+        /// <summary>
+        /// Constructor to Fill the List of tables of a known zone from the Database or Json file stored locally.
+        /// </summary>
+        public TablesListViewModel(int idzone)
+        {
+
+            ObservableCollection<TableModel> listTables = TableService.GetListTables(idzone);
+            Tables = new ObservableCollection<TablesViewModel>();
+            foreach (var item in listTables)
+            {
+                Tables.Add(new TablesViewModel(item));
+            }
+        }
 
         /// <summary>
         /// The TableViewModel selected by the user to serve  the customer

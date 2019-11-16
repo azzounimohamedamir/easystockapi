@@ -61,6 +61,51 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à CANCEL.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Chairs.
+        /// </summary>
+        internal static string Chairs {
+            get {
+                return ResourceManager.GetString("Chairs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à SELECT.
+        /// </summary>
+        internal static string Choose {
+            get {
+                return ResourceManager.GetString("Choose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Table selection.
+        /// </summary>
+        internal static string ChooseTable {
+            get {
+                return ResourceManager.GetString("ChooseTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Select the chair count.
+        /// </summary>
+        internal static string Choosethechaircount {
+            get {
+                return ResourceManager.GetString("Choosethechaircount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à NEXT.
         /// </summary>
         internal static string DeseasesAllergiesNext {
@@ -111,6 +156,15 @@ namespace SmartRestaurant.Diner.Resources {
         internal static string RestaurantName {
             get {
                 return ResourceManager.GetString("RestaurantName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Table.
+        /// </summary>
+        internal static string Table {
+            get {
+                return ResourceManager.GetString("Table", resourceCulture);
             }
         }
         

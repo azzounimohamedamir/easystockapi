@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage
+    xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers"
+    xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+    xmlns:lc="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+    xmlns:lb="clr-namespace:XLabs.Forms.Behaviors;assembly=XLabs.Forms"
+    mc:Ignorable="d"
+             x:Class="SmartRestaurant.Diner.Views.Popups.ChairSelectionPopup"
+    CloseWhenBackgroundIsClicked="False"
+    x:Name="instance"
+    BackgroundColor="Transparent"
+    IsAnimating="True"  
+    >
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center"  >
+        <Frame WidthRequest="460"  HeightRequest="390" Padding="1"  BackgroundColor="#FDFFFF" Opacity="1" CornerRadius="20">
+            <Grid RowSpacing="0" ColumnSpacing="0"  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Label Margin="27,0,0,0" Grid.Row="0" FontFamily="Assets/Fonts/Roboto.ttf"  
+                       VerticalTextAlignment="Center" VerticalOptions="Center" 
+                       TextColor="Black" HorizontalTextAlignment="Start">
+                    <Label.FormattedText>
+                        <FormattedString>
+
+                            <Span Text="{translator:Translate Table}" FontSize="20"/>
+                            <Span Text=" : " FontSize="20"/>
+
+                            <Span Text="{Binding SelectedTable.Numero, Mode=TwoWay}" FontSize="20"/>
+                        </FormattedString>
+
+                    </Label.FormattedText>
+                </Label>
+
+                <Label  Margin="27,0,0,0"  Grid.Row="1" TextColor="Black" FontSize="15"
+                        VerticalTextAlignment="Center" VerticalOptions="Center" 
+                        FontFamily="Assets/Fonts/Roboto.ttf"  Text="{translator:Translate Choosethechaircount}" HorizontalTextAlignment="Start"/>
+                <StackLayout Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center" Padding="20,0,20,0">
+                    <Entry Keyboard="Numeric"   TextColor="Black" FontSize="26"  FontFamily="Assets/Fonts/Roboto.ttf"  WidthRequest="100"
+                       Text="{Binding SelectedTable.NombreChaises, Mode=TwoWay}" TextChanged="Entry_TextChanged" HorizontalTextAlignment="Center"/>
+
+                    <Stepper  Value="{Binding SelectedTable.NombreChaises, Mode=TwoWay}" Minimum="0"
+                         VerticalOptions="Center" HeightRequest="80" InputTransparent="False"
+                         Maximum="99"  Increment="1" HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+                <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="End" Padding="20,0,20,0">
+                    <Button  Text="{translator:Translate Cancel}" BackgroundColor="White" FontSize="16" 
+                             Clicked="Cancel_Clicked"  CornerRadius="20"
+                    TextColor="#01A9AC" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End" 
+                                WidthRequest="150"
+                             FontFamily="Assets/Fonts/Roboto.ttf" 
+                             HeightRequest="48"
+                      >
+
+
+                    </Button>
+                    <Button Text="{translator:Translate Choose}"     BackgroundColor="#01A9AC" FontSize="16"  CornerRadius="20"
+                             Command="{Binding NextCommand}"
+                             FontFamily="Assets/Fonts/Roboto.ttf" 
+                              WidthRequest="150"
+                             HeightRequest="48"
+                    TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End">
+                   
+                    
+                    </Button>
+                </StackLayout>
+            </Grid>
+        </Frame>
+    </StackLayout>
+
+
+</popup:PopupPage>

@@ -1,4 +1,5 @@
-﻿using SmartRestaurant.Diner.ViewModels;
+﻿using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.ViewModels;
 using SmartRestaurant.Diner.Views;
 using System;
 using Xamarin.Forms;
@@ -14,7 +15,8 @@ namespace SmartRestaurant.Diner
 
             //Launch the first Page.
 
-            MainPage = new NavigationPage(new PasswordPage(new PasswordViewModel()));
+            MainPage = new CustomNavigationPage(new PasswordPage(new PasswordViewModel()));
+            
         }
 
         protected override void OnStart()

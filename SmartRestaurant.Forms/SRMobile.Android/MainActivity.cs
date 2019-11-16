@@ -6,6 +6,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Java.Lang;
+using Java.Lang.Reflect;
+using Android.Graphics;
+using Android.Content;
+using Android.Util;
 
 namespace SmartRestaurant.Diner.Droid
 {
@@ -20,6 +25,7 @@ namespace SmartRestaurant.Diner.Droid
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
@@ -32,5 +38,6 @@ namespace SmartRestaurant.Diner.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
     }
 }

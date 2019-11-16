@@ -14,5 +14,6 @@ namespace SmartRestaurant.Diner.Models
         public string Description { get; set; }
         public decimal FinancialImpact { get; set; }
         public bool FixedPrice { get; set; }
+        public ICollection<TableModel> Tables { get; set; }
     }
 }
