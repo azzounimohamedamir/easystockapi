@@ -46,6 +46,11 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 {
                     table.NombreChaises = value;
                     RaisePropertyChanged();
+
+                    if (table.NombreChaises>0) BackgroundColor = Color.FromHex("#FFA374");
+                    else
+                        BackgroundColor = Color.Transparent;
+                    RaisePropertyChanged("BackgroundColor");
                 }
             }
         }
@@ -101,38 +106,13 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                     bordercolor = value;
             }
         }
-        private int takenChairs;
-        public  int TakenChairs
-        {
-            get
-            {
-                return takenChairs;
-            }
-            
-            set
-            {
-                
 
-                    takenChairs = value;
-                RaisePropertyChanged();
-                if (takenChairs >0)
-                    {
-
-                    BackgroundColor = Color.FromHex("#FFA374"); }
-
-                        else
-                    BackgroundColor = Color.Transparent;
-                        RaisePropertyChanged("BackgroundColor");
-                   
-                
-            }
-        }
         private Color backgroundcolor;
         public Color BackgroundColor
         {
             get
             {
-                if (takenChairs > 0)
+                if (NombreChaises > 0)
                     return Color.FromHex("#FFA374");
                 else
                     return Color.Transparent;
