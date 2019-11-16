@@ -32,8 +32,8 @@
                         <FormattedString>
 
                             <Span Text="{translator:Translate Table}" FontSize="20"/>
-                                <Span Text=" : " FontSize="20"/>
-                                 
+                            <Span Text=" : " FontSize="20"/>
+
                             <Span Text="{Binding SelectedTable.Numero, Mode=TwoWay}" FontSize="20"/>
                         </FormattedString>
 
@@ -60,7 +60,7 @@
                              HeightRequest="48"
                       >
 
-                        
+
                     </Button>
                     <Button Text="{translator:Translate Choose}"     BackgroundColor="#01A9AC" FontSize="16"  CornerRadius="20"
                              Command="{Binding NextCommand}"
@@ -69,12 +69,12 @@
                              HeightRequest="48"
                     TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="End">
                    
-                        
-                </Button>
+                    
+                    </Button>
                 </StackLayout>
             </Grid>
         </Frame>
     </StackLayout>
 
-    
+
 </popup:PopupPage>

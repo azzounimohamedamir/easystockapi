@@ -1,4 +1,5 @@
 ﻿using Rg.Plugins.Popup.Services;
+using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Services;
@@ -106,20 +107,15 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
                     try
                     {
                         await PopupNavigation.PopAllAsync(true);
-                        ((ZonesAndTablesPage)(((NavigationPage)Application.Current.MainPage)).CurrentPage).SetOpacity (1);
-                        var s = selectedTable;
-                        //Post new state 
-                        if (ZonesAndTablesPage.cs_popup.viewmodel.selectedTable.TakenChairs>0)
-                        {
-                            selectedTable.TakenChairs = ZonesAndTablesPage.cs_popup.viewmodel.selectedTable.TakenChairs;
-                            
-                        }
-                        else
-                        {
-                           //Deselect chair/Update Table status
+                        ((ZonesAndTablesPage)(((NavigationPage )Application.Current.MainPage)).CurrentPage).SetOpacity (1);
 
+                        //Post new state 
+
+                        selectedTable.TakenChairs = ZonesAndTablesPage.cs_popup.viewmodel.selectedTable.TakenChairs;
+                        if (selectedTable.TakenChairs > 0)
+                        {
+                            ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new LanguageView(new LanguageViewModel()));
                         }
-                       App.Current.MainPage.Navigation.PushAsync(new LanguageView(new LanguageViewModel()));
                     }
                     catch (Exception)
                     {
