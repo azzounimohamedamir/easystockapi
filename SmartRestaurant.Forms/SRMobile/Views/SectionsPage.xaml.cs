@@ -27,6 +27,7 @@ namespace SmartRestaurant.Diner.Views
         {
             InitializeComponent();
             model = _model;
+            BindingContext = model;
         }
     }
 }

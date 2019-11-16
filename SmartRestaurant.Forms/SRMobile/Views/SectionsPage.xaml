@@ -7,9 +7,10 @@
              x:Class="SmartRestaurant.Diner.Views.SectionsPage"
              xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers"
              Title="{translator:Translate RestaurantName}"
+             BackgroundColor="White"
              >
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="42,66,42,66">
+        <StackLayout Orientation="Vertical" Padding="42,66,42,66" >
             
             <Label Text="{translator:Translate Menu}" FontSize="20" FontFamily="Assets/Fonts/Roboto.ttf"
                    HorizontalOptions="{Binding OrientationText}"  Opacity=".5" TextColor="#3C536A"/>
@@ -28,9 +29,10 @@
                                     <RelativeLayout BackgroundColor="Transparent" HeightRequest="220">
                                         <Image Source="{Binding Image}" Aspect="Fill" Opacity=".5"/>
                                         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
-                                                     BackgroundColor="Transparent" TranslationY="150" >
-                                            <Label Text="{Binding Name}" HorizontalTextAlignment="{Binding OrientationText}"
-                                                   VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                                                     BackgroundColor="Transparent" TranslationY="10" MinimumHeightRequest="70" >
+                                            <Label  Text="{Binding Name}" HorizontalTextAlignment="{Binding OrientationText}"
+                                                   VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"
+                                                   TextColor="Black"/>
 
                                         </StackLayout>
                                     </RelativeLayout>
