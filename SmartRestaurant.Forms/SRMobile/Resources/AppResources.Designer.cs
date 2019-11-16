@@ -151,6 +151,15 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Menu.
+        /// </summary>
+        internal static string Menu {
+            get {
+                return ResourceManager.GetString("Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à ALRAYANE.
         /// </summary>
         internal static string RestaurantName {
