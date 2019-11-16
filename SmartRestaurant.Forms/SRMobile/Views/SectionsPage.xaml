@@ -6,6 +6,7 @@
              mc:Ignorable="d" NavigationPage.HasNavigationBar="True" NavigationPage.HasBackButton="False"
              x:Class="SmartRestaurant.Diner.Views.SectionsPage"
              xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers"
+             xmlns:local="clr-namespace:SmartRestaurant.Diner.CustomControls"
              Title="{translator:Translate RestaurantName}"
              BackgroundColor="White"
              >
@@ -28,20 +29,22 @@
                             <ViewCell>
                                 <Frame  CornerRadius="20" HeightRequest="220" 
                                          BackgroundColor="Transparent"
-                                        Margin="2"
+                                         
                                         BorderColor="Transparent">
 
                                     <Grid RowSpacing="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="1*"></RowDefinition>
                                         </Grid.RowDefinitions>
-
-                                        <Image Grid.Row="0" 
+ 
+                                            <Image 
+                                                 Grid.Row="0"
+                                                Opacity="1.51"
                                                Source="{Binding Image}"
                                                HorizontalOptions="FillAndExpand"
                                                VerticalOptions="FillAndExpand" 
                                                Aspect="Fill" 
-                                              />
+                                              /> 
                                     <Label Grid.Row="0"
                                                 HorizontalTextAlignment="{Binding OrientationText}"
                                                
