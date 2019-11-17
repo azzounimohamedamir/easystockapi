@@ -147,6 +147,9 @@
   <data name="ListDeseasesComment" xml:space="preserve">
     <value>Select the diseases that you have in order to offer you a good dish</value>
   </data>
+  <data name="Order" xml:space="preserve">
+    <value>ORDER</value>
+  </data>
   <data name="RestaurantName" xml:space="preserve">
     <value>ALRAYANE</value>
   </data>

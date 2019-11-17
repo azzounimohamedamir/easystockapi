@@ -8249,19 +8249,22 @@ namespace SmartRestaurant.Diner.Droid
 			public const int drinks = 2131492865;
 			
 			// aapt resource value: 0x7F0C0002
-			public const int icon = 2131492866;
+			public const int food = 2131492866;
 			
 			// aapt resource value: 0x7F0C0003
-			public const int icon_round = 2131492867;
+			public const int icon = 2131492867;
 			
 			// aapt resource value: 0x7F0C0004
-			public const int launcher_foreground = 2131492868;
+			public const int icon_round = 2131492868;
 			
 			// aapt resource value: 0x7F0C0005
-			public const int maincourses = 2131492869;
+			public const int launcher_foreground = 2131492869;
 			
 			// aapt resource value: 0x7F0C0006
-			public const int starters = 2131492870;
+			public const int maincourses = 2131492870;
+			
+			// aapt resource value: 0x7F0C0007
+			public const int starters = 2131492871;
 			
 			static Mipmap()
 			{
