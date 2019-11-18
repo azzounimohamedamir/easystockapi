@@ -86,7 +86,7 @@ namespace SmartRestaurant.Application.Interfaces
         DbSet<Place> Places { get; set; }
         DbSet<Service> Services { get; set; }
         DbSet<Translate> Translates { get; set; }
-
+        DbSet<Section> Sections { get; set; }
         Task<List<T>> SetAsync<T>() where T : class;
         IQueryable<dynamic> Set(Type type);
         void Save();

@@ -22,6 +22,8 @@
     <Compile Include="Migrations\20190815151626_InitDataBase.Designer.cs" />
     <Compile Include="Migrations\20191029195743_deleteUnnecessaryMenuAttributs.cs" />
     <Compile Include="Migrations\20191029195743_deleteUnnecessaryMenuAttributs.Designer.cs" />
+    <Compile Include="Migrations\20191118204507_addSectionModl.cs" />
+    <Compile Include="Migrations\20191118204507_addSectionModl.Designer.cs" />
     <Compile Include="Migrations_old\SmartRestaurantDbContextModelSnapshot.cs" />
   </ItemGroup>
 

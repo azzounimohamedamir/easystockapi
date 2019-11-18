@@ -324,6 +324,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>RestaurantUtilsResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Section\SectionUtilsResource.Designer.cs">
+      <DependentUpon>SectionUtilsResource.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Section\SectionResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SectionResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="SharedException\SharedExceptionResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -780,6 +790,14 @@
     <EmbeddedResource Update="Restaurants\Restaurants\RestaurantUtilsResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RestaurantUtilsResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Section\SectionUtilsResource.resx">
+      <LastGenOutput>SectionUtilsResource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Section\SectionResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SectionResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="SharedException\SharedExceptionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

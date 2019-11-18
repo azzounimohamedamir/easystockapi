@@ -4,6 +4,16 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd
 {
     public class MenuQueryModel
     {
+        public MenuQueryModel()
+        {
+            
+        }
+        public MenuQueryModel(Domain.Restaurants.Menu menu)
+        {
+            Id = menu.Id.ToString();
+            Name = menu.Name;
+
+        }
         [JsonProperty(PropertyName = "id")] public string Id { get; set; }
         [JsonProperty(PropertyName = "name")] public string Name { get; set; }
 

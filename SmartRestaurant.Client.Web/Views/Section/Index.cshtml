@@ -1,0 +1,9 @@
+﻿@using SmartRestaurant.Resources.Section
+@{
+    ViewData["Title"] = SectionUtilsResource.HomePageTitle;
+}
+<p>
+    <a class="btn btn-default add-entity"
+       asp-controller="Section"
+       asp-action="AddSection">@SectionUtilsResource.ButtonAddNewText</a>
+</p>

@@ -140,7 +140,25 @@
                     </li>
                 </ul>
             </li>
-            <!--End Menu-->
+        <!--End Menu-->
+        
+        <li class="nav-item">
+            <a asp-controller="Home" asp-action="Index">
+                <i class="icon-directions"></i>
+                <span class="menu-title">
+                    @AppNavigationResource.Sections
+                </span>
+            </a>
+            <ul class="menu-content">
+                <li>
+                    <a asp-controller="Section" asp-action="Index" class="menu-item">@AppNavigationResource.AllSections</a>
+                </li>
+                <li>
+                    @* class="active" *@
+                    <a asp-controller="Section" asp-action="AddSection" class="menu-item">@AppNavigationResource.AddSection</a>
+                </li>
+            </ul>
+        </li>
             <!--Dishes-->
             <li class="nav-item">
                 <a asp-controller="Home" asp-action="Index">

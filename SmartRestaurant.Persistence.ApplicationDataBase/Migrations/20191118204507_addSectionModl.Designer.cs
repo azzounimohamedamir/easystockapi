@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Persistence.ApplicationDataBase;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Migrations
 {
     [DbContext(typeof(SmartRestaurantDbContext))]
-    partial class SmartRestaurantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191118204507_addSectionModl")]
+    partial class addSectionModl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
