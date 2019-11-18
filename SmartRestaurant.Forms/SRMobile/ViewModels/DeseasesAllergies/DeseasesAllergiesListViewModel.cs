@@ -120,8 +120,10 @@ namespace SmartRestaurant.Diner.ViewModels.DeseasesAllergies
             {
                 return new Command(() => {
                     try
+
                     {
-                       ((CustomNavigationPage)( App.Current.MainPage)).PushAsync(new Views.SectionsPage(new Sections.SectionsListViewModel()));
+                        App.Current.MainPage = new CustomNavigationPage(new SectionsPage(new Sections.SectionsListViewModel()));
+                        
                     }
                     catch (Exception)
                     {

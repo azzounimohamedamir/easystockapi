@@ -7,86 +7,99 @@
              x:Class="SmartRestaurant.Diner.Views.SectionsPage"
              xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers"
              xmlns:local="clr-namespace:SmartRestaurant.Diner.CustomControls"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              Title="{translator:Translate RestaurantName}"
              BackgroundColor="White"
              >
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="12,42,12,0" >
-            
-            <Label Text="{translator:Translate Menu}" FontSize="20" FontAttributes="Bold" Margin="20,0,0,0" FontFamily="Assets/Fonts/Roboto.ttf"
+        <StackLayout Orientation="Vertical" Margin="0">
+        <StackLayout Orientation="Vertical" Padding="22,51,14,0" VerticalOptions="FillAndExpand" >
+            <Label Text="{translator:Translate Menu}" FontSize="20"  FontAttributes="Bold" Margin="16,0,0,16" FontFamily="Assets/Fonts/Roboto.ttf"
                    HorizontalOptions="{Binding OrientationText}"  Opacity=".5" TextColor="#3C536A"/>
-
-                <ListView
+            
+                <flv:FlowListView    
                     
-                    VerticalScrollBarVisibility="Always"
-                  VerticalOptions="FillAndExpand"
-                  ItemsSource = "{Binding Sections}"                   
-                  HasUnevenRows = "true" 
-                  SeparatorVisibility="None"        
-                  
-                  SelectionMode="Single"
-                  SelectedItem="{Binding Path=selectedSection}">
-                    <ListView.ItemTemplate>
+                    VerticalScrollBarVisibility="Default"
+                    FlowColumnCount="2"  SeparatorVisibility="None"
+                    RowHeight="259"
+                    VerticalOptions="FillAndExpand"
+                    SelectionMode="Single"
+                    SelectedItem="{Binding Path=selectedSection}"
+                    FlowItemsSource="{Binding Sections}">
+                    <flv:FlowListView.FlowColumnTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <Frame  CornerRadius="20" HeightRequest="180" 
-                                         BackgroundColor="Transparent"
-                                         Margin="0,-10,0,-10"
-                                        BorderColor="Transparent">
 
-                                    <Grid RowSpacing="0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="1*"></RowDefinition>
-                                        </Grid.RowDefinitions>
- 
-                                            <Image 
-                                                 Grid.Row="0"
-                                                Opacity="1"
-                                               Source="{Binding Image}"
-                                               HorizontalOptions="FillAndExpand"
-                                               VerticalOptions="FillAndExpand" 
-                                               Aspect="Fill" 
+                            <pancakeview:PancakeView 
+                                Margin="16"
+                            BackgroundColor="White" HorizontalOptions="FillAndExpand" HeightRequest="259"
+                               BorderDrawingStyle="Outside"
+                                IsClippedToBounds="True"
+                               CornerRadius="20"                               
+                               HasShadow="true"
+                               Elevation="4">
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="259"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                        <Image 
+                                                HeightRequest="163"
+                                             Grid.Row="0"
+                                             Source="{Binding Image}"
+                                             HorizontalOptions="FillAndExpand" VerticalOptions="Start"
+                                            Aspect="AspectFill"
+                                           
                                               />
-
-                                    <Label Grid.Row="0"
-                                                HorizontalTextAlignment="{Binding OrientationText}"
+                                        <Label 
+                                            
+                                            Grid.Row="0"
+                                               BackgroundColor="White"
+                                               HorizontalTextAlignment="{Binding OrientationText}"
+                                               VerticalTextAlignment="Start"    
+                                               HeightRequest="74"
+                                               HorizontalOptions="FillAndExpand"
+                                               Margin="32,170,0,0"
+                                               VerticalOptions="FillAndExpand"      
                                                
-                                               VerticalTextAlignment="Center"
-                                               
-                                               HorizontalOptions="Start"
-                                               Margin="32,0,0,20"
-                                           
-                                               VerticalOptions="End"
-                                           
-                                               BackgroundColor="Transparent"
-                                           
-                                             
-                                               TextColor="White">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{Binding Name}"   FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"
+                                               >
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Name}"  TextColor="#01A9AC" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"
                                                FontAttributes="Bold"/>
-                                                <Span Text="&#10;Subsection1,Subsection2,..."   FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
+                                                    <Span Text="&#10;Subsection1,Subsection2,..."  TextColor="#77000000"
+                                                           FontSize="13" FontFamily="Assets/Fonts/Roboto.ttf"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    
                                 </Grid>
 
-                                </Frame>
-                            </ViewCell>
+                            </pancakeview:PancakeView>
+                            
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView >
-            <Grid Margin="0,5,20,34">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="32"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="32"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-            <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" Margin="0,24,0,0"
+                    </flv:FlowListView.FlowColumnTemplate>
+                </flv:FlowListView>
+        </StackLayout>
+        <pancakeview:PancakeView 
+            VerticalOptions="EndAndExpand" Margin="0"
+                                 
+                            BackgroundColor="White" HorizontalOptions="FillAndExpand" HeightRequest="88"
+                               BorderDrawingStyle="Inside"
+                                IsClippedToBounds="True"
+                               CornerRadius="20,20,0,0"                               
+                               HasShadow="true"
+                               Elevation="6">
+                <Grid  VerticalOptions="Center" Margin="0,0,38,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="32"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" 
                     CornerRadius="28" HeightRequest="60" HorizontalOptions="EndAndExpand" 
                     VerticalOptions="Center"
                     
@@ -98,13 +111,40 @@
                     ImageSource="food.png"
                     TextColor="White" Text="{translator:Translate Order}"
                      />
-                <Button  Grid.Row="0" HeightRequest="32" WidthRequest="32" CornerRadius="16"  Grid.Column="1" 
-                    HorizontalOptions="Center" VerticalOptions="Center"  FontAttributes="Bold" BackgroundColor="White" FontSize="12" FontFamily="Assets/Fonts/Roboto.ttf" Text="5">
-               
-                    
-                </Button>
-            </Grid>
+                    <Button  Grid.Row="0" HeightRequest="32" WidthRequest="32" Margin="8,-8,-8,-8" CornerRadius="16"  Grid.Column="1" 
+                    HorizontalOptions="Center" VerticalOptions="Start"  FontAttributes="Bold" BackgroundColor="White" 
+                             FontSize="12" FontFamily="Assets/Fonts/Roboto.ttf" Text="5">
 
+
+                    </Button>
+
+                    <Label 
+                                            
+                                            Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.RowSpan="2"
+                                               BackgroundColor="Transparent"
+                                               HorizontalTextAlignment="{Binding OrientationText}"
+                                               VerticalTextAlignment="Start"    
+                                              
+                                               HorizontalOptions="Start"
+                                               Margin="38,0,0,0"
+                                               VerticalOptions="Center"      
+                                               
+                                               >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{translator:Translate price}" TextColor="#77000000"  FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf"
+                                            FontAttributes="Bold"   />
+                                <Span Text="&#10;800 DA" TextColor="#01A9AC" 
+                                                    FontAttributes="Bold"       FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+            
+            
+            </pancakeview:PancakeView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

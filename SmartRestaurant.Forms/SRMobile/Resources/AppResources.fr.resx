@@ -150,6 +150,9 @@
   <data name="Order" xml:space="preserve">
     <value>COMMANDER</value>
   </data>
+  <data name="price" xml:space="preserve">
+    <value>Prix total</value>
+  </data>
   <data name="RestaurantName" xml:space="preserve">
     <value>ALRAYANE</value>
   </data>
