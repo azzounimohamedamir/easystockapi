@@ -15,8 +15,8 @@ namespace SmartRestaurant.Diner
 
             //Launch the first Page.
 
-            //MainPage = new CustomNavigationPage(new PasswordPage(new PasswordViewModel()));
-            MainPage=new  CustomNavigationPage(new SectionsPage(new ViewModels.Sections.SectionsListViewModel()));
+            MainPage = new CustomNavigationPage(new PasswordPage(new PasswordViewModel()));
+            //MainPage=new  CustomNavigationPage(new SectionsPage(new ViewModels.Sections.SectionsListViewModel()));
 
         }
 
