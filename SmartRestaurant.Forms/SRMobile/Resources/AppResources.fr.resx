@@ -165,6 +165,9 @@
   <data name="Table" xml:space="preserve">
     <value>Table</value>
   </data>
+  <data name="test_subsections" xml:space="preserve">
+    <value>Oriental,Traditionnel</value>
+  </data>
   <data name="WelcomeComment" xml:space="preserve">
     <value>Bienvenu chez le restaurant</value>
   </data>

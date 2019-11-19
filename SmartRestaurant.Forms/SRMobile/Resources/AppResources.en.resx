@@ -162,6 +162,9 @@
   <data name="RestaurantName" xml:space="preserve">
     <value>ALRAYANE</value>
   </data>
+  <data name="String" xml:space="preserve">
+    <value>Oriental, Traditional</value>
+  </data>
   <data name="Table" xml:space="preserve">
     <value>Table</value>
   </data>

@@ -205,6 +205,15 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Oriental, Traditional.
+        /// </summary>
+        internal static string test_subsections {
+            get {
+                return ResourceManager.GetString("test_subsections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Welcome to the restaurant.
         /// </summary>
         internal static string WelcomeComment {

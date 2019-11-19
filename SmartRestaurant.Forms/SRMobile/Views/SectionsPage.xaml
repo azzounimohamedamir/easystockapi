@@ -55,6 +55,7 @@
                                                Grid.Row="0"
                                                BackgroundColor="White"
                                                HorizontalTextAlignment="{Binding OrientationText}"
+                                            
                                                VerticalTextAlignment="Start"    
                                                HeightRequest="74"
                                                HorizontalOptions="FillAndExpand"
@@ -65,9 +66,14 @@
                                                 <FormattedString>
                                                     <Span Text="{Binding Name}"  TextColor="#01A9AC" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"
                                                FontAttributes="Bold"/>
-                                                    <Span Text="&#10;Subsection1,Subsection2,..." TextColor="#77000000"
+                                                
+                                                <Span Text="&#10;" TextColor="#77000000"
                                                            FontSize="13" FontFamily="Assets/Fonts/Roboto.ttf"/>
-                                                </FormattedString>
+                                                <Span Text="{translator:Translate test_subsections}" TextColor="#77000000"
+                                                           FontSize="13" FontFamily="Assets/Fonts/Roboto.ttf"/>
+                                                <Span Text="...." TextColor="#77000000"
+                                                           FontSize="13" FontFamily="Assets/Fonts/Roboto.ttf"/>
+                                            </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
                                     

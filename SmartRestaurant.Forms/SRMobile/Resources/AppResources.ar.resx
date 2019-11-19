@@ -165,6 +165,9 @@
   <data name="Table" xml:space="preserve">
     <value>طاولة</value>
   </data>
+  <data name="test_subsections" xml:space="preserve">
+    <value>شرقية، تقليدية</value>
+  </data>
   <data name="WelcomeComment" xml:space="preserve">
     <value>مرحبا بكم في مطعم</value>
   </data>
