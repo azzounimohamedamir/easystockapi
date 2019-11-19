@@ -132,6 +132,9 @@
   <data name="Choosethechaircount" xml:space="preserve">
     <value>Choose the chair count</value>
   </data>
+  <data name="Currency_DZ" xml:space="preserve">
+    <value>AD</value>
+  </data>
   <data name="DeseasesAllergiesNext" xml:space="preserve">
     <value>NEXT</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="ListDeseasesComment" xml:space="preserve">
     <value>Select the diseases that you have in order to offer you a good dish</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>ORDER</value>

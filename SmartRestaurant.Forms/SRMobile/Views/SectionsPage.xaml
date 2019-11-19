@@ -14,8 +14,8 @@
              >
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Margin="0">
-        <StackLayout Orientation="Vertical" Padding="22,51,14,0" VerticalOptions="FillAndExpand" >
-            <Label Text="{translator:Translate Menu}" FontSize="20"  FontAttributes="Bold" Margin="16,0,0,16" FontFamily="Assets/Fonts/Roboto.ttf"
+        <StackLayout Orientation="Vertical" Padding="22,51,22,0" VerticalOptions="FillAndExpand" >
+            <Label Text="{translator:Translate Menu}" FontSize="20"  FontAttributes="Bold" Margin="16,0,16,16" FontFamily="Assets/Fonts/Roboto.ttf"
                    HorizontalOptions="{Binding OrientationText}"  Opacity=".5" TextColor="#3C536A"/>
             
                 <flv:FlowListView    
@@ -44,30 +44,28 @@
                                         <RowDefinition Height="259"></RowDefinition>
                                     </Grid.RowDefinitions>
                                         <Image 
-                                                HeightRequest="163"
-                                             Grid.Row="0"
-                                             Source="{Binding Image}"
-                                             HorizontalOptions="FillAndExpand" VerticalOptions="Start"
+                                            HeightRequest="163"
+                                            Grid.Row="0"
+                                            Source="{Binding Image}"
+                                            HorizontalOptions="FillAndExpand" VerticalOptions="Start"
                                             Aspect="AspectFill"
                                            
                                               />
                                         <Label 
-                                            
-                                            Grid.Row="0"
+                                               Grid.Row="0"
                                                BackgroundColor="White"
                                                HorizontalTextAlignment="{Binding OrientationText}"
                                                VerticalTextAlignment="Start"    
                                                HeightRequest="74"
                                                HorizontalOptions="FillAndExpand"
-                                               Margin="32,170,0,0"
-                                               VerticalOptions="FillAndExpand"      
-                                               
+                                               Margin="32,170,32,0"
+                                               VerticalOptions="FillAndExpand"                                                   
                                                >
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{Binding Name}"  TextColor="#01A9AC" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"
                                                FontAttributes="Bold"/>
-                                                    <Span Text="&#10;Subsection1,Subsection2,..."  TextColor="#77000000"
+                                                    <Span Text="&#10;Subsection1,Subsection2,..." TextColor="#77000000"
                                                            FontSize="13" FontFamily="Assets/Fonts/Roboto.ttf"/>
                                                 </FormattedString>
                                             </Label.FormattedText>
@@ -118,25 +116,24 @@
 
                     </Button>
 
-                    <Label 
-                                            
-                                            Grid.Row="0"
+                    <Label                        
+                        Grid.Row="0"
                         Grid.Column="0"
                         Grid.RowSpan="2"
                                                BackgroundColor="Transparent"
                                                HorizontalTextAlignment="{Binding OrientationText}"
-                                               VerticalTextAlignment="Start"    
-                                              
+                                               VerticalTextAlignment="Start"                                                  
                                                HorizontalOptions="Start"
                                                Margin="38,0,0,0"
-                                               VerticalOptions="Center"      
-                                               
+                                               VerticalOptions="Center"                                                     
                                                >
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{translator:Translate price}" TextColor="#77000000"  FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf"
                                             FontAttributes="Bold"   />
-                                <Span Text="&#10;800 DA" TextColor="#01A9AC" 
+                                <Span Text="&#10;800 " TextColor="#01A9AC" 
+                                                    FontAttributes="Bold"       FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"/>
+                                <Span Text="{translator:Translate Currency_DZ}" TextColor="#01A9AC" 
                                                     FontAttributes="Bold"       FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"/>
                             </FormattedString>
                         </Label.FormattedText>

@@ -106,6 +106,15 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à DA.
+        /// </summary>
+        internal static string Currency_DZ {
+            get {
+                return ResourceManager.GetString("Currency_DZ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à NEXT.
         /// </summary>
         internal static string DeseasesAllergiesNext {

@@ -132,6 +132,9 @@
   <data name="Choosethechaircount" xml:space="preserve">
     <value>Select the chair count</value>
   </data>
+  <data name="Currency_DZ" xml:space="preserve">
+    <value>DA</value>
+  </data>
   <data name="DeseasesAllergiesNext" xml:space="preserve">
     <value>NEXT</value>
   </data>
