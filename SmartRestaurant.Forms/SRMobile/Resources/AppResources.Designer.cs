@@ -106,6 +106,15 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à DA.
+        /// </summary>
+        internal static string Currency_DZ {
+            get {
+                return ResourceManager.GetString("Currency_DZ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à NEXT.
         /// </summary>
         internal static string DeseasesAllergiesNext {
@@ -151,6 +160,33 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Menu.
+        /// </summary>
+        internal static string Menu {
+            get {
+                return ResourceManager.GetString("Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à ORDER.
+        /// </summary>
+        internal static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Total price.
+        /// </summary>
+        internal static string price {
+            get {
+                return ResourceManager.GetString("price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à ALRAYANE.
         /// </summary>
         internal static string RestaurantName {
@@ -165,6 +201,15 @@ namespace SmartRestaurant.Diner.Resources {
         internal static string Table {
             get {
                 return ResourceManager.GetString("Table", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Oriental, Traditional.
+        /// </summary>
+        internal static string test_subsections {
+            get {
+                return ResourceManager.GetString("test_subsections", resourceCulture);
             }
         }
         

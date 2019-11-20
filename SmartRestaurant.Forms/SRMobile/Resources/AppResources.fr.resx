@@ -132,6 +132,9 @@
   <data name="Choosethechaircount" xml:space="preserve">
     <value>Choisir le nombre de chaises</value>
   </data>
+  <data name="Currency_DZ" xml:space="preserve">
+    <value>DA</value>
+  </data>
   <data name="DeseasesAllergiesNext" xml:space="preserve">
     <value>SUIVANT</value>
   </data>
@@ -147,11 +150,23 @@
   <data name="ListDeseasesComment" xml:space="preserve">
     <value>Séléctionner les maladies que vous avez afin de vous proposer des bons plats</value>
   </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>COMMANDER</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Prix total</value>
+  </data>
   <data name="RestaurantName" xml:space="preserve">
     <value>ALRAYANE</value>
   </data>
   <data name="Table" xml:space="preserve">
     <value>Table</value>
+  </data>
+  <data name="test_subsections" xml:space="preserve">
+    <value>Oriental,Traditionnel</value>
   </data>
   <data name="WelcomeComment" xml:space="preserve">
     <value>Bienvenu chez le restaurant</value>

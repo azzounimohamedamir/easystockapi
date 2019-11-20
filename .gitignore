@@ -41,3 +41,6 @@
 /SmartRestaurant.Forms/SRMobile.Android/bin/Debug
 /SmartRestaurant.Forms/SRMobile.UWP/obj
 /SmartRestaurant.Forms/SRMobile.iOS/obj
+/SmartRestaurant.Forms/SRMobile.Android/CustomControlsRenderers/GradientColorStackRenderer.cs
+/SmartRestaurant.Forms/SRMobile/CustomControls/GradientColorStack.cs
+/MenuSections.txt

@@ -10,6 +10,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Plugin.Multilingual;
 using SmartRestaurant.Diner.Droid.CustomControlsRenderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android.AppCompat;
@@ -45,8 +46,22 @@ namespace SmartRestaurant.Diner.Droid.CustomControlsRenderers
                 var spaceFont = Typeface.CreateFromAsset(Application.Context.Assets, "Fonts/Roboto.ttf");
                 textView.Typeface = spaceFont;
                 textView.SetHeight(117);
-                textView.SetPadding(106, 15, 0, 15);
+                textView.SetWidth(800);
                 
+                if (CrossMultilingual.Current.CurrentCultureInfo.Name == "ar")
+                {
+                    textView.SetPadding(0, 15, 106, 15);
+                    textView.LayoutDirection = LayoutDirection.Rtl;
+                    textView.TextDirection = TextDirection.Rtl;
+                }
+                else
+                {
+                    textView.SetPadding(106, 15, 0, 15);
+                    textView.LayoutDirection = LayoutDirection.Ltr;
+                    textView.TextDirection = TextDirection.Ltr;
+                }
+                
+
                 textView.TextSize = 20;
                 textView.SetTextColor(Android.Graphics.Color.Black);
                 

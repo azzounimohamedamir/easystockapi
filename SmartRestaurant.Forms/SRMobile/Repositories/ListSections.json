@@ -1,67 +1,32 @@
-{
+ï»¿{
   "SectionsList": [
     {
       "Id": 1,
-      "NameAr": "ÃØÈÇÞ",
-      "NameFr": "Plats",
-      "NameEn": "Dish",
-      "Image": "dish.png"
+      "NameAr": "Ø§Ù„Ø£Ø·Ø¨Ø§Ù‚ Ø§Ù„Ø£ÙˆÙ„Ù‰",
+      "NameFr": "EntrÃ©es",
+      "NameEn": "Starters ",
+      "Image": "starters.png"
     },
     {
       "Id": 2,
-      "NameAr": "ÇáÓäÏæíÔÇÊ",
-      "NameFr": "sandwichs",
-      "NameEn": "sandwiches",
-      "Image": "sandwich.png"
+      "NameAr": "Ø§Ù„Ø£Ø·Ø¨Ø§Ù‚ Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©",
+      "NameFr": "Plats principaux",
+      "NameEn": "Main courses",
+      "Image": "maincourses.png"
     },
     {
       "Id": 3,
-      "NameAr": "ÇáÈíÊÒÇ",
-      "NameFr": "Pizzas",
-      "NameEn": "Pizzas",
-      "Image": "pizzas.png"
+      "NameAr": "Ø§Ù„Ù…Ø¹Ù‚Ø¨Ø§Øª",
+      "NameFr": "Desserts",
+      "NameEn": "Desserts",
+      "Image": "desserts.png"
     },
     {
       "Id": 4,
-      "NameAr": "ÓáØÉ",
-      "NameFr": "Salades",
-      "NameEn": "Salad",
-      "Image": "salads.png"
-    },
-    {
-      "Id": 5,
-      "NameAr": "ãÔÑæÈÇÊ",
+      "NameAr": "Ø§Ù„Ù…Ø´Ø±ÙˆØ¨Ø§Øª",
       "NameFr": "Boissons",
       "NameEn": "Drinks",
-      "Image": "soda.png"
-    },
-    {
-      "Id": 6,
-      "NameAr": "ÝæÇßå",
-      "NameFr": "Fruits",
-      "NameEn": "Fruits",
-      "Image": "fruits.png"
-    },
-    {
-      "Id": 7,
-      "NameAr": "åÇãÈÑÛÑ",
-      "NameFr": "Hamburgers",
-      "NameEn": "Hamburgers",
-      "Image": "hamburger.png"
-    },
-    {
-      "Id": 8,
-      "NameAr": "ÈÇÓÊÇ",
-      "NameFr": "Pasta",
-      "NameEn": "Pasta",
-      "Image": "pasta.png"
-    },
-    {
-      "Id": 9,
-      "NameAr": "ÊÇßæ",
-      "NameFr": "Tacos",
-      "NameEn": "Tacos",
-      "Image": "tacos.png"
+      "Image": "drinks.png"
     }
   ]
 }

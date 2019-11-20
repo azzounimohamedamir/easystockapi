@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CustomControls\GradientColorStack.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Repositories\ListAllergies.json" />
     <None Remove="Repositories\ListDeseases.json" />
     <None Remove="Repositories\ListSections.json" />

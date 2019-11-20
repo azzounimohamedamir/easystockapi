@@ -132,6 +132,9 @@
   <data name="Choosethechaircount" xml:space="preserve">
     <value>اختيار عدد الكراسي</value>
   </data>
+  <data name="Currency_DZ" xml:space="preserve">
+    <value>دج</value>
+  </data>
   <data name="DeseasesAllergiesNext" xml:space="preserve">
     <value>متــــابعــــة</value>
   </data>
@@ -147,11 +150,23 @@
   <data name="ListDeseasesComment" xml:space="preserve">
     <value>حدد الأمراض التي لديك من أجل أن نقدم لك طبقًا جيدًا</value>
   </data>
+  <data name="Menu" xml:space="preserve">
+    <value>قائمة الطعام</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>طلب</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>السعر الاجمالي</value>
+  </data>
   <data name="RestaurantName" xml:space="preserve">
     <value>الريان</value>
   </data>
   <data name="Table" xml:space="preserve">
     <value>طاولة</value>
+  </data>
+  <data name="test_subsections" xml:space="preserve">
+    <value>شرقية، تقليدية</value>
   </data>
   <data name="WelcomeComment" xml:space="preserve">
     <value>مرحبا بكم في مطعم</value>
