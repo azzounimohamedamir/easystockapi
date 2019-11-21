@@ -34,5 +34,10 @@ steps:
     dotnet ef database update --context:SmartRestaurantDbContext
     dotnet ef database update --context:SmartRestaurantIdentityDbContext
   displayName: Database Migration
-- script: dir
-  workingDirectory: $(Agent.BuildDirectory)
+- script: |
+    mkdir -p $ARTIFACTS_OUTPUT_PATH
+    rm -rf $ARTIFACTS_OUTPUT_PATH/*
+    cd "$WEB_PROJECT_NAME"
+    dotnet publish -c Release --output=$ARTIFACTS_OUTPUT_PATH
+    sudo systemctl restart SmartRestaurant.service
+  displayName: Publish the Artifacts
