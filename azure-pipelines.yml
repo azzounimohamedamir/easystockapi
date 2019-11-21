@@ -22,6 +22,10 @@ steps:
     dotnet restore
   displayName: Restore Nuget Packages
 - script: |
+    cd "SmartRestaurant.Application"
+    dotnet add package DataTables.AspNetCore.Mvc
+  displayName: Add AspNetCore.Mvc
+- script: |
     cd "$WEB_PROJECT_NAME"
     dotnet build
   displayName: Build the Website
