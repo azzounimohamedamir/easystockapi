@@ -29,5 +29,10 @@ steps:
     cd "$WEB_PROJECT_NAME"
     dotnet build
   displayName: Build the Website
+- script: |
+    cd "$WEB_PROJECT_NAME"
+    dotnet ef database update --context:SmartRestaurantDbContext
+    dotnet ef database update --context:SmartRestaurantIdentityDbContext
+  displayName: Database Migration
 - script: dir
   workingDirectory: $(Agent.BuildDirectory)
