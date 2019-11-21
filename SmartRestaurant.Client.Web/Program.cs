@@ -10,7 +10,7 @@ namespace SmartRestaurant.Client.Web
         {
            CreateWebHostBuilder(args)
                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseWebRoot("www").Build().Run();
+                .UseWebRoot("wwwroot").Build().Run();
         }
       
 
