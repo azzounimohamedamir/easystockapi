@@ -13,7 +13,7 @@ pool:
 
 variables:
   WEB_PROJECT_NAME: "SmartRestaurant.Client.Web"
-  ARTIFACTS_OUTPUT_PATH: "/home/gitlab-runner/SmartRestaurant"
+  ARTIFACTS_OUTPUT_PATH: "/home/ubuntu/test-SmartRestaurant"
 
 steps:
 - script: |
