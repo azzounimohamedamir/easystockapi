@@ -6,7 +6,10 @@
 trigger:
 - develop
 
-pool: test-SmartRestaurant-agent
+pool: 
+  name: test-SmartRestaurant-agent
+  workspace:
+    clean: all
 
 variables:
   WEB_PROJECT_NAME: "SmartRestaurant.Client.Web"
