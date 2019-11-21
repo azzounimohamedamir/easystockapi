@@ -1,0 +1,27 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- develop
+
+pool:
+  vmImage: 'test-SmartRestaurant-agent'
+
+variables:
+  WEB_PROJECT_NAME: "SmartRestaurant.Client.Web"
+  ARTIFACTS_OUTPUT_PATH: "/home/gitlab-runner/SmartRestaurant"
+
+steps:
+- script: date /t
+  displayName: Get the date
+- script: dir
+  workingDirectory: $(Agent.BuildDirectory)
+  displayName: List contents of a folder
+- script: |
+    set MYVAR=foo
+    set
+  displayName: Set a variable and then display all
+  env:
+    aVarFromYaml: someValue
