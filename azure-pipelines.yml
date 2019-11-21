@@ -13,8 +13,11 @@ variables:
   ARTIFACTS_OUTPUT_PATH: "/home/gitlab-runner/SmartRestaurant"
 
 steps:
-- script: date /t
-  displayName: Get the date
+- script: |
+    cd "$WEB_PROJECT_NAME"
+    dotnet clean
+    dotnet restore
+  displayName: Build the Web Site
 - script: dir
   workingDirectory: $(Agent.BuildDirectory)
   displayName: List contents of a folder
