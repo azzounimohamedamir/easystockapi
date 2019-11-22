@@ -21,6 +21,7 @@ jobs:
       cd "SmartRestaurant.Application"
       dotnet add package DataTables.AspNetCore.Mvc
     displayName: Add AspNetCore.Mvc Package
+  timeoutInMinutes: 10
 - job: Build_the_Website
   steps:
   - checkout: none
@@ -30,6 +31,7 @@ jobs:
     displayName: Build the Website
   dependsOn: Restore_Nuget_Packages
   condition: succeeded()
+  timeoutInMinutes: 10
 - job: Database_Migration
   steps:
   - checkout: none
@@ -39,16 +41,23 @@ jobs:
       dotnet ef database update --context:SmartRestaurantIdentityDbContext
   dependsOn: Build_the_Website
   condition: succeeded()
-- job: Deploy
-  steps:
-  - checkout: none
-  - script: |
-      mkdir -p $ARTIFACTS_OUTPUT_PATH
-      rm -rf $ARTIFACTS_OUTPUT_PATH/*
-      cd "$WEB_PROJECT_NAME"
-      dotnet publish -c Release --output=$ARTIFACTS_OUTPUT_PATH
-      sudo systemctl restart SmartRestaurant.service
+  timeoutInMinutes: 10
+- deployment: Deploy
+  displayName: deploy Web App
+  environment: 'SmartRestaurant-Test-Env'
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+         - checkout: none
+         - script: |
+            mkdir -p $ARTIFACTS_OUTPUT_PATH
+            rm -rf $ARTIFACTS_OUTPUT_PATH/*
+            cd "$WEB_PROJECT_NAME"
+            dotnet publish -c Release --output=$ARTIFACTS_OUTPUT_PATH
+            sudo systemctl restart SmartRestaurant.service
   dependsOn: 
    - Build_the_Website
    - Database_Migration
   condition: succeeded()
+  timeoutInMinutes: 10
