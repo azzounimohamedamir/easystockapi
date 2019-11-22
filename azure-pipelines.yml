@@ -1,6 +1,6 @@
 stages:
 - stage: Build_and_DB_Migration
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
   pool: 
     name: test-SmartRestaurant-agent
     workspace:
@@ -10,6 +10,7 @@ stages:
     ARTIFACTS_OUTPUT_PATH: "/home/ubuntu/test-SmartRestaurant"
   jobs:
   - job: Restore_Nuget_Packages
+    timeoutInMinutes: 5
     steps:
      - script: |
          cd "$WEB_PROJECT_NAME"
@@ -21,15 +22,15 @@ stages:
          dotnet add package DataTables.AspNetCore.Mvc
        displayName: Add AspNetCore.Mvc Package
   - job: Build_the_Website
+    dependsOn: Restore_Nuget_Packages
+    condition: succeeded()
+    timeoutInMinutes: 5
     steps:
      - checkout: none
      - script: |
           cd "$WEB_PROJECT_NAME"
           dotnet build
        displayName: Build the Website
-    dependsOn: Restore_Nuget_Packages
-    condition: succeeded()
-    timeoutInMinutes: 5
   - job: Database_Migration
     steps:
      - checkout: none
@@ -41,7 +42,7 @@ stages:
     condition: succeeded()
 - stage: Deployment
   dependsOn: Build_and_DB_Migration
-  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
   pool: 
     name: test-SmartRestaurant-agent
     workspace:
