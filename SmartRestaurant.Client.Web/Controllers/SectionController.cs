@@ -116,7 +116,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             {
                 if (files.Any())
                 {
-                    var file = Path.Combine(webRootPath,@"\uploads\section\"+ files.FirstOrDefault()?.FileName);
+                    var file = Path.Combine(webRootPath+@"\uploads\section\", files.FirstOrDefault()?.FileName);
                     using (var ms = new MemoryStream())
                     {
                         files[0].CopyTo(ms);
