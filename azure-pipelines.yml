@@ -1,8 +1,3 @@
-# ASP.NET Core (.NET Framework)
-# Build and test ASP.NET Core projects targeting the full .NET Framework.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 trigger:
 - develop
 
@@ -15,30 +10,42 @@ variables:
   WEB_PROJECT_NAME: "SmartRestaurant.Client.Web"
   ARTIFACTS_OUTPUT_PATH: "/home/ubuntu/test-SmartRestaurant"
 jobs:
-- job: JobA
+- job: Restore_Nuget_Packages
   steps:
   - script: |
       cd "$WEB_PROJECT_NAME"
       dotnet clean
       dotnet restore
-    displayName: Restore Nuget Packages
+    displayName: Restore Common Packages
   - script: |
       cd "SmartRestaurant.Application"
       dotnet add package DataTables.AspNetCore.Mvc
-    displayName: Add AspNetCore.Mvc
+    displayName: Add AspNetCore.Mvc Package
+- job: Build_the_Website
+  steps:
   - script: |
       cd "$WEB_PROJECT_NAME"
       dotnet build
     displayName: Build the Website
+  dependsOn: Restore_Nuget_Packages
+  condition: succeeded()
+- job: Database_Migration
+  steps:
   - script: |
       cd "$WEB_PROJECT_NAME"
       dotnet ef database update --context:SmartRestaurantDbContext
       dotnet ef database update --context:SmartRestaurantIdentityDbContext
-    displayName: Database Migration
+  dependsOn: Build_the_Website
+  condition: succeeded()
+- job: Deploy
+  steps:
   - script: |
       mkdir -p $ARTIFACTS_OUTPUT_PATH
       rm -rf $ARTIFACTS_OUTPUT_PATH/*
       cd "$WEB_PROJECT_NAME"
       dotnet publish -c Release --output=$ARTIFACTS_OUTPUT_PATH
       sudo systemctl restart SmartRestaurant.service
-    displayName: Publish the Artifacts
+  dependsOn: 
+   - Build_the_Website
+   - Database_Migration
+  condition: succeeded()
