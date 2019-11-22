@@ -1,17 +1,15 @@
 trigger:
-- develop
+  - develop
 
-pool: 
-  name: test-SmartRestaurant-agent
-  workspace:
-    clean: all
-
-variables:
-  WEB_PROJECT_NAME: "SmartRestaurant.Client.Web"
-  ARTIFACTS_OUTPUT_PATH: "/home/ubuntu/test-SmartRestaurant"
-  
 stages:
 - stage: Build_and_DB_Migration
+  pool: 
+    name: test-SmartRestaurant-agent
+    workspace:
+       clean: all
+  variables:
+     WEB_PROJECT_NAME: "SmartRestaurant.Client.Web"
+     ARTIFACTS_OUTPUT_PATH: "/home/ubuntu/test-SmartRestaurant"
   jobs:
   - job: Restore_Nuget_Packages
     steps:
@@ -32,7 +30,7 @@ stages:
           dotnet build
        displayName: Build the Website
     dependsOn: Restore_Nuget_Packages
-    condition: succeeded()
+    condition: succeeded('Restore_Nuget_Packages')
     timeoutInMinutes: 10
   - job: Database_Migration
     steps:
@@ -42,10 +40,17 @@ stages:
          dotnet ef database update --context:SmartRestaurantDbContext
          dotnet ef database update --context:SmartRestaurantIdentityDbContext
     dependsOn: Build_the_Website
-    condition: succeeded()
+    condition: succeeded('Build_the_Website')
 - stage: Deployment
+  pool: 
+    name: test-SmartRestaurant-agent
+    workspace:
+       clean: all
+  variables:
+    WEB_PROJECT_NAME: "SmartRestaurant.Client.Web"
+    ARTIFACTS_OUTPUT_PATH: "/home/ubuntu/test-SmartRestaurant"
   dependsOn: Build_and_DB_Migration
-  condition: succeeded()
+  condition: succeeded('Build_and_DB_Migration')
   jobs:
   - deployment: Deploy
     displayName: deploy Web App
