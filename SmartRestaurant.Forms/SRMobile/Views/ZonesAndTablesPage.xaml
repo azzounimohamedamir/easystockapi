@@ -74,14 +74,16 @@
                                                     
                                                    FontFamily="Assets/Fonts/Roboto.ttf"                                                                                               
                                                    VerticalTextAlignment="Center"/>
-                                                <ffimageloading:CachedImage Aspect="AspectFit" Grid.Column="1" WidthRequest="20" HeightRequest="20">
-                                                    <ffimageloading:CachedImage.Source>
-                                                        <OnPlatform x:TypeArguments="FileImageSource">
-                                                            <On Platform="iOS, Android" Value="arrow_down.png" />
-                                                            <On Platform="UWP" Value="Assets/france.png" />
-                                                        </OnPlatform>
-                                                    </ffimageloading:CachedImage.Source>
-                                                </ffimageloading:CachedImage>
+                                                <Label 
+                        
+                        Grid.Column="1" WidthRequest="20" HeightRequest="20"
+                           FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                          TextColor="Black" BackgroundColor="Transparent"
+                           IsEnabled="{Binding plus_enabled,Source=instance}"
+                          Text="&#xf140;" FontSize="26"/>
+
+
                                             </Grid>
 
                                         </Frame>
