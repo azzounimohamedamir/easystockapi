@@ -49,6 +49,7 @@
     <Folder Include="Utils\ServicesInscription\" />
     <Folder Include="wwwroot\app-assets\images\" />
     <Folder Include="wwwroot\resources\" />
+    <Folder Include="wwwroot\uploads\section\" />
   </ItemGroup>
 
 
