@@ -24,6 +24,7 @@
                     RowHeight="259"
                     VerticalOptions="FillAndExpand"
                     SelectionMode="Single"
+                    FlowDirection="{Binding FlowDirectionValue}"
                     FlowItemsSource="{Binding Sections}">
                     <flv:FlowListView.FlowColumnTemplate>
                         <DataTemplate>

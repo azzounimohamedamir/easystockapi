@@ -52,6 +52,21 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 }
             }
         }
+        public FlowDirection FlowDirectionValue
+        {
+
+            get
+            {
+                if (AppResources.Culture != null)
+                {
+                    return AppResources.Culture.Name == "ar" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+                }
+                else
+                {
+                    return FlowDirection.LeftToRight;
+                }
+            }
+        }
 
     }
 }

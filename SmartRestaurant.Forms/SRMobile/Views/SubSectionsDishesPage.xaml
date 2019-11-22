@@ -45,8 +45,9 @@
 
                                     <Frame  Grid.Row="0"  CornerRadius="0"   HasShadow="False"
                                                BackgroundColor="#FBFBFB" BorderColor="#1A000000" HorizontalOptions="FillAndExpand">
-                                        <StackLayout HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" VerticalOptions="FillAndExpand">
-                                            <Label  Margin="64,0,64,0"
+                                        <StackLayout Margin="64,0,64,0" BackgroundColor="Green" Orientation="Horizontal"
+                                                     HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand">
+                                            <Label  BackgroundColor="Red"
                                                     Text  ="{Binding Name}" FontSize="20"
                                                         HeightRequest="75"
                                                                HorizontalOptions="{Binding OrientationText}"
@@ -55,11 +56,11 @@
                                                        TextColor="#3C536A"                                                    
                                                        FontFamily="Assets/Fonts/Roboto.ttf"                                                                                               
                                                        VerticalTextAlignment="Center"/>
-                                            <Label             Margin="64,0,64,0"
+                                            <Label     BackgroundColor="Yellow"        
                                                                HorizontalOptions="{Binding OppositeOrientationText}"
                                FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"
                                HorizontalTextAlignment="{Binding OppositeOrientationText}" VerticalTextAlignment="Center"
-                              TextColor="Black" BackgroundColor="Transparent"
+                              TextColor="Black" 
                                IsEnabled="{Binding plus_enabled,Source=instance}"
                               Text="&#xf140;" FontSize="26"/>
                                         </StackLayout>
