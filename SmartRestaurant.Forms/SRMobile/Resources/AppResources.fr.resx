@@ -124,7 +124,7 @@
     <value>Chaises</value>
   </data>
   <data name="Choose" xml:space="preserve">
-    <value>CHOISIR</value>
+    <value>CONFIRMER</value>
   </data>
   <data name="ChooseTable" xml:space="preserve">
     <value>Choix de table</value>

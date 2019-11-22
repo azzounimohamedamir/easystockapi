@@ -79,7 +79,7 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à SELECT.
+        ///   Recherche une chaîne localisée semblable à CONFIRM.
         /// </summary>
         internal static string Choose {
             get {
