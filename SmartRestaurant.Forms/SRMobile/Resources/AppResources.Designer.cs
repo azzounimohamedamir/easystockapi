@@ -124,6 +124,15 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Estimated preparation time.
+        /// </summary>
+        internal static string EstimatedTime {
+            get {
+                return ResourceManager.GetString("EstimatedTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Allergies list.
         /// </summary>
         internal static string ListAllergiesCaption {
@@ -165,6 +174,15 @@ namespace SmartRestaurant.Diner.Resources {
         internal static string Menu {
             get {
                 return ResourceManager.GetString("Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à min.
+        /// </summary>
+        internal static string minute {
+            get {
+                return ResourceManager.GetString("minute", resourceCulture);
             }
         }
         

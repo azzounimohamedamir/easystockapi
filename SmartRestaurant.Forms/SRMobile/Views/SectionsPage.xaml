@@ -9,36 +9,35 @@
              xmlns:local="clr-namespace:SmartRestaurant.Diner.CustomControls"
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             Title="{translator:Translate RestaurantName}"
+             Title="{translator:Translate RestaurantName}"             
              BackgroundColor="White"
              >
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Margin="0">
-        <StackLayout Orientation="Vertical" Padding="22,51,22,0" VerticalOptions="FillAndExpand" >
+            <StackLayout Orientation="Vertical" Padding="22,51,22,0" VerticalOptions="FillAndExpand" >
             <Label Text="{translator:Translate Menu}" FontSize="20"  FontAttributes="Bold" Margin="16,0,16,16" FontFamily="Assets/Fonts/Roboto.ttf"
                    HorizontalOptions="{Binding OrientationText}"  Opacity=".5" TextColor="#3C536A"/>
             
-                <flv:FlowListView    
-                    
+                <flv:FlowListView                        
                     VerticalScrollBarVisibility="Default"
                     FlowColumnCount="2"  SeparatorVisibility="None"
                     RowHeight="259"
                     VerticalOptions="FillAndExpand"
                     SelectionMode="Single"
-                    SelectedItem="{Binding Path=selectedSection}"
                     FlowItemsSource="{Binding Sections}">
                     <flv:FlowListView.FlowColumnTemplate>
                         <DataTemplate>
-
                             <pancakeview:PancakeView 
                                 Margin="16"
                             BackgroundColor="White" HorizontalOptions="FillAndExpand" HeightRequest="259"
                                BorderDrawingStyle="Outside"
                                 IsClippedToBounds="True"
-                               CornerRadius="20"                               
+                               CornerRadius="20"  
                                HasShadow="true"
                                Elevation="4">
-
+                                <pancakeview:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowSubsectionsCommand}"/>
+                                </pancakeview:PancakeView.GestureRecognizers>
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="259"></RowDefinition>
@@ -54,8 +53,7 @@
                                         <Label 
                                                Grid.Row="0"
                                                BackgroundColor="White"
-                                               HorizontalTextAlignment="{Binding OrientationText}"
-                                            
+                                               HorizontalTextAlignment="{Binding OrientationText}"                                            
                                                VerticalTextAlignment="Start"    
                                                HeightRequest="74"
                                                HorizontalOptions="FillAndExpand"

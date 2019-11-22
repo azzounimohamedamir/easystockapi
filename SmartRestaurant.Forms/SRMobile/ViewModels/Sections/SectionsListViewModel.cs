@@ -35,22 +35,6 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 Sections.Add(new SectionViewModel(item));
             }
         }
-
-        /// <summary>
-        /// Used to indicate with section is selected and update the SectionViewModel corresponding.
-        /// </summary>
-        private SectionViewModel selectedSection;
-        public SectionViewModel SelectedSection
-        {
-            get { return selectedSection; }
-            set
-            {
-                SetPropertyValue(ref selectedSection, value);
-                if (SelectedSection != null)
-                    SelectedSection.IsSelected = !SelectedSection.IsSelected;
-            }
-        }
-
         /// <summary>
         /// Used to manage text orientation from right to left or from left to right accorging the langage selected.
         /// </summary>
@@ -69,26 +53,5 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             }
         }
 
-        #region Methods
-        /// <summary>
-        /// Command to bind and let the user navigate to the naxt page or view.
-        /// </summary>
-        public ICommand SelectFood
-        {
-            get
-            {
-                return new Command(() => {
-                    try
-                    {
-                        App.Current.MainPage.Navigation.PushAsync(new DeseasesAllergiesPage(new DeseasesAllergies.DeseasesAllergiesListViewModel()));
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-                });
-            }
-        }
-        #endregion
     }
 }

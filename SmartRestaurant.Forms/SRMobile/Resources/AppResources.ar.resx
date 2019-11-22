@@ -138,6 +138,9 @@
   <data name="DeseasesAllergiesNext" xml:space="preserve">
     <value>متــــابعــــة</value>
   </data>
+  <data name="EstimatedTime" xml:space="preserve">
+    <value>الوقت المقدر</value>
+  </data>
   <data name="ListAllergiesCaption" xml:space="preserve">
     <value>قائمة الحساسية.</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="Menu" xml:space="preserve">
     <value>قائمة الطعام</value>
+  </data>
+  <data name="minute" xml:space="preserve">
+    <value>دقيقة </value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>طلب</value>

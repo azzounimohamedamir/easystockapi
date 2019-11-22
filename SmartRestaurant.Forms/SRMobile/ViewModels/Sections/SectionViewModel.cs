@@ -1,9 +1,13 @@
-﻿using SmartRestaurant.Diner.Infrastructures;
+﻿using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections
 {
@@ -120,27 +124,23 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         }
         #endregion
 
-
-        #region Property to select a section.
-        /// <summary>
-        /// Used to indicate if the section is selected by the user.
-        /// </summary>
-        private bool isSelected;
-        public bool IsSelected
+        public ICommand ShowSubsectionsCommand
         {
             get
             {
-                return isSelected;
-            }
-            set
-            {
-                if (isSelected != value)
-                {
-                    isSelected = value;
-                    RaisePropertyChanged();
-                }
+                return new Command(async () => {
+                    try
+                    {
+                       await  ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SubSectionsDishesPage(new SubSectionsListViewModel(section.Id)));
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+                });
             }
         }
-        #endregion
     }
+
 }

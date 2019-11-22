@@ -62,6 +62,9 @@
     <Compile Update="Views\TablesPage.xaml.cs">
       <DependentUpon>TablesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\SubSectionsDishesPage.xaml.cs">
+      <DependentUpon>SubSectionsDishesPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

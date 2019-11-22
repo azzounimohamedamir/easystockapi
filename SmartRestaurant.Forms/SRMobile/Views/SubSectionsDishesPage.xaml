@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                 xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                 xmlns:ia="clr-namespace:IntelliAbb.Xamarin.Controls;assembly=IntelliAbb.Xamarin.Controls"
+                 xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers"
+                 xmlns:controls="clr-namespace:SmartRestaurant.Diner.CustomControls"
+                 xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+                 xmlns:effects="clr-namespace:SmartRestaurant.Diner.CustomEffects"
+                 xmlns:lc="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+                 xmlns:lb="clr-namespace:XLabs.Forms.Behaviors;assembly=XLabs.Forms"
+                 xmlns:multigestureviewplugin="clr-namespace:MultiGestureViewPlugin;assembly=MultiGestureViewPlugin"
+                 mc:Ignorable="d"
+                 NavigationPage.HasBackButton="True"
+             FlowDirection="{Binding FlowDirectionValue}"
+                 x:Class="SmartRestaurant.Diner.Views.SubSectionsDishesPage"
+                 Title="{translator:Translate RestaurantName}"  
+                 x:Name="instance"
+                 BackgroundColor="White">
+
+    <ContentPage.Content>
+        <ScrollView BackgroundColor="White">
+            <StackLayout>
+                <ListView
+                      ItemsSource = "{Binding SubSections}"                   
+                      HasUnevenRows = "true" 
+                      SeparatorVisibility="None"                      
+                      SelectionMode="Single"
+                    HeightRequest="56"
+                      SelectedItem="{Binding Path=SelectedSubSection}"                  
+                      ItemTapped    = "Handle_ItemTapped"
+                      Footer        = "">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid RowSpacing="0" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="56"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+
+                                    <Frame  Grid.Row="0"  CornerRadius="0"   HasShadow="False"
+                                               BackgroundColor="#FBFBFB" BorderColor="#1A000000" HorizontalOptions="FillAndExpand">
+                                        <StackLayout HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" VerticalOptions="FillAndExpand">
+                                            <Label  Margin="64,0,64,0"
+                                                    Text  ="{Binding Name}" FontSize="20"
+                                                        HeightRequest="75"
+                                                               HorizontalOptions="{Binding OrientationText}"
+                                                       VerticalOptions="CenterAndExpand"
+                                                       HorizontalTextAlignment="{Binding OrientationText}"
+                                                       TextColor="#3C536A"                                                    
+                                                       FontFamily="Assets/Fonts/Roboto.ttf"                                                                                               
+                                                       VerticalTextAlignment="Center"/>
+                                            <Label             Margin="64,0,64,0"
+                                                               HorizontalOptions="{Binding OppositeOrientationText}"
+                               FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"
+                               HorizontalTextAlignment="{Binding OppositeOrientationText}" VerticalTextAlignment="Center"
+                              TextColor="Black" BackgroundColor="Transparent"
+                               IsEnabled="{Binding plus_enabled,Source=instance}"
+                              Text="&#xf140;" FontSize="26"/>
+                                        </StackLayout>
+
+                                    </Frame>
+
+                                    <Grid Grid.Row="1" HorizontalOptions="FillAndExpand"
+                                              IsVisible="{Binding IsVisible}"
+                                                      ColumnSpacing="0" RowSpacing="0"
+                                              Margin="0,0,1,0"
+                                                      BackgroundColor="White"
+                                                    VerticalOptions="FillAndExpand">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="1" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <BoxView   Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="#E5E5E5" />
+                                        <BoxView   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BackgroundColor="#E5E5E5" />
+                                        <BoxView  Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="#E5E5E5" />
+                                        <BoxView  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="#E5E5E5" />
+                                        <Frame Grid.Row="1" Grid.Column="1" 
+                                               CornerRadius="0"
+                                               BackgroundColor="White" BorderColor="White"
+                                                   HasShadow="False"   >
+                                            <Grid  HorizontalOptions="FillAndExpand"
+                                                  
+                                                      BackgroundColor="White"
+                                                    VerticalOptions="FillAndExpand">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+
+                                                    <RowDefinition Height="*" />
+
+                                                </Grid.RowDefinitions>
+
+                                                <ScrollView Grid.Row="0" Grid.Column="0" VerticalOptions="FillAndExpand" Margin="1">
+
+                                                </ScrollView>
+                                            </Grid>
+                                        </Frame>
+                                    </Grid>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView >
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

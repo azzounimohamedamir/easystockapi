@@ -114,7 +114,7 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
                         selectedTable.NombreChaises = ZonesAndTablesPage.cs_popup.viewmodel.selectedTable.NombreChaises;
                         if (selectedTable.NombreChaises > 0)
                         {
-                            ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new LanguageView(new LanguageViewModel()));
+                            await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new LanguageView(new LanguageViewModel()));
                         }
                     }
                     catch (Exception)
