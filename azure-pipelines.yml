@@ -29,7 +29,7 @@ stages:
      - checkout: none
      - script: |
           cd "$WEB_PROJECT_NAME"
-          dotnet build
+          dotnet build --no-restore
        displayName: Build the Website
   - job: Database_Migration
     steps:
@@ -64,5 +64,5 @@ stages:
                mkdir -p $ARTIFACTS_OUTPUT_PATH
                rm -rf $ARTIFACTS_OUTPUT_PATH/*
                cd "$WEB_PROJECT_NAME"
-               dotnet publish -c Release --output=$ARTIFACTS_OUTPUT_PATH
+               dotnet publish --no-build -c Release --output=$ARTIFACTS_OUTPUT_PATH
                sudo systemctl restart SmartRestaurant.service
