@@ -23,6 +23,7 @@ jobs:
     displayName: Add AspNetCore.Mvc Package
 - job: Build_the_Website
   steps:
+  - checkout: none
   - script: |
       cd "$WEB_PROJECT_NAME"
       dotnet build
@@ -31,6 +32,7 @@ jobs:
   condition: succeeded()
 - job: Database_Migration
   steps:
+  - checkout: none
   - script: |
       cd "$WEB_PROJECT_NAME"
       dotnet ef database update --context:SmartRestaurantDbContext
@@ -39,6 +41,7 @@ jobs:
   condition: succeeded()
 - job: Deploy
   steps:
+  - checkout: none
   - script: |
       mkdir -p $ARTIFACTS_OUTPUT_PATH
       rm -rf $ARTIFACTS_OUTPUT_PATH/*
