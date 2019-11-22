@@ -5,6 +5,7 @@ using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -123,7 +124,40 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             }
         }
         #endregion
+        public FlowDirection FlowDirectionValue
+        {
 
+            get
+            {
+                if (AppResources.Culture != null)
+                {
+                    return AppResources.Culture.Name == "ar" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+                }
+                else
+                {
+                    return FlowDirection.LeftToRight;
+                }
+            }
+        }
+        public string AbstractSubSections
+        {
+            get
+            {
+                
+                int x = Math.Min(section.SubSections.Count, 3);
+                if (x == 0) return ""; 
+                string temp = (AppResources.Culture.Name == "ar" ?
+                  String.Join(",", section.SubSections.Select(s => s.NameAr).Take(x)) :
+                    (
+                    AppResources.Culture.Name == "fr" ?
+                     String.Join(",", section.SubSections.Select(s => s.NameFr).Take(x)) :
+                     String.Join(",", section.SubSections.Select(s => s.NameEn).Take(x))
+                    ));
+                if (temp == "")
+                    return "";
+                  return temp.Substring(0,Math.Min(temp.Length,40))+" ...";
+            }
+        }
         public ICommand ShowSubsectionsCommand
         {
             get

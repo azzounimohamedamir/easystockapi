@@ -22,50 +22,61 @@
                  BackgroundColor="White">
 
     <ContentPage.Content>
-        <ScrollView BackgroundColor="White">
-            <StackLayout>
+        <ScrollView FlowDirection="MatchParent">
+            <StackLayout FlowDirection="MatchParent">
                 <ListView
+                    FlowDirection="MatchParent"
                       ItemsSource = "{Binding SubSections}"                   
                       HasUnevenRows = "true" 
-                      SeparatorVisibility="None"                      
+                      SeparatorVisibility="Default"                      
+                    SeparatorColor="#1A000000"
                       SelectionMode="Single"
-                    HeightRequest="56"
+                      HeightRequest="56"
                       SelectedItem="{Binding Path=SelectedSubSection}"                  
                       ItemTapped    = "Handle_ItemTapped"
                       Footer        = "">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <Grid RowSpacing="0" >
+                            <ViewCell >
+                                <Grid RowSpacing="0" FlowDirection="MatchParent" >
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="56"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
 
-                                    <Frame  Grid.Row="0"  CornerRadius="0"   HasShadow="False"
-                                               BackgroundColor="#FBFBFB" BorderColor="#1A000000" HorizontalOptions="FillAndExpand">
-                                        <StackLayout Margin="64,0,64,0" BackgroundColor="Green" Orientation="Horizontal"
+                                    
+                                        <StackLayout Grid.Row="0" 
+                                            BackgroundColor="#FBFBFB" FlowDirection="MatchParent" Margin="48,0,48,0"  Orientation="Horizontal"
                                                      HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand">
-                                            <Label  BackgroundColor="Red"
-                                                    Text  ="{Binding Name}" FontSize="20"
-                                                        HeightRequest="75"
-                                                               HorizontalOptions="{Binding OrientationText}"
+                                        <Label  
+                                                     FontSize="20"
+                                                        HeightRequest="56"
+                                                               HorizontalOptions="StartAndExpand"
                                                        VerticalOptions="CenterAndExpand"
-                                                       HorizontalTextAlignment="{Binding OrientationText}"
+                                                       HorizontalTextAlignment="Start"
                                                        TextColor="#3C536A"                                                    
                                                        FontFamily="Assets/Fonts/Roboto.ttf"                                                                                               
-                                                       VerticalTextAlignment="Center"/>
-                                            <Label     BackgroundColor="Yellow"        
-                                                               HorizontalOptions="{Binding OppositeOrientationText}"
+                                                       VerticalTextAlignment="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text  ="{Binding Name}"/>
+
+                                                    <Span Text  ="{Binding    Count,StringFormat=' ({0})'}"/>
+                                                    
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Label        
                                FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"
-                               HorizontalTextAlignment="{Binding OppositeOrientationText}" VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="End" VerticalTextAlignment="Center"
                               TextColor="Black" 
                                IsEnabled="{Binding plus_enabled,Source=instance}"
                               Text="&#xf140;" FontSize="26"/>
                                         </StackLayout>
 
-                                    </Frame>
+                                    
 
                                     <Grid Grid.Row="1" HorizontalOptions="FillAndExpand"
                                               IsVisible="{Binding IsVisible}"
