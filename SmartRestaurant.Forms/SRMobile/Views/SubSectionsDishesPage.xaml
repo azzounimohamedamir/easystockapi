@@ -165,7 +165,7 @@
                                                                             
                                                                             VerticalTextAlignment="End" 
                                                                             HorizontalTextAlignment="Start"
-                                                                            HorizontalOptions="End" 
+                                                                            HorizontalOptions="Start" 
                                                                             VerticalOptions="End"
                                                                                 FontFamily="Assets/Fonts/Roboto.ttf" 
                                                                     >
