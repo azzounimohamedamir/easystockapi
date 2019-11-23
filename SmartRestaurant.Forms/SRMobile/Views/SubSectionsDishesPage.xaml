@@ -13,7 +13,8 @@
                  xmlns:lc="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
                  xmlns:lb="clr-namespace:XLabs.Forms.Behaviors;assembly=XLabs.Forms"
                  xmlns:multigestureviewplugin="clr-namespace:MultiGestureViewPlugin;assembly=MultiGestureViewPlugin"
-                 mc:Ignorable="d"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
                  NavigationPage.HasBackButton="True"
              FlowDirection="{Binding FlowDirectionValue}"
                  x:Class="SmartRestaurant.Diner.Views.SubSectionsDishesPage"
@@ -22,9 +23,10 @@
                  BackgroundColor="White">
 
     <ContentPage.Content>
-        <ScrollView FlowDirection="MatchParent">
+        
             <StackLayout FlowDirection="MatchParent">
                 <ListView
+                    VerticalScrollBarVisibility="Default"
                     FlowDirection="MatchParent"
                       ItemsSource = "{Binding SubSections}"                   
                       HasUnevenRows = "true" 
@@ -45,16 +47,16 @@
                                     </Grid.RowDefinitions>
 
 
-                                    
+                                <StackLayout  BackgroundColor="#FBFBFB"  FlowDirection="MatchParent"  HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand">
                                         <StackLayout Grid.Row="0" 
-                                            BackgroundColor="#FBFBFB" FlowDirection="MatchParent" Margin="48,0,48,0"  Orientation="Horizontal"
+                                            FlowDirection="MatchParent" Margin="48,0,48,0"  Orientation="Horizontal"
                                                      HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand">
                                         <Label  
-                                                     FontSize="20"
-                                                        HeightRequest="56"
-                                                               HorizontalOptions="StartAndExpand"
-                                                       VerticalOptions="CenterAndExpand"
-                                                       HorizontalTextAlignment="Start"
+                                            FontSize="20"
+                                            HeightRequest="56"
+                                            HorizontalOptions="StartAndExpand"
+                                            VerticalOptions="CenterAndExpand"
+                                            HorizontalTextAlignment="Start"
                                                        TextColor="#3C536A"                                                    
                                                        FontFamily="Assets/Fonts/Roboto.ttf"                                                                                               
                                                        VerticalTextAlignment="Center">
@@ -62,71 +64,146 @@
                                                 <FormattedString>
                                                     <Span Text  ="{Binding Name}"/>
 
-                                                    <Span Text  ="{Binding    Count,StringFormat=' ({0})'}"/>
+                                                    <Span Text  ="{Binding Dishes.Dishes.Count,StringFormat=' ({0})'}"/>
                                                     
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
 
-                                        <Label        
+                                        <Label  
+                                             Text="&#xf140;"
                                FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"
                                HorizontalTextAlignment="End" VerticalTextAlignment="Center"
                               TextColor="Black" 
                                IsEnabled="{Binding plus_enabled,Source=instance}"
-                              Text="&#xf140;" FontSize="26"/>
+                              FontSize="26"/>
                                         </StackLayout>
+                                </StackLayout>
 
-                                    
 
-                                    <Grid Grid.Row="1" HorizontalOptions="FillAndExpand"
-                                              IsVisible="{Binding IsVisible}"
-                                                      ColumnSpacing="0" RowSpacing="0"
-                                              Margin="0,0,1,0"
-                                                      BackgroundColor="White"
-                                                    VerticalOptions="FillAndExpand">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="1" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="1" />
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="1" />
-                                        </Grid.RowDefinitions>
-                                        <BoxView   Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="#E5E5E5" />
-                                        <BoxView   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BackgroundColor="#E5E5E5" />
-                                        <BoxView  Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="#E5E5E5" />
-                                        <BoxView  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="#E5E5E5" />
-                                        <Frame Grid.Row="1" Grid.Column="1" 
-                                               CornerRadius="0"
-                                               BackgroundColor="White" BorderColor="White"
-                                                   HasShadow="False"   >
-                                            <Grid  HorizontalOptions="FillAndExpand"
-                                                  
-                                                      BackgroundColor="White"
-                                                    VerticalOptions="FillAndExpand">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
 
-                                                    <RowDefinition Height="*" />
+                                <ListView
+                                    FlowDirection="MatchParent"
+                                        Grid.Row="1"
+                                                IsVisible="{Binding IsVisible}"
+                                                Margin="36,5,36,5"
+                                                VerticalScrollBarVisibility="Default"
+                                                          SeparatorVisibility="None"  HasUnevenRows="false"
+                                                                      RowHeight="112"                                                                     
+                                                                      VerticalOptions="CenterAndExpand"  
+                                                        
+                                                                      SelectionMode="Single"
+                                                                      ItemsSource="{Binding Dishes.Dishes}" >
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                <pancakeview:PancakeView 
+                                                    FlowDirection="MatchParent"
+                                                    Margin="12,5,12,5"
+                                                    VerticalOptions="Start"
+                                                    BorderColor="#4D707070"
+                                                    BackgroundColor="White"
+                                                    HorizontalOptions="FillAndExpand" HeightRequest="102"
+                                                    IsClippedToBounds="True"
+                                                    CornerRadius="10" 
+                                                    BorderThickness="1"
+                                                    HasShadow="False"
+                                                    Elevation="0">
+                                                    <StackLayout  FlowDirection="MatchParent" HeightRequest="102" VerticalOptions="Start"
+                                                                 Orientation="Horizontal" >
+                                                        <pancakeview:PancakeView 
+                                                    Padding="12"
+                                                    VerticalOptions="Start"
+                                                    BorderColor="Transparent"
+                                                    BackgroundColor="Transparent"
+                                                    HorizontalOptions="Start" 
+                                                            HeightRequest="78"
+                                                            WidthRequest="78"
+                                                    IsClippedToBounds="True"
+                                                    CornerRadius="10"  
+                                                    HasShadow="False"
+                                                    Elevation="0">
+                                                            <Image Source="{Binding Image}" Aspect="AspectFill"/>
+                                                        </pancakeview:PancakeView>
+                                                        <StackLayout Margin="48,12,48,12" Orientation="Vertical" HorizontalOptions="StartAndExpand" >
+                                                            <Label 
+                                                            FontSize="14"
+                                                                            TextColor="Black"
+                                                                          Text="{Binding Name, Mode=TwoWay}"
+                                                                            FontAttributes="Bold" 
+                                                                            VerticalTextAlignment="Start" 
+                                                                            HorizontalTextAlignment="Start"
+                                                                            HorizontalOptions="StartAndExpand" 
+                                                                            VerticalOptions="Start"
+                                                                                FontFamily="Assets/Fonts/Roboto.ttf" 
+                                                                    />
+                                                            <Label 
+                                                            FontSize="12"
+                                                                            TextColor="Black"
+                                                                          
+                                                                            
+                                                                            VerticalTextAlignment="Start" 
+                                                                            HorizontalTextAlignment="Start"
+                                                                            HorizontalOptions="StartAndExpand" 
+                                                                            VerticalOptions="StartAndExpand"
+                                                                                FontFamily="Assets/Fonts/Roboto.ttf" 
+                                                                    >
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <Span Text="{translator:Translate EstimatedTime}"/>
+                                                                        <Span Text=" : "/>
+                                                                        <Span Text="{Binding EstimatedTime, Mode=TwoWay}"/>
+                                                                        <Span Text=" "/>
+                                                                        <Span Text="{translator:Translate minute}"/>
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
+                                                            <Label 
+                                                            FontSize="12"
+                                                                            TextColor="#02A9AC"
+                                                                          FontAttributes="Bold"
+                                                                            
+                                                                            VerticalTextAlignment="End" 
+                                                                            HorizontalTextAlignment="Start"
+                                                                            HorizontalOptions="End" 
+                                                                            VerticalOptions="End"
+                                                                                FontFamily="Assets/Fonts/Roboto.ttf" 
+                                                                    >
+                                                                <Label.FormattedText>
+                                                                    <FormattedString> 
+                                                                        <Span Text="{Binding Price, Mode=TwoWay}"/>
+                                                                        <Span Text=" "/>
+                                                                        <Span Text="{translator:Translate Currency_DZ}"/>
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
 
-                                                </Grid.RowDefinitions>
+                                                        </StackLayout>
+                                                        <Label 
+                                                             Margin="12" 
+                                                           TextColor="#01A9AC"
+                                                                          Text="&#xf133;"
+                               FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"
+                                
+                                                                            VerticalTextAlignment="Center" 
+                                                                            HorizontalTextAlignment="Center"
+                                                                            HorizontalOptions="End" 
+                                                                            VerticalOptions="Center"
+                                                                         FontSize="28"      
+                                                                    />
+                                                    </StackLayout>
+                                                </pancakeview:PancakeView>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
 
-                                                <ScrollView Grid.Row="0" Grid.Column="0" VerticalOptions="FillAndExpand" Margin="1">
-
-                                                </ScrollView>
-                                            </Grid>
-                                        </Frame>
-                                    </Grid>
+                                    </ListView>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView >
             </StackLayout>
-        </ScrollView>
+        
     </ContentPage.Content>
 </ContentPage>

@@ -115,6 +115,24 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 RaisePropertyChanged();
             }
         }
+        public int EstimatedTime
+        {
+            get { return dish.EstimatedTime; }
+            set
+            {
+                dish.EstimatedTime = value;
+                RaisePropertyChanged();
+            }
+        }
+        public float Price
+        {
+            get { return dish.Price; }
+            set
+            {
+                dish.Price = value;
+                RaisePropertyChanged();
+            }
+        }
 
         /// <summary>
         /// The Uri of the image 

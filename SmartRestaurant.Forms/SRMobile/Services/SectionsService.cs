@@ -31,7 +31,21 @@ namespace SmartRestaurant.Diner.Services
         }
         private static void InitData()
         {
-           if(Sections==null) Sections = JsonConvert.DeserializeObject<ListSectionsObject>(SimpleService.GetJsonString("Repositories.ListSections.json"));
+            if (Sections == null)
+            {
+                Sections = JsonConvert.DeserializeObject<ListSectionsObject>(SimpleService.GetJsonString("Repositories.ListSections.json"));
+                foreach( var s in Sections.SectionsList)
+                {
+                    if(s.SubSections!=null)
+                    foreach(var b in s.SubSections)
+                    {
+                        b.SectionId = s.Id;
+                        if(b.Dishes!=null)
+                        foreach (var d in b.Dishes)
+                            d.SubSectionId = b.Id;
+                    }
+                }
+            }
         }
         internal static ObservableCollection<DishModel> GetListDishes(int sectionid, int subsectionid)
         {

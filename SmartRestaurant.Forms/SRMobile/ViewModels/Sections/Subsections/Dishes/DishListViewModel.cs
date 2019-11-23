@@ -17,7 +17,9 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// <summary>
         /// Dish to bind with the View.
         /// </summary>
-        public ObservableCollection<DishViewModel> Dishes { get; set; }
+        public ObservableCollection<DishViewModel> Dishes {
+            get;
+            set; }
         
         /// <summary>
         /// Constructor to Fill the List of subsections from the Database or Json file stored locally.

@@ -7,9 +7,7 @@
       "NameEn": "Starters ",
       "Image": "starters.png",
       "SubSections": [
-        {
 
-        }   
   ]
     }
     ,
@@ -27,11 +25,8 @@
             "NameFr": "Pizza",
             "NameEn": "Pizza ",
             "Image": "pizza.png",
-
-            "Dishes": [
-              {
-
-              }
+            
+            "Dishes": [           
 
             ]
           },
@@ -103,9 +98,8 @@
             "Image": "grillades.png",
 
             "Dishes": [
-              {
+             
 
-              }
             ]
           },
           {
@@ -116,9 +110,8 @@
             "Image": "pates.png",
 
             "Dishes": [
-              {
+             
 
-              }
             ]
           },
           {
@@ -129,10 +122,7 @@
             "Image": "volaille.png",
 
             "Dishes": [
-              {
-
-              }
-
+             
             ]
           },
           {
@@ -143,10 +133,7 @@
             "Image": "viande.png",
 
             "Dishes": [
-              {
-
-              }
-
+             
             ]
           },
           {
@@ -181,9 +168,7 @@
       "NameEn": "Desserts",
       "Image": "desserts.png",
       "SubSections": [
-        {
-
-        }
+       
       ]
     },
     {
@@ -193,9 +178,7 @@
       "NameEn": "Drinks",
       "Image": "drinks.png",
       "SubSections": [
-        {
-
-        }
+       
       ]
     }
   ]
