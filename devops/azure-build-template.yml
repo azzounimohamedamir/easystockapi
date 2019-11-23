@@ -1,7 +1,7 @@
+  jobs:
   variables:
     WEB_PROJECT_NAME: "SmartRestaurant.Client.Web"
     ARTIFACTS_OUTPUT_PATH: "/home/ubuntu/test-SmartRestaurant"
-  jobs:
   - job: Restore_Nuget_Packages
     timeoutInMinutes: 5
     steps:
