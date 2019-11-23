@@ -1,5 +1,5 @@
 stages:
-- stage: Build_and_DB_Migration
+- stage: Build_On_Test_Evn
   condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
   pool: 
     name: test-SmartRestaurant-agent
@@ -7,9 +7,9 @@ stages:
       clean: all
   jobs:
   - template: devops/azure-build-template.yml
-  
-- stage: Deployment
-  dependsOn: Build_and_DB_Migration
+
+- stage: Deployment_To_Test_Env
+  dependsOn: Build_On_Test_Evn
   condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
   pool: 
     name: test-SmartRestaurant-agent
