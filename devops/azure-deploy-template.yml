@@ -14,8 +14,8 @@
           steps:
            - checkout: none
            - script: |
-               mkdir -p ${{ ArtifactsOutputPath }}
-               rm -rf ${{ ArtifactsOutputPath }}
-               cd ${{ WebProjectName }}
-               dotnet publish --no-restore -c Release --output=${{ ArtifactsOutputPath }}
+               mkdir -p ${{ parameters.ArtifactsOutputPath }}
+               rm -rf ${{ parameters.ArtifactsOutputPath }}
+               cd ${{ parameters.WebProjectName }}
+               dotnet publish --no-restore -c Release --output=${{ parameters.ArtifactsOutputPath }}
                sudo systemctl restart SmartRestaurant.service
