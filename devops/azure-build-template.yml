@@ -1,12 +1,12 @@
+  parameters:
+    WebProjectName: 'SmartRestaurant.Client.Web'
+  
   jobs:
-  variables:
-    WEB_PROJECT_NAME: "SmartRestaurant.Client.Web"
-    ARTIFACTS_OUTPUT_PATH: "/home/ubuntu/test-SmartRestaurant"
   - job: Restore_Nuget_Packages
     timeoutInMinutes: 5
     steps:
      - script: |
-         cd "$WEB_PROJECT_NAME"
+         cd ${{ parameters.WebProjectName }}
          dotnet clean
          dotnet restore
        displayName: Restore Common Packages
@@ -21,14 +21,14 @@
     steps:
      - checkout: none
      - script: |
-          cd "$WEB_PROJECT_NAME"
+          cd ${{ parameters.WebProjectName }}
           dotnet build --no-restore
        displayName: Build the Website
   - job: Database_Migration
     steps:
      - checkout: none
      - script: |
-         cd "$WEB_PROJECT_NAME"
+         cd ${{ parameters.WebProjectName }}
          dotnet ef database update --context:SmartRestaurantDbContext
          dotnet ef database update --context:SmartRestaurantIdentityDbContext
     dependsOn: Build_the_Website
