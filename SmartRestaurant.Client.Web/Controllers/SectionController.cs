@@ -114,15 +114,21 @@ namespace SmartRestaurant.Client.Web.Controllers
             var files = HttpContext.Request.Form.Files;
             try
             {
+                var path = string.Concat(webRootPath, @"\uploads\section\");
+                // create section directory if it does not exist.
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+            
                 if (files.Any())
                 {
-                    var file = Path.Combine(webRootPath+@"\uploads\section\", files.FirstOrDefault()?.FileName);
+                    var file = Path.Combine(path,string.Concat(model.SectionModel.RestaurantId, files.FirstOrDefault()?.FileName));
                     using (var ms = new MemoryStream())
                     {
                         files[0].CopyTo(ms);
                         var bt = ms.ToArray();
                         await System.IO.File.WriteAllBytesAsync(file, bt);
                     }
+
                     model.SectionModel.ImageUri = file;
 
                 }
