@@ -7,6 +7,7 @@
              x:Class="SmartRestaurant.Diner.Views.SectionsPage"
              xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers"
              xmlns:local="clr-namespace:SmartRestaurant.Diner.CustomControls"
+             xmlns:vms="clr-namespace:SmartRestaurant.Diner.ViewModels.Sections"
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              Title="{translator:Translate RestaurantName}"             
@@ -48,8 +49,7 @@
                                             Grid.Row="0"
                                             Source="{Binding Image}"
                                             HorizontalOptions="FillAndExpand" VerticalOptions="Start"
-                                            Aspect="AspectFill"
-                                           
+                                            Aspect="AspectFill"                                           
                                               />
                                         <Label 
                                                Grid.Row="0"
@@ -115,9 +115,10 @@
                      />
                     <Button  Grid.Row="0" HeightRequest="32" WidthRequest="32" Margin="8,-8,-8,-8" CornerRadius="16"  Grid.Column="1" 
                     HorizontalOptions="Center" VerticalOptions="Start"  FontAttributes="Bold" BackgroundColor="White" 
-                             FontSize="12" FontFamily="Assets/Fonts/Roboto.ttf" Text="5">
-
-
+                             FontSize="12" FontFamily="Assets/Fonts/Roboto.ttf" 
+                             
+                        Text="{Binding SelectedDishes.Count, Source={x:Static vms:SectionsListViewModel.Instance},Mode=TwoWay}">
+                        
                     </Button>
 
                     <Label                        
@@ -133,10 +134,15 @@
                                                >
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{translator:Translate price}" TextColor="#77000000"  FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf"
+                                
+                                        <Span Text="{translator:Translate price}" TextColor="#77000000"  FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf"
                                             FontAttributes="Bold"   />
-                                <Span Text="&#10;800 " TextColor="#01A9AC" 
+                                        <Span Text="&#10;" TextColor="#01A9AC" 
                                                     FontAttributes="Bold"       FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"/>
+                                <Span Text="{Binding TotalPrice ,Source={x:Static vms:SectionsListViewModel.Instance},Mode=TwoWay}" TextColor="#01A9AC" 
+                                                    FontAttributes="Bold"       FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"/>
+
+
                                 <Span Text="{translator:Translate Currency_DZ}" TextColor="#01A9AC" 
                                                     FontAttributes="Bold"       FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"/>
                             </FormattedString>

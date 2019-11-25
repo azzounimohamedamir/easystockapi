@@ -49,40 +49,30 @@ namespace SmartRestaurant.Diner.Views
 
             }
         }
+         
 
-        private async void FlowListView_ItemTapped(object sender, ItemTappedEventArgs e)
+         
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            if (!((DishViewModel)(e.Item)).IsSelected)
+            (((Label)sender).BindingContext as DishViewModel).IsSelected = !(((Label)sender).BindingContext as DishViewModel).IsSelected;
+            if (SectionsListViewModel.Instance.SelectedDishes.Select(d=>d.Id).Contains((((Label)sender).BindingContext as DishViewModel).Id))
             {
-                foreach (DishViewModel t in ((SubSectionsListViewModel)BindingContext).SelectedSubSection.Dishes.Dishes)
-                    if (t.Id !=((TablesViewModel)( e.Item)).Id)
-                        t.IsSelected = false;
-                if (!((DishViewModel)(e.Item)).IsSelected)
-                    this.viewmodel.SelectedDish = ((DishViewModel)(e.Item));
-                else
-                    this.viewmodel.SelectedDish = null;
-            }            
-      
-        }
-
-        private async void GesturesContentView_GestureRecognized(object sender, XLabs.Forms.Behaviors.GestureResult e)
-        {
-            if (e.GestureType == GestureType.SingleTap)
-            {
-                if (!((DishViewModel)(((((View)sender))).BindingContext)).IsSelected)
-                {
-                    foreach (DishViewModel t in ((SubSectionsListViewModel)BindingContext).SelectedSubSection.Dishes.Dishes)
-                        if (t.Id != ((DishViewModel)(((GesturesContentView)sender).BindingContext)).Id)
-                            t.IsSelected = false;                   
-                    if (!((DishViewModel)(((((View)sender))).BindingContext)).IsSelected)
-                        this.viewmodel.SelectedDish = ((DishViewModel)(((GesturesContentView)sender).BindingContext));
-                    else
-                        this.viewmodel.SelectedDish = null;
-                }
-  
-
+                
+                
+                SectionsListViewModel.Instance.SelectedDishes.Remove(
+                    (((Label)sender).BindingContext as DishViewModel));
+                
 
             }
+            else
+            {
+
+                  SectionsListViewModel.Instance.SelectedDishes.Add(
+                    (((Label)sender).BindingContext as DishViewModel));
+
+            }
+            SectionsListViewModel.Instance.SelectedDishes = SectionsListViewModel.Instance.SelectedDishes;
         }
     }
 }

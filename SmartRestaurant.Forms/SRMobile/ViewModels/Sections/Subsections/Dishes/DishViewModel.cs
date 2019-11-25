@@ -26,7 +26,10 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             this.dish = _dish;
         }
 
-        public int Id { get; set; }
+        public int Id { get
+            {
+                return dish.Id;
+            } }
         
 
         #region Name of the dish according to the language selected.
@@ -173,7 +176,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 }
             }
         }
-        private bool isSelected;
+        private bool isSelected=false;
         public bool IsSelected
         {
             get

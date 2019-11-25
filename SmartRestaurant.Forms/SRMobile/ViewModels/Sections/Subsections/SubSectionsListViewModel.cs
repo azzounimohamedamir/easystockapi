@@ -5,6 +5,7 @@ using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Services;
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -20,14 +21,14 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// SubSections to bind with the View.
         /// </summary>
         public ObservableCollection<SubSectionViewModel> SubSections { get; set; }
-        
+        public SectionViewModel Section { get; set; }
         /// <summary>
         /// Constructor to Fill the List of subsections from the Database or Json file stored locally.
         /// </summary>
-        public SubSectionsListViewModel(int _sectionid)
+        public SubSectionsListViewModel(SectionViewModel _section)
         {
-
-            ObservableCollection<SubSectionModel> listSubSections = SectionsService.GetListSubSections(_sectionid);
+            Section = _section;
+            ObservableCollection<SubSectionModel> listSubSections = SectionsService.GetListSubSections(_section.Id);
             SubSections = new ObservableCollection<SubSectionViewModel>();
             foreach (var item in listSubSections)
             {
@@ -65,22 +66,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// <summary>
         /// The DishViewModel selected by the user to serve  the customer
         /// </summary>
-        private DishViewModel selectedDish;
-        public DishViewModel SelectedDish
-        {
-            get { return selectedDish; }
-            set
-            {
-                if (selectedDish != value)
-                {
-                    if (SelectedDish != null)
-                        SelectedDish.IsSelected = !SelectedDish.IsSelected;
-                    SetPropertyValue(ref selectedDish, value);
-                    if (SelectedDish != null)
-                        SelectedDish.IsSelected = !SelectedDish.IsSelected;
-                }
-            }
-        }
+
         public TextAlignment OrientationText
         {
             get
@@ -143,5 +129,6 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 });
             }
         }
+
     }
 }

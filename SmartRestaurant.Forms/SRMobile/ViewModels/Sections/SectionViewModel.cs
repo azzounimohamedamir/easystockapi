@@ -23,7 +23,11 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             this.section = _section;
         }
 
-        public int Id { get; set; }
+        public int Id {
+            get {
+                return section.Id;
+            }
+        }
 
 
         #region Name of the section according to the language selected.
@@ -165,7 +169,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 return new Command(async () => {
                     try
                     {
-                       await  ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SubSectionsDishesPage(new SubSectionsListViewModel(section.Id)));
+                       await  ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SubSectionsDishesPage(new SubSectionsListViewModel(this)));
                     }
                     catch (Exception)
                     {
@@ -175,6 +179,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 });
             }
         }
+
     }
 
 }
