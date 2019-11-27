@@ -2,6 +2,15 @@
     WebProjectName: 'SmartRestaurant.Client.Web'
   
   jobs:
+  - job:
+    steps:
+      - task: SonarQubePrepare@4
+        inputs:
+          SonarQube: 'TestSonar'
+          scannerMode: 'MSBuild'
+          projectKey: 'test01'
+          projectName: 'TestEADNproject'
+        displayName: Prepare SonarQube
   - job: Restore_Nuget_Packages
     timeoutInMinutes: 5
     steps:
@@ -24,6 +33,16 @@
           cd ${{ parameters.WebProjectName }}
           dotnet build --no-restore
        displayName: Build the Website
+  - job: SonarQubeAnalyze
+    steps:
+    - task: SonarQubeAnalyze@4
+      displayName: SonarQube Analyze Code
+  - job: SonarQubePublish
+    steps:
+    - task: SonarQubePublish@4
+      inputs:
+        pollingTimeoutSec: '300'
+      displayName: SonarQube Publish Report
   - job: Database_Migration
     steps:
      - checkout: none
