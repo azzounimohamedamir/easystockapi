@@ -4,6 +4,7 @@
   jobs:
   - job:
     steps:
+      - checkout: none
       - task: SonarQubePrepare@4
         inputs:
           SonarQube: 'TestSonar'
@@ -35,10 +36,12 @@
        displayName: Build the Website
   - job: SonarQubeAnalyze
     steps:
+    - checkout: none
     - task: SonarQubeAnalyze@4
       displayName: SonarQube Analyze Code
   - job: SonarQubePublish
     steps:
+    - checkout: none
     - task: SonarQubePublish@4
       inputs:
         pollingTimeoutSec: '300'
