@@ -2,9 +2,8 @@
     WebProjectName: 'SmartRestaurant.Client.Web'
   
   jobs:
-  - job:
+  - job: Build_the_Website
     steps:
-      - checkout: none
       - task: SonarQubePrepare@4
         inputs:
           SonarQube: 'TestSonar'
@@ -12,40 +11,25 @@
           projectKey: 'test01'
           projectName: 'TestEADNproject'
         displayName: Prepare SonarQube
-  - job: Restore_Nuget_Packages
-    timeoutInMinutes: 5
-    steps:
-     - script: |
+      - script: |
          cd ${{ parameters.WebProjectName }}
          dotnet clean
          dotnet restore
-       displayName: Restore Common Packages
-     - script: |
+        displayName: Restore Common Packages
+      - script: |
          cd "SmartRestaurant.Application"
          dotnet add package DataTables.AspNetCore.Mvc
-       displayName: Add AspNetCore.Mvc Package
-  - job: Build_the_Website
-    dependsOn: Restore_Nuget_Packages
-    condition: succeeded()
-    timeoutInMinutes: 5
-    steps:
-     - checkout: none
-     - script: |
+        displayName: Add AspNetCore.Mvc Package
+      - script: |
           cd ${{ parameters.WebProjectName }}
           dotnet build --no-restore
-       displayName: Build the Website
-  - job: SonarQubeAnalyze
-    steps:
-    - checkout: none
-    - task: SonarQubeAnalyze@4
-      displayName: SonarQube Analyze Code
-  - job: SonarQubePublish
-    steps:
-    - checkout: none
-    - task: SonarQubePublish@4
-      inputs:
-        pollingTimeoutSec: '300'
-      displayName: SonarQube Publish Report
+        displayName: Build the Website
+      - task: SonarQubeAnalyze@4
+        displayName: SonarQube Analyze Code
+      - task: SonarQubePublish@4
+        inputs:
+          pollingTimeoutSec: '300'
+        displayName: SonarQube Publish Report
   - job: Database_Migration
     steps:
      - checkout: none
