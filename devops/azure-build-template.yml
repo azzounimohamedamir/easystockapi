@@ -19,7 +19,7 @@
       - script: |
          cd "SmartRestaurant.Application"
          dotnet add package DataTables.AspNetCore.Mvc
-        displayName: Add AspNetCore.Mvc Package
+        displayName: Add AspNetCore.Mvc Packages
       - script: |
           cd ${{ parameters.WebProjectName }}
           dotnet build --no-restore
