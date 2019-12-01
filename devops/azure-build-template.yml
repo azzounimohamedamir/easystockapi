@@ -29,7 +29,7 @@
       - task: SonarQubePublish@4
         inputs:
           pollingTimeoutSec: '300'
-        displayName: SonarQube Publish Report
+        displayName: SonarQube Publish Reports
   - job: Database_Migration
     steps:
      - checkout: none
