@@ -7,13 +7,14 @@ namespace SmartRestaurant.Diner.Models
     /// <summary>
     /// Used to manage sections or categories of food.
     /// </summary>
-    public class SectionModel
+    public class DishModel
     {
         public int Id { get; set; }
         public string NameAr { get; set; }
         public string NameFr { get; set; }
         public string NameEn { get; set; }
-
+        public int EstimatedTime { get; set; }
+        public float Price { get; set; }
         /// <summary>
         /// Used to set the image of the section or category.
         /// </summary>
@@ -29,6 +30,6 @@ namespace SmartRestaurant.Diner.Models
                 return String.IsNullOrEmpty(Image) ? null : new Uri(Image);
             }
         }
-        public ICollection<SubSectionModel> SubSections { get; set; }
+        public int SubSectionId { get; set; }
     }
 }

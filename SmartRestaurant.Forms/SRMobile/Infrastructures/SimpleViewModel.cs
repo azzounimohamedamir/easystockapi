@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 namespace SmartRestaurant.Diner.Infrastructures
 {
     /// <summary>
-    /// Used to implément ViewModel without passing by the implementation of the interface INotifyPropertyChanged.
+    /// Used to implement ViewModel without passing by the implementation of the interface INotifyPropertyChanged.
     /// </summary>
     public class SimpleViewModel : INotifyPropertyChanged
     {

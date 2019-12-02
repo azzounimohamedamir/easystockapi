@@ -26,8 +26,7 @@ namespace SmartRestaurant.Diner.Views
 
             Title = "Maladies et allergies";
 
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightBlue;
-            ((NavigationPage)Application.Current.MainPage).BarTextColor = Color.MidnightBlue;
+
         }
     }
 }

@@ -24,9 +24,7 @@ namespace SmartRestaurant.Diner.Views
             BindingContext = _model;
 
             Title = "Sélection du langage";
-
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightBlue;
-            ((NavigationPage)Application.Current.MainPage).BarTextColor = Color.MidnightBlue;
+             
         }
     }
 }

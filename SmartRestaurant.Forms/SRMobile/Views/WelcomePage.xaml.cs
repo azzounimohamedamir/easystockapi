@@ -23,8 +23,7 @@ namespace SmartRestaurant.Diner.Views
 
             this.BindingContext = _model;
             Title = "Welcome";
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.LightBlue;
-            ((NavigationPage)Application.Current.MainPage).BarTextColor = Color.MidnightBlue;
+
         }
     }
 }
