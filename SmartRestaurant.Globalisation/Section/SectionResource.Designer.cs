@@ -22,7 +22,7 @@ namespace SmartRestaurant.Resources.Section {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class SectionResource {
+    public class SectionResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -59,11 +59,11 @@ namespace SmartRestaurant.Resources.Section {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Menu.
         /// </summary>
-        internal static string MenuId {
+        public static string MenuId {
             get {
                 return ResourceManager.GetString("MenuId", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace SmartRestaurant.Resources.Section {
         /// <summary>
         ///   Looks up a localized string similar to Restaurant.
         /// </summary>
-        internal static string RestaurantId {
+        public static string RestaurantId {
             get {
                 return ResourceManager.GetString("RestaurantId", resourceCulture);
             }
