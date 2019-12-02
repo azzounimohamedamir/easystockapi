@@ -77,7 +77,7 @@ namespace SmartRestaurant.Application.FoodCategories.Queries.GetById
 
                 //return FoodCategorie;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

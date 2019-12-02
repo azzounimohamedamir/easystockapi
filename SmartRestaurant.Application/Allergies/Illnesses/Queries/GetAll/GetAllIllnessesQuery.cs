@@ -47,7 +47,7 @@ namespace SmartRestaurant.Application.Allergies.Illnesses.Queries.GetAll
                         SlugUrl = x.SlugUrl
                     });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

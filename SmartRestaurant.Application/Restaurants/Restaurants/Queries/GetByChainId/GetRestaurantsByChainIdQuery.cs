@@ -57,7 +57,7 @@ namespace SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetByChain
                         AddressModel = x.Address.ToModel()
                     }).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

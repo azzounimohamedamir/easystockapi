@@ -61,7 +61,7 @@ namespace SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetById
                         AddressModel = x.Address.ToModel()
                     }).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

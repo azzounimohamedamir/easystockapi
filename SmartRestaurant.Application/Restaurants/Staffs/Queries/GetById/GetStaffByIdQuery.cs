@@ -58,7 +58,7 @@ namespace SmartRestaurant.Application.Restaurants.Staffs.Queries.GetById
                         StaffRole = x.StaffRole
                     }).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

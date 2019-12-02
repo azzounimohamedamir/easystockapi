@@ -42,7 +42,7 @@ namespace SmartRestaurant.Application.Allergies.Illnesses.Queries.GetBySpesifica
                        .ToIllnessItemModels()
                        .ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

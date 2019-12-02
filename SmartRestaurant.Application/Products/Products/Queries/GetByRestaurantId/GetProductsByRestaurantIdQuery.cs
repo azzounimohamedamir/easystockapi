@@ -52,7 +52,7 @@ namespace SmartRestaurant.Application.Products.Products.Queries.GetByRestaurantI
                         ProductFamilyName = x.ProductFamily.Name
                     }).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;  
             }

@@ -19,10 +19,10 @@ namespace SmartRestaurant.Resources.Section {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class SectionResource {
+    internal class SectionResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -63,7 +63,7 @@ namespace SmartRestaurant.Resources.Section {
         /// <summary>
         ///   Looks up a localized string similar to Menu.
         /// </summary>
-        public static string MenuId {
+        internal static string MenuId {
             get {
                 return ResourceManager.GetString("MenuId", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace SmartRestaurant.Resources.Section {
         /// <summary>
         ///   Looks up a localized string similar to Restaurant.
         /// </summary>
-        public static string RestaurantId {
+        internal static string RestaurantId {
             get {
                 return ResourceManager.GetString("RestaurantId", resourceCulture);
             }

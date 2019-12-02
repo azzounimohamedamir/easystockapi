@@ -168,7 +168,7 @@ namespace SmartRestaurant.Diner.ViewModels
             {
                 await SecureStorage.SetAsync("srpassword", Password);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Possible that device doesn't support secure storage on device.
             }
@@ -190,7 +190,7 @@ namespace SmartRestaurant.Diner.ViewModels
                 }
                 return pw;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

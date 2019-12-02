@@ -56,7 +56,7 @@ namespace SmartRestaurant.Application.Commun.Currencies.Commands.Create
                 entity.Id = Guid.NewGuid();
                 db.Currencies.Add(entity);
                 db.Save();
-            } catch(Exception e )
+            } catch (Exception)
             {
 
             }

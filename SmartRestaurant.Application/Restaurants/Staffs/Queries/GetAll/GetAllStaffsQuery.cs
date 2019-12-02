@@ -34,7 +34,7 @@ namespace SmartRestaurant.Application.Restaurants.Staffs.Queries.GetAll
             {
                 return db.Staffs.ToStaffItemModels();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

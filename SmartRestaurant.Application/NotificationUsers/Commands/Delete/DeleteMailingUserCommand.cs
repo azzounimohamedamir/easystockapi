@@ -58,7 +58,7 @@ namespace SmartRestaurant.Application.NotificationUsers.Commands.Delete
 
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }
