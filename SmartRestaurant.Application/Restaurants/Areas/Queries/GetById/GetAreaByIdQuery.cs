@@ -52,7 +52,7 @@ namespace SmartRestaurant.Application.Restaurants.Areas.Queries.GetById
                         RestaurantId=x.Floor.RestaurantId.ToString()
                     }).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

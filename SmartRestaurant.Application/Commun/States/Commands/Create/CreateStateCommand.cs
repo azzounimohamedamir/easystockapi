@@ -55,7 +55,7 @@ namespace SmartRestaurant.Application.Commun.State.Commands.Create
                 _db.Save();
 
             }
-            catch(Exception e )
+            catch (Exception)
             {
 
 

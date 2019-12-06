@@ -26,18 +26,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
     public class SmartRestaurantDbContext : DbContext, ISmartRestaurantDatabaseService
     {
 
-        //   private string strConnection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SRdb1;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        //private string strConnection = "Data Source=SQL7005.site4now.net;Initial Catalog=db_a4a1e4_SRDB;User Id=DB_A47E52_srdb_admin;Password=g2242019;";
-        // private string strConnection = "Data Source=SQL5002.site4now.net;Initial Catalog=DB_A4A1E4_SRDB;User Id=DB_A4A1E4_SRDB_admin;Password=g2242019;";
-
-
-        //private string strConnection;
-        ////pour la migration
-        //public SmartRestaurantDbContext(AppSettings settings)
-        //{
-        //    strConnection = settings.SmartRestaurantSqlConnection;
-        //}
-
+      
         public SmartRestaurantDbContext(DbContextOptions<SmartRestaurantDbContext> options) : base(options)
         {
         }
@@ -176,6 +165,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
         public DbSet<Recommendation> Recommendations { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Translate> Translates { get; set; }
+        public DbSet<Section> Sections { get; set; }
         DbSet<Domain.Mailing> ISmartRestaurantDatabaseService.Mailings { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void Save()

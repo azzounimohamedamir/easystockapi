@@ -37,7 +37,7 @@ namespace SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetAll
                 return db.RestaurantTypes.
                     ToRestaurantTypeItemModels();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

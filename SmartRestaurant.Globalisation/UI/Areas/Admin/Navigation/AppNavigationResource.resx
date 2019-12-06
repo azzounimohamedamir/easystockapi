@@ -390,4 +390,13 @@
   <data name="IngredientSearch" xml:space="preserve">
     <value>Rechercher un ingrédient</value>
   </data>
+  <data name="AddSection" xml:space="preserve">
+    <value>Nouvelle section</value>
+  </data>
+  <data name="AllSections" xml:space="preserve">
+    <value>Toutes les séctions</value>
+  </data>
+  <data name="Sections" xml:space="preserve">
+    <value>Sections</value>
+  </data>
 </root>

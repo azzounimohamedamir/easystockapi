@@ -47,7 +47,7 @@ namespace SmartRestaurant.Application.Restaurants.Staffs.Queries.IGetByRestauran
                     ||( x.RestaurantId == id & x.StaffRole==role))
                     .AddInclude(i => i.Restaurant));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

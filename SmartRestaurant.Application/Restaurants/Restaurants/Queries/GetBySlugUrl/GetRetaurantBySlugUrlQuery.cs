@@ -56,7 +56,7 @@ namespace SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetBySlugU
                         AddressModel = x.Address.ToModel()
                     }).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

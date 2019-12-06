@@ -60,7 +60,7 @@ namespace SmartRestaurant.Application.Allergies.Allergies.Queries.GetById
                     })
                     .FirstOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

@@ -59,7 +59,7 @@ namespace SmartRestaurant.Application.Restaurants.Places.Queries.GetById
                         
                     }).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

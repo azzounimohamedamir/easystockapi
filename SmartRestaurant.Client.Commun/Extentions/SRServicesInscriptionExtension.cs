@@ -59,7 +59,7 @@ namespace SmartRestaurant.Client.Commun
             services.AddDishFamilyServices();
             services.AddDishServices();
             services.AddPlaceServices();
-
+            services.AddSectionServices();
             services.AddTranslateServices();
             return services;
 

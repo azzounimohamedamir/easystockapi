@@ -54,7 +54,7 @@ namespace SmartRestaurant.Application.Pricings.Tarifications.Queries.GetAll
                         RestaurantName = x.Restaurant.Name
                     }).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

@@ -19,6 +19,7 @@ using SmartRestaurant.Application.Restaurants.Floors.Queries.GetById;
 using SmartRestaurant.Application.Restaurants.Floors.Queries.GetByRestaurantId;
 using SmartRestaurant.Application.Restaurants.Menu.Commands.Create;
 using SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd;
+using SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllMenus;
 using SmartRestaurant.Application.Restaurants.Owners.Commands.Create;
 using SmartRestaurant.Application.Restaurants.Owners.Commands.Delete;
 using SmartRestaurant.Application.Restaurants.Owners.Commands.Update;
@@ -48,6 +49,7 @@ using SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetAll;
 using SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetById;
 using SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetBySpecification;
 using SmartRestaurant.Application.Restaurants.RestaurantTypes.Services;
+using SmartRestaurant.Application.Restaurants.Section.Commands.Create;
 using SmartRestaurant.Application.Restaurants.Staffs.Commands.Create;
 using SmartRestaurant.Application.Restaurants.Staffs.Commands.Delete;
 using SmartRestaurant.Application.Restaurants.Staffs.Commands.Update;
@@ -87,6 +89,7 @@ namespace SmartRestaurant.Client.Commun.Inscription.Restaurants
         {
             services.AddScoped<ICreateMenuCommand, CreateMenuCommand>();
             services.AddScoped<IGetAllMenuFilterdQuery, GetAllMenuFilterdQuery>();
+            services.AddScoped<IGetAllMenusQuery, GetAllMenusQuery>();
             return services;
         }
         public static IServiceCollection AddChainService(this IServiceCollection services)
@@ -195,7 +198,15 @@ namespace SmartRestaurant.Client.Commun.Inscription.Restaurants
             services.AddScoped<IStaffQueries, StaffQueries>();
             services.AddScoped<IStaffService, StaffService>();
             return services;
-        } 
-        
+        }
+
+        public static IServiceCollection AddSectionServices(this IServiceCollection services)
+        {
+            
+            services.AddScoped<ICreateSectionCommand, CreateSectionCommand>();
+            return services;
+
+        }
+
     }
 }

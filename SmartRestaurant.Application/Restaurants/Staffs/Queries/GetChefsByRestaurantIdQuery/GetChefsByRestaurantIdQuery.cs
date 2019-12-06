@@ -45,7 +45,7 @@ namespace SmartRestaurant.Application.Restaurants.Staffs.Queries.GetChefsByResta
             {
                 return getByRestaurantIdByRoleQuery.Execute(restaurantId, EnumPersoneType.Chef);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

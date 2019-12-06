@@ -70,7 +70,7 @@ namespace SmartRestaurant.Application.Products.Products.Queries.GetById
                 product.Pricing = pricing.ToModel();
                 return product;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

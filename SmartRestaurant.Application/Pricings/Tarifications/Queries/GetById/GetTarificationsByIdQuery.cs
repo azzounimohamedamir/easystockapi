@@ -65,7 +65,7 @@ namespace SmartRestaurant.Application.Pricings.Tarifications.Queries.GetById
                         }).ToList()
                     }).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

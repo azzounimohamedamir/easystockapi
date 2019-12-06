@@ -51,7 +51,7 @@ namespace SmartRestaurant.Application.Restaurants.Floors.Queries.GetById
 
                     }).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

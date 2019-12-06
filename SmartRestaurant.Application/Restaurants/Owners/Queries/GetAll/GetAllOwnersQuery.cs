@@ -36,7 +36,7 @@ namespace SmartRestaurant.Application.Restaurants.Owners.Queries.GetAll
                 return db.Owners.Include(i=>i.Restaurants).ToOwnerItemModels()
                                 .ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

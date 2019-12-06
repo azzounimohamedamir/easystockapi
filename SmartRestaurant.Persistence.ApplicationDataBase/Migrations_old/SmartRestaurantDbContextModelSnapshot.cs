@@ -1415,6 +1415,38 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Migrations
                     b.ToTable("RestaurantTypes");
                 });
 
+            modelBuilder.Entity("SmartRestaurant.Domain.Restaurants.Section", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Alias");
+
+                    b.Property<System.DateTime>("CreatedDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ImageUri");
+
+                    b.Property<bool>("IsDisabled");
+
+                    b.Property<Guid>("MenuId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<Guid>("RestaurantId");
+
+                    b.Property<string>("SlugUrl");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuId");
+
+                    b.HasIndex("RestaurantId");
+
+                    b.ToTable("Sections");
+                });
+
             modelBuilder.Entity("SmartRestaurant.Domain.Restaurants.Staff", b =>
                 {
                     b.Property<Guid>("Id");
@@ -2482,6 +2514,19 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Migrations
 
                     b.HasOne("SmartRestaurant.Domain.Restaurants.Restaurant", "Restaurant")
                         .WithMany("RestaurantSpecialties")
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Restaurants.Section", b =>
+                {
+                    b.HasOne("SmartRestaurant.Domain.Restaurants.Menu", "Menu")
+                        .WithMany()
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SmartRestaurant.Domain.Restaurants.Restaurant", "Restaurant")
+                        .WithMany()
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
