@@ -41,9 +41,9 @@
               {
                 "Id": 1,
                 "NameAr": "هامبورجر",
-                "NameFr": "Hamburger",
-                "NameEn": "Hamburger ",
-                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
+                "NameFr": "Tacos XL",
+                "NameEn": "Tacos XL ",
+                "Images": [ "tacos.png", "tacos.png", "tacos.png" ],
                 "EstimatedTime": "20",
                 "Price": "400",
                 "SubSectionId": 2

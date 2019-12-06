@@ -34,6 +34,8 @@ namespace SmartRestaurant.Diner.Views
 
 
         }
+        private int _position;
+        public int Position { get { return _position; } set { _position = value; OnPropertyChanged(); } }
         public DishViewModel viewmodel { get; private set; }
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {

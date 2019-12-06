@@ -27,7 +27,7 @@ namespace SmartRestaurant.Diner.Views
         {
             InitializeComponent();           
             BindingContext = _model;
-            viewmodel = (SubSectionsListViewModel)BindingContext;            
+            viewmodel = (SubSectionsListViewModel)BindingContext;                 
         }
         public SubSectionsListViewModel viewmodel { get; private set; }
 

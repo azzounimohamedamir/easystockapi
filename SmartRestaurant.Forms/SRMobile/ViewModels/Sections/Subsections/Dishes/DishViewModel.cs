@@ -20,6 +20,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
     public class DishViewModel: SimpleViewModel
     {
         public readonly DishModel dish;
+        public SubSectionViewModel SubSection { get; set; }
 
         /// <summary>
         /// Get the DishModel from the Model.
@@ -218,9 +219,10 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             get
             {
-                return new Command(async () => {
+                return new Command<SubSectionViewModel>(async(_subsection) => {
                     try
                     {
+                        this.SubSection = _subsection;
                         await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DishSelectPage(this));
                     }
                     catch (Exception)

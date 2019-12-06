@@ -6,8 +6,8 @@
              xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers"
              xmlns:vms="clr-namespace:SmartRestaurant.Diner.ViewModels.Sections"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
-             xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+             xmlns:local="clr-namespace:SmartRestaurant.Diner.CustomControls"
              mc:Ignorable="d"
              NavigationPage.HasBackButton="True"
              FlowDirection="{Binding FlowDirectionValue}"
@@ -21,47 +21,65 @@
     <ContentPage.Content>
 
         <StackLayout FlowDirection="MatchParent" Orientation="Vertical">
+                <controls:CarouselViewControl 
+                    ShowIndicators="True"
+                    AnimateTransition="True"
+                    IndicatorsShape="Circle"
+                    ArrowsBackgroundColor="Blue"
+                    ArrowsTransparency=".5"
+                    ArrowsTintColor="Green"
+                    BackgroundColor="Yellow"
+                    IndicatorsTintColor="#FFFFFF"
+                    CurrentPageIndicatorTintColor="#77000000"                   
+                    HeightRequest="196"
+                    FlowDirection="MatchParent"
+                    ItemsSource="{Binding Images}"             
+                    HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"
+                    >
+                <controls:CarouselViewControl.ItemTemplate>
+                        <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="140"/>
+                                <RowDefinition Height="56"/>
+                            </Grid.RowDefinitions>
+                            <Image 
+                                Grid.Row="0"          
+                                Grid.RowSpan="2"
+                                HeightRequest="196"                                         
+                                Source="{Binding .}"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                Aspect="AspectFill"                                           
+                                />
+                            <Label 
+                                Grid.Row="1"
+                                BackgroundColor="Transparent"
+                                HeightRequest="56"
+                                HorizontalTextAlignment="Start"                                            
+                                VerticalTextAlignment="Center"    
+                                HorizontalOptions="FillAndExpand"                              
+                                TextColor="White"
+                                
+                                VerticalOptions="End"                                                   
+                                >
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding viewmodel.Name,Source={x:Reference instance}}" FontAttributes="Bold"  
+                                              FontFamily="Assets/Fonts/Roboto.ttf" FontSize="32"/>
+                                        <Span Text="&#10;"/>
+                                        <Span Text="{Binding viewmodel.SubSection.Name,Source={x:Reference instance}}"
+                                               FontFamily="Assets/Fonts/Roboto.ttf" FontSize="14"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+            </Grid>
+            </DataTemplate>
+                </controls:CarouselViewControl.ItemTemplate>
+            </controls:CarouselViewControl>
 
-            <pancakeview:PancakeView 
-                VerticalOptions="Start"
-                            BackgroundColor="White" HorizontalOptions="FillAndExpand" HeightRequest="196"
-                               BorderDrawingStyle="Outside"
-                                IsClippedToBounds="True"
-                               CornerRadius="0"  
-                               HasShadow="true"
-                               Elevation="1">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="196"/>
-                    </Grid.RowDefinitions>
-                    <cards:CarouselView Grid.Row="0" 
-                                        FlowDirection="MatchParent"
-                                  ItemsSource="{Binding Images}"             
-                                  HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"
-                                                  >
-                        <cards:CarouselView.ItemTemplate>
-                            <DataTemplate> 
-                                <ffimage:CachedImage Source="{Binding .}"/>
-                            </DataTemplate>
-                        </cards:CarouselView.ItemTemplate>
-                    </cards:CarouselView>
-                    <Label 
-                                               Grid.Row="0"
-                                               BackgroundColor="White"
-                                               HorizontalTextAlignment="Center"                                            
-                                               VerticalTextAlignment="Center"    
-                                               HeightRequest="56"
-                                               HorizontalOptions="FillAndExpand"
-                                               Text="{Binding Name}"  TextColor="#01A9AC" FontSize="24" 
-                                               FontFamily="Assets/Fonts/Roboto.ttf"
-                                               FontAttributes="Bold"
-                                               VerticalOptions="End"                                                   
-                                               >
-                    </Label>
 
-                </Grid>
-
-            </pancakeview:PancakeView>
+         
             <ScrollView
                     VerticalOptions="FillAndExpand"                    
                     FlowDirection="MatchParent"

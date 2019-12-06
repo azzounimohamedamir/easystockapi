@@ -11,7 +11,7 @@ using Java.Lang.Reflect;
 using Android.Graphics;
 using Android.Content;
 using Android.Util;
-
+using CarouselView.FormsPlugin.Android;
 
 namespace SmartRestaurant.Diner.Droid
 {
@@ -30,7 +30,7 @@ namespace SmartRestaurant.Diner.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
-            
+            CarouselViewRenderer.Init();
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
