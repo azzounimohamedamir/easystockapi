@@ -152,6 +152,9 @@
                                                     BorderThickness="1"
                                                     HasShadow="False"
                                                     Elevation="0">
+                                                    <pancakeview:PancakeView.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding ShowDishCommand}"/>
+                                                    </pancakeview:PancakeView.GestureRecognizers>
                                                     <StackLayout  FlowDirection="MatchParent" HeightRequest="102" VerticalOptions="Start"
                                                                  Orientation="Horizontal" >
                                                         <pancakeview:PancakeView 
@@ -166,7 +169,7 @@
                                                     CornerRadius="10"  
                                                     HasShadow="False"
                                                     Elevation="0">
-                                                            <Image Source="{Binding Image}" Aspect="AspectFill"/>
+                                                            <Image Source="{Binding Images[0]}" Aspect="AspectFill"/>
                                                         </pancakeview:PancakeView>
                                                         <StackLayout Margin="48,12,48,12" Orientation="Vertical" HorizontalOptions="StartAndExpand" >
                                                             <Label 
@@ -314,13 +317,13 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Grid.RowSpan="2"
-                                               BackgroundColor="Transparent"
-                                               HorizontalTextAlignment="{Binding OrientationText}"
-                                               VerticalTextAlignment="Start"                                                  
-                                               HorizontalOptions="Start"
-                                               Margin="38,0,0,0"
-                                               VerticalOptions="Center"                                                     
-                                               >
+                        BackgroundColor="Transparent"
+                        HorizontalTextAlignment="{Binding OrientationText}"
+                        VerticalTextAlignment="Start"                                                  
+                        HorizontalOptions="Start"
+                        Margin="38,0,0,0"
+                        VerticalOptions="Center"      
+                        >
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{translator:Translate price}" TextColor="#77000000"  FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf"
@@ -329,16 +332,12 @@
                                                     FontAttributes="Bold"       FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"/>
                                 <Span Text="{Binding TotalPrice, Source={x:Static vms:SectionsListViewModel.Instance},Mode=TwoWay}" TextColor="#01A9AC" 
                                                     FontAttributes="Bold"       FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"/>
-
-
                                 <Span Text="{translator:Translate Currency_DZ}" TextColor="#01A9AC" 
                                                     FontAttributes="Bold"       FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                 </Grid>
-
-
             </pancakeview:PancakeView>
         </StackLayout>
     </ContentPage.Content>

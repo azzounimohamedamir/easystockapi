@@ -1,11 +1,15 @@
-﻿using SmartRestaurant.Diner.Infrastructures;
+﻿using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.ViewModels.Tables;
+using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections
@@ -109,14 +113,9 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// <summary>
         /// Image to indicate the nature of the dish.
         /// </summary>
-        public string Image
+        public ObservableCollection<string> Images
         {
-            get { return dish.Image; }
-            set
-            {
-                dish.Image = value;
-                RaisePropertyChanged();
-            }
+            get { return new ObservableCollection<string>( dish.Images); }            
         }
         public int EstimatedTime
         {
@@ -140,13 +139,20 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// <summary>
         /// The Uri of the image 
         /// </summary>
-        public Uri ImageUri
+        public List<Uri> ImageUris
         {
             get
             {
-                return String.IsNullOrEmpty(dish.Image) ? null : new Uri(Image);
+                var uris = new List<Uri>();
+                foreach(string i in Images)
+                {
+                    uris.Add(new Uri(i));
+                }
+
+                return  uris;
             }
         }
+        
         #endregion
         
 
@@ -161,6 +167,21 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 else
                 {
                     return TextAlignment.Start;
+                }
+            }
+        }
+        public FlowDirection FlowDirectionValue
+        {
+
+            get
+            {
+                if (AppResources.Culture != null)
+                {
+                    return AppResources.Culture.Name == "ar" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+                }
+                else
+                {
+                    return FlowDirection.LeftToRight;
                 }
             }
         }
@@ -193,6 +214,24 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 }
             }
         }
+        public ICommand ShowDishCommand
+        {
+            get
+            {
+                return new Command(async () => {
+                    try
+                    {
+                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DishSelectPage(this));
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+                });
+            }
+        }
+        
 
     }
 }

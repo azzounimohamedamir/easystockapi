@@ -43,7 +43,7 @@
                 "NameAr": "هامبورجر",
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
-                "Image": "hamburger.png",
+                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
                 "EstimatedTime": "20",
                 "Price": "400",
                 "SubSectionId": 2
@@ -53,7 +53,7 @@
                 "NameAr": "هامبورجر",
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
-                "Image": "hamburger.png",
+                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
                 "EstimatedTime": "20",
                 "Price": "400",
                 "SubSectionId": 2
@@ -63,7 +63,7 @@
                 "NameAr": "هامبورجر",
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
-                "Image": "hamburger.png",
+                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
                 "EstimatedTime": "20",
                 "Price": "400",
                 "SubSectionId": 2
@@ -73,7 +73,7 @@
                 "NameAr": "هامبورجر",
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
-                "Image": "hamburger.png",
+                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
                 "EstimatedTime": "20",
                 "Price": "400",
                 "SubSectionId": 2
@@ -83,7 +83,7 @@
                 "NameAr": "هامبورجر",
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
-                "Image": "hamburger.png",
+                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
                 "EstimatedTime": "20",
                 "Price": "400",
                 "SubSectionId": 2

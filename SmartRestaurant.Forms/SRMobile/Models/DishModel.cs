@@ -18,18 +18,7 @@ namespace SmartRestaurant.Diner.Models
         /// <summary>
         /// Used to set the image of the section or category.
         /// </summary>
-        public string Image { get; set; }
-
-        /// <summary>
-        /// Used to get the Uri of the image.
-        /// </summary>
-        public Uri ImageUri
-        {
-            get
-            {
-                return String.IsNullOrEmpty(Image) ? null : new Uri(Image);
-            }
-        }
+        public List<string> Images { get; set; }
         public int SubSectionId { get; set; }
     }
 }

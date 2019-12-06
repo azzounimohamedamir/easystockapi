@@ -12,6 +12,7 @@ using Android.Graphics;
 using Android.Content;
 using Android.Util;
 
+
 namespace SmartRestaurant.Diner.Droid
 {
     [Activity(Label = "SmartRestaurant.Diner", Icon = "@mipmap/icon", Theme = "@style/MyTheme.Splash", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
@@ -29,7 +30,7 @@ namespace SmartRestaurant.Diner.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
-
+            
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
