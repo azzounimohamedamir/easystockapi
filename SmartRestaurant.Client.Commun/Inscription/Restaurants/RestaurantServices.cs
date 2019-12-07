@@ -18,8 +18,10 @@ using SmartRestaurant.Application.Restaurants.Floors.Commands.Update;
 using SmartRestaurant.Application.Restaurants.Floors.Queries.GetById;
 using SmartRestaurant.Application.Restaurants.Floors.Queries.GetByRestaurantId;
 using SmartRestaurant.Application.Restaurants.Menu.Commands.Create;
+using SmartRestaurant.Application.Restaurants.Menu.Commands.Update;
 using SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd;
 using SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllMenus;
+using SmartRestaurant.Application.Restaurants.Menu.Queries.GetById;
 using SmartRestaurant.Application.Restaurants.Owners.Commands.Create;
 using SmartRestaurant.Application.Restaurants.Owners.Commands.Delete;
 using SmartRestaurant.Application.Restaurants.Owners.Commands.Update;
@@ -90,6 +92,9 @@ namespace SmartRestaurant.Client.Commun.Inscription.Restaurants
             services.AddScoped<ICreateMenuCommand, CreateMenuCommand>();
             services.AddScoped<IGetAllMenuFilterdQuery, GetAllMenuFilterdQuery>();
             services.AddScoped<IGetAllMenusQuery, GetAllMenusQuery>();
+            services.AddScoped<IGetMenuByIdQuery, GetMenuByIdQuery>();
+            services.AddScoped<IUpdateMenuCommand, UpdateMenuCommand>();
+            
             return services;
         }
         public static IServiceCollection AddChainService(this IServiceCollection services)

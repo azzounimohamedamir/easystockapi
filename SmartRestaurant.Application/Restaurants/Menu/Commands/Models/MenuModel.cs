@@ -1,7 +1,4 @@
-﻿using SmartRestaurant.Application.Restaurants.Menu.Items.Commands.Models;
-using System.Collections.Generic;
-
-namespace SmartRestaurant.Application.Restaurants.Menu.Commands.Models
+﻿namespace SmartRestaurant.Application.Restaurants.Menu.Commands.Models
 {
     public class MenuModel : IMenuModel
     {
