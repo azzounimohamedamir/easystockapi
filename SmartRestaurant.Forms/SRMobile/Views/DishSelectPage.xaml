@@ -8,6 +8,7 @@
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              xmlns:local="clr-namespace:SmartRestaurant.Diner.CustomControls"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              mc:Ignorable="d"
              NavigationPage.HasBackButton="True"
              FlowDirection="{Binding FlowDirectionValue}"
@@ -19,8 +20,12 @@
         <translator:NegateBooleanConverter x:Key="inverter"/>
     </ContentPage.Resources>
     <ContentPage.Content>
-
         <StackLayout FlowDirection="MatchParent" Orientation="Vertical">
+        <ScrollView
+                    VerticalOptions="FillAndExpand"                    
+                    FlowDirection="MatchParent"
+                   >
+            <StackLayout FlowDirection="MatchParent" Orientation="Vertical">
                 <controls:CarouselViewControl 
                     ShowIndicators="True"
                     AnimateTransition="True"
@@ -31,65 +36,190 @@
                     BackgroundColor="Yellow"
                     IndicatorsTintColor="#FFFFFF"
                     CurrentPageIndicatorTintColor="#77000000"                   
-                    HeightRequest="196"
+                    HeightRequest="266"
                     FlowDirection="MatchParent"
                     ItemsSource="{Binding Images}"             
-                    HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"
+                    HorizontalOptions="FillAndExpand" VerticalOptions="Start"
                     >
-                <controls:CarouselViewControl.ItemTemplate>
+                    <controls:CarouselViewControl.ItemTemplate>
                         <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="140"/>
-                                <RowDefinition Height="56"/>
-                            </Grid.RowDefinitions>
-                            <Image 
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="175"/>
+                                    <RowDefinition Height="91"/>
+                                </Grid.RowDefinitions>
+                                <Image 
                                 Grid.Row="0"          
                                 Grid.RowSpan="2"
-                                HeightRequest="196"                                         
+                                HeightRequest="266"                                         
                                 Source="{Binding .}"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand"
                                 Aspect="AspectFill"                                           
                                 />
-                            <Label 
+                                <Label 
+                                Margin="40,0,40,20"
                                 Grid.Row="1"
                                 BackgroundColor="Transparent"
-                                HeightRequest="56"
+                                HeightRequest="91"
                                 HorizontalTextAlignment="Start"                                            
                                 VerticalTextAlignment="Center"    
                                 HorizontalOptions="FillAndExpand"                              
-                                TextColor="White"
-                                
+                                TextColor="White"                                
                                 VerticalOptions="End"                                                   
                                 >
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding viewmodel.Name,Source={x:Reference instance}}" FontAttributes="Bold"  
+                                              FontFamily="Assets/Fonts/Roboto.ttf" FontSize="32"/>
+                                            <Span Text="&#10;"/>
+                                            <Span Text="{Binding viewmodel.SubSection.Name,Source={x:Reference instance}}"
+                                               FontFamily="Assets/Fonts/Roboto.ttf" FontSize="14"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+                        </DataTemplate>
+                    </controls:CarouselViewControl.ItemTemplate>
+                </controls:CarouselViewControl>
+                <pancakeview:PancakeView 
+                    Margin="40"
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="Start"
+                    HeightRequest="98"
+                    FlowDirection="MatchParent"
+                    CornerRadius="10">
+                        <Grid BackgroundColor="#F2FBFB" FlowDirection="MatchParent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" HorizontalTextAlignment="{Binding OrientationTextInverted}" VerticalTextAlignment="Center" TextColor="#3C536A"
+                                   HorizontalOptions="FillAndExpand" VerticalOptions="Center" 
+                                   FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"
+                                   Text="&#xf51b;"  FontSize="30" Visual="Material" BackgroundColor="Transparent"                                     
+                                   FontAttributes="Bold"
+                                   />
+                            <Label Grid.Column="1"
+                                   HorizontalTextAlignment="Start" VerticalTextAlignment="Center" 
+                                   HorizontalOptions="FillAndExpand" VerticalOptions="Center" 
+                                   Margin="20">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding viewmodel.Name,Source={x:Reference instance}}" FontAttributes="Bold"  
-                                              FontFamily="Assets/Fonts/Roboto.ttf" FontSize="32"/>
+                                        <Span TextColor="#3C536A"  FontFamily="Assets/Fonts/Roboto.ttf" FontSize="14" Text="{translator:Translate EstimatedTime}"/>
                                         <Span Text="&#10;"/>
-                                        <Span Text="{Binding viewmodel.SubSection.Name,Source={x:Reference instance}}"
-                                               FontFamily="Assets/Fonts/Roboto.ttf" FontSize="14"/>
+                                        <Span TextColor="#01A9AC" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="24" FontAttributes="Bold" Text="{Binding EstimatedTime}" />
+                                        <Span Text=" "/>
+                                        <Span TextColor="#01A9AC" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="24" FontAttributes="Bold"  Text="{translator:Translate minute}"/>
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-            </Grid>
-            </DataTemplate>
-                </controls:CarouselViewControl.ItemTemplate>
-            </controls:CarouselViewControl>
+                            <BoxView  Grid.Column="2" WidthRequest="2" HeightRequest="50" Margin="0,24,0,24" BackgroundColor="#01A9AC" Opacity=".8"/>
+                            <Label Grid.Column="3" HorizontalTextAlignment="{Binding OrientationTextInverted}" VerticalTextAlignment="Center" TextColor="#3C536A"
+                                   HorizontalOptions="FillAndExpand" VerticalOptions="Center" 
+                                   FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"
+                                   Text="&#xf117;"  FontSize="30" Visual="Material" BackgroundColor="Transparent"                                     
+                                   FontAttributes="Bold"
+                                   />
+                            <Label Grid.Column="4"
+                                   HorizontalTextAlignment="Start" VerticalTextAlignment="Center" 
+                                   HorizontalOptions="FillAndExpand" VerticalOptions="Center" 
+                                   Margin="20">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span TextColor="#3C536A"  FontFamily="Assets/Fonts/Roboto.ttf" FontSize="14"  Text="{translator:Translate uprice}"/>
+                                        <Span Text="&#10;"/>
+                                        <Span TextColor="#01A9AC" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="24" FontAttributes="Bold" Text="{Binding Price}"/>
+                                        <Span Text=" "/>
+                                        <Span TextColor="#01A9AC" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="24" FontAttributes="Bold"  Text="{translator:Translate Currency_DZ}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </pancakeview:PancakeView>
+                <Label                  
+                    Margin="40,0,40,20" Text="{translator:Translate Ingredients}" HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Start"
+                    TextColor="#3C536A" Opacity=".5"   FontFamily="Assets/Fonts/Roboto.ttf" FontSize="20" FontAttributes="Bold"
+                                   />
+                    <flv:FlowListView
+                        FlowColumnCount="{Binding Dish_Ingredients_Measures.Count}"
+                        Margin="30,0,30,0"  
+                        RowHeight="150"
+                        HeightRequest="150"
+                        HorizontalScrollBarVisibility="Default"
+                        VerticalScrollBarVisibility="Never"                        
+                        HorizontalOptions="StartAndExpand"
+                        SelectionMode="None"
+                        FlowDirection="MatchParent"  
+                        FlowItemsSource="{Binding Dish_Ingredients_Measures}"
+                        FlowColumnMinWidth="200" 
+                                  >
 
-
-         
-            <ScrollView
-                    VerticalOptions="FillAndExpand"                    
-                    FlowDirection="MatchParent"
-                   >
-                <StackLayout>
-                    
+                        <flv:FlowListView.FlowColumnTemplate>
+                            <DataTemplate>
+                                <pancakeview:PancakeView 
+                                    Margin="10,0,10,0"
+                                    BackgroundColor="Transparent" 
+                                    HorizontalOptions="FillAndExpand" 
+                                    HeightRequest="144"
+                                    WidthRequest="200"
+                                    BorderDrawingStyle="Inside"
+                                    FlowDirection="MatchParent"
+                                    IsClippedToBounds="True"
+                                    HasShadow="True"                                     
+                                    BorderColor="#29000000"
+                                    Elevation="4">
+                                    <Grid FlowDirection="MatchParent">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="70"/>
+                                            <RowDefinition Height="39"/>
+                                            <RowDefinition Height="35"/>
+                                        </Grid.RowDefinitions>
+                                        <Image 
+                                            Grid.Row="0"
+                                            Source="{Binding Image}"
+                                            HorizontalOptions="FillAndExpand" VerticalOptions="Start"
+                                            Aspect="Fill"                                           
+                                              />
+                                        <pancakeview:PancakeView 
+                                             Grid.Row="0" HorizontalOptions="End" VerticalOptions="Start"
+                                    Margin="6,6,6,0"
+                                    BackgroundColor="#01A9AC" 
+                                            
+                                    HeightRequest="24"
+                                    WidthRequest="24"
+                                            CornerRadius="4"
+                                    BorderDrawingStyle="Outside"
+                                    FlowDirection="MatchParent">
+                                            <Label Text="+" TextColor="White"/>
+                                        </pancakeview:PancakeView>
+                                        <Label Grid.Row="1" Margin="7,0,7,0"
+                                               HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start"
+                                               >
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span  Text="{Binding Name}" TextColor="#3C536A" FontAttributes="Bold" FontSize="12" FontFamily="Assets/Fonts/Roboto.ttf"/>
+                                                    <Span Text="&#10;" />
+                                                    <Span Text="{Binding Weight}" TextColor="#773C536A" FontSize="12" FontFamily="Assets/Fonts/Roboto.ttf"/>
+                                                    <Span Text=" "/>
+                                                    <Span Text="{translator:Translate Grammes}" TextColor="#773C536A" FontSize="12" FontFamily="Assets/Fonts/Roboto.ttf"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </pancakeview:PancakeView>
+                            </DataTemplate>
+                        </flv:FlowListView.FlowColumnTemplate>
+                    </flv:FlowListView>
+  
                 </StackLayout>
-                
-            </ScrollView >
-            <pancakeview:PancakeView 
+
+        </ScrollView>
+        <pancakeview:PancakeView 
             VerticalOptions="EndAndExpand" Margin="0"
                                  FlowDirection="LeftToRight"
                             BackgroundColor="White" HorizontalOptions="FillAndExpand" HeightRequest="88"
@@ -122,8 +252,7 @@
                             <FormattedString>
                                 <Span Text="{translator:Translate price}" TextColor="#77000000"  FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf"
                                             FontAttributes="Bold"   />
-                                <Span Text="&#10;" TextColor="#01A9AC" 
-                                                    FontAttributes="Bold"       FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"/>
+                                <Span Text="&#10;" />
                                 <Span Text="{Binding TotalPrice, Source={x:Static vms:SectionsListViewModel.Instance},Mode=TwoWay}" TextColor="#01A9AC" 
                                                     FontAttributes="Bold"       FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"/>
                                 <Span Text="{translator:Translate Currency_DZ}" TextColor="#01A9AC" 

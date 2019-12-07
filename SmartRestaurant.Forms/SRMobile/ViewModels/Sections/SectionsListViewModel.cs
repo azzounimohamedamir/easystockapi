@@ -2,6 +2,7 @@
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Services;
+using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
     /// </summary>
     public class SectionsListViewModel: SimpleViewModel
     {
+        public static IngredientListViewModel Ingredients { get; set; }
         public static SectionsListViewModel Instance { get; set; }
         /// <summary>
         /// The list of section to be binded to the List control.
@@ -31,7 +33,8 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// </summary>
         public SectionsListViewModel()
         {
-            
+            if(Ingredients==null)
+            Ingredients = new IngredientListViewModel();
             ObservableCollection<SectionModel> listSections = SectionsService.GetListSections();
             Sections = new ObservableCollection<SectionViewModel>();
             foreach (var item in listSections)

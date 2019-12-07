@@ -133,6 +133,24 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à grams.
+        /// </summary>
+        internal static string Grammes {
+            get {
+                return ResourceManager.GetString("Grammes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ingredients.
+        /// </summary>
+        internal static string Ingredients {
+            get {
+                return ResourceManager.GetString("Ingredients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Allergies list.
         /// </summary>
         internal static string ListAllergiesCaption {
@@ -228,6 +246,15 @@ namespace SmartRestaurant.Diner.Resources {
         internal static string test_subsections {
             get {
                 return ResourceManager.GetString("test_subsections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Price.
+        /// </summary>
+        internal static string uprice {
+            get {
+                return ResourceManager.GetString("uprice", resourceCulture);
             }
         }
         

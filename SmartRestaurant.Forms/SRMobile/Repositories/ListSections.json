@@ -44,6 +44,30 @@
                 "NameFr": "Tacos XL",
                 "NameEn": "Tacos XL ",
                 "Images": [ "tacos.png", "tacos.png", "tacos.png" ],
+
+                "Ingredients": [
+                  {
+                    "Id": 1,
+                    "Measure": 2
+                  },
+                  {
+                    "Id": 2,
+                    "Measure": 1
+                  },
+                  {
+                    "Id": 3,
+                    "Measure": 1
+                  },
+                  {
+                    "Id": 4,
+                    "Measure": 1
+                  },
+                  {
+                    "Id": 5,
+                    "Measure": 3
+                  }
+
+                ],
                 "EstimatedTime": "20",
                 "Price": "400",
                 "SubSectionId": 2
@@ -54,7 +78,7 @@
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
                 "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
-                "EstimatedTime": "20",
+                "Ingredients": [],"EstimatedTime": "20",
                 "Price": "400",
                 "SubSectionId": 2
               },
@@ -64,7 +88,7 @@
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
                 "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
-                "EstimatedTime": "20",
+                "Ingredients": [],"EstimatedTime": "20",
                 "Price": "400",
                 "SubSectionId": 2
               },
@@ -74,7 +98,7 @@
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
                 "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
-                "EstimatedTime": "20",
+                "Ingredients": [],"EstimatedTime": "20",
                 "Price": "400",
                 "SubSectionId": 2
               },
@@ -84,7 +108,7 @@
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
                 "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
-                "EstimatedTime": "20",
+                "Ingredients": [],"EstimatedTime": "20",
                 "Price": "400",
                 "SubSectionId": 2
               }

@@ -13,6 +13,7 @@
   <ItemGroup>
     <None Remove="Repositories\ListAllergies.json" />
     <None Remove="Repositories\ListDeseases.json" />
+    <None Remove="Repositories\ListIngredients.json" />
     <None Remove="Repositories\ListSections.json" />
     <None Remove="Repositories\ListTables.json" />
     <None Remove="Repositories\ListZones.json" />
@@ -23,6 +24,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Repositories\ListDeseases.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repositories\ListIngredients.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Repositories\ListSections.json">

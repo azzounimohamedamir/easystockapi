@@ -2,6 +2,7 @@
 using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients;
 using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.Views;
 using System;
@@ -17,7 +18,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
     /// <summary>
     /// Used to manage dishs as a ViewModel
     /// </summary>
-    public class DishViewModel: SimpleViewModel
+    public class DishViewModel : SimpleViewModel
     {
         public readonly DishModel dish;
         public SubSectionViewModel SubSection { get; set; }
@@ -29,13 +30,14 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         public DishViewModel(DishModel _dish)
         {
             this.dish = _dish;
+
         }
 
         public int Id { get
             {
                 return dish.Id;
             } }
-        
+
 
         #region Name of the dish according to the language selected.
         /// <summary>
@@ -116,7 +118,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// </summary>
         public ObservableCollection<string> Images
         {
-            get { return new ObservableCollection<string>( dish.Images); }            
+            get { return new ObservableCollection<string>(dish.Images); }
         }
         public int EstimatedTime
         {
@@ -145,17 +147,17 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             get
             {
                 var uris = new List<Uri>();
-                foreach(string i in Images)
+                foreach (string i in Images)
                 {
                     uris.Add(new Uri(i));
                 }
 
-                return  uris;
+                return uris;
             }
         }
-        
+
         #endregion
-        
+
 
         public TextAlignment OrientationText
         {
@@ -168,6 +170,20 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 else
                 {
                     return TextAlignment.Start;
+                }
+            }
+        }
+        public TextAlignment OrientationTextInverted
+        {
+            get
+            {
+                if (AppResources.Culture != null)
+                {
+                    return AppResources.Culture.Name == "ar" ? TextAlignment.Start : TextAlignment.End;
+                }
+                else
+                {
+                    return TextAlignment.End;
                 }
             }
         }
@@ -198,7 +214,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 }
             }
         }
-        private bool isSelected=false;
+        private bool isSelected = false;
         public bool IsSelected
         {
             get
@@ -211,7 +227,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 {
                     isSelected = value;
                     RaisePropertyChanged();
-                   
+
                 }
             }
         }
@@ -219,7 +235,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             get
             {
-                return new Command<SubSectionViewModel>(async(_subsection) => {
+                return new Command<SubSectionViewModel>(async (_subsection) => {
                     try
                     {
                         this.SubSection = _subsection;
@@ -233,7 +249,32 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 });
             }
         }
-        
+        private  List<IngredientViewModel> _Dish_Ingredients_Measures;
+        public List<IngredientViewModel> Dish_Ingredients_Measures
+        {
+            get
+            {
+                #region Get Ingredients & their Measures  
+                if (_Dish_Ingredients_Measures == null)
+                {
+                    _Dish_Ingredients_Measures = new List<IngredientViewModel>();
+                
+                _Dish_Ingredients_Measures.Clear();
+                    foreach (DishIngredient di in dish.Ingredients)
+                    {
+                        var ing = SectionsListViewModel.Ingredients.Ingredients.FirstOrDefault(i => i.Id == di.Id);
+                        if (ing != null)
+                        {
+                            ing.Measure = di.Measure;
+                            _Dish_Ingredients_Measures.Add(ing);
+                        }
+                    }
 
+                }
+                #endregion
+                return _Dish_Ingredients_Measures;
+            }
+
+        }
     }
 }

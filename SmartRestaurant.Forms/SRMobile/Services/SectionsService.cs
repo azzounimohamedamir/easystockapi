@@ -16,7 +16,7 @@ namespace SmartRestaurant.Diner.Services
     /// </summary>
     public class SectionsService
     {
-        private static ListSectionsObject Sections;
+        private static ListSectionsObject Sections;     
         public static ObservableCollection<SectionModel> GetListSections()
         {
             InitData();

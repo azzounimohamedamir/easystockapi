@@ -141,6 +141,12 @@
   <data name="EstimatedTime" xml:space="preserve">
     <value>Estimated time</value>
   </data>
+  <data name="Grammes" xml:space="preserve">
+    <value>grams</value>
+  </data>
+  <data name="Ingredients" xml:space="preserve">
+    <value>Ingredients</value>
+  </data>
   <data name="ListAllergiesCaption" xml:space="preserve">
     <value>Allergies list</value>
   </data>
@@ -173,6 +179,9 @@
   </data>
   <data name="Table" xml:space="preserve">
     <value>Table</value>
+  </data>
+  <data name="uprice" xml:space="preserve">
+    <value>Price</value>
   </data>
   <data name="WelcomeComment" xml:space="preserve">
     <value>Welcome to the restaurant</value>

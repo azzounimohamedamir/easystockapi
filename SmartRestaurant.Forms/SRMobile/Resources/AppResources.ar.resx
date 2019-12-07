@@ -141,6 +141,12 @@
   <data name="EstimatedTime" xml:space="preserve">
     <value>الوقت المقدر</value>
   </data>
+  <data name="Grammes" xml:space="preserve">
+    <value>غرام</value>
+  </data>
+  <data name="Ingredients" xml:space="preserve">
+    <value>المكونات</value>
+  </data>
   <data name="ListAllergiesCaption" xml:space="preserve">
     <value>قائمة الحساسية.</value>
   </data>
@@ -173,6 +179,9 @@
   </data>
   <data name="test_subsections" xml:space="preserve">
     <value>شرقية، تقليدية</value>
+  </data>
+  <data name="uprice" xml:space="preserve">
+    <value>السعر</value>
   </data>
   <data name="WelcomeComment" xml:space="preserve">
     <value>مرحبا بكم في مطعم</value>

@@ -26,37 +26,12 @@ namespace SmartRestaurant.Diner.Views
         public DishSelectPage(DishViewModel _model)
         {
             InitializeComponent();
-
-            
             BindingContext = _model;
             viewmodel = (DishViewModel)BindingContext;
-            
 
 
         }
-        private int _position;
-        public int Position { get { return _position; } set { _position = value; OnPropertyChanged(); } }
         public DishViewModel viewmodel { get; private set; }
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            (((Label)sender).BindingContext as DishViewModel).IsSelected = !(((Label)sender).BindingContext as DishViewModel).IsSelected;
-            if (SectionsListViewModel.Instance.SelectedDishes.Select(d=>d.Id).Contains((((Label)sender).BindingContext as DishViewModel).Id))
-            {
-                
-                
-                SectionsListViewModel.Instance.SelectedDishes.Remove(
-                    (((Label)sender).BindingContext as DishViewModel));
-                
 
-            }
-            else
-            {
-
-                  SectionsListViewModel.Instance.SelectedDishes.Add(
-                    (((Label)sender).BindingContext as DishViewModel));
-
-            }
-            SectionsListViewModel.Instance.SelectedDishes = SectionsListViewModel.Instance.SelectedDishes;
-        }
     }
 }
