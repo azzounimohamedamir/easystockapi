@@ -3,19 +3,22 @@ stages:
   condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
   pool: 
     vmImage: 'vs2017-win2016'
+    demands:
+      - MSBuild
+      - Xamarin.Android
+      - JDK
     workspace:
       clean: all
+      
   jobs:
   - job:
     steps:
-    - task: DotNetCoreCLI@2
-      displayName: "NuGet Restore"
+    - task: NuGetToolInstaller@0
+    - task: NuGetCommand@2
       inputs:
-        command: restore
-        projects: '**/*.csproj'
-    - task: DotNetCoreCLI@2
-      displayName: "Build APK"
+        restoreSolution: '**/*.sln'
+    - task: XamarinAndroid@1
       inputs:
-        command: build
-        projects: 'SmartRestaurant.Forms/SRMobile.Android/SmartRestaurant.Diner.Android.csproj'
-        arguments: '--configuration Release'
+        projectFile: 'SmartRestaurant.Forms/SRMobile.Android/SmartRestaurant.Diner.Android.csproj'
+        outputDirectory: '$(build.binariesDirectory)/Release'
+        configuration: 'Release'
