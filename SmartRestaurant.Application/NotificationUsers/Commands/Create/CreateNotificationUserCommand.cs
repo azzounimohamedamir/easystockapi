@@ -58,7 +58,7 @@ namespace SmartRestaurant.Application.NotificationUsers.Commands.Create
 
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
 

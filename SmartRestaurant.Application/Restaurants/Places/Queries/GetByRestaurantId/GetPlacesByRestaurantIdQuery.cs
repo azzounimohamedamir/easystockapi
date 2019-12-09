@@ -57,7 +57,7 @@ namespace SmartRestaurant.Application.Restaurants.Places.Queries.GetByRestaurant
                         
                     }).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

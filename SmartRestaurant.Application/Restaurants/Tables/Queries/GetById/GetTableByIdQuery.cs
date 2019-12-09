@@ -53,7 +53,7 @@ namespace SmartRestaurant.Application.Restaurants.Tables.Queries.GetById
                         IsDisabled= x.IsDisabled
                     }).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

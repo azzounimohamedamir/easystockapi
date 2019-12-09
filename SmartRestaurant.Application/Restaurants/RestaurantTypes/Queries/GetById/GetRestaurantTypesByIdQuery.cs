@@ -50,7 +50,7 @@ namespace SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetByI
                     Name =x.Name
                 }).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

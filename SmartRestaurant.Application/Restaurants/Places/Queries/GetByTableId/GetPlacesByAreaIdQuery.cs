@@ -54,7 +54,7 @@ namespace SmartRestaurant.Application.Restaurants.Places.Queries.GetByAreaId
                         TableNumber = x.Table.TableNumber.ToString()
                     }).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

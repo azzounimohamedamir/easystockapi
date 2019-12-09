@@ -57,7 +57,7 @@ namespace SmartRestaurant.Application.Commun.CountryCurrencies.Commands.Delete
 
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }

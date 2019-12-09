@@ -1,8 +1,10 @@
 ﻿using Plugin.Multilingual;
+using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Services;
+using SmartRestaurant.Diner.ViewModels.Sections;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
@@ -117,10 +119,12 @@ namespace SmartRestaurant.Diner.ViewModels.DeseasesAllergies
         {
             get
             {
-                return new Command(() => {
+                return new Command(async() => {
                     try
+
                     {
-                        App.Current.MainPage.Navigation.PushAsync(new Views.SectionsPage(new Sections.SectionsListViewModel()));
+                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SectionsPage(new SectionsListViewModel()));                     
+                        
                     }
                     catch (Exception)
                     {

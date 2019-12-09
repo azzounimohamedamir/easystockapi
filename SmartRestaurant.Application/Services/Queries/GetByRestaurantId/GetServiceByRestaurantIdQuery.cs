@@ -61,7 +61,7 @@ namespace SmartRestaurant.Application.Services.Queries
                         
                     }).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

@@ -64,7 +64,7 @@ namespace SmartRestaurant.Application.Commun.CountryCurrencies.Commands.Update
                 db.Save();
 
             }
-            catch(Exception e )
+            catch (Exception)
             {
 
 

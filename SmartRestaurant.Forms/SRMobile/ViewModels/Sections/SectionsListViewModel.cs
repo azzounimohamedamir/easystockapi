@@ -6,17 +6,20 @@ using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections
 {
+    
     /// <summary>
     /// Used to bind Sections List to the view.
     /// </summary>
     public class SectionsListViewModel: SimpleViewModel
     {
+        public static SectionsListViewModel Instance { get; set; }
         /// <summary>
         /// The list of section to be binded to the List control.
         /// </summary>
@@ -28,29 +31,15 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// </summary>
         public SectionsListViewModel()
         {
+            
             ObservableCollection<SectionModel> listSections = SectionsService.GetListSections();
             Sections = new ObservableCollection<SectionViewModel>();
             foreach (var item in listSections)
             {
                 Sections.Add(new SectionViewModel(item));
             }
+            Instance = this;
         }
-
-        /// <summary>
-        /// Used to indicate with section is selected and update the SectionViewModel corresponding.
-        /// </summary>
-        private SectionViewModel selectedSection;
-        public SectionViewModel SelectedSection
-        {
-            get { return selectedSection; }
-            set
-            {
-                SetPropertyValue(ref selectedSection, value);
-                if (SelectedSection != null)
-                    SelectedSection.IsSelected = !SelectedSection.IsSelected;
-            }
-        }
-
         /// <summary>
         /// Used to manage text orientation from right to left or from left to right accorging the langage selected.
         /// </summary>
@@ -68,27 +57,51 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 }
             }
         }
+        public FlowDirection FlowDirectionValue
+        {
 
-        #region Methods
-        /// <summary>
-        /// Command to bind and let the user navigate to the naxt page or view.
-        /// </summary>
-        public ICommand SelectFood
+            get
+            {
+                if (AppResources.Culture != null)
+                {
+                    return AppResources.Culture.Name == "ar" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+                }
+                else
+                {
+                    return FlowDirection.LeftToRight;
+                }
+            }
+        }
+         private List<DishViewModel> selectedDishes;
+         public List<DishViewModel> SelectedDishes
         {
             get
             {
-                return new Command(() => {
-                    try
-                    {
-                        App.Current.MainPage.Navigation.PushAsync(new DeseasesAllergiesPage(new DeseasesAllergies.DeseasesAllergiesListViewModel()));
-                    }
-                    catch (Exception)
-                    {
+                if (selectedDishes == null)
+                    selectedDishes = new List<DishViewModel>();
+                
+                return selectedDishes;
+            }
+            set
+            {
+                selectedDishes = value;
+                TotalPrice= SelectedDishes.Sum(d => d.Price);
+                RaisePropertyChanged();
 
-                    }
-                });
             }
         }
-        #endregion
+
+         public float TotalPrice
+        {
+            get { return SelectedDishes.Sum(d => d.Price); }
+            set {
+                if(TotalPrice!=value)
+                    TotalPrice = value;
+                    RaisePropertyChanged();
+                
+            }
+
+        }
+
     }
 }

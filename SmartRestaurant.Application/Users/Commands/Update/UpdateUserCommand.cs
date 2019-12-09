@@ -60,7 +60,7 @@ namespace SmartRestaurant.Application.Users.Commands.Update
                 //db.SRUsers.Update(entity);
                 db.Save();
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
 

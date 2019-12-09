@@ -53,7 +53,7 @@ namespace SmartRestaurant.Application.Products.ProductFamilies.Queries.GetByRest
                         RestaurantName = x.Restaurant.Name
                     }).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

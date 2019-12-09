@@ -117,8 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Chairs" xml:space="preserve">
+    <value>كراسي</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>اختيار</value>
+  </data>
+  <data name="ChooseTable" xml:space="preserve">
+    <value>اختيار طاولة</value>
+  </data>
+  <data name="Choosethechaircount" xml:space="preserve">
+    <value>اختيار عدد الكراسي</value>
+  </data>
+  <data name="Currency_DZ" xml:space="preserve">
+    <value>دج</value>
+  </data>
   <data name="DeseasesAllergiesNext" xml:space="preserve">
     <value>متــــابعــــة</value>
+  </data>
+  <data name="EstimatedTime" xml:space="preserve">
+    <value>الوقت المقدر</value>
   </data>
   <data name="ListAllergiesCaption" xml:space="preserve">
     <value>قائمة الحساسية.</value>
@@ -132,8 +153,26 @@
   <data name="ListDeseasesComment" xml:space="preserve">
     <value>حدد الأمراض التي لديك من أجل أن نقدم لك طبقًا جيدًا</value>
   </data>
+  <data name="Menu" xml:space="preserve">
+    <value>قائمة الطعام</value>
+  </data>
+  <data name="minute" xml:space="preserve">
+    <value>دقيقة </value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>طلب</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>السعر الاجمالي</value>
+  </data>
   <data name="RestaurantName" xml:space="preserve">
     <value>الريان</value>
+  </data>
+  <data name="Table" xml:space="preserve">
+    <value>طاولة</value>
+  </data>
+  <data name="test_subsections" xml:space="preserve">
+    <value>شرقية، تقليدية</value>
   </data>
   <data name="WelcomeComment" xml:space="preserve">
     <value>مرحبا بكم في مطعم</value>

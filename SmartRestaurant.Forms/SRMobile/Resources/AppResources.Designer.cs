@@ -61,11 +61,74 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à CANCEL.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Chairs.
+        /// </summary>
+        internal static string Chairs {
+            get {
+                return ResourceManager.GetString("Chairs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à CONFIRM.
+        /// </summary>
+        internal static string Choose {
+            get {
+                return ResourceManager.GetString("Choose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Table selection.
+        /// </summary>
+        internal static string ChooseTable {
+            get {
+                return ResourceManager.GetString("ChooseTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Select the chair count.
+        /// </summary>
+        internal static string Choosethechaircount {
+            get {
+                return ResourceManager.GetString("Choosethechaircount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à DA.
+        /// </summary>
+        internal static string Currency_DZ {
+            get {
+                return ResourceManager.GetString("Currency_DZ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à NEXT.
         /// </summary>
         internal static string DeseasesAllergiesNext {
             get {
                 return ResourceManager.GetString("DeseasesAllergiesNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Estimated preparation time.
+        /// </summary>
+        internal static string EstimatedTime {
+            get {
+                return ResourceManager.GetString("EstimatedTime", resourceCulture);
             }
         }
         
@@ -106,11 +169,65 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Menu.
+        /// </summary>
+        internal static string Menu {
+            get {
+                return ResourceManager.GetString("Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à min.
+        /// </summary>
+        internal static string minute {
+            get {
+                return ResourceManager.GetString("minute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à ORDER.
+        /// </summary>
+        internal static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Total price.
+        /// </summary>
+        internal static string price {
+            get {
+                return ResourceManager.GetString("price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à ALRAYANE.
         /// </summary>
         internal static string RestaurantName {
             get {
                 return ResourceManager.GetString("RestaurantName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Table.
+        /// </summary>
+        internal static string Table {
+            get {
+                return ResourceManager.GetString("Table", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Oriental, Traditional.
+        /// </summary>
+        internal static string test_subsections {
+            get {
+                return ResourceManager.GetString("test_subsections", resourceCulture);
             }
         }
         

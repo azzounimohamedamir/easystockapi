@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <ProjectGuid>{28db4bff-b5d6-4aa5-9bd7-300f25745255}</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>

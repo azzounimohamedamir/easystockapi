@@ -1,9 +1,14 @@
-﻿using SmartRestaurant.Diner.Infrastructures;
+﻿using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections
 {
@@ -18,7 +23,11 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             this.section = _section;
         }
 
-        public int Id { get; set; }
+        public int Id {
+            get {
+                return section.Id;
+            }
+        }
 
 
         #region Name of the section according to the language selected.
@@ -119,28 +128,58 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             }
         }
         #endregion
-
-
-        #region Property to select a section.
-        /// <summary>
-        /// Used to indicate if the section is selected by the user.
-        /// </summary>
-        private bool isSelected;
-        public bool IsSelected
+        public FlowDirection FlowDirectionValue
         {
+
             get
             {
-                return isSelected;
-            }
-            set
-            {
-                if (isSelected != value)
+                if (AppResources.Culture != null)
                 {
-                    isSelected = value;
-                    RaisePropertyChanged();
+                    return AppResources.Culture.Name == "ar" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+                }
+                else
+                {
+                    return FlowDirection.LeftToRight;
                 }
             }
         }
-        #endregion
+        public string AbstractSubSections
+        {
+            get
+            {
+                
+                int x = Math.Min(section.SubSections.Count, 3);
+                if (x == 0) return ""; 
+                string temp = (AppResources.Culture.Name == "ar" ?
+                  String.Join(",", section.SubSections.Select(s => s.NameAr).Take(x)) :
+                    (
+                    AppResources.Culture.Name == "fr" ?
+                     String.Join(",", section.SubSections.Select(s => s.NameFr).Take(x)) :
+                     String.Join(",", section.SubSections.Select(s => s.NameEn).Take(x))
+                    ));
+                if (temp == "")
+                    return "";
+                  return temp.Substring(0,Math.Min(temp.Length,40))+" ...";
+            }
+        }
+        public ICommand ShowSubsectionsCommand
+        {
+            get
+            {
+                return new Command(async () => {
+                    try
+                    {
+                       await  ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SubSectionsDishesPage(new SubSectionsListViewModel(this)));
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+                });
+            }
+        }
+
     }
+
 }

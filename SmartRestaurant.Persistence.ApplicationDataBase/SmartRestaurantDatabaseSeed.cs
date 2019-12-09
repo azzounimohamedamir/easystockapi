@@ -4698,7 +4698,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                 {
                context.Chains.Add(keyvalue.Value);
                 }
-                catch(Exception e )
+                catch (Exception)
                 {
 
                 }

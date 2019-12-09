@@ -60,7 +60,7 @@ namespace SmartRestaurant.Application.MailingUsers.Commands.Delete
 
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }

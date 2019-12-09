@@ -76,7 +76,7 @@ namespace SmartRestaurant.Application.Mails.Commands.Create
                 db.Save();
                 //model.Id = entity.Id.ToString();
             }
-            catch(Exception e )
+            catch (Exception)
             {
 
 

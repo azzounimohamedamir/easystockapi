@@ -8,6 +8,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <AspNetCoreModuleName>AspNetCoreModuleV2</AspNetCoreModuleName>
+    <ProjectGuid>{b529ce41-4eb1-4a5d-bb9b-79d153f96e88}</ProjectGuid>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>

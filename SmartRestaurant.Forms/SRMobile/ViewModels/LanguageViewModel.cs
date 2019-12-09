@@ -1,4 +1,5 @@
 ﻿using Plugin.Multilingual;
+using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
@@ -227,7 +228,8 @@ namespace SmartRestaurant.Diner.ViewModels
             var typeLastElement = stack[stack.Count - 1].GetType();
             if (typeLastElement != typeof(WelcomePage))
             {
-                App.Current.MainPage.Navigation.PushAsync(new WelcomePage(new WelcomeViewModel()));
+                  ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new WelcomePage(new WelcomeViewModel()));
+                
             }
         }
         #endregion

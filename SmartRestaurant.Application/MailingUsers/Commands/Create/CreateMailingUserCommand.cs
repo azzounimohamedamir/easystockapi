@@ -59,7 +59,7 @@ namespace SmartRestaurant.Application.MailingUsers.Commands.Create
 
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
 

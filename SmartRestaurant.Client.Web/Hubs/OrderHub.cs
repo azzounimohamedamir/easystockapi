@@ -119,7 +119,7 @@ namespace SmartRestaurant.Client.Web.Hubs
                 if (order.HasProducts) await ReadyToServeItems(order.Products);
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

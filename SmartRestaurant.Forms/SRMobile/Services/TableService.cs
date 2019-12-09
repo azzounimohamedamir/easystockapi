@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -30,6 +31,19 @@ namespace SmartRestaurant.Diner.Services
             if (Tables.TablesList != null)
             {
                 return new ObservableCollection<TableModel>(Tables.TablesList);
+            }
+            else
+            {
+                return new ObservableCollection<TableModel>();
+            }
+        }
+        public static ObservableCollection<TableModel> GetListTables(int idzone)
+        {
+            var Tables = JsonConvert.DeserializeObject<ListTablesObject>(SimpleService.GetJsonString("Repositories.ListTables.json"));
+
+            if (Tables.TablesList != null)
+            {
+                return new ObservableCollection<TableModel>(Tables.TablesList.Where(t => t.ZoneId == idzone));
             }
             else
             {

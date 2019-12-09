@@ -52,7 +52,7 @@ namespace SmartRestaurant.Application.Restaurants.Chains.Queries.GetByOwnerId
                         OwnerId = x.OwnerId.ToString()
                     }).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

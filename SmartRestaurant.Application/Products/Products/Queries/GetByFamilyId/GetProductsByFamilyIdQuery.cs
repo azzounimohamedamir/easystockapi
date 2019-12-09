@@ -57,7 +57,7 @@ namespace SmartRestaurant.Application.Products.Products.Queries.GetByFamilyId
                         RestaurantName = x.ProductFamily.Restaurant.Name
                     }).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

@@ -54,7 +54,7 @@ namespace SmartRestaurant.Application.Restaurants.Tables.Queries.GetByRestaurant
                         IsDisabled = x.IsDisabled.DisabledDisplay(),
                     }).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

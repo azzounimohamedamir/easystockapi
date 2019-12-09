@@ -117,8 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>CANCEL</value>
+  </data>
+  <data name="Chairs" xml:space="preserve">
+    <value>Chairs</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>CONFIRM</value>
+  </data>
+  <data name="ChooseTable" xml:space="preserve">
+    <value>Table selection</value>
+  </data>
+  <data name="Choosethechaircount" xml:space="preserve">
+    <value>Select the chair count</value>
+  </data>
+  <data name="Currency_DZ" xml:space="preserve">
+    <value>DA</value>
+  </data>
   <data name="DeseasesAllergiesNext" xml:space="preserve">
     <value>NEXT</value>
+  </data>
+  <data name="EstimatedTime" xml:space="preserve">
+    <value>Estimated preparation time</value>
   </data>
   <data name="ListAllergiesCaption" xml:space="preserve">
     <value>Allergies list</value>
@@ -132,8 +153,26 @@
   <data name="ListDeseasesComment" xml:space="preserve">
     <value>Select the diseases that you have in order to offer you a good dish</value>
   </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="minute" xml:space="preserve">
+    <value>min</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>ORDER</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Total price</value>
+  </data>
   <data name="RestaurantName" xml:space="preserve">
     <value>ALRAYANE</value>
+  </data>
+  <data name="Table" xml:space="preserve">
+    <value>Table</value>
+  </data>
+  <data name="test_subsections" xml:space="preserve">
+    <value>Oriental, Traditional</value>
   </data>
   <data name="WelcomeComment" xml:space="preserve">
     <value>Welcome to the restaurant</value>

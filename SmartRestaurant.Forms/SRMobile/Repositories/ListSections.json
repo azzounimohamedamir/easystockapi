@@ -1,67 +1,185 @@
-{
+﻿{
   "SectionsList": [
     {
       "Id": 1,
-      "NameAr": "�����",
-      "NameFr": "Plats",
-      "NameEn": "Dish",
-      "Image": "dish.png"
-    },
+      "NameAr": "الأطباق الأولى",
+      "NameFr": "Entrées",
+      "NameEn": "Starters ",
+      "Image": "starters.png",
+      "SubSections": [
+
+  ]
+    }
+    ,
     {
       "Id": 2,
-      "NameAr": "����������",
-      "NameFr": "sandwichs",
-      "NameEn": "sandwiches",
-      "Image": "sandwich.png"
+      "NameAr": "الأطباق الرئيسية",
+      "NameFr": "Plats principaux",
+      "NameEn": "Main courses",
+      "Image": "maincourses.png",
+        "SubSections":
+        [
+          {
+            "Id": 1,
+            "NameAr": "بيتزا",
+            "NameFr": "Pizza",
+            "NameEn": "Pizza ",
+            "Image": "pizza.png",
+            
+            "Dishes": [           
+
+            ]
+          },
+          {
+            "Id": 2,
+            "NameAr": "سندويتش",
+            "NameFr": "Sandwich",
+            "NameEn": "Sandwich ",
+            "Image": "sandwich.png",
+
+            "Dishes": [
+              {
+                "Id": 1,
+                "NameAr": "هامبورجر",
+                "NameFr": "Hamburger",
+                "NameEn": "Hamburger ",
+                "Image": "hamburger.png",
+                "EstimatedTime": "20",
+                "Price": "400",
+                "SubSectionId": 2
+              },
+              {
+                "Id": 2,
+                "NameAr": "هامبورجر",
+                "NameFr": "Hamburger",
+                "NameEn": "Hamburger ",
+                "Image": "hamburger.png",
+                "EstimatedTime": "20",
+                "Price": "400",
+                "SubSectionId": 2
+              },
+              {
+                "Id": 3,
+                "NameAr": "هامبورجر",
+                "NameFr": "Hamburger",
+                "NameEn": "Hamburger ",
+                "Image": "hamburger.png",
+                "EstimatedTime": "20",
+                "Price": "400",
+                "SubSectionId": 2
+              },
+              {
+                "Id": 4,
+                "NameAr": "هامبورجر",
+                "NameFr": "Hamburger",
+                "NameEn": "Hamburger ",
+                "Image": "hamburger.png",
+                "EstimatedTime": "20",
+                "Price": "400",
+                "SubSectionId": 2
+              },
+              {
+                "Id": 5,
+                "NameAr": "هامبورجر",
+                "NameFr": "Hamburger",
+                "NameEn": "Hamburger ",
+                "Image": "hamburger.png",
+                "EstimatedTime": "20",
+                "Price": "400",
+                "SubSectionId": 2
+              }
+            ]
+          },
+          {
+            "Id": 3,
+            "NameAr": "شواء",
+            "NameFr": "Grillades",
+            "NameEn": "Grill",
+            "Image": "grillades.png",
+
+            "Dishes": [
+             
+
+            ]
+          },
+          {
+            "Id": 4,
+            "NameAr": "معجنات",
+            "NameFr": "Pâtes",
+            "NameEn": "Pasta",
+            "Image": "pates.png",
+
+            "Dishes": [
+             
+
+            ]
+          },
+          {
+            "Id": 5,
+            "NameAr": "دجاج",
+            "NameFr": "Volaille",
+            "NameEn": "Chicken",
+            "Image": "volaille.png",
+
+            "Dishes": [
+             
+            ]
+          },
+          {
+            "Id": 6,
+            "NameAr": "لحم",
+            "NameFr": "Viande",
+            "NameEn": "Meat",
+            "Image": "viande.png",
+
+            "Dishes": [
+             
+            ]
+          },
+          {
+            "Id": 7,
+            "NameAr": "أطباق تقليدية",
+            "NameFr": "Plats traditionnels",
+            "NameEn": "Traditional dishes ",
+            "Image": "platstraditionnels.png",
+
+            "Dishes": [
+
+            ]
+          },
+          {
+            "Id": 8,
+            "NameAr": "سمك",
+            "NameFr": "Poisson",
+            "NameEn": "Fish",
+            "Image": "poisson.png",
+
+            "Dishes": [
+
+            ]
+          }
+        ]
+      
     },
     {
       "Id": 3,
-      "NameAr": "�������",
-      "NameFr": "Pizzas",
-      "NameEn": "Pizzas",
-      "Image": "pizzas.png"
+      "NameAr": "المعقبات",
+      "NameFr": "Desserts",
+      "NameEn": "Desserts",
+      "Image": "desserts.png",
+      "SubSections": [
+       
+      ]
     },
     {
       "Id": 4,
-      "NameAr": "����",
-      "NameFr": "Salades",
-      "NameEn": "Salad",
-      "Image": "salads.png"
-    },
-    {
-      "Id": 5,
-      "NameAr": "�������",
+      "NameAr": "المشروبات",
       "NameFr": "Boissons",
       "NameEn": "Drinks",
-      "Image": "soda.png"
-    },
-    {
-      "Id": 6,
-      "NameAr": "�����",
-      "NameFr": "Fruits",
-      "NameEn": "Fruits",
-      "Image": "fruits.png"
-    },
-    {
-      "Id": 7,
-      "NameAr": "�������",
-      "NameFr": "Hamburgers",
-      "NameEn": "Hamburgers",
-      "Image": "hamburger.png"
-    },
-    {
-      "Id": 8,
-      "NameAr": "�����",
-      "NameFr": "Pasta",
-      "NameEn": "Pasta",
-      "Image": "pasta.png"
-    },
-    {
-      "Id": 9,
-      "NameAr": "����",
-      "NameFr": "Tacos",
-      "NameEn": "Tacos",
-      "Image": "tacos.png"
+      "Image": "drinks.png",
+      "SubSections": [
+       
+      ]
     }
   ]
 }

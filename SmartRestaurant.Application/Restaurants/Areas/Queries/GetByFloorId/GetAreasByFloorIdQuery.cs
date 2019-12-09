@@ -51,7 +51,7 @@ namespace SmartRestaurant.Application.Restaurants.Areas.Queries.GetByFloorId
                         Name = x.Name
                     }).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

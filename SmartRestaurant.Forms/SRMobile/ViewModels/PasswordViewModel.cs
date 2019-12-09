@@ -1,4 +1,5 @@
-﻿using SmartRestaurant.Diner.Infrastructures;
+﻿using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace SmartRestaurant.Diner.ViewModels
                 SetPropertyValue(ref password, value);
                 if (password.Trim().Length == 4)
                 {
-                    processPassword();
+                    ProcessPassword();
                 }
             }
         }
@@ -130,13 +131,14 @@ namespace SmartRestaurant.Diner.ViewModels
         /// Function to check if the password is correct and then navigate to the language view.
         /// Else ask the user to try again.
         /// </summary>
-        public void processPassword()
+        public void ProcessPassword()
         {
             // In the beguening the password is set to "0000" before implementing the fonctionnalite to change it
             string pw = GetPassword().Result;
             if ((pw == password)|| (password == "0000"))
             {
-                App.Current.MainPage = new NavigationPage(new LanguageView(new LanguageViewModel()));
+                App.Current.MainPage = new CustomNavigationPage(new ZonesAndTablesPage(new ViewModels.Zones.ZonesListViewModel()));
+                 
             }
             else
             {
@@ -168,7 +170,7 @@ namespace SmartRestaurant.Diner.ViewModels
             {
                 await SecureStorage.SetAsync("srpassword", Password);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Possible that device doesn't support secure storage on device.
             }
@@ -190,7 +192,7 @@ namespace SmartRestaurant.Diner.ViewModels
                 }
                 return pw;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

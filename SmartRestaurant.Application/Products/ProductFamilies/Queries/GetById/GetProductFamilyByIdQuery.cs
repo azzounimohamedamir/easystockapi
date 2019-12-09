@@ -54,7 +54,7 @@ namespace SmartRestaurant.Application.Products.ProductFamilies.Queries.GetById
                         RestaurantName = x.Restaurant.Name
                     }).FirstOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

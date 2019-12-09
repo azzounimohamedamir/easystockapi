@@ -29,5 +29,6 @@ namespace SmartRestaurant.Diner.Models
                 return String.IsNullOrEmpty(Image) ? null : new Uri(Image);
             }
         }
+        public ICollection<SubSectionModel> SubSections { get; set; }
     }
 }

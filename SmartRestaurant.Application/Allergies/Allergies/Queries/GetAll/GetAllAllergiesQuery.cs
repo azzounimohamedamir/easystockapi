@@ -49,7 +49,7 @@ namespace SmartRestaurant.Application.Allergies.Allergies.Queries.GetAll
                         SlugUrl = x.SlugUrl
                     });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

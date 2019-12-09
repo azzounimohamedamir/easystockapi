@@ -188,7 +188,7 @@ namespace SmartRestaurant.Application.Commun.Translates.Queries.GetByTableName
                 }
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

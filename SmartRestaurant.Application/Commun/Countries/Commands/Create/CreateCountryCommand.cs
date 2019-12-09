@@ -71,7 +71,7 @@ namespace SmartRestaurant.Application.Commun.Countries.Commands.Create
 
                _db.Save();
             }
-            catch(Exception e )
+            catch (Exception)
             {
                 //mail
                // _mailing.SendAsync(EnumAction.Insert, nameof(Countries));

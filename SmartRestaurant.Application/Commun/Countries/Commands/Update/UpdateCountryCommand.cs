@@ -88,7 +88,7 @@ namespace SmartRestaurant.Application.Commun.Countries.Commands.Update
                 _db.Countries.Update(entity);
                 _db.Save();
             }
-            catch(Exception e )
+            catch (Exception)
             {
 
 

@@ -3,6 +3,7 @@ using SmartRestaurant.Diner.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Tables
 {
@@ -11,7 +12,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
     /// </summary>
     public class TablesViewModel: SimpleViewModel
     {
-        readonly TableModel table;
+        public readonly TableModel table;
 
         /// <summary>
         /// Get the TableModel from the Model.
@@ -22,8 +23,8 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             this.table = _table;
         }
 
-        public int Id { get; set; }
-        
+        public int Id { get { return table.Id; } }
+
         public string Numero
         {
             get { return table.Numero; }
@@ -45,6 +46,11 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 {
                     table.NombreChaises = value;
                     RaisePropertyChanged();
+
+                    if (table.NombreChaises>0) BackgroundColor = Color.FromHex("#FFA374");
+                    else
+                        BackgroundColor = Color.Transparent;
+                    RaisePropertyChanged("BackgroundColor");
                 }
             }
         }
@@ -77,8 +83,47 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 {
                     isSelected = value;
                     RaisePropertyChanged();
+                    if (isSelected) BorderColor = Color.LightBlue;
+                    else
+                        BorderColor = Color.FromHex("#E5E5E5");
+                    RaisePropertyChanged("BorderColor");
                 }
             }
         }
+        private Color bordercolor;
+        public Color BorderColor
+        {
+            get
+            {
+                if (isSelected)
+                    return Color.LightBlue;
+                else
+                    return Color.FromHex("#E5E5E5");
+            }
+            set
+            {
+                if (bordercolor != value)
+                    bordercolor = value;
+            }
+        }
+
+        private Color backgroundcolor;
+        public Color BackgroundColor
+        {
+            get
+            {
+                if (NombreChaises > 0)
+                    return Color.FromHex("#FFA374");
+                else
+                    return Color.Transparent;
+            }
+            set
+            {
+                if (backgroundcolor != value)
+
+                    backgroundcolor = value;
+            }
+        }
+
     }
 }
