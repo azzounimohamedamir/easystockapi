@@ -16,7 +16,7 @@ stages:
     - task: NuGetToolInstaller@0
     - task: NuGetCommand@2
       inputs:
-        restoreSolution: 'SmartRestaurant.Forms/SRMobile.Android/SmartRestaurant.Diner.Android.csproj'
+        restoreSolution: 'SmartRestaurant.sln'
     - task: XamarinAndroid@1
       inputs:
         projectFile: 'SmartRestaurant.Forms/SRMobile.Android/SmartRestaurant.Diner.Android.csproj'
