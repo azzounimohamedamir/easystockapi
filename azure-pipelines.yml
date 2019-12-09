@@ -13,3 +13,9 @@ stages:
       inputs:
         command: restore
         projects: '**/*.csproj'
+    - task: DotNetCoreCLI@2
+      displayName: "Build APK"
+      inputs:
+        command: build
+        projects: 'SmartRestaurant.Forms/SRMobile.Android/SmartRestaurant.Diner.Android.csproj'
+        arguments: '--configuration Release'
