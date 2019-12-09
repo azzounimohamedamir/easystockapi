@@ -9,14 +9,14 @@ stages:
       - JDK
     workspace:
       clean: all
-      
+
   jobs:
   - job:
     steps:
     - task: NuGetToolInstaller@0
     - task: NuGetCommand@2
       inputs:
-        restoreSolution: '**/*.sln'
+        restoreSolution: 'SmartRestaurant.Forms/SRMobile.Android/SmartRestaurant.Diner.Android.csproj'
     - task: XamarinAndroid@1
       inputs:
         projectFile: 'SmartRestaurant.Forms/SRMobile.Android/SmartRestaurant.Diner.Android.csproj'
