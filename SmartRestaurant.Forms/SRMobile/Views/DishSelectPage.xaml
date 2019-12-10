@@ -472,7 +472,7 @@
                                     <TapGestureRecognizer Command="{Binding minus}"/>
                                 </Label.GestureRecognizers>
                             </Label>
-                            <Label x:Name="lbl_qty"
+                            <Label 
                                                         WidthRequest="46"
                                                         HorizontalOptions="Center"
                                                         TextColor="#3C536A" FontSize="16"                                  
@@ -512,7 +512,7 @@
                                 <Span Text="{helpers:Translate price}" TextColor="#77000000"  FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf"
                                             FontAttributes="Bold"   />
                                 <Span Text="&#10;" />
-                                <Span Text="{Binding Price,Converter={x:StaticResource FloatMultiply},ConverterParameter={x:Reference lbl_qty},Mode=OneWay}" TextColor="#01A9AC" 
+                                <Span Text="{Binding Total}" TextColor="#01A9AC" 
                                                     FontAttributes="Bold"       FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"/>
                                 <Span Text="{helpers:Translate Currency_DZ}" TextColor="#01A9AC" 
                                                     FontAttributes="Bold"       FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf"/>

@@ -165,6 +165,20 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             set
             {
                 _Qty = value;
+                Total = _Qty * Price;
+                RaisePropertyChanged();
+            }
+        }
+        private float _Total;
+        public float Total
+        {
+            get
+            {
+                return _Total;
+            }
+            set
+            {
+                _Total = value;
                 RaisePropertyChanged();
             }
         }
