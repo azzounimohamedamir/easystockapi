@@ -279,7 +279,7 @@
                     HorizontalTextAlignment="Start"
                     TextColor="#3C536A" Opacity=".5"   FontFamily="Assets/Fonts/Roboto.ttf" FontSize="20" FontAttributes="Bold"
                                    />
-                <ScrollView Orientation="Horizontal" VerticalOptions="StartAndExpand"
+                <ScrollView Orientation="Horizontal" VerticalOptions="Start"
                                   HorizontalScrollBarVisibility="Never" FlowDirection="MatchParent">
                         <flv:FlowListView
                             HorizontalScrollBarVisibility="Never"
@@ -289,7 +289,7 @@
                             HasUnevenRows="True"
                             
                             HorizontalOptions="Start"
-                            VerticalOptions="FillAndExpand"
+                            VerticalOptions="Start"
                             SelectionMode="None"
                             FlowDirection="MatchParent"  
                             FlowItemsSource="{Binding Specifications.Specifications}">
