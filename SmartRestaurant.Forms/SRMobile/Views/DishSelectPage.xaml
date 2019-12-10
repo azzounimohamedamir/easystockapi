@@ -19,7 +19,6 @@
              BackgroundColor="White">
     <ContentPage.Resources>
         <helpers:MultiplyConverter x:Key="IntMultiply"/>
-        <helpers:FloatMultiplyConverter x:Key="FloatMultiply"/>
         <helpers:NegateBooleanConverter x:Key="boolinverter"/>
         
     </ContentPage.Resources>
