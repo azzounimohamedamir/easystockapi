@@ -31,7 +31,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         public DishViewModel(DishModel _dish)
         {
             _EstimatedTime = _dish.EstimatedTime;
-            _Price =_InitialPrice= _dish.Price;
+            Price =InitialPrice=Total= _dish.Price;
             this.dish = _dish;
             _Qty = 1;
             _Specifications = SectionsListViewModel.Specifications;
@@ -142,6 +142,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             set
             {
                 _Price = value;
+                Total = Qty * _Price;
                 RaisePropertyChanged();
             }
         }
