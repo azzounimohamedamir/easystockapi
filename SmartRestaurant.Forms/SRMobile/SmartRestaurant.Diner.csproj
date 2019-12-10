@@ -15,6 +15,7 @@
     <None Remove="Repositories\ListDeseases.json" />
     <None Remove="Repositories\ListIngredients.json" />
     <None Remove="Repositories\ListSections.json" />
+    <None Remove="Repositories\ListSpecifications.json" />
     <None Remove="Repositories\ListTables.json" />
     <None Remove="Repositories\ListZones.json" />
   </ItemGroup>
@@ -24,6 +25,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Repositories\ListDeseases.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repositories\ListSpecifications.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Repositories\ListIngredients.json">
@@ -41,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Behaviors.Forms" Version="1.4.0" />
     <PackageReference Include="CarouselView.FormsPlugin" Version="5.2.0" />
     <PackageReference Include="DLToolkit.Forms.Controls.FlowListView" Version="2.0.11" />
     <PackageReference Include="IntelliAbb.Xamarin.Controls" Version="1.0.148" />

@@ -4,6 +4,7 @@ using SmartRestaurant.Diner.Resources;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients
@@ -19,6 +20,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
         public IngredientViewModel(IngredientModel _Ingredient)
         {
             this.Ingredient = _Ingredient;
+
         }
 
         public int Id
@@ -198,9 +200,105 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
             set
             {
                 measure = value;
+                minus_enabled = measure > 0;
+                plus_enabled = measure < 99;
                 RaisePropertyChanged();
 
             }
         }
+
+        private bool _minus_enabled;
+        public bool minus_enabled
+        {
+            get
+            {
+                _minus_enabled= measure > 0;
+                return _minus_enabled;
+            }
+            set
+            {
+                _minus_enabled = value;
+                RaisePropertyChanged();
+            }
+        }
+        private bool _plus_enabled;
+        internal DishViewModel refDishViewModel { get; set; }
+
+        public bool plus_enabled
+        {
+            get
+            {
+                _plus_enabled= Measure < 99;
+                return _plus_enabled;
+            }
+            set
+            {
+                _plus_enabled = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ICommand plus
+        {
+            get
+            {
+                return new Command(() => {
+                    try
+                    {
+                        if (Measure < 99)
+                        {
+                            Measure++;
+                            refDishViewModel.Price += Price;
+                        }
+                        else
+
+                            plus_enabled = false;
+                        minus_enabled = true;
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+                });
+            }
+        }
+        public ICommand minus
+        {
+            get
+            {
+                return new Command(() => {
+                    try
+                    {
+                        if (Measure > 0)
+                        {
+                            Measure--;
+                            refDishViewModel.Price -= Price;
+                        }
+                        else
+                            minus_enabled = false;
+                        plus_enabled = true;
+
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+                });
+            }
+        }
+        public ICommand MeasureTextChanged
+        {
+            get
+            {
+                return new Command(()=>
+                {
+                   
+                }
+                    );
+            }
+        }
+        public bool IsPrincipal { get; set; }
+
     }
 }

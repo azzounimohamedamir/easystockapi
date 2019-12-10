@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>AJOUTER</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>ANNULER</value>
   </data>
@@ -137,6 +140,12 @@
   </data>
   <data name="DeseasesAllergiesNext" xml:space="preserve">
     <value>SUIVANT</value>
+  </data>
+  <data name="DishSpec" xml:space="preserve">
+    <value>Spécifications</value>
+  </data>
+  <data name="Energy" xml:space="preserve">
+    <value>Valeur énergétique (per 100g)</value>
   </data>
   <data name="EstimatedTime" xml:space="preserve">
     <value>Temps estimé</value>
@@ -173,6 +182,9 @@
   </data>
   <data name="RestaurantName" xml:space="preserve">
     <value>ALRAYANE</value>
+  </data>
+  <data name="Supplements" xml:space="preserve">
+    <value>Suppléments</value>
   </data>
   <data name="Table" xml:space="preserve">
     <value>Table</value>

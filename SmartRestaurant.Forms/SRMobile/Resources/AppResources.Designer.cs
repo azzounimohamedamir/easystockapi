@@ -61,6 +61,15 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à ADD.
+        /// </summary>
+        internal static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à CANCEL.
         /// </summary>
         internal static string Cancel {
@@ -120,6 +129,24 @@ namespace SmartRestaurant.Diner.Resources {
         internal static string DeseasesAllergiesNext {
             get {
                 return ResourceManager.GetString("DeseasesAllergiesNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Specifications.
+        /// </summary>
+        internal static string DishSpec {
+            get {
+                return ResourceManager.GetString("DishSpec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Energy value (per 100g).
+        /// </summary>
+        internal static string Energy {
+            get {
+                return ResourceManager.GetString("Energy", resourceCulture);
             }
         }
         
@@ -228,6 +255,15 @@ namespace SmartRestaurant.Diner.Resources {
         internal static string RestaurantName {
             get {
                 return ResourceManager.GetString("RestaurantName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Supplements.
+        /// </summary>
+        internal static string Supplements {
+            get {
+                return ResourceManager.GetString("Supplements", resourceCulture);
             }
         }
         

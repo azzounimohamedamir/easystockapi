@@ -3,6 +3,7 @@ using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients;
+using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.Specifications;
 using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.Views;
 using System;
@@ -29,7 +30,11 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// <param name="_dish"></param>
         public DishViewModel(DishModel _dish)
         {
+            _EstimatedTime = _dish.EstimatedTime;
+            _Price =_InitialPrice= _dish.Price;
             this.dish = _dish;
+            _Qty = 1;
+            _Specifications = SectionsListViewModel.Specifications;
 
         }
 
@@ -120,25 +125,49 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             get { return new ObservableCollection<string>(dish.Images); }
         }
+        private int _EstimatedTime;
         public int EstimatedTime
         {
-            get { return dish.EstimatedTime; }
+            get { return _EstimatedTime; }
             set
             {
-                dish.EstimatedTime = value;
+                _EstimatedTime = value;
                 RaisePropertyChanged();
             }
         }
+        private float _Price;
         public float Price
         {
-            get { return dish.Price; }
+            get { return _Price; }
             set
             {
-                dish.Price = value;
+                _Price = value;
                 RaisePropertyChanged();
             }
         }
-
+        private float _InitialPrice;
+        public float InitialPrice
+        {
+            get { return _InitialPrice; }
+            set
+            {
+                _InitialPrice = value;
+                RaisePropertyChanged();
+            }
+        }
+        private int _Qty;
+        public int Qty
+        {
+            get
+            {
+                return _Qty;
+            }
+            set
+            {
+                _Qty = value;
+                RaisePropertyChanged();
+            }
+        }
         /// <summary>
         /// The Uri of the image 
         /// </summary>
@@ -239,7 +268,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                     try
                     {
                         this.SubSection = _subsection;
-                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DishSelectPage(this));
+                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DishSelectPage(new DishViewModel(dish)));
                     }
                     catch (Exception)
                     {
@@ -247,6 +276,19 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
 
                     }
                 });
+            }
+        }
+        private SpecificationListViewModel _Specifications;
+        public SpecificationListViewModel Specifications
+        {
+            get
+            {
+                return  _Specifications ;
+            }
+            set
+            {
+                _Specifications = value;
+                RaisePropertyChanged();
             }
         }
         private  List<IngredientViewModel> _Dish_Ingredients_Measures;
@@ -266,8 +308,18 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                         if (ing != null)
                         {
                             ing.Measure = di.Measure;
+                            ing.IsPrincipal = true;
+                            ing.refDishViewModel = this;
                             _Dish_Ingredients_Measures.Add(ing);
                         }
+                    }
+                    foreach (IngredientViewModel di in SectionsListViewModel.Ingredients.Ingredients)
+                    {
+                        if (dish.Ingredients.Select(d => d.Id).Contains(di.Id)) continue;
+                        var ing = di;
+                        ing.Measure = 0;
+                        ing.IsPrincipal = false;
+                        _Dish_Ingredients_Measures.Add(ing);
                     }
 
                 }
@@ -275,6 +327,98 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 return _Dish_Ingredients_Measures;
             }
 
+        }
+
+        private bool _minus_enabled;
+        public bool minus_enabled
+        {
+            get
+            {
+                _minus_enabled = Qty > 0;
+                return _minus_enabled;
+            }
+            set
+            {
+                _minus_enabled = value;
+                RaisePropertyChanged();
+            }
+        }
+        private bool _plus_enabled;
+        internal DishViewModel refDishViewModel { get; set; }
+
+        public bool plus_enabled
+        {
+            get
+            {
+                _plus_enabled = Qty < 99;
+                return _plus_enabled;
+            }
+            set
+            {
+                _plus_enabled = value;
+                RaisePropertyChanged();
+            }
+        }
+        public ICommand plus
+        {
+            get
+            {
+                return new Command(() => {
+                    try
+                    {
+                        if (Qty < 99)
+                        {
+                            Qty++;
+
+                        }
+                        else
+
+                            plus_enabled = false;
+                        minus_enabled = true;
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+                });
+            }
+        }
+        public ICommand minus
+        {
+            get
+            {
+                return new Command(() => {
+                    try
+                    {
+                        if (Qty > 0)
+                        {
+                            Qty--;                            
+                        }
+                        else
+                            minus_enabled = false;
+                        plus_enabled = true;
+
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+                });
+            }
+        }
+        public ICommand AddToOrder
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                   SectionsListViewModel.Instance.SelectedDishes.Add(this);
+                    SectionsListViewModel.Instance.SelectedDishes = SectionsListViewModel.Instance.SelectedDishes;
+                    ((CustomNavigationPage)(App.Current.MainPage)).PopAsync();
+                });
+            }
         }
     }
 }
