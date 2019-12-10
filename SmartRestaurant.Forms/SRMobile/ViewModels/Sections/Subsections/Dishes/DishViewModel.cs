@@ -34,7 +34,16 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             Qty = 1;
             Total =Price = InitialPrice= _dish.Price;
             this.dish = _dish;            
-            _Specifications = SectionsListViewModel.Specifications;
+            Specifications = SectionsListViewModel.Specifications;
+            
+            foreach(var s in Specifications.Specifications)
+            {
+                for (int i=0;i<s.RadioOptionsVM.Count;i++)
+                {
+                    s.RadioOptionsVM[i].IsSelected = i==0;
+                }
+                
+            }
 
         }
 

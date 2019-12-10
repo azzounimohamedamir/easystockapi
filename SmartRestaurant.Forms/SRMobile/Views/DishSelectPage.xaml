@@ -286,8 +286,7 @@
                             VerticalScrollBarVisibility="Never"
                             FlowColumnCount="{Binding Specifications.Specifications.Count}"
                             Margin="30,0,30,0" 
-                            HasUnevenRows="True"
-                            
+                            HasUnevenRows="True"                            
                             HorizontalOptions="Start"
                             VerticalOptions="Start"
                             SelectionMode="None"
@@ -296,7 +295,7 @@
                             <flv:FlowListView.FlowColumnTemplate>
                                 <DataTemplate>
                                     <StackLayout  Orientation="Vertical" Margin="10,0,10,0"
-                                                  VerticalOptions="FillAndExpand"
+                                                  VerticalOptions="StartAndExpand"
                                                  HorizontalOptions="StartAndExpand">
                                         <Label Text="{Binding Name}" TextColor="#3C536A"  
                                                FontFamily="Assets/Fonts/Roboto.ttf" FontSize="16" 
@@ -305,7 +304,7 @@
                                             HasUnevenRows="True"
                                             ItemTapped="ListView_ItemTapped"
                                             SelectionMode="None"
-                                            VerticalOptions="FillAndExpand"
+                                            VerticalOptions="StartAndExpand"
                                             HorizontalOptions="StartAndExpand"
                                             SeparatorVisibility="None"
                                             ItemsSource="{Binding RadioOptionsVM}">
