@@ -123,11 +123,17 @@
   <data name="AddMenuPageTitle" xml:space="preserve">
     <value>Nouveau menu</value>
   </data>
+  <data name="editMenuPageTitle" xml:space="preserve">
+    <value>Modifier le menu</value>
+  </data>
   <data name="ButtonAddItem" xml:space="preserve">
     <value>Ajouter un item</value>
   </data>
   <data name="ButtonAddNewText" xml:space="preserve">
     <value>Créer</value>
+  </data>
+  <data name="ButtonEditText" xml:space="preserve">
+    <value>Modiier</value>
   </data>
   <data name="EditNavigationTitle" xml:space="preserve">
     <value>Modification menu {0}</value>

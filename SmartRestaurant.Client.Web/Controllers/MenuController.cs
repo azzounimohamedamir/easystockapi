@@ -9,7 +9,9 @@ using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Menu.Commands.Create;
+using SmartRestaurant.Application.Restaurants.Menu.Commands.Update;
 using SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd;
+using SmartRestaurant.Application.Restaurants.Menu.Queries.GetById;
 using SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetAll;
 using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetChefsByRestaurantIdQuery;
 using SmartRestaurant.Client.Web.Models.Menu;
@@ -28,6 +30,8 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly IGetChefsByRestaurantIdQuery _getChefsByRestaurantIdQuery;
         private readonly ICreateMenuCommand _createMenuCommand;
         private readonly IGetAllMenuFilterdQuery _getAllMenuFilterdQuery;
+        private readonly IGetMenuByIdQuery _getMenuByIdQuery;
+        private readonly IUpdateMenuCommand _updateMenuCommand;
         private readonly UserManager<SRIdentityUser> _userManager;
         public MenuController(
             IConfiguration configuration, 
@@ -39,6 +43,8 @@ namespace SmartRestaurant.Client.Web.Controllers
             IGetChefsByRestaurantIdQuery getChefsByRestaurantIdQuery, 
             ICreateMenuCommand createMenuCommand, 
             IGetAllMenuFilterdQuery getAllMenuFilterdQuery,
+            IGetMenuByIdQuery getMenuByIdQuery,
+            IUpdateMenuCommand updateMenuCommand,
             UserManager<SRIdentityUser> userManager) : base(configuration, mailing, notify, baselog)
         {
             _log = log;
@@ -46,6 +52,8 @@ namespace SmartRestaurant.Client.Web.Controllers
             _getChefsByRestaurantIdQuery = getChefsByRestaurantIdQuery ?? throw new ArgumentNullException(nameof(getChefsByRestaurantIdQuery));
             _createMenuCommand = createMenuCommand;
             _getAllMenuFilterdQuery = getAllMenuFilterdQuery;
+            _getMenuByIdQuery = getMenuByIdQuery;
+            _updateMenuCommand = updateMenuCommand;
             _userManager = userManager;
         }
 
@@ -141,7 +149,28 @@ namespace SmartRestaurant.Client.Web.Controllers
             throw new InvalidOperationException("utilisateur non autorisé"); 
 
         }
+        [Route("edit")]
+        public async Task<IActionResult> EditMenu(string id)
+        {
+            PageBreadcrumb
+                .AddHome()
+                .AddItem(MenuUtilsResource.HomeNavigationTitle, Url.Action("Menu", "Index"))
+                .AddItem(MenuUtilsResource.EditNavigationTitle)
+                .SetTitle(MenuUtilsResource.editMenuPageTitle)
+                .Save();
+            var menu = _getMenuByIdQuery.Execute(Guid.Parse(id));
+            if(menu == null)
+                throw new InvalidOperationException("menu non trouvé");
+            var menuModel = new MenuViewModel();
 
+            menuModel.MenuModel = menu;
+            if (User.IsInRole("Admin"))
+                menuModel.Restaurants = PopulateRestaurants(menu.RestaurantId);
+            else menuModel.RestaurantId = Guid.Parse(menu.RestaurantId);
+            // le cas ou l'utilisateur est un admin on ramene tout les restaurants
+            return View(menuModel);
+
+        }
         private async Task<SRIdentityUser> GetCurrentOwner()
         {
             var owner = await _userManager.GetUserAsync(User).ConfigureAwait(false);
@@ -161,6 +190,25 @@ namespace SmartRestaurant.Client.Web.Controllers
                 else if(!model.RestaurantId.HasValue && User.IsInRole("Owner"))
                     throw new ArgumentNullException(nameof(model.RestaurantId));
                 _createMenuCommand.Execute(model.MenuModel);
+            }
+
+            catch (NotValidException ex)
+            {
+                AddErrorToModelState(ex);
+            }
+
+            return RedirectToAction("Index");
+        }
+        
+        [Route("edit")]
+        [HttpPost]
+        // [Authorize(Roles = "Admin,Owner")]
+        public IActionResult EditMenu(MenuViewModel model)
+        {
+            try
+            {
+                model.MenuModel.MenuId = model.Id;
+                 _updateMenuCommand.Execute(model.MenuModel);
             }
 
             catch (NotValidException ex)
