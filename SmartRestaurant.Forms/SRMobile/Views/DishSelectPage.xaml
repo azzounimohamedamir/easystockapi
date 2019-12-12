@@ -379,7 +379,7 @@
 
                     <Label         VerticalOptions="Start"
                                        
-                    Margin="40,-20,40,0" Text="{helpers:Translate Supplements}" HorizontalOptions="FillAndExpand"
+                    Margin="40,0,40,0" Text="{helpers:Translate Supplements}" HorizontalOptions="FillAndExpand"
                     HorizontalTextAlignment="Start"
                     TextColor="#3C536A" Opacity=".5"   FontFamily="Assets/Fonts/Roboto.ttf" FontSize="20" FontAttributes="Bold"
                                    />
@@ -510,7 +510,7 @@
                     TextColor="#3C536A" Opacity=".5"   FontFamily="Assets/Fonts/Roboto.ttf" FontSize="20" FontAttributes="Bold"
                                    />
                     <Grid
-                            Margin="40,0,40,20"  
+                            Margin="30,0,30,20"  
                         
                         HeightRequest="84"
                             HorizontalOptions="Start"
@@ -663,8 +663,7 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" 
-                            
+                    <Button Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"                             
                             CornerRadius="28" HeightRequest="56" HorizontalOptions="Start" 
                             VerticalOptions="Center"
                             WidthRequest="119"    
@@ -676,15 +675,15 @@
                     />
                     <Label Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" 
                            Margin="10,0"
-                           HorizontalTextAlignment="End"
+                           HorizontalTextAlignment="{Binding OrientationText}"
                            VerticalTextAlignment="Center"
                            HeightRequest="56" HorizontalOptions="Start" 
                            VerticalOptions="Center"
                            WidthRequest="119"    
                            BackgroundColor="Transparent"
                            FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"                                                     
-                           Text="&#xf0217;" FontSize="26"
-                           FontAttributes="Bold"   
+                           Text="&#xf0217;" FontSize="18"
+                           
                            TextColor="White"
                             
                     >
@@ -695,7 +694,7 @@
                     <pancakeview:PancakeView
                         Grid.Row="0" Grid.RowSpan="2" 
                         Grid.Column="1"
-                        WidthRequest="128"
+                        WidthRequest="116"
                         HeightRequest="36"
                         HorizontalOptions="Start"
                         VerticalOptions="Center"
@@ -705,23 +704,27 @@
                         BackgroundColor="#F2FBFB"
                         Elevation="0">
                         <StackLayout 
-                            HeightRequest="36" 
+                            
+                            HeightRequest="36"
+                            WidthRequest="106"
                             Orientation="Horizontal" 
                             VerticalOptions="Start"
                             HorizontalOptions="Center" >
                             <Label  
-                                WidthRequest="35"
+                                
+                                WidthRequest="29"
+                                HorizontalOptions="End"
                                 FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"
                                                     HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
                                                     TextColor="#773C536A" 
                                                     IsEnabled="{Binding minus_enabled}"
-                                                    Text="&#xf374;" FontSize="26">
+                                                    Text="&#xf374;" FontSize="18">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding minus}"/>
                                 </Label.GestureRecognizers>
                             </Label>
                             <Label 
-                                                        WidthRequest="46"
+                                                        WidthRequest="48"
                                                         HorizontalOptions="Center"
                                                         TextColor="#3C536A" FontSize="16"                                  
                                                         FontAttributes="Bold" FontFamily="Assets/Fonts/Roboto.ttf"   
@@ -729,12 +732,14 @@
                                                         VerticalTextAlignment="Center"
                                                         HorizontalTextAlignment="Center"/>
                             <Label 
-                                                    WidthRequest="35"
+                                                    WidthRequest="29"
+                                HorizontalOptions="Start"
+                                
                                                     FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"
                                                     HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                                                     TextColor="#773C536A" BackgroundColor="#F2FBFB"
                                                     IsEnabled="{Binding plus_enabled}"
-                                                    Text="&#xf0217;" FontSize="26">
+                                                    Text="&#xf0217;" FontSize="18">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding plus}"/>
                                 </Label.GestureRecognizers>
