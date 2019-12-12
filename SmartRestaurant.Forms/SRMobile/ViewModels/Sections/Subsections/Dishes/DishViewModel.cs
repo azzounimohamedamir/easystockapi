@@ -4,6 +4,7 @@ using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.Specifications;
+using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements;
 using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.Views;
 using System;
@@ -30,27 +31,39 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// <param name="_dish"></param>
         public DishViewModel(DishModel _dish)
         {
+            Calories = _dish.Calories;
+            Carbo = _dish.Carbo;
+            Fat = _dish.Carbo;
+            Protein = _dish.Protein;
             _EstimatedTime = _dish.EstimatedTime;
             Qty = 1;
-            Total =Price = InitialPrice= _dish.Price;
-            this.dish = _dish;            
+            Total = Price = InitialPrice = _dish.Price;
+            this.dish = _dish;
             Specifications = SectionsListViewModel.Specifications;
-            
-            foreach(var s in Specifications.Specifications)
+            Supplements = SectionsListViewModel.Supplements;
+            foreach (var s in Specifications.Specifications)
             {
-                for (int i=0;i<s.RadioOptionsVM.Count;i++)
+                for (int i = 0; i < s.RadioOptionsVM.Count; i++)
                 {
-                    s.RadioOptionsVM[i].IsSelected = i==0;
+                    s.RadioOptionsVM[i].IsSelected = i == 0;
                 }
-                
+
+            }
+            foreach (var s in Supplements.Supplements)
+            {
+                s.IsSelected = false;
+                s.refDishViewModel = this;
             }
 
         }
 
-        public int Id { get
+        public int Id
+        {
+            get
             {
                 return dish.Id;
-            } }
+            }
+        }
 
 
         #region Name of the dish according to the language selected.
@@ -302,12 +315,30 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 });
             }
         }
+        private SupplementListViewModel _Supplements;
+        public SupplementListViewModel Supplements
+        {
+            get
+            {
+                return _Supplements;
+            }
+            set
+            {
+                _Supplements = value;
+                RaisePropertyChanged();
+            }
+        }
+        public float Calories { get; set; }
+        public float Carbo { get; set; }
+        public float Fat { get; set; }
+        public float Protein { get; set; }
         private SpecificationListViewModel _Specifications;
         public SpecificationListViewModel Specifications
         {
             get
             {
-                return  _Specifications ;
+
+                return _Specifications;
             }
             set
             {
@@ -315,7 +346,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 RaisePropertyChanged();
             }
         }
-        private  List<IngredientViewModel> _Dish_Ingredients_Measures;
+        private List<IngredientViewModel> _Dish_Ingredients_Measures;
         public List<IngredientViewModel> Dish_Ingredients_Measures
         {
             get
@@ -324,8 +355,8 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 if (_Dish_Ingredients_Measures == null)
                 {
                     _Dish_Ingredients_Measures = new List<IngredientViewModel>();
-                
-                _Dish_Ingredients_Measures.Clear();
+
+                    _Dish_Ingredients_Measures.Clear();
                     foreach (DishIngredient di in dish.Ingredients)
                     {
                         var ing = SectionsListViewModel.Ingredients.Ingredients.FirstOrDefault(i => i.Id == di.Id);
@@ -345,7 +376,8 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                         ing.IsPrincipal = false;
                         _Dish_Ingredients_Measures.Add(ing);
                     }
-
+                    if (AppResources.Culture.Name == "ar")
+                        _Dish_Ingredients_Measures.Reverse();
                 }
                 #endregion
                 return _Dish_Ingredients_Measures;
@@ -383,6 +415,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 RaisePropertyChanged();
             }
         }
+
         public ICommand plus
         {
             get
@@ -417,7 +450,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                     {
                         if (Qty > 0)
                         {
-                            Qty--;                            
+                            Qty--;
                         }
                         else
                             minus_enabled = false;
@@ -438,7 +471,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             {
                 return new Command(() =>
                 {
-                   SectionsListViewModel.Instance.SelectedDishes.Add(this);
+                    SectionsListViewModel.Instance.SelectedDishes.Add(this);
                     SectionsListViewModel.Instance.SelectedDishes = SectionsListViewModel.Instance.SelectedDishes;
                     ((CustomNavigationPage)(App.Current.MainPage)).PopAsync();
                 });

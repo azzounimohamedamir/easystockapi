@@ -70,11 +70,29 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Calories.
+        /// </summary>
+        internal static string Calories {
+            get {
+                return ResourceManager.GetString("Calories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à CANCEL.
         /// </summary>
         internal static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Carbo.
+        /// </summary>
+        internal static string Carbo {
+            get {
+                return ResourceManager.GetString("Carbo", resourceCulture);
             }
         }
         
@@ -160,6 +178,24 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Fat.
+        /// </summary>
+        internal static string Fat {
+            get {
+                return ResourceManager.GetString("Fat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à g.
+        /// </summary>
+        internal static string g {
+            get {
+                return ResourceManager.GetString("g", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à grams.
         /// </summary>
         internal static string Grammes {
@@ -174,6 +210,15 @@ namespace SmartRestaurant.Diner.Resources {
         internal static string Ingredients {
             get {
                 return ResourceManager.GetString("Ingredients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à kcal.
+        /// </summary>
+        internal static string kcal {
+            get {
+                return ResourceManager.GetString("kcal", resourceCulture);
             }
         }
         
@@ -246,6 +291,15 @@ namespace SmartRestaurant.Diner.Resources {
         internal static string price {
             get {
                 return ResourceManager.GetString("price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Protein.
+        /// </summary>
+        internal static string Protein {
+            get {
+                return ResourceManager.GetString("Protein", resourceCulture);
             }
         }
         

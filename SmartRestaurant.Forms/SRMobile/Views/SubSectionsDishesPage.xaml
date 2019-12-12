@@ -248,15 +248,15 @@
                                                         </Label>
                                                         <Label 
                                                             Margin="12"
-                                                           TextColor="#01A9AC"
-                                                                          Text="&#xf133;"
-                               FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"
-                               IsVisible="{Binding IsSelected,Mode=TwoWay }"
-                                                                            VerticalTextAlignment="Center" 
-                                                                            HorizontalTextAlignment="Center"
-                                                                            HorizontalOptions="End" 
-                                                                            VerticalOptions="Center"
-                                                                         FontSize="28"      
+                                                            TextColor="#01A9AC"
+                                                            Text="&#xf133;"
+                                                            FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"
+                                                            IsVisible="{Binding IsSelected,Mode=TwoWay }"
+                                                            VerticalTextAlignment="Center" 
+                                                            HorizontalTextAlignment="Center"
+                                                            HorizontalOptions="End" 
+                                                            VerticalOptions="Center"
+                                                            FontSize="28"      
                                                                     >
                                                             <Label.GestureRecognizers>
                                                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>

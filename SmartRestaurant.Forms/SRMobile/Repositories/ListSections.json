@@ -70,6 +70,10 @@
                 ],
                 "EstimatedTime": "20",
                 "Price": "400",
+                "Calories": 4.6,
+                "Carbo": 100,
+                "Fat": 90,
+                "Protein": 100,
                 "SubSectionId": 2
               },
               {
@@ -78,8 +82,13 @@
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
                 "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
-                "Ingredients": [],"EstimatedTime": "20",
+                "Ingredients": [],
+                "EstimatedTime": "20",
                 "Price": "400",
+                "Calories": 4.6,
+                "Carbo": 100,
+                "Fat": 90,
+                "Protein": 100,
                 "SubSectionId": 2
               },
               {
@@ -88,8 +97,13 @@
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
                 "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
-                "Ingredients": [],"EstimatedTime": "20",
+                "Ingredients": [],
+                "EstimatedTime": "20",
                 "Price": "400",
+                "Calories": 4.6,
+                "Carbo": 100,
+                "Fat": 90,
+                "Protein": 100,
                 "SubSectionId": 2
               },
               {

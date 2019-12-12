@@ -1,4 +1,4 @@
-﻿using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients;
+﻿using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements;
 using System;
 using System.Collections.Generic;
 using System.Text;

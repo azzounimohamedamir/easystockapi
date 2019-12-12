@@ -53,5 +53,26 @@ namespace SmartRestaurant.Diner.Views
                 }
             }
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            var item = ((Button)sender).BindingContext as RadioOption;
+
+            if (item == null)
+                return;
+
+            foreach (var group in ((DishViewModel)BindingContext).Specifications.Specifications)
+            {
+                if (group.RadioOptionsVM.Contains(item))
+                {
+                    foreach (var s in group.RadioOptionsVM.Where(x => x.IsSelected))
+                    {
+                        s.IsSelected = false;
+                    }
+
+                    item.IsSelected = true;
+                }
+            }
+        }
     }
 }

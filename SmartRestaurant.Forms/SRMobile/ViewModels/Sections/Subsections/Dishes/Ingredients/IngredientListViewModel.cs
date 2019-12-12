@@ -10,13 +10,13 @@ using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients
 {
-    public  class IngredientListViewModel:SimpleViewModel
+    public class IngredientListViewModel : SimpleViewModel
     {
         private static ObservableCollection<IngredientViewModel> ingredients;
         /// <summary>
         /// Ingredient to bind with the View.
         /// </summary>
-        public  ObservableCollection<IngredientViewModel> Ingredients
+        public ObservableCollection<IngredientViewModel> Ingredients
         {
             get
             {
@@ -27,7 +27,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
                     foreach (var item in listIngredient)
                     {
                         ingredients.Add(new IngredientViewModel(item));
-                    }                    
+                    }
                 }
                 return ingredients;
             }
@@ -39,5 +39,5 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
 
         }
 
-  }
+    }
 }

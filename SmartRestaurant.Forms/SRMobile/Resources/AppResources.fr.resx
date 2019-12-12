@@ -153,8 +153,8 @@
   <data name="Grammes" xml:space="preserve">
     <value>grammes</value>
   </data>
-  <data name="Ingredients" xml:space="preserve">
-    <value>Ingrédients</value>
+  <data name="Supplements" xml:space="preserve">
+    <value>Suppléments</value>
   </data>
   <data name="ListAllergiesCaption" xml:space="preserve">
     <value>Liste des allergies</value>
@@ -183,9 +183,6 @@
   <data name="RestaurantName" xml:space="preserve">
     <value>ALRAYANE</value>
   </data>
-  <data name="Supplements" xml:space="preserve">
-    <value>Suppléments</value>
-  </data>
   <data name="Table" xml:space="preserve">
     <value>Table</value>
   </data>
@@ -197,5 +194,26 @@
   </data>
   <data name="WelcomeComment" xml:space="preserve">
     <value>Bienvenu chez le restaurant</value>
+  </data>
+  <data name="Calories" xml:space="preserve">
+    <value>Calories</value>
+  </data>
+  <data name="Carbo" xml:space="preserve">
+    <value>Glucides</value>
+  </data>
+  <data name="Fat" xml:space="preserve">
+    <value>Graisse</value>
+  </data>
+  <data name="g" xml:space="preserve">
+    <value>g</value>
+  </data>
+  <data name="Ingredients" xml:space="preserve">
+    <value>Ingrédients</value>
+  </data>
+  <data name="kcal" xml:space="preserve">
+    <value>kcal</value>
+  </data>
+  <data name="Protein" xml:space="preserve">
+    <value>Protéine</value>
   </data>
 </root>

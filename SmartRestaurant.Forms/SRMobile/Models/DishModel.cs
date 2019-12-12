@@ -20,7 +20,11 @@ namespace SmartRestaurant.Diner.Models
         /// </summary>
         public List<string> Images { get; set; }
         public int SubSectionId { get; set; }
-        public List<DishIngredient> Ingredients { get; set; }        
+        public List<DishIngredient> Ingredients { get; set; }
+        public float Calories { get; set; }
+        public float Carbo { get; set; }
+        public float Fat { get; set; }
+        public float Protein { get; set; }
     }
     public class DishIngredient
     {
