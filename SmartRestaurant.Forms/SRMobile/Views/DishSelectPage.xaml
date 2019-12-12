@@ -301,9 +301,9 @@
                                                FontFamily="Assets/Fonts/Roboto.ttf" FontSize="16" 
                                                FontAttributes="Bold"/>
                                     <ListView 
-                                                
+                                        
                                             ItemTapped="ListView_ItemTapped"
-                                               RowHeight="40"
+                                        RowHeight="40"
                                         VerticalScrollBarVisibility="Never"
                                             SelectionMode="None"
                                             VerticalOptions="Start"

@@ -12,36 +12,27 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.
 {
     public  class SpecificationListViewModel:SimpleViewModel
     {
-        private static ObservableCollection<SpecificationViewModel> specifications;
+        private static List<SpecificationViewModel> specifications;
         public SpecificationListViewModel()
         {
             if (specifications == null)
-            {
-                ObservableCollection<SpecificationModel> listSpecification = SpecificationService.GetListSpecifications();
-                specifications = new ObservableCollection<SpecificationViewModel>();
+                specifications = new List<SpecificationViewModel>();
+            ObservableCollection<SpecificationModel> listSpecification = SpecificationService.GetListSpecifications();
+            specifications.Clear();
                 foreach (var item in listSpecification)
                 {
                     specifications.Add(new SpecificationViewModel(item));
                 }
-            }
+            
         }
 
         /// <summary>
         /// Specification to bind with the View.
         /// </summary>
-        public  ObservableCollection<SpecificationViewModel> Specifications
+        public List<SpecificationViewModel> Specifications
         {
             get
-            {
-                if (specifications == null)
-                {
-                    ObservableCollection<SpecificationModel> listSpecification = SpecificationService.GetListSpecifications();
-                    specifications = new ObservableCollection<SpecificationViewModel>();
-                    foreach (var item in listSpecification)
-                    {
-                        specifications.Add(new SpecificationViewModel(item));
-                    }                    
-                }
+            {                
                 return specifications;
             }
 
