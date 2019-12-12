@@ -287,7 +287,7 @@
                             VerticalScrollBarVisibility="Never"
                             FlowColumnCount="{Binding Specifications.Specifications.Count}"
                             Margin="30,0,30,0" 
-                                                    
+                            HasUnevenRows="True"                            
                             HorizontalOptions="Start"
                             VerticalOptions="Start"
                             SelectionMode="None"                            
@@ -301,10 +301,10 @@
                                                FontFamily="Assets/Fonts/Roboto.ttf" FontSize="16" 
                                                FontAttributes="Bold"/>
                                     <ListView 
-                                                VerticalScrollBarVisibility="Never"
+                                                
                                             ItemTapped="ListView_ItemTapped"
                                                RowHeight="40"
-                                        HasUnevenRows="True"
+                                        VerticalScrollBarVisibility="Never"
                                             SelectionMode="None"
                                             VerticalOptions="Start"
                                             HorizontalOptions="StartAndExpand"
@@ -675,7 +675,7 @@
                             Command="{Binding AddToOrder}"
                     />
                     <Label Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" 
-                           
+                           Margin="10,0"
                            HorizontalTextAlignment="End"
                            VerticalTextAlignment="Center"
                            HeightRequest="56" HorizontalOptions="Start" 
