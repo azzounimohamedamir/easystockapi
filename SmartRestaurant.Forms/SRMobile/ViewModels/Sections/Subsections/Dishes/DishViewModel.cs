@@ -376,8 +376,6 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                         ing.IsPrincipal = false;
                         _Dish_Ingredients_Measures.Add(ing);
                     }
-                    if (AppResources.Culture.Name == "ar")
-                        _Dish_Ingredients_Measures.Reverse();
                 }
                 #endregion
                 return _Dish_Ingredients_Measures;

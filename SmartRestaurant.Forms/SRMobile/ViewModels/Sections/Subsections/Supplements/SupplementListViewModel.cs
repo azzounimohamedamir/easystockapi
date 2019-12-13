@@ -30,12 +30,6 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Sup
                         supplements.Add(new SupplementViewModel(item));
                     }
                 }
-                if(AppResources.Culture.Name=="ar")
-                {
-                    List<SupplementViewModel> reversed = new List<SupplementViewModel>(supplements);
-                    reversed.Reverse();
-                    return reversed;
-                }
                 return supplements;
             }
             set
