@@ -1,11 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:helpers="clr-namespace:SmartRestaurant.Diner.Helpers"
              mc:Ignorable="d"
+             xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              x:Class="SmartRestaurant.Diner.App">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <!--#region Converters-->
+            <helpers:MultiplyConverter x:Key="IntMultiply" />
+            <helpers:NegateBooleanConverter x:Key="boolinverter" />
+            <!--#endregion Converters-->
+            <!--#region CollectionViews-->
+            <Style TargetType="controls:CarouselViewControl">
+                <Setter Property="FlowDirection" Value="MatchParent" />
+            </Style>
+            <Style TargetType="StackLayout">
+                <Setter Property="FlowDirection" Value="MatchParent" />
+            </Style>
+            <Style TargetType="ScrollView">
+                <Setter Property="FlowDirection" Value="MatchParent" />
+            </Style>
+            <Style TargetType="Grid">
+                <Setter Property="FlowDirection" Value="MatchParent" />
+            </Style>
+            <!--#endregion CollectionViews-->
+            <!--#region Labels,Buttons,Entry-->
+            <Style x:Key="RobotoEntry" TargetType="Entry">
+                <Setter Property="FontFamily" Value="Assets/Fonts/Roboto.ttf" />
+            </Style>
+            <Style x:Key="MatEntry" TargetType="Entry">
+                <Setter Property="FontFamily" Value="Fonts/materialdesignicons-webfont.ttf#Material Design Icons" />
+            </Style>
+            <Style x:Key="RobotoLabel" TargetType="Label">
+                <Setter Property="FontFamily" Value="Assets/Fonts/Roboto.ttf" />
+            </Style>
+            <Style x:Key="MatLabel" TargetType="Label">
+                <Setter Property="FontFamily" Value="Fonts/materialdesignicons-webfont.ttf#Material Design Icons" />
+            </Style>
+            <Style x:Key="RobotoButton" TargetType="Button">
+                <Setter Property="FontFamily" Value="Assets/Fonts/Roboto.ttf" />
+            </Style>
+            <Style x:Key="MatButton" TargetType="Button">
+                <Setter Property="FontFamily" Value="Fonts/materialdesignicons-webfont.ttf#Material Design Icons" />
+            </Style>
+            <!--#endregion Labels,Buttons,Entry-->
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

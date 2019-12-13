@@ -54,42 +54,41 @@ namespace SmartRestaurant.Diner.Droid.CustomControlsRenderers
             {
                 if (Element is IVisualElementController controller)
                 {
+                Rtl = controller.EffectiveFlowDirection.IsRightToLeft();
                     LayoutDirection = controller.EffectiveFlowDirection.IsLeftToRight()
                         ? LayoutDirection.Ltr
                         : LayoutDirection.Rtl;
                 }
             }
-
+        bool Rtl;
             protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
             {
                 base.OnLayout(changed, left, top, right, bottom);
 
-                if (Element is Xamarin.Forms.ScrollView scrollView && (scrollView.Orientation == ScrollOrientation.Horizontal || scrollView.Orientation == ScrollOrientation.Both))
+            if (Element is Xamarin.Forms.ScrollView scrollView && (scrollView.Orientation == ScrollOrientation.Horizontal || scrollView.Orientation == ScrollOrientation.Both))
+            {
+                if (Rtl)
                 {
+
                     var horizontal = (HorizontalScrollView)GetChildAt(0);
                     var container = (ViewGroup)horizontal.GetChildAt(0);
 
-                    if (LayoutDirection == LayoutDirection.Rtl)
-                    {
-                        if (container.ChildCount == 1)
-                        {
-                            var content = (ViewGroup)container.GetChildAt(0);
-                            var desiredWidth = content.Width;
 
-                            container.Layout(0, 0, content.Width, content.Height);
-                            content.Layout(0, 0, desiredWidth, content.Height);
-                        }
+                    if (container.ChildCount == 1)
+                    {
+                        var content = (ViewGroup)container.GetChildAt(0);
+                        var desiredWidth = content.Width;
+
+                        container.Layout(0, 0, content.Width, content.Height);
+                        content.Layout(0, 0, desiredWidth, content.Height);
                     }
 
-                    if (LayoutDirection != currentDirection)
-                    {
-                        currentDirection = LayoutDirection;
 
-                        horizontal.ScrollX = LayoutDirection == LayoutDirection.Ltr
-                            ? 0
-                            : container.Right;
-                    }
+
+                    horizontal.ScrollX = container.Right;
+
                 }
+            }
             }
         }
     }

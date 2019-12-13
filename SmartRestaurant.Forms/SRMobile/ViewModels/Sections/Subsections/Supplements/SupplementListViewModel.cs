@@ -5,6 +5,7 @@ using SmartRestaurant.Diner.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 
@@ -12,22 +13,28 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Sup
 {
     public class SupplementListViewModel : SimpleViewModel
     {
-        private static ObservableCollection<SupplementViewModel> supplements;
+        private static List<SupplementViewModel> supplements;
         /// <summary>
         /// Supplement to bind with the View.
         /// </summary>
-        public ObservableCollection<SupplementViewModel> Supplements
+        public List<SupplementViewModel> Supplements
         {
             get
             {
                 if (supplements == null)
                 {
-                    ObservableCollection<SupplementModel> listSupplement = SupplementService.GetListSupplements();
-                    supplements = new ObservableCollection<SupplementViewModel>();
+                    List<SupplementModel> listSupplement = SupplementService.GetListSupplements().ToList();
+                    supplements = new List<SupplementViewModel>();
                     foreach (var item in listSupplement)
                     {
                         supplements.Add(new SupplementViewModel(item));
                     }
+                }
+                if(AppResources.Culture.Name=="ar")
+                {
+                    List<SupplementViewModel> reversed = new List<SupplementViewModel>(supplements);
+                    reversed.Reverse();
+                    return reversed;
                 }
                 return supplements;
             }
