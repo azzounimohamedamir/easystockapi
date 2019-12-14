@@ -4,7 +4,13 @@
         <StackLayout FlowDirection="MatchParent" Orientation="Vertical">
             <ScrollView VerticalOptions="StartAndExpand" FlowDirection="MatchParent">
                 <StackLayout FlowDirection="MatchParent" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical">
-                    <controls:CarouselViewControl ShowIndicators="True" AnimateTransition="True" IndicatorsShape="Circle" ArrowsBackgroundColor="Blue" ArrowsTransparency=".5" ArrowsTintColor="Green" BackgroundColor="Yellow" IndicatorsTintColor="#FFFFFF" CurrentPageIndicatorTintColor="#77000000" HeightRequest="266" FlowDirection="MatchParent" ItemsSource="{Binding Images}" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                    <controls:CarouselViewControl ShowIndicators="True" AnimateTransition="True" 
+                                                  IndicatorsShape="Circle" ArrowsBackgroundColor="Blue"
+                                                  ArrowsTransparency=".5" ArrowsTintColor="Green" IndicatorsTintColor="#FFFFFF" 
+                                                  CurrentPageIndicatorTintColor="#77000000" HeightRequest="266" FlowDirection="MatchParent"
+                                                  ItemsSource="{Binding Images}" 
+                                                  Position="0"
+                                                  HorizontalOptions="FillAndExpand" VerticalOptions="Start">
                         <controls:CarouselViewControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
