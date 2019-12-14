@@ -63,7 +63,7 @@ namespace SmartRestaurant.Diner.Droid.CustomControlsRenderers
         bool Rtl;
             protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
             {
-                base.OnLayout(changed, left, top, right, bottom);
+            base.OnLayout(changed, left, top, right, bottom);
 
             if (Element is Xamarin.Forms.ScrollView scrollView && (scrollView.Orientation == ScrollOrientation.Horizontal || scrollView.Orientation == ScrollOrientation.Both))
             {

@@ -56,7 +56,7 @@ namespace SmartRestaurant.Diner.Views
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            var item = ((Button)sender).BindingContext as RadioOption;
+            var item = ((Grid)sender).BindingContext as RadioOption;
 
             if (item == null)
                 return;
@@ -74,5 +74,7 @@ namespace SmartRestaurant.Diner.Views
                 }
             }
         }
+
+
     }
 }

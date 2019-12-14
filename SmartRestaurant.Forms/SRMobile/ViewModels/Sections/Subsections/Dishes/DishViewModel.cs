@@ -475,5 +475,6 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 });
             }
         }
+        
     }
 }

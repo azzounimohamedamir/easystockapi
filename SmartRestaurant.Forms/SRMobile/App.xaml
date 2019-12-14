@@ -10,6 +10,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <!--#region Converters-->
+            <helpers:RtlScrollViewMarginConverter x:Key="RtlScrollViewMargin" />
             <helpers:MultiplyConverter x:Key="IntMultiply" />
             <helpers:NegateBooleanConverter x:Key="boolinverter" />
             <!--#endregion Converters-->
