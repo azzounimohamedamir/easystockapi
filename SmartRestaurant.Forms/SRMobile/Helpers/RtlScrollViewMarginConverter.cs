@@ -12,14 +12,14 @@ namespace SmartRestaurant.Diner.Helpers
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (AppResources.Culture.Name == "ar")
-                return new Thickness(0, 0, 40, 0);
-            return new Thickness(40, 0, 0, 0);
+                return new Thickness(10, 0, 40, 0);
+            return new Thickness(40, 0, 10, 0);
         }
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (AppResources.Culture.Name == "ar")
-                return new Thickness(0, 0, 40, 0);
-            return new Thickness(40, 0, 0, 0);
+                return new Thickness(10, 0, 40, 0);
+            return new Thickness(40, 0, 10, 0);
         }
     }
 }

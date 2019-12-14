@@ -86,7 +86,7 @@ namespace SmartRestaurant.Diner.Droid.CustomControlsRenderers
 
 
                     horizontal.ScrollX = container.Right;
-
+                    Rtl = false;
                 }
             }
             }
