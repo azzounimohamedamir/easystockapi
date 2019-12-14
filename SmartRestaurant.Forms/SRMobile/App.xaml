@@ -5,7 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:helpers="clr-namespace:SmartRestaurant.Diner.Helpers" 
              mc:Ignorable="d" 
-             xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions" 
              x:Class="SmartRestaurant.Diner.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -15,9 +14,6 @@
             <helpers:NegateBooleanConverter x:Key="boolinverter" />
             <!--#endregion Converters-->
             <!--#region CollectionViews-->
-            <Style TargetType="controls:CarouselViewControl">
-                <Setter Property="FlowDirection" Value="MatchParent" />
-            </Style>
             <Style TargetType="StackLayout">
                 <Setter Property="FlowDirection" Value="MatchParent" />
             </Style>
