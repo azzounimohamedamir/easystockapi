@@ -58,9 +58,6 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CarouselView.FormsPlugin.Fix">
-      <Version>5.2.1</Version>
-    </PackageReference>
     <PackageReference Include="CarouselView.FormsPluginReloaded">
       <Version>5.2.2</Version>
     </PackageReference>

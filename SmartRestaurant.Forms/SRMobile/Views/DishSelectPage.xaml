@@ -4,13 +4,7 @@
         <StackLayout FlowDirection="MatchParent" Orientation="Vertical">
             <ScrollView VerticalOptions="StartAndExpand" FlowDirection="MatchParent">
                 <StackLayout FlowDirection="MatchParent" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical">
-                    <controls:CarouselViewControl ShowIndicators="True" AnimateTransition="True" 
-                                                  IndicatorsShape="Circle" ArrowsBackgroundColor="Blue"
-                                                  ArrowsTransparency=".5" ArrowsTintColor="Green" IndicatorsTintColor="#FFFFFF" 
-                                                  CurrentPageIndicatorTintColor="#77000000" HeightRequest="266" FlowDirection="MatchParent"
-                                                  ItemsSource="{Binding Images}" 
-                                                  Position="0"
-                                                  HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                    <controls:CarouselViewControl ShowIndicators="True" AnimateTransition="True" IndicatorsShape="Circle" ArrowsBackgroundColor="Blue" ArrowsTransparency=".5" ArrowsTintColor="Green" IndicatorsTintColor="#FFFFFF" CurrentPageIndicatorTintColor="#77000000" HeightRequest="266" FlowDirection="MatchParent" ItemsSource="{Binding Images}" Position="0" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
                         <controls:CarouselViewControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -54,7 +48,7 @@
                                 </Label.FormattedText>
                             </Label>
                             <BoxView Grid.Column="2" WidthRequest="2" HeightRequest="50" Margin="0,24,0,24" BackgroundColor="#01A9AC" Opacity=".8" />
-                            <Image Source="coins_icon.png"  WidthRequest="26" HeightRequest="26" Aspect="AspectFill" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent"  />
+                            <Image Source="coins_icon.png" WidthRequest="26" HeightRequest="26" Aspect="AspectFill" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" />
                             <Label Grid.Column="4" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="20">
                                 <Label.FormattedText>
                                     <FormattedString>
@@ -68,7 +62,7 @@
                             </Label>
                         </Grid>
                     </pancakeview:PancakeView>
-                    <Label  Margin="40,-20,40,20" Text="{helpers:Translate Ingredients}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="20" FontAttributes="Bold" />
+                    <Label Margin="40,-20,40,20" Text="{helpers:Translate Ingredients}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="20" FontAttributes="Bold" />
                     <ScrollView Margin="{Binding Path=Margin,Source={x:Reference lbl},Converter= {x:StaticResource RtlScrollViewMargin}}" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                         <StackLayout HeightRequest="148" HorizontalOptions="StartAndExpand" Orientation="Horizontal" BindableLayout.ItemsSource="{Binding Dish_Ingredients_Measures}">
                             <BindableLayout.ItemTemplate>
@@ -127,7 +121,7 @@
                             <DataTemplate>
                                 <StackLayout Orientation="Vertical" Margin="10,0,10,0" VerticalOptions="Start" HorizontalOptions="StartAndExpand">
                                     <Label Text="{Binding Name}" TextColor="#3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="16" FontAttributes="Bold" />
-                                    <ListView ItemTapped="ListView_ItemTapped" RowHeight="40" VerticalScrollBarVisibility="Never" SelectionMode="None" VerticalOptions="Start" HorizontalOptions="StartAndExpand" SeparatorVisibility="None" ItemsSource="{Binding RadioOptionsVM}" >
+                                    <ListView ItemTapped="ListView_ItemTapped" RowHeight="40" VerticalScrollBarVisibility="Never" SelectionMode="None" VerticalOptions="Start" HorizontalOptions="StartAndExpand" SeparatorVisibility="None" ItemsSource="{Binding RadioOptionsVM}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <ViewCell>
@@ -155,7 +149,7 @@
                                                                 </Grid.RowDefinitions>
                                                                 <Button IsEnabled="False" Grid.Column="0" Grid.Row="0" CornerRadius="6" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="12" BackgroundColor="#01A9AC" />
                                                             </Grid>
-                                                            <Button IsEnabled="False"  Grid.Column="0"  Grid.Row="0" IsVisible="{Binding IsSelected,Converter={x:StaticResource boolinverter} }" CornerRadius="9" WidthRequest="18" BackgroundColor="Transparent" VerticalOptions="Center" HorizontalOptions="Center" BorderWidth="1" Clicked="Button_Clicked" BorderColor="#707070" />
+                                                            <Button IsEnabled="False" Grid.Column="0" Grid.Row="0" IsVisible="{Binding IsSelected,Converter={x:StaticResource boolinverter} }" CornerRadius="9" WidthRequest="18" BackgroundColor="Transparent" VerticalOptions="Center" HorizontalOptions="Center" BorderWidth="1" Clicked="Button_Clicked" BorderColor="#707070" />
                                                         </Grid>
                                                         <Label Text="{Binding Name}" IsEnabled="False" TextColor="#3C536A" VerticalOptions="Start" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="14" />
                                                     </StackLayout>
@@ -169,7 +163,7 @@
                     </flv:FlowListView>
                     <Label x:Name="lbl" VerticalOptions="Start" Margin="40,20,40,0" Text="{helpers:Translate Supplements}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="20" FontAttributes="Bold" />
                     <ScrollView Margin="{Binding Path=Margin,Source={x:Reference lbl},Converter= {x:StaticResource RtlScrollViewMargin}}" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
-                        <StackLayout   HeightRequest="148" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" Orientation="Horizontal" BindableLayout.ItemsSource="{Binding Supplements.Supplements}">
+                        <StackLayout HeightRequest="148" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" Orientation="Horizontal" BindableLayout.ItemsSource="{Binding Supplements.Supplements}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
                                     <Grid WidthRequest="156" MinimumWidthRequest="156" HeightRequest="92" Padding="0,0,7,0" FlowDirection="MatchParent">
@@ -198,7 +192,7 @@
                                             </Grid>
                                         </pancakeview:PancakeView>
                                         <pancakeview:PancakeView Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="84" WidthRequest="156" IsVisible="{Binding IsSelected}" MinimumWidthRequest="156" Elevation="1" BorderThickness="5" CornerRadius="10" BorderDrawingStyle="Outside" FlowDirection="MatchParent" IsClippedToBounds="True" BorderColor="#01A9AC" />
-                                        <pancakeview:PancakeView Margin="-6,0,-6,0" Grid.Column="0" Grid.Row="0" Elevation="0" BorderThickness="0" BorderColor="Transparent"  Padding="-2" BackgroundColor="Transparent" WidthRequest="24" HeightRequest="24" CornerRadius="12" HorizontalOptions="End" IsClippedToBounds="True" VerticalOptions="Start">
+                                        <pancakeview:PancakeView Margin="-6,0,-6,0" Grid.Column="0" Grid.Row="0" Elevation="0" BorderThickness="0" BorderColor="Transparent" Padding="-2" BackgroundColor="Transparent" WidthRequest="24" HeightRequest="24" CornerRadius="12" HorizontalOptions="End" IsClippedToBounds="True" VerticalOptions="Start">
                                             <Label Margin="0" TextColor="#01A9AC" BackgroundColor="White" Text="&#xf133;" Style="{StaticResource Key=MatLabel}" IsVisible="{Binding IsSelected}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center" FontSize="24" />
                                         </pancakeview:PancakeView>
                                     </Grid>
