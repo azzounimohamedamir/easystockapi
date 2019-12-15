@@ -1,12 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:helpers="clr-namespace:SmartRestaurant.Diner.Helpers" xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions" xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView" mc:Ignorable="d" NavigationPage.HasBackButton="True" FlowDirection="{Binding FlowDirectionValue}" x:Class="SmartRestaurant.Diner.Views.DishSelectPage" Title="{Binding Name}" x:Name="instance" BackgroundColor="White">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:helpers="clr-namespace:SmartRestaurant.Diner.Helpers"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             mc:Ignorable="d"
+             NavigationPage.HasBackButton="True"
+             FlowDirection="{Binding FlowDirectionValue}"
+             x:Class="SmartRestaurant.Diner.Views.DishSelectPage" Title="{Binding Name}"
+             x:Name="instance" BackgroundColor="White">
     <ContentPage.Content>
         <StackLayout FlowDirection="MatchParent" Orientation="Vertical">
-            <ScrollView VerticalOptions="StartAndExpand" FlowDirection="MatchParent">
+            <ScrollView  VerticalOptions="StartAndExpand" FlowDirection="MatchParent">
                 <StackLayout FlowDirection="MatchParent" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical">
-                    <controls:CarouselViewControl ShowIndicators="True" AnimateTransition="True" IndicatorsShape="Circle" ArrowsBackgroundColor="Blue" ArrowsTransparency=".5" ArrowsTintColor="Green" IndicatorsTintColor="#FFFFFF" CurrentPageIndicatorTintColor="#77000000" HeightRequest="266" FlowDirection="MatchParent" ItemsSource="{Binding Images}" Position="0" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-                        <controls:CarouselViewControl.ItemTemplate>
-                            <DataTemplate>
+                    <StackLayout>
+                        <CarouselView x:Name="carouselView" HeightRequest="266" FlowDirection="MatchParent"
+                                      IsBounceEnabled="True"
+                                      IsSwipeEnabled="True"
+                                      
+                                      ItemsSource="{Binding Images}" 
+                                  HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                        
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate> 
+                                    
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="175" />
@@ -23,10 +42,22 @@
                                         </Label.FormattedText>
                                     </Label>
                                 </Grid>
-                            </DataTemplate>
-                        </controls:CarouselViewControl.ItemTemplate>
-                    </controls:CarouselViewControl>
-                    <pancakeview:PancakeView Margin="40" HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="98" FlowDirection="MatchParent" CornerRadius="10">
+                                    
+                                </DataTemplate>
+                        </CarouselView.ItemTemplate> 
+                    </CarouselView>
+                    <IndicatorView ItemsSourceBy="carouselView" Margin="0,-40,0,40"
+                                   IsEnabled="True" 
+                                   MaximumVisible="1"                                   
+                                   ItemsSource="{Binding Images}" 
+                                   IndicatorsShape="Circle"
+                                   IndicatorSize="10"
+                                   
+                                   Position="{Binding Path=Position,Source={x:Reference carouselView}}"
+                                   IndicatorColor="Red" SelectedIndicatorColor="Yellow" HorizontalOptions="Center" />
+                    </StackLayout>
+               
+                <pancakeview:PancakeView Margin="40" HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="98" FlowDirection="MatchParent" CornerRadius="10">
                         <Grid BackgroundColor="#F2FBFB" FlowDirection="MatchParent">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
