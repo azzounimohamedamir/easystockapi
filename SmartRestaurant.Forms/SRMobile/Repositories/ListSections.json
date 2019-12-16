@@ -43,7 +43,7 @@
                 "NameAr": "هامبورجر",
                 "NameFr": "Tacos XL",
                 "NameEn": "Tacos XL ",
-                "Images": [ "tacos.png", "tacos.png", "tacos.png" ],
+                "Images": [ "hamburger.png", "tacos.png", "supplement.png" ],
 
                 "Ingredients": [
                   {
@@ -81,7 +81,7 @@
                 "NameAr": "هامبورجر",
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
-                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
+                "Images": [ "hamburger.png", "tacos.png", "supplement.png" ],
                 "Ingredients": [],
                 "EstimatedTime": "20",
                 "Price": "400",

@@ -143,9 +143,9 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// <summary>
         /// Image to indicate the nature of the dish.
         /// </summary>
-        public ObservableCollection<string> Images
+        public ObservableCollection<String> Images
         {
-            get { return new ObservableCollection<string>(dish.Images); }
+            get { return new ObservableCollection<String>(dish.Images); }
         }
         private int _EstimatedTime;
         public int EstimatedTime
@@ -475,6 +475,10 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 });
             }
         }
+        
+    }
+    public class ImageVM:SimpleViewModel
+    {
         
     }
 }

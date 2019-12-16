@@ -5,6 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:helpers="clr-namespace:SmartRestaurant.Diner.Helpers"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:pancardview="clr-namespace:PanCardView;assembly=PanCardView"
+             xmlns:controls="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+             xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              mc:Ignorable="d"
              NavigationPage.HasBackButton="True"
@@ -16,20 +19,21 @@
             <ScrollView  VerticalOptions="StartAndExpand" FlowDirection="MatchParent">
                 <StackLayout FlowDirection="MatchParent" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical">
                     <StackLayout>
-                        <CarouselView x:Name="carouselView" HeightRequest="266" FlowDirection="MatchParent"
-                                      IsBounceEnabled="True"
-                                      IsSwipeEnabled="True"
-                                      
-                                      ItemsSource="{Binding Images}" 
-                                  HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-                        
-                        <CarouselView.ItemTemplate>
-                            <DataTemplate> 
-                                    
+                      <pancardview:CarouselView
+                        IsPanSwipeEnabled="True"
+                          SlideShowDuration="80000"
+                        x:Name="carouselView" 
+                        HeightRequest="266" 
+                        FlowDirection="MatchParent"
+                        ItemsSource="{Binding Images}" 
+                        HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+
+                        <pancardview:CarouselView.ItemTemplate>
+                            <DataTemplate>                                     
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="175" />
-                                        <RowDefinition Height="91" />
+                                        <RowDefinition Height="91"  />
                                     </Grid.RowDefinitions>
                                     <Image Grid.Row="0" Grid.RowSpan="2" HeightRequest="266" Source="{Binding .}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
                                     <Label Margin="40,0,40,20" Grid.Row="1" BackgroundColor="Transparent" HeightRequest="91" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" TextColor="White" VerticalOptions="End">
@@ -44,17 +48,12 @@
                                 </Grid>
                                     
                                 </DataTemplate>
-                        </CarouselView.ItemTemplate> 
-                    </CarouselView>
-                    <IndicatorView ItemsSourceBy="carouselView" Margin="0,-40,0,40"
-                                   IsEnabled="True" 
-                                   MaximumVisible="1"                                   
-                                   ItemsSource="{Binding Images}" 
-                                   IndicatorsShape="Circle"
-                                   IndicatorSize="10"
-                                   
-                                   Position="{Binding Path=Position,Source={x:Reference carouselView}}"
-                                   IndicatorColor="Red" SelectedIndicatorColor="Yellow" HorizontalOptions="Center" />
+                        </pancardview:CarouselView.ItemTemplate>
+                            <controls:IndicatorsControl 
+                                                        SelectedIndicatorStyle="{StaticResource ActiveIndicator}"
+                                                        UnselectedIndicatorStyle="{StaticResource InactiveIndicator}" />
+                        </pancardview:CarouselView>
+
                     </StackLayout>
                
                 <pancakeview:PancakeView Margin="40" HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="98" FlowDirection="MatchParent" CornerRadius="10">

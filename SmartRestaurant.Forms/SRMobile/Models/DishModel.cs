@@ -18,7 +18,7 @@ namespace SmartRestaurant.Diner.Models
         /// <summary>
         /// Used to set images of the dish
         /// </summary>
-        public List<string> Images { get; set; }
+        public List<String> Images { get; set; }
         public int SubSectionId { get; set; }
         public List<DishIngredient> Ingredients { get; set; }
         public float Calories { get; set; }

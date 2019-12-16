@@ -8,6 +8,16 @@
              x:Class="SmartRestaurant.Diner.App">
     <Application.Resources>
         <ResourceDictionary>
+            <!--#region Crousel Indicators Styles-->
+            <Style x:Key="ActiveIndicator" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="OutlineColor" Value="Transparent" />
+            </Style>
+            <Style x:Key="InactiveIndicator" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#77000000" />
+                <Setter Property="OutlineColor" Value="Transparent" />
+            </Style>
+            <!--#endregion Crousel Indicators Styles-->
             <!--#region Converters-->
             <helpers:RtlScrollViewMarginConverter x:Key="RtlScrollViewMargin" />
             <helpers:MultiplyConverter x:Key="IntMultiply" />
