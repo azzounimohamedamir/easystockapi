@@ -21,6 +21,7 @@
                     <StackLayout>
                       <pancardview:CarouselView
                         IsPanSwipeEnabled="True"
+                          IsCyclical="False"
                           SlideShowDuration="80000"
                         x:Name="carouselView" 
                         HeightRequest="266" 
