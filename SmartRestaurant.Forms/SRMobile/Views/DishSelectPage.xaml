@@ -18,11 +18,13 @@
         <StackLayout FlowDirection="MatchParent" Orientation="Vertical">
             <ScrollView  VerticalOptions="StartAndExpand" FlowDirection="MatchParent">
                 <StackLayout FlowDirection="MatchParent" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical">
-                    <StackLayout>
+                    
                       <pancardview:CarouselView
-                        IsPanSwipeEnabled="True"
+                        IsPanSwipeEnabled="True"                        
                           IsCyclical="False"
                           SlideShowDuration="80000"
+                          IsRightToLeftFlowDirectionEnabled="{Binding .,Converter={StaticResource culturebooleanconverter}}"
+                          AreAnimationsEnabled="True"
                         x:Name="carouselView" 
                         HeightRequest="266" 
                         FlowDirection="MatchParent"
@@ -33,16 +35,18 @@
                             <DataTemplate>                                     
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="175" />
-                                        <RowDefinition Height="91"  />
+                                        <RowDefinition Height="266" /> 
                                     </Grid.RowDefinitions>
-                                    <Image Grid.Row="0" Grid.RowSpan="2" HeightRequest="266" Source="{Binding .}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
-                                    <Label Margin="40,0,40,20" Grid.Row="1" BackgroundColor="Transparent" HeightRequest="91" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" TextColor="White" VerticalOptions="End">
+                                    <Image Grid.Row="0"  HeightRequest="266" Source="{Binding .}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
+                                    <Label Margin="40,0,40,0" Grid.Row="0" BackgroundColor="Transparent"
+                                           HeightRequest="91" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" 
+                                           Style="{StaticResource Key=RobotoLabel}"
+                                           HorizontalOptions="FillAndExpand" TextColor="White" VerticalOptions="End">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="{Binding viewmodel.Name,Source={x:Reference instance}}" FontAttributes="Bold" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="32" />
+                                                <Span Text="{Binding viewmodel.Name,Source={x:Reference instance}}" FontAttributes="Bold" FontSize="32" />
                                                 <Span Text="&#10;" />
-                                                <Span Text="{Binding viewmodel.SubSection.Name,Source={x:Reference instance}}" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="14" />
+                                                <Span Text="{Binding viewmodel.SubSection.Name,Source={x:Reference instance}}"  FontSize="14" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -51,11 +55,13 @@
                                 </DataTemplate>
                         </pancardview:CarouselView.ItemTemplate>
                             <controls:IndicatorsControl 
+                                FlowDirection="MatchParent"
+                                
                                                         SelectedIndicatorStyle="{StaticResource ActiveIndicator}"
                                                         UnselectedIndicatorStyle="{StaticResource InactiveIndicator}" />
                         </pancardview:CarouselView>
 
-                    </StackLayout>
+                    
                
                 <pancakeview:PancakeView Margin="40" HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="98" FlowDirection="MatchParent" CornerRadius="10">
                         <Grid BackgroundColor="#F2FBFB" FlowDirection="MatchParent">

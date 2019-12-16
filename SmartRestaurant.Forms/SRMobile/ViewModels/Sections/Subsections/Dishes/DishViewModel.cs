@@ -304,8 +304,8 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 return new Command<SubSectionViewModel>(async (_subsection) => {
                     try
                     {
-                        this.SubSection = _subsection;
-                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DishSelectPage(new DishViewModel(dish)));
+                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DishSelectPage(new DishViewModel(dish) { SubSection = _subsection }
+                        ));
                     }
                     catch (Exception)
                     {
@@ -476,9 +476,5 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             }
         }
         
-    }
-    public class ImageVM:SimpleViewModel
-    {
-        
-    }
+    }   
 }
