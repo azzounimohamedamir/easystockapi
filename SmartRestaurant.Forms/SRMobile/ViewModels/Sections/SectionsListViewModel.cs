@@ -2,6 +2,7 @@
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Services;
+using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Currencies.Currencies;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.Specifications;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements;
@@ -24,6 +25,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
     {
         public static SupplementListViewModel Supplements { get; set; }
         public static IngredientListViewModel Ingredients { get; set; }
+        public static CurrencyListViewModel Currencies { get; set; }
         public static SpecificationListViewModel Specifications { get; set; }
         public static SectionsListViewModel Instance { get; set; }
         /// <summary>
@@ -37,9 +39,10 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// </summary>
         public SectionsListViewModel()
         {
-            Supplements = new SupplementListViewModel();
-            Ingredients = new IngredientListViewModel();
-            Specifications = new SpecificationListViewModel();
+            Supplements = new SupplementListViewModel()  ;
+            Ingredients = new IngredientListViewModel()  ;
+            Currencies = new CurrencyListViewModel() { Currencies = null };
+            Specifications = new SpecificationListViewModel()  ;
             ObservableCollection<SectionModel> listSections = SectionsService.GetListSections();
             Sections = new ObservableCollection<SectionViewModel>();
             foreach (var item in listSections)

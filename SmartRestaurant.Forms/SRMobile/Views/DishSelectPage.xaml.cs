@@ -5,6 +5,7 @@ using Rg.Plugins.Popup.Services;
 using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.ViewModels.Sections;
+using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Currencies.Currencies;
 using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.ViewModels.Zones;
 using SmartRestaurant.Diner.Views.Popups;
@@ -75,7 +76,35 @@ namespace SmartRestaurant.Diner.Views
                 }
             }
         }
+        private bool _ShowCurrencies;
+        public bool ShowCurrencies
+        {
+            get
+            {
+                return _ShowCurrencies;
+            }
+            set
+            {
+                _ShowCurrencies = value;
+                OnPropertyChanged("ShowCurrencies");
+            }
+        }
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            ShowCurrencies = !ShowCurrencies;
+        }
 
+        private void Curlv_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            
+            ((DishViewModel)BindingContext).Currency = (CurrencyViewModel)(e.SelectedItem);
+            ShowCurrencies = false;
+        }
 
+        private void Curlv_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            ((DishViewModel)BindingContext).Currency = (CurrencyViewModel)(e.Item);
+            ShowCurrencies = false;
+        }
     }
 }

@@ -12,11 +12,49 @@
              mc:Ignorable="d"
              NavigationPage.HasBackButton="True"
              FlowDirection="{Binding FlowDirectionValue}"
-             x:Class="SmartRestaurant.Diner.Views.DishSelectPage" Title="{Binding Name}"
-             x:Name="instance" BackgroundColor="White">
+             x:Class="SmartRestaurant.Diner.Views.DishSelectPage"              
+             x:Name="instance" BackgroundColor="White">    
+        <NavigationPage.TitleView>
+        <Grid Grid.Row="0" Grid.Column="1" FlowDirection="{Binding FlowDirectionValue}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                          >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="26" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" FontSize="20" Style="{StaticResource Key=RobotoLabel}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Text="{Binding Name}" TextColor="Black" />
+            <Label 
+                x:Name="curlbl"
+                FontSize="16"
+                  
+                   Grid.Column="1" Text="{Binding Currency.Name}" HorizontalOptions="FillAndExpand" WidthRequest="150" HorizontalTextAlignment="Start" TextColor="Black"
+                VerticalTextAlignment="Center" VerticalOptions="FillAndExpand" >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Grid.Column="2" Style="{StaticResource Key=MatLabel}" Text="&#xf140;"
+                        VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand"
+                        HorizontalTextAlignment="End"
+                       VerticalOptions="FillAndExpand" TextColor="Black" FontSize="26">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+                
+            
+        </Grid>
+
+        </NavigationPage.TitleView>
+
     <ContentPage.Content>
         <StackLayout FlowDirection="MatchParent" Orientation="Vertical">
-            <ScrollView  VerticalOptions="StartAndExpand" FlowDirection="MatchParent">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+            <ScrollView Grid.Row="0"  VerticalOptions="StartAndExpand" FlowDirection="MatchParent">
                 <StackLayout FlowDirection="MatchParent" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical">
                     
                       <pancardview:CarouselView
@@ -93,7 +131,7 @@
                                         <Span Text="&#10;" />
                                         <Span TextColor="#01A9AC" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="24" FontAttributes="Bold" Text="{Binding InitialPrice}" />
                                         <Span Text=" " />
-                                        <Span TextColor="#01A9AC" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="24" FontAttributes="Bold" Text="{helpers:Translate Currency_DZ}" />
+                                        <Span TextColor="#01A9AC" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="24" FontAttributes="Bold" Text="{Binding Currency.Name}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -300,6 +338,27 @@
                     </Grid>
                 </StackLayout>
             </ScrollView>
+                <ListView Grid.Row="0" x:Name="curlv" ItemsSource="{Binding Currencies.Currencies}"
+                            FlowDirection="{Binding FlowDirectionValue}"
+                          HasUnevenRows="True"   SeparatorVisibility="Default" 
+                          SeparatorColor="Black"   VerticalOptions="Start"
+                          HeightRequest="100"
+                          HorizontalOptions="End" WidthRequest="150" ItemSelected="Curlv_ItemSelected" 
+                          ItemTapped="Curlv_ItemTapped"
+                          Margin="52,0" 
+                          SelectionMode="Single" IsVisible="{Binding ShowCurrencies,Source={Reference instance}}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell> 
+                                <Label FontSize="16" Text="{Binding Name}" HeightRequest="30" BackgroundColor="#E0E0E0"
+                                        HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="Center" TextColor="Black" />
+                                
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
             <pancakeview:PancakeView VerticalOptions="EndAndExpand" Margin="0" FlowDirection="MatchParent" BackgroundColor="White" HorizontalOptions="FillAndExpand" HeightRequest="88" BorderDrawingStyle="Inside" IsClippedToBounds="True" CornerRadius="20,20,0,0" HasShadow="true" Elevation="6">
                 <Grid VerticalOptions="Center" Margin="0,0,38,0">
                     <Grid.ColumnDefinitions>
@@ -338,7 +397,8 @@
                                 <Span Text="{helpers:Translate price}" TextColor="#77000000" FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf" FontAttributes="Bold" />
                                 <Span Text="&#10;" />
                                 <Span Text="{Binding Total}" TextColor="#01A9AC" FontAttributes="Bold" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf" />
-                                <Span Text="{helpers:Translate Currency_DZ}" TextColor="#01A9AC" FontAttributes="Bold" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf" />
+                                <Span Text=" " />
+                                <Span Text="{Binding Currency.Name}" TextColor="#01A9AC" FontAttributes="Bold" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>

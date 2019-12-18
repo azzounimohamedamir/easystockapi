@@ -2,6 +2,7 @@
 using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Currencies.Currencies;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.Specifications;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements;
@@ -41,6 +42,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             this.dish = _dish;
             Specifications = SectionsListViewModel.Specifications;
             Supplements = SectionsListViewModel.Supplements;
+            Currencies = SectionsListViewModel.Currencies;
             foreach (var s in Specifications.Specifications)
             {
                 for (int i = 0; i < s.RadioOptionsVM.Count; i++)
@@ -328,6 +330,19 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 RaisePropertyChanged();
             }
         }
+        private CurrencyListViewModel _Currencies;
+        public CurrencyListViewModel Currencies
+        {
+            get
+            {
+                return _Currencies;
+            }
+            set
+            {
+                _Currencies = value;
+                RaisePropertyChanged();
+            }
+        }
         public float Calories { get; set; }
         public float Carbo { get; set; }
         public float Fat { get; set; }
@@ -382,7 +397,19 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             }
 
         }
-
+        private CurrencyViewModel currency;
+        public CurrencyViewModel Currency
+        {
+            get
+            { 
+                return currency==null?Currencies.Currencies[2]:currency;
+            }
+            set
+            {
+                currency = value;
+                RaisePropertyChanged();
+            }
+        }
         private bool _minus_enabled;
         public bool minus_enabled
         {

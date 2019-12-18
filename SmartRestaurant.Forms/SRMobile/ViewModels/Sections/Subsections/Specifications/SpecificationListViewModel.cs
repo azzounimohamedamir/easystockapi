@@ -35,6 +35,11 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.
             {                
                 return specifications;
             }
+            set
+            {
+                specifications = value;
+                RaisePropertyChanged();
+            }
 
 
         }

@@ -1,0 +1,28 @@
+﻿{
+  "CurrenciesList": [
+    {
+      "Id": 1,
+      "NameAr": "يورو",
+      "NameFr": "Euro",
+      "NameEn": "Euro",
+      "ExchangeRate": 160
+
+
+    },
+    {
+      "Id": 2,
+      "NameAr": "الدولار الأمريكي",
+      "NameFr": "Dollar américain",
+      "NameEn": "US Dollar",
+      "ExchangeRate": 140
+    },
+
+    {
+      "Id": 3,
+      "NameAr": "دج",
+      "NameFr": "DA",
+      "NameEn": "AD",
+      "ExchangeRate": 1
+    }
+  ]
+}

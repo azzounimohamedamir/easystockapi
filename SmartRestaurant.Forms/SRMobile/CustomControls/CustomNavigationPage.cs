@@ -9,9 +9,8 @@ namespace SmartRestaurant.Diner.CustomControls
     {
         public CustomNavigationPage(Page root) : base(root)
         {
-            BarBackgroundColor = Color.FromRgba(0, 0, 0, 0.3);
+            BarBackgroundColor = Color.FromHex("#E0E0E0");
             BarTextColor = Color.Black;
-            
         }
     }
 }
