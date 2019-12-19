@@ -37,12 +37,19 @@ namespace SmartRestaurant.Diner.Views.Popups
 
         }
 
-    
+
         private void Cancel_Clicked(object sender, EventArgs e)
         {
             ((ZonesListViewModel)BindingContext).SelectedTable.NombreChaises = oldvalue;
             PopupNavigation.PopAllAsync(true);
-            ((ZonesAndTablesPage)(((NavigationPage)Application.Current.MainPage)).CurrentPage).SetOpacity(1);
+            try
+            {
+                ((ZonesAndTablesPage)(((NavigationPage)Application.Current.MainPage)).CurrentPage).SetOpacity(1);
+            }
+            catch
+            {
+
+            }
         }
 
         private void Entry_TextChanged(object sender, TextChangedEventArgs e)

@@ -1,48 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-             xmlns:ia="clr-namespace:IntelliAbb.Xamarin.Controls;assembly=IntelliAbb.Xamarin.Controls"
-             xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers"
-             xmlns:controls="clr-namespace:SmartRestaurant.Diner.CustomControls"
-             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
-             xmlns:effects="clr-namespace:SmartRestaurant.Diner.CustomEffects"
-             xmlns:lc="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
-             xmlns:lb="clr-namespace:XLabs.Forms.Behaviors;assembly=XLabs.Forms"
-             xmlns:multigestureviewplugin="clr-namespace:MultiGestureViewPlugin;assembly=MultiGestureViewPlugin"
-             mc:Ignorable="d"
-             x:Class="SmartRestaurant.Diner.Views.ZonesAndTablesPage"
-             Title="{translator:Translate ChooseTable}"
-             x:Name="instance"
-             BackgroundColor="White">
-
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" xmlns:ia="clr-namespace:IntelliAbb.Xamarin.Controls;assembly=IntelliAbb.Xamarin.Controls" xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers" xmlns:controls="clr-namespace:SmartRestaurant.Diner.CustomControls" xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView" xmlns:effects="clr-namespace:SmartRestaurant.Diner.CustomEffects" xmlns:lc="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" xmlns:lb="clr-namespace:XLabs.Forms.Behaviors;assembly=XLabs.Forms" xmlns:multigestureviewplugin="clr-namespace:MultiGestureViewPlugin;assembly=MultiGestureViewPlugin" mc:Ignorable="d" x:Class="SmartRestaurant.Diner.Views.ZonesAndTablesPage" Title="{translator:Translate ChooseTable}" x:Name="instance" BackgroundColor="White">
     <ContentPage.Content>
         <ScrollView x:Name="mainscv" Padding="32,32,32,32" BackgroundColor="White">
             <StackLayout>
-                <controls:CustomListView
-                  ItemsSource = "{Binding Zones}"                   
-                  HasUnevenRows = "true" 
-                  SeparatorVisibility="None"                      
-                  SelectionMode="Single"
-                  SelectedItem="{Binding Path=SelectedZone}"                  
-                  ItemTapped    = "Handle_ItemTapped"
-                  Footer        = "">
+                <controls:CustomListView ItemsSource="{Binding Zones}" HasUnevenRows="true" SeparatorVisibility="None" SelectionMode="Single" SelectedItem="{Binding Path=SelectedZone}" ItemTapped="Handle_ItemTapped" Footer="">
                     <controls:CustomListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <Grid RowSpacing="0">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="75"/>
-                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="75" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0" HorizontalOptions="FillAndExpand"
-                                                  ColumnSpacing="0" RowSpacing="0"
-                                          Margin="0,0,1,0"
-                                                  BackgroundColor="White"
-                                                VerticalOptions="FillAndExpand">
+                                    <Grid Grid.Row="0" HorizontalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" Margin="0,0,1,0" BackgroundColor="White" VerticalOptions="FillAndExpand">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1" />
                                             <ColumnDefinition Width="*" />
@@ -53,47 +23,22 @@
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="1" />
                                         </Grid.RowDefinitions>
-                                        <BoxView   Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="#E5E5E5" />
-                                        <BoxView   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BackgroundColor="#E5E5E5" />
-                                        <BoxView  Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="#E5E5E5" />
-                                        <BoxView  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="#E5E5E5" />
-
-                                        <Frame  Grid.Row="1" Grid.Column="1" CornerRadius="0" HasShadow="False"   
-                                           BackgroundColor="#FBFBFB" BorderColor="#FBFBFB" Padding="24,15,24,15">
-                                            <Grid   BackgroundColor="#FBFBFB" >
+                                        <BoxView Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="#E5E5E5" />
+                                        <BoxView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BackgroundColor="#E5E5E5" />
+                                        <BoxView Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="#E5E5E5" />
+                                        <BoxView Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="#E5E5E5" />
+                                        <Frame Grid.Row="1" Grid.Column="1" CornerRadius="0" HasShadow="False" BackgroundColor="#FBFBFB" BorderColor="#FBFBFB" Padding="24,15,24,15">
+                                            <Grid BackgroundColor="#FBFBFB">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="1*"/>
-                                                    <ColumnDefinition Width="32"/>
+                                                    <ColumnDefinition Width="1*" />
+                                                    <ColumnDefinition Width="32" />
                                                 </Grid.ColumnDefinitions>
-                                                <Label  Grid.Column="0"  Text  ="{Binding Name}" FontSize="20"
-                                                    HeightRequest="75"
-                                                           HorizontalOptions="StartAndExpand"
-                                                   VerticalOptions="CenterAndExpand"
-                                                   HorizontalTextAlignment="Start"
-                                                   TextColor="Black"  
-                                                    
-                                                   FontFamily="Assets/Fonts/Roboto.ttf"                                                                                               
-                                                   VerticalTextAlignment="Center"/>
-                                                <Label 
-                        
-                        Grid.Column="1" WidthRequest="20" HeightRequest="20"
-                           FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons"
-                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
-                          TextColor="Black" BackgroundColor="Transparent"
-                           IsEnabled="{Binding plus_enabled,Source=instance}"
-                          Text="&#xf140;" FontSize="26"/>
-
-
+                                                <Label Grid.Column="0" Text="{Binding Name}" FontSize="20" HeightRequest="75" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Start" TextColor="Black" FontFamily="Assets/Fonts/Roboto.ttf" VerticalTextAlignment="Center" />
+                                                <Label Grid.Column="1" WidthRequest="20" HeightRequest="20" FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="Black" BackgroundColor="Transparent" IsEnabled="{Binding plus_enabled,Source=instance}" Text="&#xf140;" FontSize="26" />
                                             </Grid>
-
                                         </Frame>
                                     </Grid>
-                                    <Grid Grid.Row="1" HorizontalOptions="FillAndExpand"
-                                          IsVisible="{Binding IsVisible}"
-                                                  ColumnSpacing="0" RowSpacing="0"
-                                          Margin="0,0,1,0"
-                                                  BackgroundColor="White"
-                                                VerticalOptions="FillAndExpand">
+                                    <Grid Grid.Row="1" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsVisible}" ColumnSpacing="0" RowSpacing="0" Margin="0,0,1,0" BackgroundColor="White" VerticalOptions="FillAndExpand">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1" />
                                             <ColumnDefinition Width="*" />
@@ -104,82 +49,43 @@
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="1" />
                                         </Grid.RowDefinitions>
-                                        <BoxView   Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="#E5E5E5" />
-                                        <BoxView   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BackgroundColor="#E5E5E5" />
-                                        <BoxView  Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="#E5E5E5" />
-                                        <BoxView  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="#E5E5E5" />
-                                        <Frame Grid.Row="1" Grid.Column="1" 
-                                           CornerRadius="0"
-                                           BackgroundColor="White" BorderColor="White"
-                                               HasShadow="False"   >
-                                            <Grid  HorizontalOptions="FillAndExpand"
-                                                  
-                                                  BackgroundColor="White"
-                                                VerticalOptions="FillAndExpand">
+                                        <BoxView Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="#E5E5E5" />
+                                        <BoxView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BackgroundColor="#E5E5E5" />
+                                        <BoxView Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="#E5E5E5" />
+                                        <BoxView Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="#E5E5E5" />
+                                        <Frame Grid.Row="1" Grid.Column="1" CornerRadius="0" BackgroundColor="White" BorderColor="White" HasShadow="False">
+                                            <Grid HorizontalOptions="FillAndExpand" BackgroundColor="White" VerticalOptions="FillAndExpand">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
-
                                                     <RowDefinition Height="*" />
-
                                                 </Grid.RowDefinitions>
-
                                                 <ScrollView Grid.Row="0" Grid.Column="0" VerticalOptions="FillAndExpand" Margin="1">
-                                                    <flv:FlowListView                                                                                                                 
-                                                        FlowColumnCount="3"  SeparatorVisibility="None"  HasUnevenRows="false"
-                                                        FlowLastTappedItem =
-                                                        "{Binding Path=viewmodel.SelectedTable, Source={x:Reference Name=instance} , Mode=TwoWay}"                                                                  
-                                                                      RowHeight="102"                                                                      
-                                                                      VerticalOptions="CenterAndExpand"  
-                                                        FlowItemTapped="FlowListView_ItemTapped"
-                                                                      SelectionMode="Single"
-                                                                      FlowItemsSource="{Binding Tables.Tables}" >
+                                                    <flv:FlowListView FlowColumnCount="3" SeparatorVisibility="None" HasUnevenRows="false" FlowLastTappedItem="{Binding Path=viewmodel.SelectedTable, Source={x:Reference Name=instance} , Mode=TwoWay}" RowHeight="102" VerticalOptions="CenterAndExpand" FlowItemTapped="FlowListView_ItemTapped" SelectionMode="Single" FlowItemsSource="{Binding Tables.Tables}">
                                                         <flv:FlowListView.FlowColumnTemplate>
                                                             <DataTemplate>
-                                                                <StackLayout WidthRequest="216" HeightRequest="102" Margin="8,12,12,8"  >
-                                                                    <Frame 
-                                                                    HasShadow="False"
-                                                               WidthRequest="208" HeightRequest="90"
-                                                               VerticalOptions="Center"
-                                                               HorizontalOptions="Center"
-                                                               BackgroundColor="{Binding BackgroundColor}"
-                                                               BorderColor="{Binding BorderColor}"                                                                                                                                 
-                                                               CornerRadius="10" 
-                                                                    >
-
-                                                                        <lc:GesturesContentView ExcludeChildren="False" 
-                                                                                    GestureRecognized="GesturesContentView_GestureRecognized">
+                                                                <StackLayout WidthRequest="216" HeightRequest="102" Margin="8,12,12,8">
+                                                                    <Frame HasShadow="False" WidthRequest="208" HeightRequest="90" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="{Binding BackgroundColor}" BorderColor="{Binding BorderColor}" CornerRadius="10">
+                                                                        <lc:GesturesContentView ExcludeChildren="False" GestureRecognized="GesturesContentView_GestureRecognized">
                                                                             <lb:Gestures.Interests>
                                                                                 <lb:GestureCollection>
-                                                                                    <lb:GestureInterest GestureType="SingleTap"/>
-                                                                                    <lb:GestureInterest GestureType="LongPress"/>
-                                                                                    <lb:GestureInterest GestureType="DoubleTap"/>
+                                                                                    <lb:GestureInterest GestureType="SingleTap" />
+                                                                                    <lb:GestureInterest GestureType="LongPress" />
+                                                                                    <lb:GestureInterest GestureType="DoubleTap" />
                                                                                 </lb:GestureCollection>
                                                                             </lb:Gestures.Interests>
-
-                                                                            <Label 
-                                                                            TextColor="Black"
-                                                                            HeightRequest="90"
-                                                                            WidthRequest="208"
-                                                                            FontAttributes="Bold" 
-                                                                            VerticalTextAlignment="Center" 
-                                                                            HorizontalTextAlignment="Center"
-                                                                            HorizontalOptions="Center"
-                                                                            VerticalOptions="Center"
-                                                                                FontFamily="Assets/Fonts/Roboto.ttf" 
-                                                                    >
+                                                                            <Label TextColor="Black" HeightRequest="90" WidthRequest="208" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Assets/Fonts/Roboto.ttf">
                                                                                 <Label.FormattedText>
                                                                                     <FormattedString>
                                                                                         <Span Text="{translator:Translate Table}" FontSize="20" />
                                                                                         <Span Text=" : " FontSize="20" />
-                                                                                        <Span Text="{Binding Numero, Mode=TwoWay}" FontSize="20"/>
+                                                                                        <Span Text="{Binding Numero, Mode=TwoWay}" FontSize="20" />
                                                                                         <Span Text="&#10;" FontSize="12" />
                                                                                         <Span Text="{translator:Translate Chairs}" FontSize="12" />
                                                                                         <Span Text=" : " FontSize="12" />
                                                                                         <Span Text="{Binding NombreChaises, Mode=TwoWay}" FontSize="12" />
                                                                                     </FormattedString>
-
                                                                                 </Label.FormattedText>
                                                                             </Label>
                                                                         </lc:GesturesContentView>

@@ -2,6 +2,10 @@
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Services;
+using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Currencies.Currencies;
+using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients;
+using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.Specifications;
+using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
@@ -19,6 +23,10 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
     /// </summary>
     public class SectionsListViewModel: SimpleViewModel
     {
+        public static SupplementListViewModel Supplements { get; set; }
+        public static IngredientListViewModel Ingredients { get; set; }
+        public static CurrencyListViewModel Currencies { get; set; }
+        public static SpecificationListViewModel Specifications { get; set; }
         public static SectionsListViewModel Instance { get; set; }
         /// <summary>
         /// The list of section to be binded to the List control.
@@ -31,7 +39,10 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// </summary>
         public SectionsListViewModel()
         {
-            
+            Supplements = new SupplementListViewModel()  ;
+            Ingredients = new IngredientListViewModel()  ;
+            Currencies = new CurrencyListViewModel() { Currencies = null };
+            Specifications = new SpecificationListViewModel()  ;
             ObservableCollection<SectionModel> listSections = SectionsService.GetListSections();
             Sections = new ObservableCollection<SectionViewModel>();
             foreach (var item in listSections)
@@ -85,7 +96,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             set
             {
                 selectedDishes = value;
-                TotalPrice= SelectedDishes.Sum(d => d.Price);
+                TotalPrice= SelectedDishes.Sum(d => d.Price * d.Qty);
                 RaisePropertyChanged();
 
             }
@@ -93,7 +104,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
 
          public float TotalPrice
         {
-            get { return SelectedDishes.Sum(d => d.Price); }
+            get { return SelectedDishes.Sum(d => d.Price * d.Qty); }
             set {
                 if(TotalPrice!=value)
                     TotalPrice = value;

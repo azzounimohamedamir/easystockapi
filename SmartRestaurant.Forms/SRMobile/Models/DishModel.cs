@@ -5,7 +5,7 @@ using System.Text;
 namespace SmartRestaurant.Diner.Models
 {
     /// <summary>
-    /// Used to manage sections or categories of food.
+    /// Used to manage Dishes
     /// </summary>
     public class DishModel
     {
@@ -16,20 +16,19 @@ namespace SmartRestaurant.Diner.Models
         public int EstimatedTime { get; set; }
         public float Price { get; set; }
         /// <summary>
-        /// Used to set the image of the section or category.
+        /// Used to set images of the dish
         /// </summary>
-        public string Image { get; set; }
-
-        /// <summary>
-        /// Used to get the Uri of the image.
-        /// </summary>
-        public Uri ImageUri
-        {
-            get
-            {
-                return String.IsNullOrEmpty(Image) ? null : new Uri(Image);
-            }
-        }
+        public List<String> Images { get; set; }
         public int SubSectionId { get; set; }
+        public List<DishIngredient> Ingredients { get; set; }
+        public float Calories { get; set; }
+        public float Carbo { get; set; }
+        public float Fat { get; set; }
+        public float Protein { get; set; }
+    }
+    public class DishIngredient
+    {
+        public int Id { get; set; }
+        public int Measure { get; set; }
     }
 }

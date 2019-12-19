@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>ADD</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>CANCEL</value>
   </data>
@@ -138,8 +141,20 @@
   <data name="DeseasesAllergiesNext" xml:space="preserve">
     <value>NEXT</value>
   </data>
+  <data name="DishSpec" xml:space="preserve">
+    <value>Specifications</value>
+  </data>
+  <data name="Energy" xml:space="preserve">
+    <value>Energy value (per 100g)</value>
+  </data>
   <data name="EstimatedTime" xml:space="preserve">
     <value>Estimated preparation time</value>
+  </data>
+  <data name="Grammes" xml:space="preserve">
+    <value>grams</value>
+  </data>
+  <data name="Supplements" xml:space="preserve">
+    <value>Supplements</value>
   </data>
   <data name="ListAllergiesCaption" xml:space="preserve">
     <value>Allergies list</value>
@@ -174,7 +189,31 @@
   <data name="test_subsections" xml:space="preserve">
     <value>Oriental, Traditional</value>
   </data>
+  <data name="uprice" xml:space="preserve">
+    <value>Price</value>
+  </data>
   <data name="WelcomeComment" xml:space="preserve">
     <value>Welcome to the restaurant</value>
+  </data>
+  <data name="Ingredients" xml:space="preserve">
+    <value>Ingredients</value>
+  </data>
+  <data name="Calories" xml:space="preserve">
+    <value>Calories</value>
+  </data>
+  <data name="Carbo" xml:space="preserve">
+    <value>Carbo</value>
+  </data>
+  <data name="Fat" xml:space="preserve">
+    <value>Fat</value>
+  </data>
+  <data name="g" xml:space="preserve">
+    <value>g</value>
+  </data>
+  <data name="kcal" xml:space="preserve">
+    <value>kcal</value>
+  </data>
+  <data name="Protein" xml:space="preserve">
+    <value>Protein</value>
   </data>
 </root>

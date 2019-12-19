@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
+  <data name="Calories" xml:space="preserve">
+    <value>سعرات حراريه</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
+  </data>
+  <data name="Carbo" xml:space="preserve">
+    <value>الكربوهيدرات</value>
   </data>
   <data name="Chairs" xml:space="preserve">
     <value>كراسي</value>
@@ -138,8 +147,29 @@
   <data name="DeseasesAllergiesNext" xml:space="preserve">
     <value>متــــابعــــة</value>
   </data>
+  <data name="DishSpec" xml:space="preserve">
+    <value>مواصفات</value>
+  </data>
+  <data name="Energy" xml:space="preserve">
+    <value>قيمة الطاقة (لكل 100 جرام)</value>
+  </data>
   <data name="EstimatedTime" xml:space="preserve">
     <value>الوقت المقدر</value>
+  </data>
+  <data name="Fat" xml:space="preserve">
+    <value>الدهون</value>
+  </data>
+  <data name="g" xml:space="preserve">
+    <value>غ</value>
+  </data>
+  <data name="Grammes" xml:space="preserve">
+    <value>غرام</value>
+  </data>
+  <data name="Ingredients" xml:space="preserve">
+    <value>المكونات</value>
+  </data>
+  <data name="kcal" xml:space="preserve">
+    <value>سعرة حرارية</value>
   </data>
   <data name="ListAllergiesCaption" xml:space="preserve">
     <value>قائمة الحساسية.</value>
@@ -165,14 +195,23 @@
   <data name="price" xml:space="preserve">
     <value>السعر الاجمالي</value>
   </data>
+  <data name="Protein" xml:space="preserve">
+    <value>بروتين</value>
+  </data>
   <data name="RestaurantName" xml:space="preserve">
     <value>الريان</value>
+  </data>
+  <data name="Supplements" xml:space="preserve">
+    <value>المكملات</value>
   </data>
   <data name="Table" xml:space="preserve">
     <value>طاولة</value>
   </data>
   <data name="test_subsections" xml:space="preserve">
     <value>شرقية، تقليدية</value>
+  </data>
+  <data name="uprice" xml:space="preserve">
+    <value>السعر</value>
   </data>
   <data name="WelcomeComment" xml:space="preserve">
     <value>مرحبا بكم في مطعم</value>

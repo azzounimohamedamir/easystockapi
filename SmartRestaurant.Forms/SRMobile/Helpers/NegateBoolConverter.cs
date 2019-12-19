@@ -16,4 +16,5 @@ namespace SmartRestaurant.Diner.Helpers
             return !(bool)value;
         }
     }
+
 }

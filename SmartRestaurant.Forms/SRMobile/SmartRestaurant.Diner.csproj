@@ -12,8 +12,12 @@
 
   <ItemGroup>
     <None Remove="Repositories\ListAllergies.json" />
+    <None Remove="Repositories\ListCurrencies.json" />
     <None Remove="Repositories\ListDeseases.json" />
+    <None Remove="Repositories\ListIngredients.json" />
     <None Remove="Repositories\ListSections.json" />
+    <None Remove="Repositories\ListSpecifications.json" />
+    <None Remove="Repositories\ListSupplements.json" />
     <None Remove="Repositories\ListTables.json" />
     <None Remove="Repositories\ListZones.json" />
   </ItemGroup>
@@ -25,7 +29,19 @@
     <EmbeddedResource Include="Repositories\ListDeseases.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Repositories\ListCurrencies.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repositories\ListIngredients.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repositories\ListSpecifications.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Repositories\ListSections.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repositories\ListSupplements.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Repositories\ListTables.json">
@@ -37,6 +53,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Behaviors.Forms" Version="1.4.0" />
+    <PackageReference Include="CardsView" Version="2.3.8" />
+    <PackageReference Include="CarouselView.FormsPluginReloaded" Version="5.2.2" />
     <PackageReference Include="DLToolkit.Forms.Controls.FlowListView" Version="2.0.11" />
     <PackageReference Include="IntelliAbb.Xamarin.Controls" Version="1.0.148" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
@@ -58,6 +77,9 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DishSelectPage.xaml.cs">
+      <DependentUpon>DishSelectPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\TablesPage.xaml.cs">
       <DependentUpon>TablesPage.xaml</DependentUpon>
@@ -84,5 +106,44 @@
     <EmbeddedResource Update="Views\TablesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\DeseasesAllergiesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\DishSelectPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\LanguageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\PasswordPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\Popups\ChairSelectionPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\SectionsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\SubSectionsDishesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\TablesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\WelcomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\ZonesAndTablesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 </Project>

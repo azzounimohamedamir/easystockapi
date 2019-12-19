@@ -25,14 +25,9 @@ namespace SmartRestaurant.Diner.Views
 
         public SubSectionsDishesPage(SubSectionsListViewModel _model)
         {
-            InitializeComponent();
-
-            
+            InitializeComponent();           
             BindingContext = _model;
-            viewmodel = (SubSectionsListViewModel)BindingContext;
-            
-
-
+            viewmodel = (SubSectionsListViewModel)BindingContext;                 
         }
         public SubSectionsListViewModel viewmodel { get; private set; }
 
@@ -49,30 +44,23 @@ namespace SmartRestaurant.Diner.Views
 
             }
         }
-         
-
-         
+             
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             (((Label)sender).BindingContext as DishViewModel).IsSelected = !(((Label)sender).BindingContext as DishViewModel).IsSelected;
             if (SectionsListViewModel.Instance.SelectedDishes.Select(d=>d.Id).Contains((((Label)sender).BindingContext as DishViewModel).Id))
-            {
-                
-                
+            {   
                 SectionsListViewModel.Instance.SelectedDishes.Remove(
-                    (((Label)sender).BindingContext as DishViewModel));
-                
-
+                    (((Label)sender).BindingContext as DishViewModel));             
             }
             else
             {
-
                   SectionsListViewModel.Instance.SelectedDishes.Add(
                     (((Label)sender).BindingContext as DishViewModel));
-
             }
             SectionsListViewModel.Instance.SelectedDishes = SectionsListViewModel.Instance.SelectedDishes;
         }
+        
     }
 }

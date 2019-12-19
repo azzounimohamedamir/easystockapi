@@ -41,11 +41,39 @@
               {
                 "Id": 1,
                 "NameAr": "هامبورجر",
-                "NameFr": "Hamburger",
-                "NameEn": "Hamburger ",
-                "Image": "hamburger.png",
+                "NameFr": "Tacos XL",
+                "NameEn": "Tacos XL ",
+                "Images": [ "hamburger.png", "tacos.png", "supplement.png" ],
+
+                "Ingredients": [
+                  {
+                    "Id": 1,
+                    "Measure": 2
+                  },
+                  {
+                    "Id": 2,
+                    "Measure": 1
+                  },
+                  {
+                    "Id": 3,
+                    "Measure": 1
+                  },
+                  {
+                    "Id": 4,
+                    "Measure": 1
+                  },
+                  {
+                    "Id": 5,
+                    "Measure": 3
+                  }
+
+                ],
                 "EstimatedTime": "20",
                 "Price": "400",
+                "Calories": 4.6,
+                "Carbo": 100,
+                "Fat": 90,
+                "Protein": 100,
                 "SubSectionId": 2
               },
               {
@@ -53,9 +81,14 @@
                 "NameAr": "هامبورجر",
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
-                "Image": "hamburger.png",
+                "Images": [ "hamburger.png", "tacos.png", "supplement.png" ],
+                "Ingredients": [],
                 "EstimatedTime": "20",
                 "Price": "400",
+                "Calories": 4.6,
+                "Carbo": 100,
+                "Fat": 90,
+                "Protein": 100,
                 "SubSectionId": 2
               },
               {
@@ -63,9 +96,14 @@
                 "NameAr": "هامبورجر",
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
-                "Image": "hamburger.png",
+                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
+                "Ingredients": [],
                 "EstimatedTime": "20",
                 "Price": "400",
+                "Calories": 4.6,
+                "Carbo": 100,
+                "Fat": 90,
+                "Protein": 100,
                 "SubSectionId": 2
               },
               {
@@ -73,8 +111,8 @@
                 "NameAr": "هامبورجر",
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
-                "Image": "hamburger.png",
-                "EstimatedTime": "20",
+                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
+                "Ingredients": [],"EstimatedTime": "20",
                 "Price": "400",
                 "SubSectionId": 2
               },
@@ -83,8 +121,8 @@
                 "NameAr": "هامبورجر",
                 "NameFr": "Hamburger",
                 "NameEn": "Hamburger ",
-                "Image": "hamburger.png",
-                "EstimatedTime": "20",
+                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
+                "Ingredients": [],"EstimatedTime": "20",
                 "Price": "400",
                 "SubSectionId": 2
               }

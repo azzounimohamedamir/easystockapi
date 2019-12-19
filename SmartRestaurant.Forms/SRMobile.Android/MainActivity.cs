@@ -11,6 +11,9 @@ using Java.Lang.Reflect;
 using Android.Graphics;
 using Android.Content;
 using Android.Util;
+using CarouselView.FormsPlugin.Android;
+using Xamarin.Forms;
+using PanCardView.Droid;
 
 namespace SmartRestaurant.Diner.Droid
 {
@@ -26,10 +29,15 @@ namespace SmartRestaurant.Diner.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+            Forms.SetFlags("FastRenderers_Experimental");
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            CardsViewRenderer.Preserve();
             Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
 
+            
+
+            
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
