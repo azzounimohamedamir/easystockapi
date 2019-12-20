@@ -97,11 +97,38 @@ namespace SmartRestaurant.Resources.Menus.Menu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Annuler.
+        /// </summary>
+        public static string ButtonCancelDelete {
+            get {
+                return ResourceManager.GetString("ButtonCancelDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supprimer.
+        /// </summary>
+        public static string ButtonDeleteConfirmation {
+            get {
+                return ResourceManager.GetString("ButtonDeleteConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Modiier.
         /// </summary>
         public static string ButtonEditText {
             get {
                 return ResourceManager.GetString("ButtonEditText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Etes-vous sûr de vouloir supprimer cet enregistrement.
+        /// </summary>
+        public static string DeleteMessage {
+            get {
+                return ResourceManager.GetString("DeleteMessage", resourceCulture);
             }
         }
         

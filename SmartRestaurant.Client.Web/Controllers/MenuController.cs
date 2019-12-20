@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Menu.Commands.Create;
+using SmartRestaurant.Application.Restaurants.Menu.Commands.Delete;
 using SmartRestaurant.Application.Restaurants.Menu.Commands.Update;
 using SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd;
 using SmartRestaurant.Application.Restaurants.Menu.Queries.GetById;
@@ -32,6 +33,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly IGetAllMenuFilterdQuery _getAllMenuFilterdQuery;
         private readonly IGetMenuByIdQuery _getMenuByIdQuery;
         private readonly IUpdateMenuCommand _updateMenuCommand;
+        private readonly IDeleteMenuCommand _deleteMenuCommand;
         private readonly UserManager<SRIdentityUser> _userManager;
         public MenuController(
             IConfiguration configuration, 
@@ -45,6 +47,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             IGetAllMenuFilterdQuery getAllMenuFilterdQuery,
             IGetMenuByIdQuery getMenuByIdQuery,
             IUpdateMenuCommand updateMenuCommand,
+            IDeleteMenuCommand deleteMenuCommand,
             UserManager<SRIdentityUser> userManager) : base(configuration, mailing, notify, baselog)
         {
             _log = log;
@@ -54,6 +57,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             _getAllMenuFilterdQuery = getAllMenuFilterdQuery;
             _getMenuByIdQuery = getMenuByIdQuery;
             _updateMenuCommand = updateMenuCommand;
+            _deleteMenuCommand = deleteMenuCommand;
             _userManager = userManager;
         }
 
@@ -217,6 +221,21 @@ namespace SmartRestaurant.Client.Web.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+        [Route("delete")]
+        [HttpPost]
+        public async Task< IActionResult> DeleteMenu(string id)
+        {
+            try
+            {
+                await _deleteMenuCommand.Execute(new DeleteMenuModel {Id = id});
+                return Json(MenuResource.MessageDeleteSuccess);
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

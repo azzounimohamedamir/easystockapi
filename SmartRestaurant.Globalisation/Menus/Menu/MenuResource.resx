@@ -126,6 +126,12 @@
   <data name="Items" xml:space="preserve">
     <value>Plats et Produits</value>
   </data>
+  <data name="MessageDeleteSuccess" xml:space="preserve">
+    <value>Suppression terminée avec succès</value>
+  </data>
+  <data name="PopupDelete" xml:space="preserve">
+    <value>Suppressionn</value>
+  </data>
   <data name="RestaurantId" xml:space="preserve">
     <value>Restaurant</value>
   </data>

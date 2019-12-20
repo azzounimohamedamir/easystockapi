@@ -153,4 +153,13 @@
   <data name="SearchPageTitle" xml:space="preserve">
     <value>Rechercher un menu</value>
   </data>
+  <data name="ButtonDeleteConfirmation" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Etes-vous sûr de vouloir supprimer cet enregistrement</value>
+  </data>
+  <data name="ButtonCancelDelete" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
 </root>
