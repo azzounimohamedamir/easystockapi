@@ -111,33 +111,33 @@
                                 <ColumnDefinition Width="2*" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" WidthRequest="26" HeightRequest="26" HorizontalTextAlignment="{Binding OrientationTextInverted}" VerticalTextAlignment="Center" TextColor="#3C536A" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Style="{StaticResource Key=MatLabel}" Text="&#xf51b;" FontSize="26" BackgroundColor="Transparent" FontAttributes="Bold" />
-                            <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="20">
+                                <Label Grid.Column="1" Style="{StaticResource Key=RobotoLabel}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="20">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span TextColor="#3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="14" Text="{helpers:Translate EstimatedTime}" />
+                                        <Span TextColor="#3C536A"   FontSize="14" Text="{helpers:Translate EstimatedTime}" />
                                         <Span Text="&#10;" />
-                                        <Span TextColor="#01A9AC" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="24" FontAttributes="Bold" Text="{Binding EstimatedTime}" />
+                                        <Span TextColor="#01A9AC"   FontSize="24" FontAttributes="Bold" Text="{Binding EstimatedTime}" />
                                         <Span Text=" " />
-                                        <Span TextColor="#01A9AC" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="24" FontAttributes="Bold" Text="{helpers:Translate minute}" />
+                                        <Span TextColor="#01A9AC"   FontSize="24" FontAttributes="Bold" Text="{helpers:Translate minute}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
                             <BoxView Grid.Column="2" WidthRequest="2" HeightRequest="50" Margin="0,24,0,24" BackgroundColor="#01A9AC" Opacity=".8" />
                             <Image Source="coins_icon.png" WidthRequest="26" HeightRequest="26" Aspect="AspectFill" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" />
-                            <Label Grid.Column="4" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="20">
+                                <Label Style="{StaticResource Key=RobotoLabel}" Grid.Column="4" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="20">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span TextColor="#3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="14" Text="{helpers:Translate uprice}" />
+                                        <Span TextColor="#3C536A"  FontSize="14" Text="{helpers:Translate uprice}" />
                                         <Span Text="&#10;" />
-                                        <Span TextColor="#01A9AC" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="24" FontAttributes="Bold" Text="{Binding InitialPrice}" />
+                                            <Span TextColor="#01A9AC"  FontSize="24" FontAttributes="Bold" Text="{Binding ConvertedInitialPrice}" />
                                         <Span Text=" " />
-                                        <Span TextColor="#01A9AC" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="24" FontAttributes="Bold" Text="{Binding Currency.Name}" />
+                                        <Span TextColor="#01A9AC"  FontSize="24" FontAttributes="Bold" Text="{Binding Currency.Name}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
                         </Grid>
                     </pancakeview:PancakeView>
-                    <Label Margin="40,-20,40,20" Text="{helpers:Translate Ingredients}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="20" FontAttributes="Bold" />
+                        <Label Margin="40,-20,40,20" Text="{helpers:Translate Ingredients}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" Style="{StaticResource Key=RobotoLabel}" FontSize="20" FontAttributes="Bold" />
                     <ScrollView Margin="{Binding Path=Margin,Source={x:Reference lbl},Converter= {x:StaticResource RtlScrollViewMargin}}" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                         <StackLayout HeightRequest="148" HorizontalOptions="StartAndExpand" Orientation="Horizontal" BindableLayout.ItemsSource="{Binding Dish_Ingredients_Measures}">
                             <BindableLayout.ItemTemplate>
@@ -151,31 +151,55 @@
                                                     <RowDefinition Height="37" />
                                                 </Grid.RowDefinitions>
                                                 <Image Grid.Row="0" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="Fill" />
-                                                <pancakeview:PancakeView IsVisible="{Binding  IsPrincipal}" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Start" Margin="6,6,6,0" BackgroundColor="#01A9AC" HeightRequest="24" WidthRequest="24" CornerRadius="4" BorderDrawingStyle="Outside" FlowDirection="MatchParent">
-                                                    <Image Source="star" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" />
-                                                </pancakeview:PancakeView>
-                                                <Label Grid.Row="1" Margin="7,0,7,0" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" VerticalOptions="Center">
+                                                    <pancakeview:PancakeView IsVisible="{Binding  IsPrincipal}" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Start" Margin="6,6,6,0" BackgroundColor="#01A9AC" HeightRequest="24" WidthRequest="24" CornerRadius="4" BorderDrawingStyle="Outside" FlowDirection="MatchParent">
+                                                        <Image Source="star.png" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" />
+                                                    </pancakeview:PancakeView>
+                                                    <Label x:Name="weightspan" Text="{Binding Weight}" FontSize="1" IsVisible="False"   />
+                                                    <Label x:Name="caloriespan" Text="{Binding Calories}" FontSize="1" IsVisible="False"   />
+                                                    <Label  Style="{StaticResource Key=RobotoLabel}"  Grid.Row="1" Margin="7,0,7,0" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" VerticalOptions="Center">
                                                     <Label.FormattedText>
                                                         <FormattedString>
-                                                            <Span Text="{Binding Name}" TextColor="#3C536A" FontAttributes="Bold" FontSize="12" FontFamily="Assets/Fonts/Roboto.ttf" />
+                                                            <Span Text="{Binding Name}" TextColor="#3C536A" FontAttributes="Bold" FontSize="12"  />
                                                             <Span Text="&#10;" />
-                                                            <Span x:Name="weightspan" Text="{Binding Weight}" TextColor="#773C536A" FontSize="12" FontFamily="Assets/Fonts/Roboto.ttf" />
+                                                            <Span 
+                                                                   Text="{Binding Measure,
+                                                                                Converter={StaticResource IntMultiply} ,
+                                                                                ConverterParameter={x:Reference caloriespan}}"
+                                                                  TextColor="#773C536A" FontSize="12"   />
                                                             <Span Text=" " />
-                                                            <Span Text="{helpers:Translate Grammes}" TextColor="#773C536A" FontSize="12" FontFamily="Assets/Fonts/Roboto.ttf" />
+                                                            <Span Text="{helpers:Translate kcal}" TextColor="#773C536A" FontSize="12"   />
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>
                                                 <StackLayout Grid.Row="2" HorizontalOptions="FillAndExpand">
-                                                    <pancakeview:PancakeView Margin="5,0,5,17" WidthRequest="80" HeightRequest="37" HorizontalOptions="Start" VerticalOptions="Start" BorderColor="Transparent" CornerRadius="12" HasShadow="false" BackgroundColor="#F2FBFB" Elevation="0">
-                                                        <StackLayout HeightRequest="37" Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Center">
-                                                            <Label WidthRequest="35" Style="{StaticResource Key=MatLabel}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#773C536A" IsEnabled="{Binding minus_enabled}" Text="&#xf374;" FontSize="14">
+                                                    <pancakeview:PancakeView Margin="5,0,5,17" WidthRequest="80" HeightRequest="37" HorizontalOptions="Start" 
+                                                                             VerticalOptions="Start" BorderColor="Transparent" CornerRadius="12" 
+                                                                             HasShadow="false" BackgroundColor="#F2FBFB" Elevation="0">
+                                                        <StackLayout HeightRequest="37" Orientation="Horizontal" VerticalOptions="Start" 
+                                                                     HorizontalOptions="Center">
+                                                            <Label WidthRequest="35" Style="{StaticResource Key=MatLabel}" 
+                                                                   HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                                                   TextColor="#773C536A" IsEnabled="{Binding minus_enabled}" Text="&#xf374;" FontSize="14">
                                                                 <Label.GestureRecognizers>
                                                                     <TapGestureRecognizer Command="{Binding minus}" />
                                                                 </Label.GestureRecognizers>
                                                             </Label>
-                                                            <Label WidthRequest="15" HorizontalOptions="Center" TextColor="#3C536A" FontSize="9" FontAttributes="Bold" FontFamily="Assets/Fonts/Roboto.ttf" Text="{Binding Measure,Converter={StaticResource IntMultiply} , 
-                                                                ConverterParameter={x:Reference weightspan}}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
-                                                            <Label WidthRequest="35" Style="{StaticResource Key=MatLabel}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#773C536A" BackgroundColor="#F2FBFB" IsEnabled="{Binding plus_enabled}" Text="&#xf0217;" FontSize="14">
+                                                                <Label Style="{StaticResource Key=RobotoLabel}" WidthRequest="25" 
+                                                                       HorizontalOptions="Center"
+                                                                       TextColor="#3C536A" 
+                                                                       FontAttributes="Bold"  VerticalTextAlignment="Center"
+                                                                       HorizontalTextAlignment="Center" >
+                                                                    <Label.FormattedText>
+                                                                        <FormattedString>
+                                                                            <Span FontSize="9"  Text="{Binding Measure,
+                                                                                Converter={StaticResource IntMultiply} ,
+                                                                                ConverterParameter={x:Reference weightspan}}"/>
+                                                                            <Span Text=" " FontSize="4" />
+                                                                            <Span FontSize="9"  Text="{helpers:Translate g}"/>
+                                                                        </FormattedString>
+                                                                    </Label.FormattedText>
+                                                                </Label>
+                                                                <Label WidthRequest="35" Style="{StaticResource Key=MatLabel}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#773C536A" BackgroundColor="#F2FBFB" IsEnabled="{Binding plus_enabled}" Text="&#xf0217;" FontSize="14">
                                                                 <Label.GestureRecognizers>
                                                                     <TapGestureRecognizer Command="{Binding plus}" />
                                                                 </Label.GestureRecognizers>
@@ -190,12 +214,12 @@
                             </BindableLayout.ItemTemplate>
                         </StackLayout>
                     </ScrollView>
-                    <Label Margin="40,20,40,0" Text="{helpers:Translate DishSpec}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="20" FontAttributes="Bold" />
+                        <Label Margin="40,20,40,0" Text="{helpers:Translate DishSpec}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" Style="{StaticResource Key=RobotoLabel}" FontSize="20" FontAttributes="Bold" />
                     <flv:FlowListView HeightRequest="150" HorizontalScrollBarVisibility="Default" VerticalScrollBarVisibility="Never" FlowColumnCount="{Binding Specifications.Specifications.Count}" Margin="30,0,30,0" HasUnevenRows="True" HorizontalOptions="Start" VerticalOptions="Start" SelectionMode="None" FlowItemsSource="{Binding Specifications.Specifications}">
                         <flv:FlowListView.FlowColumnTemplate>
                             <DataTemplate>
                                 <StackLayout Orientation="Vertical" Margin="10,0,10,0" VerticalOptions="Start" HorizontalOptions="StartAndExpand">
-                                    <Label Text="{Binding Name}" TextColor="#3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="16" FontAttributes="Bold" />
+                                        <Label Text="{Binding Name}" TextColor="#3C536A" Style="{StaticResource Key=RobotoLabel}" FontSize="16" FontAttributes="Bold" />
                                     <ListView ItemTapped="ListView_ItemTapped" RowHeight="40" VerticalScrollBarVisibility="Never" SelectionMode="None" VerticalOptions="Start" HorizontalOptions="StartAndExpand" SeparatorVisibility="None" ItemsSource="{Binding RadioOptionsVM}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
@@ -226,7 +250,7 @@
                                                             </Grid>
                                                             <Button IsEnabled="False" Grid.Column="0" Grid.Row="0" IsVisible="{Binding IsSelected,Converter={x:StaticResource boolinverter} }" CornerRadius="9" WidthRequest="18" BackgroundColor="Transparent" VerticalOptions="Center" HorizontalOptions="Center" BorderWidth="1" Clicked="Button_Clicked" BorderColor="#707070" />
                                                         </Grid>
-                                                        <Label Text="{Binding Name}" IsEnabled="False" TextColor="#3C536A" VerticalOptions="Start" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="14" />
+                                                            <Label Text="{Binding Name}" IsEnabled="False" TextColor="#3C536A" VerticalOptions="Start" Style="{StaticResource Key=RobotoLabel}" FontSize="14" />
                                                     </StackLayout>
                                                 </ViewCell>
                                             </DataTemplate>
@@ -236,7 +260,7 @@
                             </DataTemplate>
                         </flv:FlowListView.FlowColumnTemplate>
                     </flv:FlowListView>
-                    <Label x:Name="lbl" VerticalOptions="Start" Margin="40,20,40,0" Text="{helpers:Translate Supplements}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="20" FontAttributes="Bold" />
+                        <Label x:Name="lbl" VerticalOptions="Start" Margin="40,20,40,0" Text="{helpers:Translate Supplements}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" Style="{StaticResource Key=RobotoLabel}" FontSize="20" FontAttributes="Bold" />
                     <ScrollView Margin="{Binding Path=Margin,Source={x:Reference lbl},Converter= {x:StaticResource RtlScrollViewMargin}}" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                         <StackLayout HeightRequest="148" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" Orientation="Horizontal" BindableLayout.ItemsSource="{Binding Supplements.Supplements}">
                             <BindableLayout.ItemTemplate>
@@ -257,11 +281,17 @@
                                                     <RowDefinition Height="80" />
                                                 </Grid.RowDefinitions>
                                                 <Image Grid.Row="0" Opacity=".64" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="AspectFill" />
-                                                <Label Grid.Row="0" Margin="7" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalOptions="End">
+                                                <Label Style="{StaticResource Key=RobotoLabel}" Grid.Row="0" Margin="7" 
+                                                       TextColor="White" FontAttributes="Bold" FontSize="13"
+                                                       HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalOptions="End">
                                                     <Label.FormattedText>
                                                         <FormattedString>
-                                                            <Span Text="{Binding Name}" TextColor="White" FontAttributes="Bold" FontSize="13" FontFamily="Assets/Fonts/Roboto.ttf" />
-                                                        </FormattedString>
+                                                            <Span Text="{Binding Name}"   />
+                                                                <Span Text="&#10;" />
+                                                                <Span Text="{Binding Calories}"  />
+                                                                <Span Text=" " />
+                                                                <Span Text="{helpers:Translate kcal}" />
+                                                            </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>
                                             </Grid>
@@ -275,7 +305,7 @@
                             </BindableLayout.ItemTemplate>
                         </StackLayout>
                     </ScrollView>
-                    <Label VerticalOptions="Start" Margin="40,-20,40,20" Text="{helpers:Translate Energy}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="20" FontAttributes="Bold" />
+                    <Label Style="{StaticResource Key=RobotoLabel}" VerticalOptions="Start" Margin="40,-20,40,20" Text="{helpers:Translate Energy}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" FontSize="20" FontAttributes="Bold" />
                     <Grid Margin="30,0,30,20" HeightRequest="84" HorizontalOptions="Start" VerticalOptions="Start" FlowDirection="MatchParent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="124" />
@@ -284,53 +314,53 @@
                             <ColumnDefinition Width="124" />
                         </Grid.ColumnDefinitions>
                         <pancakeview:PancakeView Grid.Column="0" HorizontalOptions="Center" Padding="10" HeightRequest="82" WidthRequest="124" CornerRadius="10" BackgroundColor="#F2FBFB">
-                            <Label VerticalOptions="Start" HeightRequest="82" WidthRequest="124" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
+                            <Label Style="{StaticResource Key=RobotoLabel}" VerticalOptions="Start" HeightRequest="82" WidthRequest="124" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding Calories}" TextColor="#3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="18" FontAttributes="Bold" />
+                                        <Span Text="{Binding Calories}" TextColor="#3C536A"  FontSize="18" FontAttributes="Bold" />
                                         <Span Text="&#10;" />
-                                        <Span Text="{helpers:Translate Calories}" TextColor="#3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="16" />
+                                        <Span Text="{helpers:Translate Calories}" TextColor="#3C536A" FontSize="16" />
                                         <Span Text="&#10;" />
-                                        <Span Text="{helpers:Translate kcal}" TextColor="#AA3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="16" />
+                                        <Span Text="{helpers:Translate kcal}" TextColor="#AA3C536A"  FontSize="16" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
                         </pancakeview:PancakeView>
                         <pancakeview:PancakeView Grid.Column="1" HorizontalOptions="Center" Padding="10" HeightRequest="82" WidthRequest="124" CornerRadius="10" BackgroundColor="#F2FBFB">
-                            <Label VerticalOptions="Start" HeightRequest="82" WidthRequest="124" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
+                                <Label Style="{StaticResource Key=RobotoLabel}" VerticalOptions="Start" HeightRequest="82" WidthRequest="124" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding Carbo}" TextColor="#3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="18" FontAttributes="Bold" />
+                                        <Span Text="{Binding Carbo}" TextColor="#3C536A"  FontSize="18" FontAttributes="Bold" />
                                         <Span Text="&#10;" />
-                                        <Span Text="{helpers:Translate Carbo}" TextColor="#3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="16" />
+                                        <Span Text="{helpers:Translate Carbo}" TextColor="#3C536A"  FontSize="16" />
                                         <Span Text="&#10;" />
-                                        <Span Text="{helpers:Translate g}" TextColor="#AA3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="16" />
+                                        <Span Text="{helpers:Translate g}" TextColor="#AA3C536A"  FontSize="16" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
                         </pancakeview:PancakeView>
                         <pancakeview:PancakeView Grid.Column="2" Padding="10" HorizontalOptions="Center" HeightRequest="82" WidthRequest="124" CornerRadius="10" BackgroundColor="#F2FBFB">
-                            <Label HeightRequest="82" WidthRequest="124" VerticalOptions="Start" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
+                                <Label Style="{StaticResource Key=RobotoLabel}" HeightRequest="82" WidthRequest="124" VerticalOptions="Start" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding Fat}" TextColor="#3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="18" FontAttributes="Bold" />
+                                        <Span Text="{Binding Fat}" TextColor="#3C536A" FontSize="18" FontAttributes="Bold" />
                                         <Span Text="&#10;" />
-                                        <Span Text="{helpers:Translate Fat}" TextColor="#3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="16" />
+                                        <Span Text="{helpers:Translate Fat}" TextColor="#3C536A"   FontSize="16" />
                                         <Span Text="&#10;" />
-                                        <Span Text="{helpers:Translate g}" TextColor="#AA3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="16" />
+                                        <Span Text="{helpers:Translate g}" TextColor="#AA3C536A"   FontSize="16" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
                         </pancakeview:PancakeView>
                         <pancakeview:PancakeView Grid.Column="3" Padding="10" HorizontalOptions="Center" HeightRequest="82" WidthRequest="124" CornerRadius="10" BackgroundColor="#F2FBFB">
-                            <Label HeightRequest="82" WidthRequest="124" VerticalOptions="Start" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
+                                <Label Style="{StaticResource Key=RobotoLabel}" HeightRequest="82" WidthRequest="124" VerticalOptions="Start" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding Protein}" TextColor="#3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="18" FontAttributes="Bold" />
+                                        <Span Text="{Binding Protein}" TextColor="#3C536A"  FontSize="18" FontAttributes="Bold" />
                                         <Span Text="&#10;" />
-                                        <Span Text="{helpers:Translate Protein}" TextColor="#3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="16" />
+                                        <Span Text="{helpers:Translate Protein}" TextColor="#3C536A"  FontSize="16" />
                                         <Span Text="&#10;" />
-                                        <Span Text="{helpers:Translate g}" TextColor="#AA3C536A" FontFamily="Assets/Fonts/Roboto.ttf" FontSize="16" />
+                                        <Span Text="{helpers:Translate g}" TextColor="#AA3C536A"  FontSize="16" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -383,7 +413,8 @@
                                     <TapGestureRecognizer Command="{Binding minus}" />
                                 </Label.GestureRecognizers>
                             </Label>
-                            <Label WidthRequest="48" HorizontalOptions="Center" TextColor="#3C536A" FontSize="16" FontAttributes="Bold" FontFamily="Assets/Fonts/Roboto.ttf" Text="{Binding Qty}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                            <Label WidthRequest="48" HorizontalOptions="Center" TextColor="#3C536A" FontSize="16" FontAttributes="Bold" Style="{StaticResource Key=RobotoLabel}"
+                                   Text="{Binding Qty}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
                             <Label WidthRequest="29" HorizontalOptions="Start" Style="{StaticResource Key=MatLabel}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#773C536A" BackgroundColor="#F2FBFB" IsEnabled="{Binding plus_enabled}" Text="&#xf0217;" FontSize="18">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding plus}" />
@@ -391,14 +422,14 @@
                             </Label>
                         </StackLayout>
                     </pancakeview:PancakeView>
-                    <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" BackgroundColor="Transparent" HorizontalTextAlignment="{Binding OrientationText}" VerticalTextAlignment="Start" HorizontalOptions="Start" Margin="38,0,0,0" VerticalOptions="Center">
+                    <Label Style="{StaticResource Key=RobotoLabel}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" BackgroundColor="Transparent" HorizontalTextAlignment="{Binding OrientationText}" VerticalTextAlignment="Start" HorizontalOptions="Start" Margin="38,0,0,0" VerticalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{helpers:Translate price}" TextColor="#77000000" FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf" FontAttributes="Bold" />
+                                <Span Text="{helpers:Translate price}" TextColor="#77000000" FontSize="14"  FontAttributes="Bold" />
                                 <Span Text="&#10;" />
-                                <Span Text="{Binding Total}" TextColor="#01A9AC" FontAttributes="Bold" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf" />
+                                <Span Text="{Binding ConvertedTotal}" TextColor="#01A9AC" FontAttributes="Bold" FontSize="24"   />
                                 <Span Text=" " />
-                                <Span Text="{Binding Currency.Name}" TextColor="#01A9AC" FontAttributes="Bold" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf" />
+                                <Span Text="{Binding Currency.Name}" TextColor="#01A9AC" FontAttributes="Bold" FontSize="24"  />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>

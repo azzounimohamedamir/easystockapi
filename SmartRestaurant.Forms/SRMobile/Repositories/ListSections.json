@@ -70,10 +70,10 @@
                 ],
                 "EstimatedTime": "20",
                 "Price": "400",
-                "Calories": 4.6,
-                "Carbo": 100,
-                "Fat": 90,
-                "Protein": 100,
+                "Calories":0,
+                "Carbo": 0,
+                "Fat": 0,
+                "Protein": 0,
                 "SubSectionId": 2
               },
               {
@@ -85,10 +85,10 @@
                 "Ingredients": [],
                 "EstimatedTime": "20",
                 "Price": "400",
-                "Calories": 4.6,
-                "Carbo": 100,
-                "Fat": 90,
-                "Protein": 100,
+                "Calories":0,
+                "Carbo": 0,
+                "Fat": 0,
+                "Protein": 0,
                 "SubSectionId": 2
               },
               {
@@ -100,10 +100,10 @@
                 "Ingredients": [],
                 "EstimatedTime": "20",
                 "Price": "400",
-                "Calories": 4.6,
-                "Carbo": 100,
-                "Fat": 90,
-                "Protein": 100,
+                "Calories":0,
+                "Carbo": 0,
+                "Fat": 0,
+                "Protein": 0,
                 "SubSectionId": 2
               },
               {

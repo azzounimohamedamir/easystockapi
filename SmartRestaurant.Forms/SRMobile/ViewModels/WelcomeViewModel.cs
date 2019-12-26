@@ -1,5 +1,6 @@
 ﻿using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Infrastructures;
+using SmartRestaurant.Diner.ViewModels.Sections;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,17 @@ namespace SmartRestaurant.Diner.ViewModels
         {
             get
             {
-                return new Command(async() => {
-                   await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DeseasesAllergiesPage(new DeseasesAllergies.DeseasesAllergiesListViewModel()));
+                return new Command(async () => {
+                    try
+
+                    {
+                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SectionsPage(new SectionsListViewModel()));
+
+                    }
+                    catch (Exception)
+                    {
+
+                    }
                 });
             }
         }

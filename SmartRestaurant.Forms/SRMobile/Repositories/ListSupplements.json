@@ -5,7 +5,11 @@
       "NameAr": "مكون 1",
       "NameFr": "Supplément 1",
       "NameEn": "Supplement 1 ",
-      "Price": 50,
+      "Price": 0,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
       "Image": "supplement.png"
     },
     {
@@ -14,6 +18,10 @@
       "NameFr": "Supplément 2",
       "NameEn": "Supplement 2 ",
       "Price": 0,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
       "Image": "supplement.png"
     },
     {
@@ -21,7 +29,11 @@
       "NameAr": "مكون 1",
       "NameFr": "Supplément 1",
       "NameEn": "Supplement 1 ",
-      "Price": 50,
+      "Price": 0,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
       "Image": "supplement.png"
     },
     {
@@ -29,7 +41,11 @@
       "NameAr": "مكون 1",
       "NameFr": "Supplément 1",
       "NameEn": "Supplement 1 ",
-      "Price": 50,
+      "Price": 0,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
       "Image": "supplement.png"
     },
     {
@@ -37,7 +53,11 @@
       "NameAr": "مكون 1",
       "NameFr": "Supplément 1",
       "NameEn": "Supplement 1 ",
-      "Price": 50,
+      "Price": 0,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
       "Image": "supplement.png"
     }
 

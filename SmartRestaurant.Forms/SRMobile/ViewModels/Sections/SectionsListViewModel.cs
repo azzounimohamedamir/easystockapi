@@ -39,10 +39,10 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// </summary>
         public SectionsListViewModel()
         {
-            Supplements = new SupplementListViewModel()  ;
-            Ingredients = new IngredientListViewModel()  ;
-            Currencies = new CurrencyListViewModel() { Currencies = null };
-            Specifications = new SpecificationListViewModel()  ;
+            Supplements = new SupplementListViewModel() ;
+            Ingredients = new IngredientListViewModel() ;
+            Currencies = new CurrencyListViewModel() { Currencies = null } ;
+            Specifications = new SpecificationListViewModel() ;
             ObservableCollection<SectionModel> listSections = SectionsService.GetListSections();
             Sections = new ObservableCollection<SectionViewModel>();
             foreach (var item in listSections)
@@ -102,7 +102,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             }
         }
 
-         public float TotalPrice
+         public double TotalPrice
         {
             get { return SelectedDishes.Sum(d => d.Price * d.Qty); }
             set {
