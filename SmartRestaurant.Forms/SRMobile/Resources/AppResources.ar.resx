@@ -151,7 +151,7 @@
     <value>مواصفات</value>
   </data>
   <data name="Energy" xml:space="preserve">
-    <value>قيمة الطاقة (لكل 100 جرام)</value>
+    <value>قيمة الطاقة</value>
   </data>
   <data name="EstimatedTime" xml:space="preserve">
     <value>الوقت المقدر</value>

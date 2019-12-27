@@ -7,6 +7,10 @@
       "NameEn": "Ingredient 1 ",
       "Price": 50,
       "Weight": 50,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
       "Image": "ingredient.png"
     },
     {
@@ -16,6 +20,10 @@
       "NameEn": "Ingredient 1 ",
       "Price": 50,
       "Weight": 50,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
       "Image": "ingredient.png"
     },
 
@@ -26,6 +34,10 @@
       "NameEn": "Ingredient 1 ",
       "Price": 50,
       "Weight": 50,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
       "Image": "ingredient.png"
     },
 
@@ -36,6 +48,10 @@
       "NameEn": "Ingredient 1 ",
       "Price": 50,
       "Weight": 50,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
       "Image": "ingredient.png"
     },
 
@@ -46,6 +62,10 @@
       "NameEn": "Ingredient 1 ",
       "Price": 50,
       "Weight": 50,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
       "Image": "ingredient.png"
     },
 
@@ -56,6 +76,10 @@
       "NameEn": "Ingredient 1 ",
       "Price": 50,
       "Weight": 50,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
       "Image": "ingredient.png"
     }
   ]

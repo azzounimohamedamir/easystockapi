@@ -32,17 +32,15 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// <param name="_dish"></param>
         public DishViewModel(DishModel _dish)
         {
-            Calories = _dish.Calories;
-            Carbo = _dish.Carbo;
-            Fat = _dish.Carbo;
-            Protein = _dish.Protein;
+
             _EstimatedTime = _dish.EstimatedTime;
-            Qty = 1;
-            Total = Price = InitialPrice = _dish.Price;
+
             this.dish = _dish;
             Specifications = SectionsListViewModel.Specifications;
             Supplements = SectionsListViewModel.Supplements;
             Currencies = SectionsListViewModel.Currencies;
+            Qty = 1;
+            Total = Price = InitialPrice = _dish.Price;            
             foreach (var s in Specifications.Specifications)
             {
                 for (int i = 0; i < s.RadioOptionsVM.Count; i++)
@@ -56,6 +54,14 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 s.IsSelected = false;
                 s.refDishViewModel = this;
             }
+            Calories = _dish.Calories +
+                Dish_Ingredients_Measures.Sum(d => d.Calories * d.Measure);
+            Carbo = _dish.Carbo +
+                Dish_Ingredients_Measures.Sum(d => d.Carbo * d.Measure); 
+            Fat = _dish.Fat +
+                Dish_Ingredients_Measures.Sum(d => d.Fat * d.Measure);
+            Protein = _dish.Protein +
+                Dish_Ingredients_Measures.Sum(d => d.Protein * d.Measure) ;
 
         }
 
@@ -159,21 +165,26 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 RaisePropertyChanged();
             }
         }
-        private float _Price;
-        public float Price
+        private double _Price;
+        public double Price
         {
             get { return _Price; }
             set
             {
                 _Price = value;
                 Total = Qty * _Price;
+                ConvertedTotal = (Math.Round(Total / (Currency.ExchangeRate==0?1:Currency.ExchangeRate),2));
                 RaisePropertyChanged();
             }
         }
-        private float _InitialPrice;
-        public float InitialPrice
+
+        private double _InitialPrice;
+        public double InitialPrice
         {
-            get { return _InitialPrice; }
+            get {
+                _InitialPrice = dish.Price;
+                return _InitialPrice;
+                    }
             set
             {
                 _InitialPrice = value;
@@ -191,11 +202,12 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             {
                 _Qty = value;
                 Total = _Qty * Price;
+                ConvertedTotal = (Math.Round(Total / (Currency.ExchangeRate==0?1:Currency.ExchangeRate),2));
                 RaisePropertyChanged();
             }
         }
-        private float _Total;
-        public float Total
+        private double _Total;
+        public double Total
         {
             get
             {
@@ -204,6 +216,33 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             set
             {
                 _Total = value;
+                ConvertedTotal =( Math.Round(_Total / (Currency.ExchangeRate==0?1:Currency.ExchangeRate),2));
+                RaisePropertyChanged();
+            }
+        }
+        private double _ConvertedTotal;
+        public double ConvertedTotal
+        {
+            get
+            {
+                return (Math.Round(Total /(Currency.ExchangeRate==0?1:Currency.ExchangeRate),2));
+            }
+            set
+            {
+                _ConvertedTotal = value;
+                RaisePropertyChanged();
+            }
+        }
+        private double _ConvertedInitialPrice;
+        public double ConvertedInitialPrice
+        {
+            get
+            {
+                return (Math.Round(InitialPrice / (Currency.ExchangeRate==0?1:Currency.ExchangeRate),2));
+            }
+            set
+            {
+                _ConvertedInitialPrice = value;
                 RaisePropertyChanged();
             }
         }
@@ -303,7 +342,8 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             get
             {
-                return new Command<SubSectionViewModel>(async (_subsection) => {
+                return new Command<SubSectionViewModel>(async (_subsection) =>
+                {
                     try
                     {
                         await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DishSelectPage(new DishViewModel(dish) { SubSection = _subsection }
@@ -343,10 +383,28 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 RaisePropertyChanged();
             }
         }
-        public float Calories { get; set; }
-        public float Carbo { get; set; }
-        public float Fat { get; set; }
-        public float Protein { get; set; }
+        public double Calories { get => calories; set
+            {
+                calories = value;
+                RaisePropertyChanged();
+            } }
+        public double Carbo { get => carbo;
+            set  {
+                carbo = value;
+                RaisePropertyChanged();
+            } }
+        public double Fat { get => fat; set
+            {
+                fat = value;
+                RaisePropertyChanged();
+            } }
+        public double Protein { get => protein; set
+            {
+                protein = value;
+                RaisePropertyChanged();
+            }
+
+        }
         private SpecificationListViewModel _Specifications;
         public SpecificationListViewModel Specifications
         {
@@ -389,6 +447,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                         var ing = di;
                         ing.Measure = 0;
                         ing.IsPrincipal = false;
+                        ing.refDishViewModel = this;
                         _Dish_Ingredients_Measures.Add(ing);
                     }
                 }
@@ -401,12 +460,14 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         public CurrencyViewModel Currency
         {
             get
-            { 
-                return currency==null?Currencies.Currencies[2]:currency;
+            {
+                return currency == null ? Currencies.Currencies[2] : currency;
             }
             set
             {
                 currency = value;
+                ConvertedInitialPrice = (Math.Round(InitialPrice / (Currency.ExchangeRate==0?1:Currency.ExchangeRate),2));
+                ConvertedTotal = (Math.Round(Total / (Currency.ExchangeRate==0?1:Currency.ExchangeRate),2));
                 RaisePropertyChanged();
             }
         }
@@ -425,6 +486,11 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             }
         }
         private bool _plus_enabled;
+        private double calories;
+        private double carbo;
+        private double fat;
+        private double protein;
+
         internal DishViewModel refDishViewModel { get; set; }
 
         public bool plus_enabled
@@ -445,7 +511,8 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             get
             {
-                return new Command(() => {
+                return new Command(() =>
+                {
                     try
                     {
                         if (Qty < 99)
@@ -470,7 +537,8 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             get
             {
-                return new Command(() => {
+                return new Command(() =>
+                {
                     try
                     {
                         if (Qty > 0)
@@ -502,6 +570,6 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 });
             }
         }
-        
-    }   
+
+    }
 }

@@ -21,10 +21,12 @@ namespace SmartRestaurant.Diner.Models
         public List<String> Images { get; set; }
         public int SubSectionId { get; set; }
         public List<DishIngredient> Ingredients { get; set; }
+        #region Intial Values : for bread for example
         public float Calories { get; set; }
         public float Carbo { get; set; }
         public float Fat { get; set; }
         public float Protein { get; set; }
+        #endregion
     }
     public class DishIngredient
     {

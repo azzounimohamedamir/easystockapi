@@ -20,6 +20,10 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
         public IngredientViewModel(IngredientModel _Ingredient)
         {
             this.Ingredient = _Ingredient;
+            calories= _Ingredient.Calories;
+            carbo = _Ingredient.Carbo;
+            fat = _Ingredient.Fat;
+            protein = _Ingredient.Protein;
 
         }
 
@@ -200,7 +204,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
             set
             {
                 measure = value;
-                minus_enabled = measure > 0;
+                minus_enabled = (measure > 0 && !IsPrincipal) || measure > 1;
                 plus_enabled = measure < 99;
                 RaisePropertyChanged();
 
@@ -212,8 +216,8 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
         {
             get
             {
-                _minus_enabled= measure > 0;
-                return _minus_enabled;
+                _minus_enabled = (measure > 0 && !IsPrincipal) || measure > 1;
+                    return _minus_enabled;
             }
             set
             {
@@ -248,6 +252,10 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
                         {
                             Measure++;
                             refDishViewModel.Price += Price;
+                            refDishViewModel.Calories += Calories;
+                            refDishViewModel.Fat += Fat;
+                            refDishViewModel.Protein += Protein;
+                            refDishViewModel.Carbo += Carbo;
                         }
                         else
 
@@ -269,10 +277,14 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
                 return new Command(() => {
                     try
                     {
-                        if (Measure > 0)
+                        if ((Measure > 0 && !IsPrincipal) || Measure > 1)
                         {
                             Measure--;
                             refDishViewModel.Price -= Price;
+                            refDishViewModel.Calories -= Calories;
+                            refDishViewModel.Fat -= Fat;
+                            refDishViewModel.Protein -= Protein;
+                            refDishViewModel.Carbo -= Carbo;
                         }
                         else
                             minus_enabled = false;
@@ -287,18 +299,15 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
                 });
             }
         }
-        public ICommand MeasureTextChanged
-        {
-            get
-            {
-                return new Command(()=>
-                {
-                   
-                }
-                    );
-            }
-        }
         public bool IsPrincipal { get; set; }
+        private float calories;
+        private float carbo;
+        private float fat;
+        private float protein;
+        public float Calories { get => calories; set => calories = value; }
+        public float Carbo { get => carbo; set => carbo = value; }
+        public float Fat { get => fat; set => fat = value; }
+        public float Protein { get => protein; set => protein = value; }
 
     }
 }

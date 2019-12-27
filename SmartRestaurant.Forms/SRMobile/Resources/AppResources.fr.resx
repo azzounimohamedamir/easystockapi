@@ -145,7 +145,7 @@
     <value>Spécifications</value>
   </data>
   <data name="Energy" xml:space="preserve">
-    <value>Valeur énergétique (per 100g)</value>
+    <value>Valeur énergétique</value>
   </data>
   <data name="EstimatedTime" xml:space="preserve">
     <value>Temps estimé</value>

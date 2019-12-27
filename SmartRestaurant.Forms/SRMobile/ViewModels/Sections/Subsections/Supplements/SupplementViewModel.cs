@@ -20,6 +20,10 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Sup
         public SupplementViewModel(SupplementModel _Supplement)
         {
             this.Supplement = _Supplement;
+            calories = _Supplement.Calories;
+            carbo = _Supplement.Carbo;
+            fat = _Supplement.Fat;
+            protein = _Supplement.Protein;
 
         }
 
@@ -203,11 +207,32 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Sup
                 {
                     IsSelected = !IsSelected;
                     if (IsSelected)
+                    {
                         refDishViewModel.Price += Price;
-                    else refDishViewModel.Price -= Price;
+                        refDishViewModel.Calories += Calories;
+                        refDishViewModel.Fat += Fat;
+                        refDishViewModel.Protein += Protein;
+                        refDishViewModel.Carbo += Carbo;
+                    }
+                    else
+                    {
+                        refDishViewModel.Price -= Price;
+                        refDishViewModel.Calories -= Calories;
+                        refDishViewModel.Fat -= Fat;
+                        refDishViewModel.Protein -= Protein;
+                        refDishViewModel.Carbo -= Carbo;
+                    }
                 });
             }
         }
+        private float calories;
+        private float carbo;
+        private float fat;
+        private float protein;
+        public float Calories { get => calories; set => calories = value; }
+        public float Carbo { get => carbo; set => carbo = value; }
+        public float Fat { get => fat; set => fat = value; }
+        public float Protein { get => protein; set => protein = value; }
 
 
     }
