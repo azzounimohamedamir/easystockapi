@@ -12,7 +12,7 @@
              BackgroundColor="White"
              >
     <NavigationPage.TitleView>
-        <Grid  FlowDirection="{Binding FlowDirectionValue}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <Grid  Grid.Row="0" Grid.Column="1"   FlowDirection="{Binding FlowDirectionValue}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <Label Grid.Column="0" FontSize="20" Style="{StaticResource Key=RobotoLabel}" 
                    VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand"
                    VerticalOptions="FillAndExpand" Text="{helpers:Translate SeatSelection}" TextColor="Black" />
@@ -30,21 +30,29 @@
                 <ScrollView  VerticalOptions="FillAndExpand" FlowDirection="MatchParent" Margin="0,44,0,0">
                 <flv:FlowListView FlowColumnCount="3" SeparatorVisibility="None" HasUnevenRows="false" Margin="-16,-16"
                                   HorizontalOptions="Start" FlowDirection="MatchParent"
-                                  RowHeight="197" VerticalOptions="FillAndExpand" FlowColumnMinWidth="150"
-                                  SelectionMode="Single" FlowItemsSource="{Binding Seats.Seats}">
+                                  RowHeight="197" VerticalOptions="FillAndExpand" 
+                                  SelectionMode="Single" 
+                                  FlowItemsSource="{Binding Seats.Seats}"
+                                  FlowItemTapped="FlowListView_ItemTapped"
+                                  
+                                  FlowLastTappedItem="{Binding Path=SelectedSeat, Mode=TwoWay}"
+                                  >
                     <flv:FlowListView.FlowColumnTemplate>
                         <DataTemplate>
-                                <pancakeview:PancakeView BackgroundColor="White" BorderColor="#EEEEEE"
+                                <pancakeview:PancakeView BackgroundColor="{Binding BackgroundColor}"
+                                                         BorderColor="{Binding BorderColor}"
                                                          BorderThickness="1"  HasShadow="False"
                                                          HorizontalOptions="Center" VerticalOptions="Center"
                                                          HeightRequest="165" WidthRequest="150"  CornerRadius="10">
-                                    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" HeightRequest="165" WidthRequest="150">
-                                        <StackLayout  HorizontalOptions="Center" VerticalOptions="Start" Margin="0,32,0,22" HeightRequest="66">
-                                            <Image Source="chair.png" BackgroundColor="Transparent" HeightRequest="66" 
+                                    <StackLayout VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="Center" HeightRequest="165" WidthRequest="150">
+                                        <StackLayout  HorizontalOptions="Center" VerticalOptions="Start" Margin="0,29,0,0"
+                                                      HeightRequest="70">
+                                            <Image Source="chair.png" BackgroundColor="Transparent" HeightRequest="66"                                                    
                                                    Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" />
                                         </StackLayout>
                                         <Label Style="{StaticResource Key=RobotoLabel}" FontSize="20"
-                                           HorizontalOptions="Center" VerticalOptions="End" Margin="19"
+                                           HorizontalOptions="Center" VerticalOptions="EndAndExpand" Margin="19"
                                            TextColor="#495057">
                                             <Label.FormattedText>
                                                 <FormattedString>
@@ -69,18 +77,25 @@
                 <Button BackgroundColor="#01A9AC" CornerRadius="28" TextColor="White" Style="{StaticResource Key=RobotoButton}"
                         FontSize="16" HorizontalOptions="Center" HeightRequest="56" 
                         VerticalOptions="Center" WidthRequest="256"
-                        Text="{helpers:Translate DeseasesAllergiesNext}"/>
+                        Text="{helpers:Translate DeseasesAllergiesNext}" Command="{Binding NextCommand}"/>
                     <Label   VerticalTextAlignment="Center" HeightRequest="56" 
                        HorizontalOptions="Center" VerticalOptions="Center" 
                        HorizontalTextAlignment="{Binding OrientationTextInverted}"
                        WidthRequest="208" BackgroundColor="Transparent" 
                        Style="{StaticResource Key=MatLabel}" Text="&#xf04d;" IsVisible="{Binding NexArrowAr}" FontSize="20" TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NextCommand}"/>
+                        </Label.GestureRecognizers>
                     </Label>
+                    
                     <Label   VerticalTextAlignment="Center" HeightRequest="56" 
                        HorizontalOptions="Center" VerticalOptions="Center" 
                        HorizontalTextAlignment="{Binding OrientationTextInverted}"
                        WidthRequest="208" BackgroundColor="Transparent" 
                        Style="{StaticResource Key=MatLabel}" Text="&#xf054;" IsVisible="{Binding NexArrowAr,Converter={StaticResource boolinverter}}" FontSize="20" TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NextCommand}"/>
+                        </Label.GestureRecognizers>
                     </Label>
                 </Grid>
             </pancakeview:PancakeView>

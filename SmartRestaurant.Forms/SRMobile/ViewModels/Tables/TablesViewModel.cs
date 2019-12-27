@@ -1,9 +1,13 @@
-﻿using SmartRestaurant.Diner.Infrastructures;
+﻿using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using SmartRestaurant.Diner.ViewModels.Sections;
+using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Tables
@@ -176,6 +180,42 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 
             }
         }
+        private SeatViewModel selectedSeat;
+        public SeatViewModel SelectedSeat
+        {
+            get { return selectedSeat; }
+            set
+            {
+                if (selectedSeat != value)
+                {
+                    if (selectedSeat != null)
+                        SelectedSeat.IsSelected = !SelectedSeat.IsSelected;
+                    SetPropertyValue(ref selectedSeat, value);
+                    if (SelectedSeat != null)
+                        SelectedSeat.IsSelected = !SelectedSeat.IsSelected;
+                }
+            }
+        }
+        public ICommand NextCommand
+        {
+            get
+            {
+                return new Command(async () => {
+                    try
+                    {  
+                        if (SelectedSeat != null)
+                        {
+                            SelectedSeat.IsTaken = true;
+                            await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SectionsPage(new SectionsListViewModel()));
+                        }
+                    }
+                    catch (Exception)
+                    {
 
+
+                    }
+                });
+            }
+        }
     }
 }

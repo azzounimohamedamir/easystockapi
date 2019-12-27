@@ -16,6 +16,7 @@
              x:Name="instance" BackgroundColor="White">    
         <NavigationPage.TitleView>
         <Grid Grid.Row="0" Grid.Column="1" FlowDirection="{Binding FlowDirectionValue}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+              
                           >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
