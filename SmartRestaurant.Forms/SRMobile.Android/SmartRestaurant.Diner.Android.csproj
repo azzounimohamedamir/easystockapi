@@ -107,6 +107,7 @@
   <ItemGroup>
     <Compile Include="CustomControlsRenderers\BorderlessEntryRenderer.cs" />
     <Compile Include="CustomControlsRenderers\CustomListViewRenderer.cs" />
+    <Compile Include="CustomControlsRenderers\NavigationPageRenderer.cs" />
     <Compile Include="CustomControlsRenderers\RtlFixScrollViewRenderer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="RenderedEffects\AndroidLongPressedEffect.cs" />
