@@ -11,7 +11,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
     /// <summary>
     /// Used to manage tables as a ViewModel
     /// </summary>
-    public class ChairsViewModel: SimpleViewModel
+    public class SeatViewModel : SimpleViewModel
     {
         public readonly int table_Id;
         public readonly int numero;
@@ -20,7 +20,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         /// Get the TableModel from the Model.
         /// </summary>
         /// <param name="_table"></param>
-        public ChairsViewModel(int _table_Id,int _numero)
+        public SeatViewModel(int _table_Id,int _numero)
         {
             table_Id = _table_Id;
             numero = _numero;

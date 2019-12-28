@@ -216,4 +216,13 @@
   <data name="Protein" xml:space="preserve">
     <value>Protein</value>
   </data>
+  <data name="SeatSelection" xml:space="preserve">
+    <value>Seat selection</value>
+  </data>
+  <data name="Chooseyourseatnumber" xml:space="preserve">
+    <value>Choose your seat number</value>
+  </data>
+  <data name="Seat" xml:space="preserve">
+    <value>Seat</value>
+  </data>
 </root>

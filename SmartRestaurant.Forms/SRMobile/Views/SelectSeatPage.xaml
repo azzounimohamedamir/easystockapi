@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             x:Class="SmartRestaurant.Diner.Views.SelectSeatPage"
+             xmlns:helpers="clr-namespace:SmartRestaurant.Diner.Helpers"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             FlowDirection="{Binding FlowDirectionValue}"
+             BackgroundColor="White"
+             >
+    <NavigationPage.TitleView>
+        <Grid  FlowDirection="{Binding FlowDirectionValue}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Label Grid.Column="0" FontSize="20" Style="{StaticResource Key=RobotoLabel}" 
+                   VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand" Text="{helpers:Translate SeatSelection}" TextColor="Black" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout FlowDirection="MatchParent"  Orientation="Vertical" VerticalOptions="FillAndExpand">
+        <StackLayout Margin="32,64,32,0" FlowDirection="MatchParent"  Orientation="Vertical" VerticalOptions="FillAndExpand">
+            <Label Style="{StaticResource Key=RobotoLabel}"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Start"
+                       FontSize="20"
+                       Text="{helpers:Translate Chooseyourseatnumber}"/>
+
+                <ScrollView  VerticalOptions="FillAndExpand" FlowDirection="MatchParent" Margin="0,44,0,0">
+                <flv:FlowListView FlowColumnCount="3" SeparatorVisibility="None" HasUnevenRows="false" Margin="-16,-16"
+                                  HorizontalOptions="Start" FlowDirection="MatchParent"
+                                  RowHeight="197" VerticalOptions="FillAndExpand" FlowColumnMinWidth="150"
+                                  SelectionMode="Single" FlowItemsSource="{Binding Seats.Seats}">
+                    <flv:FlowListView.FlowColumnTemplate>
+                        <DataTemplate>
+                                <pancakeview:PancakeView BackgroundColor="White" BorderColor="#EEEEEE"
+                                                         BorderThickness="1"  HasShadow="False"
+                                                         HorizontalOptions="Center" VerticalOptions="Center"
+                                                         HeightRequest="165" WidthRequest="150"  CornerRadius="10">
+                                    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" HeightRequest="165" WidthRequest="150">
+                                        <StackLayout  HorizontalOptions="Center" VerticalOptions="Start" Margin="0,32,0,22" HeightRequest="66">
+                                            <Image Source="chair.png" BackgroundColor="Transparent" HeightRequest="66" 
+                                                   Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" />
+                                        </StackLayout>
+                                        <Label Style="{StaticResource Key=RobotoLabel}" FontSize="20"
+                                           HorizontalOptions="Center" VerticalOptions="End" Margin="19"
+                                           TextColor="#495057">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span  Text="{helpers:Translate Seat}" />
+                                                    <Span  Text=" " />
+                                                    <Span  Text="{Binding Numero}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+                                </pancakeview:PancakeView>
+                            </DataTemplate>
+                    </flv:FlowListView.FlowColumnTemplate>
+                </flv:FlowListView>
+            </ScrollView>
+        </StackLayout>
+        <pancakeview:PancakeView VerticalOptions="EndAndExpand" Margin="0" FlowDirection="MatchParent" 
+                                     BackgroundColor="White" HorizontalOptions="FillAndExpand" 
+                                     HeightRequest="88" BorderDrawingStyle="Inside" 
+                                     IsClippedToBounds="True" CornerRadius="20,20,0,0" HasShadow="true" Elevation="6">
+                <Grid FlowDirection="MatchParent">
+                <Button BackgroundColor="#01A9AC" CornerRadius="28" TextColor="White" Style="{StaticResource Key=RobotoButton}"
+                        FontSize="16" HorizontalOptions="Center" HeightRequest="56" 
+                        VerticalOptions="Center" WidthRequest="256"
+                        Text="{helpers:Translate DeseasesAllergiesNext}"/>
+                    <Label   VerticalTextAlignment="Center" HeightRequest="56" 
+                       HorizontalOptions="Center" VerticalOptions="Center" 
+                       HorizontalTextAlignment="{Binding OrientationTextInverted}"
+                       WidthRequest="208" BackgroundColor="Transparent" 
+                       Style="{StaticResource Key=MatLabel}" Text="&#xf04d;" IsVisible="{Binding NexArrowAr}" FontSize="20" TextColor="White">
+                    </Label>
+                    <Label   VerticalTextAlignment="Center" HeightRequest="56" 
+                       HorizontalOptions="Center" VerticalOptions="Center" 
+                       HorizontalTextAlignment="{Binding OrientationTextInverted}"
+                       WidthRequest="208" BackgroundColor="Transparent" 
+                       Style="{StaticResource Key=MatLabel}" Text="&#xf054;" IsVisible="{Binding NexArrowAr,Converter={StaticResource boolinverter}}" FontSize="20" TextColor="White">
+                    </Label>
+                </Grid>
+            </pancakeview:PancakeView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

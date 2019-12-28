@@ -160,7 +160,7 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Energy value (per 100g).
+        ///   Recherche une chaîne localisée semblable à Energy value.
         /// </summary>
         internal static string Energy {
             get {
@@ -309,6 +309,24 @@ namespace SmartRestaurant.Diner.Resources {
         internal static string RestaurantName {
             get {
                 return ResourceManager.GetString("RestaurantName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Seat.
+        /// </summary>
+        internal static string Seat {
+            get {
+                return ResourceManager.GetString("Seat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Seat selection.
+        /// </summary>
+        internal static string SeatSelection {
+            get {
+                return ResourceManager.GetString("SeatSelection", resourceCulture);
             }
         }
         

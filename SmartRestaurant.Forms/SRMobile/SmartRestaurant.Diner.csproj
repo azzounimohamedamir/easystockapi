@@ -81,6 +81,9 @@
     <Compile Update="Views\DishSelectPage.xaml.cs">
       <DependentUpon>DishSelectPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\SelectSeatPage.xaml.cs">
+      <DependentUpon>SelectSeatPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\TablesPage.xaml.cs">
       <DependentUpon>TablesPage.xaml</DependentUpon>
     </Compile>

@@ -15,19 +15,24 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
     /// <summary>
     /// Used to bind tables liste with the View.
     /// </summary>
-    public class ChairsListViewModel : SimpleViewModel
+    public class SeatsListViewModel : SimpleViewModel
     {
         /// <summary>
         /// Tables to bind with the View.
         /// </summary>
-        public IList<ChairsViewModel> Chairs { get; set; }
+        public IList<SeatViewModel> Seats { get; set; }
         public string Numero_Table { get; set; }
         /// <summary>
         /// Constructor to Fill the List of tables from the Database or Json file stored locally.
         /// </summary>
-        public ChairsListViewModel(TablesViewModel table)
+        public SeatsListViewModel(TablesViewModel table)
         {
-
+            Numero_Table = table.Numero;
+            Seats = new List<SeatViewModel>();
+            for(int i=1;i<=table.NombreChaises;i++)
+            {
+                Seats.Add(new SeatViewModel(table.Id, i));
+            }
         }
  
 
@@ -35,15 +40,15 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         /// <summary>
         /// The TableViewModel selected by the user to serve  the customer
         /// </summary>
-        private ChairsViewModel selectedChair;
-        public ChairsViewModel SelectedChair
+        private SeatViewModel selectedSeat;
+        public SeatViewModel SelectedSeat
         {
-            get { return selectedChair; }
+            get { return selectedSeat; }
             set
             {
-                SetPropertyValue(ref selectedChair, value);
-                if (SelectedChair != null)
-                    SelectedChair.IsSelected = !SelectedChair.IsSelected;
+                SetPropertyValue(ref selectedSeat, value);
+                if (SelectedSeat != null)
+                    SelectedSeat.IsSelected = !SelectedSeat.IsSelected;
             }
         }
 

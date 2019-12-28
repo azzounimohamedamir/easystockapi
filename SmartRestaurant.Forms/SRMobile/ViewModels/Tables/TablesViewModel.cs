@@ -1,5 +1,6 @@
 ﻿using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
+using SmartRestaurant.Diner.Resources;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -122,6 +123,57 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 if (backgroundcolor != value)
 
                     backgroundcolor = value;
+            }
+        }
+        public FlowDirection FlowDirectionValue
+        {
+
+            get
+            {
+                if (AppResources.Culture != null)
+                {
+                    return AppResources.Culture.Name == "ar" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+                }
+                else
+                {
+                    return FlowDirection.LeftToRight;
+                }
+            }
+        }
+        public TextAlignment OrientationTextInverted
+        {
+            get
+            {
+                if (AppResources.Culture != null)
+                {
+                    return AppResources.Culture.Name == "ar" ? TextAlignment.Start : TextAlignment.End;
+                }
+                else
+                {
+                    return TextAlignment.End;
+                }
+            }
+        }
+        public bool NexArrowAr
+        {
+            get
+            {
+                if (AppResources.Culture != null)
+                {
+                    return AppResources.Culture.Name == "ar";
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        public SeatsListViewModel Seats
+        {
+            get
+            {
+                return new SeatsListViewModel(this);
+                
             }
         }
 

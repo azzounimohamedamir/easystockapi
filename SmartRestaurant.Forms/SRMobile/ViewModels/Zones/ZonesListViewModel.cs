@@ -69,6 +69,7 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
         /// The TableViewModel selected by the user to serve  the customer
         /// </summary>
         private TablesViewModel selectedTable;
+        public static TablesViewModel CurrentTable;
         public TablesViewModel SelectedTable
         {
             get { return selectedTable; }
@@ -114,6 +115,7 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
                         selectedTable.NombreChaises = ZonesAndTablesPage.cs_popup.viewmodel.selectedTable.NombreChaises;
                         if (selectedTable.NombreChaises > 0)
                         {
+                            CurrentTable = selectedTable;
                             await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new LanguageView(new LanguageViewModel()));
                         }
                     }
