@@ -129,8 +129,8 @@
   <data name="Carbo" xml:space="preserve">
     <value>الكربوهيدرات</value>
   </data>
-  <data name="Chairs" xml:space="preserve">
-    <value>كراسي</value>
+  <data name="Seats" xml:space="preserve">
+    <value>مقاعد</value>
   </data>
   <data name="Choose" xml:space="preserve">
     <value>اختيار</value>
@@ -138,10 +138,10 @@
   <data name="ChooseTable" xml:space="preserve">
     <value>اختيار طاولة</value>
   </data>
-  <data name="Choosethechaircount" xml:space="preserve">
-    <value>اختيار عدد الكراسي</value>
+  <data name="Choosetheseatcount" xml:space="preserve">
+    <value>اختيار عدد المقاعد</value>
   </data>
-  <data name="Chooseyourseatnumber" xml:space="preserve">
+  <data name="ChooseyourSeatCount" xml:space="preserve">
     <value>اختر رقم مقعدك</value>
   </data>
   <data name="Currency_DZ" xml:space="preserve">

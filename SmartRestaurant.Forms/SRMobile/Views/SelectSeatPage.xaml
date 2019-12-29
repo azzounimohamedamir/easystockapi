@@ -25,16 +25,15 @@
                        HorizontalOptions="Start"
                        VerticalOptions="Start"
                        FontSize="20"
-                       Text="{helpers:Translate Chooseyourseatnumber}"/>
+                       Text="{helpers:Translate ChooseyourSeatCount}"/>
 
                 <ScrollView  VerticalOptions="FillAndExpand" FlowDirection="MatchParent" Margin="0,44,0,0">
                 <flv:FlowListView FlowColumnCount="3" SeparatorVisibility="None" HasUnevenRows="false" Margin="-16,-16"
                                   HorizontalOptions="Start" FlowDirection="MatchParent"
                                   RowHeight="197" VerticalOptions="FillAndExpand" 
                                   SelectionMode="Single" 
-                                  FlowItemsSource="{Binding Seats.Seats}"
-                                  FlowItemTapped="FlowListView_ItemTapped"
-                                  
+                                  FlowItemsSource="{Binding Seats}"
+                                  FlowItemTapped="FlowListView_ItemTapped"                                  
                                   FlowLastTappedItem="{Binding Path=SelectedSeat, Mode=TwoWay}"
                                   >
                     <flv:FlowListView.FlowColumnTemplate>
@@ -58,7 +57,7 @@
                                                 <FormattedString>
                                                     <Span  Text="{helpers:Translate Seat}" />
                                                     <Span  Text=" " />
-                                                    <Span  Text="{Binding Numero}" />
+                                                    <Span  Text="{Binding SeatNumber}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>

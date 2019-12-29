@@ -42,17 +42,17 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 }
             }
         }
-        public short NombreChaises
+        public short SeatCount
         {
-            get { return table.NombreChaises; }
+            get { return table.SeatCount; }
             set
             {
-                if (table.NombreChaises != value)
+                if (table.SeatCount != value)
                 {
-                    table.NombreChaises = value;
+                    table.SeatCount = value;
                     RaisePropertyChanged();
 
-                    if (table.NombreChaises>0) BackgroundColor = Color.FromHex("#FFA374");
+                    if (table.SeatCount>0) BackgroundColor = Color.FromHex("#FFA374");
                     else
                         BackgroundColor = Color.Transparent;
                     RaisePropertyChanged("BackgroundColor");
@@ -117,7 +117,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         {
             get
             {
-                if (NombreChaises > 0)
+                if (SeatCount > 0)
                     return Color.FromHex("#FFA374");
                 else
                     return Color.Transparent;
@@ -129,49 +129,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                     backgroundcolor = value;
             }
         }
-        public FlowDirection FlowDirectionValue
-        {
 
-            get
-            {
-                if (AppResources.Culture != null)
-                {
-                    return AppResources.Culture.Name == "ar" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-                }
-                else
-                {
-                    return FlowDirection.LeftToRight;
-                }
-            }
-        }
-        public TextAlignment OrientationTextInverted
-        {
-            get
-            {
-                if (AppResources.Culture != null)
-                {
-                    return AppResources.Culture.Name == "ar" ? TextAlignment.Start : TextAlignment.End;
-                }
-                else
-                {
-                    return TextAlignment.End;
-                }
-            }
-        }
-        public bool NexArrowAr
-        {
-            get
-            {
-                if (AppResources.Culture != null)
-                {
-                    return AppResources.Culture.Name == "ar";
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
         public SeatsListViewModel Seats
         {
             get
@@ -194,27 +152,6 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                     if (SelectedSeat != null)
                         SelectedSeat.IsSelected = !SelectedSeat.IsSelected;
                 }
-            }
-        }
-        public ICommand NextCommand
-        {
-            get
-            {
-                return new Command(async () => {
-                    try
-                    {  
-                        if (SelectedSeat != null)
-                        {
-                            SelectedSeat.IsTaken = true;
-                            await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SectionsPage(new SectionsListViewModel()));
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-
-                    }
-                });
             }
         }
     }

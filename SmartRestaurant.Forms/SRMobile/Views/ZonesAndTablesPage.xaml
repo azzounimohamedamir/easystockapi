@@ -82,9 +82,9 @@
                                                                                         <Span Text=" : " FontSize="20" />
                                                                                         <Span Text="{Binding Numero, Mode=TwoWay}" FontSize="20" />
                                                                                         <Span Text="&#10;" FontSize="12" />
-                                                                                        <Span Text="{translator:Translate Chairs}" FontSize="12" />
+                                                                                        <Span Text="{translator:Translate Seats}" FontSize="12" />
                                                                                         <Span Text=" : " FontSize="12" />
-                                                                                        <Span Text="{Binding NombreChaises, Mode=TwoWay}" FontSize="12" />
+                                                                                        <Span Text="{Binding SeatCount, Mode=TwoWay}" FontSize="12" />
                                                                                     </FormattedString>
                                                                                 </Label.FormattedText>
                                                                             </Label>

@@ -97,15 +97,6 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Chairs.
-        /// </summary>
-        internal static string Chairs {
-            get {
-                return ResourceManager.GetString("Chairs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à CONFIRM.
         /// </summary>
         internal static string Choose {
@@ -124,11 +115,11 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Select the chair count.
+        ///   Recherche une chaîne localisée semblable à Select the seat count.
         /// </summary>
-        internal static string Choosethechaircount {
+        internal static string Choosetheseatcount {
             get {
-                return ResourceManager.GetString("Choosethechaircount", resourceCulture);
+                return ResourceManager.GetString("Choosetheseatcount", resourceCulture);
             }
         }
         
@@ -318,6 +309,15 @@ namespace SmartRestaurant.Diner.Resources {
         internal static string Seat {
             get {
                 return ResourceManager.GetString("Seat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Seats.
+        /// </summary>
+        internal static string Seats {
+            get {
+                return ResourceManager.GetString("Seats", resourceCulture);
             }
         }
         

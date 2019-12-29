@@ -11,7 +11,7 @@ namespace SmartRestaurant.Diner.Models
     {
         public int Id { get; set; }
         public string Numero { get; set; }
-        public short NombreChaises { get; set; }
+        public short SeatCount { get; set; }
 
 
         /// <summary>

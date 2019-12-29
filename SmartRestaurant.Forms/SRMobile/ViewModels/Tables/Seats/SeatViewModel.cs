@@ -14,7 +14,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
     public class SeatViewModel : SimpleViewModel
     {
         public readonly int table_Id;
-        public readonly int numero;
+        public readonly int seat_number;
 
         /// <summary>
         /// Get the TableModel from the Model.
@@ -23,20 +23,20 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         public SeatViewModel(int _table_Id,int _numero)
         {
             table_Id = _table_Id;
-            numero = _numero;
+            seat_number = _numero;
 
         }
 
         public int Id { get; }
         
-        public int Numero
+        public int SeatNumber
         {
-            get { return numero; }
+            get { return seat_number; }
             set
             {
-                if (numero != value)
+                if (seat_number != value)
                 {
-                    Numero = value;
+                    SeatNumber = value;
                     RaisePropertyChanged();
                 }
             }
@@ -46,7 +46,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
    
 
         /// <summary>
-        /// Used to indicate when a chair is selected.
+        /// Used to indicate when a seat is selected.
         /// </summary>
         private bool isSelected;
         public bool IsSelected

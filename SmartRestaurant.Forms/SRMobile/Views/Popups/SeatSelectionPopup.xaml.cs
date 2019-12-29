@@ -17,22 +17,22 @@ using XLabs.Forms.Controls;
 namespace SmartRestaurant.Diner.Views.Popups
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ChairSelectionPopup : PopupPage
+    public partial class SeatSelectionPopup : PopupPage
     {
         public ZonesListViewModel viewmodel { get; }
         private short oldvalue;
-        public ChairSelectionPopup(ZonesListViewModel _model)
+        public SeatSelectionPopup(ZonesListViewModel _model)
         {
             InitializeComponent();
 
             BindingContext = _model;
-            oldvalue = _model.SelectedTable.NombreChaises;
-            minus_enabled = _model.SelectedTable.NombreChaises>0;
-            plus_enabled = _model.SelectedTable.NombreChaises<99;
+            oldvalue = _model.SelectedTable.SeatCount;
+            minus_enabled = _model.SelectedTable.SeatCount>0;
+            plus_enabled = _model.SelectedTable.SeatCount<99;
             viewmodel = _model;
 
 
-            Title = "Nombre de chaises";
+            Title = "Nombre de sièges";
 
 
         }
@@ -40,7 +40,8 @@ namespace SmartRestaurant.Diner.Views.Popups
 
         private void Cancel_Clicked(object sender, EventArgs e)
         {
-            ((ZonesListViewModel)BindingContext).SelectedTable.NombreChaises = oldvalue;
+            ((ZonesListViewModel)BindingContext).SelectedTable.SeatCount
+                = oldvalue;
             PopupNavigation.PopAllAsync(true);
             try
             {
@@ -59,22 +60,24 @@ namespace SmartRestaurant.Diner.Views.Popups
             {
                 if ((Convert.ToInt32(e.NewTextValue))>=0)
                 {
-                    ((ZonesListViewModel)BindingContext).SelectedTable.NombreChaises = ((ZonesListViewModel)BindingContext).SelectedTable.NombreChaises;
+                    ((ZonesListViewModel)BindingContext).SelectedTable.SeatCount
+                        
+                        = ((ZonesListViewModel)BindingContext).SelectedTable.SeatCount;
                 }
                 if ((Convert.ToInt32(e.NewTextValue)) >99)
                 {
                     
-                    ((ZonesListViewModel)BindingContext).SelectedTable.NombreChaises = 99;
+                    ((ZonesListViewModel)BindingContext).SelectedTable.SeatCount = 99;
                 }
             }
-            catch { ((ZonesListViewModel)BindingContext).SelectedTable.NombreChaises = 0; }
+            catch { ((ZonesListViewModel)BindingContext).SelectedTable.SeatCount = 0; }
         }
         bool minus_enabled;
         bool plus_enabled;
         private void Button_Clicked(object sender, EventArgs e)
         {
-            if (((ZonesListViewModel)BindingContext).SelectedTable.NombreChaises <99)
-                ((ZonesListViewModel)BindingContext).SelectedTable.NombreChaises++;
+            if (((ZonesListViewModel)BindingContext).SelectedTable.SeatCount <99)
+                ((ZonesListViewModel)BindingContext).SelectedTable.SeatCount++;
             else
             
                 plus_enabled = false;
@@ -84,8 +87,8 @@ namespace SmartRestaurant.Diner.Views.Popups
 
         private void Button_Clicked_1(object sender, EventArgs e)
         {
-            if (((ZonesListViewModel)BindingContext).SelectedTable.NombreChaises > 0)
-                ((ZonesListViewModel)BindingContext).SelectedTable.NombreChaises--;
+            if (((ZonesListViewModel)BindingContext).SelectedTable.SeatCount > 0)
+                ((ZonesListViewModel)BindingContext).SelectedTable.SeatCount--;
             else
            
                 minus_enabled = false;
