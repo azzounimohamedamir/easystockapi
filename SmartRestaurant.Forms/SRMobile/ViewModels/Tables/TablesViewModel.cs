@@ -1,8 +1,13 @@
-﻿using SmartRestaurant.Diner.Infrastructures;
+﻿using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
+using SmartRestaurant.Diner.Resources;
+using SmartRestaurant.Diner.ViewModels.Sections;
+using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Tables
@@ -37,17 +42,17 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 }
             }
         }
-        public short NombreChaises
+        public short SeatCount
         {
-            get { return table.NombreChaises; }
+            get { return table.SeatCount; }
             set
             {
-                if (table.NombreChaises != value)
+                if (table.SeatCount != value)
                 {
-                    table.NombreChaises = value;
+                    table.SeatCount = value;
                     RaisePropertyChanged();
 
-                    if (table.NombreChaises>0) BackgroundColor = Color.FromHex("#FFA374");
+                    if (table.SeatCount>0) BackgroundColor = Color.FromHex("#FFA374");
                     else
                         BackgroundColor = Color.Transparent;
                     RaisePropertyChanged("BackgroundColor");
@@ -112,7 +117,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         {
             get
             {
-                if (NombreChaises > 0)
+                if (SeatCount > 0)
                     return Color.FromHex("#FFA374");
                 else
                     return Color.Transparent;
@@ -125,5 +130,29 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             }
         }
 
+        public SeatsListViewModel Seats
+        {
+            get
+            {
+                return new SeatsListViewModel(this);
+                
+            }
+        }
+        private SeatViewModel selectedSeat;
+        public SeatViewModel SelectedSeat
+        {
+            get { return selectedSeat; }
+            set
+            {
+                if (selectedSeat != value)
+                {
+                    if (selectedSeat != null)
+                        SelectedSeat.IsSelected = !SelectedSeat.IsSelected;
+                    SetPropertyValue(ref selectedSeat, value);
+                    if (SelectedSeat != null)
+                        SelectedSeat.IsSelected = !SelectedSeat.IsSelected;
+                }
+            }
+        }
     }
 }

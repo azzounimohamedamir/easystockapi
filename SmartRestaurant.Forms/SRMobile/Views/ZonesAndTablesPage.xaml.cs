@@ -78,18 +78,16 @@ namespace SmartRestaurant.Diner.Views
             mainscv.Opacity = 0.53;
 
             cs_popup =
-            new ChairSelectionPopup((ZonesListViewModel)BindingContext)
+            new SeatSelectionPopup((ZonesListViewModel)BindingContext)
             {
                 Animation = scaleAnimation
             };
             await PopupNavigation.PushAsync(cs_popup
             , true);
-            bool anyselectedchair = true;
-
         }
 
 
-        public static ChairSelectionPopup cs_popup;
+        public static SeatSelectionPopup cs_popup;
         private async void GesturesContentView_GestureRecognized(object sender, XLabs.Forms.Behaviors.GestureResult e)
         {
             if (e.GestureType == GestureType.SingleTap)
@@ -120,14 +118,12 @@ namespace SmartRestaurant.Diner.Views
                 BackgroundColor = Color.FromHex("#777777");
                 mainscv.Opacity = 0.53;
                 cs_popup =
-                new ChairSelectionPopup((ZonesListViewModel)BindingContext)
+                new SeatSelectionPopup((ZonesListViewModel)BindingContext)
                 {
                     Animation = scaleAnimation
                 };
                 await PopupNavigation.PushAsync(cs_popup
                 , true);
-                bool anyselectedchair = true;
-
             }
         }
 

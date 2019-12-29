@@ -28,12 +28,12 @@
                                         <Label FontSize="32" FontAttributes="Bold" HorizontalOptions="Center">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="Nombre de chaise: " TextDecorations="Underline" />
-                                                    <Span Text="{Binding NombreChaises, Mode=TwoWay}" TextColor="Red" />
+                                                    <Span Text="Nombre de siège: " TextDecorations="Underline" />
+                                                    <Span Text="{Binding SeatNumber, Mode=TwoWay}" TextColor="Red" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <Stepper Value="{Binding NombreChaises, Mode=TwoWay}" Minimum="1" Maximum="12" Increment="1" HorizontalOptions="Center" />
+                                        <Stepper Value="{Binding SeatNumber, Mode=TwoWay}" Minimum="1" Maximum="12" Increment="1" HorizontalOptions="Center" />
                                     </StackLayout>
                                 </RelativeLayout>
                             </ViewCell>

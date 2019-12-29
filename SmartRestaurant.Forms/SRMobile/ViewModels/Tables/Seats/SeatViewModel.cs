@@ -11,32 +11,32 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
     /// <summary>
     /// Used to manage tables as a ViewModel
     /// </summary>
-    public class ChairsViewModel: SimpleViewModel
+    public class SeatViewModel : SimpleViewModel
     {
         public readonly int table_Id;
-        public readonly int numero;
+        public readonly int seat_number;
 
         /// <summary>
         /// Get the TableModel from the Model.
         /// </summary>
         /// <param name="_table"></param>
-        public ChairsViewModel(int _table_Id,int _numero)
+        public SeatViewModel(int _table_Id,int _numero)
         {
             table_Id = _table_Id;
-            numero = _numero;
+            seat_number = _numero;
 
         }
 
         public int Id { get; }
         
-        public int Numero
+        public int SeatNumber
         {
-            get { return numero; }
+            get { return seat_number; }
             set
             {
-                if (numero != value)
+                if (seat_number != value)
                 {
-                    Numero = value;
+                    SeatNumber = value;
                     RaisePropertyChanged();
                 }
             }
@@ -46,7 +46,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
    
 
         /// <summary>
-        /// Used to indicate when a chair is selected.
+        /// Used to indicate when a seat is selected.
         /// </summary>
         private bool isSelected;
         public bool IsSelected
@@ -59,9 +59,20 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             { 
                     isSelected = value;
                     RaisePropertyChanged();
-                    if (isSelected) BorderColor = Color.LightBlue;
+                if(IsTaken)
+                    BackgroundColor = Color.FromHex("#FFA374");
+                else
+                if (IsSelected)
+                        BackgroundColor = Color.FromHex("#F2FBFB");
                     else
-                    BorderColor = Color.Transparent;
+                        BackgroundColor = Color.White;
+                RaisePropertyChanged("BackgroundColor");
+                if (IsTaken)
+                    BorderColor= Color.FromHex("#EEEEEE");
+                else
+                if (isSelected) BorderColor = Color.FromHex("#3CBDBF");
+                    else
+                    BorderColor = Color.FromHex("#EEEEEE");
                     RaisePropertyChanged("BorderColor");
                     
             }
@@ -70,11 +81,15 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         public Color BorderColor
         {
             get
-            {
-                if (isSelected)
-                    return Color.LightBlue;
+            {                                                   
+                if (IsTaken)
+                    return Color.FromHex("#EEEEEE");
                 else
-                    return Color.LightGray;
+
+                if (isSelected)
+                    return Color.FromHex("#3CBDBF");
+                else
+                    return Color.FromHex("#EEEEEE");
             }
             set
             {
@@ -99,7 +114,10 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 if (isTaken)
                     BackgroundColor = Color.FromHex("#FFA374");
                 else
-                    BackgroundColor = Color.Transparent;
+                    if (IsSelected)
+                    BackgroundColor= Color.FromHex("#F2FBFB");
+                else
+                    BackgroundColor= Color.White;
                 RaisePropertyChanged("BackgroundColor");
 
             }
@@ -112,7 +130,10 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 if (IsTaken)
                     return Color.FromHex("#FFA374");
                 else
-                    return Color.Transparent;
+                    if(IsSelected)
+                    return Color.FromHex("#F2FBFB");
+                else
+                    return Color.White;
             }
             set
             {

@@ -48,3 +48,8 @@
 /SmartRestaurant.Forms/SRMobile.Android/bin/Release
 /SmartRestaurant.Forms/SRMobile/CustomControls/GradientColorStack.cs
 /SmartRestaurant.Forms/SRMobile/bin/Release/netstandard2.0
+/SmartRestaurant.Persistence.Guest.Identity/bin/Release/netcoreapp2.2
+/SmartRestaurant.Persistance.Identity/bin/Release/netcoreapp2.2
+/SmartRestaurant.Globalisation/bin/Release/netstandard2.0
+/SmartRestaurant.Domain/bin/Release/netstandard2.0
+/Helpers/bin/Release/netstandard2.0

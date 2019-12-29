@@ -11,15 +11,16 @@
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              mc:Ignorable="d"
              NavigationPage.HasBackButton="True"
-             FlowDirection="{Binding FlowDirectionValue}"
+             
              x:Class="SmartRestaurant.Diner.Views.DishSelectPage"              
              x:Name="instance" BackgroundColor="White">    
         <NavigationPage.TitleView>
         <Grid Grid.Row="0" Grid.Column="1" FlowDirection="{Binding FlowDirectionValue}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+              
                           >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="26" />
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" FontSize="20" Style="{StaticResource Key=RobotoLabel}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Text="{Binding Name}" TextColor="Black" />
@@ -27,7 +28,8 @@
                 x:Name="curlbl"
                 FontSize="16"
                   
-                   Grid.Column="1" Text="{Binding Currency.Name}" HorizontalOptions="FillAndExpand" WidthRequest="150" HorizontalTextAlignment="Start" TextColor="Black"
+                   Grid.Column="1" Text="{Binding Currency.Name}" HorizontalOptions="FillAndExpand" WidthRequest="50" HorizontalTextAlignment="End"
+                TextColor="Black"
                 VerticalTextAlignment="Center" VerticalOptions="FillAndExpand" >
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
@@ -48,7 +50,7 @@
         </NavigationPage.TitleView>
 
     <ContentPage.Content>
-        <StackLayout FlowDirection="MatchParent" Orientation="Vertical">
+        <StackLayout FlowDirection="{Binding FlowDirectionValue}" Orientation="Vertical">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -373,7 +375,7 @@
                           HasUnevenRows="True"   SeparatorVisibility="Default" 
                           SeparatorColor="Black"   VerticalOptions="Start"
                           HeightRequest="100"
-                          HorizontalOptions="End" WidthRequest="150" ItemSelected="Curlv_ItemSelected" 
+                          HorizontalOptions="End" WidthRequest="50" ItemSelected="Curlv_ItemSelected" 
                           ItemTapped="Curlv_ItemTapped"
                           Margin="52,0" 
                           SelectionMode="Single" IsVisible="{Binding ShowCurrencies,Source={Reference instance}}">
@@ -381,7 +383,7 @@
                         <DataTemplate>
                             <ViewCell> 
                                 <Label FontSize="16" Text="{Binding Name}" HeightRequest="30" BackgroundColor="#E0E0E0"
-                                        HorizontalTextAlignment="Start"
+                                        HorizontalTextAlignment="End"
                                        VerticalTextAlignment="Center" TextColor="Black" />
                                 
                             </ViewCell>

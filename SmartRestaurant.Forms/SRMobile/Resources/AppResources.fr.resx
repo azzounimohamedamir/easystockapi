@@ -123,8 +123,8 @@
   <data name="Cancel" xml:space="preserve">
     <value>ANNULER</value>
   </data>
-  <data name="Chairs" xml:space="preserve">
-    <value>Chaises</value>
+  <data name="Seats" xml:space="preserve">
+    <value>Sièges</value>
   </data>
   <data name="Choose" xml:space="preserve">
     <value>CONFIRMER</value>
@@ -132,8 +132,8 @@
   <data name="ChooseTable" xml:space="preserve">
     <value>Choix de table</value>
   </data>
-  <data name="Choosethechaircount" xml:space="preserve">
-    <value>Choisir le nombre de chaises</value>
+  <data name="Choosetheseatcount" xml:space="preserve">
+    <value>Choisir le nombre de sièges</value>
   </data>
   <data name="Currency_DZ" xml:space="preserve">
     <value>DA</value>
@@ -215,5 +215,14 @@
   </data>
   <data name="Protein" xml:space="preserve">
     <value>Protéine</value>
+  </data>
+  <data name="SeatSelection" xml:space="preserve">
+    <value>Sélection du siège</value>
+  </data>
+  <data name="ChooseyourSeatCount" xml:space="preserve">
+    <value>Chosissez votre numéro de siège</value>
+  </data>
+  <data name="Seat" xml:space="preserve">
+    <value>Siège</value>
   </data>
 </root>
