@@ -313,6 +313,15 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à The seat count.
+        /// </summary>
+        internal static string SeatCount {
+            get {
+                return ResourceManager.GetString("SeatCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Seats.
         /// </summary>
         internal static string Seats {

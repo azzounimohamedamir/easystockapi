@@ -222,4 +222,7 @@
   <data name="Seat" xml:space="preserve">
     <value>Seat</value>
   </data>
+  <data name="SeatCount" xml:space="preserve">
+    <value>The seat count</value>
+  </data>
 </root>

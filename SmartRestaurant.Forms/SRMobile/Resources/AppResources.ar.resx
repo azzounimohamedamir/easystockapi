@@ -225,4 +225,7 @@
   <data name="WelcomeComment" xml:space="preserve">
     <value>مرحبا بكم في مطعم</value>
   </data>
+  <data name="SeatCount" xml:space="preserve">
+    <value>عدد المقاعد</value>
+  </data>
 </root>

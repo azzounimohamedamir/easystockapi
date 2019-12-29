@@ -24,20 +24,12 @@ namespace SmartRestaurant.Diner.Views.Popups
         public SeatSelectionPopup(ZonesListViewModel _model)
         {
             InitializeComponent();
-
             BindingContext = _model;
             oldvalue = _model.SelectedTable.SeatCount;
             minus_enabled = _model.SelectedTable.SeatCount>0;
             plus_enabled = _model.SelectedTable.SeatCount<99;
             viewmodel = _model;
-
-
-            Title = "Nombre de sièges";
-
-
         }
-
-
         private void Cancel_Clicked(object sender, EventArgs e)
         {
             ((ZonesListViewModel)BindingContext).SelectedTable.SeatCount
