@@ -102,21 +102,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                     return TextAlignment.End;
                 }
             }
-        }
-        public bool NexArrowAr
-        {
-            get
-            {
-                if (AppResources.Culture != null)
-                {
-                    return AppResources.Culture.Name == "ar";
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
+        }        
 
     }
 }

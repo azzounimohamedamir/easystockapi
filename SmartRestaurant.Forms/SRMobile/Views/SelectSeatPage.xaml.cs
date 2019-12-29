@@ -31,6 +31,8 @@ namespace SmartRestaurant.Diner.Views
                 else
                     ((SeatsListViewModel)BindingContext).SelectedSeat = null;
             }
+            if (((SeatsListViewModel)BindingContext).NextCommand.CanExecute(null))
+                ((SeatsListViewModel)BindingContext).NextCommand.Execute(null);
         }
     }      
 }

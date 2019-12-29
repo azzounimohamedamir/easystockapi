@@ -5,9 +5,8 @@
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
-
   <ItemGroup>
-    <Compile Remove="CustomControls\GradientColorStack.cs" />
+    <Compile Remove="CustomControls\GradientColorStack.cs"/>
   </ItemGroup>
 
   <ItemGroup>
