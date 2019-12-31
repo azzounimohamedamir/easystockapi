@@ -24,7 +24,7 @@ namespace SmartRestaurant.Diner.ViewModels.DeseasesAllergies
         /// <summary>
         /// This property used to display desease name according to the CultureInfo (Language) used.
         /// if the CultureInfo used is arabic "ar" the Name take NameAr as name of the desease
-        /// if the CultureInfo used is frensh "fr" the Name take NameFr as name of the desease
+        /// if the CultureInfo used is french "fr" the Name take NameFr as name of the desease
         /// if the CultureInfo used is english "en" the Name take NameEn as name of the desease
         /// </summary>
         public string Name
@@ -59,7 +59,7 @@ namespace SmartRestaurant.Diner.ViewModels.DeseasesAllergies
         }
 
         /// <summary>
-        /// Frensh name of the desease.
+        /// French name of the desease.
         /// </summary>
         public string NameFr
         {
