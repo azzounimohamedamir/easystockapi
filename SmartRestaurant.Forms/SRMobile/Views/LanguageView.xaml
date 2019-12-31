@@ -5,10 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-             xmlns:ia="clr-namespace:IntelliAbb.Xamarin.Controls;assembly=IntelliAbb.Xamarin.Controls"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              mc:Ignorable="d" NavigationPage.HasNavigationBar="False"
              BackgroundColor="White"
+             xmlns:helpers="clr-namespace:SmartRestaurant.Diner.Helpers"
+             Title="{helpers:Translate LanguageSelect}"
              x:Class="SmartRestaurant.Diner.Views.LanguageView">
     <ContentPage.Content>
         <Grid Margin="56,128" BackgroundColor="White">
@@ -19,15 +20,16 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Style="{StaticResource Key=RobotoLabel}"  
-                   TextColor="#3C536A" FontAttributes="Bold" FontSize="24" Text="Choix de langue"/>
+                   TextColor="#3C536A" FontAttributes="Bold" FontSize="24" Text="{helpers:Translate LangChoose}"/>
             <Label Grid.Row="1"  Style="{StaticResource Key=RobotoLabel}"  
                    TextColor="#707070"  FontSize="14" 
                    Margin="0,4,0,32"
-                   Text="Choisir la langue que vous voulez l'utiliser pour faire une commande"/>
+                   Text="{helpers:Translate LangChoose2}"
+                   />
             <StackLayout Grid.Row="2" HeightRequest="152"   
-                         Margin="-24,0,0,0"
+                         Margin="-22,0,0,0"
                          HorizontalOptions="StartAndExpand" Orientation="Horizontal" >
-                <Grid WidthRequest="128" MinimumWidthRequest="128" HeightRequest="128" Margin="24,0"   >
+                <Grid WidthRequest="128" MinimumWidthRequest="128" HeightRequest="128" Margin="22,0"   >
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SelectLanguage}" CommandParameter="fr" />
                     </Grid.GestureRecognizers>
@@ -88,7 +90,7 @@
                                HorizontalOptions="Center" VerticalOptions="Center" FontSize="28" />
                     </pancakeview:PancakeView>
                 </Grid>
-                <Grid WidthRequest="128" MinimumWidthRequest="128" HeightRequest="128" Margin="24,0"   >
+                <Grid WidthRequest="128" MinimumWidthRequest="128" HeightRequest="128" Margin="22,0"   >
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SelectLanguage}" CommandParameter="ar" />
                     </Grid.GestureRecognizers>
@@ -149,7 +151,7 @@
                                HorizontalOptions="Center" VerticalOptions="Center" FontSize="28" />
                     </pancakeview:PancakeView>
                 </Grid>
-                <Grid WidthRequest="128" MinimumWidthRequest="128" HeightRequest="128" Margin="24,0"   >
+                <Grid WidthRequest="128" MinimumWidthRequest="128" HeightRequest="128" Margin="22,0"   >
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SelectLanguage}" CommandParameter="en" />
                     </Grid.GestureRecognizers>

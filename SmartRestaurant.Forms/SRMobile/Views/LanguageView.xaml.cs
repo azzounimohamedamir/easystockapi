@@ -28,9 +28,7 @@ namespace SmartRestaurant.Diner.Views
             catch(Exception ex)
             {
 
-            }
-
-            Title = "Sélection du langage";
+            }           
              
         }
     }
