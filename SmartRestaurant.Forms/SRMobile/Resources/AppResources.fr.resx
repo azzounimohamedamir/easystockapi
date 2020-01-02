@@ -225,4 +225,16 @@
   <data name="Seat" xml:space="preserve">
     <value>Siège</value>
   </data>
+  <data name="SeatCount" xml:space="preserve">
+    <value>Nombre de sièges</value>
+  </data>
+  <data name="LangChoose" xml:space="preserve">
+    <value>Choisir la langue</value>
+  </data>
+  <data name="LangChoose2" xml:space="preserve">
+    <value>Choisir la langue que vous voulez l'utiliser pour faire une commande</value>
+  </data>
+  <data name="LanguageSelect" xml:space="preserve">
+    <value>Sélection de la langue</value>
+  </data>
 </root>

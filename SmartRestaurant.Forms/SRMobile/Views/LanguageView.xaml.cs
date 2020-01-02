@@ -20,11 +20,7 @@ namespace SmartRestaurant.Diner.Views
         public LanguageView(LanguageViewModel _model)
         {
             InitializeComponent();
-
             BindingContext = _model;
-
-            Title = "Sélection du langage";
-             
         }
     }
 }

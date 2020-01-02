@@ -225,4 +225,16 @@
   <data name="WelcomeComment" xml:space="preserve">
     <value>مرحبا بكم في مطعم</value>
   </data>
+  <data name="SeatCount" xml:space="preserve">
+    <value>عدد المقاعد</value>
+  </data>
+  <data name="LangChoose" xml:space="preserve">
+    <value>اختر اللغة</value>
+  </data>
+  <data name="LangChoose2" xml:space="preserve">
+    <value>اختر اللغة التي تريد استخدامها للطلب</value>
+  </data>
+  <data name="LanguageSelect" xml:space="preserve">
+    <value>اختيار اللغة</value>
+  </data>
 </root>

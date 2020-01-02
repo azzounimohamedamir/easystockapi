@@ -40,7 +40,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
         /// <summary>
         /// This property used to display Ingredient name according to the CultureInfo (Language) used.
         /// if the CultureInfo used is arabic "ar" the Name take NameAr as name of the Ingredient
-        /// if the CultureInfo used is frensh "fr" the Name take NameFr as name of the Ingredient
+        /// if the CultureInfo used is french "fr" the Name take NameFr as name of the Ingredient
         /// if the CultureInfo used is english "en" the Name take NameEn as name of the Ingredient
         /// </summary>
         public string Name

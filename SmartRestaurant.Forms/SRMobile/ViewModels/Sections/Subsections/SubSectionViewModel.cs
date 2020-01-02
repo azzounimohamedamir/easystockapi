@@ -33,7 +33,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// <summary>
         /// This property used to display subsection name according to the CultureInfo (Language) used.
         /// if the CultureInfo used is arabic "ar" the Name take NameAr as name of the subsection
-        /// if the CultureInfo used is frensh "fr" the Name take NameFr as name of the subsection
+        /// if the CultureInfo used is french "fr" the Name take NameFr as name of the subsection
         /// if the CultureInfo used is english "en" the Name take NameEn as name of the subsection
         /// </summary>
         public string Name

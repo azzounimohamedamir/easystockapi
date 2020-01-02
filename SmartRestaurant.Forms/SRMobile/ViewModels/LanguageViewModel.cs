@@ -34,10 +34,10 @@ namespace SmartRestaurant.Diner.ViewModels
                 SetPropertyValue(ref arabicLanguage, value);
 
                 // if Arabic language is selected then update the color of the background and border of the rectangle according to it
-                // and uncheck the frensh and english language.
+                // and uncheck the french and english language.
                 if (arabicLanguage == true)
                 {
-                    FrenshLanguage = false;
+                    FrenchLanguage = false;
                     EnglishLanguage = false;
 
                     ArabicColor = Color.FromHex("#F2FBFB");
@@ -52,30 +52,30 @@ namespace SmartRestaurant.Diner.ViewModels
             }
         }
 
-        private bool frenshLanguage;
-        public bool FrenshLanguage
+        private bool frenchLanguage;
+        public bool FrenchLanguage
         {
             get
             {
-                return frenshLanguage;
+                return frenchLanguage;
             }
             set
             {
-                SetPropertyValue(ref frenshLanguage, value);
-                // if Frensh language is selected then update the color of the background and border of the rectangle according to it
+                SetPropertyValue(ref frenchLanguage, value);
+                // if French language is selected then update the color of the background and border of the rectangle according to it
                 // and uncheck the arabic and english language.
-                if (frenshLanguage == true)
+                if (frenchLanguage == true)
                 {
                     ArabicLanguage = false;
                     EnglishLanguage = false;
 
-                    FrenshColor = Color.FromHex("#F2FBFB");
-                    FrenshColorBorder = Color.FromHex("#3CBDBF");
+                    FrenchColor = Color.FromHex("#F2FBFB");
+                    FrenchColorBorder = Color.FromHex("#3CBDBF");
                 }
                 else
                 {
-                    FrenshColor = Color.FromHex("#FFFFFF");
-                    FrenshColorBorder = Color.FromHex("#EEEEEE");
+                    FrenchColor = Color.FromHex("#FFFFFF");
+                    FrenchColorBorder = Color.FromHex("#EEEEEE");
                 }
                 SetLanguage();
             }
@@ -92,11 +92,11 @@ namespace SmartRestaurant.Diner.ViewModels
             {
                 SetPropertyValue(ref englishLanguage, value);
                 // if English language is selected then update the color of the background and border of the rectangle according to it
-                // and uncheck the arabic and frensh language.
+                // and uncheck the arabic and french language.
                 if (englishLanguage == true)
                 {
                     ArabicLanguage = false;
-                    FrenshLanguage = false;
+                    FrenchLanguage = false;
 
                     EnglishColor = Color.FromHex("#F2FBFB");
                     EnglishColorBorder = Color.FromHex("#3CBDBF");
@@ -127,17 +127,17 @@ namespace SmartRestaurant.Diner.ViewModels
             }
         }
 
-        //Used to change Background color of the frensh CardView
-        private Color frenshColor;
-        public Color FrenshColor
+        //Used to change Background color of the french CardView
+        private Color frenchColor;
+        public Color FrenchColor
         {
             get
             {
-                return frenshColor;
+                return frenchColor;
             }
             set
             {
-                SetPropertyValue(ref frenshColor, value);
+                SetPropertyValue(ref frenchColor, value);
             }
         }
 
@@ -172,17 +172,17 @@ namespace SmartRestaurant.Diner.ViewModels
             }
         }
 
-        //Used to change Background color of the frensh CardView
-        private Color frenshColorBorder;
-        public Color FrenshColorBorder
+        //Used to change Background color of the french CardView
+        private Color frenchColorBorder;
+        public Color FrenchColorBorder
         {
             get
             {
-                return frenshColorBorder;
+                return frenchColorBorder;
             }
             set
             {
-                SetPropertyValue(ref frenshColorBorder, value);
+                SetPropertyValue(ref frenchColorBorder, value);
             }
         }
 
@@ -250,7 +250,7 @@ namespace SmartRestaurant.Diner.ViewModels
                             ArabicLanguage = true;
                             break;
                         case "fr":
-                            FrenshLanguage = true;
+                            FrenchLanguage = true;
                             break;
                         case "en":
                             EnglishLanguage = true;

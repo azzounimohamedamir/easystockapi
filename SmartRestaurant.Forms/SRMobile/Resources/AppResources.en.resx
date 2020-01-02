@@ -225,4 +225,16 @@
   <data name="Seat" xml:space="preserve">
     <value>Seat</value>
   </data>
+  <data name="SeatCount" xml:space="preserve">
+    <value>The seat count</value>
+  </data>
+  <data name="LangChoose" xml:space="preserve">
+    <value>Choose the language</value>
+  </data>
+  <data name="LangChoose2" xml:space="preserve">
+    <value>Choose the language you want to use to order</value>
+  </data>
+  <data name="LanguageSelect" xml:space="preserve">
+    <value>Language select</value>
+  </data>
 </root>

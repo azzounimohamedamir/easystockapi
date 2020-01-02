@@ -214,6 +214,33 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Choose the language .
+        /// </summary>
+        internal static string LangChoose {
+            get {
+                return ResourceManager.GetString("LangChoose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Choose the language you want to use to order.
+        /// </summary>
+        internal static string LangChoose2 {
+            get {
+                return ResourceManager.GetString("LangChoose2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Language select.
+        /// </summary>
+        internal static string LanguageSelect {
+            get {
+                return ResourceManager.GetString("LanguageSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Allergies list.
         /// </summary>
         internal static string ListAllergiesCaption {
@@ -309,6 +336,15 @@ namespace SmartRestaurant.Diner.Resources {
         internal static string Seat {
             get {
                 return ResourceManager.GetString("Seat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à The seat count.
+        /// </summary>
+        internal static string SeatCount {
+            get {
+                return ResourceManager.GetString("SeatCount", resourceCulture);
             }
         }
         
