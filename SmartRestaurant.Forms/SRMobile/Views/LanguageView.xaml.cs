@@ -20,16 +20,7 @@ namespace SmartRestaurant.Diner.Views
         public LanguageView(LanguageViewModel _model)
         {
             InitializeComponent();
-            try
-            {
-
-                BindingContext = _model;
-            }
-            catch(Exception ex)
-            {
-
-            }           
-             
+            BindingContext = _model;
         }
     }
 }
