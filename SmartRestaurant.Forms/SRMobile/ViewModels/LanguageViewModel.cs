@@ -211,7 +211,7 @@ namespace SmartRestaurant.Diner.ViewModels
                 return new Command(() => SetLanguage());
             }
         }
-
+        public static bool welcome_loaded = false;
         /// <summary>
         /// Fonction used to set CultureInfo of the app and change language.
         /// </summary>
@@ -226,9 +226,11 @@ namespace SmartRestaurant.Diner.ViewModels
             
             var stack = App.Current.MainPage.Navigation.NavigationStack;
             var typeLastElement = stack[stack.Count - 1].GetType();
-            if (typeLastElement != typeof(WelcomePage))
+            if (typeLastElement != typeof(SelectSeatPage))
             {
+                if(!welcome_loaded)
                   ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new WelcomePage(new WelcomeViewModel()));
+                welcome_loaded = true;
                 
             }
         }

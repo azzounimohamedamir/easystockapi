@@ -133,7 +133,7 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à NEXT.
+        ///   Recherche une chaîne localisée semblable à CONFIRM.
         /// </summary>
         internal static string DeseasesAllergiesNext {
             get {

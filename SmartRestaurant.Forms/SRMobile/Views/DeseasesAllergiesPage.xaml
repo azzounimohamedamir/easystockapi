@@ -5,124 +5,162 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ia="clr-namespace:IntelliAbb.Xamarin.Controls;assembly=IntelliAbb.Xamarin.Controls"
              xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              mc:Ignorable="d"
+             FlowDirection="{Binding FlowDirectionValue}"
              x:Class="SmartRestaurant.Diner.Views.DeseasesAllergiesPage">
     <ContentPage.Content>
-        <ScrollView Padding="5">
-            <StackLayout Orientation="Vertical" BackgroundColor="White">
-                <StackLayout Orientation="Vertical">
-                    <!--Deseases caption -->
-                    <Label HorizontalOptions="FillAndExpand" Text="{translator:Translate ListDeseasesCaption}" FontSize="48" Margin="10,0,0,0" TextColor="#3C536A"
-                        FontFamily="Roboto" FontAttributes="Bold" VerticalOptions="Center" Opacity="100">
-                    </Label>
-
-                    <!--Deseases sentence to ask the customer about his deseases-->
-                    <Label HorizontalOptions="FillAndExpand" Text="{translator:Translate ListDeseasesComment}" 
-                       FontSize="32" Margin="10,0,0,0"
-                       FontFamily="Roboto" VerticalOptions="Center" TextColor="#707070"/>
-                </StackLayout>
-                <Frame RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Constant=-70}"
-                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
-                   HasShadow="True" >
+        <StackLayout FlowDirection="MatchParent" Margin="0,29,0,0">
+            <ScrollView  VerticalOptions="StartAndExpand" FlowDirection="MatchParent">
+                <StackLayout Orientation="Vertical" BackgroundColor="White" FlowDirection="MatchParent">
+                    <StackLayout Orientation="Vertical">
+                        <!--Deseases caption -->
+                        <Label HorizontalOptions="FillAndExpand" Text="{translator:Translate ListDeseasesCaption}" 
+                           FontSize="20" Margin="56,0" TextColor="#3C536A"
+                           FontFamily="Roboto" FontAttributes="Bold" VerticalOptions="Center" Opacity=".5">
+                        </Label>
+                        <!--Deseases sentence to ask the customer about his deseases-->
+                        <Label HorizontalOptions="FillAndExpand" Text="{translator:Translate ListDeseasesComment}" 
+                           FontSize="14" Margin="56,0" FontFamily="Roboto"
+                           VerticalOptions="Center" TextColor="#707070"/>
+                    </StackLayout>
                     <!--Deseases list-->
-                    <ListView x:Name="lvDeseases" ItemsSource="{Binding Deseases}" RowHeight="50"
-                    CachingStrategy="RecycleElement" SeparatorVisibility="Default" SeparatorColor="#01A9AC" SelectionMode="Single"
-                    SelectedItem="{Binding Path=SelectedDesease, Mode=TwoWay}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <Grid HorizontalOptions="FillAndExpand">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
+                        <ListView x:Name="lvDeseases" ItemsSource="{Binding Deseases}" RowHeight="60"
+                                  Margin="0,20,0,6"
+                                  FlowDirection="MatchParent"
+                                  SelectionMode="None"
+                                  CachingStrategy="RecycleElement"                                  >
+                            <ListView.ItemTemplate>
+                                <DataTemplate >
+                                    <ViewCell >
+                                    <Grid  HeightRequest="60" HorizontalOptions="FillAndExpand"
+                                          FlowDirection="MatchParent" Margin="0">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                        </Grid.GestureRecognizers>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition/>
+                                            <RowDefinition Height="54"/>
+                                            <RowDefinition Height="6"/>
                                         </Grid.RowDefinitions>
-
-                                        <ia:Checkbox HorizontalOptions="Center" Shape="Rectangle" WidthRequest="35" HeightRequest="35"
-                                        OutlineColor="#01A9AC" FillColor="#01A9AC" CheckColor="White"
-                                        IsChecked="{Binding IsSelected, Mode=TwoWay}" IsVisible="{Binding LeftCheck}"/> 
-                                        
-                                        <Label Grid.Column="1" HorizontalOptions="FillAndExpand" Text="{Binding Name, Mode=TwoWay}" Margin="0,0,0,0"
-                                            FontSize="24" FontFamily="Roboto" TextColor="Black" HorizontalTextAlignment="{Binding OrientationText}"
+                                        <Grid Grid.Row="0" HeightRequest="54" Margin="56,0" HorizontalOptions="FillAndExpand"
+                                              FlowDirection="MatchParent" >
+                                            <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                            <pancakeview:PancakeView HorizontalOptions="Start" Elevation="0"                                             
+                                                                 BorderThickness="1"
+                                                                 BackgroundColor="{Binding IsSelected,Converter={StaticResource booltocolor}}"
+                                                                 WidthRequest="24"
+                                                                 BorderColor="#01A9AC"
+                                                                 HeightRequest="24" CornerRadius="4"  
+                                                                 IsClippedToBounds="True" VerticalOptions="Center">
+                                                <pancakeview:PancakeView.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                                </pancakeview:PancakeView.GestureRecognizers>
+                                                <Label Margin="0" TextColor="White" BackgroundColor="{Binding IsSelected,Converter={StaticResource booltocolor}}"
+                                                       Text="&#xf12c;"  Style="{StaticResource Key=MatLabel}" IsVisible="True"
+                                                       VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                                                       HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" />
+                                            </pancakeview:PancakeView>
+                                            <Label Grid.Column="1" HorizontalOptions="FillAndExpand" Text="{Binding Name, Mode=TwoWay}" Margin="24,0"
+                                            FontSize="20" FontFamily="Roboto" TextColor="Black" HorizontalTextAlignment="{Binding OrientationText}"
                                             VerticalOptions="Center"/>
-                                        
-                                        <ia:Checkbox Grid.Column="2" HorizontalOptions="Center" Shape="Rectangle" WidthRequest="35" HeightRequest="35"
-                                        OutlineColor="#01A9AC" FillColor="#01A9AC" CheckColor="White"
-                                        IsChecked="{Binding IsSelected, Mode=TwoWay}" IsVisible="{Binding RightCheck}"/>
+                                        </Grid>
+                                    <BoxView Grid.Row="1" Margin="0" HorizontalOptions="FillAndExpand" Color="Yellow" HeightRequest="6"/>
+                                    </Grid>
+                                </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    <StackLayout Orientation="Vertical" Margin="0,29,0,0">
+                        <!--Allergies caption-->
+                        <Label HorizontalOptions="FillAndExpand" Text="{translator:Translate ListAllergiesCaption}" FontSize="20"  Margin="56,0" TextColor="#3C536A"
+                        FontFamily="Roboto" FontAttributes="Bold" VerticalOptions="Center" Opacity=".5">
+                        </Label>
+
+                        <!--Allergies sentence to ask the customer about his allergies-->
+                        <Label HorizontalOptions="FillAndExpand" Text="{translator:Translate ListAllergiesComment}"
+                       FontSize="14"  Margin="56,0" FontFamily="Roboto" VerticalOptions="Center" TextColor="#707070"/>
+                    </StackLayout>
+                    <!--Allergies list-->
+                    <ListView x:Name="lvAllergies" ItemsSource="{Binding Allergies}" RowHeight="60"
+                                  Margin="0,20,0,6"
+                                  FlowDirection="MatchParent"
+                                  SelectionMode="None"
+                                  CachingStrategy="RecycleElement"                                  >
+                        <ListView.ItemTemplate>
+                            <DataTemplate >
+                                <ViewCell >
+                                    <Grid  HeightRequest="60" HorizontalOptions="FillAndExpand"
+                                          FlowDirection="MatchParent" Margin="0">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                        </Grid.GestureRecognizers>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="54"/>
+                                            <RowDefinition Height="6"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0" HeightRequest="54" Margin="56,0" HorizontalOptions="FillAndExpand"
+                                              FlowDirection="MatchParent" >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <pancakeview:PancakeView HorizontalOptions="Start" Elevation="0"                                             
+                                                                 BorderThickness="1"
+                                                                 BackgroundColor="{Binding IsSelected,Converter={StaticResource booltocolor}}"
+                                                                 WidthRequest="24"
+                                                                 BorderColor="#01A9AC"
+                                                                 HeightRequest="24" CornerRadius="4"  
+                                                                 IsClippedToBounds="True" VerticalOptions="Center">
+                                                <pancakeview:PancakeView.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                                </pancakeview:PancakeView.GestureRecognizers>
+                                                <Label Margin="0" TextColor="White" BackgroundColor="{Binding IsSelected,Converter={StaticResource booltocolor}}"
+                                                       Text="&#xf12c;"  Style="{StaticResource Key=MatLabel}" IsVisible="True"
+                                                       VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                                                       HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" />
+                                            </pancakeview:PancakeView>
+                                            <Label Grid.Column="1" HorizontalOptions="FillAndExpand" Text="{Binding Name, Mode=TwoWay}" Margin="24,0"
+                                            FontSize="20" FontFamily="Roboto" TextColor="Black" HorizontalTextAlignment="{Binding OrientationText}"
+                                            VerticalOptions="Center"/>
+                                        </Grid>
+                                        <BoxView Grid.Row="1" Margin="0" HorizontalOptions="FillAndExpand" Color="Yellow" HeightRequest="6"/>
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-
-                </Frame>
-                <!--Button to navigate to the next page-->
-                <Button Text="{translator:Translate DeseasesAllergiesNext}" BackgroundColor="#01A9AC" FontSize="18" ImageSource="Next.PNG" ContentLayout="Right,20" 
-                    TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" Command="{Binding NextCommand}" Padding="0,0,30,0" Margin="0,0,0,5">
+                    
+                   
+                </StackLayout>
+            </ScrollView>
+            <pancakeview:PancakeView VerticalOptions="EndAndExpand" Margin="0" FlowDirection="MatchParent"
+                                     BackgroundColor="White" HorizontalOptions="FillAndExpand" HeightRequest="88"
+                                     BorderDrawingStyle="Inside" IsClippedToBounds="True" CornerRadius="20,20,0,0" HasShadow="true" Elevation="6">
+                <Button Text="{translator:Translate DeseasesAllergiesNext}" BackgroundColor="#01A9AC" FontSize="16" 
+                    TextColor="White" FontAttributes="Bold" 
+                WidthRequest="256"
+                        VerticalOptions="Center"
+                HorizontalOptions="Center" Command="{Binding NextCommand}" >
                     <Button.WidthRequest>
-                        <OnIdiom x:TypeArguments="x:Double" Phone="200" Tablet="300" />
+                        <OnIdiom x:TypeArguments="x:Double" Phone="156" Tablet="256" />
                     </Button.WidthRequest>
                     <Button.HeightRequest>
-                        <OnIdiom x:TypeArguments="x:Double" Phone="60" Tablet="60" />
+                        <OnIdiom x:TypeArguments="x:Double" Phone="56" Tablet="56" />
                     </Button.HeightRequest>
                     <Button.BorderRadius>
-                        <OnIdiom x:TypeArguments="x:Int32" Phone="40" Tablet="40" />
+                        <OnIdiom x:TypeArguments="x:Int32" Phone="14" Tablet="28" />
                     </Button.BorderRadius>
                 </Button>
-                
-                <StackLayout Orientation="Vertical">
-                    <!--Allergies caption-->
-                    <Label HorizontalOptions="FillAndExpand" Text="{translator:Translate ListAllergiesCaption}" FontSize="48" Margin="10,0,0,0" TextColor="#3C536A"
-                        FontFamily="Roboto" FontAttributes="Bold" VerticalOptions="Center" Opacity="100">
-                    </Label>
-                    
-                    <!--Allergies sentence to ask the customer about his allergies-->
-                    <Label HorizontalOptions="FillAndExpand" Text="{translator:Translate ListAllergiesComment}"
-                       FontSize="32" Margin="10,0,0,0" FontFamily="Roboto" VerticalOptions="Center" TextColor="#707070"/>
-                </StackLayout>
-
-                <Frame RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Constant=-70}"
-                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
-                   HasShadow="True" >
-                    <!--Allergies list-->
-                    <ListView x:Name="lvAllergies" ItemsSource="{Binding Allergies}" RowHeight="50"
-                    CachingStrategy="RecycleElement" SeparatorVisibility="Default" SeparatorColor="#01A9AC" SelectionMode="Single"
-                    SelectedItem="{Binding Path=SelectedAllergy, Mode=TwoWay}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <Grid HorizontalOptions="FillAndExpand">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-
-                                        <ia:Checkbox HorizontalOptions="Center" Shape="Rectangle" WidthRequest="35" HeightRequest="35"
-                                            OutlineColor="#01A9AC" FillColor="#01A9AC" CheckColor="White"
-                                            IsChecked="{Binding IsSelected, Mode=TwoWay}" IsVisible="{Binding LeftCheck}"/>
-
-                                        <Label Grid.Column="1" HorizontalOptions="FillAndExpand" Text="{Binding Name, Mode=TwoWay}" Margin="0,0,0,0"
-                                            FontSize="24" FontFamily="Roboto" TextColor="Black" HorizontalTextAlignment="{Binding OrientationText}"
-                                            VerticalOptions="Center"/>
-
-                                        <ia:Checkbox Grid.Column="2" HorizontalOptions="Center" Shape="Rectangle" WidthRequest="35" HeightRequest="35"
-                                            OutlineColor="#01A9AC" FillColor="#01A9AC" CheckColor="White"
-                                            IsChecked="{Binding IsSelected, Mode=TwoWay}" IsVisible="{Binding RightCheck}"/>
-                                    </Grid>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Frame>
-
-            </StackLayout>
-        </ScrollView>
+            </pancakeview:PancakeView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

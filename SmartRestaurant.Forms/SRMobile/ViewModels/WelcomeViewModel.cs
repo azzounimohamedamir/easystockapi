@@ -27,7 +27,7 @@ namespace SmartRestaurant.Diner.ViewModels
                     try
 
                     {
-                         await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SectionsPage(new SectionsListViewModel()));                        
+                         await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DeseasesAllergiesPage(new DeseasesAllergies.DeseasesAllergiesListViewModel()));                        
                     }
                     catch (Exception)
                     {
