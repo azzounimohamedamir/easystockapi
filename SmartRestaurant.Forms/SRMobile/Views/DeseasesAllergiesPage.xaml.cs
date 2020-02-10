@@ -34,5 +34,10 @@ namespace SmartRestaurant.Diner.Views
             ((DeseasesViewModel)(((((View)sender))).BindingContext)).IsSelected =
                 !((DeseasesViewModel)(((((View)sender))).BindingContext)).IsSelected;
         }
+        private void TapGestureRecognizer_Tapped2(object sender, EventArgs e)
+        {
+            ((AllergiesViewModel)(((((View)sender))).BindingContext)).IsSelected =
+                !((AllergiesViewModel)(((((View)sender))).BindingContext)).IsSelected;
+        }
     }
 }

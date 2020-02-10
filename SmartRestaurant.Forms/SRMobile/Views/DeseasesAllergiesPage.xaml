@@ -98,7 +98,7 @@
                                     <Grid  HeightRequest="60" HorizontalOptions="FillAndExpand"
                                           FlowDirection="MatchParent" Margin="0">
                                         <Grid.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped2"/>
                                         </Grid.GestureRecognizers>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="54"/>
@@ -121,10 +121,10 @@
                                                                  HeightRequest="24" CornerRadius="4"  
                                                                  IsClippedToBounds="True" VerticalOptions="Center">
                                                 <pancakeview:PancakeView.GestureRecognizers>
-                                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped2"/>
                                                 </pancakeview:PancakeView.GestureRecognizers>
                                                 <Label Margin="0" TextColor="White" BackgroundColor="{Binding IsSelected,Converter={StaticResource booltocolor}}"
-                                                       Text="&#xf12c;"  Style="{StaticResource Key=MatLabel}" IsVisible="True"
+                                                       Text="&#xf12c;" Style="{StaticResource Key=MatLabel}" IsVisible="True"
                                                        VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
                                                        HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" />
                                             </pancakeview:PancakeView>
