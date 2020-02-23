@@ -123,8 +123,7 @@ namespace SmartRestaurant.Diner.ViewModels.DeseasesAllergies
                     try
 
                     {
-                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SectionsPage(new SectionsListViewModel()));                     
-                        
+                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SectionsPage(new SectionsListViewModel()));                                             
                     }
                     catch (Exception)
                     {
@@ -133,6 +132,21 @@ namespace SmartRestaurant.Diner.ViewModels.DeseasesAllergies
                 });
             }
         }
-        #endregion
+        #endregion        
+        public FlowDirection FlowDirectionValue
+        {
+
+            get
+            {
+                if (AppResources.Culture != null)
+                {
+                    return AppResources.Culture.Name == "ar" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+                }
+                else
+                {
+                    return FlowDirection.LeftToRight;
+                }
+            }
+        }
     }
 }

@@ -139,7 +139,7 @@
     <value>DA</value>
   </data>
   <data name="DeseasesAllergiesNext" xml:space="preserve">
-    <value>NEXT</value>
+    <value>CONFIRM</value>
   </data>
   <data name="DishSpec" xml:space="preserve">
     <value>Specifications</value>

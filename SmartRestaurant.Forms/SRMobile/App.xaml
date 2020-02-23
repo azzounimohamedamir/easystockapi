@@ -19,6 +19,7 @@
             </Style>
             <!--#endregion Crousel Indicators Styles-->
             <!--#region Converters-->
+            <helpers:BoolToColor x:Key="booltocolor"/>
             <helpers:RtlScrollViewMarginConverter x:Key="RtlScrollViewMargin" />
             <helpers:MultiplyConverter x:Key="IntMultiply" />
             <helpers:NegateBooleanConverter x:Key="boolinverter" />
