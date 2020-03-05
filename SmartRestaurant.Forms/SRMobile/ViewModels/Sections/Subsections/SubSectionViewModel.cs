@@ -21,9 +21,10 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// Get the DishModel from the Model.
         /// </summary>
         /// <param name="_subsection"></param>
-        public SubSectionViewModel(SubSectionModel _subsection)
+        public SubSectionViewModel(SubSectionModel _subsection, SectionViewModel _section)
         {
             this.subsection = _subsection;
+            Section = _section;
         }
 
         public int Id { get; set; }
@@ -129,7 +130,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         #endregion
         public DishListViewModel Dishes {
 
-            get { return new DishListViewModel(subsection.SectionId,subsection.Id); }
+            get { return new DishListViewModel(subsection.SectionId,subsection.Id, this); }
             set
             {
                 if (subsection.Dishes != value)
@@ -138,6 +139,11 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                     RaisePropertyChanged();
                 }
             }
+        }
+        public SectionViewModel Section
+        {
+            get;
+            set;           
         }
         public int SectionId
         {

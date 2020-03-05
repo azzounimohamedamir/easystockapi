@@ -412,9 +412,12 @@
                                     <TapGestureRecognizer Command="{Binding minus}" />
                                 </Label.GestureRecognizers>
                             </Label>
-                            <Label WidthRequest="48" HorizontalOptions="Center" TextColor="#3C536A" FontSize="16" FontAttributes="Bold" Style="{StaticResource Key=RobotoLabel}"
+                            <Label WidthRequest="48" HorizontalOptions="Center" TextColor="#3C536A" FontSize="16" FontAttributes="Bold" 
+                                   Style="{StaticResource Key=RobotoLabel}"
                                    Text="{Binding Qty}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
-                            <Label WidthRequest="29" HorizontalOptions="Start" Style="{StaticResource Key=MatLabel}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#773C536A" BackgroundColor="#F2FBFB" IsEnabled="{Binding plus_enabled}" Text="&#xf0217;" FontSize="18">
+                            <Label WidthRequest="29" HorizontalOptions="Start" Style="{StaticResource Key=MatLabel}" HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center" TextColor="#773C536A" BackgroundColor="#F2FBFB" IsEnabled="{Binding plus_enabled}" 
+                                   Text="&#xf0217;" FontSize="18">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding plus}" />
                                 </Label.GestureRecognizers>

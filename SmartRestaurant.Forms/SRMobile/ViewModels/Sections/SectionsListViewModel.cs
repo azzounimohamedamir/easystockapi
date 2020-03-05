@@ -2,10 +2,12 @@
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Services;
+using SmartRestaurant.Diner.ViewModels.Orders;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Currencies.Currencies;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.Specifications;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements;
+using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,20 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         public static CurrencyListViewModel Currencies { get; set; }
         public static SpecificationListViewModel Specifications { get; set; }
         public static SectionsListViewModel Instance { get; set; }
+        public static SeatsListViewModel Seats { get; set; }
+        private static OrderListViewModel orders;
+        public static OrderListViewModel Orders {
+            get
+            {
+                if (orders == null) orders = new OrderListViewModel();
+                return orders;
+            }
+
+            set
+            {
+                orders = value;
+            }
+        } 
         /// <summary>
         /// The list of section to be binded to the List control.
         /// </summary>
@@ -97,6 +113,8 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             {
                 selectedDishes = value;
                 TotalPrice= SelectedDishes.Sum(d => d.Price * d.Qty);
+                Seats.SelectedSeat.CurrentOrder.Lines = SelectedDishes;
+                Seats.SelectedSeat.CurrentOrder.Total = TotalPrice;
                 RaisePropertyChanged();
 
             }

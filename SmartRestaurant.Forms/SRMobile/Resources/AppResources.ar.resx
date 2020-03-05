@@ -237,4 +237,7 @@
   <data name="LanguageSelect" xml:space="preserve">
     <value>اختيار اللغة</value>
   </data>
+  <data name="OneDinerRecap" xml:space="preserve">
+    <value>لوحة شخص واحد</value>
+  </data>
 </root>

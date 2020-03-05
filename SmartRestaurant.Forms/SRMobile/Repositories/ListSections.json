@@ -8,7 +8,55 @@
       "Image": "starters.png",
       "SubSections": [
 
-  ]
+        {
+          "Id": 81,
+          "NameAr": "بيتزا",
+          "NameFr": "Pizza",
+          "NameEn": "Pizza ",
+          "Image": "pizza.png",
+          "Dishes": [
+            {
+              "Id": 91,
+              "NameAr": "هامبورجر",
+              "NameFr": "Tacos XL",
+              "NameEn": "Tacos XL ",
+              "Images": [ "hamburger.png", "tacos.png", "supplement.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 4,
+                  "Measure": 1
+                },
+                {
+                  "Id": 5,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 81
+            }
+          ]
+        }
+
+        ]
     }
     ,
     {

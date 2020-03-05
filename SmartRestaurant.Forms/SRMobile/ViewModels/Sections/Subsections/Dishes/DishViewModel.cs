@@ -30,9 +30,9 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// Get the DishModel from the Model.
         /// </summary>
         /// <param name="_dish"></param>
-        public DishViewModel(DishModel _dish)
+        public DishViewModel(DishModel _dish,SubSectionViewModel _subsection)
         {
-
+            SubSection = _subsection;
             _EstimatedTime = _dish.EstimatedTime;
 
             this.dish = _dish;
@@ -346,7 +346,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 {
                     try
                     {
-                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DishSelectPage(new DishViewModel(dish) { SubSection = _subsection }
+                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DishSelectPage(new DishViewModel(dish, _subsection) { SubSection = _subsection }
                         ));
                     }
                     catch (Exception)
@@ -571,5 +571,62 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             }
         }
 
+
+        private double _ConvertedTotalDollar;
+        public double ConvertedTotalDollar
+        {
+            get
+            {
+                return (Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c=>c.Id==2).
+                    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).ExchangeRate), 2));
+            }
+            set
+            {
+                _ConvertedTotalDollar = value;
+                RaisePropertyChanged();
+            }
+        }
+        private double _ConvertedTotalEuro;
+        public double ConvertedTotalEuro
+        {
+            get
+            {
+                return (Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+                    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).ExchangeRate), 2));
+            }
+            set
+            {
+                _ConvertedTotalDollar = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _Euro;
+        public string Euro
+        {
+            get
+            {
+                return SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+                    Name;
+            }
+            set
+            {
+                _Euro = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _Dollar;
+        public string Dollar
+        {
+            get
+            {
+                return SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
+                    Name;
+            }
+            set
+            {
+                _Dollar = value;
+                RaisePropertyChanged();
+            }
+        }
     }
 }

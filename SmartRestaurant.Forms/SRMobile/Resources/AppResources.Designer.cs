@@ -295,6 +295,15 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à One Person Panel.
+        /// </summary>
+        internal static string OneDinerRecap {
+            get {
+                return ResourceManager.GetString("OneDinerRecap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à ORDER.
         /// </summary>
         internal static string Order {

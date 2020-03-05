@@ -3,6 +3,7 @@ using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Services;
+using SmartRestaurant.Diner.ViewModels.Sections;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             Seats = new List<SeatViewModel>();
             for(int i=1;i<=table.SeatCount;i++)
             {
-                Seats.Add(new SeatViewModel(table.Id, i));
+                Seats.Add(new SeatViewModel(table.Id, i,table.Numero));
             }
         }
  
@@ -63,7 +64,32 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                         if (SelectedSeat != null)
                         {
                             SelectedSeat.IsTaken = true;
+                            SectionsListViewModel.Seats = this;
+                            if(SelectedSeat.CurrentOrder.Lines!=null && SelectedSeat.CurrentOrder.Lines.Count>0)
+                                await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap(SelectedSeat.CurrentOrder));
+                            else
                             await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new LanguageView(new LanguageViewModel()));
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+                });
+            }
+        }
+        public ICommand ViewDinerCommandRecap
+        {
+            get
+            {
+                return new Command(async () => {
+                    try
+                    {
+                        if (SelectedSeat != null)
+                        {
+                            SelectedSeat.IsTaken = true; 
+                            await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap(SelectedSeat.CurrentOrder));
                         }
                     }
                     catch (Exception)

@@ -234,4 +234,7 @@
   <data name="LanguageSelect" xml:space="preserve">
     <value>Language select</value>
   </data>
+  <data name="OneDinerRecap" xml:space="preserve">
+    <value>One Person Panel</value>
+  </data>
 </root>
