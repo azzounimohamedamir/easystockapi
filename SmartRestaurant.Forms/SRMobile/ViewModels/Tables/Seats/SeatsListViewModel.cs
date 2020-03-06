@@ -66,7 +66,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                             SelectedSeat.IsTaken = true;
                             SectionsListViewModel.Seats = this;
                             if(SelectedSeat.CurrentOrder.Lines!=null && SelectedSeat.CurrentOrder.Lines.Count>0)
-                                await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap(SelectedSeat.CurrentOrder));
+                                await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap());
                             else
                             await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new LanguageView(new LanguageViewModel()));
                         }
@@ -89,7 +89,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                         if (SelectedSeat != null)
                         {
                             SelectedSeat.IsTaken = true; 
-                            await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap(SelectedSeat.CurrentOrder));
+                            await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap());
                         }
                     }
                     catch (Exception)

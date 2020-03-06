@@ -1,4 +1,5 @@
-﻿using SmartRestaurant.Diner.ViewModels.Orders;
+﻿using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.ViewModels.Orders;
 using SmartRestaurant.Diner.ViewModels.Sections;
 using System;
 using System.Collections.Generic;
@@ -16,19 +17,24 @@ namespace SmartRestaurant.Diner.Views
     public partial class DinerCommandRecap : ContentPage
     {
         public OrderViewModel viewmodel { get; private set; }
-        public DinerCommandRecap(OrderViewModel _model)
+        public DinerCommandRecap()
         {
-            InitializeComponent();
-            var sections = _model.Lines.Select(d => d.SubSection.Section.Name);
-            var sorted = from d in _model.Lines
+            InitializeComponent();            
+            var sections =SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines.Select(d => d.SubSection.Section.Name);
+            var sorted = from d in SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines
                          orderby d.SubSection.Section.Name
                          group d by d.SubSection.Section.Name into DishGroup
                              select new Grouping<string, DishViewModel>(DishGroup.Key, DishGroup);
 
             //create a new collection of groups
-            _model.DishesGrouped = new ObservableCollection<Grouping<string, DishViewModel>>(sorted);
-            BindingContext = _model;
+            SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.DishesGrouped = new ObservableCollection<Grouping<string, DishViewModel>>(sorted);
+            BindingContext = SectionsListViewModel.Seats.SelectedSeat.CurrentOrder;
             viewmodel = (OrderViewModel)BindingContext;
+        }
+
+        private  async void Button_Clicked(object sender, EventArgs e)
+        {
+            await((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SectionsPage(SectionsListViewModel.Instance));
         }
     }
     public class Grouping<K, T> : ObservableCollection<T>

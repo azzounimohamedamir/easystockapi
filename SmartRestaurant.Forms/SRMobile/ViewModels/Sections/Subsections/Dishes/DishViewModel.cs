@@ -174,6 +174,13 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 _Price = value;
                 Total = Qty * _Price;
                 ConvertedTotal = (Math.Round(Total / (Currency.ExchangeRate==0?1:Currency.ExchangeRate),2));
+                ConvertedTotalEuro =
+(Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).ExchangeRate), 2));
+                ConvertedTotalDollar =
+(Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
+    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).ExchangeRate), 2));
+                SectionsListViewModel.Instance.SelectedDishes = SectionsListViewModel.Instance.SelectedDishes;
                 RaisePropertyChanged();
             }
         }
@@ -203,6 +210,13 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 _Qty = value;
                 Total = _Qty * Price;
                 ConvertedTotal = (Math.Round(Total / (Currency.ExchangeRate==0?1:Currency.ExchangeRate),2));
+                ConvertedTotalEuro =
+(Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).ExchangeRate), 2));
+                ConvertedTotalDollar =
+(Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
+    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).ExchangeRate), 2));
+                SectionsListViewModel.Instance.SelectedDishes = SectionsListViewModel.Instance.SelectedDishes;
                 RaisePropertyChanged();
             }
         }
@@ -217,6 +231,13 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             {
                 _Total = value;
                 ConvertedTotal =( Math.Round(_Total / (Currency.ExchangeRate==0?1:Currency.ExchangeRate),2));
+                ConvertedTotalEuro =
+                (Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+                    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).ExchangeRate), 2));
+                ConvertedTotalDollar =
+(Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
+    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).ExchangeRate), 2));
+                SectionsListViewModel.Instance.SelectedDishes = SectionsListViewModel.Instance.SelectedDishes;
                 RaisePropertyChanged();
             }
         }
@@ -346,8 +367,28 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 {
                     try
                     {
-                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DishSelectPage(new DishViewModel(dish, _subsection) { SubSection = _subsection }
+                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DishSelectPage(new DishViewModel(dish, _subsection)
+                        { SubSection = _subsection }
                         ));
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+                });
+            }
+        }
+        public ICommand ShowOrderedDishCommand
+        {
+            get
+            {
+                return new Command<DishViewModel>(async (dishvm) =>
+                {
+                    try
+                    {
+                         await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DishSelectPage(dishvm))
+                        ;
                     }
                     catch (Exception)
                     {
@@ -362,6 +403,9 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             get
             {
+                foreach (SupplementViewModel di in _Supplements.Supplements)
+                    di.refDishViewModel = this;
+
                 return _Supplements;
             }
             set
@@ -410,7 +454,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             get
             {
-
+ 
                 return _Specifications;
             }
             set
@@ -451,8 +495,16 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                         _Dish_Ingredients_Measures.Add(ing);
                     }
                 }
-                #endregion
-                return _Dish_Ingredients_Measures;
+                else
+                    foreach (IngredientViewModel di in _Dish_Ingredients_Measures)
+                        di.refDishViewModel = this;
+                        #endregion
+                        return _Dish_Ingredients_Measures;
+            }
+            set
+            {
+                _Dish_Ingredients_Measures = value;
+                RaisePropertyChanged();
             }
 
         }
@@ -564,8 +616,21 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             {
                 return new Command(() =>
                 {
+                    if (SectionsListViewModel.Instance.SelectedDishes.Exists(d => d.Id == this.Id && d.SubSectionId == this.SubSectionId))
+                    {
+                        var f = SectionsListViewModel.Instance.SelectedDishes.First(d => d.Id == this.Id && d.SubSectionId == this.SubSectionId);
+                        SectionsListViewModel.Instance.SelectedDishes.Remove(f);
+                    }
                     SectionsListViewModel.Instance.SelectedDishes.Add(this);
                     SectionsListViewModel.Instance.SelectedDishes = SectionsListViewModel.Instance.SelectedDishes;
+                    var sections = SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines.Select(d => d.SubSection.Section.Name);
+                    var sorted = from d in SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines
+                                 orderby d.SubSection.Section.Name
+                                 group d by d.SubSection.Section.Name into DishGroup
+                                 select new Grouping<string, DishViewModel>(DishGroup.Key, DishGroup);
+
+                    //create a new collection of groups
+                    SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.DishesGrouped = new ObservableCollection<Grouping<string, DishViewModel>>(sorted);
                     ((CustomNavigationPage)(App.Current.MainPage)).PopAsync();
                 });
             }

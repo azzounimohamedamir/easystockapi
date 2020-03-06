@@ -99,8 +99,9 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 }
             }
         }
-         private List<DishViewModel> selectedDishes;
-         public List<DishViewModel> SelectedDishes
+         private List<DishViewModel> selectedDishes; 
+
+        public List<DishViewModel> SelectedDishes
         {
             get
             {
@@ -114,7 +115,19 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 selectedDishes = value;
                 TotalPrice= SelectedDishes.Sum(d => d.Price * d.Qty);
                 Seats.SelectedSeat.CurrentOrder.Lines = SelectedDishes;
+                Seats.SelectedSeat.CurrentOrder.Calories = SelectedDishes.Sum(d => d.Calories*d.Qty);
+                Seats.SelectedSeat.CurrentOrder.Fat = SelectedDishes.Sum(d => d.Fat * d.Qty);
+                Seats.SelectedSeat.CurrentOrder.Protein = SelectedDishes.Sum(d => d.Protein * d.Qty);
+                Seats.SelectedSeat.CurrentOrder.Carbo = SelectedDishes.Sum(d => d.Carbo * d.Qty);
                 Seats.SelectedSeat.CurrentOrder.Total = TotalPrice;
+                var sections = SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines.Select(d => d.SubSection.Section.Name);
+                var sorted = from d in SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines
+                             orderby d.SubSection.Section.Name
+                             group d by d.SubSection.Section.Name into DishGroup
+                             select new Grouping<string, DishViewModel>(DishGroup.Key, DishGroup);
+
+                //create a new collection of groups
+                SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.DishesGrouped = new ObservableCollection<Grouping<string, DishViewModel>>(sorted);
                 RaisePropertyChanged();
 
             }

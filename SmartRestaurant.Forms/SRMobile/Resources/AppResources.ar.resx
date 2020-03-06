@@ -240,4 +240,10 @@
   <data name="OneDinerRecap" xml:space="preserve">
     <value>لوحة شخص واحد</value>
   </data>
+  <data name="AddOtherFood" xml:space="preserve">
+    <value>إضافة طبق آخر</value>
+  </data>
+  <data name="TotalEnergiticValue" xml:space="preserve">
+    <value>إجمالي قيمة الطاقة</value>
+  </data>
 </root>
