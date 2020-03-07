@@ -234,4 +234,13 @@
   <data name="LanguageSelect" xml:space="preserve">
     <value>Language select</value>
   </data>
+  <data name="OneDinerRecap" xml:space="preserve">
+    <value>One Person Panel</value>
+  </data>
+  <data name="AddOtherFood" xml:space="preserve">
+    <value>ADD OTHER FOOD</value>
+  </data>
+  <data name="TotalEnergiticValue" xml:space="preserve">
+    <value>Total Energitic Value</value>
+  </data>
 </root>

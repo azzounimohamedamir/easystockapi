@@ -9,6 +9,7 @@ using SmartRestaurant.Diner.ViewModels.Zones;
 using SmartRestaurant.Diner.Views.Popups;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,7 +57,8 @@ namespace SmartRestaurant.Diner.Views
             }
             else
             {
-                  SectionsListViewModel.Instance.SelectedDishes.Add(
+
+                SectionsListViewModel.Instance.SelectedDishes.Add(
                     (((Label)sender).BindingContext as DishViewModel));
             }
             SectionsListViewModel.Instance.SelectedDishes = SectionsListViewModel.Instance.SelectedDishes;

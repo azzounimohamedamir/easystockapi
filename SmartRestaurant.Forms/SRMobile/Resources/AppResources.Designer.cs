@@ -70,6 +70,15 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à ADD OTHER FOOD.
+        /// </summary>
+        internal static string AddOtherFood {
+            get {
+                return ResourceManager.GetString("AddOtherFood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Calories.
         /// </summary>
         internal static string Calories {
@@ -295,6 +304,15 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à One Person Panel.
+        /// </summary>
+        internal static string OneDinerRecap {
+            get {
+                return ResourceManager.GetString("OneDinerRecap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à ORDER.
         /// </summary>
         internal static string Order {
@@ -390,6 +408,15 @@ namespace SmartRestaurant.Diner.Resources {
         internal static string test_subsections {
             get {
                 return ResourceManager.GetString("test_subsections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Total Energitic Value.
+        /// </summary>
+        internal static string TotalEnergiticValue {
+            get {
+                return ResourceManager.GetString("TotalEnergiticValue", resourceCulture);
             }
         }
         

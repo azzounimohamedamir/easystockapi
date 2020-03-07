@@ -237,4 +237,13 @@
   <data name="LanguageSelect" xml:space="preserve">
     <value>Sélection de la langue</value>
   </data>
+  <data name="OneDinerRecap" xml:space="preserve">
+    <value>Panneau d'une personne</value>
+  </data>
+  <data name="AddOtherFood" xml:space="preserve">
+    <value>AJOUTER UN AUTRE PLAT</value>
+  </data>
+  <data name="TotalEnergiticValue" xml:space="preserve">
+    <value>Valeur energitique totale</value>
+  </data>
 </root>

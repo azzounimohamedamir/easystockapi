@@ -23,7 +23,7 @@ namespace SmartRestaurant.Diner.Views
         {
             if (!((SeatViewModel)(e.Item)).IsSelected)
             {
-                foreach (SeatViewModel t in ((TablesViewModel)BindingContext).Seats.Seats)
+                foreach (SeatViewModel t in ((SeatsListViewModel)BindingContext).Seats)
                     if (t.Id != ((SeatViewModel)(e.Item)).Id)
                         t.IsSelected = false;
                 if (!((SeatViewModel)(e.Item)).IsSelected)

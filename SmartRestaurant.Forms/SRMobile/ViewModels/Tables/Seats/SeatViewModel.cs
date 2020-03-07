@@ -1,7 +1,10 @@
 ﻿using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
+using SmartRestaurant.Diner.ViewModels.Orders;
+using SmartRestaurant.Diner.ViewModels.Sections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -15,16 +18,31 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
     {
         public readonly int table_Id;
         public readonly int seat_number;
+        public readonly string table_number;
 
         /// <summary>
         /// Get the TableModel from the Model.
         /// </summary>
         /// <param name="_table"></param>
-        public SeatViewModel(int _table_Id,int _numero)
+        public SeatViewModel(int _table_Id,int _numero,string _table_number)
         {
             table_Id = _table_Id;
             seat_number = _numero;
-
+            table_number = _table_number;
+            var orders = SectionsListViewModel.Orders.Orders.Where(o => o.SeatNumber == seat_number && o.TableId == table_Id).ToList();
+            if (orders.Count > 0)
+                CurrentOrder = orders.First();
+            else
+            {
+                CurrentOrder = new OrderViewModel(new OrderModel
+                {
+                    SeatId = Id,
+                    TableId = table_Id,
+                    SeatNumber = seat_number,
+                    TableNumber = table_number
+                });
+                SectionsListViewModel.Orders.Orders.Add(CurrentOrder);
+            }
         }
 
         public int Id { get; }
@@ -140,6 +158,25 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 if (backgroundcolor != value)
 
                     backgroundcolor = value;
+            }
+        }
+        private OrderViewModel currentOrder;
+        public OrderViewModel CurrentOrder
+        {
+            get
+            {
+                if (currentOrder == null) currentOrder = new OrderViewModel(new OrderModel
+                {
+                    SeatId = Id,
+                    TableId = table_Id,
+                    SeatNumber=seat_number,
+                    TableNumber=table_number
+                });
+                return currentOrder;
+            }
+            set
+            {
+                currentOrder = value;
             }
         }
     }

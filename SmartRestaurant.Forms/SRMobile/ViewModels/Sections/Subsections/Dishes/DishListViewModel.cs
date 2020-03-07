@@ -24,14 +24,14 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// <summary>
         /// Constructor to Fill the List of subsections from the Database or Json file stored locally.
         /// </summary>
-        public DishListViewModel(int _sectionid,int _subsectionid)
+        public DishListViewModel(int _sectionid,int _subsectionid,SubSectionViewModel _section)
         {
 
             ObservableCollection<DishModel> listDish = SectionsService.GetListDishes(_sectionid,_subsectionid);
             Dishes = new ObservableCollection<DishViewModel>();
             foreach (var item in listDish)
             {
-                Dishes.Add(new DishViewModel(item));
+                Dishes.Add(new DishViewModel(item, _section));
             }
         }
 

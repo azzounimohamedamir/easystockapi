@@ -138,7 +138,8 @@
                     </pancakeview:PancakeView>
                         <Label Margin="40,-20,40,20" Text="{helpers:Translate Ingredients}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" Style="{StaticResource Key=RobotoLabel}" FontSize="20" FontAttributes="Bold" />
                     <ScrollView Margin="{Binding Path=Margin,Source={x:Reference lbl},Converter= {x:StaticResource RtlScrollViewMargin}}" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
-                        <StackLayout HeightRequest="148" HorizontalOptions="StartAndExpand" Orientation="Horizontal" BindableLayout.ItemsSource="{Binding Dish_Ingredients_Measures}">
+                        <StackLayout HeightRequest="148" HorizontalOptions="StartAndExpand" Orientation="Horizontal" 
+                                     BindableLayout.ItemsSource="{Binding Dish_Ingredients_Measures}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
                                     <Grid WidthRequest="124" MinimumWidthRequest="124" HorizontalOptions="FillAndExpand" Margin="6,0,6,0">
@@ -412,9 +413,12 @@
                                     <TapGestureRecognizer Command="{Binding minus}" />
                                 </Label.GestureRecognizers>
                             </Label>
-                            <Label WidthRequest="48" HorizontalOptions="Center" TextColor="#3C536A" FontSize="16" FontAttributes="Bold" Style="{StaticResource Key=RobotoLabel}"
+                            <Label WidthRequest="48" HorizontalOptions="Center" TextColor="#3C536A" FontSize="16" FontAttributes="Bold" 
+                                   Style="{StaticResource Key=RobotoLabel}"
                                    Text="{Binding Qty}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
-                            <Label WidthRequest="29" HorizontalOptions="Start" Style="{StaticResource Key=MatLabel}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#773C536A" BackgroundColor="#F2FBFB" IsEnabled="{Binding plus_enabled}" Text="&#xf0217;" FontSize="18">
+                            <Label WidthRequest="29" HorizontalOptions="Start" Style="{StaticResource Key=MatLabel}" HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center" TextColor="#773C536A" BackgroundColor="#F2FBFB" IsEnabled="{Binding plus_enabled}" 
+                                   Text="&#xf0217;" FontSize="18">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding plus}" />
                                 </Label.GestureRecognizers>

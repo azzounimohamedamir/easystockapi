@@ -32,7 +32,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             SubSections = new ObservableCollection<SubSectionViewModel>();
             foreach (var item in listSubSections)
             {
-                SubSections.Add(new SubSectionViewModel(item));
+                SubSections.Add(new SubSectionViewModel(item, _section));
             }
         }
 
