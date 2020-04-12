@@ -37,7 +37,8 @@
                               <Grid RowSpacing="0" FlowDirection="MatchParent">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="56" />
-                                    <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="200" />
                                 </Grid.RowDefinitions>
                                     <StackLayout x:Name="currentseat" BackgroundColor="#FBFBFB" FlowDirection="MatchParent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                                         <StackLayout Grid.Row="0" FlowDirection="MatchParent" Margin="48,0,48,0"
@@ -60,15 +61,12 @@
                                             <Label Visual="Material" Text="&#xf140;" FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons" HorizontalTextAlignment="End" VerticalTextAlignment="Center" TextColor="Black" FontSize="26" />
                                         </StackLayout>
                                     </StackLayout>
-                                <Grid RowSpacing="1" FlowDirection="MatchParent" IsVisible="{Binding IsVisible}" >
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="200" />
-                                    </Grid.RowDefinitions>
+                      
                                     <ListView FlowDirection="MatchParent"         
-                                              Grid.Row="0"
-                                              Margin="36,5,36,5"     
-                                           VerticalScrollBarVisibility="Default" 
+                                              Grid.Row="1"
+                                              Margin="36,5,36,5"    
+                                              IsVisible="{Binding IsVisible}"   
+                                          VerticalOptions="Start" VerticalScrollBarVisibility="Default" 
                       ItemsSource="{Binding CurrentOrder.DishesGrouped}" HasUnevenRows="true" SeparatorVisibility="Default"
                       SeparatorColor="Transparent"  IsGroupingEnabled ="True"    SelectionMode="None" >
                                         <ListView.GroupHeaderTemplate>
@@ -257,8 +255,8 @@
                                         </ListView.ItemTemplate>
                                     </ListView>
                                     <pancakeview:PancakeView FlowDirection="MatchParent"  
-                                                             Grid.Row="1"
-                                                               
+                                                             Grid.Row="2"
+                                                             IsVisible="{Binding IsVisible}"   
                                                          BackgroundColor="Transparent"
                                      HeightRequest="200"
                                      VerticalOptions="StartAndExpand"
@@ -296,8 +294,7 @@
                                             </Label>
                                         </Grid>
                                     </pancakeview:PancakeView>
-                                </Grid>
-
+                                
                             </Grid>
                                 
                             
