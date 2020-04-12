@@ -21,21 +21,6 @@ namespace SmartRestaurant.Diner.Views
         public GlobalRecap(TablesViewModel tablevm)
         {
             InitializeComponent();
-            int i = 0;
-            foreach (SeatViewModel s in tablevm.Seats.Seats)
-            {
-                if(s.CurrentOrder==null || s.CurrentOrder.Lines==null || s.CurrentOrder.Lines.Count==0)
-                {
-                    i++;
-                    continue;
-                }
-                var sorted2 = from d in s.CurrentOrder.Lines
-                             orderby d.SubSection.Section.Name
-                             group d by d.SubSection.Section.Name into DishGroup
-                             select new Grouping<string, DishViewModel>(DishGroup.Key, DishGroup);
-                tablevm.Seats.Seats[i].CurrentOrder.DishesGrouped = new ObservableCollection<Grouping<string, DishViewModel>>(sorted2);
-                i++;
-            }
             BindingContext = tablevm;
             viewmodel = (TablesViewModel)BindingContext;
         }
