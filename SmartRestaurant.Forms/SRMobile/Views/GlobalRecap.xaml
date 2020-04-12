@@ -350,15 +350,15 @@
                                 <Span Text="&#10;" />
                                 <Span Text="{helpers:Translate Currency_DZ}" FontSize="24" FontAttributes="Bold"/>
                                 <Span Text=" " />
-                                <Span Text="{Binding Total}" FontSize="24" FontAttributes="Bold"/>
+                                <Span Text="{Binding Seats.Total}" FontSize="24" FontAttributes="Bold"/>
                                 <Span Text="&#10;" />
-                                <Span Text="{Binding Dollar}" TextColor="White"  FontSize="16" FontAttributes="Bold" />
+                                <Span Text="{Binding Seats.Dollar}" TextColor="White"  FontSize="16" FontAttributes="Bold" />
                                 <Span Text=" " />
-                                <Span Text="{Binding ConvertedTotalDollar}" TextColor="White"  FontSize="16" FontAttributes="Bold" />
+                                <Span Text="{Binding Seats.ConvertedTotalDollar}" TextColor="White"  FontSize="16" FontAttributes="Bold" />
                                 <Span Text="&#10;" />
-                                <Span Text="{Binding Euro}" TextColor="White"  FontSize="16" FontAttributes="Bold" />
+                                <Span Text="{Binding Seats.Euro}" TextColor="White"  FontSize="16" FontAttributes="Bold" />
                                 <Span Text=" " />
-                                <Span Text="{Binding ConvertedTotalEuro}" TextColor="White"  FontSize="16" FontAttributes="Bold" />
+                                <Span Text="{Binding Seats.ConvertedTotalEuro}" TextColor="White"  FontSize="16" FontAttributes="Bold" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -389,7 +389,7 @@
                                 <Span Text="{helpers:Translate TotalToPay}" TextColor="#77000000" FontSize="14" 
                                       FontFamily="Assets/Fonts/Roboto.ttf" FontAttributes="Bold" />
                                 <Span Text="&#10;" TextColor="#01A9AC" FontAttributes="Bold" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf" />
-                                <Span Text="{Binding Total}" TextColor="#01A9AC" FontAttributes="Bold" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf" />
+                                <Span Text="{Binding Seats.Total}" TextColor="#01A9AC" FontAttributes="Bold" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf" />
                                 <Span Text="{helpers:Translate Currency_DZ}" TextColor="#01A9AC" FontAttributes="Bold" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf" />
 
                             </FormattedString>
