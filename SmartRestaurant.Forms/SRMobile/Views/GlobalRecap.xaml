@@ -33,7 +33,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout  FlowDirection="MatchParent" Orientation="Vertical" >
+                            
                                 <Grid RowSpacing="0" FlowDirection="MatchParent">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="56" />
@@ -60,9 +60,11 @@
                                             <Label Visual="Material" Text="&#xf140;" FontFamily="Fonts/materialdesignicons-webfont.ttf#Material Design Icons" HorizontalTextAlignment="End" VerticalTextAlignment="Center" TextColor="Black" FontSize="26" />
                                         </StackLayout>
                                     </StackLayout>
-
-                                    <ListView FlowDirection="MatchParent" Grid.Row="1"  Margin="36,5,36,5"                                                                                      
-                                               IsVisible="{Binding IsVisible}"                                   
+                                <StackLayout 
+                                     Grid.Row="1"  Margin="36,5,36,5"                                                                                      
+                                               IsVisible="{Binding IsVisible}"   
+                                    FlowDirection="MatchParent" Orientation="Vertical" >
+                                    <ListView FlowDirection="MatchParent"                                
                                           VerticalOptions="FillAndExpand" VerticalScrollBarVisibility="Default" 
                       ItemsSource="{Binding CurrentOrder.DishesGrouped}" HasUnevenRows="true" SeparatorVisibility="Default"
                       SeparatorColor="Transparent"  IsGroupingEnabled ="True"    SelectionMode="None" >
@@ -251,7 +253,8 @@
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                     </ListView>
-                                </Grid>
+                                </StackLayout>
+                            </Grid>
                                 <pancakeview:PancakeView FlowDirection="MatchParent"  
                                                          BackgroundColor="Transparent"
                                      HeightRequest="200"
@@ -290,7 +293,7 @@
                                         </Label>
                                     </Grid>
                                 </pancakeview:PancakeView>
-                            </StackLayout>
+                            
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -376,8 +379,8 @@
                     </Grid.RowDefinitions>
                     <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" CornerRadius="28" Margin="0,5"
                             HeightRequest="60" HorizontalOptions="EndAndExpand" VerticalOptions="Center"
-                            WidthRequest="174" BackgroundColor="#01A9AC" FontSize="20" FontFamily="Assets/Fonts/Roboto.ttf"
-                            FontAttributes="Bold"   TextColor="White" Text="{helpers:Translate PlaceOrder}" />
+                            WidthRequest="300" BackgroundColor="#01A9AC" FontSize="20" FontFamily="Assets/Fonts/Roboto.ttf"
+                              TextColor="White" Text="{helpers:Translate PlaceOrder}" />
 
                     <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" BackgroundColor="Transparent" HorizontalTextAlignment="{Binding OrientationText}" VerticalTextAlignment="Start" HorizontalOptions="Start" Margin="38,0,0,0" VerticalOptions="Center">
                         <Label.FormattedText>
