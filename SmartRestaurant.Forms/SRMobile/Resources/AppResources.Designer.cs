@@ -196,6 +196,15 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Global Panel.
+        /// </summary>
+        internal static string GlobalRecap {
+            get {
+                return ResourceManager.GetString("GlobalRecap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à grams.
         /// </summary>
         internal static string Grammes {
@@ -322,6 +331,15 @@ namespace SmartRestaurant.Diner.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à PLACE ORDER.
+        /// </summary>
+        internal static string PlaceOrder {
+            get {
+                return ResourceManager.GetString("PlaceOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Total price.
         /// </summary>
         internal static string price {
@@ -417,6 +435,24 @@ namespace SmartRestaurant.Diner.Resources {
         internal static string TotalEnergiticValue {
             get {
                 return ResourceManager.GetString("TotalEnergiticValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Total seats.
+        /// </summary>
+        internal static string TotalSeats {
+            get {
+                return ResourceManager.GetString("TotalSeats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Total to pay.
+        /// </summary>
+        internal static string TotalToPay {
+            get {
+                return ResourceManager.GetString("TotalToPay", resourceCulture);
             }
         }
         

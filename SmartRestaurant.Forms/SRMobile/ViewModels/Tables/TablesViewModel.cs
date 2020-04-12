@@ -2,10 +2,12 @@
 using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using SmartRestaurant.Diner.ViewModels.Orders;
 using SmartRestaurant.Diner.ViewModels.Sections;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -129,13 +131,18 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                     backgroundcolor = value;
             }
         }
-
+        private SeatsListViewModel seats;
         public SeatsListViewModel Seats
         {
             get
             {
-                return new SeatsListViewModel(this);
-                
+                if(seats==null)
+                seats = new SeatsListViewModel(this);
+                return seats;                
+            }
+            set
+            {
+                seats = value;
             }
         }
         private SeatViewModel selectedSeat;
@@ -154,5 +161,98 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 }
             }
         }
+
+        private OrderListViewModel currentOrders;
+        public OrderListViewModel CurrentOrders
+        {
+            get
+            {
+                if (currentOrders == null) currentOrders = new OrderListViewModel();
+                return currentOrders;
+            }
+            set
+            {
+                currentOrders = value;
+            }
+        }
+
+
+        private double _ConvertedTotalDollar;
+        public double ConvertedTotalDollar
+        {
+            get
+            {
+                return (Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
+                    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).ExchangeRate), 2));
+            }
+            set
+            {
+                _ConvertedTotalDollar = value;
+                RaisePropertyChanged();
+            }
+        }
+        private double _ConvertedTotalEuro;
+        public double ConvertedTotalEuro
+        {
+            get
+            {
+                return (Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+                    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).ExchangeRate), 2));
+            }
+            set
+            {
+                _ConvertedTotalDollar = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _Euro;
+        public string Euro
+        {
+            get
+            {
+                return SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+                    Name;
+            }
+            set
+            {
+                _Euro = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _Dollar;
+        public string Dollar
+        {
+            get
+            {
+                return SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
+                    Name;
+            }
+            set
+            {
+                _Dollar = value;
+                RaisePropertyChanged();
+            }
+        }
+        private double total;
+        public double Total
+        {
+            get
+            {
+                return total;
+            }
+            set
+            {
+                total = value;
+                ConvertedTotalEuro =
+(Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).ExchangeRate), 2));
+                ConvertedTotalDollar =
+(Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
+    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).ExchangeRate), 2));
+
+                RaisePropertyChanged();
+            }
+        }
+
     }
 }

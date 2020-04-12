@@ -32,9 +32,10 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         {
             Numero_Table = table.Numero;
             Seats = new List<SeatViewModel>();
+            table.CurrentOrders = null;
             for(int i=1;i<=table.SeatCount;i++)
             {
-                Seats.Add(new SeatViewModel(table.Id, i,table.Numero));
+                Seats.Add(new SeatViewModel(table.Id, i, table.Numero, table));
             }
         }
  
@@ -128,7 +129,35 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                     return TextAlignment.End;
                 }
             }
-        }        
+        }
+
+        private SeatViewModel OldSeat;
+        public void HideOrShowItem(SeatViewModel seat)
+        {
+            if (OldSeat == seat)
+            {
+                seat.IsVisible = !seat.IsVisible;
+                UpdateSeat(seat);
+            }
+            else
+            {
+                if (OldSeat != null)
+                {
+                    OldSeat.IsVisible = false;
+                    UpdateSeat(OldSeat);
+                }
+                seat.IsVisible = true;
+                UpdateSeat(seat);
+            }
+            OldSeat = seat;
+        }
+
+        public void UpdateSeat(SeatViewModel seat)
+        {
+            var index = Seats.IndexOf(seat);
+            Seats.Remove(seat);
+            Seats.Insert(index, seat);
+        }
 
     }
 }

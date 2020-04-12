@@ -246,4 +246,16 @@
   <data name="TotalEnergiticValue" xml:space="preserve">
     <value>إجمالي قيمة الطاقة</value>
   </data>
+  <data name="GlobalRecap" xml:space="preserve">
+    <value>لوحة طاولة</value>
+  </data>
+  <data name="PlaceOrder" xml:space="preserve">
+    <value>مرر الطلب</value>
+  </data>
+  <data name="TotalToPay" xml:space="preserve">
+    <value>إجمالي الدفع</value>
+  </data>
+  <data name="TotalSeats" xml:space="preserve">
+    <value>عدد المقاعد</value>
+  </data>
 </root>

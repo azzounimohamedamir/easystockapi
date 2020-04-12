@@ -77,6 +77,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\GlobalRecap.xaml.cs">
+      <DependentUpon>GlobalRecap.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\DishSelectPage.xaml.cs">
       <DependentUpon>DishSelectPage.xaml</DependentUpon>
     </Compile>
