@@ -67,7 +67,8 @@
                                     </Grid.RowDefinitions>
                                     <ListView FlowDirection="MatchParent"         
                                               Grid.Row="0"
-                                              Margin="36,5,36,5"                                               
+                                              Margin="36,5,36,5"     
+                                           VerticalScrollBarVisibility="Default" 
                       ItemsSource="{Binding CurrentOrder.DishesGrouped}" HasUnevenRows="true" SeparatorVisibility="Default"
                       SeparatorColor="Transparent"  IsGroupingEnabled ="True"    SelectionMode="None" >
                                         <ListView.GroupHeaderTemplate>
