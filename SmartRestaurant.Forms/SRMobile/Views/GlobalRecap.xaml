@@ -65,7 +65,7 @@
                                                IsVisible="{Binding IsVisible}"   
                                     FlowDirection="MatchParent" Orientation="Vertical" >
                                     <ListView FlowDirection="MatchParent"                                
-                                          VerticalOptions="FillAndExpand" VerticalScrollBarVisibility="Default" 
+                                          VerticalOptions="StartAndExpand" VerticalScrollBarVisibility="Default" 
                       ItemsSource="{Binding CurrentOrder.DishesGrouped}" HasUnevenRows="true" SeparatorVisibility="Default"
                       SeparatorColor="Transparent"  IsGroupingEnabled ="True"    SelectionMode="None" >
                                         <ListView.GroupHeaderTemplate>
@@ -256,7 +256,7 @@
                                     <pancakeview:PancakeView FlowDirection="MatchParent"  
                                                          BackgroundColor="Transparent"
                                      HeightRequest="200"
-                                     VerticalOptions="StartAndExpand"
+                                     VerticalOptions="End"
                                                      HorizontalOptions="FillAndExpand" 
                                                      IsClippedToBounds="True" CornerRadius="0" Margin="48,20"
                                                      HasShadow="False" Elevation="0">

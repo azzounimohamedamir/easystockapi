@@ -159,5 +159,82 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             Seats.Insert(index, seat);
         }
 
+        private double _ConvertedTotalDollar;
+        public double ConvertedTotalDollar
+        {
+            get
+            {
+                return (Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
+                    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).ExchangeRate), 2));
+            }
+            set
+            {
+                _ConvertedTotalDollar = value;
+                RaisePropertyChanged();
+            }
+        }
+        private double _ConvertedTotalEuro;
+        public double ConvertedTotalEuro
+        {
+            get
+            {
+                return (Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+                    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).ExchangeRate), 2));
+            }
+            set
+            {
+                _ConvertedTotalDollar = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _Euro;
+        public string Euro
+        {
+            get
+            {
+                return SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+                    Name;
+            }
+            set
+            {
+                _Euro = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _Dollar;
+        public string Dollar
+        {
+            get
+            {
+                return SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
+                    Name;
+            }
+            set
+            {
+                _Dollar = value;
+                RaisePropertyChanged();
+            }
+        }
+        private double total;
+        public double Total
+        {
+            get
+            {
+                return total;
+            }
+            set
+            {
+                total = value;
+                ConvertedTotalEuro =
+(Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).ExchangeRate), 2));
+                ConvertedTotalDollar =
+(Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
+    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).ExchangeRate), 2));
+
+                RaisePropertyChanged();
+            }
+        }
+
     }
 }
