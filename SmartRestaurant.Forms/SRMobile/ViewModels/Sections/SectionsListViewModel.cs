@@ -128,7 +128,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
 
                 //create a new collection of groups
                 SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.DishesGrouped = new ObservableCollection<Grouping<string, DishViewModel>>(sorted);
-                Seats.Seats[Seats.Seats.IndexOf(Seats.Seats.FirstOrDefault(s => s.Id == Seats.SelectedSeat.Id))] = Seats.SelectedSeat;
+                Seats.Seats[Seats.Seats.IndexOf(Seats.Seats.FirstOrDefault(s => s.SeatNumber == Seats.SelectedSeat.SeatNumber))] = Seats.SelectedSeat;
                 Seats.Total = Seats.Seats.Sum(s => s.CurrentOrder.Total);
                 RaisePropertyChanged();
 

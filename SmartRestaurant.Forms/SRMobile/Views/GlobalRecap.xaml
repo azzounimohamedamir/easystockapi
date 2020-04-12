@@ -65,8 +65,8 @@
                                     <ListView FlowDirection="MatchParent"         
                                               Grid.Row="1"
                                               Margin="36,5,36,5"    
-                                              HeightRequest="{Binding CurrentOrder.DishesGrouped.Count ,Converter={StaticResource IntMultiply}
-                                        ,ConverterParameter=210}"
+                                              HeightRequest="{Binding CurrentOrder.Lines.Count ,Converter={StaticResource IntMultiply}
+                                        ,ConverterParameter=250}"
                                               IsVisible="{Binding IsVisible}"   
                                           VerticalOptions="Start" VerticalScrollBarVisibility="Default" 
                       ItemsSource="{Binding CurrentOrder.DishesGrouped}" HasUnevenRows="true" SeparatorVisibility="Default"

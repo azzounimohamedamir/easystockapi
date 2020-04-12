@@ -18,7 +18,7 @@ namespace SmartRestaurant.Diner.Helpers
             catch
             {
                 //item height
-                w = 210;
+                w = 250;
             }
             return (int)value * w;
             }
@@ -31,7 +31,7 @@ namespace SmartRestaurant.Diner.Helpers
             }
             catch
             {
-                w = 210;
+                w = 250;
             }
             return (int)value * w;
         }
