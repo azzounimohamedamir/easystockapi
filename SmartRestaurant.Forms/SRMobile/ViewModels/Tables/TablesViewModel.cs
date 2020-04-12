@@ -176,7 +176,21 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             }
         }
 
+        public FlowDirection FlowDirectionValue
+        {
 
+            get
+            {
+                if (AppResources.Culture != null)
+                {
+                    return AppResources.Culture.Name == "ar" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+                }
+                else
+                {
+                    return FlowDirection.LeftToRight;
+                }
+            }
+        }
 
 
     }
