@@ -2,6 +2,7 @@
 using Rg.Plugins.Popup.Animations;
 using Rg.Plugins.Popup.Enums;
 using Rg.Plugins.Popup.Services;
+using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.ViewModels.Zones;
@@ -61,29 +62,36 @@ namespace SmartRestaurant.Diner.Views
                 else
                     this.viewmodel.SelectedTable = null;
             }
-            var scaleAnimation = new ScaleAnimation
+            if (this.viewmodel.SelectedTable.SeatCount == 0)
             {
+                var scaleAnimation = new ScaleAnimation
+                {
 
-                PositionIn = MoveAnimationOptions.Center,
-                PositionOut = MoveAnimationOptions.Center,
-                ScaleIn = 3.2,
-                ScaleOut = 0.1,
-                DurationIn = 1500,
-                DurationOut = 1500,
-            HasBackgroundAnimation =true,
-                EasingIn = Easing.SinOut, 
-                EasingOut = Easing.SinIn, 
-            };
-            BackgroundColor = Color.FromHex("#777777");
-            mainscv.Opacity = 0.53;
+                    PositionIn = MoveAnimationOptions.Center,
+                    PositionOut = MoveAnimationOptions.Center,
+                    ScaleIn = 3.2,
+                    ScaleOut = 0.1,
+                    DurationIn = 1500,
+                    DurationOut = 1500,
+                    HasBackgroundAnimation = true,
+                    EasingIn = Easing.SinOut,
+                    EasingOut = Easing.SinIn,
+                };
+                BackgroundColor = Color.FromHex("#777777");
+                mainscv.Opacity = 0.53;
 
-            cs_popup =
-            new SeatSelectionPopup((ZonesListViewModel)BindingContext)
+                cs_popup =
+                new SeatSelectionPopup((ZonesListViewModel)BindingContext)
+                {
+                    Animation = scaleAnimation
+                };
+                await PopupNavigation.PushAsync(cs_popup
+                , true);
+            }
+            else
             {
-                Animation = scaleAnimation
-            };
-            await PopupNavigation.PushAsync(cs_popup
-            , true);
+                await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SelectSeatPage(((ZonesListViewModel)BindingContext).SelectedTable.Seats));
+            }
         }
 
 
@@ -102,28 +110,51 @@ namespace SmartRestaurant.Diner.Views
                     else
                         this.viewmodel.SelectedTable = null;
                 }
-                var scaleAnimation = new ScaleAnimation
+                if (this.viewmodel.SelectedTable.SeatCount == 0)
+                {
+                    var scaleAnimation = new ScaleAnimation
+                    {
+
+                        PositionIn = MoveAnimationOptions.Center,
+                        PositionOut = MoveAnimationOptions.Center,
+                        ScaleIn = 3.2,
+                        ScaleOut = 0.1,
+                        DurationIn = 1500,
+                        DurationOut = 1500,
+                        HasBackgroundAnimation = true,
+                        EasingIn = Easing.SinOut,
+                        EasingOut = Easing.SinIn,
+                    };
+                    BackgroundColor = Color.FromHex("#777777");
+                    mainscv.Opacity = 0.53;
+
+                    cs_popup =
+                    new SeatSelectionPopup((ZonesListViewModel)BindingContext)
+                    {
+                        Animation = scaleAnimation
+                    };
+                    await PopupNavigation.PushAsync(cs_popup
+                    , true);
+                }
+                else
+                {
+                    await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SelectSeatPage(((ZonesListViewModel)BindingContext).SelectedTable.Seats));
+                }
+
+            }
+            else
+            if (e.GestureType == GestureType.LongPress)
+            {
+                try
                 {
 
-                    PositionIn = MoveAnimationOptions.Center,
-                    PositionOut = MoveAnimationOptions.Center,
-                    ScaleIn = 1.2,
-                    ScaleOut = 0.8,
-                    DurationIn = 400,
-                    DurationOut = 300,
-                    HasBackgroundAnimation = true,
-                    EasingIn = Easing.SinOut,
-                    EasingOut = Easing.SinIn,
-                };
-                BackgroundColor = Color.FromHex("#777777");
-                mainscv.Opacity = 0.53;
-                cs_popup =
-                new SeatSelectionPopup((ZonesListViewModel)BindingContext)
+                    await App.Current.MainPage.Navigation.PushAsync(new GlobalRecap((TablesViewModel)(((((View)sender))).BindingContext)));
+                }
+                catch (Exception)
                 {
-                    Animation = scaleAnimation
-                };
-                await PopupNavigation.PushAsync(cs_popup
-                , true);
+
+                    throw;
+                }
             }
         }
 

@@ -19,12 +19,12 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         public readonly int table_Id;
         public readonly int seat_number;
         public readonly string table_number;
-
+        public TablesViewModel Table;
         /// <summary>
         /// Get the TableModel from the Model.
         /// </summary>
         /// <param name="_table"></param>
-        public SeatViewModel(int _table_Id,int _numero,string _table_number)
+        public SeatViewModel(int _table_Id,int _numero,string _table_number, TablesViewModel table)
         {
             table_Id = _table_Id;
             seat_number = _numero;
@@ -43,6 +43,8 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 });
                 SectionsListViewModel.Orders.Orders.Add(CurrentOrder);
             }
+            Table = table;
+            Table.CurrentOrders.Orders.Add(CurrentOrder);
         }
 
         public int Id { get; }
@@ -60,9 +62,6 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             }
         }
  
-
-   
-
         /// <summary>
         /// Used to indicate when a seat is selected.
         /// </summary>
@@ -123,6 +122,8 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         {
             get
             {
+                if (!isTaken)
+                    isTaken = (CurrentOrder == null || CurrentOrder.Lines==null) ? false : CurrentOrder.Lines.Count > 0;
                 return isTaken;
             }
             set
@@ -178,6 +179,20 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             {
                 currentOrder = value;
             }
+        }
+        private bool isVisible;
+        public bool IsVisible
+        {
+            get
+            {
+                return isVisible;
+            }
+            set
+            {
+                isVisible = value;
+                RaisePropertyChanged();
+            }
+        
         }
     }
 }

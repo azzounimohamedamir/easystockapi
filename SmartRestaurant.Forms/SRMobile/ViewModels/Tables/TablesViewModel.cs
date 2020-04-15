@@ -2,10 +2,12 @@
 using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using SmartRestaurant.Diner.ViewModels.Orders;
 using SmartRestaurant.Diner.ViewModels.Sections;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -129,13 +131,18 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                     backgroundcolor = value;
             }
         }
-
+        private SeatsListViewModel seats;
         public SeatsListViewModel Seats
         {
             get
             {
-                return new SeatsListViewModel(this);
-                
+                if(seats==null)
+                seats = new SeatsListViewModel(this);
+                return seats;                
+            }
+            set
+            {
+                seats = value;
             }
         }
         private SeatViewModel selectedSeat;
@@ -154,5 +161,37 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 }
             }
         }
+
+        private OrderListViewModel currentOrders;
+        public OrderListViewModel CurrentOrders
+        {
+            get
+            {
+                if (currentOrders == null) currentOrders = new OrderListViewModel();
+                return currentOrders;
+            }
+            set
+            {
+                currentOrders = value;
+            }
+        }
+
+        public FlowDirection FlowDirectionValue
+        {
+
+            get
+            {
+                if (AppResources.Culture != null)
+                {
+                    return AppResources.Culture.Name == "ar" ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+                }
+                else
+                {
+                    return FlowDirection.LeftToRight;
+                }
+            }
+        }
+
+
     }
 }

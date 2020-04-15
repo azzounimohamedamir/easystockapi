@@ -32,9 +32,10 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         {
             Numero_Table = table.Numero;
             Seats = new List<SeatViewModel>();
+            table.CurrentOrders = null;
             for(int i=1;i<=table.SeatCount;i++)
             {
-                Seats.Add(new SeatViewModel(table.Id, i,table.Numero));
+                Seats.Add(new SeatViewModel(table.Id, i, table.Numero, table));
             }
         }
  
@@ -128,7 +129,112 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                     return TextAlignment.End;
                 }
             }
-        }        
+        }
+
+        private SeatViewModel OldSeat;
+        public void HideOrShowItem(SeatViewModel seat)
+        {
+            if (OldSeat == seat)
+            {
+                seat.IsVisible = !seat.IsVisible;
+                UpdateSeat(seat);
+            }
+            else
+            {
+                if (OldSeat != null)
+                {
+                    OldSeat.IsVisible = false;
+                    UpdateSeat(OldSeat);
+                }
+                seat.IsVisible = true;
+                UpdateSeat(seat);
+            }
+            OldSeat = seat;
+        }
+
+        public void UpdateSeat(SeatViewModel seat)
+        {
+            var index = Seats.IndexOf(seat);
+            Seats.Remove(seat);
+            Seats.Insert(index, seat);
+        }
+
+        private double _ConvertedTotalDollar;
+        public double ConvertedTotalDollar
+        {
+            get
+            {
+                return (Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
+                    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).ExchangeRate), 2));
+            }
+            set
+            {
+                _ConvertedTotalDollar = value;
+                RaisePropertyChanged();
+            }
+        }
+        private double _ConvertedTotalEuro;
+        public double ConvertedTotalEuro
+        {
+            get
+            {
+                return (Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+                    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).ExchangeRate), 2));
+            }
+            set
+            {
+                _ConvertedTotalDollar = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _Euro;
+        public string Euro
+        {
+            get
+            {
+                return SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+                    Name;
+            }
+            set
+            {
+                _Euro = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _Dollar;
+        public string Dollar
+        {
+            get
+            {
+                return SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
+                    Name;
+            }
+            set
+            {
+                _Dollar = value;
+                RaisePropertyChanged();
+            }
+        }
+        private double total;
+        public double Total
+        {
+            get
+            {
+                return total;
+            }
+            set
+            {
+                total = value;
+                ConvertedTotalEuro =
+(Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).
+ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 1).ExchangeRate), 2));
+                ConvertedTotalDollar =
+(Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
+    ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).ExchangeRate), 2));
+
+                RaisePropertyChanged();
+            }
+        }
 
     }
 }

@@ -243,4 +243,16 @@
   <data name="TotalEnergiticValue" xml:space="preserve">
     <value>Total Energitic Value</value>
   </data>
+  <data name="GlobalRecap" xml:space="preserve">
+    <value>Global Panel</value>
+  </data>
+  <data name="PlaceOrder" xml:space="preserve">
+    <value>PLACE ORDER</value>
+  </data>
+  <data name="TotalToPay" xml:space="preserve">
+    <value>Total to pay</value>
+  </data>
+  <data name="TotalSeats" xml:space="preserve">
+    <value>Total seats</value>
+  </data>
 </root>

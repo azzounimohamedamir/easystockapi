@@ -73,6 +73,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 return new Command(() => {
                     try
                     {
+                        
                         App.Current.MainPage.Navigation.PushAsync(new WelcomePage(new WelcomeViewModel()));
                     }
                     catch (Exception)
