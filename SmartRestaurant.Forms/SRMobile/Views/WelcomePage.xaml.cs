@@ -28,13 +28,13 @@ namespace SmartRestaurant.Diner.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await Task.Delay(3000);
-            if (((WelcomeViewModel)BindingContext).NextCommand.CanExecute(null))
-            {                
-                LanguageViewModel.welcome_loaded = false;
-                ((WelcomeViewModel)BindingContext).NextCommand.Execute(null);
+            //await Task.Delay(3000);
+            //if (((WelcomeViewModel)BindingContext).NextCommand.CanExecute(null))
+            //{                
+            //    LanguageViewModel.welcome_loaded = false;
+            //    ((WelcomeViewModel)BindingContext).NextCommand.Execute(null);
 
-            }
+            //}
             
         }
     }

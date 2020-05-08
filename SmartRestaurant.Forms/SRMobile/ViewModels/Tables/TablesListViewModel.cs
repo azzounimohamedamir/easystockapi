@@ -63,26 +63,5 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             }
         }
 
-        /// <summary>
-        /// Command to navigate to the next page or view.
-        /// </summary>
-        public ICommand NextCommand
-        {
-            get
-            {
-                return new Command(() => {
-                    try
-                    {
-                        
-                        App.Current.MainPage.Navigation.PushAsync(new WelcomePage(new WelcomeViewModel()));
-                    }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
-                });
-            }
-        }
     }
 }
