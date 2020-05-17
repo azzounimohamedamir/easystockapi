@@ -251,6 +251,44 @@
               "Fat": 7,
               "Protein": 9,
               "SubSectionId": 82
+            },
+            {
+              "Id": 96,
+              "NameAr": "سلطة الخضار",
+              "NameFr": "Macédoine",
+              "NameEn": "Macedonia",
+              "Images": [ "macedoine.png", "macedoine2.png", "macedoine3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 4,
+                  "Measure": 1
+                },
+                {
+                  "Id": 5,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "15",
+              "Price": "100",
+              "Calories": 48,
+              "Carbo": 7,
+              "Fat": 1,
+              "Protein": 2,
+              "SubSectionId": 82
             }
 
 
