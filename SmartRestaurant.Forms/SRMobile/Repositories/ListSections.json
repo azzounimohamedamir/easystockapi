@@ -342,7 +342,39 @@
               "Fat": 12,
               "Protein": 10,
               "SubSectionId": 1
+            },
+            {
+              "Id": 12,
+              "NameAr": "بيتزا اللحم",
+              "NameFr": "Pizza viande",
+              "NameEn": "Meat Pizza ",
+              "Images": [ "Meat_Pizza.png", "Meat_Pizza2.png", "Meat_Pizza3.png" ],
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 8,
+                  "Measure": 1
+                }
+
+
+              ],
+              "EstimatedTime": "25",
+              "Price": "450",
+              "Calories": 1773,
+              "Carbo": 185,
+              "Fat": 81,
+              "Protein": 71,
+              "SubSectionId": 1
             }
+            
           ]
         },
         {
