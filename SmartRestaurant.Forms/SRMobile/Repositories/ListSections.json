@@ -213,7 +213,47 @@
               "Fat": 3,
               "Protein": 4,
               "SubSectionId": 82
+            },
+            {
+              "Id": 95,
+              "NameAr": "سلطة التونة",
+              "NameFr": "Salade de thon",
+              "NameEn": "Thon salad",
+              "Images": [ "salade_de_thon.png", "salade_de_thon2.png", "salade_de_thon3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 4,
+                  "Measure": 1
+                },
+                {
+                  "Id": 5,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "15",
+              "Price": "150",
+              "Calories": 123,
+              "Carbo": 6,
+              "Fat": 7,
+              "Protein": 9,
+              "SubSectionId": 82
             }
+
+
           ]
         }
       ]
