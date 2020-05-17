@@ -411,11 +411,11 @@
 
           "Dishes": [
             {
-              "Id": 2,
+              "Id": 21,
               "NameAr": "هامبورجر",
-              "NameFr": "Tacos XL",
-              "NameEn": "Tacos XL ",
-              "Images": [ "hamburger.png", "tacos.png", "supplement.png" ],
+              "NameFr": "Hamburger",
+              "NameEn": "hamburger ",
+              "Images": [ "hamburger.png", "hamburger2.png", "hamburger3.png" ],
 
               "Ingredients": [
                 {
@@ -440,12 +440,12 @@
                 }
 
               ],
-              "EstimatedTime": "20",
+              "EstimatedTime": "30",
               "Price": "400",
-              "Calories": 0,
-              "Carbo": 0,
-              "Fat": 0,
-              "Protein": 0,
+              "Calories": 295,
+              "Carbo": 24,
+              "Fat": 14,
+              "Protein": 17,
               "SubSectionId": 2
             },
             {
@@ -485,7 +485,7 @@
               "NameEn": "Hamburger ",
               "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
               "Ingredients": [],
-              "EstimatedTime": "20",
+              "EstimatedTime": "30",
               "Price": "400",
               "SubSectionId": 2
             },
