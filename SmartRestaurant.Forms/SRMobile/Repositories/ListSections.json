@@ -312,7 +312,37 @@
           "Image": "pizza.png",
 
           "Dishes": [
+            {
+              "Id": 11,
+              "NameAr": "بيتزا الدجاج",
+              "NameFr": "Pizza poulet",
+              "NameEn": "Chicken Pizza ",
+              "Images": [ "Chicken_Pizza.png", "Chicken_Pizza2.png", "Chicken_Pizza3.png" ],
+              "Ingredients": [
 
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 8,
+                  "Measure": 1
+                }
+
+
+              ],
+              "EstimatedTime": "25",
+              "Price": "450",
+              "Calories": 716,
+              "Carbo": 108,
+              "Fat": 12,
+              "Protein": 10,
+              "SubSectionId": 1
+            }
           ]
         },
         {
@@ -324,7 +354,7 @@
 
           "Dishes": [
             {
-              "Id": 1,
+              "Id": 2,
               "NameAr": "هامبورجر",
               "NameFr": "Tacos XL",
               "NameEn": "Tacos XL ",
