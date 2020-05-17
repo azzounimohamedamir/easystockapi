@@ -481,18 +481,40 @@
               "SubSectionId": 2
             },
             {
-              "Id": 3,
-              "NameAr": "هامبورجر",
-              "NameFr": "Hamburger",
-              "NameEn": "Hamburger ",
-              "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
-              "Ingredients": [],
+              "Id": 23,
+              "NameAr": " ساندويتش مكسيكي",
+              "NameFr": "Sandwich Mexicain",
+              "NameEn": "Sandwich Mexican ",
+              "Images": [ "Mexican.png", "Mexican2.png", "Mexican3.png" ],
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+
+                {
+                  "Id": 4,
+                  "Measure": 1
+                },
+                {
+                  "Id": 8,
+                  "Measure": 3
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+              ],
               "EstimatedTime": "20",
-              "Price": "400",
-              "Calories": 0,
-              "Carbo": 0,
-              "Fat": 0,
-              "Protein": 0,
+              "Price": "250",
+              "Calories": 367,
+              "Carbo": 30,
+              "Fat": 13,
+              "Protein": 30,
               "SubSectionId": 2
             },
             {
