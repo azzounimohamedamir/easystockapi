@@ -449,18 +449,35 @@
               "SubSectionId": 2
             },
             {
-              "Id": 2,
-              "NameAr": "هامبورجر",
-              "NameFr": "Hamburger",
-              "NameEn": "Hamburger ",
-              "Images": [ "hamburger.png", "tacos.png", "supplement.png" ],
-              "Ingredients": [],
-              "EstimatedTime": "20",
-              "Price": "400",
-              "Calories": 0,
-              "Carbo": 0,
-              "Fat": 0,
-              "Protein": 0,
+              "Id": 22,
+              "NameAr": "طاكوس",
+              "NameFr": "Tacos",
+              "NameEn": "Tacos ",
+              "Images": [ "tacos.png", "Tacos2.png", "Tacos3.png" ],
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 8,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 1
+                }
+              ],
+              "EstimatedTime": "30",
+              "Price": "500",
+              "Calories": 500,
+              "Carbo": 40,
+              "Fat": 26,
+              "Protein": 20,
               "SubSectionId": 2
             },
             {
