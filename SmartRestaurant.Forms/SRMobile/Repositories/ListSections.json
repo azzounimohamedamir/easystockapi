@@ -373,6 +373,31 @@
               "Fat": 81,
               "Protein": 71,
               "SubSectionId": 1
+            },
+            {
+              "Id": 3,
+              "NameAr": "بيتزا 3 أجبان",
+              "NameFr": "Pizza 3 Fromages",
+              "NameEn": "3 cheeses Pizza ",
+              "Images": [ "cheeses_Pizza.png", "cheeses_Pizza2.png", "cheeses_Pizza3.png" ],
+              "Ingredients": [
+
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 8,
+                  "Measure": 1
+                }
+              ],
+              "EstimatedTime": "20",
+              "Price": "500",
+              "Calories": 1071,
+              "Carbo": 118,
+              "Fat": 46,
+              "Protein": 47,
+              "SubSectionId": 1
             }
             
           ]
