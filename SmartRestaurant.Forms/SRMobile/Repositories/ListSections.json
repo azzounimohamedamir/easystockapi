@@ -534,24 +534,13 @@
             },
             {
               "Id": 4,
-              "NameAr": "هامبورجر",
-              "NameFr": "Hamburger",
-              "NameEn": "Hamburger ",
-              "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
-              "Ingredients": [],
-              "EstimatedTime": "30",
-              "Price": "400",
-              "SubSectionId": 2
-            },
-            {
-              "Id": 5,
-              "NameAr": "هامبورجر",
-              "NameFr": "Hamburger",
-              "NameEn": "Hamburger ",
-              "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
+              "NameAr": "شوارما",
+              "NameFr": "Chawarma",
+              "NameEn": "Chawarma ",
+              "Images": [ "Chawarma.png", "Chawarma2.png", "Chawarma3.png" ],
               "Ingredients": [],
               "EstimatedTime": "20",
-              "Price": "400",
+              "Price": "250",
               "SubSectionId": 2
             }
           ]
