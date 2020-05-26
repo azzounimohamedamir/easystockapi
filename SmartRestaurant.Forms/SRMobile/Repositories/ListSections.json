@@ -533,7 +533,7 @@
               "SubSectionId": 2
             },
             {
-              "Id": 4,
+              "Id": 24,
               "NameAr": "شوارما",
               "NameFr": "Chawarma",
               "NameEn": "Chawarma ",
@@ -553,7 +553,38 @@
           "Image": "grillades.png",
 
           "Dishes": [
+            {
+              "Id": 31,
+              "NameAr": "شواء",
+              "NameFr": "Gril",
+              "NameEn": "Grill ",
+              "Images": [ "Grill.png", "Grill2.png", "Grill3.png" ],
 
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "30",
+              "Price": "900",
+              "Calories": 4.6,
+              "Carbo": 100,
+              "Fat": 90,
+              "Protein": 100,
+              "SubSectionId": 3
+            }
 
           ]
         },
