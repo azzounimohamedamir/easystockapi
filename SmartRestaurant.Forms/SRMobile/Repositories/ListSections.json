@@ -584,6 +584,38 @@
               "Fat": 90,
               "Protein": 100,
               "SubSectionId": 3
+            },
+            {
+              "Id": 32,
+              "NameAr": "سمك مشوي",
+              "NameFr": "Poisson Grillé",
+              "NameEn": "Grilled fich ",
+              "Images": [ "Grill_Fish.png", "Grill_Fish2.png", "Grill_Fish3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "30",
+              "Price": "900",
+              "Calories": 4.6,
+              "Carbo": 100,
+              "Fat": 90,
+              "Protein": 100,
+              "SubSectionId": 3
             }
 
           ]
