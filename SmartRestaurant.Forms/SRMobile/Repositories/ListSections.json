@@ -28,10 +28,6 @@
                   "Measure": 2
                 },
                 {
-                  "Id": 2,
-                  "Measure": 1
-                },
-                {
                   "Id": 3,
                   "Measure": 1
                 },
@@ -42,15 +38,34 @@
                 {
                   "Id": 5,
                   "Measure": 3
+                },
+                {
+                  "Id": 6,
+                  "Measure": 2
+                },
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 8,
+                  "Measure": 1
+                },
+                {
+                  "Id": 9,
+                  "Measure": 3
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
                 }
-
               ],
               "EstimatedTime": "10",
               "Price": "400",
-              "Calories": 17,
+              "Calories": 0,
               "Carbo": 0,
-              "Fat": 0.001,
-              "Protein": 2.3,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 81
             },
             {
