@@ -873,7 +873,102 @@
           "Image": "viande.png",
 
           "Dishes": [
+            {
+              "Id": 61,
+              "NameAr": "أضلاع مشوية",
+              "NameFr": " Côtes rôties",
+              "NameEn": " Roasted ribs ",
+              "Images": [ "Cotes_roties.png", "Cotes_roties2.png", "Cotes_roties3.png" ],
 
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "30",
+              "Price": "500",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 5
+            },
+            {
+              "Id": 62,
+              "NameAr": " شريحة لحم مشوية",
+              "NameFr": " Steak grillé",
+              "NameEn": " Grilled steak ",
+              "Images": [ "Steak_grille.png", "Steak_grille2.png", "Steak_grille3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "30",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 5
+            },
+            {
+              "Id": 63,
+              "NameAr": " لحم عجل مشوي",
+              "NameFr": " Rôti de veau",
+              "NameEn": " Roast veal ",
+              "Images": [ "Roti_de_veau.png", "Roti_de_veau2.png", "Roti_de_veau3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "30",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 5
+            }
           ]
         },
         {
