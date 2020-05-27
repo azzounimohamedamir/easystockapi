@@ -767,7 +767,102 @@
           "Image": "volaille.png",
 
           "Dishes": [
+            {
+              "Id": 51,
+              "NameAr": "دجاج مشوي",
+              "NameFr": " Poulet rôti",
+              "NameEn": " Roast chicken ",
+              "Images": [ "Poulet_roti.png", "Poulet_roti2.png", "Poulet_roti3.png" ],
 
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "600",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            },
+            {
+              "Id": 52,
+              "NameAr": "دجاج محشي",
+              "NameFr": " Poulet farci",
+              "NameEn": " Stuffed chicken ",
+              "Images": [ "Poulet_farci.png", "Poulet_farci2.png", "Poulet_farci3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "700",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            },
+            {
+              "Id": 53,
+              "NameAr": "دجاج مقلي",
+              "NameFr": " Poulet pané",
+              "NameEn": " Paned chicken ",
+              "Images": [ "Poulet_pane.png", "Poulet_pane2.png", "Poulet_pane3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            }
           ]
         },
         {
