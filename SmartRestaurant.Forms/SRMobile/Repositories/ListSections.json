@@ -691,6 +691,38 @@
               "Fat": 90,
               "Protein": 100,
               "SubSectionId": 4
+            },
+            {
+              "Id": 42,
+              "NameAr": "لازانيا ",
+              "NameFr": " Lasagne",
+              "NameEn": " Lasagna ",
+              "Images": [ "Lasagne.png", "Lasagne2.png", "Lasagne3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "500",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
             }
 
           ]
