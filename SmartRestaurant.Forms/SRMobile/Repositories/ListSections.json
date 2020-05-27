@@ -578,7 +578,7 @@
 
               ],
               "EstimatedTime": "30",
-              "Price": "900",
+              "Price": "500",
               "Calories": 4.6,
               "Carbo": 100,
               "Fat": 90,
@@ -610,7 +610,7 @@
 
               ],
               "EstimatedTime": "30",
-              "Price": "900",
+              "Price": "600",
               "Calories": 4.6,
               "Carbo": 100,
               "Fat": 90,
@@ -642,7 +642,7 @@
 
               ],
               "EstimatedTime": "30",
-              "Price": "900",
+              "Price": "500",
               "Calories": 4.6,
               "Carbo": 100,
               "Fat": 90,
@@ -660,7 +660,38 @@
           "Image": "pates.png",
 
           "Dishes": [
+            {
+              "Id": 41,
+              "NameAr": "سباغيتي ",
+              "NameFr": " Spaghetti",
+              "NameEn": " Spaghetti ",
+              "Images": [ "Spaghetti.png", "Spaghetti2.png", "Spaghetti3.png" ],
 
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "500",
+              "Calories": 4.6,
+              "Carbo": 100,
+              "Fat": 90,
+              "Protein": 100,
+              "SubSectionId": 4
+            }
 
           ]
         },
