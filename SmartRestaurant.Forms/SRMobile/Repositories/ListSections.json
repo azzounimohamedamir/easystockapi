@@ -903,7 +903,7 @@
               "Carbo": 0,
               "Fat": 0,
               "Protein": 0,
-              "SubSectionId": 5
+              "SubSectionId": 6
             },
             {
               "Id": 62,
@@ -935,7 +935,7 @@
               "Carbo": 0,
               "Fat": 0,
               "Protein": 0,
-              "SubSectionId": 5
+              "SubSectionId": 6
             },
             {
               "Id": 63,
@@ -967,7 +967,7 @@
               "Carbo": 0,
               "Fat": 0,
               "Protein": 0,
-              "SubSectionId": 5
+              "SubSectionId": 6
             }
           ]
         },
@@ -979,20 +979,105 @@
           "Image": "platstraditionnels.png",
 
           "Dishes": [
+            {
+              "Id": 71,
+              "NameAr": " كسكسس",
+              "NameFr": " Couscous",
+              "NameEn": " Couscous",
+              "Images": [ "Couscous.png", "Couscous2.png", "Couscous3.png" ],
 
-          ]
-        },
-        {
-          "Id": 8,
-          "NameAr": "سمك",
-          "NameFr": "Poisson",
-          "NameEn": "Fish",
-          "Image": "poisson.png",
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
 
-          "Dishes": [
 
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 7
+            },
+            {
+              "Id": 72,
+              "NameAr": " رشتة",
+              "NameFr": " Rechta",
+              "NameEn": " Rechta",
+              "Images": [ "Rechta.png", "Rechta2.png", "Rechta3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 7
+            },
+            {
+              "Id": 73,
+              "NameAr": " شخشوخة",
+              "NameFr": " Chakhchoukha",
+              "NameEn": " Chakhchoukha",
+              "Images": [ "Chakhchoukha.png", "Chakhchoukha2.png", "Chakhchoukha3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 7
+            }
           ]
         }
+       
       ]
 
     },
@@ -1003,8 +1088,9 @@
       "NameEn": "Desserts",
       "Image": "desserts.png",
       "SubSections": [
-
+        
       ]
+        
     },
     {
       "Id": 4,
