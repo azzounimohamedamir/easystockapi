@@ -1083,14 +1083,63 @@
     },
     {
       "Id": 3,
-      "NameAr": "المعقبات",
+      "NameAr": "الحلوى",
       "NameFr": "Desserts",
       "NameEn": "Desserts",
       "Image": "desserts.png",
       "SubSections": [
-        
+        {
+
+          "Id": 31,
+          "NameAr": "حلويات",
+          "NameFr": "Pâtisserie ",
+          "NameEn": "Pastry",
+          "Image": "Tarte.png",
+
+          "Dishes": [
+            {
+
+              "Id": 311,
+              "NameAr": "تيراميسو",
+              "NameFr": "Tiramissu",
+              "NameEn": "Tiramissu",
+              "Images": [ "Tiramissu.png", "Tiramissu2.PNG", "Tiramissu3.png" ],
+
+              "Ingredients": [
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "200",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 31
+
+            },
+            {
+              "Id": 313,
+              "NameAr": "موس الشكلاطة",
+              "NameFr": "Mousse au chocolat",
+              "NameEn": "Chocolate mousse",
+              "Images": [ "ChocolateMousse.png", "ChocolateMousse2.png", "ChocolateMousse3.png" ],
+
+              "Ingredients": [
+
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "200",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 31
+            }
+          ]
+
+        }
       ]
-        
     },
     {
       "Id": 4,
