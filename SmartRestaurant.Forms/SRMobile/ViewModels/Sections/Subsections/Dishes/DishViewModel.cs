@@ -485,15 +485,15 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                             _Dish_Ingredients_Measures.Add(ing);
                         }
                     }
-                    foreach (IngredientViewModel di in SectionsListViewModel.Ingredients.Ingredients)
-                    {
-                        if (dish.Ingredients.Select(d => d.Id).Contains(di.Id)) continue;
-                        var ing = di;
-                        ing.Measure = 0;
-                        ing.IsPrincipal = false;
-                        ing.refDishViewModel = this;
-                        _Dish_Ingredients_Measures.Add(ing);
-                    }
+                    //foreach (IngredientViewModel di in SectionsListViewModel.Ingredients.Ingredients)
+                    //{
+                    //    if (dish.Ingredients.Select(d => d.Id).Contains(di.Id)) continue;
+                    //    var ing = di;
+                    //    ing.Measure = 0;
+                    //    ing.IsPrincipal = false;
+                    //    ing.refDishViewModel = this;
+                    //    _Dish_Ingredients_Measures.Add(ing);
+                    //}
                 }
                 else
                     foreach (IngredientViewModel di in _Dish_Ingredients_Measures)
