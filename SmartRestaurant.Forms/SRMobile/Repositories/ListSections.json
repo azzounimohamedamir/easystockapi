@@ -2,7 +2,7 @@
   "SectionsList": [
     {
       "Id": 1,
-      "NameAr": "الأطباق الأولى",
+      "NameAr": "المقبلات",
       "NameFr": "Entrées",
       "NameEn": "Starters ",
       "Image": "starters.png",
@@ -10,17 +10,70 @@
 
         {
           "Id": 81,
-          "NameAr": "بيتزا",
-          "NameFr": "Pizza",
-          "NameEn": "Pizza ",
-          "Image": "pizza.png",
+          "NameAr": "المقبلات الدافئة",
+          "NameFr": "Entrées chaudes",
+          "NameEn": "Hot starters",
+          "Image": "Soupe_de_poisson.png",
           "Dishes": [
             {
               "Id": 91,
-              "NameAr": "هامبورجر",
-              "NameFr": "Tacos XL",
-              "NameEn": "Tacos XL ",
-              "Images": [ "hamburger.png", "tacos.png", "supplement.png" ],
+              "NameAr": "حساءالسمك",
+              "NameFr": "Soupe de poisson",
+              "NameEn": "Fish Soup",
+              "Images": [ "Soupe_de_poisson.png", "soupe_de_poisson2.png", "soupe_de_poisson3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 4,
+                  "Measure": 1
+                },
+                {
+                  "Id": 5,
+                  "Measure": 3
+                },
+                {
+                  "Id": 6,
+                  "Measure": 2
+                },
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 8,
+                  "Measure": 1
+                },
+                {
+                  "Id": 9,
+                  "Measure": 3
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+              ],
+              "EstimatedTime": "10",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 81
+            },
+            {
+              "Id": 92,
+              "NameAr": "حساء الخضر",
+              "NameFr": "Soupe de légumes",
+              "NameEn": "Vegetables Soup",
+              "Images": [ "Soupe_de_legumes3.png", "Soupe_de_legumes.png", "Soupe_de_legumes2.png" ],
 
               "Ingredients": [
                 {
@@ -45,216 +98,1047 @@
                 }
 
               ],
-              "EstimatedTime": "20",
-              "Price": "400",
-              "Calories": 0,
-              "Carbo": 0,
-              "Fat": 0,
-              "Protein": 0,
+              "EstimatedTime": "10",
+              "Price": "200",
+              "Calories": 25,
+              "Carbo": 4,
+              "Fat": 0.3,
+              "Protein": 1,
+              "SubSectionId": 81
+            },
+            {
+              "Id": 93,
+              "NameAr": "حساء العدس",
+              "NameFr": "Soupe de lentilles",
+              "NameEn": "Lentil soup",
+              "Images": [ "soupe_de_lentilles.png", "soupe_de_lentilles2.png", "soupe_de_lentilles3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 4,
+                  "Measure": 1
+                },
+                {
+                  "Id": 5,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "200",
+              "Calories": 56,
+              "Carbo": 8,
+              "Fat": 1,
+              "Protein": 4,
               "SubSectionId": 81
             }
           ]
-        }
+        },
+        {
+          "Id": 82,
+          "NameAr": "المقبلات الباردة",
+          "NameFr": "Entrées froides",
+          "NameEn": "Cold starters",
+          "Image": "Soupe_de_poisson.png",
+          "Dishes": [
+            {
+              "Id": 93,
+              "NameAr": "توست سلمون مدخن",
+              "NameFr": "La tartine saumon fumé",
+              "NameEn": "Smoked salmon toast",
+              "Images": [ "tartine_saumon.png", "tartine_saumon2.png", "tartine_saumon3.png" ],
 
-        ]
-    }
-    ,
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 4,
+                  "Measure": 1
+                },
+                {
+                  "Id": 5,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "15",
+              "Price": "200",
+              "Calories": 824,
+              "Carbo": 60,
+              "Fat": 48,
+              "Protein": 38,
+              "SubSectionId": 82
+            },
+            {
+              "Id": 94,
+              "NameAr": "سلطة سيزار",
+              "NameFr": "Salade César",
+              "NameEn": "Cesar salad",
+              "Images": [ "salade_cezar.png", "salade_cezar2.png", "salade_cezar3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 4,
+                  "Measure": 1
+                },
+                {
+                  "Id": 5,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "15",
+              "Price": "200",
+              "Calories": 44,
+              "Carbo": 5,
+              "Fat": 3,
+              "Protein": 4,
+              "SubSectionId": 82
+            },
+            {
+              "Id": 95,
+              "NameAr": "سلطة التونة",
+              "NameFr": "Salade de thon",
+              "NameEn": "Thon salad",
+              "Images": [ "salade_de_thon.png", "salade_de_thon2.png", "salade_de_thon3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 4,
+                  "Measure": 1
+                },
+                {
+                  "Id": 5,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "15",
+              "Price": "150",
+              "Calories": 123,
+              "Carbo": 6,
+              "Fat": 7,
+              "Protein": 9,
+              "SubSectionId": 82
+            },
+            {
+              "Id": 96,
+              "NameAr": "سلطة الخضار",
+              "NameFr": "Macédoine",
+              "NameEn": "Macedonia",
+              "Images": [ "macedoine.png", "macedoine2.png", "macedoine3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 4,
+                  "Measure": 1
+                },
+                {
+                  "Id": 5,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "15",
+              "Price": "100",
+              "Calories": 48,
+              "Carbo": 7,
+              "Fat": 1,
+              "Protein": 2,
+              "SubSectionId": 82
+            }
+
+
+          ]
+        }
+      ]
+    },
+      
     {
       "Id": 2,
       "NameAr": "الأطباق الرئيسية",
       "NameFr": "Plats principaux",
       "NameEn": "Main courses",
       "Image": "maincourses.png",
-        "SubSections":
-        [
-          {
-            "Id": 1,
-            "NameAr": "بيتزا",
-            "NameFr": "Pizza",
-            "NameEn": "Pizza ",
-            "Image": "pizza.png",
+      "SubSections": [
+        {
+          "Id": 1,
+          "NameAr": "بيتزا",
+          "NameFr": "Pizza",
+          "NameEn": "Pizza ",
+          "Image": "pizza.png",
+
+          "Dishes": [
+            {
+              "Id": 11,
+              "NameAr": "بيتزا الدجاج",
+              "NameFr": "Pizza poulet",
+              "NameEn": "Chicken Pizza ",
+              "Images": [ "Chicken_Pizza.png", "Chicken_Pizza2.png", "Chicken_Pizza3.png" ],
+              "Ingredients": [
+
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 8,
+                  "Measure": 1
+                }
+
+
+              ],
+              "EstimatedTime": "25",
+              "Price": "450",
+              "Calories": 716,
+              "Carbo": 108,
+              "Fat": 12,
+              "Protein": 10,
+              "SubSectionId": 1
+            },
+            {
+              "Id": 12,
+              "NameAr": "بيتزا اللحم",
+              "NameFr": "Pizza viande",
+              "NameEn": "Meat Pizza ",
+              "Images": [ "Meat_Pizza.png", "Meat_Pizza2.png", "Meat_Pizza3.png" ],
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 8,
+                  "Measure": 1
+                }
+
+
+              ],
+              "EstimatedTime": "25",
+              "Price": "450",
+              "Calories": 1773,
+              "Carbo": 185,
+              "Fat": 81,
+              "Protein": 71,
+              "SubSectionId": 1
+            },
+            {
+              "Id": 3,
+              "NameAr": "بيتزا 3 أجبان",
+              "NameFr": "Pizza 3 Fromages",
+              "NameEn": "3 cheeses Pizza ",
+              "Images": [ "cheeses_Pizza.png", "cheeses_Pizza2.png", "cheeses_Pizza3.png" ],
+              "Ingredients": [
+
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 8,
+                  "Measure": 1
+                }
+              ],
+              "EstimatedTime": "20",
+              "Price": "500",
+              "Calories": 1071,
+              "Carbo": 118,
+              "Fat": 46,
+              "Protein": 47,
+              "SubSectionId": 1
+            }
             
-            "Dishes": [           
+          ]
+        },
+        {
+          "Id": 2,
+          "NameAr": "سندويتش",
+          "NameFr": "Sandwich",
+          "NameEn": "Sandwich ",
+          "Image": "sandwich.png",
 
-            ]
-          },
-          {
-            "Id": 2,
-            "NameAr": "سندويتش",
-            "NameFr": "Sandwich",
-            "NameEn": "Sandwich ",
-            "Image": "sandwich.png",
+          "Dishes": [
+            {
+              "Id": 21,
+              "NameAr": "هامبورجر",
+              "NameFr": "Hamburger",
+              "NameEn": "hamburger ",
+              "Images": [ "hamburger.png", "hamburger2.png", "hamburger3.png" ],
 
-            "Dishes": [
-              {
-                "Id": 1,
-                "NameAr": "هامبورجر",
-                "NameFr": "Tacos XL",
-                "NameEn": "Tacos XL ",
-                "Images": [ "hamburger.png", "tacos.png", "supplement.png" ],
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 4,
+                  "Measure": 1
+                },
+                {
+                  "Id": 5,
+                  "Measure": 3
+                }
 
-                "Ingredients": [
-                  {
-                    "Id": 1,
-                    "Measure": 2
-                  },
-                  {
-                    "Id": 2,
-                    "Measure": 1
-                  },
-                  {
-                    "Id": 3,
-                    "Measure": 1
-                  },
-                  {
-                    "Id": 4,
-                    "Measure": 1
-                  },
-                  {
-                    "Id": 5,
-                    "Measure": 3
-                  }
+              ],
+              "EstimatedTime": "30",
+              "Price": "400",
+              "Calories": 295,
+              "Carbo": 24,
+              "Fat": 14,
+              "Protein": 17,
+              "SubSectionId": 2
+            },
+            {
+              "Id": 22,
+              "NameAr": "طاكوس",
+              "NameFr": "Tacos",
+              "NameEn": "Tacos ",
+              "Images": [ "tacos.png", "Tacos2.png", "Tacos3.png" ],
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 8,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 1
+                }
+              ],
+              "EstimatedTime": "30",
+              "Price": "500",
+              "Calories": 500,
+              "Carbo": 40,
+              "Fat": 26,
+              "Protein": 20,
+              "SubSectionId": 2
+            },
+            {
+              "Id": 23,
+              "NameAr": " ساندويتش مكسيكي",
+              "NameFr": "Sandwich Mexicain",
+              "NameEn": "Sandwich Mexican ",
+              "Images": [ "Mexican.png", "Mexican2.png", "Mexican3.png" ],
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
 
-                ],
-                "EstimatedTime": "20",
-                "Price": "400",
-                "Calories":0,
-                "Carbo": 0,
-                "Fat": 0,
-                "Protein": 0,
-                "SubSectionId": 2
-              },
-              {
-                "Id": 2,
-                "NameAr": "هامبورجر",
-                "NameFr": "Hamburger",
-                "NameEn": "Hamburger ",
-                "Images": [ "hamburger.png", "tacos.png", "supplement.png" ],
-                "Ingredients": [],
-                "EstimatedTime": "20",
-                "Price": "400",
-                "Calories":0,
-                "Carbo": 0,
-                "Fat": 0,
-                "Protein": 0,
-                "SubSectionId": 2
-              },
-              {
-                "Id": 3,
-                "NameAr": "هامبورجر",
-                "NameFr": "Hamburger",
-                "NameEn": "Hamburger ",
-                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
-                "Ingredients": [],
-                "EstimatedTime": "20",
-                "Price": "400",
-                "Calories":0,
-                "Carbo": 0,
-                "Fat": 0,
-                "Protein": 0,
-                "SubSectionId": 2
-              },
-              {
-                "Id": 4,
-                "NameAr": "هامبورجر",
-                "NameFr": "Hamburger",
-                "NameEn": "Hamburger ",
-                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
-                "Ingredients": [],"EstimatedTime": "20",
-                "Price": "400",
-                "SubSectionId": 2
-              },
-              {
-                "Id": 5,
-                "NameAr": "هامبورجر",
-                "NameFr": "Hamburger",
-                "NameEn": "Hamburger ",
-                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
-                "Ingredients": [],"EstimatedTime": "20",
-                "Price": "400",
-                "SubSectionId": 2
-              }
-            ]
-          },
-          {
-            "Id": 3,
-            "NameAr": "شواء",
-            "NameFr": "Grillades",
-            "NameEn": "Grill",
-            "Image": "grillades.png",
+                {
+                  "Id": 4,
+                  "Measure": 1
+                },
+                {
+                  "Id": 8,
+                  "Measure": 3
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+              ],
+              "EstimatedTime": "20",
+              "Price": "250",
+              "Calories": 367,
+              "Carbo": 30,
+              "Fat": 13,
+              "Protein": 30,
+              "SubSectionId": 2
+            },
+            {
+              "Id": 24,
+              "NameAr": "شوارما",
+              "NameFr": "Chawarma",
+              "NameEn": "Chawarma ",
+              "Images": [ "Chawarma.png", "Chawarma2.png", "Chawarma3.png" ],
+              "Ingredients": [],
+              "EstimatedTime": "20",
+              "Price": "250",
+              "SubSectionId": 2
+            }
+          ]
+        },
+        {
+          "Id": 3,
+          "NameAr": "شواء",
+          "NameFr": "Grillades",
+          "NameEn": "Grill",
+          "Image": "grillades.png",
 
-            "Dishes": [
-             
+          "Dishes": [
+            {
+              "Id": 31,
+              "NameAr": "شواء",
+              "NameFr": "Gril",
+              "NameEn": "Grill ",
+              "Images": [ "Grill.png", "Grill2.png", "Grill3.png" ],
 
-            ]
-          },
-          {
-            "Id": 4,
-            "NameAr": "معجنات",
-            "NameFr": "Pâtes",
-            "NameEn": "Pasta",
-            "Image": "pates.png",
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
 
-            "Dishes": [
-             
 
-            ]
-          },
-          {
-            "Id": 5,
-            "NameAr": "دجاج",
-            "NameFr": "Volaille",
-            "NameEn": "Chicken",
-            "Image": "volaille.png",
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
 
-            "Dishes": [
-             
-            ]
-          },
-          {
-            "Id": 6,
-            "NameAr": "لحم",
-            "NameFr": "Viande",
-            "NameEn": "Meat",
-            "Image": "viande.png",
+              ],
+              "EstimatedTime": "30",
+              "Price": "500",
+              "Calories": 4.6,
+              "Carbo": 100,
+              "Fat": 90,
+              "Protein": 100,
+              "SubSectionId": 3
+            },
+            {
+              "Id": 32,
+              "NameAr": "سمك مشوي",
+              "NameFr": "Poisson Grillé",
+              "NameEn": "Grilled fich ",
+              "Images": [ "Grill_Fish.png", "Grill_Fish2.png", "Grill_Fish3.png" ],
 
-            "Dishes": [
-             
-            ]
-          },
-          {
-            "Id": 7,
-            "NameAr": "أطباق تقليدية",
-            "NameFr": "Plats traditionnels",
-            "NameEn": "Traditional dishes ",
-            "Image": "platstraditionnels.png",
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
 
-            "Dishes": [
 
-            ]
-          },
-          {
-            "Id": 8,
-            "NameAr": "سمك",
-            "NameFr": "Poisson",
-            "NameEn": "Fish",
-            "Image": "poisson.png",
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
 
-            "Dishes": [
+              ],
+              "EstimatedTime": "30",
+              "Price": "600",
+              "Calories": 4.6,
+              "Carbo": 100,
+              "Fat": 90,
+              "Protein": 100,
+              "SubSectionId": 3
+            },
+            {
+              "Id": 33,
+              "NameAr": "كباب ",
+              "NameFr": " Kebab",
+              "NameEn": " Kebab ",
+              "Images": [ "Kebab.png", "Kebab2.png", "Kebab3.png" ],
 
-            ]
-          }
-        ]
-      
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "30",
+              "Price": "500",
+              "Calories": 4.6,
+              "Carbo": 100,
+              "Fat": 90,
+              "Protein": 100,
+              "SubSectionId": 3
+            }
+
+          ]
+        },
+        {
+          "Id": 4,
+          "NameAr": "معجنات",
+          "NameFr": "Pâtes",
+          "NameEn": "Pasta",
+          "Image": "pates.png",
+
+          "Dishes": [
+            {
+              "Id": 41,
+              "NameAr": "سباغيتي ",
+              "NameFr": " Spaghetti",
+              "NameEn": " Spaghetti ",
+              "Images": [ "Spaghetti.png", "Spaghetti2.png", "Spaghetti3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "500",
+              "Calories": 4.6,
+              "Carbo": 100,
+              "Fat": 90,
+              "Protein": 100,
+              "SubSectionId": 4
+            },
+            {
+              "Id": 42,
+              "NameAr": "لازانيا ",
+              "NameFr": " Lasagne",
+              "NameEn": " Lasagna ",
+              "Images": [ "Lasagne.png", "Lasagne2.png", "Lasagne3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "500",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            },
+            {
+              "Id": 43,
+              "NameAr": "كانيلوني ",
+              "NameFr": " Cannelloni",
+              "NameEn": " Cannelloni ",
+              "Images": [ "Cannelloni.png", "Cannelloni2.png", "Cannelloni3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "500",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            }
+
+          ]
+        },
+        {
+          "Id": 5,
+          "NameAr": "دجاج",
+          "NameFr": "Volaille",
+          "NameEn": "Chicken",
+          "Image": "volaille.png",
+
+          "Dishes": [
+            {
+              "Id": 51,
+              "NameAr": "دجاج مشوي",
+              "NameFr": " Poulet rôti",
+              "NameEn": " Roast chicken ",
+              "Images": [ "Poulet_roti.png", "Poulet_roti2.png", "Poulet_roti3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "600",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            },
+            {
+              "Id": 52,
+              "NameAr": "دجاج محشي",
+              "NameFr": " Poulet farci",
+              "NameEn": " Stuffed chicken ",
+              "Images": [ "Poulet_farci.png", "Poulet_farci2.png", "Poulet_farci3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "700",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            },
+            {
+              "Id": 53,
+              "NameAr": "دجاج مقلي",
+              "NameFr": " Poulet pané",
+              "NameEn": " Paned chicken ",
+              "Images": [ "Poulet_pane.png", "Poulet_pane2.png", "Poulet_pane3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            }
+          ]
+        },
+        {
+          "Id": 6,
+          "NameAr": "لحم",
+          "NameFr": "Viande",
+          "NameEn": "Meat",
+          "Image": "viande.png",
+
+          "Dishes": [
+            {
+              "Id": 61,
+              "NameAr": "أضلاع مشوية",
+              "NameFr": " Côtes rôties",
+              "NameEn": " Roasted ribs ",
+              "Images": [ "Cotes_roties.png", "Cotes_roties2.png", "Cotes_roties3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "30",
+              "Price": "500",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 6
+            },
+            {
+              "Id": 62,
+              "NameAr": " شريحة لحم مشوية",
+              "NameFr": " Steak grillé",
+              "NameEn": " Grilled steak ",
+              "Images": [ "Steak_grille.png", "Steak_grille2.png", "Steak_grille3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "30",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 6
+            },
+            {
+              "Id": 63,
+              "NameAr": " لحم عجل مشوي",
+              "NameFr": " Rôti de veau",
+              "NameEn": " Roast veal ",
+              "Images": [ "Roti_de_veau.png", "Roti_de_veau2.png", "Roti_de_veau3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "30",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 6
+            }
+          ]
+        },
+        {
+          "Id": 7,
+          "NameAr": "أطباق تقليدية",
+          "NameFr": "Plats traditionnels",
+          "NameEn": "Traditional dishes ",
+          "Image": "platstraditionnels.png",
+
+          "Dishes": [
+            {
+              "Id": 71,
+              "NameAr": " كسكسس",
+              "NameFr": " Couscous",
+              "NameEn": " Couscous",
+              "Images": [ "Couscous.png", "Couscous2.png", "Couscous3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 7
+            },
+            {
+              "Id": 72,
+              "NameAr": " رشتة",
+              "NameFr": " Rechta",
+              "NameEn": " Rechta",
+              "Images": [ "Rechta.png", "Rechta2.png", "Rechta3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 7
+            },
+            {
+              "Id": 73,
+              "NameAr": " شخشوخة",
+              "NameFr": " Chakhchoukha",
+              "NameEn": " Chakhchoukha",
+              "Images": [ "Chakhchoukha.png", "Chakhchoukha2.png", "Chakhchoukha3.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+
+
+                {
+                  "Id": 7,
+                  "Measure": 1
+                },
+                {
+                  "Id": 10,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 7
+            }
+          ]
+        }
+       
+      ]
+
     },
     {
       "Id": 3,
-      "NameAr": "المعقبات",
+      "NameAr": "الحلوى",
       "NameFr": "Desserts",
       "NameEn": "Desserts",
       "Image": "desserts.png",
       "SubSections": [
-       
+        {
+
+          "Id": 31,
+          "NameAr": "حلويات",
+          "NameFr": "Pâtisserie ",
+          "NameEn": "Pastry",
+          "Image": "Tarte.png",
+
+          "Dishes": [
+            {
+
+              "Id": 311,
+              "NameAr": "تيراميسو",
+              "NameFr": "Tiramissu",
+              "NameEn": "Tiramissu",
+              "Images": [ "Tiramissu.png", "Tiramissu2.PNG", "Tiramissu3.png" ],
+
+              "Ingredients": [
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "200",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 31
+
+            },
+            {
+              "Id": 313,
+              "NameAr": "موس الشكلاطة",
+              "NameFr": "Mousse au chocolat",
+              "NameEn": "Chocolate mousse",
+              "Images": [ "ChocolateMousse.png", "ChocolateMousse2.png", "ChocolateMousse3.png" ],
+
+              "Ingredients": [
+
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "200",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 31
+            }
+          ]
+
+        }
       ]
     },
     {
@@ -264,7 +1148,7 @@
       "NameEn": "Drinks",
       "Image": "drinks.png",
       "SubSections": [
-       
+
       ]
     }
   ]
