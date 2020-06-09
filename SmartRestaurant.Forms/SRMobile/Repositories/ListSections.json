@@ -25,39 +25,39 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 4,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 5,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 },
                 {
                   "Id": 6,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 8,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 9,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
               ],
               "EstimatedTime": "10",
@@ -78,23 +78,23 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
                   "Id": 2,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 4,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 5,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -116,23 +116,23 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
                   "Id": 2,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 4,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 5,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -163,23 +163,23 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
                   "Id": 2,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 4,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 5,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -201,23 +201,23 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
                   "Id": 2,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 4,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 5,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -239,23 +239,23 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
                   "Id": 2,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 4,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 5,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -277,23 +277,23 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
                   "Id": 2,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 4,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 5,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -337,15 +337,15 @@
 
                 {
                   "Id": 2,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 8,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 }
 
 
@@ -367,16 +367,16 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 8,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 }
 
 
@@ -399,11 +399,11 @@
 
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 8,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 }
               ],
               "EstimatedTime": "20",
@@ -435,23 +435,23 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
                   "Id": 2,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 4,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 5,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -472,19 +472,19 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
                   "Id": 2,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 8,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 }
               ],
               "EstimatedTime": "30",
@@ -504,24 +504,24 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
                   "Id": 2,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
 
                 {
                   "Id": 4,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 8,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
               ],
               "EstimatedTime": "20",
@@ -563,17 +563,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -595,17 +595,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -627,17 +627,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -670,17 +670,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -702,17 +702,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -734,17 +734,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -777,17 +777,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -809,17 +809,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -841,17 +841,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -883,17 +883,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -915,17 +915,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -947,17 +947,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -989,17 +989,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -1021,17 +1021,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
@@ -1053,17 +1053,17 @@
               "Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
 
 
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],

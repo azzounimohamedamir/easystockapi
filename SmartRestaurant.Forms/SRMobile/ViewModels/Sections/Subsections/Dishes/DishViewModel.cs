@@ -55,13 +55,13 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 s.refDishViewModel = this;
             }
             Calories = _dish.Calories +
-                Dish_Ingredients_Measures.Sum(d => d.Calories * d.Measure);
+                Dish_Ingredients_Measures.Sum(d => d.Calories * d.Quantity);
             Carbo = _dish.Carbo +
-                Dish_Ingredients_Measures.Sum(d => d.Carbo * d.Measure); 
+                Dish_Ingredients_Measures.Sum(d => d.Carbo * d.Quantity); 
             Fat = _dish.Fat +
-                Dish_Ingredients_Measures.Sum(d => d.Fat * d.Measure);
+                Dish_Ingredients_Measures.Sum(d => d.Fat * d.Quantity);
             Protein = _dish.Protein +
-                Dish_Ingredients_Measures.Sum(d => d.Protein * d.Measure) ;
+                Dish_Ingredients_Measures.Sum(d => d.Protein * d.Quantity) ;
 
         }
 
@@ -479,8 +479,12 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                         var ing = SectionsListViewModel.Ingredients.Ingredients.FirstOrDefault(i => i.Id == di.Id);
                         if (ing != null)
                         {
-                            ing.Measure = di.Measure;
-                            ing.IsPrincipal = true;
+                            ing.Quantity = di.Quantity;
+                            ing.InitialValue = di.InitialValue;
+                            ing.IsEssential = di.IsEssential;
+                            ing.MinValue = di.MinValue;
+                            ing.MaxValue = di.MaxValue;
+                            ing.Step = di.Step;
                             ing.refDishViewModel = this;
                             _Dish_Ingredients_Measures.Add(ing);
                         }
@@ -489,7 +493,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                     //{
                     //    if (dish.Ingredients.Select(d => d.Id).Contains(di.Id)) continue;
                     //    var ing = di;
-                    //    ing.Measure = 0;
+                    //    ing.InitialValue = 0;
                     //    ing.IsPrincipal = false;
                     //    ing.refDishViewModel = this;
                     //    _Dish_Ingredients_Measures.Add(ing);

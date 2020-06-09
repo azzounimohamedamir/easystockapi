@@ -31,6 +31,17 @@ namespace SmartRestaurant.Diner.Models
     public class DishIngredient
     {
         public int Id { get; set; }
-        public int Measure { get; set; }
+        public int Quantity { get; set; }
+        public int InitialValue { get; set; }
+        public float MinValue { get; set; }
+        public float MaxValue { get; set; }
+        public float Step { get; set; }
+        public bool IsEssential { get; set; }
+        public int MeasurementUnit { get; set; }
+
+    }
+    public enum MeasurementUnits
+    {
+        g, l, c
     }
 }

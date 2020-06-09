@@ -151,10 +151,13 @@
                                                     <RowDefinition Height="37" />
                                                 </Grid.RowDefinitions>
                                                 <Image Grid.Row="0" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="Fill" />
-                                                    <pancakeview:PancakeView IsVisible="{Binding  IsPrincipal}" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Start" Margin="6,6,6,0" BackgroundColor="#01A9AC" HeightRequest="24" WidthRequest="24" CornerRadius="4" BorderDrawingStyle="Outside" FlowDirection="MatchParent">
+                                                    <pancakeview:PancakeView IsVisible="{Binding  IsEssential}" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Start"
+                                                                             Margin="6,6,6,0" BackgroundColor="#01A9AC"
+                                                                             HeightRequest="24" WidthRequest="24" CornerRadius="4" 
+                                                                             BorderDrawingStyle="Outside" FlowDirection="MatchParent">
                                                         <Image Source="star.png" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" />
                                                     </pancakeview:PancakeView>
-                                                    <Label x:Name="weightspan" Text="{Binding Weight}" FontSize="1" IsVisible="False"   />
+                                                    <Label x:Name="weightspan" Text="{Binding Step}" FontSize="1" IsVisible="False"   />
                                                     <Label x:Name="caloriespan" Text="{Binding Calories}" FontSize="1" IsVisible="False"   />
                                                     <Label  Style="{StaticResource Key=RobotoLabel}"  Grid.Row="1" Margin="7,0,7,0" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" VerticalOptions="Center">
                                                     <Label.FormattedText>
@@ -162,9 +165,9 @@
                                                             <Span Text="{Binding Name}" TextColor="#3C536A" FontAttributes="Bold" FontSize="12"  />
                                                             <Span Text="&#10;" />
                                                             <Span 
-                                                                   Text="{Binding Measure,
-                                                                                Converter={StaticResource IntMultiply} ,
-                                                                                ConverterParameter={x:Reference caloriespan}}"
+                                                                   Text="{Binding Quantity,
+                                                                                Converter={StaticResource FloatMultiply} ,
+                                                                                ConverterParameter={x:Reference caloriespan},}"
                                                                   TextColor="#773C536A" FontSize="12"   />
                                                             <Span Text=" " />
                                                             <Span Text="{helpers:Translate kcal}" TextColor="#773C536A" FontSize="12"   />
@@ -191,8 +194,8 @@
                                                                        HorizontalTextAlignment="Center" >
                                                                     <Label.FormattedText>
                                                                         <FormattedString>
-                                                                            <Span FontSize="9"  Text="{Binding Measure,
-                                                                                Converter={StaticResource IntMultiply} ,
+                                                                            <Span FontSize="9"  Text="{Binding Quantity,
+                                                                                Converter={StaticResource FloatMultiply} ,
                                                                                 ConverterParameter={x:Reference weightspan}}"/>
                                                                             <Span Text=" " FontSize="4" />
                                                                             <Span FontSize="9"  Text="{helpers:Translate g}"/>
@@ -288,7 +291,7 @@
                                                         <FormattedString>
                                                             <Span Text="{Binding Name}"   />
                                                                 <Span Text="&#10;" />
-                                                                <Span Text="{Binding Calories}"  />
+                                                                <Span Text="{Binding Calories, StringFormat='{0:0.##}'}"  />
                                                                 <Span Text=" " />
                                                                 <Span Text="{helpers:Translate kcal}" />
                                                             </FormattedString>
@@ -317,7 +320,7 @@
                             <Label Style="{StaticResource Key=RobotoLabel}" VerticalOptions="Start" HeightRequest="82" WidthRequest="124" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding Calories}" TextColor="#3C536A"  FontSize="18" FontAttributes="Bold" />
+                                            <Span Text="{Binding Calories, StringFormat='{0:0.##}'}" TextColor="#3C536A"  FontSize="18" FontAttributes="Bold" />
                                         <Span Text="&#10;" />
                                         <Span Text="{helpers:Translate Calories}" TextColor="#3C536A" FontSize="16" />
                                         <Span Text="&#10;" />
@@ -330,7 +333,7 @@
                                 <Label Style="{StaticResource Key=RobotoLabel}" VerticalOptions="Start" HeightRequest="82" WidthRequest="124" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding Carbo}" TextColor="#3C536A"  FontSize="18" FontAttributes="Bold" />
+                                            <Span Text="{Binding Carbo, StringFormat='{0:0.##}'}" TextColor="#3C536A"  FontSize="18" FontAttributes="Bold" />
                                         <Span Text="&#10;" />
                                         <Span Text="{helpers:Translate Carbo}" TextColor="#3C536A"  FontSize="16" />
                                         <Span Text="&#10;" />
@@ -343,7 +346,7 @@
                                 <Label Style="{StaticResource Key=RobotoLabel}" HeightRequest="82" WidthRequest="124" VerticalOptions="Start" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding Fat}" TextColor="#3C536A" FontSize="18" FontAttributes="Bold" />
+                                            <Span Text="{Binding Fat, StringFormat='{0:0.##}'}" TextColor="#3C536A" FontSize="18" FontAttributes="Bold" />
                                         <Span Text="&#10;" />
                                         <Span Text="{helpers:Translate Fat}" TextColor="#3C536A"   FontSize="16" />
                                         <Span Text="&#10;" />
@@ -356,7 +359,7 @@
                                 <Label Style="{StaticResource Key=RobotoLabel}" HeightRequest="82" WidthRequest="124" VerticalOptions="Start" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding Protein}" TextColor="#3C536A"  FontSize="18" FontAttributes="Bold" />
+                                            <Span Text="{Binding Protein, StringFormat='{0:0.##}'}" TextColor="#3C536A"  FontSize="18" FontAttributes="Bold" />
                                         <Span Text="&#10;" />
                                         <Span Text="{helpers:Translate Protein}" TextColor="#3C536A"  FontSize="16" />
                                         <Span Text="&#10;" />
