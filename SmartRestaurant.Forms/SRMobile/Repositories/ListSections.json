@@ -455,7 +455,7 @@
               "SubSectionId": 2
             },
             {
-              "Id": 3,
+              "Id": 13,
               "NameAr": "بيتزا 3 أجبان",
               "NameFr": "Pizza 3 Fromages",
               "NameEn": "3 cheeses Pizza ",
@@ -463,7 +463,7 @@
               "Ingredients": [
 
                 {
-                  "Id": 3,
+                  "Id": 22,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -471,7 +471,31 @@
                   "InitialValue": 1
                 },
                 {
-                  "Id": 8,
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 25,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 17,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 24,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -481,11 +505,11 @@
               ],
               "EstimatedTime": "20",
               "Price": "500",
-              "Calories": 1071,
-              "Carbo": 118,
-              "Fat": 46,
-              "Protein": 47,
-              "SubSectionId": 1
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 2
             }
 
           ]
