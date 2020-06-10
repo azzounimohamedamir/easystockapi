@@ -410,16 +410,7 @@
               "Images": [ "Meat_Pizza.png", "Meat_Pizza2.png", "Meat_Pizza3.png" ],
               "Ingredients": [
                 {
-                  "Id": 1,
-                  "Step": 20,
-                  "MinValue": 2,
-                  "MaxValue": 10,
-                  "IsEssential": true,
-                  "InitialValue": 2
-                },
-
-                {
-                  "Id": 3,
+                  "Id": 22,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -427,7 +418,23 @@
                   "InitialValue": 1
                 },
                 {
-                  "Id": 8,
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 17,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -437,13 +444,15 @@
 
 
               ],
+
+
               "EstimatedTime": "25",
               "Price": "450",
               "Calories": 1773,
               "Carbo": 185,
               "Fat": 81,
               "Protein": 71,
-              "SubSectionId": 1
+              "SubSectionId": 2
             },
             {
               "Id": 3,
