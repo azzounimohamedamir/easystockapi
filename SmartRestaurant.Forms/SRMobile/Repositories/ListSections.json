@@ -360,7 +360,7 @@
               "Ingredients": [
 
                 {
-                  "Id": 2,
+                  "Id": 22,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -368,7 +368,7 @@
                   "InitialValue": 1
                 },
                 {
-                  "Id": 3,
+                  "Id": 6,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -376,7 +376,15 @@
                   "InitialValue": 1
                 },
                 {
-                  "Id": 8,
+                  "Id": 16,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 17,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -388,11 +396,11 @@
               ],
               "EstimatedTime": "25",
               "Price": "450",
-              "Calories": 716,
-              "Carbo": 108,
-              "Fat": 12,
-              "Protein": 10,
-              "SubSectionId": 1
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 2
             },
             {
               "Id": 12,
