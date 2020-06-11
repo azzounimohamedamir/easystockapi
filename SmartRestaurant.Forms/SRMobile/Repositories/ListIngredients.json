@@ -523,6 +523,71 @@
       "Fat": 4.8,
       "Protein": 12.2,
       "Image": "CHAKHCHOUKHA_ftir.png"
+    },
+    {
+      "Id": 41,
+      "NameAr": " بيض",
+      "NameFr": " Oeuf",
+      "NameEn": " Egg ",
+      "Price": 10,
+      "Weight": 100,
+      "Calories": 100,
+      "Carbo": 0.7,
+      "Fat": 0.2,
+      "Protein": 11,
+      "Image": "oeufs.png"
+    },
+    {
+      "Id": 42,
+      "NameAr": " سكر",
+      "NameFr": " Sucre",
+      "NameEn": " Sugar ",
+      "Price": 30,
+      "Weight": 100,
+      "Calories": 387,
+      "Carbo": 100,
+      "Fat": 0,
+      "Protein": 0,
+      "Image": "sucre.png"
+    },
+    {
+      "Id": 43,
+      "NameAr": " البدوار",
+      "NameFr": " Boudoire",
+      "NameEn": " Boudoir ",
+      "Price": 30,
+      "Weight": 100,
+      "Calories": 365,
+      "Carbo": 60,
+      "Fat": 9,
+      "Protein": 11,
+      "Image": "boudoire.png"
+    },
+    {
+      "Id": 44,
+      "NameAr": " كاكاو",
+      "NameFr": " Cacao",
+      "NameEn": " Cocoa ",
+      "Price": 10,
+      "Weight": 100,
+      "Calories": 228,
+      "Carbo": 58,
+      "Fat": 14,
+      "Protein": 20,
+      "Image": "Cacao.png"
+    },
+    {
+      "Id": 45,
+      "NameAr": " شكلاطة",
+      "NameFr": " Chocolat",
+      "NameEn": " Chocolate ",
+      "Price": 50,
+      "Weight": 100,
+      "Calories": 546,
+      "Carbo": 61,
+      "Fat": 31,
+      "Protein": 4.9,
+      "Image": "chocolat.png"
     }
   ]
 }

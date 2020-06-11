@@ -120,10 +120,10 @@
               ],
               "EstimatedTime": "10",
               "Price": "200",
-              "Calories": 25,
-              "Carbo": 4,
-              "Fat": 0.3,
-              "Protein": 1,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 81
             },
             {
@@ -170,10 +170,10 @@
               ],
               "EstimatedTime": "10",
               "Price": "200",
-              "Calories": 56,
-              "Carbo": 8,
-              "Fat": 1,
-              "Protein": 4,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 81
             }
            
@@ -210,10 +210,10 @@
               ],
               "EstimatedTime": "15",
               "Price": "200",
-              "Calories": 824,
-              "Carbo": 60,
-              "Fat": 48,
-              "Protein": 38,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 82
             },
             {
@@ -251,10 +251,10 @@
               ],
               "EstimatedTime": "15",
               "Price": "200",
-              "Calories": 44,
-              "Carbo": 5,
-              "Fat": 3,
-              "Protein": 4,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 82
             },
             {
@@ -289,10 +289,10 @@
               ],
               "EstimatedTime": "15",
               "Price": "150",
-              "Calories": 123,
-              "Carbo": 6,
-              "Fat": 7,
-              "Protein": 9,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 82
             },
             {
@@ -323,10 +323,10 @@
               ],
               "EstimatedTime": "15",
               "Price": "100",
-              "Calories": 48,
-              "Carbo": 7,
-              "Fat": 1,
-              "Protein": 2,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 82
             }
 
@@ -448,10 +448,10 @@
 
               "EstimatedTime": "25",
               "Price": "450",
-              "Calories": 1773,
-              "Carbo": 185,
-              "Fat": 81,
-              "Protein": 71,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 2
             },
             {
@@ -583,10 +583,10 @@
               ],
               "EstimatedTime": "30",
               "Price": "400",
-              "Calories": 295,
-              "Carbo": 24,
-              "Fat": 14,
-              "Protein": 17,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 2
             },
             {
@@ -655,10 +655,10 @@
               ],
               "EstimatedTime": "30",
               "Price": "500",
-              "Calories": 500,
-              "Carbo": 40,
-              "Fat": 26,
-              "Protein": 20,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 2
             },
             {
@@ -719,10 +719,10 @@
               ],
               "EstimatedTime": "20",
               "Price": "250",
-              "Calories": 367,
-              "Carbo": 30,
-              "Fat": 13,
-              "Protein": 30,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 2
             },
             {
@@ -775,6 +775,10 @@
               ],
               "EstimatedTime": "20",
               "Price": "250",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 2
             }
           ]
@@ -838,10 +842,10 @@
               ],
               "EstimatedTime": "30",
               "Price": "500",
-              "Calories": 4.6,
-              "Carbo": 100,
-              "Fat": 90,
-              "Protein": 100,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 3
             },
             {
@@ -888,10 +892,10 @@
               ],
               "EstimatedTime": "30",
               "Price": "600",
-              "Calories": 4.6,
-              "Carbo": 100,
-              "Fat": 90,
-              "Protein": 100,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 3
             },
             {
@@ -1736,7 +1740,47 @@
               "Images": [ "Tiramissu.png", "Tiramissu2.PNG", "Tiramissu3.png" ],
 
               "Ingredients": [
+                {
+                  "Id": 41,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 42,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 43,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
 
+                {
+                  "Id": 44,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 14,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                }
               ],
               "EstimatedTime": "20",
               "Price": "200",
@@ -1755,8 +1799,22 @@
               "Images": [ "ChocolateMousse.png", "ChocolateMousse2.png", "ChocolateMousse3.png" ],
 
               "Ingredients": [
-
-
+                {
+                  "Id": 41,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 45,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                }
               ],
               "EstimatedTime": "20",
               "Price": "200",
