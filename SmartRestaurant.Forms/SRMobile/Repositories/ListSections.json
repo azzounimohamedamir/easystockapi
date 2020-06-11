@@ -1473,7 +1473,23 @@
 
               "Ingredients": [
                 {
-                  "Id": 1,
+                  "Id": 34,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 37,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 38,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -1481,9 +1497,16 @@
                   "InitialValue": 2
                 },
 
-
                 {
-                  "Id": 7,
+                  "Id": 1,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 3,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -1491,7 +1514,31 @@
                   "InitialValue": 1
                 },
                 {
-                  "Id": 10,
+                  "Id": 5,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 9,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,

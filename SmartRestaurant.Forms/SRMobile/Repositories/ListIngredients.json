@@ -484,6 +484,19 @@
       "Fat": 4.6,
       "Protein": 18.5,
       "Image": "Epaule.png"
+    },
+    {
+      "Id": 38,
+      "NameAr": " كسكسي  ",
+      "NameFr": " Couscous",
+      "NameEn": "  Couscous ",
+      "Price": 20,
+      "Weight": 100,
+      "Calories": 169,
+      "Carbo": 35.7,
+      "Fat": 0.8,
+      "Protein": 3.8,
+      "Image": "Semoule_Couscous.png"
     }
   ]
 }

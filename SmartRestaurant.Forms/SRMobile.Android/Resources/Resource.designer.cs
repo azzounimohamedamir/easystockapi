@@ -14280,26 +14280,26 @@ namespace SmartRestaurant.Diner.Droid
 			// aapt resource value: 0x7f02005a
 			public const int avd_hide_password = 2130837594;
 			
-			// aapt resource value: 0x7f02011a
-			public const int avd_hide_password_1 = 2130837786;
-			
 			// aapt resource value: 0x7f02011b
-			public const int avd_hide_password_2 = 2130837787;
+			public const int avd_hide_password_1 = 2130837787;
 			
 			// aapt resource value: 0x7f02011c
-			public const int avd_hide_password_3 = 2130837788;
+			public const int avd_hide_password_2 = 2130837788;
+			
+			// aapt resource value: 0x7f02011d
+			public const int avd_hide_password_3 = 2130837789;
 			
 			// aapt resource value: 0x7f02005b
 			public const int avd_show_password = 2130837595;
 			
-			// aapt resource value: 0x7f02011d
-			public const int avd_show_password_1 = 2130837789;
-			
 			// aapt resource value: 0x7f02011e
-			public const int avd_show_password_2 = 2130837790;
+			public const int avd_show_password_1 = 2130837790;
 			
 			// aapt resource value: 0x7f02011f
-			public const int avd_show_password_3 = 2130837791;
+			public const int avd_show_password_2 = 2130837791;
+			
+			// aapt resource value: 0x7f020120
+			public const int avd_show_password_3 = 2130837792;
 			
 			// aapt resource value: 0x7f02005c
 			public const int baguettes_de_pain = 2130837596;
@@ -14610,11 +14610,11 @@ namespace SmartRestaurant.Diner.Droid
 			// aapt resource value: 0x7f0200c2
 			public const int notification_icon_background = 2130837698;
 			
-			// aapt resource value: 0x7f020118
-			public const int notification_template_icon_bg = 2130837784;
-			
 			// aapt resource value: 0x7f020119
-			public const int notification_template_icon_low_bg = 2130837785;
+			public const int notification_template_icon_bg = 2130837785;
+			
+			// aapt resource value: 0x7f02011a
+			public const int notification_template_icon_low_bg = 2130837786;
 			
 			// aapt resource value: 0x7f0200c3
 			public const int notification_tile_bg = 2130837699;
@@ -14743,133 +14743,136 @@ namespace SmartRestaurant.Diner.Droid
 			public const int saumon_fume = 2130837740;
 			
 			// aapt resource value: 0x7f0200ed
-			public const int soda = 2130837741;
+			public const int Semoule_Couscous = 2130837741;
 			
 			// aapt resource value: 0x7f0200ee
-			public const int Soupe_de_legumes = 2130837742;
+			public const int soda = 2130837742;
 			
 			// aapt resource value: 0x7f0200ef
-			public const int Soupe_de_legumes2 = 2130837743;
+			public const int Soupe_de_legumes = 2130837743;
 			
 			// aapt resource value: 0x7f0200f0
-			public const int Soupe_de_legumes3 = 2130837744;
+			public const int Soupe_de_legumes2 = 2130837744;
 			
 			// aapt resource value: 0x7f0200f1
-			public const int soupe_de_lentilles = 2130837745;
+			public const int Soupe_de_legumes3 = 2130837745;
 			
 			// aapt resource value: 0x7f0200f2
-			public const int soupe_de_lentilles2 = 2130837746;
+			public const int soupe_de_lentilles = 2130837746;
 			
 			// aapt resource value: 0x7f0200f3
-			public const int soupe_de_lentilles3 = 2130837747;
+			public const int soupe_de_lentilles2 = 2130837747;
 			
 			// aapt resource value: 0x7f0200f4
-			public const int Soupe_de_poisson = 2130837748;
+			public const int soupe_de_lentilles3 = 2130837748;
 			
 			// aapt resource value: 0x7f0200f5
-			public const int soupe_de_poisson2 = 2130837749;
+			public const int Soupe_de_poisson = 2130837749;
 			
 			// aapt resource value: 0x7f0200f6
-			public const int soupe_de_poisson3 = 2130837750;
+			public const int soupe_de_poisson2 = 2130837750;
 			
 			// aapt resource value: 0x7f0200f7
-			public const int Spaghetti = 2130837751;
+			public const int soupe_de_poisson3 = 2130837751;
 			
 			// aapt resource value: 0x7f0200f8
-			public const int Spaghetti2 = 2130837752;
+			public const int Spaghetti = 2130837752;
 			
 			// aapt resource value: 0x7f0200f9
-			public const int Spaghetti3 = 2130837753;
+			public const int Spaghetti2 = 2130837753;
 			
 			// aapt resource value: 0x7f0200fa
-			public const int spaghettis = 2130837754;
+			public const int Spaghetti3 = 2130837754;
 			
 			// aapt resource value: 0x7f0200fb
-			public const int Splash = 2130837755;
+			public const int spaghettis = 2130837755;
 			
 			// aapt resource value: 0x7f0200fc
-			public const int splash_background = 2130837756;
+			public const int Splash = 2130837756;
 			
 			// aapt resource value: 0x7f0200fd
-			public const int star = 2130837757;
+			public const int splash_background = 2130837757;
 			
 			// aapt resource value: 0x7f0200fe
-			public const int starters = 2130837758;
+			public const int star = 2130837758;
 			
 			// aapt resource value: 0x7f0200ff
-			public const int Steak = 2130837759;
+			public const int starters = 2130837759;
 			
 			// aapt resource value: 0x7f020100
-			public const int Steak_grille = 2130837760;
+			public const int Steak = 2130837760;
 			
 			// aapt resource value: 0x7f020101
-			public const int Steak_grille2 = 2130837761;
+			public const int Steak_grille = 2130837761;
 			
 			// aapt resource value: 0x7f020102
-			public const int Steak_grille3 = 2130837762;
+			public const int Steak_grille2 = 2130837762;
 			
 			// aapt resource value: 0x7f020103
-			public const int supplement = 2130837763;
+			public const int Steak_grille3 = 2130837763;
 			
 			// aapt resource value: 0x7f020104
-			public const int Table = 2130837764;
+			public const int supplement = 2130837764;
 			
 			// aapt resource value: 0x7f020105
-			public const int tacos = 2130837765;
+			public const int Table = 2130837765;
 			
 			// aapt resource value: 0x7f020106
-			public const int Tacos2 = 2130837766;
+			public const int tacos = 2130837766;
 			
 			// aapt resource value: 0x7f020107
-			public const int Tacos3 = 2130837767;
+			public const int Tacos2 = 2130837767;
 			
 			// aapt resource value: 0x7f020108
-			public const int Tarte = 2130837768;
+			public const int Tacos3 = 2130837768;
 			
 			// aapt resource value: 0x7f020109
-			public const int tartine_saumon = 2130837769;
+			public const int Tarte = 2130837769;
 			
 			// aapt resource value: 0x7f02010a
-			public const int tartine_saumon2 = 2130837770;
+			public const int tartine_saumon = 2130837770;
 			
 			// aapt resource value: 0x7f02010b
-			public const int tartine_saumon3 = 2130837771;
+			public const int tartine_saumon2 = 2130837771;
 			
 			// aapt resource value: 0x7f02010c
-			public const int Thon = 2130837772;
+			public const int tartine_saumon3 = 2130837772;
 			
 			// aapt resource value: 0x7f02010d
-			public const int Tiramissu = 2130837773;
+			public const int Thon = 2130837773;
 			
 			// aapt resource value: 0x7f02010e
-			public const int Tiramissu2 = 2130837774;
+			public const int Tiramissu = 2130837774;
 			
 			// aapt resource value: 0x7f02010f
-			public const int Tiramissu3 = 2130837775;
+			public const int Tiramissu2 = 2130837775;
 			
 			// aapt resource value: 0x7f020110
-			public const int tomate = 2130837776;
+			public const int Tiramissu3 = 2130837776;
 			
 			// aapt resource value: 0x7f020111
-			public const int tooltip_frame_dark = 2130837777;
+			public const int tomate = 2130837777;
 			
 			// aapt resource value: 0x7f020112
-			public const int tooltip_frame_light = 2130837778;
+			public const int tooltip_frame_dark = 2130837778;
 			
 			// aapt resource value: 0x7f020113
-			public const int tortillas = 2130837779;
+			public const int tooltip_frame_light = 2130837779;
 			
 			// aapt resource value: 0x7f020114
-			public const int Up = 2130837780;
+			public const int tortillas = 2130837780;
 			
 			// aapt resource value: 0x7f020115
-			public const int usa = 2130837781;
+			public const int Up = 2130837781;
 			
 			// aapt resource value: 0x7f020116
-			public const int Viande = 2130837782;
+			public const int usa = 2130837782;
 			
 			// aapt resource value: 0x7f020117
-			public const int Welcome = 2130837783;
+			public const int Viande = 2130837783;
+			
+			// aapt resource value: 0x7f020118
+			public const int Welcome = 2130837784;
 			
 			static Drawable()
 			{
