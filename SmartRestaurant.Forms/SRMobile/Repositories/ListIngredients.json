@@ -497,6 +497,32 @@
       "Fat": 0.8,
       "Protein": 3.8,
       "Image": "Semoule_Couscous.png"
+    },
+    {
+      "Id": 39,
+      "NameAr": " رشتة  ",
+      "NameFr": " Rechta",
+      "NameEn": "  Rechta ",
+      "Price": 20,
+      "Weight": 100,
+      "Calories": 131,
+      "Carbo": 22.9,
+      "Fat": 2.39,
+      "Protein": 3.9,
+      "Image": "Rechta_Pate.png"
+    },
+    {
+      "Id": 40,
+      "NameAr": " شخشوخة  ",
+      "NameFr": " Chakhchoukha",
+      "NameEn": "  Chakhchoukha ",
+      "Price": 20,
+      "Weight": 100,
+      "Calories": 180,
+      "Carbo": 21.9,
+      "Fat": 4.8,
+      "Protein": 12.2,
+      "Image": "CHAKHCHOUKHA_ftir.png"
     }
   ]
 }

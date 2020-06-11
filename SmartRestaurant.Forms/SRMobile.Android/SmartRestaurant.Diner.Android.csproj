@@ -713,5 +713,11 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Semoule_Couscous.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Rechta_Pate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\CHAKHCHOUKHA_ftir.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
