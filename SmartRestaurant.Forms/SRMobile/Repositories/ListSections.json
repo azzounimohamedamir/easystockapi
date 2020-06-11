@@ -532,7 +532,7 @@
 
               "Ingredients": [
                 {
-                  "Id": 1,
+                  "Id": 26,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -540,7 +540,7 @@
                   "InitialValue": 2
                 },
                 {
-                  "Id": 2,
+                  "Id":25,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -548,7 +548,7 @@
                   "InitialValue": 1
                 },
                 {
-                  "Id": 3,
+                  "Id": 23,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -556,7 +556,7 @@
                   "InitialValue": 1
                 },
                 {
-                  "Id": 4,
+                  "Id": 15,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -564,7 +564,15 @@
                   "InitialValue": 1
                 },
                 {
-                  "Id": 5,
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 6,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,

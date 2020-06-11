@@ -328,6 +328,19 @@
       "Fat": 33,
       "Protein": 25,
       "Image": "Cheddar.png"
+    },
+    {
+      "Id": 26,
+      "NameAr": "خبز همبرغر",
+      "NameFr": "Pain à Hamburger",
+      "NameEn": "Hamburger Bread",
+      "Price": 50,
+      "Weight": 100,
+      "Calories": 289,
+      "Carbo": 50,
+      "Fat": 5.7,
+      "Protein": 9.5,
+      "Image": "Pain_hamburger.png"
     }
   ]
 }
