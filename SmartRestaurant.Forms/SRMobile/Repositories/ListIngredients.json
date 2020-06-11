@@ -393,6 +393,58 @@
       "Fat": 25,
       "Protein": 24,
       "Image": "Viande.png"
+    },
+    {
+      "Id": 31,
+      "NameAr": "السباغيتي",
+      "NameFr": "Spaghetti ",
+      "NameEn": "Spaghetti",
+      "Price": 30,
+      "Weight": 100,
+      "Calories": 158,
+      "Carbo": 31,
+      "Fat": 0.9,
+      "Protein": 6,
+      "Image": "spaghettis.png"
+    },
+    {
+      "Id": 32,
+      "NameAr": "لازانيا",
+      "NameFr": "Lasagne ",
+      "NameEn": "Lasagna",
+      "Price": 30,
+      "Weight": 100,
+      "Calories": 349,
+      "Carbo": 72,
+      "Fat": 1.5,
+      "Protein": 12,
+      "Image": "Pate_Lasagne.png"
+    },
+    {
+      "Id": 33,
+      "NameAr": "كانيلوني",
+      "NameFr": "Cannelloni ",
+      "NameEn": "Cannelloni",
+      "Price": 30,
+      "Weight": 100,
+      "Calories": 154,
+      "Carbo": 15.5,
+      "Fat": 5.7,
+      "Protein": 9.6,
+      "Image": "cannellonis.png"
+    },
+    {
+      "Id": 34,
+      "NameAr": "دجاج",
+      "NameFr": "Poulet",
+      "NameEn": "Chicken",
+      "Price": 30,
+      "Weight": 100,
+      "Calories": 239,
+      "Carbo": 0,
+      "Fat": 14,
+      "Protein": 27,
+      "Image": "Poulet.png"
     }
   ]
 }
