@@ -445,6 +445,19 @@
       "Fat": 14,
       "Protein": 27,
       "Image": "Poulet.png"
+    },
+    {
+      "Id": 35,
+      "NameAr": "شرائح لحم الضأن",
+      "NameFr": "Cotes d'agneau",
+      "NameEn": "Lamb chops",
+      "Price": 100,
+      "Weight": 100,
+      "Calories": 234,
+      "Carbo": 0,
+      "Fat": 14.6,
+      "Protein": 25.7,
+      "Image": "cotelettes.png"
     }
   ]
 }

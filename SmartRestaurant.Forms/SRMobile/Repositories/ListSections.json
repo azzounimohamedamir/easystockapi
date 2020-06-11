@@ -1251,17 +1251,15 @@
 
               "Ingredients": [
                 {
-                  "Id": 1,
+                  "Id": 34,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
                   "IsEssential": true,
                   "InitialValue": 2
                 },
-
-
                 {
-                  "Id": 7,
+                  "Id": 23,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -1269,7 +1267,15 @@
                   "InitialValue": 1
                 },
                 {
-                  "Id": 10,
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
@@ -1295,32 +1301,13 @@
 
               "Ingredients": [
                 {
-                  "Id": 1,
+                  "Id": 34,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
                   "IsEssential": true,
                   "InitialValue": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Step": 20,
-                  "MinValue": 2,
-                  "MaxValue": 10,
-                  "IsEssential": true,
-                  "InitialValue": 1
-                },
-                {
-                  "Id": 10,
-                  "Step": 20,
-                  "MinValue": 2,
-                  "MaxValue": 10,
-                  "IsEssential": true,
-                  "InitialValue": 3
                 }
-
               ],
               "EstimatedTime": "20",
               "Price": "400",
@@ -1349,31 +1336,22 @@
 
               "Ingredients": [
                 {
-                  "Id": 1,
+                  "Id": 35,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
                   "IsEssential": true,
                   "InitialValue": 2
                 },
-
-
                 {
-                  "Id": 7,
+                  "Id": 9,
                   "Step": 20,
                   "MinValue": 2,
                   "MaxValue": 10,
                   "IsEssential": true,
-                  "InitialValue": 1
-                },
-                {
-                  "Id": 10,
-                  "Step": 20,
-                  "MinValue": 2,
-                  "MaxValue": 10,
-                  "IsEssential": true,
-                  "InitialValue": 3
+                  "InitialValue": 2
                 }
+
 
               ],
               "EstimatedTime": "30",
