@@ -341,6 +341,58 @@
       "Fat": 5.7,
       "Protein": 9.5,
       "Image": "Pain_hamburger.png"
+    },
+    {
+      "Id": 27,
+      "NameAr": "خبز ",
+      "NameFr": "Baguette de pain ",
+      "NameEn": "Bread sticks",
+      "Price": 10,
+      "Weight": 100,
+      "Calories": 265,
+      "Carbo": 49,
+      "Fat": 3.2,
+      "Protein": 9,
+      "Image": "baguettes_de_pain.png"
+    },
+    {
+      "Id": 28,
+      "NameAr": "خبز التورتيلا ",
+      "NameFr": "Tortillas ",
+      "NameEn": "Tortillas",
+      "Price": 10,
+      "Weight": 100,
+      "Calories": 61,
+      "Carbo": 8.3,
+      "Fat": 2.7,
+      "Protein": 0.8,
+      "Image": "tortillas.png"
+    },
+    {
+      "Id": 29,
+      "NameAr": "خبز لبناني ",
+      "NameFr": "Pain libanais ",
+      "NameEn": "Lebanese bread",
+      "Price": 10,
+      "Weight": 100,
+      "Calories": 123,
+      "Carbo": 24.82,
+      "Fat": 0.53,
+      "Protein": 4.05,
+      "Image": "libanais.png"
+    },
+    {
+      "Id": 30,
+      "NameAr": "شرائح اللحم ",
+      "NameFr": "Filet de bœufs ",
+      "NameEn": "beef fillet",
+      "Price": 100,
+      "Weight": 100,
+      "Calories": 324,
+      "Carbo": 0,
+      "Fat": 25,
+      "Protein": 24,
+      "Image": "Viande.png"
     }
   ]
 }
