@@ -458,6 +458,32 @@
       "Fat": 14.6,
       "Protein": 25.7,
       "Image": "cotelettes.png"
+    },
+    {
+      "Id": 36,
+      "NameAr": "شريحة لحم",
+      "NameFr": "Steak",
+      "NameEn": "Steak",
+      "Price": 100,
+      "Weight": 100,
+      "Calories": 271,
+      "Carbo": 0,
+      "Fat": 19,
+      "Protein": 25,
+      "Image": "Steak.png"
+    },
+    {
+      "Id": 37,
+      "NameAr": " كتف لحم العجل  ",
+      "NameFr": " Epaule de veau",
+      "NameEn": "  veal shoulder ",
+      "Price": 100,
+      "Weight": 100,
+      "Calories": 116,
+      "Carbo": 0,
+      "Fat": 4.6,
+      "Protein": 18.5,
+      "Image": "Epaule.png"
     }
   ]
 }
