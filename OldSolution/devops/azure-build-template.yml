@@ -1,0 +1,42 @@
+  parameters:
+    WebProjectName: 'SmartRestaurant.Client.Web'
+  
+  jobs:
+  - job: Build_the_Website
+    steps:
+      - task: SonarQubePrepare@4
+        inputs:
+          SonarQube: 'TestSonar'
+          scannerMode: 'MSBuild'
+          projectKey: 'test01'
+          projectName: 'TestEADNproject'
+        displayName: Prepare SonarQube
+      - script: |
+         cd ${{ parameters.WebProjectName }}
+         dotnet clean
+         dotnet restore
+        displayName: Restore Common Packages
+      - script: |
+         cd "SmartRestaurant.Application"
+         dotnet add package DataTables.AspNetCore.Mvc
+        displayName: Add AspNetCore.Mvc Packages
+      - script: |
+          cd ${{ parameters.WebProjectName }}
+          dotnet build --no-restore
+        displayName: Build the Website
+      - task: SonarQubeAnalyze@4
+        displayName: SonarQube Analyze Code
+      - task: SonarQubePublish@4
+        inputs:
+          pollingTimeoutSec: '300'
+        displayName: SonarQube Publish Report
+  - job: Database_Migration
+    steps:
+     - checkout: none
+     - script: |
+         cd ${{ parameters.WebProjectName }}
+         dotnet ef database update --context:SmartRestaurantDbContext
+         dotnet ef database update --context:SmartRestaurantIdentityDbContext
+       displayName: Database Initialization
+    dependsOn: Build_the_Website
+    condition: succeeded()

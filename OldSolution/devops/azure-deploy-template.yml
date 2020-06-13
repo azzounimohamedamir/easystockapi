@@ -1,0 +1,21 @@
+  parameters:
+    envName: '' 
+    ArtifactsOutputPath: '/home/ubuntu/test-SmartRestaurant'
+    WebProjectName: 'SmartRestaurant.Client.Web'
+
+  jobs:
+  - deployment: Deploy
+    displayName: deploy Web App
+    timeoutInMinutes: 5
+    environment: ${{ parameters.envName }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+           - checkout: none
+           - script: |
+               mkdir -p ${{ parameters.ArtifactsOutputPath }}
+               rm -rf ${{ parameters.ArtifactsOutputPath }}
+               cd ${{ parameters.WebProjectName }}
+               dotnet publish --no-restore -c Release --output=${{ parameters.ArtifactsOutputPath }}
+               sudo systemctl restart SmartRestaurant.service
