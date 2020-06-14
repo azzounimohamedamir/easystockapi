@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Application.Common.Interfaces
+﻿namespace SmartRestaurant.Application.Common.Interfaces
 {
     public interface ICurrentUserService
     {

@@ -1,14 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Domain.Common;
-using SmartRestaurant.Domain.ValueObjects;
+﻿using SmartRestaurant.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartRestaurant.Domain.Entities.Globalisation
+namespace SmartRestaurant.Application.Common.Models.Globalization
 {
-    [Owned]
-    public class Address
+    public class AddressDto
     {
         public string City { get; set; }
         public string StreetAddress { get; set; }

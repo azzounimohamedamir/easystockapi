@@ -5,6 +5,7 @@ using System.Text;
 
 namespace SmartRestaurant.Domain.Common
 {
+    // Learn more: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
     public abstract class ValueObject
     {
         protected static bool EqualOperator(ValueObject left, ValueObject right)
@@ -13,20 +14,15 @@ namespace SmartRestaurant.Domain.Common
             {
                 return false;
             }
-
-
             return left?.Equals(right) != false;
         }
-
 
         protected static bool NotEqualOperator(ValueObject left, ValueObject right)
         {
             return !(EqualOperator(left, right));
         }
 
-
         protected abstract IEnumerable<object> GetAtomicValues();
-
 
         public override bool Equals(object obj)
         {
@@ -38,7 +34,6 @@ namespace SmartRestaurant.Domain.Common
             var other = (ValueObject)obj;
             var thisValues = GetAtomicValues().GetEnumerator();
             var otherValues = other.GetAtomicValues().GetEnumerator();
-
 
             while (thisValues.MoveNext() && otherValues.MoveNext())
             {
@@ -54,7 +49,6 @@ namespace SmartRestaurant.Domain.Common
                     return false;
                 }
             }
-
 
             return !thisValues.MoveNext() && !otherValues.MoveNext();
         }

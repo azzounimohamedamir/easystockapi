@@ -1,13 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Common;
 using SmartRestaurant.Domain.Entities;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

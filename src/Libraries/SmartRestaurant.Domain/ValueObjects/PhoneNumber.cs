@@ -1,10 +1,11 @@
-﻿using SmartRestaurant.Domain.Common;
-using System;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Domain.Common;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SmartRestaurant.Domain.ValueObjects
 {
+    [Owned]
     public class PhoneNumber : ValueObject
     {
         public int CountryCode { get; set; }
