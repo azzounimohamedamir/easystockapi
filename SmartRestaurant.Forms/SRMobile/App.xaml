@@ -25,6 +25,7 @@
             <helpers:FloatMultiplyConverter x:Key="FloatMultiply" />
             <helpers:NegateBooleanConverter x:Key="boolinverter" />
             <helpers:CultureBooleanConverter x:Key="culturebooleanconverter" />
+            <helpers:IntBooleanConverter x:Key="inttobooleanconverter" />
             <!--#endregion Converters-->
             <!--#region CollectionViews-->
             <Style TargetType="StackLayout">

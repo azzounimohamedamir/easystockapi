@@ -217,8 +217,10 @@
                             </BindableLayout.ItemTemplate>
                         </StackLayout>
                     </ScrollView>
-                        <Label Margin="40,20,40,0" Text="{helpers:Translate DishSpec}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" Style="{StaticResource Key=RobotoLabel}" FontSize="20" FontAttributes="Bold" />
-                    <flv:FlowListView HeightRequest="150" HorizontalScrollBarVisibility="Default" VerticalScrollBarVisibility="Never" FlowColumnCount="{Binding Specifications.Specifications.Count}" Margin="30,0,30,0" HasUnevenRows="True" HorizontalOptions="Start" VerticalOptions="Start" SelectionMode="None" FlowItemsSource="{Binding Specifications.Specifications}">
+                        <Label Margin="40,20,40,0" Text="{helpers:Translate DishSpec}"
+                               IsVisible="{Binding Specifications.Specifications.Count,Converter={x:StaticResource inttobooleanconverter}}" 
+                               HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" Style="{StaticResource Key=RobotoLabel}" FontSize="20" FontAttributes="Bold" />
+                        <flv:FlowListView IsVisible="{Binding Specifications.Specifications.Count,Converter={x:StaticResource inttobooleanconverter}}"  HeightRequest="150" HorizontalScrollBarVisibility="Default" VerticalScrollBarVisibility="Never" FlowColumnCount="{Binding Specifications.Specifications.Count}" Margin="30,0,30,0" HasUnevenRows="True" HorizontalOptions="Start" VerticalOptions="Start" SelectionMode="None" FlowItemsSource="{Binding Specifications.Specifications}">
                         <flv:FlowListView.FlowColumnTemplate>
                             <DataTemplate>
                                 <StackLayout Orientation="Vertical" Margin="10,0,10,0" VerticalOptions="Start" HorizontalOptions="StartAndExpand">
@@ -263,8 +265,11 @@
                             </DataTemplate>
                         </flv:FlowListView.FlowColumnTemplate>
                     </flv:FlowListView>
-                        <Label x:Name="lbl" VerticalOptions="Start" Margin="40,20,40,0" Text="{helpers:Translate Supplements}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" Style="{StaticResource Key=RobotoLabel}" FontSize="20" FontAttributes="Bold" />
-                    <ScrollView Margin="{Binding Path=Margin,Source={x:Reference lbl},Converter= {x:StaticResource RtlScrollViewMargin}}" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                        <Label x:Name="lbl" 
+                               IsVisible="{Binding Supplements.Supplements.Count,Converter={x:StaticResource inttobooleanconverter}}" 
+                               VerticalOptions="Start" Margin="40,20,40,0" Text="{helpers:Translate Supplements}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" Style="{StaticResource Key=RobotoLabel}" FontSize="20" FontAttributes="Bold" />
+                        <ScrollView IsVisible="{Binding Supplements.Supplements.Count,Converter={x:StaticResource inttobooleanconverter}}" 
+                                    Margin="{Binding Path=Margin,Source={x:Reference lbl},Converter= {x:StaticResource RtlScrollViewMargin}}" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                         <StackLayout HeightRequest="148" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" Orientation="Horizontal" BindableLayout.ItemsSource="{Binding Supplements.Supplements}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
