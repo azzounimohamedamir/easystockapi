@@ -37,9 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Application
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Web", "src\Presentation\SmartRestaurant.Web\SmartRestaurant.Web.csproj", "{F3F91EA5-7723-4DC7-A211-CE1551BAEB3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Infrastructure.Identity", "src\Libraries\SmartRestaurant.Infrastructure.Identity\SmartRestaurant.Infrastructure.Identity.csproj", "{933F7ABC-47D4-4F62-A772-39471F365EEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Infrastructure.Identity", "src\Libraries\SmartRestaurant.Infrastructure.Identity\SmartRestaurant.Infrastructure.Identity.csproj", "{933F7ABC-47D4-4F62-A772-39471F365EEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Forms", "src\Presentation\SmartRestaurant.Mobile\SmartRestaurant.Forms\SmartRestaurant.Forms.csproj", "{2B2DC2F7-2CAC-40EE-BF81-024D841DD8A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Forms", "src\Presentation\SmartRestaurant.Mobile\SmartRestaurant.Forms\SmartRestaurant.Forms.csproj", "{2B2DC2F7-2CAC-40EE-BF81-024D841DD8A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Android", "src\Presentation\SmartRestaurant.Mobile\SmartRestaurant.Android\SmartRestaurant.Android.csproj", "{DE0598B0-1C28-47CB-BA41-EC6298FA1837}"
 EndProject
@@ -217,6 +217,7 @@ Global
 		{2B2DC2F7-2CAC-40EE-BF81-024D841DD8A7} = {A6E9F183-9742-44B4-A17F-B4A2A09B1466}
 		{DE0598B0-1C28-47CB-BA41-EC6298FA1837} = {A6E9F183-9742-44B4-A17F-B4A2A09B1466}
 		{142CA60B-5884-459E-AB9A-A268D0873113} = {A6E9F183-9742-44B4-A17F-B4A2A09B1466}
+		{ABDA1516-F4BE-4150-8B65-536EC3FEEB54} = {A6E9F183-9742-44B4-A17F-B4A2A09B1466}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E62ECAE-DC34-48BE-BE8E-8A0D0527D9CC}
