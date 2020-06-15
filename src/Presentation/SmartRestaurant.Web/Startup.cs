@@ -24,6 +24,7 @@ namespace SmartRestaurant.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInfrastructure(Configuration);
+            services.AddHttpContextAccessor();
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 
