@@ -21,43 +21,79 @@
               "NameFr": "Soupe de poisson",
               "NameEn": "Fish Soup",
               "Images": [ "Soupe_de_poisson.png", "soupe_de_poisson2.png", "soupe_de_poisson3.png" ],
-
-              "Ingredients": [
+              
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 1,
-                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
                   "Id": 3,
-                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
                   "Id": 4,
-                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
                   "Id": 5,
-                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 },
                 {
                   "Id": 6,
-                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
                   "Id": 7,
-                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
                   "Id": 8,
-                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
                   "Id": 9,
-                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 },
                 {
                   "Id": 10,
-                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 }
               ],
               "EstimatedTime": "10",
@@ -75,7 +111,7 @@
               "NameEn": "Vegetables Soup",
               "Images": [ "Soupe_de_legumes3.png", "Soupe_de_legumes.png", "Soupe_de_legumes2.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 1,
                   "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
@@ -133,7 +169,7 @@
               "NameEn": "Lentil soup",
               "Images": [ "soupe_de_lentilles.png", "soupe_de_lentilles2.png", "soupe_de_lentilles3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 3,
                   "Step": 20,
@@ -193,7 +229,7 @@
               "NameEn": "Smoked salmon toast",
               "Images": [ "tartine_saumon.png", "tartine_saumon2.png", "tartine_saumon3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 12,
                   "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
@@ -223,7 +259,7 @@
               "NameEn": "Cesar salad",
               "Images": [ "salade_cezar.png", "salade_cezar2.png", "salade_cezar3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 15,
                   "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
@@ -264,7 +300,7 @@
               "NameEn": "Thon salad",
               "Images": [ "salade_de_thon.png", "salade_de_thon2.png", "salade_de_thon3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 18,
                   "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
@@ -302,7 +338,7 @@
               "NameEn": "Macedonia",
               "Images": [ "macedoine.png", "macedoine2.png", "macedoine3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 1,
                   "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
@@ -357,7 +393,7 @@
               "NameFr": "Pizza poulet",
               "NameEn": "Chicken Pizza ",
               "Images": [ "Chicken_Pizza.png", "Chicken_Pizza2.png", "Chicken_Pizza3.png" ],
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
 
                 {
                   "Id": 22,
@@ -408,7 +444,7 @@
               "NameFr": "Pizza viande",
               "NameEn": "Meat Pizza ",
               "Images": [ "Meat_Pizza.png", "Meat_Pizza2.png", "Meat_Pizza3.png" ],
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 22,
                   "Step": 20,
@@ -460,7 +496,7 @@
               "NameFr": "Pizza 3 Fromages",
               "NameEn": "3 cheeses Pizza ",
               "Images": [ "cheeses_Pizza.png", "cheeses_Pizza2.png", "cheeses_Pizza3.png" ],
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
 
                 {
                   "Id": 22,
@@ -530,7 +566,7 @@
               "NameEn": "hamburger ",
               "Images": [ "hamburger.png", "hamburger2.png", "hamburger3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 26,
                   "Step": 20,
@@ -595,7 +631,7 @@
               "NameFr": "Tacos",
               "NameEn": "Tacos ",
               "Images": [ "tacos.png", "Tacos2.png", "Tacos3.png" ],
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 28,
                   "Step": 20,
@@ -667,7 +703,7 @@
               "NameFr": "Sandwich Mexicain",
               "NameEn": "Sandwich Mexican ",
               "Images": [ "Mexican.png", "Mexican2.png", "Mexican3.png" ],
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 27,
                   "Step": 20,
@@ -731,7 +767,7 @@
               "NameFr": "Chawarma",
               "NameEn": "Chawarma ",
               "Images": [ "Chawarma.png", "Chawarma2.png", "Chawarma3.png" ],
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 29,
                   "Step": 20,
@@ -798,7 +834,7 @@
               "NameEn": "Grill ",
               "Images": [ "Grill.png", "Grill2.png", "Grill3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 30,
                   "Step": 20,
@@ -855,7 +891,7 @@
               "NameEn": "Grilled fich ",
               "Images": [ "Grill_Fish.png", "Grill_Fish2.png", "Grill_Fish3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 10,
                   "Step": 20,
@@ -905,7 +941,7 @@
               "NameEn": " Kebab ",
               "Images": [ "Kebab.png", "Kebab2.png", "Kebab3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 23,
                   "Step": 20,
@@ -974,7 +1010,7 @@
               "NameEn": " Spaghetti ",
               "Images": [ "Spaghetti.png", "Spaghetti2.png", "Spaghetti3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 31,
                   "Step": 20,
@@ -1042,7 +1078,7 @@
               "NameEn": " Lasagna ",
               "Images": [ "Lasagne.png", "Lasagne2.png", "Lasagne3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 32,
                   "Step": 20,
@@ -1108,7 +1144,7 @@
               "NameEn": " Cannelloni ",
               "Images": [ "Cannelloni.png", "Cannelloni2.png", "Cannelloni3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 33,
                   "Step": 20,
@@ -1185,7 +1221,7 @@
               "NameEn": " Roast chicken ",
               "Images": [ "Poulet_roti.png", "Poulet_roti2.png", "Poulet_roti3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 34,
                   "Step": 20,
@@ -1253,7 +1289,7 @@
               "NameEn": " Stuffed chicken ",
               "Images": [ "Poulet_farci.png", "Poulet_farci2.png", "Poulet_farci3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 34,
                   "Step": 20,
@@ -1303,7 +1339,7 @@
               "NameEn": " Paned chicken ",
               "Images": [ "Poulet_pane.png", "Poulet_pane2.png", "Poulet_pane3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 34,
                   "Step": 20,
@@ -1338,7 +1374,7 @@
               "NameEn": " Roasted ribs ",
               "Images": [ "Cotes_roties.png", "Cotes_roties2.png", "Cotes_roties3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 35,
                   "Step": 20,
@@ -1373,7 +1409,7 @@
               "NameEn": " Grilled steak ",
               "Images": [ "Steak_grille.png", "Steak_grille2.png", "Steak_grille3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 36,
                   "Step": 20,
@@ -1398,7 +1434,7 @@
               "NameEn": " Roast veal ",
               "Images": [ "Roti_de_veau.png", "Roti_de_veau2.png", "Roti_de_veau3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 37,
                   "Step": 20,
@@ -1475,7 +1511,7 @@
               "NameEn": " Couscous",
               "Images": [ "Couscous.png", "Couscous2.png", "Couscous3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 34,
                   "Step": 20,
@@ -1566,7 +1602,7 @@
               "NameEn": " Rechta",
               "Images": [ "Rechta.png", "Rechta2.png", "Rechta3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 34,
                   "Step": 20,
@@ -1625,7 +1661,7 @@
               "NameEn": " Chakhchoukha",
               "Images": [ "Chakhchoukha.png", "Chakhchoukha2.png", "Chakhchoukha3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 34,
                   "Step": 20,
@@ -1739,7 +1775,7 @@
               "NameEn": "Tiramissu",
               "Images": [ "Tiramissu.png", "Tiramissu2.PNG", "Tiramissu3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 41,
                   "Step": 20,
@@ -1798,7 +1834,7 @@
               "NameEn": "Chocolate mousse",
               "Images": [ "ChocolateMousse.png", "ChocolateMousse2.png", "ChocolateMousse3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 41,
                   "Step": 20,

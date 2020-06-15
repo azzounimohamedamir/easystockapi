@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 using System.Text;
 
 namespace SmartRestaurant.Diner.Models
@@ -21,6 +23,8 @@ namespace SmartRestaurant.Diner.Models
         public List<String> Images { get; set; }
         public int SubSectionId { get; set; }
         public List<DishIngredient> Ingredients { get; set; }
+        public List<int> Supplements { get; set; }
+        public List<int> Specifications { get; set; }
         #region Intial Values : for bread for example
         public float Calories { get; set; }
         public float Carbo { get; set; }
@@ -37,11 +41,33 @@ namespace SmartRestaurant.Diner.Models
         public float MaxValue { get; set; }
         public float Step { get; set; }
         public bool IsEssential { get; set; }
-        public int MeasurementUnit { get; set; }
+        public MeasurementUnits MeasurementUnit { get; set; }
 
     }
     public enum MeasurementUnits
     {
-        g, l, c
+        [Description("Gram")]
+        Gram,
+        [Description("Spoon")]
+        Spoon,
+        [Description("Ml")]
+        Ml
     }
+    public class EnumTools
+    {
+        public static string GetDescription(Enum en)
+        {
+            Type type = en.GetType();
+            MemberInfo[] memInfo = type.GetMember(en.ToString());
+            if (memInfo != null && memInfo.Length > 0)
+            {
+                object[] attrs = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
+                if (attrs != null && attrs.Length > 0)
+                    return ((DescriptionAttribute)attrs[0]).Description;
+            }
+            return en.ToString();
+        }
+    }
+
+
 }

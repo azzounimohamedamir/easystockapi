@@ -37,7 +37,11 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
 
             this.dish = _dish;
             Specifications = SectionsListViewModel.Specifications;
+            Specifications.Specifications = Specifications.Specifications.Where(s =>
+             _dish.Specifications.Contains(s.Id)).ToList();
             Supplements = SectionsListViewModel.Supplements;
+            Supplements.Supplements=Supplements.Supplements.Where(s =>
+             _dish.Supplements.Contains(s.Id)).ToList();
             Currencies = SectionsListViewModel.Currencies;
             Qty = 1;
             Total = Price = InitialPrice = _dish.Price;            
