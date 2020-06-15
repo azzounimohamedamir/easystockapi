@@ -21,15 +21,14 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Sup
         {
             get
             {
-                if (supplements == null)
-                {
+              
                     List<SupplementModel> listSupplement = SupplementService.GetListSupplements().ToList();
                     supplements = new List<SupplementViewModel>();
                     foreach (var item in listSupplement)
                     {
                         supplements.Add(new SupplementViewModel(item));
                     }
-                }
+                
                 return supplements;
             }
             set

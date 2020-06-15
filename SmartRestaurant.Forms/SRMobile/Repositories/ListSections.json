@@ -21,8 +21,9 @@
               "NameFr": "Soupe de poisson",
               "NameEn": "Fish Soup",
               "Images": [ "Soupe_de_poisson.png", "soupe_de_poisson2.png", "soupe_de_poisson3.png" ],
-              
-              "Supplements": [ 1, 3 ],"Specifications": [],"Ingredients": [
+
+              "Supplements": [ 1, 3 ],
+              "Specifications": [],"Ingredients": [
                 {
                   "Id": 1,
                   "Step": 20,
@@ -99,7 +100,7 @@
               "EstimatedTime": "10",
               "Price": "400",
               "Calories": 0,
-              "Carbo": 0, spec
+              "Carbo": 0,
               "Fat": 0,
               "Protein": 0,
               "SubSectionId": 81
@@ -111,7 +112,7 @@
               "NameEn": "Vegetables Soup",
               "Images": [ "Soupe_de_legumes3.png", "Soupe_de_legumes.png", "Soupe_de_legumes2.png" ],
 
-              "Supplements": ],"Specifications": [1],"Ingredients": [
+              "Supplements": [],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 1,
                   "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
@@ -169,7 +170,7 @@
               "NameEn": "Lentil soup",
               "Images": [ "soupe_de_lentilles.png", "soupe_de_lentilles2.png", "soupe_de_lentilles3.png" ],
 
-              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+              "Supplements": [ 1, 3 ,4],"Specifications": [1,2],"Ingredients": [
                 {
                   "Id": 3,
                   "Step": 20,

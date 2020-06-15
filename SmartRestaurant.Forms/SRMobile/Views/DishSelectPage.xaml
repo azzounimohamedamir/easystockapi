@@ -218,9 +218,9 @@
                         </StackLayout>
                     </ScrollView>
                         <Label Margin="40,20,40,0" Text="{helpers:Translate DishSpec}"
-                               IsVisible="{Binding Specifications.Specifications.Count,Converter={x:StaticResource inttobooleanconverter}}" 
+                               IsVisible="{Binding DishSpecifications.Count,Converter={x:StaticResource inttobooleanconverter}}" 
                                HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" Style="{StaticResource Key=RobotoLabel}" FontSize="20" FontAttributes="Bold" />
-                        <flv:FlowListView IsVisible="{Binding Specifications.Specifications.Count,Converter={x:StaticResource inttobooleanconverter}}"  HeightRequest="150" HorizontalScrollBarVisibility="Default" VerticalScrollBarVisibility="Never" FlowColumnCount="{Binding Specifications.Specifications.Count}" Margin="30,0,30,0" HasUnevenRows="True" HorizontalOptions="Start" VerticalOptions="Start" SelectionMode="None" FlowItemsSource="{Binding Specifications.Specifications}">
+                        <flv:FlowListView IsVisible="{Binding DishSpecifications.Count,Converter={x:StaticResource inttobooleanconverter}}"  HeightRequest="150" HorizontalScrollBarVisibility="Default" VerticalScrollBarVisibility="Never" FlowColumnCount="{Binding Specifications.Specifications.Count}" Margin="30,0,30,0" HasUnevenRows="True" HorizontalOptions="Start" VerticalOptions="Start" SelectionMode="None" FlowItemsSource="{Binding DishSpecifications}">
                         <flv:FlowListView.FlowColumnTemplate>
                             <DataTemplate>
                                 <StackLayout Orientation="Vertical" Margin="10,0,10,0" VerticalOptions="Start" HorizontalOptions="StartAndExpand">
@@ -266,11 +266,11 @@
                         </flv:FlowListView.FlowColumnTemplate>
                     </flv:FlowListView>
                         <Label x:Name="lbl" 
-                               IsVisible="{Binding Supplements.Supplements.Count,Converter={x:StaticResource inttobooleanconverter}}" 
+                               IsVisible="{Binding DishSupplements.Count,Converter={x:StaticResource inttobooleanconverter}}" 
                                VerticalOptions="Start" Margin="40,20,40,0" Text="{helpers:Translate Supplements}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" Style="{StaticResource Key=RobotoLabel}" FontSize="20" FontAttributes="Bold" />
-                        <ScrollView IsVisible="{Binding Supplements.Supplements.Count,Converter={x:StaticResource inttobooleanconverter}}" 
+                        <ScrollView IsVisible="{Binding DishSupplements.Count,Converter={x:StaticResource inttobooleanconverter}}" 
                                     Margin="{Binding Path=Margin,Source={x:Reference lbl},Converter= {x:StaticResource RtlScrollViewMargin}}" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
-                        <StackLayout HeightRequest="148" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" Orientation="Horizontal" BindableLayout.ItemsSource="{Binding Supplements.Supplements}">
+                            <StackLayout HeightRequest="148" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" Orientation="Horizontal" BindableLayout.ItemsSource="{Binding DishSupplements}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
                                     <Grid WidthRequest="156" MinimumWidthRequest="156" HeightRequest="92" Padding="0,0,7,0" FlowDirection="MatchParent">
@@ -313,7 +313,7 @@
                             </BindableLayout.ItemTemplate>
                         </StackLayout>
                     </ScrollView>
-                    <Label Style="{StaticResource Key=RobotoLabel}" VerticalOptions="Start" Margin="40,-20,40,20" Text="{helpers:Translate Energy}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" FontSize="20" FontAttributes="Bold" />
+                    <Label Style="{StaticResource Key=RobotoLabel}" VerticalOptions="Start" Margin="40,20,40,20" Text="{helpers:Translate Energy}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" FontSize="20" FontAttributes="Bold" />
                     <Grid Margin="30,0,30,20" HeightRequest="84" HorizontalOptions="Start" VerticalOptions="Start" FlowDirection="MatchParent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="124" />

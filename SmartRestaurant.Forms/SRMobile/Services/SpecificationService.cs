@@ -18,7 +18,7 @@ namespace SmartRestaurant.Diner.Services
         static private ListSpecificationsObject Specifications;
         public static ObservableCollection<SpecificationModel> GetListSpecifications()
         {
-            if(Specifications ==null)
+            
             Specifications = JsonConvert.DeserializeObject<ListSpecificationsObject>(SimpleService.GetJsonString("Repositories.ListSpecifications.json"));            
             if (Specifications.SpecificationsList != null)
             {
