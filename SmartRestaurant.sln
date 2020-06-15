@@ -45,8 +45,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Android", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.IOS", "src\Presentation\SmartRestaurant.Mobile\SmartRestaurant.IOS\SmartRestaurant.IOS.csproj", "{142CA60B-5884-459E-AB9A-A268D0873113}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.UWP", "src\Presentation\SmartRestaurant.Mobile\SmartRestaurant.UWP\SmartRestaurant.UWP.csproj", "{ABDA1516-F4BE-4150-8B65-536EC3FEEB54}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -217,7 +215,6 @@ Global
 		{2B2DC2F7-2CAC-40EE-BF81-024D841DD8A7} = {A6E9F183-9742-44B4-A17F-B4A2A09B1466}
 		{DE0598B0-1C28-47CB-BA41-EC6298FA1837} = {A6E9F183-9742-44B4-A17F-B4A2A09B1466}
 		{142CA60B-5884-459E-AB9A-A268D0873113} = {A6E9F183-9742-44B4-A17F-B4A2A09B1466}
-		{ABDA1516-F4BE-4150-8B65-536EC3FEEB54} = {A6E9F183-9742-44B4-A17F-B4A2A09B1466}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E62ECAE-DC34-48BE-BE8E-8A0D0527D9CC}
