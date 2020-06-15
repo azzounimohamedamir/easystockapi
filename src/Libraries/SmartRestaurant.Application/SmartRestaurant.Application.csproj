@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="FluentValidation" Version="8.6.2" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
@@ -12,10 +13,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartRestaurant.Domain\SmartRestaurant.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Restaurants\Commands\DeleteRestaurant\" />
-    <Folder Include="Restaurants\Queries\" />
   </ItemGroup>
 </Project>
