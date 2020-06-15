@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SmartRestaurant.Application.Restaurants.Queries.GetRestaurantById
+namespace SmartRestaurant.Application.Restaurants.Queries
 {
     public class GetRestaurantByIdQuery : IRequest<RestaurantDto>
     {
