@@ -169,7 +169,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SRMobile\SmartRestaurant.Diner.csproj">
+    <ProjectReference Include="..\SmartRestaurant.Forms\SmartRestaurant.Forms.csproj">
       <Project>{B1285B68-2580-4331-99BD-DEFB5149180B}</Project>
       <Name>SmartRestaurant.Diner</Name>
     </ProjectReference>
