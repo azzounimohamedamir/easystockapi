@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d" NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White"
+             xmlns:helpers="clr-namespace:SmartRestaurant.Diner.Helpers"
+             Title="{helpers:Translate LanguageSelect}"
+             x:Class="SmartRestaurant.Diner.Views.LanguageView">
+    <ContentPage.Content>
+        <Grid Margin="56,128" BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Style="{StaticResource Key=RobotoLabel}"  
+                   TextColor="#3C536A" FontAttributes="Bold" FontSize="24" Text="{helpers:Translate LangChoose}"/>
+            <Label Grid.Row="1"  Style="{StaticResource Key=RobotoLabel}"  
+                   TextColor="#707070"  FontSize="14" 
+                   Margin="0,4,0,32"
+                   Text="{helpers:Translate LangChoose2}"
+                   />
+            <StackLayout Grid.Row="2" HeightRequest="152"   
+                         Margin="-22,0,0,0"
+                         HorizontalOptions="StartAndExpand" Orientation="Horizontal" >
+                <Grid WidthRequest="128" MinimumWidthRequest="128" HeightRequest="128" Margin="22,0"   >
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectLanguage}" CommandParameter="fr" />
+                    </Grid.GestureRecognizers>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="128" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="128" />
+                    </Grid.ColumnDefinitions>
+                    <pancakeview:PancakeView Grid.Column="0" Grid.Row="0"
+                                             HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="128" WidthRequest="128"
+                                             MinimumWidthRequest="128" CornerRadius="10" 
+                                             BorderDrawingStyle="Outside" FlowDirection="MatchParent"
+                                             IsClippedToBounds="True" BackgroundColor="{Binding FrenchColor}" 
+                                             Elevation="0" BorderThickness="2"
+                                             BorderColor="{Binding FrenchColorBorder}">
+                        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="128" />
+                            </Grid.RowDefinitions>
+                            <ffimageloading:CachedImage Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Start" Aspect="AspectFill"
+                    DownsampleToViewSize="true" BackgroundColor="Transparent"
+                    HeightRequest="24" WidthRequest="24"  Margin="0,35,0,69">
+                                <ffimageloading:CachedImage.Source>
+                                    <OnPlatform x:TypeArguments="FileImageSource">
+                                        <On Platform="iOS, Android" Value="france.png" />
+                                        <On Platform="UWP" Value="Assets/france.png" />
+                                    </OnPlatform>
+                                </ffimageloading:CachedImage.Source>
+                                <ffimageloading:CachedImage.Transformations>
+                                    <fftransformations:CircleTransformation>
+                                        <x:Arguments>
+                                            <x:Double>2</x:Double>
+                                            <x:String>#FF8A07</x:String>
+                                        </x:Arguments>
+                                    </fftransformations:CircleTransformation>
+                                </ffimageloading:CachedImage.Transformations>
+                            </ffimageloading:CachedImage>
+
+
+                            <Label Style="{StaticResource Key=RobotoLabel}" Grid.Row="0" Margin="0,34" 
+                                                       TextColor="Black" FontAttributes="Bold" FontSize="14" Text="Français"
+                                                       HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalOptions="EndAndExpand"/>
+                        </Grid>
+                    </pancakeview:PancakeView>
+                    <pancakeview:PancakeView Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" 
+                                             HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="128"
+                                             WidthRequest="128" IsVisible="{Binding FrenchLanguage, Mode=TwoWay}" MinimumWidthRequest="128"
+                                             Elevation="0" BorderThickness="2" CornerRadius="10" BorderDrawingStyle="Outside" 
+                                             FlowDirection="MatchParent" IsClippedToBounds="True" BorderColor="#3CBDBF" />
+                    <pancakeview:PancakeView Margin="-12,-12,-12,0" Grid.Column="0" Grid.Row="0" Elevation="0" BorderThickness="0" 
+                                             BorderColor="Transparent"   BackgroundColor="Transparent" WidthRequest="28"
+                                             HeightRequest="28" CornerRadius="14" HorizontalOptions="End" 
+                                             IsClippedToBounds="True" VerticalOptions="Start">
+                        <Label Margin="0" TextColor="#01A9AC" BackgroundColor="White" Text="&#xf133;" 
+                               Style="{StaticResource Key=MatLabel}" IsVisible="{Binding FrenchLanguage, Mode=TwoWay}"
+                               VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                               HorizontalOptions="Center" VerticalOptions="Center" FontSize="28" />
+                    </pancakeview:PancakeView>
+                </Grid>
+                <Grid WidthRequest="128" MinimumWidthRequest="128" HeightRequest="128" Margin="22,0"   >
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectLanguage}" CommandParameter="ar" />
+                    </Grid.GestureRecognizers>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="128" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="128" />
+                    </Grid.ColumnDefinitions>
+                    <pancakeview:PancakeView Grid.Column="0" Grid.Row="0"
+                                             HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="128" WidthRequest="128"
+                                             MinimumWidthRequest="128" CornerRadius="10" 
+                                             BorderDrawingStyle="Outside" FlowDirection="MatchParent"
+                                             IsClippedToBounds="True" BackgroundColor="{Binding ArabicColor}" 
+                                             Elevation="0" BorderThickness="2"
+                                             BorderColor="{Binding ArabicColorBorder}">
+                        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="128" />
+                            </Grid.RowDefinitions>
+                            <ffimageloading:CachedImage Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Start" Aspect="AspectFill"
+                    DownsampleToViewSize="true" BackgroundColor="Transparent"
+                    HeightRequest="24" WidthRequest="24"  Margin="0,35,0,69">
+                                <ffimageloading:CachedImage.Source>
+                                    <OnPlatform x:TypeArguments="FileImageSource">
+                                        <On Platform="iOS, Android" Value="algerie.png" />
+                                        <On Platform="UWP" Value="Assets/algerie.png" />
+                                    </OnPlatform>
+                                </ffimageloading:CachedImage.Source>
+                                <ffimageloading:CachedImage.Transformations>
+                                    <fftransformations:CircleTransformation>
+                                        <x:Arguments>
+                                            <x:Double>2</x:Double>
+                                            <x:String>#FF8A07</x:String>
+                                        </x:Arguments>
+                                    </fftransformations:CircleTransformation>
+                                </ffimageloading:CachedImage.Transformations>
+                            </ffimageloading:CachedImage>
+
+
+                            <Label Style="{StaticResource Key=RobotoLabel}" Grid.Row="0" Margin="0,34" 
+                                                       TextColor="Black" FontAttributes="Bold" FontSize="14" Text="العربية"
+                                                       HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalOptions="EndAndExpand"/>
+                        </Grid>
+                    </pancakeview:PancakeView>
+                    <pancakeview:PancakeView Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" 
+                                             HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="128"
+                                             WidthRequest="128" IsVisible="{Binding ArabicLanguage, Mode=TwoWay}" MinimumWidthRequest="128"
+                                             Elevation="0" BorderThickness="2" CornerRadius="10" BorderDrawingStyle="Outside" 
+                                             FlowDirection="MatchParent" IsClippedToBounds="True" BorderColor="#3CBDBF" />
+                    <pancakeview:PancakeView Margin="-12,-12,-12,0" Grid.Column="0" Grid.Row="0" Elevation="0" BorderThickness="0" 
+                                             BorderColor="Transparent"   BackgroundColor="Transparent" WidthRequest="28"
+                                             HeightRequest="28" CornerRadius="14" HorizontalOptions="End" 
+                                             IsClippedToBounds="True" VerticalOptions="Start">
+                        <Label Margin="0" TextColor="#01A9AC" BackgroundColor="White" Text="&#xf133;" 
+                               Style="{StaticResource Key=MatLabel}" IsVisible="{Binding ArabicLanguage, Mode=TwoWay}"
+                               VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                               HorizontalOptions="Center" VerticalOptions="Center" FontSize="28" />
+                    </pancakeview:PancakeView>
+                </Grid>
+                <Grid WidthRequest="128" MinimumWidthRequest="128" HeightRequest="128" Margin="22,0"   >
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectLanguage}" CommandParameter="en" />
+                    </Grid.GestureRecognizers>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="128" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="128" />
+                    </Grid.ColumnDefinitions>
+                    <pancakeview:PancakeView Grid.Column="0" Grid.Row="0"
+                                             HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="128" WidthRequest="128"
+                                             MinimumWidthRequest="128" CornerRadius="10" 
+                                             BorderDrawingStyle="Outside" FlowDirection="MatchParent"
+                                             IsClippedToBounds="True" BackgroundColor="{Binding EnglishColor}" 
+                                             Elevation="0" BorderThickness="2"
+                                             BorderColor="{Binding EnglishColorBorder}">
+                        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="128" />
+                            </Grid.RowDefinitions>
+                            <ffimageloading:CachedImage Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Start" Aspect="AspectFill"
+                    DownsampleToViewSize="true" BackgroundColor="Transparent"
+                    HeightRequest="24" WidthRequest="24"  Margin="0,35,0,69">
+                                <ffimageloading:CachedImage.Source>
+                                    <OnPlatform x:TypeArguments="FileImageSource">
+                                        <On Platform="iOS, Android" Value="usa.png" />
+                                        <On Platform="UWP" Value="Assets/usa.png" />
+                                    </OnPlatform>
+                                </ffimageloading:CachedImage.Source>
+                                <ffimageloading:CachedImage.Transformations>
+                                    <fftransformations:CircleTransformation>
+                                        <x:Arguments>
+                                            <x:Double>2</x:Double>
+                                            <x:String>#FF8A07</x:String>
+                                        </x:Arguments>
+                                    </fftransformations:CircleTransformation>
+                                </ffimageloading:CachedImage.Transformations>
+                            </ffimageloading:CachedImage>
+
+
+                            <Label Style="{StaticResource Key=RobotoLabel}" Grid.Row="0" Margin="0,34" 
+                                   TextColor="Black" FontAttributes="Bold" FontSize="14" Text="English"
+                                   HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
+                                   VerticalOptions="EndAndExpand"/>
+                        </Grid>
+                    </pancakeview:PancakeView>
+                    <pancakeview:PancakeView Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" 
+                                             HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="128"
+                                             WidthRequest="128" IsVisible="{Binding EnglishLanguage, Mode=TwoWay}" MinimumWidthRequest="128"
+                                             Elevation="0" BorderThickness="2" CornerRadius="10" BorderDrawingStyle="Outside" 
+                                             FlowDirection="MatchParent" IsClippedToBounds="True" BorderColor="#3CBDBF" />
+                    <pancakeview:PancakeView Margin="-12,-12,-12,0" Grid.Column="0" Grid.Row="0" Elevation="0" BorderThickness="0" 
+                                             BorderColor="Transparent"   BackgroundColor="Transparent" WidthRequest="28"
+                                             HeightRequest="28" CornerRadius="14" HorizontalOptions="End" 
+                                             IsClippedToBounds="True" VerticalOptions="Start">
+                        <Label Margin="0" TextColor="#01A9AC" BackgroundColor="White" Text="&#xf133;" 
+                               Style="{StaticResource Key=MatLabel}" IsVisible="{Binding EnglishLanguage, Mode=TwoWay}"
+                               VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                               HorizontalOptions="Center" VerticalOptions="Center" FontSize="28" />
+                    </pancakeview:PancakeView>
+                </Grid>
+            </StackLayout>
+        </Grid>
+
+
+
+    </ContentPage.Content>
+</ContentPage>

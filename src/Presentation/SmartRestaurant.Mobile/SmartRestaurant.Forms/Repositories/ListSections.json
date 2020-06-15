@@ -1,0 +1,271 @@
+﻿{
+  "SectionsList": [
+    {
+      "Id": 1,
+      "NameAr": "الأطباق الأولى",
+      "NameFr": "Entrées",
+      "NameEn": "Starters ",
+      "Image": "starters.png",
+      "SubSections": [
+
+        {
+          "Id": 81,
+          "NameAr": "بيتزا",
+          "NameFr": "Pizza",
+          "NameEn": "Pizza ",
+          "Image": "pizza.png",
+          "Dishes": [
+            {
+              "Id": 91,
+              "NameAr": "هامبورجر",
+              "NameFr": "Tacos XL",
+              "NameEn": "Tacos XL ",
+              "Images": [ "hamburger.png", "tacos.png", "supplement.png" ],
+
+              "Ingredients": [
+                {
+                  "Id": 1,
+                  "Measure": 2
+                },
+                {
+                  "Id": 2,
+                  "Measure": 1
+                },
+                {
+                  "Id": 3,
+                  "Measure": 1
+                },
+                {
+                  "Id": 4,
+                  "Measure": 1
+                },
+                {
+                  "Id": 5,
+                  "Measure": 3
+                }
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 81
+            }
+          ]
+        }
+
+        ]
+    }
+    ,
+    {
+      "Id": 2,
+      "NameAr": "الأطباق الرئيسية",
+      "NameFr": "Plats principaux",
+      "NameEn": "Main courses",
+      "Image": "maincourses.png",
+        "SubSections":
+        [
+          {
+            "Id": 1,
+            "NameAr": "بيتزا",
+            "NameFr": "Pizza",
+            "NameEn": "Pizza ",
+            "Image": "pizza.png",
+            
+            "Dishes": [           
+
+            ]
+          },
+          {
+            "Id": 2,
+            "NameAr": "سندويتش",
+            "NameFr": "Sandwich",
+            "NameEn": "Sandwich ",
+            "Image": "sandwich.png",
+
+            "Dishes": [
+              {
+                "Id": 1,
+                "NameAr": "هامبورجر",
+                "NameFr": "Tacos XL",
+                "NameEn": "Tacos XL ",
+                "Images": [ "hamburger.png", "tacos.png", "supplement.png" ],
+
+                "Ingredients": [
+                  {
+                    "Id": 1,
+                    "Measure": 2
+                  },
+                  {
+                    "Id": 2,
+                    "Measure": 1
+                  },
+                  {
+                    "Id": 3,
+                    "Measure": 1
+                  },
+                  {
+                    "Id": 4,
+                    "Measure": 1
+                  },
+                  {
+                    "Id": 5,
+                    "Measure": 3
+                  }
+
+                ],
+                "EstimatedTime": "20",
+                "Price": "400",
+                "Calories":0,
+                "Carbo": 0,
+                "Fat": 0,
+                "Protein": 0,
+                "SubSectionId": 2
+              },
+              {
+                "Id": 2,
+                "NameAr": "هامبورجر",
+                "NameFr": "Hamburger",
+                "NameEn": "Hamburger ",
+                "Images": [ "hamburger.png", "tacos.png", "supplement.png" ],
+                "Ingredients": [],
+                "EstimatedTime": "20",
+                "Price": "400",
+                "Calories":0,
+                "Carbo": 0,
+                "Fat": 0,
+                "Protein": 0,
+                "SubSectionId": 2
+              },
+              {
+                "Id": 3,
+                "NameAr": "هامبورجر",
+                "NameFr": "Hamburger",
+                "NameEn": "Hamburger ",
+                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
+                "Ingredients": [],
+                "EstimatedTime": "20",
+                "Price": "400",
+                "Calories":0,
+                "Carbo": 0,
+                "Fat": 0,
+                "Protein": 0,
+                "SubSectionId": 2
+              },
+              {
+                "Id": 4,
+                "NameAr": "هامبورجر",
+                "NameFr": "Hamburger",
+                "NameEn": "Hamburger ",
+                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
+                "Ingredients": [],"EstimatedTime": "20",
+                "Price": "400",
+                "SubSectionId": 2
+              },
+              {
+                "Id": 5,
+                "NameAr": "هامبورجر",
+                "NameFr": "Hamburger",
+                "NameEn": "Hamburger ",
+                "Images": [ "hamburger.png", "hamburger.png", "hamburger.png" ],
+                "Ingredients": [],"EstimatedTime": "20",
+                "Price": "400",
+                "SubSectionId": 2
+              }
+            ]
+          },
+          {
+            "Id": 3,
+            "NameAr": "شواء",
+            "NameFr": "Grillades",
+            "NameEn": "Grill",
+            "Image": "grillades.png",
+
+            "Dishes": [
+             
+
+            ]
+          },
+          {
+            "Id": 4,
+            "NameAr": "معجنات",
+            "NameFr": "Pâtes",
+            "NameEn": "Pasta",
+            "Image": "pates.png",
+
+            "Dishes": [
+             
+
+            ]
+          },
+          {
+            "Id": 5,
+            "NameAr": "دجاج",
+            "NameFr": "Volaille",
+            "NameEn": "Chicken",
+            "Image": "volaille.png",
+
+            "Dishes": [
+             
+            ]
+          },
+          {
+            "Id": 6,
+            "NameAr": "لحم",
+            "NameFr": "Viande",
+            "NameEn": "Meat",
+            "Image": "viande.png",
+
+            "Dishes": [
+             
+            ]
+          },
+          {
+            "Id": 7,
+            "NameAr": "أطباق تقليدية",
+            "NameFr": "Plats traditionnels",
+            "NameEn": "Traditional dishes ",
+            "Image": "platstraditionnels.png",
+
+            "Dishes": [
+
+            ]
+          },
+          {
+            "Id": 8,
+            "NameAr": "سمك",
+            "NameFr": "Poisson",
+            "NameEn": "Fish",
+            "Image": "poisson.png",
+
+            "Dishes": [
+
+            ]
+          }
+        ]
+      
+    },
+    {
+      "Id": 3,
+      "NameAr": "المعقبات",
+      "NameFr": "Desserts",
+      "NameEn": "Desserts",
+      "Image": "desserts.png",
+      "SubSections": [
+       
+      ]
+    },
+    {
+      "Id": 4,
+      "NameAr": "المشروبات",
+      "NameFr": "Boissons",
+      "NameEn": "Drinks",
+      "Image": "drinks.png",
+      "SubSections": [
+       
+      ]
+    }
+  ]
+}

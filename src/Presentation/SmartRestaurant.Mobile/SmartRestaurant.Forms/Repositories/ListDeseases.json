@@ -1,0 +1,45 @@
+{
+  "DeseasesList": [{
+            "Id": 1,
+            "NameAr": "بلهارسيا معقدة",
+            "NameFr": "Bilharziose compliquée",
+            "NameEn": "Bilharzia complicated"
+          },
+          {
+            "Id": 2,
+            "NameAr": "فشل القلب",
+            "NameFr": "Insuffisance cardiaque",
+            "NameEn": "Heart failure"
+          },
+          {
+            "Id": 3,
+            "NameAr": "مرض السكري من النوع 1",
+            "NameFr": "Diabète de type 1",
+            "NameEn": "Diabetes type 1"
+          },
+          {
+            "Id": 4,
+            "NameAr": "مرض السكري من النوع 2",
+            "NameFr": "Diabète de type 1",
+            "NameEn": "Diabetes type 1"
+          },
+          {
+            "Id": 5,
+            "NameAr": "قصور تنفسي",
+            "NameFr": "Insuffisance respiratoire",
+            "NameEn": "Respiratory failure"
+          },
+          {
+            "Id": 6,
+            "NameAr": "التهاب المستقيم النزفي",
+            "NameFr": "Rectocolite hémorragique",
+            "NameEn": "Hemorrhagic rectocolitis"
+          },
+          {
+            "Id": 7,
+            "NameAr": "التصلب المتعدد",
+            "NameFr": "Sclérose en plaques",
+            "NameEn": "Multiple sclerosis"
+          }
+  ]
+}

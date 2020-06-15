@@ -1,0 +1,86 @@
+﻿{
+  "IngredientsList": [
+    {
+      "Id": 1,
+      "NameAr": "مكون 1",
+      "NameFr": "Ingrédient 1",
+      "NameEn": "Ingredient 1 ",
+      "Price": 50,
+      "Weight": 50,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
+      "Image": "ingredient.png"
+    },
+    {
+      "Id": 2,
+      "NameAr": "مكون 1",
+      "NameFr": "Ingrédient 1",
+      "NameEn": "Ingredient 1 ",
+      "Price": 50,
+      "Weight": 50,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
+      "Image": "ingredient.png"
+    },
+
+    {
+      "Id": 3,
+      "NameAr": "مكون 1",
+      "NameFr": "Ingrédient 1",
+      "NameEn": "Ingredient 1 ",
+      "Price": 50,
+      "Weight": 50,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
+      "Image": "ingredient.png"
+    },
+
+    {
+      "Id": 4,
+      "NameAr": "مكون 1",
+      "NameFr": "Ingrédient 1",
+      "NameEn": "Ingredient 1 ",
+      "Price": 50,
+      "Weight": 50,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
+      "Image": "ingredient.png"
+    },
+
+    {
+      "Id": 5,
+      "NameAr": "مكون 1",
+      "NameFr": "Ingrédient 1",
+      "NameEn": "Ingredient 1 ",
+      "Price": 50,
+      "Weight": 50,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
+      "Image": "ingredient.png"
+    },
+
+    {
+      "Id": 6,
+      "NameAr": "مكون 1",
+      "NameFr": "Ingrédient 1",
+      "NameEn": "Ingredient 1 ",
+      "Price": 50,
+      "Weight": 50,
+      "Calories": 14,
+      "Carbo": 10,
+      "Fat": 10,
+      "Protein": 10,
+      "Image": "ingredient.png"
+    }
+  ]
+}
