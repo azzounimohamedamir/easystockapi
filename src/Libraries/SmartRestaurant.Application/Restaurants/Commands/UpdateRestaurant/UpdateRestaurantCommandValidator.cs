@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartRestaurant.Application.Restaurants.Commands.CreateRestaurant
+namespace SmartRestaurant.Application.Restaurants.Commands.UpdateRestaurant
 {
     public class UpdateRestaurantCommandValidator : AbstractValidator<UpdateRestaurantCommand>
     {

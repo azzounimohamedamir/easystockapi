@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Models.Globalization;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Entities;
@@ -8,10 +9,11 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SmartRestaurant.Application.Restaurants.Commands.CreateRestaurant
+namespace SmartRestaurant.Application.Restaurants.Commands.UpdateRestaurant
 {
     public class UpdateRestaurantCommand : IRequest<Guid>
     {
+        public Guid RestaurantId { get; set; }
         public string NameArabic { get; set; }
         public string NameFrench { get; set; }
         public string NameEnglish { get; set; }
@@ -28,16 +30,23 @@ namespace SmartRestaurant.Application.Restaurants.Commands.CreateRestaurant
         public string Website { get; set; }
 
     }
-    public class CreateRestaurantCommandHandler : IRequestHandler<UpdateRestaurantCommand, Guid>
+    public class UpdateRestaurantCommandHandler : IRequestHandler<UpdateRestaurantCommand, Guid>
     {
         private readonly IApplicationDbContext _context;
-        public CreateRestaurantCommandHandler(IApplicationDbContext context)
+        public UpdateRestaurantCommandHandler(IApplicationDbContext context)
         {
             _context = context;
         }
         public async Task<Guid> Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Restaurant()
+            var entity = await _context.Restaurants.FindAsync(request.RestaurantId);
+
+            if (entity == null)
+            {
+                throw new NotFoundException(nameof(Restaurant), request.RestaurantId);
+            }
+
+            entity = new Restaurant()
             {
                 AcceptsCreditCards = request.AcceptsCreditCards,
                 AcceptTakeout = request.AcceptTakeout,
