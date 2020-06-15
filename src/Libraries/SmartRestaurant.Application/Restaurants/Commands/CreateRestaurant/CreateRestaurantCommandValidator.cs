@@ -5,9 +5,9 @@ using System.Text;
 
 namespace SmartRestaurant.Application.Restaurants.Commands.CreateRestaurant
 {
-    public class UpdateRestaurantCommandValidator : AbstractValidator<UpdateRestaurantCommand>
+    public class CreateRestaurantCommandValidator : AbstractValidator<CreateRestaurantCommand>
     {
-        public UpdateRestaurantCommandValidator()
+        public CreateRestaurantCommandValidator()
         {
             RuleFor(v => v.NameEnglish)
                 .MaximumLength(200)

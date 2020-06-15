@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Restaurants.Commands.CreateRestaurant
 {
-    public class UpdateRestaurantCommand : IRequest<Guid>
+    public class CreateRestaurantCommand : IRequest<Guid>
     {
         public string NameArabic { get; set; }
         public string NameFrench { get; set; }
@@ -30,7 +30,7 @@ namespace SmartRestaurant.Application.Restaurants.Commands.CreateRestaurant
 
     }
 
-    public class CreateRestaurantCommandHandler : IRequestHandler<UpdateRestaurantCommand, Guid>
+    public class CreateRestaurantCommandHandler : IRequestHandler<CreateRestaurantCommand, Guid>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -41,7 +41,7 @@ namespace SmartRestaurant.Application.Restaurants.Commands.CreateRestaurant
             _mapper = mapper;
         }
 
-        public async Task<Guid> Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateRestaurantCommand request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<Restaurant>(request);
             _context.Restaurants.Add(entity);
