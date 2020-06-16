@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.Restaurants.Commands.CreateRestaurant;
-using SmartRestaurant.Application.Restaurants.Commands.DeleteRestaurant;
-using SmartRestaurant.Application.Restaurants.Commands.UpdateRestaurant;
+using SmartRestaurant.Application.Restaurants.Commands;
 using SmartRestaurant.Application.Restaurants.Queries;
 using System;
 using System.Collections.Generic;
