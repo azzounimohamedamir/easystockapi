@@ -52,8 +52,15 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             }
             foreach (var s in Supplements.Supplements)
             {
+                
+                s.refDishViewModel = this;
+            }
+            _DishSupplements = Supplements.Supplements.Where(s => dish.Supplements.Contains(s.Id)).ToList();
+            foreach (var s in _DishSupplements)
+            {
                 s.IsSelected = false;
                 s.refDishViewModel = this;
+
             }
             Calories = _dish.Calories +
                 Dish_Ingredients_Measures.Sum(d => d.Calories * d.Quantity);
@@ -400,13 +407,19 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             }
         }
 
-        
+        public List<SupplementViewModel> _DishSupplements;
         public List<SupplementViewModel> DishSupplements
         {
             get
             {
 
-                return Supplements.Supplements.Where(s=>dish.Supplements.Contains(s.Id)).ToList();
+              
+                    return _DishSupplements;
+            }
+            set
+            {
+                _DishSupplements = value;
+                RaisePropertyChanged();
             }
         }
         public List<SpecificationViewModel> DishSpecifications
