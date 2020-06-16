@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Users.Commands;
 using SmartRestaurant.Domain.Entities.User;
-using SmartRestaurant.Domain.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
