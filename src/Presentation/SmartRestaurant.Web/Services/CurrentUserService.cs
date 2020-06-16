@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
 using SmartRestaurant.Application.Common.Interfaces;
+using Microsoft.AspNetCore.Http;
 
-namespace SmartRestaurant.Application.Common.Services
+namespace SmartRestaurant.Web.Services
 {
     public class CurrentUserService : ICurrentUserService
     {

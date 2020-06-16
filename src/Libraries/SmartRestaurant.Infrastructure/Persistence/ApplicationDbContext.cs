@@ -2,6 +2,7 @@
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Common;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Entities.User;
 using System;
 using System.Reflection;
 using System.Threading;
@@ -20,7 +21,6 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
         public DbSet<Restaurant> Restaurants { get; set; }
 
-        
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())

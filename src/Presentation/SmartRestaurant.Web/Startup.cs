@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Services;
 using SmartRestaurant.Infrastructure;
+using SmartRestaurant.Web.Services;
 using VueCliMiddleware;
 
 namespace SmartRestaurant.Web
@@ -27,6 +28,7 @@ namespace SmartRestaurant.Web
             services.AddHttpContextAccessor();
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddControllersWithViews();
 
