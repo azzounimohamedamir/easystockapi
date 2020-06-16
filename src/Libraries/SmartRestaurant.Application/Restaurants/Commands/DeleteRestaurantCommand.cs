@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace SmartRestaurant.Application.Restaurants.Commands.DeleteRestaurant
+namespace SmartRestaurant.Application.Restaurants.Commands
 {
     public class DeleteRestaurantCommand : IRequest
     {

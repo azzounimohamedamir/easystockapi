@@ -4,7 +4,7 @@ using SmartRestaurant.Application.Common.Models.Globalization;
 using SmartRestaurant.Domain.ValueObjects;
 using System;
 
-namespace SmartRestaurant.Application.Restaurants.Commands.UpdateRestaurant
+namespace SmartRestaurant.Application.Restaurants.Commands
 {
     public class UpdateRestaurantCommand : IRequest<Guid>
     {
