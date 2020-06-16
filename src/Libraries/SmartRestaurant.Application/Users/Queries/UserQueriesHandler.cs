@@ -26,7 +26,7 @@ namespace SmartRestaurant.Application.Users.Queries
 
         public async Task<UserDto> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            return _mapper.Map<UserDto>(await _userService.GetByIdAsync(request.RestaurantId));
+            return _mapper.Map<UserDto>(await _userService.GetByIdAsync(request.UserId));
         }
     }
 }

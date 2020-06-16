@@ -6,6 +6,6 @@ namespace SmartRestaurant.Application.Users.Queries
 {
     public class GetUserByIdQuery : IRequest<UserDto>
     {
-        public Guid RestaurantId { get; set; }
+        public Guid UserId { get; set; }
     }
 }
