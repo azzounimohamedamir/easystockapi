@@ -1,8 +1,11 @@
-﻿using SmartRestaurant.Domain.Entities.User;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Domain.Entities.User;
 using SmartRestaurant.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Common.Services
@@ -16,12 +19,12 @@ namespace SmartRestaurant.Application.Common.Services
             _context = context;
         }
 
-        public User Authenticate(string username, string password)
+        public async Task<User> Authenticate(string Email, string password)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(password))
                 return null;
 
-            var user = _context.Users.SingleOrDefault(x => x.Username == username);
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == Email);
 
             if (user == null)
                 return null;
@@ -32,23 +35,23 @@ namespace SmartRestaurant.Application.Common.Services
             return user;
         }
 
-        public IEnumerable<User> GetAll()
+        public async Task<List<User>> GetAllAsync()
         {
-            return _context.Users;
+            return await _context.Users.ToListAsync();
         }
 
-        public User GetById(int id)
+        public async Task<User> GetByIdAsync(Guid id)
         {
-            return _context.Users.Find(id);
+            return await _context.Users.FindAsync(id);
         }
 
-        public async Task<User> Create(User user, string password)
+        public async Task<Guid> Create(User user, string password, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(password))
                 throw new AppException("Password is required");
 
-            if (_context.Users.Any(x => x.Username == user.Username))
-                throw new AppException("Username \"" + user.Username + "\" is already taken");
+            if (_context.Users.Any(x => x.Email == user.Email))
+                throw new AppException("Username \"" + user.Email + "\" is already taken");
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -57,24 +60,24 @@ namespace SmartRestaurant.Application.Common.Services
             user.PasswordSalt = passwordSalt;
 
             _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
 
-            return user;
+            return user.UserId;
         }
 
-        public async void Update(User userParam, string password = null)
+        public async Task<Guid> Update(User userParam, string password = null, CancellationToken cancellationToken)
         {
             var user = _context.Users.Find(userParam.UserId);
 
             if (user == null)
                 throw new AppException("User not found");
 
-            if (!string.IsNullOrWhiteSpace(userParam.Username) && userParam.Username != user.Username)
+            if (!string.IsNullOrWhiteSpace(userParam.Email) && userParam.Email != user.Email)
             {
-                if (_context.Users.Any(x => x.Username == userParam.Username))
-                    throw new AppException("Username " + userParam.Username + " is already taken");
+                if (_context.Users.Any(x => x.Email == userParam.Email))
+                    throw new AppException("Username " + userParam.Email + " is already taken");
 
-                user.Username = userParam.Username;
+                user.Email = userParam.Email;
             }
 
             if (!string.IsNullOrWhiteSpace(userParam.FirstName))
@@ -93,16 +96,18 @@ namespace SmartRestaurant.Application.Common.Services
             }
 
             _context.Users.Update(user);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return user.UserId;
         }
 
-        public async void Delete(int id)
+        public async void Delete(Guid id, CancellationToken cancellationToken)
         {
             var user = _context.Users.Find(id);
             if (user != null)
             {
                 _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellationToken);
             }
         }
 

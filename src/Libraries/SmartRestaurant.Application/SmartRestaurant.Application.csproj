@@ -15,9 +15,4 @@
   <ItemGroup>
     <ProjectReference Include="..\SmartRestaurant.Domain\SmartRestaurant.Domain.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="User\Commands\" />
-    <Folder Include="User\Queries\" />
-  </ItemGroup>
 </Project>

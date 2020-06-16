@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using SmartRestaurant.Application.Common.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,23 +8,21 @@ using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Users.Commands
 {
-    public class UpdateUserCommand : IRequest<Guid>
+    public class AuthenticateUserCommand : IRequest<UserDto>
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
     }
 
-    public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
+    public class AuthenticateUserCommandValidator : AbstractValidator<AuthenticateUserCommand>
     {
-        public UpdateUserCommandValidator()
+        public AuthenticateUserCommandValidator()
         {
-            RuleFor(v => v.FirstName)
+            RuleFor(v => v.Email)
                 .MaximumLength(200)
                 .NotEmpty();
 
-            RuleFor(v => v.LastName)
+            RuleFor(v => v.Password)
                 .MaximumLength(200)
                 .NotEmpty();
         }

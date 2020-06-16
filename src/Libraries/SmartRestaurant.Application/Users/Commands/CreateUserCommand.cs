@@ -1,11 +1,31 @@
-﻿using System;
+﻿using FluentValidation;
+using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Users.Commands
 {
-    public class CreateUserCommand
+    public class CreateUserCommand : IRequest<Guid>
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+
+    public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
+    {
+        public CreateUserCommandValidator()
+        {
+            RuleFor(v => v.FirstName)
+                .MaximumLength(200)
+                .NotEmpty();
+
+            RuleFor(v => v.LastName)
+                .MaximumLength(200)
+                .NotEmpty();
+        }
     }
 }

@@ -55,7 +55,7 @@ namespace SmartRestaurant.Web.Controllers
             return Ok(new
             {
                 Id = user.UserId,
-                Username = user.Username,
+                Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Token = tokenString

@@ -23,7 +23,6 @@ namespace SmartRestaurant.Application.Restaurants.Commands
         public bool AcceptTakeout { get; set; }
         public string Tags { get; set; }
         public string Website { get; set; }
-
     }
 
     public class UpdateRestaurantCommandValidator : AbstractValidator<UpdateRestaurantCommand>
