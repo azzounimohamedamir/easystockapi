@@ -2,7 +2,6 @@
 using MediatR;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Restaurants.Commands;
 using SmartRestaurant.Domain.Entities;
 using System;
 using System.Threading;

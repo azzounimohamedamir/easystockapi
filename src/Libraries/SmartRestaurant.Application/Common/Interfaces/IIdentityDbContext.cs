@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Entities.User;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Common.Interfaces
 {
-    public interface IApplicationDbContext
+    public interface IIdentityDbContext
     {
-        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<User> Users { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

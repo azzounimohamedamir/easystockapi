@@ -1,8 +1,8 @@
-﻿using SmartRestaurant.Application.Common.Interfaces;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using SmartRestaurant.Application.Common.Interfaces;
 
-namespace SmartRestaurant.Web.Services
+namespace SmartRestaurant.Application.Common.Services
 {
     public class CurrentUserService : ICurrentUserService
     {
@@ -10,7 +10,6 @@ namespace SmartRestaurant.Web.Services
         {
             UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
         }
-
         public string UserId { get; }
     }
 }

@@ -1,26 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Common;
-using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Entities.User;
 using System;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SmartRestaurant.Infrastructure.Persistence
+namespace SmartRestaurant.Infrastructure.Identity.Persistence
 {
-    public class ApplicationDbContext : DbContext, IApplicationDbContext
+    public class IdentityDbContext : DbContext, IIdentityDbContext
     {
         private readonly ICurrentUserService _currentUserService;
 
-        public ApplicationDbContext(DbContextOptions options, ICurrentUserService currentUserService) : base(options)
+        public IdentityDbContext(DbContextOptions options, ICurrentUserService currentUserService) : base(options)
         {
             _currentUserService = currentUserService;
         }
 
-        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<User> Users { get; set; }
 
-        
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())

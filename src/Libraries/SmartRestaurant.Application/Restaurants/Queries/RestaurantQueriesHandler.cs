@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Restaurants.Queries;
 using SmartRestaurant.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading;
