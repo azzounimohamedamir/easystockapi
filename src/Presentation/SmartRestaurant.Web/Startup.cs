@@ -5,8 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Services;
 using SmartRestaurant.Infrastructure;
+using SmartRestaurant.Web.Services;
 using VueCliMiddleware;
 
 namespace SmartRestaurant.Web
