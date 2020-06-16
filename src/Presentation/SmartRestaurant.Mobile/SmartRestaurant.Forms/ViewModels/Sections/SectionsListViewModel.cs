@@ -9,17 +9,14 @@ using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.Spec
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements;
 using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.Views;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections
 {
-    
+
     /// <summary>
     /// Used to bind Sections List to the view.
     /// </summary>

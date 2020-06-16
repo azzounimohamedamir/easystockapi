@@ -1,13 +1,8 @@
-﻿using AutoMapper;
+﻿using FluentValidation;
 using MediatR;
 using SmartRestaurant.Application.Common.Models.Globalization;
-using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Entities.Globalisation;
 using SmartRestaurant.Domain.ValueObjects;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Restaurants.Commands.CreateRestaurant
 {
@@ -30,24 +25,13 @@ namespace SmartRestaurant.Application.Restaurants.Commands.CreateRestaurant
 
     }
 
-    public class CreateRestaurantCommandHandler : IRequestHandler<CreateRestaurantCommand, Guid>
+    public class CreateRestaurantCommandValidator : AbstractValidator<CreateRestaurantCommand>
     {
-        private readonly IApplicationDbContext _context;
-        private readonly IMapper _mapper;
-
-        public CreateRestaurantCommandHandler(IApplicationDbContext context, IMapper mapper)
+        public CreateRestaurantCommandValidator()
         {
-            _context = context;
-            _mapper = mapper;
-        }
-
-        public async Task<Guid> Handle(CreateRestaurantCommand request, CancellationToken cancellationToken)
-        {
-            var entity = _mapper.Map<Restaurant>(request);
-            _context.Restaurants.Add(entity);
-
-            await _context.SaveChangesAsync(cancellationToken);
-            return entity.RestaurantId;
+            RuleFor(v => v.NameEnglish)
+                .MaximumLength(200)
+                .NotEmpty();
         }
     }
 }

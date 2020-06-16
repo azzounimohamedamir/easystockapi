@@ -1,15 +1,6 @@
-﻿using FFImageLoading.Forms;
-using FFImageLoading.Transformations;
-using IntelliAbb.Xamarin.Controls;
-using SmartRestaurant.Diner.ViewModels.Sections;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SmartRestaurant.Diner.ViewModels.Sections;
 
 using Xamarin.Forms;
-using Xamarin.Forms.PancakeView;
 using Xamarin.Forms.Xaml;
 
 namespace SmartRestaurant.Diner.Views

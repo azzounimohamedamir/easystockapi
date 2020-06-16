@@ -6,9 +6,7 @@ using SmartRestaurant.Diner.Services;
 using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 

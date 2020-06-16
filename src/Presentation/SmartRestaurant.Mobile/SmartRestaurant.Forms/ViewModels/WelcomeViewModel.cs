@@ -1,11 +1,7 @@
 ﻿using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Infrastructures;
-using SmartRestaurant.Diner.ViewModels.Sections;
-using SmartRestaurant.Diner.ViewModels.Zones;
 using SmartRestaurant.Diner.Views;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 

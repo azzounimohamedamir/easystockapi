@@ -1,12 +1,9 @@
-﻿using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.Helpers
 {
-        public class MultiplyConverter : IValueConverter
+    public class MultiplyConverter : IValueConverter
         {
             public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
             {

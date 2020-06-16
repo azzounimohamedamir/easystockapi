@@ -6,12 +6,11 @@ using SmartRestaurant.Application.Restaurants.Commands.UpdateRestaurant;
 using SmartRestaurant.Application.Restaurants.Queries;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.Web.Controllers
 {
-    public class TodoItemsController : ApiController
+    public class RestaurantsController : ApiController
     {
         [HttpGet]
         public async Task<List<RestaurantDto>> Get()

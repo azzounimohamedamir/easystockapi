@@ -1,14 +1,8 @@
-﻿using AutoMapper;
+﻿using FluentValidation;
 using MediatR;
-using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Models.Globalization;
-using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Entities.Globalisation;
 using SmartRestaurant.Domain.ValueObjects;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Restaurants.Commands.UpdateRestaurant
 {
@@ -31,31 +25,14 @@ namespace SmartRestaurant.Application.Restaurants.Commands.UpdateRestaurant
         public string Website { get; set; }
 
     }
-    public class UpdateRestaurantCommandHandler : IRequestHandler<UpdateRestaurantCommand, Guid>
+
+    public class UpdateRestaurantCommandValidator : AbstractValidator<UpdateRestaurantCommand>
     {
-        private readonly IApplicationDbContext _context;
-        private readonly IMapper _mapper;
-
-        public UpdateRestaurantCommandHandler(IApplicationDbContext context, IMapper mapper)
+        public UpdateRestaurantCommandValidator()
         {
-            _context = context;
-            _mapper = mapper;
-        }
-
-        public async Task<Guid> Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
-        {
-            var entity = await _context.Restaurants.FindAsync(request.RestaurantId);
-
-            if (entity == null)
-            {
-                throw new NotFoundException(nameof(Restaurant), request.RestaurantId);
-            }
-
-            entity = _mapper.Map<Restaurant>(request);
-            _context.Restaurants.Add(entity);
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return entity.RestaurantId;
+            RuleFor(v => v.NameEnglish)
+                .MaximumLength(200)
+                .NotEmpty();
         }
     }
 }

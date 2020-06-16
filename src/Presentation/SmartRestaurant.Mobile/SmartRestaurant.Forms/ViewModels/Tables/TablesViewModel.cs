@@ -1,15 +1,7 @@
-﻿using SmartRestaurant.Diner.CustomControls;
-using SmartRestaurant.Diner.Infrastructures;
+﻿using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.ViewModels.Orders;
-using SmartRestaurant.Diner.ViewModels.Sections;
-using SmartRestaurant.Diner.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Tables

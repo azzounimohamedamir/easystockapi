@@ -6,13 +6,11 @@ using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Currencies.Currencie
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.Specifications;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements;
-using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 

@@ -1,10 +1,8 @@
 ﻿using Plugin.Multilingual;
 using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Infrastructures;
-using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Views;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Input;
 using Xamarin.Forms;
