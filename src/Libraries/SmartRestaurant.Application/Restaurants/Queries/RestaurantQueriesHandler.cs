@@ -10,14 +10,14 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SmartRestaurant.Application.Restaurants.Handlers
+namespace SmartRestaurant.Application.Restaurants.Queries
 {
-    public class GetRestaurantsListQueryHandler : IRequestHandler<GetRestaurantsListQuery, List<RestaurantDto>>
+    public class RestaurantQueriesHandler : IRequestHandler<GetRestaurantsListQuery, List<RestaurantDto>>, IRequestHandler<GetRestaurantByIdQuery, RestaurantDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetRestaurantsListQueryHandler(IApplicationDbContext context, IMapper mapper)
+        public RestaurantQueriesHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -27,18 +27,6 @@ namespace SmartRestaurant.Application.Restaurants.Handlers
         {
             List<Restaurant> entities = await _context.Restaurants.ToListAsync();
             return _mapper.Map<List<RestaurantDto>>(entities);
-        }
-    }
-
-    public class GetRestaurantByIdQueryHandler : IRequestHandler<GetRestaurantByIdQuery, RestaurantDto>
-    {
-        private readonly IApplicationDbContext _context;
-        private readonly IMapper _mapper;
-
-        public GetRestaurantByIdQueryHandler(IApplicationDbContext context, IMapper mapper)
-        {
-            _context = context;
-            _mapper = mapper;
         }
 
         public async Task<RestaurantDto> Handle(GetRestaurantByIdQuery request, CancellationToken cancellationToken)

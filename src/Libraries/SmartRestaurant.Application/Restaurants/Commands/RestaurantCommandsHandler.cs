@@ -8,14 +8,17 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SmartRestaurant.Application.Restaurants.Handlers
+namespace SmartRestaurant.Application.Restaurants.Commands
 {
-    public class CreateRestaurantCommandHandler : IRequestHandler<CreateRestaurantCommand, Guid>
+    public class RestaurantCommandHandler :
+    IRequestHandler<CreateRestaurantCommand, Guid>,
+    IRequestHandler<UpdateRestaurantCommand, Guid>,
+    IRequestHandler<DeleteRestaurantCommand>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public CreateRestaurantCommandHandler(IApplicationDbContext context, IMapper mapper)
+        public RestaurantCommandHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -28,16 +31,6 @@ namespace SmartRestaurant.Application.Restaurants.Handlers
 
             await _context.SaveChangesAsync(cancellationToken);
             return entity.RestaurantId;
-        }
-    }
-
-    public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteRestaurantCommand>
-    {
-        private readonly IApplicationDbContext _context;
-
-        public DeleteTodoItemCommandHandler(IApplicationDbContext context)
-        {
-            _context = context;
         }
 
         public async Task<Unit> Handle(DeleteRestaurantCommand request, CancellationToken cancellationToken)
@@ -54,18 +47,6 @@ namespace SmartRestaurant.Application.Restaurants.Handlers
             await _context.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
-        }
-    }
-
-    public class UpdateRestaurantCommandHandler : IRequestHandler<UpdateRestaurantCommand, Guid>
-    {
-        private readonly IApplicationDbContext _context;
-        private readonly IMapper _mapper;
-
-        public UpdateRestaurantCommandHandler(IApplicationDbContext context, IMapper mapper)
-        {
-            _context = context;
-            _mapper = mapper;
         }
 
         public async Task<Guid> Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
