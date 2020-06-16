@@ -65,7 +65,7 @@ namespace SmartRestaurant.Application.Common.Services
             return user.UserId;
         }
 
-        public async Task<Guid> Update(User userParam, string password = null, CancellationToken cancellationToken)
+        public async Task<Guid> Update(User userParam, string password, CancellationToken cancellationToken)
         {
             var user = _context.Users.Find(userParam.UserId);
 

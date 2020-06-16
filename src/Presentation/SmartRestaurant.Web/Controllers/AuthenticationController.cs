@@ -4,36 +4,37 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Users.Commands;
 using SmartRestaurant.Domain.Entities.User;
 using SmartRestaurant.Domain.Exceptions;
 using SmartRestaurant.Web.Helpers;
+using SmartRestaurant.Web.Models;
 using SmartRestaurant.Web.Models.User;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Web.Controllers
 {
     [ApiController]
-    public class AuthenticationController : ControllerBase
+    public class AuthenticationController : ApiController
     {
-        private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
 
-        public AuthenticationController(IUserService userService, IMapper mapper, IOptions<AppSettings> appSettings)
+        public AuthenticationController(IMapper mapper, IOptions<AppSettings> appSettings)
         {
-            _userService = userService;
             _mapper = mapper;
             _appSettings = appSettings.Value;
         }
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]AuthenticateModel model)
+        public async Task<IActionResult> Authenticate(AuthenticateUserCommand command)
         {
-            var user = _userService.Authenticate(model.Username, model.Password);
+            var user = await Mediator.Send(command);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -52,25 +53,19 @@ namespace SmartRestaurant.Web.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            return Ok(new
-            {
-                Id = user.UserId,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Token = tokenString
-            });
+            UserModel userModel = _mapper.Map<UserModel>(user);
+            userModel.Token = tokenString;
+
+            return Ok(userModel);
         }
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody]RegisterModel model)
+        public async Task<IActionResult> Register(CreateUserCommand command)
         {
-            var user = _mapper.Map<User>(model);
-
             try
             {
-                _userService.Create(user, model.Password);
+                await Mediator.Send(command);
                 return Ok();
             }
             catch (AppException ex)

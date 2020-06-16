@@ -13,7 +13,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
         Task<List<User>> GetAllAsync();
         Task<User> GetByIdAsync(Guid id);
         Task<Guid> Create(User user, string password, CancellationToken cancellationToken);
-        Task<Guid> Update(User user, string password = null, CancellationToken cancellationToken);
+        Task<Guid> Update(User user, string password, CancellationToken cancellationToken);
         void Delete(Guid id, CancellationToken cancellationToken);
     }
 }
