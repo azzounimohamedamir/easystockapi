@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
-using SmartRestaurant.Application.Common.Models.Globalization;
+using SmartRestaurant.Application.Common.Dtos.ValueObjects.Globalization;
+using SmartRestaurant.Application.Dtos.ValueObjects;
 using SmartRestaurant.Domain.ValueObjects;
 using System;
 
@@ -12,7 +13,7 @@ namespace SmartRestaurant.Application.Restaurants.Commands
         public string NameFrench { get; set; }
         public string NameEnglish { get; set; }
         public AddressDto Address { get; set; }
-        public PhoneNumber PhoneNumber { get; set; }
+        public PhoneNumberDto PhoneNumber { get; set; }
         public string Description { get; set; }
         public float AverageRating { get; set; }
         public bool HasCarParking { get; set; }

@@ -1,6 +1,6 @@
 ﻿using SmartRestaurant.Domain.ValueObjects;
 
-namespace SmartRestaurant.Application.Common.Models.Globalization
+namespace SmartRestaurant.Application.Common.Dtos.ValueObjects.Globalization
 {
     public class AddressDto
     {
