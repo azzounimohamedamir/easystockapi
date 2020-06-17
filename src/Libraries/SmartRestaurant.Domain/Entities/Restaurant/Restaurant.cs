@@ -1,5 +1,6 @@
 ﻿using SmartRestaurant.Domain.Common;
 using SmartRestaurant.Domain.Entities.Globalisation;
+using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.ValueObjects;
 using System;
 
@@ -22,6 +23,7 @@ namespace SmartRestaurant.Domain.Entities
         public bool AcceptTakeout { get; set; }
         public string Tags { get; set; }
         public string Website { get; set; }
-       
+        public RestaurantState RestaurantState { get; set; }
+
     }
 }
