@@ -39,7 +39,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Application
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Application.Tests", "tests\SmartRestaurant.Application.Tests\SmartRestaurant.Application.Tests.csproj", "{6DACC0EF-6761-4979-8293-745055D3BFDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Domain.Tests", "SmartRestaurant.Domain.Tests\SmartRestaurant.Domain.Tests.csproj", "{BF970DCA-C78C-40FE-89C1-20755DD313C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Domain.Tests", "tests\SmartRestaurant.Domain.Tests\SmartRestaurant.Domain.Tests.csproj", "{BF970DCA-C78C-40FE-89C1-20755DD313C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
