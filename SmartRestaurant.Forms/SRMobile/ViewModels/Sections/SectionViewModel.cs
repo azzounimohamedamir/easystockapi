@@ -159,7 +159,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                     ));
                 if (temp == "")
                     return "";
-                  return temp.Substring(0,Math.Min(temp.Length,40))+" ...";
+                  return temp.Substring(0,Math.Min(temp.Length,35))+" ...";
             }
         }
         public ICommand ShowSubsectionsCommand

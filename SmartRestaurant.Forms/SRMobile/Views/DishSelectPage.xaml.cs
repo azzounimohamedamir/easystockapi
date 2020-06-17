@@ -28,8 +28,9 @@ namespace SmartRestaurant.Diner.Views
 
         public DishSelectPage(DishViewModel _model)
         {
-            InitializeComponent();
             BindingContext = _model;
+            InitializeComponent();
+            
             viewmodel = (DishViewModel)BindingContext;
             
         }

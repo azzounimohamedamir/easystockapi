@@ -2,16 +2,16 @@
   "SpecificationsList": [
     {
       "Id": 1,
-      "NameAr": "م 1",
+      "NameAr": "الطهو",
       "NameEn": "Coocking ",
       "NameFr": "Cuisson",
       "Possible_ValuesAr": [
-        "نحلختلفل",
-        "بقحخثقتلحخل"
+        "طهو جيد",
+        "نصف طهو"
       ],
       "Possible_ValuesEn": [
         "Good",
-        "gjitgtpr"
+        "half"
       ],
       "Possible_ValuesFr": [
         "Bien",
@@ -20,23 +20,22 @@
     },
     {
       "Id": 2,
-      "NameAr": "م 2",
-      "NameEn": "spec 2 ",
-      "NameFr": "Spec 2",
+      "NameAr": "متبل",
+      "NameEn": " Spicy",
+      "NameFr": "Épicé",
       "Possible_ValuesAr": [
-        "نحلختلفل",
-        "بقحخثقتلحخل",
-        "ثفحاهختاق"
+        "نعم",
+        "لا"
+
       ],
       "Possible_ValuesEn": [
-        "V1",
-        "V2",
-        "V3"
+        "Yes",
+        "No"
+
       ],
       "Possible_ValuesFr": [
-        "V1",
-        "V2",
-        "V3"
+        "Oui",
+        "Non"
       ]
     }
   ]

@@ -22,42 +22,79 @@
               "NameEn": "Fish Soup",
               "Images": [ "Soupe_de_poisson.png", "soupe_de_poisson2.png", "soupe_de_poisson3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],
+              "Specifications": [],"Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
                   "Id": 4,
-                  "Measure": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
                   "Id": 5,
-                  "Measure": 3
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 },
                 {
                   "Id": 6,
-                  "Measure": 2
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
                   "Id": 7,
-                  "Measure": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
                   "Id": 8,
-                  "Measure": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
                   "Id": 9,
-                  "Measure": 3
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 },
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 }
               ],
               "EstimatedTime": "10",
@@ -75,35 +112,55 @@
               "NameEn": "Vegetables Soup",
               "Images": [ "Soupe_de_legumes3.png", "Soupe_de_legumes.png", "Soupe_de_legumes2.png" ],
 
-              "Ingredients": [
+              "Supplements": [],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
                   "Id": 2,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 4,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
                   "Id": 5,
-                  "Measure": 3
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },          
+                {
+                  "Id": 6,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
+                },
+                {
+                  "Id": 7,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 9,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
               "EstimatedTime": "10",
               "Price": "200",
-              "Calories": 25,
-              "Carbo": 4,
-              "Fat": 0.3,
-              "Protein": 1,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 81
             },
             {
@@ -113,37 +170,50 @@
               "NameEn": "Lentil soup",
               "Images": [ "soupe_de_lentilles.png", "soupe_de_lentilles2.png", "soupe_de_lentilles3.png" ],
 
-              "Ingredients": [
-                {
-                  "Id": 1,
-                  "Measure": 2
-                },
-                {
-                  "Id": 2,
-                  "Measure": 1
-                },
+              "Supplements": [ 1, 3 ,4],"Specifications": [1,2],"Ingredients": [
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
-                  "Id": 4,
-                  "Measure": 1
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
-                  "Id": 5,
-                  "Measure": 3
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 11,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 }
 
               ],
               "EstimatedTime": "10",
               "Price": "200",
-              "Calories": 56,
-              "Carbo": 8,
-              "Fat": 1,
-              "Protein": 4,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 81
             }
+           
           ]
         },
         {
@@ -160,35 +230,27 @@
               "NameEn": "Smoked salmon toast",
               "Images": [ "tartine_saumon.png", "tartine_saumon2.png", "tartine_saumon3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
+                  "Id": 12,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
-                  "Id": 2,
-                  "Measure": 1
+                  "Id": 13,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
-                  "Id": 3,
-                  "Measure": 1
-                },
-                {
-                  "Id": 4,
-                  "Measure": 1
-                },
-                {
-                  "Id": 5,
-                  "Measure": 3
-                }
+                  "Id": 14,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                } 
 
               ],
               "EstimatedTime": "15",
               "Price": "200",
-              "Calories": 824,
-              "Carbo": 60,
-              "Fat": 48,
-              "Protein": 38,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 82
             },
             {
@@ -198,35 +260,38 @@
               "NameEn": "Cesar salad",
               "Images": [ "salade_cezar.png", "salade_cezar2.png", "salade_cezar3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
+                  "Id": 15,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
-                  "Id": 2,
-                  "Measure": 1
+                  "Id": 16,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
-                  "Id": 3,
-                  "Measure": 1
+                  "Id": 17,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
-                  "Id": 4,
-                  "Measure": 1
-                },
-                {
-                  "Id": 5,
-                  "Measure": 3
+                  "Id": 12,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 }
-
               ],
               "EstimatedTime": "15",
               "Price": "200",
-              "Calories": 44,
-              "Carbo": 5,
-              "Fat": 3,
-              "Protein": 4,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 82
             },
             {
@@ -236,35 +301,35 @@
               "NameEn": "Thon salad",
               "Images": [ "salade_de_thon.png", "salade_de_thon2.png", "salade_de_thon3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
+                  "Id": 18,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
-                  "Id": 2,
-                  "Measure": 1
+                  "Id": 19,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
-                  "Id": 3,
-                  "Measure": 1
+                  "Id": 20,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
-                  "Id": 4,
-                  "Measure": 1
+                  "Id": 15,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
-                  "Id": 5,
-                  "Measure": 3
+                  "Id": 8,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
               "EstimatedTime": "15",
               "Price": "150",
-              "Calories": 123,
-              "Carbo": 6,
-              "Fat": 7,
-              "Protein": 9,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 82
             },
             {
@@ -274,35 +339,31 @@
               "NameEn": "Macedonia",
               "Images": [ "macedoine.png", "macedoine2.png", "macedoine3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 1,
-                  "Measure": 2
-                },
-                {
-                  "Id": 2,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
                 },
                 {
                   "Id": 3,
-                  "Measure": 1
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
-                  "Id": 4,
-                  "Measure": 1
+                  "Id": 21,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
                 },
                 {
-                  "Id": 5,
-                  "Measure": 3
+                  "Id": 6,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
                 }
 
               ],
               "EstimatedTime": "15",
               "Price": "100",
-              "Calories": 48,
-              "Carbo": 7,
-              "Fat": 1,
-              "Protein": 2,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 82
             }
 
@@ -333,30 +394,50 @@
               "NameFr": "Pizza poulet",
               "NameEn": "Chicken Pizza ",
               "Images": [ "Chicken_Pizza.png", "Chicken_Pizza2.png", "Chicken_Pizza3.png" ],
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
 
                 {
-                  "Id": 2,
-                  "Measure": 1
+                  "Id": 22,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
-                  "Id": 3,
-                  "Measure": 1
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
-                  "Id": 8,
-                  "Measure": 1
+                  "Id": 16,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 17,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 }
 
 
               ],
               "EstimatedTime": "25",
               "Price": "450",
-              "Calories": 716,
-              "Carbo": 108,
-              "Fat": 12,
-              "Protein": 10,
-              "SubSectionId": 1
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 2
             },
             {
               "Id": 12,
@@ -364,59 +445,113 @@
               "NameFr": "Pizza viande",
               "NameEn": "Meat Pizza ",
               "Images": [ "Meat_Pizza.png", "Meat_Pizza2.png", "Meat_Pizza3.png" ],
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
+                  "Id": 22,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
-
                 {
-                  "Id": 3,
-                  "Measure": 1
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
-                  "Id": 8,
-                  "Measure": 1
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 17,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 }
 
 
               ],
+
+
               "EstimatedTime": "25",
               "Price": "450",
-              "Calories": 1773,
-              "Carbo": 185,
-              "Fat": 81,
-              "Protein": 71,
-              "SubSectionId": 1
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 2
             },
             {
-              "Id": 3,
+              "Id": 13,
               "NameAr": "بيتزا 3 أجبان",
               "NameFr": "Pizza 3 Fromages",
               "NameEn": "3 cheeses Pizza ",
               "Images": [ "cheeses_Pizza.png", "cheeses_Pizza2.png", "cheeses_Pizza3.png" ],
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
 
                 {
-                  "Id": 3,
-                  "Measure": 1
+                  "Id": 22,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
-                  "Id": 8,
-                  "Measure": 1
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 25,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 17,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 24,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 }
               ],
               "EstimatedTime": "20",
               "Price": "500",
-              "Calories": 1071,
-              "Carbo": 118,
-              "Fat": 46,
-              "Protein": 47,
-              "SubSectionId": 1
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 2
             }
-            
+
           ]
         },
+
         {
           "Id": 2,
           "NameAr": "سندويتش",
@@ -432,35 +567,63 @@
               "NameEn": "hamburger ",
               "Images": [ "hamburger.png", "hamburger2.png", "hamburger3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
+                  "Id": 26,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 2,
-                  "Measure": 1
+                  "Id":25,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
-                  "Id": 3,
-                  "Measure": 1
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
-                  "Id": 4,
-                  "Measure": 1
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
-                  "Id": 5,
-                  "Measure": 3
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 }
 
               ],
               "EstimatedTime": "30",
               "Price": "400",
-              "Calories": 295,
-              "Carbo": 24,
-              "Fat": 14,
-              "Protein": 17,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 2
             },
             {
@@ -469,30 +632,70 @@
               "NameFr": "Tacos",
               "NameEn": "Tacos ",
               "Images": [ "tacos.png", "Tacos2.png", "Tacos3.png" ],
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
+                  "Id": 28,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 2,
-                  "Measure": 1
+                  "Id": 25,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 16,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
                   "Id": 8,
-                  "Measure": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 },
                 {
-                  "Id": 10,
-                  "Measure": 1
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 1,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 }
               ],
               "EstimatedTime": "30",
               "Price": "500",
-              "Calories": 500,
-              "Carbo": 40,
-              "Fat": 26,
-              "Protein": 20,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 2
             },
             {
@@ -501,35 +704,62 @@
               "NameFr": "Sandwich Mexicain",
               "NameEn": "Sandwich Mexican ",
               "Images": [ "Mexican.png", "Mexican2.png", "Mexican3.png" ],
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
+                  "Id": 27,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 2,
-                  "Measure": 1
+                  "Id": 25,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
-
                 {
-                  "Id": 4,
-                  "Measure": 1
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
                   "Id": 8,
-                  "Measure": 3
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 },
                 {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 }
               ],
               "EstimatedTime": "20",
               "Price": "250",
-              "Calories": 367,
-              "Carbo": 30,
-              "Fat": 13,
-              "Protein": 30,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 2
             },
             {
@@ -538,9 +768,54 @@
               "NameFr": "Chawarma",
               "NameEn": "Chawarma ",
               "Images": [ "Chawarma.png", "Chawarma2.png", "Chawarma3.png" ],
-              "Ingredients": [],
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 29,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 16,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+              ],
               "EstimatedTime": "20",
               "Price": "250",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 2
             }
           ]
@@ -560,29 +835,54 @@
               "NameEn": "Grill ",
               "Images": [ "Grill.png", "Grill2.png", "Grill3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 30,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 16,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
                 {
                   "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
                 }
-
               ],
               "EstimatedTime": "30",
               "Price": "500",
-              "Calories": 4.6,
-              "Carbo": 100,
-              "Fat": 90,
-              "Protein": 100,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 3
             },
             {
@@ -592,29 +892,47 @@
               "NameEn": "Grilled fich ",
               "Images": [ "Grill_Fish.png", "Grill_Fish2.png", "Grill_Fish3.png" ],
 
-              "Ingredients": [
-                {
-                  "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
-                },
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
                   "Id": 10,
-                  "Measure": 3
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 1,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
                 }
 
               ],
               "EstimatedTime": "30",
               "Price": "600",
-              "Calories": 4.6,
-              "Carbo": 100,
-              "Fat": 90,
-              "Protein": 100,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 3
             },
             {
@@ -624,29 +942,55 @@
               "NameEn": " Kebab ",
               "Images": [ "Kebab.png", "Kebab2.png", "Kebab3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
                 {
                   "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
                 }
 
               ],
               "EstimatedTime": "30",
               "Price": "500",
-              "Calories": 4.6,
-              "Carbo": 100,
-              "Fat": 90,
-              "Protein": 100,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 3
             }
 
@@ -667,29 +1011,65 @@
               "NameEn": " Spaghetti ",
               "Images": [ "Spaghetti.png", "Spaghetti2.png", "Spaghetti3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
+                  "Id": 31,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
 
 
                 {
-                  "Id": 7,
-                  "Measure": 1
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
                 },
                 {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 24,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 }
 
               ],
               "EstimatedTime": "20",
               "Price": "500",
-              "Calories": 4.6,
-              "Carbo": 100,
-              "Fat": 90,
-              "Protein": 100,
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
               "SubSectionId": 4
             },
             {
@@ -699,20 +1079,54 @@
               "NameEn": " Lasagna ",
               "Images": [ "Lasagne.png", "Lasagne2.png", "Lasagne3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
+                  "Id": 32,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 24,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 }
 
               ],
@@ -731,20 +1145,54 @@
               "NameEn": " Cannelloni ",
               "Images": [ "Cannelloni.png", "Cannelloni2.png", "Cannelloni3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
+                  "Id": 33,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 24,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 }
 
               ],
@@ -774,20 +1222,56 @@
               "NameEn": " Roast chicken ",
               "Images": [ "Poulet_roti.png", "Poulet_roti2.png", "Poulet_roti3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 34,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+
+
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
                 {
                   "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 21,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
                 }
 
               ],
@@ -806,20 +1290,38 @@
               "NameEn": " Stuffed chicken ",
               "Images": [ "Poulet_farci.png", "Poulet_farci2.png", "Poulet_farci3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
+                  "Id": 34,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 }
 
               ],
@@ -838,22 +1340,15 @@
               "NameEn": " Paned chicken ",
               "Images": [ "Poulet_pane.png", "Poulet_pane2.png", "Poulet_pane3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
-                },
-                {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 34,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 }
-
               ],
               "EstimatedTime": "20",
               "Price": "400",
@@ -880,21 +1375,24 @@
               "NameEn": " Roasted ribs ",
               "Images": [ "Cotes_roties.png", "Cotes_roties2.png", "Cotes_roties3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
+                  "Id": 35,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 }
+
 
               ],
               "EstimatedTime": "30",
@@ -912,22 +1410,15 @@
               "NameEn": " Grilled steak ",
               "Images": [ "Steak_grille.png", "Steak_grille2.png", "Steak_grille3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
-                },
-                {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 36,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 }
-
               ],
               "EstimatedTime": "30",
               "Price": "400",
@@ -944,22 +1435,57 @@
               "NameEn": " Roast veal ",
               "Images": [ "Roti_de_veau.png", "Roti_de_veau2.png", "Roti_de_veau3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 37,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+
+
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
                 {
                   "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 21,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
                 }
-
               ],
               "EstimatedTime": "30",
               "Price": "400",
@@ -986,20 +1512,79 @@
               "NameEn": " Couscous",
               "Images": [ "Couscous.png", "Couscous2.png", "Couscous3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 34,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 37,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 38,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+
                 {
                   "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 5,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 }
 
               ],
@@ -1018,20 +1603,47 @@
               "NameEn": " Rechta",
               "Images": [ "Rechta.png", "Rechta2.png", "Rechta3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
                 {
-                  "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
+                  "Id": 34,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 39,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+
+                {
+                  "Id": 5,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 }
 
               ],
@@ -1050,20 +1662,79 @@
               "NameEn": " Chakhchoukha",
               "Images": [ "Chakhchoukha.png", "Chakhchoukha2.png", "Chakhchoukha3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 34,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 37,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 40,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+
                 {
                   "Id": 1,
-                  "Measure": 2
-                },
-
-
-                {
-                  "Id": 7,
-                  "Measure": 1
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
                 },
                 {
-                  "Id": 10,
-                  "Measure": 3
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 5,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
                 }
 
               ],
@@ -1077,7 +1748,7 @@
             }
           ]
         }
-       
+
       ]
 
     },
@@ -1105,8 +1776,48 @@
               "NameEn": "Tiramissu",
               "Images": [ "Tiramissu.png", "Tiramissu2.PNG", "Tiramissu3.png" ],
 
-              "Ingredients": [
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 41,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 42,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 43,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
 
+                {
+                  "Id": 44,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 14,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                }
               ],
               "EstimatedTime": "20",
               "Price": "200",
@@ -1124,9 +1835,23 @@
               "NameEn": "Chocolate mousse",
               "Images": [ "ChocolateMousse.png", "ChocolateMousse2.png", "ChocolateMousse3.png" ],
 
-              "Ingredients": [
-
-
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 41,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 45,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                }
               ],
               "EstimatedTime": "20",
               "Price": "200",

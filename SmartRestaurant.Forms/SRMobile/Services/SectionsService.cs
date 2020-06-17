@@ -40,9 +40,15 @@ namespace SmartRestaurant.Diner.Services
                     foreach(var b in s.SubSections)
                     {
                         b.SectionId = s.Id;
-                        if(b.Dishes!=null)
-                        foreach (var d in b.Dishes)
-                            d.SubSectionId = b.Id;
+                            if (b.Dishes != null)
+                                foreach (var d in b.Dishes)
+                                {
+                                    d.SubSectionId = b.Id;
+                                    foreach (var ing in d.Ingredients)
+                                    {
+                                        ing.Quantity = ing.InitialValue;
+                                    }
+                                }
                     }
                 }
             }

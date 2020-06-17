@@ -15,7 +15,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.
         private static List<SpecificationViewModel> specifications;
         public SpecificationListViewModel()
         {
-            if (specifications == null)
+            
                 specifications = new List<SpecificationViewModel>();
             ObservableCollection<SpecificationModel> listSpecification = SpecificationService.GetListSpecifications();
             specifications.Clear();
