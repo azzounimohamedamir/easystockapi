@@ -34,11 +34,11 @@ namespace SmartRestaurant.Application.Restaurants.Commands
 
         public async Task<Unit> Handle(DeleteRestaurantCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _context.Restaurants.FindAsync(request.Id);
+            var entity = await _context.Restaurants.FindAsync(request.RestaurantId);
 
             if (entity == null)
             {
-                throw new NotFoundException(nameof(Restaurant), request.Id);
+                throw new NotFoundException(nameof(Restaurant), request.RestaurantId);
             }
 
             _context.Restaurants.Remove(entity);
