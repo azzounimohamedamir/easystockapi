@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using System;
 
 namespace SmartRestaurant.Application.Restaurants.Commands
