@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,8 +9,8 @@ namespace SmartRestaurant.Domain.ValueObjects
     [Owned]
     public class PhoneNumber : ValueObject
     {
-        public int CountryCode { get; set; }
-        public int Number { get; set; }
+        public int CountryCode { get; protected set; }
+        public int Number { get; protected set; }
 
         protected override IEnumerable<object> GetAtomicValues()
         {
@@ -20,9 +21,19 @@ namespace SmartRestaurant.Domain.ValueObjects
             };
         }
 
-        public override string ToString() {
-            return new StringBuilder(CountryCode).Append(Number).ToString();
+        public string GetPhoneNumber()
+        {
+            return new StringBuilder("+").Append(CountryCode).Append(Number).ToString();
         }
 
+        public static PhoneNumber Create(int countryCode, int number)
+        {
+            PhoneNumber phoneNumber = new PhoneNumber()
+            {
+                CountryCode = countryCode,
+                Number = number
+            };
+            return phoneNumber;
+        }
     }
 }

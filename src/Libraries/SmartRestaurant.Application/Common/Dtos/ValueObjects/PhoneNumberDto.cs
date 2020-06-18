@@ -20,7 +20,7 @@ namespace SmartRestaurant.Application.Dtos.ValueObjects
             };
         }
 
-        public override string ToString() {
+        public override string GetPhoneNumber() {
             return new StringBuilder(CountryCode).Append(Number).ToString();
         }
 

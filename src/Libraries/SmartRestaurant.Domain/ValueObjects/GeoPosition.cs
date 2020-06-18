@@ -7,8 +7,8 @@ namespace SmartRestaurant.Domain.ValueObjects
     [Owned]
     public class GeoPosition : ValueObject
     {
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
+        public string Latitude { get; protected set; }
+        public string Longitude { get; protected set; }
 
         protected override IEnumerable<object> GetAtomicValues()
         {
@@ -17,6 +17,16 @@ namespace SmartRestaurant.Domain.ValueObjects
                 Latitude,
                 Longitude
             };
+        }
+
+        public static GeoPosition Create(string latitude, string longitude)
+        {
+            GeoPosition position = new GeoPosition()
+            {
+                Latitude = latitude,
+                Longitude = longitude,
+            };
+            return position;
         }
     }
 }
