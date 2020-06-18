@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -20,19 +21,19 @@ namespace SmartRestaurant.Domain.ValueObjects
             };
         }
 
-        public static GeoPosition Create(string latitude, string longitude)
-        {
-            GeoPosition position = new GeoPosition()
-            {
-                Latitude = latitude,
-                Longitude = longitude,
-            };
-            return position;
-        }
-
         public string GetPosition()
         {
             return new StringBuilder(Latitude).Append(",").Append(Longitude).ToString();
+        }
+
+        public static GeoPosition Create(string latitude, string longitude)
+        {
+            GeoPosition geoPosition = new GeoPosition()
+            {
+                Latitude = latitude,
+                Longitude = longitude
+            };
+            return geoPosition;
         }
     }
 }

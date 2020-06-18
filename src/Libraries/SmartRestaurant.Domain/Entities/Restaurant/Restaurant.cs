@@ -13,7 +13,6 @@ namespace SmartRestaurant.Domain.Entities
         public string NameFrench { get; protected set; }
         public string NameEnglish { get; protected set; }
         public Address Address { get; protected set; }
-        public GeoPosition GeoPosition { get; protected set; }
         public PhoneNumber PhoneNumber { get; protected set; }
         public string Description { get; protected set; }
         public double AverageRating { get; protected set; }
@@ -46,14 +45,14 @@ namespace SmartRestaurant.Domain.Entities
             return restaurant;
         }
 
-        public void LocatedAt(string streetAddress, string city)
+        public void LocatedAt(string streetAddress, string city, string country)
         {
-            Address = Address.Create(streetAddress, city);
+            Address = Address.Create(streetAddress, city, country);
         }
 
         public void CreateMapMarker(string latitude, string longitude)
         {
-            GeoPosition = GeoPosition.Create(latitude, longitude);
+            Address.CreateMapMarker(latitude, longitude);
         }
 
         public void ChangePhoneNumber(int CountryCode, int Number)

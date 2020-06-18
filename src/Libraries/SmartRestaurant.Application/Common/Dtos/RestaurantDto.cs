@@ -11,7 +11,6 @@ namespace SmartRestaurant.Application.Common.Dtos
         public string NameFrench { get; set; }
         public string NameEnglish { get; set; }
         public AddressDto Address { get; set; }
-        public GeoPositionDto GeoPosition { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
         public string Description { get; set; }
         public float AverageRating { get; set; }

@@ -18,7 +18,7 @@ namespace SmartRestaurant.Application.Tests
         }
 
         [Fact]
-        public void Map_RestaurantDto_To_Restaurant()
+        public void Map_RestaurantDto_To_Restaurant_Valide_Test()
         {
             RestaurantDto restaurantDto = new RestaurantDto()
             {
@@ -30,39 +30,46 @@ namespace SmartRestaurant.Application.Tests
         }
 
         [Fact]
-        public void Map_RestaurantDto_GeoLocationDto_to_Restaurant_Geolocation()
-        {
-            RestaurantDto restaurantDto = new RestaurantDto()
-            {
-                GeoPosition = new GeoPositionDto()
-                {
-                    Latitude = "+12.5",
-                    Longitude = "-24.3"
-                }
-            };
-            Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
-
-            Assert.Equal("+12.5,-24.3", restaurant.GeoPosition.GetPosition());
-        }
-
-        [Fact]
-        public void Map_RestaurantDto_AddressDto_to_Restaurant_Address()
+        public void Map_RestaurantDto_GeoLocationDto_to_Restaurant_Geolocation_Valide_Test()
         {
             RestaurantDto restaurantDto = new RestaurantDto()
             {
                 Address = new AddressDto()
                 {
                     City = "Oran",
-                    StreetAddress = "12 rue exemple"
+                    StreetAddress = "12 rue exemple",
+                    Country = "Algeria",
+                    GeoPosition = new GeoPositionDto()
+                    {
+                        Latitude = "+12.5",
+                        Longitude = "-24.3"
+                    }
                 }
             };
             Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
 
-            Assert.Equal("12 rue exemple, Oran", restaurant.Address.GetAddresse());
+            Assert.Equal("+12.5,-24.3", restaurant.Address.GeoPosition.GetPosition());
         }
 
         [Fact]
-        public void Map_RestaurantDto_PhoneNumberDto_to_Restaurant_PhoneNumber()
+        public void Map_RestaurantDto_AddressDto_to_Restaurant_Address_Valide_Test()
+        {
+            RestaurantDto restaurantDto = new RestaurantDto()
+            {
+                Address = new AddressDto()
+                {
+                    StreetAddress = "12 rue exemple",
+                    City = "Oran",
+                    Country = "Algeria"
+                }
+            };
+            Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
+
+            Assert.Equal("12 rue exemple, Oran, Algeria", restaurant.Address.GetAddresse());
+        }
+
+        [Fact]
+        public void Map_RestaurantDto_PhoneNumberDto_to_Restaurant_PhoneNumber_Valide_Test()
         {
             RestaurantDto restaurantDto = new RestaurantDto()
             {
@@ -74,7 +81,7 @@ namespace SmartRestaurant.Application.Tests
             };
             Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
 
-            Assert.Equal("+213798924059",restaurant.PhoneNumber.GetPhoneNumber());
+            Assert.Equal("+213798924059", restaurant.PhoneNumber.GetPhoneNumber());
         }
     }
 }
