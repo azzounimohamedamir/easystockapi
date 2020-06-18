@@ -32,15 +32,49 @@ namespace SmartRestaurant.Application.Tests
         [Fact]
         public void Map_RestaurantDto_GeoLocationDto_to_Restaurant_Geolocation()
         {
-            RestaurantDto restaurantDto = new RestaurantDto();
-            restaurantDto.GeoPosition = new GeoPositionDto()
+            RestaurantDto restaurantDto = new RestaurantDto()
             {
-                Latitude = "+12.5",
-                Longitude = "-24.3"
+                GeoPosition = new GeoPositionDto()
+                {
+                    Latitude = "+12.5",
+                    Longitude = "-24.3"
+                }
             };
             Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
 
             Assert.Equal("+12.5,-24.3", restaurant.GeoPosition.GetPosition());
+        }
+
+        [Fact]
+        public void Map_RestaurantDto_AddressDto_to_Restaurant_Address()
+        {
+            RestaurantDto restaurantDto = new RestaurantDto()
+            {
+                Address = new AddressDto()
+                {
+                    City = "Oran",
+                    StreetAddress = "12 rue exemple"
+                }
+            };
+            Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
+
+            Assert.Equal("12 rue exemple, Oran", restaurant.Address.GetAddresse());
+        }
+
+        [Fact]
+        public void Map_RestaurantDto_PhoneNumberDto_to_Restaurant_PhoneNumber()
+        {
+            RestaurantDto restaurantDto = new RestaurantDto()
+            {
+                PhoneNumber = new PhoneNumberDto()
+                {
+                    CountryCode = 213,
+                    Number = 798924059
+                }
+            };
+            Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
+
+            Assert.Equal("+213798924059",restaurant.PhoneNumber.GetPhoneNumber());
         }
     }
 }
