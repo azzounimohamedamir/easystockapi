@@ -1,8 +1,8 @@
-﻿namespace SmartRestaurant.Domain.ValueObjects
+﻿namespace SmartRestaurant.Application.Common.Dtos.ValueObjects
 {
-    public class GeoPosition
+    public class GeoPositionDto
     {
-        public string Latitude { get; protected set; }
-        public string Longitude { get; protected set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
     }
 }

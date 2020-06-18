@@ -1,6 +1,5 @@
 ﻿using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Domain.Enums;
-using SmartRestaurant.Domain.ValueObjects;
 using System;
 
 namespace SmartRestaurant.Application.Common.Dtos
