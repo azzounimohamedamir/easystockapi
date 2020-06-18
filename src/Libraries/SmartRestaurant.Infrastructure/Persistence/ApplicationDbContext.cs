@@ -2,7 +2,6 @@
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Common;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Entities.User;
 using System;
 using System.Reflection;
 using System.Threading;

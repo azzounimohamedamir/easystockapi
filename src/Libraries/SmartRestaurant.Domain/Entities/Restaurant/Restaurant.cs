@@ -4,7 +4,6 @@ using SmartRestaurant.Domain.Entities.Globalisation;
 using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.ValueObjects;
 using System;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Entities
 {

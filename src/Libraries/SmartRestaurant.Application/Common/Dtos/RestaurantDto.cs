@@ -1,5 +1,4 @@
-﻿using SmartRestaurant.Application.Common.Dtos.ValueObjects.Globalization;
-using SmartRestaurant.Application.Dtos.ValueObjects;
+﻿using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.ValueObjects;
 using System;

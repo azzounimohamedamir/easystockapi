@@ -1,6 +1,4 @@
-﻿using SmartRestaurant.Domain.ValueObjects;
-
-namespace SmartRestaurant.Application.Common.Dtos.ValueObjects.Globalization
+﻿namespace SmartRestaurant.Application.Common.Dtos.ValueObjects
 {
     public class AddressDto
     {

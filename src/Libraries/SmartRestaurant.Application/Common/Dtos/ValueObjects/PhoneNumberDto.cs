@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Domain.Common;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Application.Dtos.ValueObjects
+﻿namespace SmartRestaurant.Application.Common.Dtos.ValueObjects
 {
     public class PhoneNumberDto
     {

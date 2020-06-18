@@ -1,8 +1,5 @@
 ﻿using FluentValidation;
 using MediatR;
-using SmartRestaurant.Application.Common.Dtos.ValueObjects.Globalization;
-using SmartRestaurant.Application.Dtos.ValueObjects;
-using SmartRestaurant.Domain.ValueObjects;
 using System;
 
 namespace SmartRestaurant.Application.Restaurants.Commands

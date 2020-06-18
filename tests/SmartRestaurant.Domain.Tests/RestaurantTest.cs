@@ -1,8 +1,5 @@
 ﻿using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Entities.Globalisation;
 using SmartRestaurant.Domain.Enums;
-using SmartRestaurant.Domain.ValueObjects;
-using System;
 using Xunit;
 
 namespace SmartRestaurant.Domain.Tests
