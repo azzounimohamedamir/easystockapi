@@ -6,6 +6,5 @@ namespace SmartRestaurant.Application.Common.Dtos.ValueObjects.Globalization
     {
         public string City { get; set; }
         public string StreetAddress { get; set; }
-        public GeoPosition GeoPosition { get; set; }
     }
 }
