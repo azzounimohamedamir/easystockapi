@@ -1,6 +1,7 @@
 ﻿using FFImageLoading.Forms;
 using FFImageLoading.Transformations;
 using IntelliAbb.Xamarin.Controls;
+using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.ViewModels.Sections;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,22 @@ namespace SmartRestaurant.Diner.Views
             InitializeComponent();
             model = _model;
             BindingContext = model;
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            if (SectionsListViewModel.Seats.Seats.Any(s => s.CurrentOrder.Lines == null ||
+            s.CurrentOrder.Lines.Count == 0))
+            {
+                if (SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines != null && SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines.Count > 0)
+                    await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap());
+            }
+            else
+            {
+                await App.Current.MainPage.Navigation.PushAsync(new GlobalRecap(
+                    SectionsListViewModel.Seats.SelectedSeat.Table
+                    ));
+            }
         }
     }
 }
