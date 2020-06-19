@@ -33,22 +33,32 @@ namespace SmartRestaurant.Domain.Tests
         [Fact]
         public void Restaurant_Address_Valide_Test()
         {
-            Restaurant.LocatedAt("12 rue exemple", "Oran", "Algeria");
+            Restaurant.LocatedAt(
+                streetAddress: "12 rue exemple",
+                city: "Oran",
+                country: "Algeria");
+
             Assert.Equal("12 rue exemple, Oran, Algeria", Restaurant.Address.GetAddresse());
         }
 
         [Fact]
         public void Restaurant_MapMarker_Valide_Test()
         {
-            Restaurant.LocatedAt("12 rue exemple", "Oran", "Algeria");
-            Restaurant.CreateMapMarker("+40.75", "-074.00");
+            Restaurant.LocatedAt(
+                streetAddress: "12 rue exemple",
+                city: "Oran",
+                country: "Algeria");
+
+            Restaurant.CreateMapMarker(latitude: "+40.75", longitude: "-074.00");
+
             Assert.Equal("-074.00", Restaurant.Address.GeoPosition.Longitude);
         }
 
         [Fact]
         public void Restaurant_PhoneNumber_Valide_Test()
         {
-            Restaurant.ChangePhoneNumber(213, 798924059);
+            Restaurant.ChangePhoneNumber(CountryCode: 213, Number: 798924059);
+
             Assert.Equal("+213798924059", Restaurant.PhoneNumber.GetPhoneNumber());
         }
 
@@ -56,6 +66,7 @@ namespace SmartRestaurant.Domain.Tests
         public void Restaurant_State_Valide_Test()
         {
             Restaurant.ChangeState(RestaurantState.Active);
+
             Assert.Equal(RestaurantState.Active, Restaurant.RestaurantState);
         }
 
@@ -63,6 +74,7 @@ namespace SmartRestaurant.Domain.Tests
         public void Restaurant_Rating_NotValide_Test()
         {
             Restaurant.Rate(4);
+
             Assert.NotEqual(4.5, Restaurant.AverageRating);
         }
     }
