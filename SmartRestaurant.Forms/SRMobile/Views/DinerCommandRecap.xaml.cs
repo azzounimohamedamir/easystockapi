@@ -36,6 +36,12 @@ namespace SmartRestaurant.Diner.Views
         {
             await((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SectionsPage(SectionsListViewModel.Instance));
         }
+
+        private async void Button_Clicked_1(object sender, EventArgs e)
+        {
+            await((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SelectSeatPage(
+                SectionsListViewModel.Seats));
+        }
     }
     public class Grouping<K, T> : ObservableCollection<T>
     {

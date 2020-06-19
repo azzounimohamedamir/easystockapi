@@ -103,7 +103,7 @@
                         <RowDefinition Height="32" />
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
-                    <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" CornerRadius="28" HeightRequest="60" HorizontalOptions="EndAndExpand" VerticalOptions="Center" WidthRequest="174" BackgroundColor="#01A9AC" FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf" FontAttributes="Bold" ImageSource="food.png" TextColor="White" Text="{translator:Translate Order}" />
+                    <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" CornerRadius="28" HeightRequest="60" HorizontalOptions="EndAndExpand" VerticalOptions="Center" WidthRequest="174" BackgroundColor="#01A9AC" FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf" FontAttributes="Bold" ImageSource="food.png" TextColor="White" Text="{translator:Translate Order}" Clicked="Button_Clicked" />
                     <Button Grid.Row="0" HeightRequest="32" WidthRequest="32" Margin="8,-8,-8,-8" CornerRadius="16" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Start" FontAttributes="Bold" BackgroundColor="White" FontSize="12" FontFamily="Assets/Fonts/Roboto.ttf" Text="{Binding SelectedDishes.Count, Source={x:Static vms:SectionsListViewModel.Instance},Mode=TwoWay}"></Button>
                     <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" BackgroundColor="Transparent" HorizontalTextAlignment="{Binding OrientationText}" VerticalTextAlignment="Start" HorizontalOptions="Start" Margin="38,0,0,0" VerticalOptions="Center">
                         <Label.FormattedText>
