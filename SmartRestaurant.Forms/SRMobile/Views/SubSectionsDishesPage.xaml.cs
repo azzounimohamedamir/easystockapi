@@ -71,26 +71,29 @@ namespace SmartRestaurant.Diner.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            if (SectionsListViewModel.Seats.Seats.Any(s => s.CurrentOrder.Lines == null ||
-s.CurrentOrder.Lines.Count == 0))
+            if (!SectionsListViewModel.Seats.SelectedSeat.IlnessesAllergiesClicked)
             {
-                if (SectionsListViewModel.Seats.SelectedSeat.IlnessesAllergiesClicked)
-                {
-                    if (SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines != null && SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines.Count > 0)
-                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap());
-                }
-                else
-                {
-                    await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DeseasesAllergiesPage(new DeseasesAllergiesListViewModel(
-                        SectionsListViewModel.Seats.SelectedSeat
-                        )));
-                }
+                await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DeseasesAllergiesPage(new DeseasesAllergiesListViewModel(
+    SectionsListViewModel.Seats.SelectedSeat
+    )));
+
             }
             else
             {
-                await App.Current.MainPage.Navigation.PushAsync(new GlobalRecap(
-                    SectionsListViewModel.Seats.SelectedSeat.Table
-                    ));
+                if (SectionsListViewModel.Seats.Seats.Any(s => s.CurrentOrder.Lines == null ||
+    s.CurrentOrder.Lines.Count == 0))
+                {
+
+                    if (SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines != null && SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines.Count > 0)
+                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap());
+
+                }
+                else
+                {
+                    await App.Current.MainPage.Navigation.PushAsync(new GlobalRecap(
+                        SectionsListViewModel.Seats.SelectedSeat.Table
+                        ));
+                }
             }
         }
 
