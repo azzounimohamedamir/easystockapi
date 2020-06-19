@@ -194,5 +194,6 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             }
         
         }
+        public bool IlnessesAllergiesClicked { get; set; }
     }
 }

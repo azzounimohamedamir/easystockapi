@@ -4,6 +4,7 @@ using Rg.Plugins.Popup.Enums;
 using Rg.Plugins.Popup.Services;
 using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Models;
+using SmartRestaurant.Diner.ViewModels.DeseasesAllergies;
 using SmartRestaurant.Diner.ViewModels.Sections;
 using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.ViewModels.Zones;
@@ -73,8 +74,17 @@ namespace SmartRestaurant.Diner.Views
             if (SectionsListViewModel.Seats.Seats.Any(s => s.CurrentOrder.Lines == null ||
 s.CurrentOrder.Lines.Count == 0))
             {
-                if (SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines != null && SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines.Count > 0)
-                    await((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap());
+                if (SectionsListViewModel.Seats.SelectedSeat.IlnessesAllergiesClicked)
+                {
+                    if (SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines != null && SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines.Count > 0)
+                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap());
+                }
+                else
+                {
+                    await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DeseasesAllergiesPage(new DeseasesAllergiesListViewModel(
+                        SectionsListViewModel.Seats.SelectedSeat
+                        )));
+                }
             }
             else
             {
