@@ -1,7 +1,9 @@
 ﻿using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Templates.Queries.GetTemplateItems
 {
@@ -35,12 +37,12 @@ namespace SmartRestaurant.Application.Templates.Queries.GetTemplateItems
                Name = p.Name,
                Description = p.Description,
                Id = p.Id.ToString(),
-               Type = p.Type,
+               Type = p.Type ,
                Alias = p.Alias,
                IsDisabled = p.IsDisabled.DisabledDisplay(),
            });
 
-
+         
 
             return entity.ToList();
 

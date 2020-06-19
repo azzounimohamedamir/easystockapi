@@ -3,6 +3,7 @@ using SmartRestaurant.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Mails.Queries.GelMailingItems
 {
@@ -38,15 +39,15 @@ namespace SmartRestaurant.Application.Mails.Queries.GelMailingItems
                     TableName = p.TableName,
                     Name = p.Name,
                     Description = p.Description,
-                    Alias = p.Alias,
+                    Alias = p.Alias ,
                     Action = p.Action,
                     templateId = p.TemplateId,
                     IsDisabled = p.IsDisabled.DisabledDisplay(),
                     Type = p.Type,
                     UserList = db.SRUsers
                     .Where(t => p.Users.Select(g => g.UserId).Contains(t.Id)).ToList(),
-
-
+                    
+                    
 
                 }).ToList();
 

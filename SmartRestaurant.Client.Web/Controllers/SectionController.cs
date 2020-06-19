@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net.Mime;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +20,6 @@ using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetChefsByRestauran
 using SmartRestaurant.Client.Web.Models;
 using SmartRestaurant.Domain.Clients.Identity;
 using SmartRestaurant.Resources.Section;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
@@ -47,7 +48,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             ICreateSectionCommand createSectionCommand,
 
 
-            UserManager<SRIdentityUser> userManager, IHostingEnvironment env) : base(configuration, mailing, notify, getAllRestaurantsQuery, userManager, baselog)
+            UserManager<SRIdentityUser> userManager, IHostingEnvironment env) : base(configuration, mailing, notify,getAllRestaurantsQuery,userManager, baselog)
         {
             _log = log;
             _getAllMenusQuery = getAllMenusQuery;
@@ -85,7 +86,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                     // le cas ou l'utilisateur est un admin on ramene tout les restaurants
 
                     Restaurants = PopulateRestaurants(null),
-                    //               Menus = PopulateMenus(null)
+     //               Menus = PopulateMenus(null)
                 };
                 return View(sectionViewModel);
             }
@@ -97,7 +98,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 {
                     RestaurantId = Guid.Parse(owner.RestaurantId),
                     Menus = PopulateMenus(owner.RestaurantId)
-
+                    
                 };
                 return View(sectionViewModel);
             }
@@ -108,7 +109,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         [Route("add")]
         public async Task<IActionResult> AddSection(SectionViewModel model)
         {
-            //  var hostEnveronment = new HostingEnvironment();
+          //  var hostEnveronment = new HostingEnvironment();
             string webRootPath = _env.WebRootPath;
             var files = HttpContext.Request.Form.Files;
             try
@@ -117,10 +118,10 @@ namespace SmartRestaurant.Client.Web.Controllers
                 // create section directory if it does not exist.
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
-
+            
                 if (files.Any())
                 {
-                    var file = Path.Combine(path, string.Concat(model.SectionModel.RestaurantId, files.FirstOrDefault()?.FileName));
+                    var file = Path.Combine(path,string.Concat(model.SectionModel.RestaurantId, files.FirstOrDefault()?.FileName));
                     using (var ms = new MemoryStream())
                     {
                         files[0].CopyTo(ms);

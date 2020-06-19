@@ -7,6 +7,6 @@ namespace SmartRestaurant.Application.Restaurants.Tables.Commands.Update
         public string Id { get; set; }
         public string RestaurantId { get; set; }
         public string FloorId { get; set; }
-        public string AreaName { get; set; }
+        public string AreaName { get;  set; }
     }
 }

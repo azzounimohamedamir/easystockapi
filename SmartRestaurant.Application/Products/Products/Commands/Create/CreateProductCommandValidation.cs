@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Products.ProductFamilies;
+using SmartRestaurant.Resources.Products.Products;
 using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Products.Products.Commands.Create

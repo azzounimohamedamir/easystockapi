@@ -8,7 +8,7 @@ namespace SmartRestaurant.Application.Products.Products.Commands.Create
         string Description { get; set; }
         string Name { get; set; }
         string PictureUrl { get; set; }
-        string ProductFamilyId { get; set; }
+        string ProductFamilyId { get; set; }   
         PricingModel Pricing { get; set; }
     }
 }

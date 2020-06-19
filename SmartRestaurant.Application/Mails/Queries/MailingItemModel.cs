@@ -1,6 +1,9 @@
-﻿using SmartRestaurant.Domain;
+﻿using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Domain;
 using SmartRestaurant.Domain.Enumerations;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Mails.Queries
 {

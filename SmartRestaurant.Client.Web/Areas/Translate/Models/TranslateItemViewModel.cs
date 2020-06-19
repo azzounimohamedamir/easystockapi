@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using SmartRestaurant.Application.Commun.Languages.Queries;
 using SmartRestaurant.Application.Commun.Translates.Queries.GetByTableName;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Areas.Translate.Models
 {

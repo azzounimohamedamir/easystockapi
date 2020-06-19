@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Services.Models
 {
     public class TodaysChefSelection
     {
-        IReadOnlyList<MenuDishItemModel> Dishes { get; }
-        IReadOnlyList<MenuProductItemModel> Products { get; }
+        IReadOnlyList<MenuDishItemModel> Dishes { get; }        
+        IReadOnlyList<MenuProductItemModel> Products { get; }        
     }
 
     public class TodaysDish

@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
+using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Restaurants.Floors;
 using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Restaurants.Areas.Commands.Create
 {
-    public class CreateAreaCommandValidation : AbstractValidator<ICreateAreaModel>
+    public class CreateAreaCommandValidation: AbstractValidator<ICreateAreaModel>
     {
         public CreateAreaCommandValidation()
         {

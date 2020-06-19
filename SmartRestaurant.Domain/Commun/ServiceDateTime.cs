@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Domain.Commun
 {
     public class ServiceDateTime : ValueObject<ServiceDateTime>
     {
-        public DateTime Date { get; set; }
+        public DateTime Date { get;  set; }
 
-        public Time StartTime { get; set; }
-        public Time EndTime { get; set; }
+        public Time StartTime { get;  set; }
+        public Time EndTime { get;  set; }
 
         //for EF migration only
         private ServiceDateTime()

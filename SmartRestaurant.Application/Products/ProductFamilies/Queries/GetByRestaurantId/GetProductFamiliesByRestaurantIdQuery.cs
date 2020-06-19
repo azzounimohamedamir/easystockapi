@@ -1,10 +1,11 @@
-﻿using Helpers;
-using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Helpers;
-using SmartRestaurant.Application.Interfaces;
+﻿using SmartRestaurant.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Helpers;
 
 namespace SmartRestaurant.Application.Products.ProductFamilies.Queries.GetByRestaurantId
 {
@@ -40,7 +41,7 @@ namespace SmartRestaurant.Application.Products.ProductFamilies.Queries.GetByRest
                 var guid = Id.ToGuid();
                 return db.ProductFamilies
                     .Where(p => p.RestaurantId == guid)
-                    .Include(i => i.Restaurant)
+                    .Include(i=>i.Restaurant)
                     .Select(x => new
                     ProductFamilyItemModel
                     {

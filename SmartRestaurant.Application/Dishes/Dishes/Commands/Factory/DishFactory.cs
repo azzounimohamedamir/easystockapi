@@ -25,7 +25,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands
 
         DishEquivalence Create(DishEquivalenceModel model);
     }
-
+    
     public interface IDishFactory
     {
         Dish Create(string name,
@@ -41,7 +41,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands
                     bool canBeAccompanying);
 
         Dish Create(DishModel model);
-
+        
     }
 
     public class DishFactory : IDishFactory
@@ -122,5 +122,5 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands
         }
     }
 
-
+    
 }

@@ -1,10 +1,13 @@
-﻿using SmartRestaurant.Application.ApplicationDataBase.Extensions;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.ApplicationDataBase.Extensions;
 using SmartRestaurant.Application.Foods.FoodCategories.Queries.Factory;
 using SmartRestaurant.Application.Foods.Specifications;
 using SmartRestaurant.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.FoodCategories.Queries.GetAll
 {
@@ -22,7 +25,7 @@ namespace SmartRestaurant.Application.FoodCategories.Queries.GetAll
 
         public GetAllFoodCategoriesQuery(
             ISmartRestaurantDatabaseService db,
-            ILoggerService<GetAllFoodCategoriesQuery> logger,
+            ILoggerService<GetAllFoodCategoriesQuery> logger, 
             IMailingService mailing,
             INotifyService notify)
         {
@@ -31,19 +34,19 @@ namespace SmartRestaurant.Application.FoodCategories.Queries.GetAll
             this.mailing = mailing;
             this.notify = notify;
         }
-        public List<FoodCategoryItemModel> Execute(string parentId)
+        public  List<FoodCategoryItemModel> Execute(string parentId)
         {
             try
             {
-                var specification = new FoodCategorySpecification(fc => fc.ParentId.ToString() == parentId)//
+                var specification = new FoodCategorySpecification(fc=>fc.ParentId.ToString()== parentId)//
                     .AddInclude(fc => fc.Parent)
                     .AddInclude(fc => fc.Childs)
-                    .ApplyOrderBy(fc => fc.Name);
+                    .ApplyOrderBy(fc=>fc.Name);                
 
                 return db.FoodCategories
-                    .Filter(specification)
+                    .Filter(specification)                    
                     .ToFoodCategoryItemModels()
-                    .ToList();
+                    .ToList();  
             }
             catch (Exception ex)
             {

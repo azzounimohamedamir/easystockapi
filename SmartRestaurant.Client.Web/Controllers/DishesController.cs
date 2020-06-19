@@ -1,4 +1,7 @@
-﻿using Helpers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -33,13 +36,10 @@ using SmartRestaurant.Resources.Commun.Gallery;
 using SmartRestaurant.Resources.Dishes.Dish;
 using SmartRestaurant.Resources.Dishes.DishFamily;
 using SmartRestaurant.Resources.Enumerations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
+   // [Area("Admin")]
     [Route("dishes")]
     [Route("{restaurant}/dishes")]
     public class DishesController : AdminBaseController
@@ -80,7 +80,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             IFoodService foodService,
             IGetBySpecificationQuery getBySpecificationQuery,
             IGetAllDishQuery getAllDishQuery,
-            IGetByIdQuery getByIdQuery,
+            IGetByIdQuery getByIdQuery,            
             IHostingEnvironment hostingEnvironment)
             : base(configuration, mailing, notify, baselog)
         {
@@ -247,13 +247,13 @@ namespace SmartRestaurant.Client.Web.Controllers
             return new SelectList(GetCategoriesLevel0(), "Id", "Name", selected);
         }
 
-        private SelectList PopulateSelectListAccompainements(string restaurantId, string dishId, EnumDishType type, string selected = null)
+        private SelectList PopulateSelectListAccompainements(string restaurantId,string dishId,EnumDishType type,string selected = null)
         {
             //TODO:implement GetAllAccompainementByRestaurantByDishQuery
             var specification = new DishSpecification(
-                d => d.RestaurantId == restaurantId.ToGuid() &
-                d.Id != dishId.ToGuid() &
-                d.Type == type &
+                d => d.RestaurantId == restaurantId.ToGuid() & 
+                d.Id!=dishId.ToGuid() &
+                d.Type == type & 
                 d.CanBeAccompanying).ApplyOrderBy(d => d.Name);
 
             var dishes = getBySpecificationQuery.Execute(specification);
@@ -352,13 +352,13 @@ namespace SmartRestaurant.Client.Web.Controllers
 
         [HttpGet]
         [Route("addnewaccompaniment")]
-        public IActionResult AddNewAccompaniment(int index, string restaurantId, string dishId, EnumDishType type)
+        public IActionResult AddNewAccompaniment(int index,string restaurantId, string dishId, EnumDishType type)
         {
             var accompaniment = new DishAccompanimentViewModel
             {
                 Index = index + 1,
                 Text = DishResource.Accompaniments,
-                Accompaniments = PopulateSelectListAccompainements(restaurantId, dishId, type, null),
+                Accompaniments = PopulateSelectListAccompainements(restaurantId,dishId,type,null),
                 Units = PopulateUnits(null),
             };
             return PartialView("_DishAccompainementUIView", accompaniment);
@@ -398,7 +398,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                         {
                             acc.Index = index;
                             acc.Text = DishResource.Accompaniments;
-                            acc.Accompaniments = PopulateSelectListAccompainements(model.DishModel.RestaurantId, model.Id, model.DishModel.Type, accompaniment.Accompaniment.AccompanyingId);
+                            acc.Accompaniments = PopulateSelectListAccompainements(model.DishModel.RestaurantId,model.Id, model.DishModel.Type, accompaniment.Accompaniment.AccompanyingId);
                             acc.Units = PopulateUnits(null);
                             index++;
                         }
@@ -541,7 +541,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                     ServiceTime = new TimeSpan(0, 2, 0),
                 },
                 Accompaniments = new List<DishAccompanimentViewModel>(),
-                AccompanyingIndex = -1,
+                AccompanyingIndex=-1,
 
                 Ingredients = new List<DishIngredientViewModel>
                 {
@@ -554,10 +554,10 @@ namespace SmartRestaurant.Client.Web.Controllers
                     },
 
                 },
-                IngredientIndex = 0,
+                IngredientIndex=0,
 
                 Equivalences = new List<DishEquivalenceModel>(),
-                EquivalenceIndex = -1,
+                EquivalenceIndex=-1,
 
                 Famillies = PopulateDishFamillies(null),
                 DishTypes = EnumHelper<EnumDishType>.ToLocalizedSelectList(nameof(EnumDishTypeResource), AppCulture),
@@ -590,10 +590,10 @@ namespace SmartRestaurant.Client.Web.Controllers
                 //Enregistre les modifications de photos
                 SaveGallery(model);
                 var _dish = new CreateDishModel
-                {
+                {                    
                     DishModel = model.DishModel,
                     Ingredients = model.Ingredients.Select(i => i.Ingredient).ToList(),
-                    Accompaniments = model.Accompaniments?.Select(acc => acc.Accompaniment).ToList() ?? null,
+                    Accompaniments=model.Accompaniments?.Select(acc=>acc.Accompaniment).ToList()??null,
                     Gallery = GetGallery(model),
                 };
 
@@ -677,18 +677,18 @@ namespace SmartRestaurant.Client.Web.Controllers
 
             var model = new DishViewModel
             {
-                Action = "Edit",
-                Id = dish.Id.ToString(),
+                Action="Edit",
+                Id=dish.Id.ToString(),
                 Restaurants = PopulateRestaurants(),
-                DishModel = dish.DishModel,
-                AccompanyingIndex = dish.Accompaniments?.Count() - 1 ?? 0,
+                DishModel = dish.DishModel,                
+                AccompanyingIndex=dish.Accompaniments?.Count()-1??0,
 
                 Equivalences = new List<DishEquivalenceModel>(),
-                EquivalenceIndex = dish.Equivalences?.Count() - 1 ?? 0,
+                EquivalenceIndex=dish.Equivalences?.Count() - 1 ?? 0,
 
                 Famillies = PopulateDishFamillies(dish.DishModel.RestaurantId, dish.DishModel.FamillyId),
                 DishTypes = EnumHelper<EnumDishType>.ToLocalizedSelectList(nameof(EnumDishTypeResource), AppCulture),
-                IngredientIndex = dish.Ingredients?.Count() - 1 ?? 0,
+                IngredientIndex=dish.Ingredients?.Count() - 1 ?? 0,
 
             };
             int index = 0;
@@ -723,7 +723,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                         {
                             Index = index,
                             Text = DishResource.Accompaniments,
-                            Accompaniments = PopulateSelectListAccompainements(model.DishModel.RestaurantId, model.Id, model.DishModel.Type, accompaniment.AccompanyingId),
+                            Accompaniments = PopulateSelectListAccompainements(model.DishModel.RestaurantId,model.Id, model.DishModel.Type, accompaniment.AccompanyingId),
                             Units = PopulateUnits(accompaniment.Quantity.UnitId),
                             Accompaniment = accompaniment,
                         }
@@ -741,7 +741,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             index = 0;
 
             if (dish.Gallery != null)
-            {
+            {               
                 if (dish.Gallery.Pictures != null && dish.Gallery.Pictures.Count > 0)
                 {
                     foreach (var picture in dish.Gallery.Pictures)
@@ -752,14 +752,14 @@ namespace SmartRestaurant.Client.Web.Controllers
                             {
                                 Index = index,
                                 Text = GalleryUtilsResource.Picture,
-                                File = new FileViewModel(picture.Id, picture.ImageUrl),
-                                Picture = picture,
+                                File = new FileViewModel(picture.Id,picture.ImageUrl),
+                                Picture = picture,                                
                                 HtmlFieldPrefix = "GalleryViewModel",
                             }
                             );
                         index++;
                     }
-                }
+                }                
             }
             else
             {
@@ -793,7 +793,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 SaveGallery(model);
                 var _dish = new UpdateDishModel
                 {
-                    Id = model.Id,
+                    Id=model.Id,
                     DishModel = model.DishModel,
                     Ingredients = model.Ingredients.Select(i => i.Ingredient).ToList(),
                     Gallery = GetGallery(model),
@@ -891,7 +891,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                     if (galleryPictureViewModel.File.IsChanged)
                     {
                         galleryPictureViewModel.Picture.ImageUrl = galleryPictureViewModel.File.Save(hostingEnvironment, Request, path);
-                    }
+                    }                    
                 }
             }
         }

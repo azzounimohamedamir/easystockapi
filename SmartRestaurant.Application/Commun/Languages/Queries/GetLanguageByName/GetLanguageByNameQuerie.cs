@@ -1,5 +1,8 @@
 ﻿using SmartRestaurant.Application.Interfaces;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Languages.Queries.GetLanguageByName
 {
@@ -28,23 +31,23 @@ namespace SmartRestaurant.Application.Commun.Languages.Queries.GetLanguageByName
 
         public GetLanguageByNameModel Execute(string Name)
         {
-            var entity = db.Languages
-                .Where(p => p.Name.ToString() == Name)
-                .Select(p => new GetLanguageByNameModel()
-                {
+                var entity = db.Languages
+                    .Where(p => p.Name.ToString() == Name)
+                    .Select(p => new GetLanguageByNameModel()
+                    {
 
-                    Name = p.Name,
-                    IsoCode = p.IsoCode,
-                    Alias = p.Alias,
-                    Id = p.Id,
-                    IsRTL = p.IsRTL,
-                    EnglishName = p.EnglishName,
+                        Name = p.Name,
+                        IsoCode = p.IsoCode,
+                        Alias = p.Alias,
+                        Id = p.Id ,
+                        IsRTL = p.IsRTL ,
+                        EnglishName = p.EnglishName,
+                       
+                    })
+                    .FirstOrDefault();
+                ;
 
-                })
-                .FirstOrDefault();
-            ;
-
-            return entity;
+                return entity;
 
         }
     }

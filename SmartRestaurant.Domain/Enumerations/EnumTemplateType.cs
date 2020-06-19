@@ -1,8 +1,12 @@
-﻿namespace SmartRestaurant.Domain.Enumerations
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Domain.Enumerations
 {
-    public enum EnumTemplateType
+    public enum  EnumTemplateType
     {
-        Email = 1,
-        Notification,
+        Email = 1 , 
+        Notification ,
     }
 }

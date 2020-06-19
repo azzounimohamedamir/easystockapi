@@ -1,12 +1,14 @@
 ﻿using FluentValidation;
+using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Restaurants.Restaurants;
+using SmartRestaurant.Resources.Restaurants.RestaurantTypes;
 using SmartRestaurant.Resources.Restaurants.Staffs;
 using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Restaurants.Restaurants.Commands.Update
 {
-    public class UpdateRestaurantCommandValidation : AbstractValidator<IUpdateRestaurantModel>
+    public class UpdateRestaurantCommandValidation:  AbstractValidator<IUpdateRestaurantModel>
     {
         public UpdateRestaurantCommandValidation()
         {

@@ -1,4 +1,5 @@
-﻿using SmartRestaurant.Domain.Enumerations;
+﻿using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Domain.Enumerations;
 using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Mails.Commands.Create

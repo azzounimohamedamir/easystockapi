@@ -1,4 +1,7 @@
-﻿using Helpers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -19,13 +22,10 @@ using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Dishes.Dish;
 using SmartRestaurant.Resources.Dishes.DishFamily;
 using SmartRestaurant.Resources.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
+   // [Area("Admin")]
     [Route("dishes/famillies")]
     [Route("{restaurant}/dishes/famillies")]
     public class DishesFamilliesController : AdminBaseController
@@ -42,9 +42,9 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly IGetDishFamilyByRestaurantIdQuery getDishFamilyByRestaurantIdQuery;
 
         public DishesFamilliesController(
-            IConfiguration configuration,
-            IMailingService mailing,
-            INotifyService notify,
+            IConfiguration configuration, 
+            IMailingService mailing, 
+            INotifyService notify, 
             ILoggerService<AdminBaseController> baselog,
             ILoggerService<DishesFamilliesController> log,
             IHostingEnvironment hostingEnvironment,
@@ -55,7 +55,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             IGetDishFamilyBySpecificationQuery getDishFamilyBySpecification,
             IGetDishFamilyByIdQuery getDishFamilyByIdQuery,
             IGetAllRestaurantsQuery getAllRestaurantsQuery,
-            IGetDishFamilyByRestaurantIdQuery getDishFamilyByRestaurantIdQuery)
+            IGetDishFamilyByRestaurantIdQuery getDishFamilyByRestaurantIdQuery) 
             : base(configuration, mailing, notify, baselog)
         {
             this.log = log;
@@ -72,7 +72,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
         [Route("LoadChilds")]
         public IActionResult LoadChilds(string parentId)
-        {
+        {            
             var result = getDishFamilyListQuery.Execute(parentId);
             return PartialView("_DishesFamilliesView", result);
         }
@@ -90,12 +90,12 @@ namespace SmartRestaurant.Client.Web.Controllers
 
         [Route("")]
         [Route("Index")]
-        public IActionResult Index(DishFamilyFilterViewModel filter, string restaurant = null)
+        public IActionResult Index(DishFamilyFilterViewModel filter,string restaurant =null)
         {
             this.PageBreadcrumb
                 .AddHome()
-                .AddOptionalItem(restaurant, Url.Action("Index", "Restaurants", new { area = "admin" }))
-                .AddItem(DishUtilsResource.Index, Url.Action("Index", "Dishes", new { area = "admin" }))
+                .AddOptionalItem(restaurant,Url.Action("Index","Restaurants", new { area = "admin" }))
+                .AddItem(DishUtilsResource.Index,Url.Action("Index","Dishes",new { area = "admin" }))
                 .AddItem(DishUtilsResource.HomeNavigationTitle, Url.Action("Dishes", "Dishes", new { area = "admin" }))
                 .AddItem(DishUtilsResource.HomeNavigationTitle)
                 .AddItem(DishFamilyUtilsResource.HomeNavigationTitle)
@@ -106,10 +106,10 @@ namespace SmartRestaurant.Client.Web.Controllers
             {
                 var specification = new DishFamilySpecification
                     (
-                    df => df.ParentId == null
-                    && (!string.IsNullOrEmpty(filter.Name) ? (df.Name.Contains(filter.Name) || df.Childs.Any(ch => ch.Name.Contains(filter.Name))) : true)
-                    && ((!string.IsNullOrEmpty(filter.RestaurantId) ? df.RestaurantId == filter.RestaurantId.ToGuid() : true))
-                    && ((!string.IsNullOrEmpty(filter.ParentId) ? df.ParentId == filter.ParentId.ToGuid() || df.Childs.Any(ch => ch.ParentId == filter.ParentId.ToGuid()) : true))
+                    df =>df.ParentId==null
+                    && (!string.IsNullOrEmpty(filter.Name)?(df.Name.Contains(filter.Name) || df.Childs.Any(ch=>ch.Name.Contains(filter.Name))):true) 
+                    && ((!string.IsNullOrEmpty(filter.RestaurantId)?df.RestaurantId==filter.RestaurantId.ToGuid():true))
+                    && ((!string.IsNullOrEmpty(filter.ParentId) ? df.ParentId==filter.ParentId.ToGuid() || df.Childs.Any(ch=>ch.ParentId==filter.ParentId.ToGuid()) : true))
                     );
                 list = getDishFamilyBySpecification.Execute(specification);
             }
@@ -119,13 +119,13 @@ namespace SmartRestaurant.Client.Web.Controllers
             }
             var model = new FamilliesViewModel
             {
-                Filter = new DishFamilyFilterViewModel
+                Filter=new DishFamilyFilterViewModel
                 {
-                    Name = filter.Name,
-                    ParentId = filter.ParentId,
-                    RestaurantId = filter.RestaurantId,
-                    Parents = PopulateParents(filter.ParentId),
-                    Restaurants = PopulateRestaurants(filter.RestaurantId),
+                    Name=filter.Name,
+                    ParentId=filter.ParentId,
+                    RestaurantId=filter.RestaurantId,                    
+                    Parents= PopulateParents(filter.ParentId),
+                    Restaurants=PopulateRestaurants(filter.RestaurantId),
                 },
                 List = list,
             };
@@ -150,11 +150,11 @@ namespace SmartRestaurant.Client.Web.Controllers
         /// Breadcrumb de la page Edit
         /// </summary>
         /// <param name="name"></param>
-        private void BreadcrumbForEdit(string name, string restaurant = null)
+        private void BreadcrumbForEdit(string name,string restaurant=null)
         {
             this.PageBreadcrumb
                .AddHome()
-               .AddOptionalItem(restaurant, Url.Action("Index", "Restaurants", new { area = "admin" }))
+               .AddOptionalItem(restaurant, Url.Action("Index", "Restaurants", new { area = "admin" }))               
                .AddItem(DishUtilsResource.HomeNavigationTitle, Url.Action("Dishes", "Dishes", new { area = "admin" }))
                .AddItem(DishFamilyUtilsResource.HomeNavigationTitle, Url.Action("Famillies", "DishesFamillies", new { area = "admin" }))
                .AddItem(string.Format(DishFamilyUtilsResource.EditNavigationTitle, name), null)
@@ -224,7 +224,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         {
             return new SelectList(getAllRestaurantsQuery.Execute(), "Id", "Name", restaurantId);
         }
-        [HttpGet]
+        [HttpGet]   
         [Route("add")]
         public IActionResult Add(string restaurant = null)
         {
@@ -232,7 +232,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             var model = new CreateDishFamilyViewModel
             {
                 Parents = PopulateParents(),
-                Restaurants = PopulateRestaurants(),
+                Restaurants=PopulateRestaurants(),
                 CreateModel = new CreateDishFamilyModel()
             };
             return View(model);
@@ -241,7 +241,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         [HttpPost]
         [Route("add")]
         [ValidateAntiForgeryToken]
-        public IActionResult Add(CreateDishFamilyViewModel model, string restaurant = null)
+        public IActionResult Add(CreateDishFamilyViewModel model,string restaurant = null)
         {
             try
             {
@@ -260,13 +260,13 @@ namespace SmartRestaurant.Client.Web.Controllers
             }
             BreadcrumbForAdd(restaurant);
             model.Parents = PopulateParents(string.Empty, model.ParentId);
-            model.Restaurants = PopulateRestaurants(model.CreateModel.RestaurantId);
+            model.Restaurants =PopulateRestaurants(model.CreateModel.RestaurantId);
             return View(model);
         }
 
         [HttpGet]
         [Route("edit")]
-        public IActionResult Edit(string id, string restaurant = null)
+        public IActionResult Edit(string id,string restaurant = null)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -284,7 +284,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                     Picture = new FileViewModel(_family.Picture.Id, _family.Picture.Url),
                 };
 
-                BreadcrumbForEdit(restaurant, _family.Name);
+                BreadcrumbForEdit(restaurant,_family.Name);
                 model.Parents = PopulateParents(string.Empty, model.ParentId);
                 model.Restaurants = PopulateRestaurants(model.UpdateModel.RestaurantId);
                 return View(model);
@@ -293,7 +293,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             {
                 return View("NotFound");
             }
-
+            
         }
 
         [HttpPost]
@@ -319,7 +319,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 updateDishFamilyCommand.Execute(model.UpdateModel);
                 return RedirectToAction("Index");
             }
-            catch (NotFoundException)
+            catch(NotFoundException)
             {
                 return View("NotFound");
             }
@@ -327,7 +327,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             {
                 AddErrorToModelState(ex);
             }
-            BreadcrumbForEdit(restaurant, model.UpdateModel.Name);
+            BreadcrumbForEdit(restaurant,model.UpdateModel.Name);
             model.Parents = PopulateParents(string.Empty, model.ParentId);
             model.Restaurants = PopulateRestaurants(model.UpdateModel.RestaurantId);
             return View(model);

@@ -1,6 +1,9 @@
 ﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Commun;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Currencies.Commands.Delete
 {
@@ -30,8 +33,7 @@ namespace SmartRestaurant.Application.Commun.Currencies.Commands.Delete
         public void Execute(DeleteCurrencyModel model)
         {
 
-            try
-            {
+            try {
                 var validator = new DeleteCurrencyCommandValidation();
                 var result = validator.Validate(model);
                 if (!result.IsValid)
@@ -53,7 +55,7 @@ namespace SmartRestaurant.Application.Commun.Currencies.Commands.Delete
 
             }
             catch { }
-
+            
 
         }
     }

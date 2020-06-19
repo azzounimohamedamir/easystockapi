@@ -1,4 +1,8 @@
-﻿namespace SmartRestaurant.Domain.Commun
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Domain.Commun
 {
     /// <summary>
     /// UI MenuTitle
@@ -8,7 +12,7 @@
     /// fr-FR
     /// Félicitation! votre demande est bien enregistré sur le systeme.
     /// </summary>
-    public class UIDictionary : SmartRestaurantEntity
+    public class UIDictionary: SmartRestaurantEntity
     {
         public string LanguageId { get; set; }
         public string Key { get; set; }

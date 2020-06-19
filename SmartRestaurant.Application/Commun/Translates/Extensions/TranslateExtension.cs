@@ -3,15 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Translators.Extensions
 {
-    public class TranslateExtension : ITranslateService
+    public class TranslateExtension: ITranslateService
     {
         private readonly ISmartRestaurantDatabaseService db;
 
 
-        public T Translate<T>(ISmartRestaurantDatabaseService db, T entity, string languageIsoCode)
+        public T Translate<T>(ISmartRestaurantDatabaseService db, T entity, string languageIsoCode)         
         {
 
             var entityType = entity.GetType();
@@ -30,7 +31,7 @@ namespace SmartRestaurant.Application.Commun.Translators.Extensions
 
             // Get the entity info
             var entityFieldsTraslations = db.Translates
-                .Where(t => t.TableName == tableName
+                .Where(t => t.TableName== tableName
             && t.PrimaryKeyValue == entityPrimaryKeyValue
             && t.Language.IsoCode == languageIsoCode).ToList();
 
@@ -46,7 +47,7 @@ namespace SmartRestaurant.Application.Commun.Translators.Extensions
             return entity;
         }
 
-        public static Type GetType(string name)
+        public static Type GetType( string name)
         {
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
 

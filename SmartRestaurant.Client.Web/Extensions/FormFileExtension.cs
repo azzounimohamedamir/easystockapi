@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Extensions
@@ -9,7 +11,7 @@ namespace SmartRestaurant.Client.Web.Extensions
     public static class FormFileExtension
     {
 
-        public static async Task<Uri> SaveAsync(this IFormFile file, IHostingEnvironment hostingEnvironment, HttpRequest request, string path)
+        public static async Task<Uri> SaveAsync(this IFormFile file, IHostingEnvironment hostingEnvironment, HttpRequest request,string path)
         {
             if (path.Contains(","))
             {
@@ -18,9 +20,9 @@ namespace SmartRestaurant.Client.Web.Extensions
             else
             {
                 path = Path.Combine("uploads", path);
-            }
-
-            var serverPath = path;
+            }    
+            
+            var serverPath = path; 
             var uploads = Path.Combine(hostingEnvironment.WebRootPath, serverPath);
             if (!Directory.Exists(uploads))
             {
@@ -35,11 +37,11 @@ namespace SmartRestaurant.Client.Web.Extensions
                     await file.CopyToAsync(fileStream);
                 }
             }
-            string uri = $"{path.Replace("\\", "/")}/{file.FileName}";
+            string uri = $"{path.Replace("\\","/")}/{file.FileName}";
             return new Uri(request.Scheme + "://" + request.Host + "/" + uri);
         }
-
-        public static Uri Save(this IFormFile file, IHostingEnvironment hostingEnvironment, HttpRequest request, string path)
+        
+        public static  Uri Save(this IFormFile file, IHostingEnvironment hostingEnvironment, HttpRequest request, string path)
         {
             ///if (file == null) ;
             if (path.Contains(","))
@@ -69,6 +71,6 @@ namespace SmartRestaurant.Client.Web.Extensions
             string uri = $"{path.Replace("\\", "/")}/{file.FileName}";
             return new Uri(request.Scheme + "://" + request.Host + "/" + uri);
         }
-
+        
     }
 }

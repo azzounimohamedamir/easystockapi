@@ -6,7 +6,7 @@ using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Commun.Translates.Commands.Update
 {
-    public class UpdateTranslateCommandValidation : AbstractValidator<IUpdateTranslateModel>
+    public class UpdateTranslateCommandValidation:AbstractValidator<IUpdateTranslateModel>
     {
         public UpdateTranslateCommandValidation()
         {

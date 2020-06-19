@@ -2,6 +2,8 @@
 using SmartRestaurant.Domain.Commun;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using Helpers;
 using System.Linq;
 
 namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Factory
@@ -37,9 +39,9 @@ namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Factor
                               string coverId,
                               IEnumerable<Picture> pictures)
         {
-            var gallery = new GalleryModel
+            var gallery=new GalleryModel
             {
-                Id = id,
+                Id=id,
                 IsDisabled = isDisabled,
                 Alias = alias,
                 Name = name,
@@ -48,7 +50,7 @@ namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Factor
             };
 
             return gallery;
-
+            
         }
 
         public GalleryModel Create(Gallery model)

@@ -1,6 +1,10 @@
 ﻿using FluentValidation;
 using SmartRestaurant.Resources.Commun.BaseEntity;
+using SmartRestaurant.Resources.Foods.FoodCategories;
 using SmartRestaurant.Resources.SharedValidation;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.FoodCategories.Commands.Update
 {

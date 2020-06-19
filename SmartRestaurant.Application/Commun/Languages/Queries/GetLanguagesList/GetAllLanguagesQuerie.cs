@@ -1,7 +1,9 @@
 ﻿using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Languages.Queries.GetLanguagesList
 {
@@ -30,7 +32,7 @@ namespace SmartRestaurant.Application.Commun.Languages.Queries.GetLanguagesList
         public List<LanguageItemModel> Execute()
         {
             var entity = db.Languages
-
+            
                 .Select(p => new LanguageItemModel()
                 {
 
@@ -41,10 +43,10 @@ namespace SmartRestaurant.Application.Commun.Languages.Queries.GetLanguagesList
                     IsRTL = p.IsRTL,
                     EnglishName = p.EnglishName,
                     IsDisabled = p.IsDisabled.DisabledDisplay(),
-
+                    
 
                 })
-
+               
             ;
 
             return entity.ToList();

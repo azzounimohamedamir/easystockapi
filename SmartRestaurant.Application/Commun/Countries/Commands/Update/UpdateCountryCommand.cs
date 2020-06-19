@@ -1,11 +1,12 @@
-﻿using Helpers;
-using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Exceptions;
+﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Commun;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using SmartRestaurant.Domain.Commun;
 using System.Linq;
+using Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace SmartRestaurant.Application.Commun.Countries.Commands.Update
 {
@@ -33,7 +34,7 @@ namespace SmartRestaurant.Application.Commun.Countries.Commands.Update
         {
             try
             {
-
+                
                 var validator = new UpdateCountryCommandValidation();
                 var result = validator.Validate(model);
                 if (!result.IsValid)
@@ -42,8 +43,8 @@ namespace SmartRestaurant.Application.Commun.Countries.Commands.Update
                     throw new NotValidException(result.Errors);
                 }
                 var entity = _db.Countries
-                    .Include(c => c.Currencies)
-                    .FirstOrDefault(c => c.Id == model.Id);
+                    .Include(c=> c.Currencies)
+                    .FirstOrDefault(c=>c.Id==model.Id);
 
                 if (entity.ToString().IsNullOrEmpty())
                 {
@@ -60,7 +61,7 @@ namespace SmartRestaurant.Application.Commun.Countries.Commands.Update
                 //if not null CurrenciesId
                 HashSet<string> idsMODEL = new HashSet<string>(model.CurrenciesId);
 
-                foreach (string s in idsDB)
+                foreach(string s in idsDB)
                 {
                     if (!idsMODEL.Contains(s))
                     {
@@ -69,7 +70,7 @@ namespace SmartRestaurant.Application.Commun.Countries.Commands.Update
                         entity.Currencies.Remove(item);
                     }
                 }
-                foreach (string s in idsMODEL)
+                foreach(string s in idsMODEL)
                 {
                     //Add
                     if (!idsDB.Contains(s))
@@ -77,11 +78,11 @@ namespace SmartRestaurant.Application.Commun.Countries.Commands.Update
                         entity.Currencies.Add(
                             new CountryCurrency
                             {
-                                CurrencyId = s.ToGuid(),
+                                CurrencyId=s.ToGuid(),
                             }
                             );
                     }
-
+                    
                 }
 
                 _db.Countries.Update(entity);

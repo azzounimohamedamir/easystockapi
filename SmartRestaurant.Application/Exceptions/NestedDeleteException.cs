@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Exceptions
 {
@@ -6,7 +8,7 @@ namespace SmartRestaurant.Application.Exceptions
     /// ce produit lors de tentative de suppression d'un element 
     /// qui à des elments ou enfants
     /// </summary>
-    public class NestedDeleteException : Exception
+    public class NestedDeleteException: Exception
     {
         public NestedDeleteException()
         {

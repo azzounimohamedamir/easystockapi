@@ -1,9 +1,9 @@
-﻿using SmartRestaurant.Application.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetBySpecification;
 using SmartRestaurant.Application.Restaurants.Staffs.Queries.IGetByRestaurantId;
 using SmartRestaurant.Domain.Enumerations;
-using System;
-using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Restaurants.Staffs.Queries.GetChefsByRestaurantIdQuery
 {

@@ -1,6 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SmartRestaurant.Domain.Foods;
 using SmartRestaurant.Domain.Commun;
+using SmartRestaurant.Domain.Restaurants;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using SmartRestaurant.Domain.Services;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Foods
@@ -18,13 +23,12 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Foods
                 .HasMaxLength(5);
 
 
-            b.OwnsOne<ServiceDateTime>("DateService", nut =>
-            {
+            b.OwnsOne<ServiceDateTime>("DateService", nut => {
                 nut.HasForeignKey("ServiceId");
                 nut.OwnsOne<Time>("EndTime");
                 nut.OwnsOne<Time>("StartTime");
             });
-
+        
             b.ToTable("Services");
         }
     }

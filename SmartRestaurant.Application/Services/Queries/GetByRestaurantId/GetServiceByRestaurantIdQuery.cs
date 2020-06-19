@@ -1,10 +1,14 @@
 ﻿using Helpers;
 using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Services.Models;
 using SmartRestaurant.Application.Services.Queries.GetByRestaurantId;
+using SmartRestaurant.Domain.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Services.Queries
 {
@@ -38,8 +42,8 @@ namespace SmartRestaurant.Application.Services.Queries
 
                 var guid = Id.ToGuid();
                 return db.Services
-                    .Include(f => f.ServiceProducts)
-                    .Include(f => f.ServiceDishes)
+                    .Include(f=>f.ServiceProducts)
+                    .Include(f=>f.ServiceDishes)
                     .Include("ServiceProducts.Product.ProductFamily")
                     .Include("ServiceDishes.Dish.Family.Parent")
                     .Include(f => f.ServiceDishes)
@@ -52,9 +56,9 @@ namespace SmartRestaurant.Application.Services.Queries
                         ServiceName = x.Name,
                         SlugUrl = x.SlugUrl,
                         RestaurantId = Id,
-                        Sections = ServiceExtention.GetServiceSections(x.ServiceDishes, x.ServiceProducts),
-                        IsClosed = x.Closed
-
+                       Sections= ServiceExtention.GetServiceSections(x.ServiceDishes,x.ServiceProducts),
+                       IsClosed = x.Closed
+                        
                     }).FirstOrDefault();
             }
             catch (Exception)
@@ -63,6 +67,6 @@ namespace SmartRestaurant.Application.Services.Queries
             }
         }
 
-
+       
     }
 }

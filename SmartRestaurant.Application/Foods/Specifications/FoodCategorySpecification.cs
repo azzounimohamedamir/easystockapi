@@ -1,7 +1,10 @@
-﻿using SmartRestaurant.Application.Specifications;
+﻿using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Application.Specifications;
 using SmartRestaurant.Domain.Foods;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Text;
 
 namespace SmartRestaurant.Application.Foods.Specifications
 {
@@ -11,13 +14,13 @@ namespace SmartRestaurant.Application.Foods.Specifications
     /// </summary>
     public class FoodCategorySpecification : BaseSpecification<FoodCategory>
     {
-
-        public FoodCategorySpecification() : base()
+        
+        public FoodCategorySpecification():base()
         {
             BaseInclude();
         }
 
-        public FoodCategorySpecification(Expression<Func<FoodCategory, bool>> expression) : base(expression)
+        public FoodCategorySpecification(Expression<Func<FoodCategory,bool>> expression) : base(expression)
         {
             BaseInclude();
         }

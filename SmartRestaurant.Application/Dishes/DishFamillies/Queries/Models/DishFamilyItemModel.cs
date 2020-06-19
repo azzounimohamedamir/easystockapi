@@ -1,4 +1,8 @@
-﻿namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.Models
 {
     public class DishFamilyItemModel
     {

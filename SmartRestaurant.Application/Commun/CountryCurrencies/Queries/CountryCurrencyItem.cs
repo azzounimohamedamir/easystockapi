@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.CountryCurrencies.Queries
 {
-    public class CountryCurrencyItem
+   public class CountryCurrencyItem
     {
 
         public string CountryId { get; set; }

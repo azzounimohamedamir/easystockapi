@@ -1,7 +1,10 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+ 
 namespace SmartRestaurant.Domain.Commun
 {
-    public class Language : SmartRestaurantBaseEntity<string>
+    public class Language: SmartRestaurantBaseEntity<string>
     {
         public string Name { get; set; }
         public string SelectLanguage { get; set; }

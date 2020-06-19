@@ -6,7 +6,7 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd
     {
         public MenuQueryModel()
         {
-
+            
         }
         public MenuQueryModel(Domain.Restaurants.Menu menu)
         {

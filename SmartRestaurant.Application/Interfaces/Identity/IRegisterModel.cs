@@ -1,6 +1,6 @@
 ﻿namespace SmartRestaurant.Application.Identity.Interfaces
 {
-    interface IRegisterModel : ILoginModel
+    interface IRegisterModel:ILoginModel
     {
         string Email { get; set; }
         string FirstName { get; set; }

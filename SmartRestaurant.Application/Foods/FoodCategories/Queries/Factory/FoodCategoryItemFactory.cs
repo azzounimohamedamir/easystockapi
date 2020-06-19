@@ -1,8 +1,10 @@
 ﻿using SmartRestaurant.Application.FoodCategories.Queries;
 using SmartRestaurant.Domain.Foods;
-using SmartRestaurant.Resources.Utils;
+using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Linq;
+using SmartRestaurant.Resources.Utils;
 
 namespace SmartRestaurant.Application.Foods.FoodCategories.Queries.Factory
 {

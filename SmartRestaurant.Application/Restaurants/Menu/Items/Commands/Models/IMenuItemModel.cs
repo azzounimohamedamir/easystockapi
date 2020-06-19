@@ -1,5 +1,5 @@
-﻿using SmartRestaurant.Application.Services.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using SmartRestaurant.Application.Services.Models;
 
 namespace SmartRestaurant.Application.Restaurants.Menu.Items.Commands.Models
 {

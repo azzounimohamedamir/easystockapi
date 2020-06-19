@@ -1,19 +1,20 @@
-﻿using Helpers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using DataTables.AspNetCore.Mvc.Binder;
+using Helpers;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Commun.Datatables;
 using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Dynamic.Core;
 
 namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd
 {
     public interface IGetAllMenuFilterdQuery
     {
-        DatatablesQueryModel<MenuQueryModel> Execute(int page, int skipe, string term, IEnumerable<Order> orderClause, Guid? restaurantId);
+        DatatablesQueryModel<MenuQueryModel> Execute(int page , int skipe, string term, IEnumerable<Order> orderClause, Guid? restaurantId);
     }
-    public class GetAllMenuFilterdQuery : IGetAllMenuFilterdQuery
+    public class GetAllMenuFilterdQuery :IGetAllMenuFilterdQuery
     {
         private ISmartRestaurantDatabaseService _db;
         private ILoggerService<GetAllMenuFilterdQuery> _logger;
@@ -36,7 +37,7 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd
             _notify = notify;
         }
 
-        public DatatablesQueryModel<MenuQueryModel> Execute(int page, int skipe, string term, IEnumerable<Order> orderClause, Guid? restaurantId)
+        public DatatablesQueryModel<MenuQueryModel> Execute(int page, int skipe, string term,IEnumerable<Order> orderClause, Guid? restaurantId)
         {
             var total = _db.Menus.Count();
             // build the query
@@ -51,17 +52,17 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd
             if (restaurantId.HasValue)
                 query = query.Where(x => x.RestaurantId == restaurantId);
             // order  by  clause   
-            if (orderClause != null)
+            if (orderClause !=null)
             {
                 foreach (var order in orderClause)
                 {
                     var propertyNam = LinqHelper.GetPropertyNameByIndex<MenuQueryModel>(order.Column);
                     if (propertyNam.Contains("Restaurant"))
                         propertyNam = "Restaurant.Name";
-                    query = query.OrderBy(String.Concat(propertyNam, order.Dir == "asc" ? "" : " descending"));
+                    query = query.OrderBy(String.Concat( propertyNam, order.Dir =="asc"? "" : " descending"));
                 }
-
-
+                
+                
             }
             else
                 query = query

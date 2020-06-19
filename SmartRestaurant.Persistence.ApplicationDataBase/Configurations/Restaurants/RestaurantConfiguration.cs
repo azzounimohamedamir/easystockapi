@@ -1,7 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SmartRestaurant.Domain.Foods;
 using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Restaurants;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Restaurants
 {
@@ -16,16 +20,14 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Restaur
             b.Property(a => a.Name).HasMaxLength(256).IsRequired();
             //b.HasIndex(a => a.Name).HasName("RestaurantNameIndex").IsUnique(true);
             b.Property(a => a.SlugUrl).IsRequired();
-
-            b.OwnsOne<Address>("Address", a =>
-            {
-                a.HasForeignKey("RestaurantId");
+                       
+            b.OwnsOne<Address>("Address", a => {
+                a.HasForeignKey("RestaurantId");                
             });
 
-            b.OwnsOne<PriceRange>("PriceRange", pr =>
-            {
+            b.OwnsOne<PriceRange>("PriceRange", pr => {
                 pr.HasOne(x => x.Currency).WithMany()
-                .HasForeignKey("CurrencyId");
+                .HasForeignKey("CurrencyId");                
                 pr.HasForeignKey("RestaurantId");
             });
 
@@ -65,7 +67,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Restaur
                .OnDelete(DeleteBehavior.Restrict);
 
             b.HasOne(c => c.Owner)
-                .WithMany(o => o.Restaurants);
+                .WithMany(o=>o.Restaurants);
 
             b.ToTable("Restaurants");
         }

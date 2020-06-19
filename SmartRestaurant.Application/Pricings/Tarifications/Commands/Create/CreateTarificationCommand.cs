@@ -1,9 +1,11 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Exceptions;
+﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Pricings;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
 
 namespace SmartRestaurant.Application.Pricings.Tarifications.Commands.Create
 {
@@ -49,7 +51,7 @@ namespace SmartRestaurant.Application.Pricings.Tarifications.Commands.Create
 
                 var tarification = model.ToEntity();
 
-
+                 
                 foreach (var id in model.DishesIds)
                 {
                     tarification.DishTarifications.Add(new DishTarification

@@ -1,23 +1,23 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SmartRestaurant.Client.Web.Models.Account;
 using SmartRestaurant.Domain.Clients.Identity;
-using System;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-
+   
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly UserManager<SRIdentityUser> _userManager;
 
         private readonly SignInManager<SRIdentityUser> _signInManager;
-        // private readonly IEmailSender _emailSender;
+       // private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(
@@ -42,12 +42,12 @@ namespace SmartRestaurant.Client.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
-        [Authorize]
+      [Authorize]
         public async Task<IActionResult> Logout()
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Login");
+            return  RedirectToAction("Login");
         }
         [HttpPost]
         [AllowAnonymous]
@@ -57,7 +57,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe,
+                var result = await _signInManager.PasswordSignInAsync(model.UserName,model.Password, model.RememberMe,
                     lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
@@ -84,7 +84,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 }
 
             }
-            return View(model);
+                return View(model);
         }
         [HttpGet]
         [AllowAnonymous]
@@ -105,7 +105,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return RedirectToAction(nameof(ForgotPasswordConfirmation));
-
+                   
                 }
 
                 // For more information on how to enable account confirmation and password reset please

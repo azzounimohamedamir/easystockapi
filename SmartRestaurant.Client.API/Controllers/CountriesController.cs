@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.Client.API.Extension;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using SmartRestaurant.Client.API.Extension;
+using SmartRestaurant.Client.API.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,7 +18,7 @@ namespace SmartRestaurant.Client.API.Controllers
         // GET: api/{culture}/commun/geo/countries        
         [HttpGet]
         public IActionResult Get()
-        {
+        {            
             var culture = CultureOnUri;
             var pagination = Request.Headers["Pagination"];
 
@@ -36,14 +39,14 @@ namespace SmartRestaurant.Client.API.Controllers
             var result = data
                 .Skip((currentPage - 1) * currentPageSize)
                 .Take(currentPageSize)
-                .ToList();
+                .ToList();            
             return new OkObjectResult(result);
         }
 
         // GET api/commun/geo/countries/5        
         // GET api/{culture}/commun/geo/countries/5        
         [HttpGet("{id}")]
-        public string Get(int id, string culture = null)
+        public string Get(int id,string culture=null)
         {
             return $"value {culture}";
         }
@@ -51,14 +54,14 @@ namespace SmartRestaurant.Client.API.Controllers
         // POST api/commun/geo/countries        
         // POST api/{culture}/commun/geo/countries        
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody]string value)
         {
         }
 
         // PUT api/commun/geo/countries/5        
         // PUT api/{culture}/commun/geo/countries/5        
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody]string value)
         {
         }
 

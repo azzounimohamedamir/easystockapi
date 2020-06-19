@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Domain.Exceptions
 {
@@ -8,8 +10,8 @@ namespace SmartRestaurant.Domain.Exceptions
         {
 
         }
-        public NotValidOperation(string message, Exception innerExcepsion = null)
-            : base(message, innerExcepsion)
+        public NotValidOperation(string message, Exception innerExcepsion = null) 
+            : base(message,innerExcepsion)
         {
         }
 

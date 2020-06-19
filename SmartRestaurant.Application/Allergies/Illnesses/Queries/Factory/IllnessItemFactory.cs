@@ -1,9 +1,13 @@
 ﻿
 using SmartRestaurant.Application.Foods.FoodCategories.Queries.Factory;
+using SmartRestaurant.Application.Foods.Queries.GetAll;
 using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Domain.Allergies;
+using SmartRestaurant.Resources.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Allergies.Illnesses.Queries.Factory
 {
@@ -15,7 +19,7 @@ namespace SmartRestaurant.Application.Allergies.Illnesses.Queries.Factory
             {
                 Id = entity.Id.ToString(),
                 Name = entity.Name,
-                SlugUrl = entity.SlugUrl,
+                SlugUrl =entity.SlugUrl,
                 Description = entity.Description,
                 IsDisabled = entity.IsDisabled.DisabledDisplay(),
                 Foods = entity.FoodIllnesses

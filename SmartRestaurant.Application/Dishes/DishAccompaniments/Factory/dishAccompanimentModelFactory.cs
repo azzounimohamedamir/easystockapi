@@ -4,17 +4,18 @@ using SmartRestaurant.Domain.Dishes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Dishes.DishAccompaniments.Factory
 {
-
+    
 
     public interface IDishAccompanimentModelFactory
     {
         DishAccompanyingModel Create(
                                 string parentId,
-                                string accompanyingId,
-                                bool isDisabled,
+                                string accompanyingId,                                
+                                bool isDisabled,                                
                                 QuantityModel quantity);
 
         DishAccompanyingModel Create(DishAccompanying model);
@@ -30,7 +31,7 @@ namespace SmartRestaurant.Application.Dishes.DishAccompaniments.Factory
         {
             this.quantityModelFactory = quantityModelFactory ?? throw new ArgumentNullException(nameof(quantityModelFactory));
         }
-
+        
 
         public DishAccompanyingModel Create(DishAccompanying entity)
         {
@@ -44,10 +45,10 @@ namespace SmartRestaurant.Application.Dishes.DishAccompaniments.Factory
                 ParentId = parentId,
                 AccompanyingId = accompanyingId,
                 IsDisabled = isDisabled,
-                Quantity = quantity,
+                Quantity=quantity,
             };
         }
-
+        
 
         public IEnumerable<DishAccompanyingModel> Create(IEnumerable<DishAccompanying> entities)
         => (from entity in entities select Create(entity)).AsEnumerable();

@@ -1,7 +1,9 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Interfaces;
+﻿using SmartRestaurant.Application.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
 namespace SmartRestaurant.Application.NotificationUsers.Queries
 {
     public interface IGetNotificationUserByNotificationIdQuery
@@ -33,7 +35,7 @@ namespace SmartRestaurant.Application.NotificationUsers.Queries
                .Select(p => new NotificationUserItem
                {
                    NotificationId = p.NotificationId,
-                   // UserId = p.SRUserId.ToGuid(),
+                  // UserId = p.SRUserId.ToGuid(),
                });
             return entity.ToList();
 

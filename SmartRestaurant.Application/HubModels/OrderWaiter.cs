@@ -7,10 +7,10 @@ namespace SmartRestaurant.Application.HubModels
         public OrderWaiter()
         {
             OrderItem = new OrderItemModel();
-            waiter = new WaiterModel();
+            waiter = new WaiterModel(); 
         }
         public OrderItemModel OrderItem { get; set; }
-        public WaiterModel waiter { get; set; }
+        public  WaiterModel  waiter { get; set; }
 
     }
 }

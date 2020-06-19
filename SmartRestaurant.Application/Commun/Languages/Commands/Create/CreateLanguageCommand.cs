@@ -2,7 +2,9 @@
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Languages.Commands.Create
 {
@@ -23,9 +25,9 @@ namespace SmartRestaurant.Application.Commun.Languages.Commands.Create
 
         public CreateLanguageCommand(
             ISmartRestaurantDatabaseService db,
-            ILoggerService<CreateLanguageCommand> logger,
+            ILoggerService<CreateLanguageCommand> logger, 
             IMailingService mailing,
-            INotifyService notify,
+            INotifyService notify, 
             ICreateLanguageFactory createLanguageFactory
             )
         {
@@ -33,7 +35,7 @@ namespace SmartRestaurant.Application.Commun.Languages.Commands.Create
             this.logger = logger;
             this.mailing = mailing;
             this.notify = notify;
-            _factory = createLanguageFactory;
+            _factory = createLanguageFactory; 
 
         }
         public void Execute(CreateLanguageModel model)
@@ -52,7 +54,7 @@ namespace SmartRestaurant.Application.Commun.Languages.Commands.Create
                 if (_currency != null)
                     throw new AlreadyExistsExeption($"Language: {model.Name} Exists");
 
-                var entity = _factory.Create(model.Name, model.IsoCode, model.IsRTL, model.Alias, model.IsDisabled, model.EnglishName);
+                var entity = _factory.Create(model.Name, model.IsoCode,model.IsRTL ,model.Alias,model.IsDisabled,model.EnglishName );
                 entity.Id = Guid.NewGuid().ToString();
                 db.Languages.Add(entity);
                 db.Save();

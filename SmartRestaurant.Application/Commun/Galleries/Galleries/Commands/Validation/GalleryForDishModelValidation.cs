@@ -1,8 +1,11 @@
 ﻿using FluentValidation;
 using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Models;
+using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Commun.Gallery;
 using SmartRestaurant.Resources.SharedValidation;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Validation
 {
@@ -14,7 +17,7 @@ namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Valida
 
             RuleFor(g => g.DishId)
                 .NotNull()
-                .WithMessage(String.Format(SharedValidationResource.RequiredErrorMessage, GalleryResource.DishId));
+                .WithMessage(String.Format(SharedValidationResource.RequiredErrorMessage,GalleryResource.DishId));
 
             RuleForEach(g => g.Pictures).SetValidator(new GalleryPictureForDishModelValidation());
         }

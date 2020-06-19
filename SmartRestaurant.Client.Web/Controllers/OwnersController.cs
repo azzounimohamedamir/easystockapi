@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
@@ -9,7 +10,6 @@ using SmartRestaurant.Application.Restaurants.Owners.Services;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Restaurants.Owners;
 using SmartRestaurant.Resources.Utils;
-using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
@@ -41,7 +41,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         {
             this.PageBreadcrumb.SetTitle(OwnerUtilsResource.HomePageTitle)
                 .AddHome()
-                .AddItem(OwnerUtilsResource.HomeNavigationTitle, Url.Action("Index", "Owners"))
+                .AddItem(OwnerUtilsResource.HomeNavigationTitle, Url.Action( "Index", "Owners"))
                 .Save();
 
             return View(ownerService.Queries.List.Execute());
@@ -84,7 +84,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         [Route("add")]
         public IActionResult Add(CreateOwnerModel model)
         {
-
+            
             try
             {
                 ownerService.Create.Execute(model);
@@ -121,7 +121,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         [Route("edit")]
         public IActionResult Edit(UpdateOwnerModel model)
         {
-
+            
             try
             {
                 ownerService.Update.Execute(model);

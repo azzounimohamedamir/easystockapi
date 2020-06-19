@@ -1,4 +1,5 @@
 ﻿using SmartRestaurant.Application.Commun.Address;
+using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
 using System;
 
 namespace SmartRestaurant.Application.Restaurants.Owners.Queries

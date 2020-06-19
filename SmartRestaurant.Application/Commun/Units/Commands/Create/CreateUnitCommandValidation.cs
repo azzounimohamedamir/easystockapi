@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using SmartRestaurant.Application.Commun.Units.Commands.Create;
 using SmartRestaurant.Resources.Commun.City;
 using SmartRestaurant.Resources.SharedValidation;
 

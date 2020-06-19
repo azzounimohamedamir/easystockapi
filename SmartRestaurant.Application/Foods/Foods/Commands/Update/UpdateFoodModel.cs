@@ -6,10 +6,10 @@ using System.Collections.Generic;
 namespace SmartRestaurant.Application.Foods.Commands.Update
 {
     public class UpdateFoodModel : IFoodModelCommand
-    {
+    {  
         public IFoodModel FoodModel { get; set; }
         public INutritionModel Nutrition { get; set; }
         public List<FoodCompositionModel> Compositions { get; set; }
-
+        
     }
 }

@@ -4,10 +4,12 @@ using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Commun.State;
 using SmartRestaurant.Resources.SharedValidation;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.States.Commands
 {
-    public class UpdateStateCommandValidation : AbstractValidator<IUpdateStateModel>
+     public  class UpdateStateCommandValidation : AbstractValidator<IUpdateStateModel>
     {
 
         public UpdateStateCommandValidation()

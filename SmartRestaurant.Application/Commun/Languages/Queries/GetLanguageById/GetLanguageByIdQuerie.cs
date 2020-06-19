@@ -1,7 +1,9 @@
 ﻿using SmartRestaurant.Application.Commun.Languages.Commands.Update;
 using SmartRestaurant.Application.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Languages.Queries.GetLanguageById
 {
@@ -30,9 +32,8 @@ namespace SmartRestaurant.Application.Commun.Languages.Queries.GetLanguageById
 
         public UpdateLanguageModel Execute(string Id)
         {
-
-            try
-            {
+       
+            try {
                 var entity = db.Languages
                 .Where(p => p.Id.ToString() == Id)
                 .Select(p => new UpdateLanguageModel()
@@ -45,7 +46,7 @@ namespace SmartRestaurant.Application.Commun.Languages.Queries.GetLanguageById
                     Id = p.Id,
                     EnglishName = p.EnglishName,
                     IsDisabled = p.IsDisabled,
-
+                   
                 })
                 .FirstOrDefault();
 
@@ -53,14 +54,13 @@ namespace SmartRestaurant.Application.Commun.Languages.Queries.GetLanguageById
 
 
             }
-            catch (Exception e)
-            {
-                throw e;
+            catch(Exception e )  {
+                throw e; 
             }
 
-
+          
         }
-
+        
 
     }
 

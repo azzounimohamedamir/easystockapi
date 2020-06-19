@@ -1,7 +1,9 @@
 ﻿using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.Factory;
+using SmartRestaurant.Application.Restaurants.RestaurantTypes.Specifications;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetAll
 {
@@ -17,7 +19,7 @@ namespace SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetAll
         private readonly IMailingService mailing;
         private readonly INotifyService notify;
         private readonly ISmartRestaurantDatabaseService db;
-
+        
 
         public GetAllRestaurantTypesQuery(ISmartRestaurantDatabaseService db,
             ILoggerService<IGetAllRestaurantTypesQuery> log, IMailingService mailing,

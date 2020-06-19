@@ -1,8 +1,13 @@
-﻿using SmartRestaurant.Application.Commun.States.Commands;
+﻿using FluentValidation.Results;
+using SmartRestaurant.Application.Commun.States.Commands;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Domain.Commun;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.State.Commands.Create
 {
@@ -27,8 +32,7 @@ namespace SmartRestaurant.Application.Commun.State.Commands.Create
         public void Execute(UpdateStateModel model)
         {
 
-            try
-            {
+            try {
 
 
                 var validator = new UpdateStateCommandValidation();
@@ -59,9 +63,9 @@ namespace SmartRestaurant.Application.Commun.State.Commands.Create
             {
 
             }
-
+          
         }
     }
 
-
+    
 }

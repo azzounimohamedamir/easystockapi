@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Domain.Commun
 {
@@ -10,11 +11,11 @@ namespace SmartRestaurant.Domain.Commun
         public decimal MaxAmount { get; set; }
 
         public Currency Currency { get; set; }
-
+        
         //used only for EF core
         private PriceRange() { }
 
-        public PriceRange(Guid currencyId, decimal minAmount, decimal maxAmount)
+        public PriceRange(Guid currencyId,decimal minAmount, decimal maxAmount)
         {
             CurrencyId = currencyId;
             MinAmount = minAmount;

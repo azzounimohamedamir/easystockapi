@@ -6,6 +6,6 @@
         string Description { get; set; }
         string Name { get; set; }
         string RestaurantId { get; set; }
-
+         
     }
 }

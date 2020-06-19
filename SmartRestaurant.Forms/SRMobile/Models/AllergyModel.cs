@@ -1,4 +1,8 @@
-﻿namespace SmartRestaurant.Diner.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Diner.Models
 {
 
     /// <summary>

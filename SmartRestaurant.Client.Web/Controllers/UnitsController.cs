@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Commun.Units.Commands.Create;
 using SmartRestaurant.Application.Commun.Units.Commands.Delete;
@@ -10,45 +11,44 @@ using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Commun.Unit;
 using SmartRestaurant.Resources.Utils;
-using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
-    [Route("admin/units")]
-
+   // [Area("Admin")]
+    [Route("admin/units")]   
+    
     public class UnitsController : AdminBaseController
     {
         private readonly ILoggerService<StatesController> _log;
-
+        
         private readonly ICreateUnitCommand _createUnitCommand;
         private readonly IUpdateUnitCommand _updateUnitCommand;
         private readonly IDeleteUnitCommand _deleteUnitCommand;
         private readonly IGetAllUnitsQuerie _getAllUnitsQuery;
         private readonly IGetUnitByIdQuerie _getUnitByIdQuery;
-
+        
 
         public UnitsController(
             IConfiguration configuration,
             IMailingService mailing,
-            INotifyService notify,
+            INotifyService notify,            
             ICreateUnitCommand createUnitCommand,
             IUpdateUnitCommand updateUnitCommand,
             IDeleteUnitCommand deleteUnitCommand,
             IGetAllUnitsQuerie getAllUnitsQuery,
-            IGetUnitByIdQuerie getUnitByIdQuery,
+            IGetUnitByIdQuerie getUnitByIdQuery,            
             ILoggerService<AdminBaseController> baselog,
             ILoggerService<StatesController> log) : base(configuration, mailing, notify, baselog)
         {
-            _log = log;
+            _log = log;            
             _createUnitCommand = createUnitCommand;
             _updateUnitCommand = updateUnitCommand;
             _deleteUnitCommand = deleteUnitCommand;
             _getAllUnitsQuery = getAllUnitsQuery;
             _getUnitByIdQuery = getUnitByIdQuery;
-
+            
         }
-
+      
         [Route("")]
         [Route("index")]
         public IActionResult Index()
@@ -59,8 +59,8 @@ namespace SmartRestaurant.Client.Web.Controllers
                 .Save();
 
             return View(_getAllUnitsQuery.Execute());
-        }
-
+        }       
+        
 
         private void BreadcrumbForAdd()
         {
@@ -69,7 +69,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                .AddItem(UnitUtilsResource.HomePageTitle, Url.Action("Index", "Units"))
                .AddItem(UnitUtilsResource.AddNewNavigationTitle)
                .Save();
-
+            
         }
 
         private void BreadcrumbForEdit(string name)
@@ -95,14 +95,14 @@ namespace SmartRestaurant.Client.Web.Controllers
         {
             BreadcrumbForAdd();
             try
-            {
-                _createUnitCommand.Execute(model);
+            {                
+                _createUnitCommand.Execute(model); 
             }
             catch (NotValidException ex)
             {
                 AddErrorToModelState(ex);
 
-            }
+            }           
             return View(model);
         }
 
@@ -119,7 +119,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             {
                 var unit = _getUnitByIdQuery.Execute(id);
                 BreadcrumbForEdit(unit.Name);
-                return View(unit);
+                return View(unit);                             
             }
             catch (NotFoundException)
             {
@@ -134,13 +134,13 @@ namespace SmartRestaurant.Client.Web.Controllers
             BreadcrumbForEdit(model.Name);
 
             try
-            {
+            {                
                 _updateUnitCommand.Execute(model);
             }
             catch (NotValidException ex)
             {
                 AddErrorToModelState(ex);
-            }
+            }           
             return View(model);
         }
 

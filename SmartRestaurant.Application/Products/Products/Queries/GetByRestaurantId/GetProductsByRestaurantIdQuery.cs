@@ -1,10 +1,11 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Helpers;
-using SmartRestaurant.Application.Interfaces;
+﻿using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Products.Products.Queries.GetAll;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using Helpers;
 using System.Linq;
+using SmartRestaurant.Application.Helpers;
 
 namespace SmartRestaurant.Application.Products.Products.Queries.GetByRestaurantId
 {
@@ -32,7 +33,7 @@ namespace SmartRestaurant.Application.Products.Products.Queries.GetByRestaurantI
 
         public List<ProductItemModel> Execute(string Id)
         {
-
+           
             try
             {
                 if (Id.IsNullOrEmpty()) return null;
@@ -53,7 +54,7 @@ namespace SmartRestaurant.Application.Products.Products.Queries.GetByRestaurantI
             }
             catch (Exception)
             {
-                return null;
+                return null;  
             }
         }
     }

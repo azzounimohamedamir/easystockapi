@@ -3,7 +3,7 @@ using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Domain.Allergies;
 using System.Collections.Generic;
 using System.Linq;
-
+ 
 namespace SmartRestaurant.Application.Allergies.Allergies.Queries.Factory
 {
 

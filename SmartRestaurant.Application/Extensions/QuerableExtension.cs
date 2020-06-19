@@ -1,22 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Commun;
+﻿using SmartRestaurant.Domain.Commun;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using SmartRestaurant.Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace SmartRestaurant.Application.ApplicationDataBase.Extensions
 {
-    public static class QuerableExtension//<T> where T : SmartRestaurantEntity
+    public  static class QuerableExtension//<T> where T : SmartRestaurantEntity
     {
         //[Obsolete("Cettte méthode sera supprimer dans la version suivante, utiliser Filter")]
 
-        public static IQueryable<T> ApplySpecification<T>(this IQueryable<T> query, ISpecification<T> specification) where T : SmartRestaurantEntity
+        public static IQueryable<T> ApplySpecification<T>(this IQueryable<T> query, ISpecification<T> specification) where T:SmartRestaurantEntity
         {
             //application des critèires de select
-            if (specification.Criteria != null && specification.Criteria.Expression != null)
+            if (specification.Criteria != null && specification.Criteria.Expression!=null)
             {
                 query = ApplyCriteria(query, specification.Criteria);
-            }
+            }            
             //application des includes
             query = specification.Includes.Aggregate(query, (current, include) => current.Include(include));
 
@@ -31,7 +33,7 @@ namespace SmartRestaurant.Application.ApplicationDataBase.Extensions
             else if (specification.OrderByDescending != null)
             {
                 query = query.OrderByDescending(specification.OrderByDescending);
-            }
+            }            
             return query;
         }
 
@@ -56,7 +58,7 @@ namespace SmartRestaurant.Application.ApplicationDataBase.Extensions
             else if (specification.OrderByDescending != null)
             {
                 query = query.OrderByDescending(specification.OrderByDescending);
-            }
+            }            
             return query;
         }
 
@@ -68,7 +70,7 @@ namespace SmartRestaurant.Application.ApplicationDataBase.Extensions
                 .AsEnumerable();
         }
 
-        public static IQueryable<T> ApplyCriteria<T>(IQueryable<T> query, ICriteria<T> criteria) where T : SmartRestaurantEntity
+        public static IQueryable<T> ApplyCriteria<T>(IQueryable<T> query, ICriteria<T> criteria) where T:SmartRestaurantEntity
         {
             if (criteria == null) return query;
             query = query.Where(criteria.Expression);
@@ -76,5 +78,5 @@ namespace SmartRestaurant.Application.ApplicationDataBase.Extensions
         }
     }
 
-
+    
 }

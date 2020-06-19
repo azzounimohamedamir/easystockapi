@@ -1,5 +1,5 @@
-﻿using SmartRestaurant.Application.Restaurants.Section.Commands.Models;
-using System;
+﻿using System;
+using SmartRestaurant.Application.Restaurants.Section.Commands.Models;
 
 namespace SmartRestaurant.Application.Restaurants.Section.Commands.Create
 {

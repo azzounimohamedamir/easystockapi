@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Create;
 using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Update;
+using SmartRestaurant.Application.Dishes.Dishes.Commands.Factory;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Commun;
@@ -23,7 +24,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Update
         private readonly ISmartRestaurantDatabaseService db;
         private readonly ILoggerService<UpdateDishCommand> logger;
         private readonly IMailingService mailingService;
-        private readonly INotifyService notifyService;
+        private readonly INotifyService notifyService;        
         private readonly ICreateGalleryForDishCommand createGalleryForDishCommand;
         private readonly IUpdateGalleryForDishCommand updateGalleryForDishCommand;
 
@@ -31,7 +32,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Update
             ISmartRestaurantDatabaseService db,
             ILoggerService<UpdateDishCommand> logger,
             IMailingService mailingService,
-            INotifyService notifyService,
+            INotifyService notifyService,            
             ICreateGalleryForDishCommand createGalleryForDishCommand,
             IUpdateGalleryForDishCommand updateGalleryForDishCommand
             )
@@ -39,12 +40,12 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Update
             this.db = db ?? throw new ArgumentNullException(nameof(db));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.mailingService = mailingService ?? throw new ArgumentNullException(nameof(mailingService));
-            this.notifyService = notifyService ?? throw new ArgumentNullException(nameof(notifyService));
+            this.notifyService = notifyService ?? throw new ArgumentNullException(nameof(notifyService));                      
             this.createGalleryForDishCommand = createGalleryForDishCommand ?? throw new ArgumentNullException(nameof(createGalleryForDishCommand));
             this.updateGalleryForDishCommand = updateGalleryForDishCommand ?? throw new ArgumentNullException(nameof(updateGalleryForDishCommand));
         }
 
-
+       
 
         public void Execute(UpdateDishModel model)
         {
@@ -62,7 +63,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Update
                 {
                     throw new NotValidOperation(string.Format(SharedExceptionResource.NotValidOperationErrorMessage, DishResource.RestaurantId));
                 }
-
+                
                 var family = db.DishFamilies
                     .Include(f => f.Childs)
                     .FirstOrDefault(f => f.Id == model.DishModel.FamillyId.ToGuid());
@@ -76,10 +77,10 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Update
                     throw new NotValidOperation(string.Format(SharedExceptionResource.NotValidOperationErrorMessage, DishResource.FamillyId));
                 }
 
-                var dish = db.Dishes
-                    .Include(d => d.Ingredients)
-                    .Include(d => d.ChildAccompaniments)
-                    .Include(d => d.Gallery).ThenInclude(g => g.Pictures)
+                var dish = db.Dishes                    
+                    .Include(d => d.Ingredients)   
+                    .Include(d=>d.ChildAccompaniments)
+                    .Include(d => d.Gallery).ThenInclude(g=>g.Pictures)                    
                     .Where(d => d.Id == model.Id.ToGuid())
                     .FirstOrDefault();
 
@@ -113,9 +114,9 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Update
                     else
                     {
                         createGalleryForDishCommand.Execute(restaurant.Id, dish.Id, model.Gallery, false);
-                    }
+                    }                    
                 }
-
+                                
 
                 db.Dishes.Update(dish);
                 db.Save();
@@ -129,7 +130,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Update
 
         private void EditAccompaniments(Dish dish, UpdateDishModel model)
         {
-            if (dish.ChildAccompaniments != null && dish.ChildAccompaniments.Count > 0)
+            if(dish.ChildAccompaniments!=null && dish.ChildAccompaniments.Count > 0)
             {
                 HashSet<string> accDBIds = new HashSet<string>(dish.ChildAccompaniments.Select(i => i.AccompanyingId.ToString()));
                 HashSet<string> accModelIds = new HashSet<string>(model.Accompaniments.Select(i => i.AccompanyingId));
@@ -166,10 +167,10 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Update
             {
 
             }
-
+            
         }
 
-        private void EditIngredients(Dish dish, UpdateDishModel model)
+        private void EditIngredients(Dish dish,UpdateDishModel model)
         {
             HashSet<string> ingDBIds = new HashSet<string>(dish.Ingredients.Select(i => i.Id.ToString()));
             HashSet<string> ingModelIds = new HashSet<string>(model.Ingredients.Select(i => i.Id));

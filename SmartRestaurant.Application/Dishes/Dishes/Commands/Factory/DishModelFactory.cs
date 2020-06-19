@@ -1,7 +1,10 @@
 ﻿using SmartRestaurant.Application.Dishes.Dishes.Commands.Models;
+using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Dishes;
 using SmartRestaurant.Domain.Enumerations;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Factory
 {
@@ -33,7 +36,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Factory
                 dish.RestaurantId.ToString(),
                 dish.FamillyId.ToString(),
                 dish.GalleryId.ToString(),
-                dish.Type,
+                dish.Type, 
                 dish.PreparationTime.Value,
                 dish.ServiceTime.Value,
                 dish.CanBeAccompanying
@@ -68,6 +71,6 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Factory
             };
         }
 
-
+        
     }
 }

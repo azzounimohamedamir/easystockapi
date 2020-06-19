@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Pricings;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Pricings
 {
@@ -16,7 +19,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Pricing
             b.Property(a => a.Alias).HasMaxLength(5);
             b.Property(a => a.Name).HasMaxLength(256);
 
-
+           
             b.HasOne(r => r.Product)
              .WithOne(a => a.Pricing)
              .HasForeignKey<Pricing>(x => x.ProductId);
@@ -34,7 +37,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Pricing
             b.OwnsOne<Price>(nameof(Pricing.PurchasePriceHT), x =>
             {
                 x.HasForeignKey("PurchasePricingId");
-                x.HasOne(i => i.Currency).WithMany()
+                x.HasOne(i => i.Currency).WithMany()              
                 .OnDelete(DeleteBehavior.Restrict);
             });
 

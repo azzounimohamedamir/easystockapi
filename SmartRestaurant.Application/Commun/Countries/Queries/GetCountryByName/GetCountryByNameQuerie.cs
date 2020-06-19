@@ -31,19 +31,19 @@ namespace SmartRestaurant.Application.Commun.Countries.Queries.GetCountryByName
         {
 
 
-            var entity = db.Countries
-           .Where(p => p.Name == Name)
-               .Select(p => new CountryItemModel()
-               {
-                   Id = p.Id,
-                   IsoCode = p.IsoCode,
-                   Name = p.Name,
-                   Alias = p.Alias,
-                   IsDisabled = p.IsDisabled.DisabledDisplay(),
+                     var entity = db.Countries
+                    .Where(p => p.Name == Name)
+                        .Select(p => new CountryItemModel()
+                        {
+                            Id = p.Id , 
+                            IsoCode = p.IsoCode,
+                            Name  = p.Name,
+                            Alias = p.Alias ,
+                            IsDisabled = p.IsDisabled.DisabledDisplay(),
 
-               }).FirstOrDefault();
-            return entity;
-
+                        }).FirstOrDefault();
+                    return entity;
+            
 
         }
     }

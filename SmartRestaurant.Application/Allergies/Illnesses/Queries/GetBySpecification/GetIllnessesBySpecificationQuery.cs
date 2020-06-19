@@ -1,10 +1,11 @@
-﻿using SmartRestaurant.Application.Allergies.Illnesses.Queries.Factory;
-using SmartRestaurant.Application.Allergies.Illnesses.Specifications;
-using SmartRestaurant.Application.ApplicationDataBase.Extensions;
+﻿using SmartRestaurant.Application.ApplicationDataBase.Extensions;
 using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Application.Allergies.Illnesses.Queries.Factory;
+using SmartRestaurant.Application.Allergies.Illnesses.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Allergies.Illnesses.Queries.GetBySpesification
 {
@@ -36,7 +37,7 @@ namespace SmartRestaurant.Application.Allergies.Illnesses.Queries.GetBySpesifica
         {
             try
             {
-                return db.Illnesses.AsQueryable()
+                return db.Illnesses.AsQueryable()                   
                        .ApplySpecification(spec)
                        .ToIllnessItemModels()
                        .ToList();

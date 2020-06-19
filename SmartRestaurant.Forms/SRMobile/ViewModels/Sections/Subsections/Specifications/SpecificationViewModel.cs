@@ -2,16 +2,19 @@
 using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.Specifications
 {
-    public class SpecificationViewModel : SimpleViewModel
+    public class SpecificationViewModel:SimpleViewModel
     {
         public readonly SpecificationModel Specification;
-
+        
         /// <summary>
         /// Get the SpecificationModel from the Model.
         /// </summary>
@@ -30,7 +33,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.
             }
         }
 
-
+      
 
 
         #region Name of the Specification according to the language selected.
@@ -133,9 +136,9 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.
             set
             {
 
-                Specification.Possible_ValuesFr = value;
-                RaisePropertyChanged();
-
+                    Specification.Possible_ValuesFr = value;
+                    RaisePropertyChanged();
+                
             }
         }
 
@@ -160,15 +163,15 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.
         {
             get
             {
-                if (_RadioOptionsVM == null)
+                if(_RadioOptionsVM==null)
                 {
                     _RadioOptionsVM = new ObservableCollection<RadioOption>();
-                    foreach (string p in Possible_Values)
+                    foreach(string p in Possible_Values)
                     {
                         _RadioOptionsVM.Add(new RadioOption(p, false));
                     }
-                    if (_RadioOptionsVM.Count > 0)
-                        _RadioOptionsVM[0].IsSelected = true;
+                    if(_RadioOptionsVM.Count>0)
+                    _RadioOptionsVM[0].IsSelected = true;
                 }
                 return _RadioOptionsVM;
             }

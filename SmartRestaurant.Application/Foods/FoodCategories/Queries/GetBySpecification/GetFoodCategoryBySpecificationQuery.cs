@@ -1,10 +1,14 @@
 ﻿using SmartRestaurant.Application.ApplicationDataBase.Extensions;
 using SmartRestaurant.Application.FoodCategories.Queries;
+using SmartRestaurant.Application.FoodCategories.Queries.GetAll;
 using SmartRestaurant.Application.Foods.FoodCategories.Queries.Factory;
+using SmartRestaurant.Application.Foods.Specifications;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Foods;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 
 namespace SmartRestaurant.Application.Foods.FoodCategories.Queries.GetBySpecification
@@ -14,7 +18,7 @@ namespace SmartRestaurant.Application.Foods.FoodCategories.Queries.GetBySpecific
         List<FoodCategoryItemModel> Execute(ISpecification<FoodCategory> specification);
     }
 
-    public class GetFoodCategoryBySpecificationQuery : IGetFoodCategoryBySpecificationQuery
+    public class GetFoodCategoryBySpecificationQuery: IGetFoodCategoryBySpecificationQuery
     {
         private readonly ILoggerService<GetFoodCategoryBySpecificationQuery> logger;
         private readonly IMailingService mailing;
@@ -33,7 +37,7 @@ namespace SmartRestaurant.Application.Foods.FoodCategories.Queries.GetBySpecific
 
         public List<FoodCategoryItemModel> Execute(ISpecification<FoodCategory> specification)
         {
-            return db.FoodCategories
+            return db.FoodCategories                    
                     .AsQueryable()
                     .ApplySpecification(specification)
                     .ToFoodCategoryItemModels()

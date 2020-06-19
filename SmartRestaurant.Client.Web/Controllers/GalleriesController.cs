@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Interfaces;
-using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
+   // [Area("Admin")]
     [Route("galleries")]
     public class GalleriesController : AdminBaseController
     {
@@ -16,11 +16,11 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly ILoggerService<GalleriesController> log;
 
         public GalleriesController(
-            IConfiguration configuration,
-            IMailingService mailing,
-            INotifyService notify,
+            IConfiguration configuration, 
+            IMailingService mailing, 
+            INotifyService notify, 
             ILoggerService<AdminBaseController> baselog,
-            ILoggerService<GalleriesController> log)
+            ILoggerService<GalleriesController> log) 
             : base(configuration, mailing, notify, baselog)
         {
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));

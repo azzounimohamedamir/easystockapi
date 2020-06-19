@@ -1,4 +1,8 @@
-﻿namespace SmartRestaurant.Domain.Enumerations
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Domain.Enumerations
 {
     public enum EnumNotificationType
     {

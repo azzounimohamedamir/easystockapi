@@ -1,6 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SmartRestaurant.Domain.Foods;
+using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Restaurants;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Foods
 {
@@ -18,16 +23,16 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Foods
 
             b.Property(a => a.Name)
                 .HasMaxLength(256)
-                .IsRequired();
-
+                .IsRequired();     
+            
             b.Property(a => a.SlugUrl).IsRequired();
-
+                        
             b.HasMany(a => a.Restaurants)
                 .WithOne(r => r.Chain)
                 .OnDelete(DeleteBehavior.Restrict);
 
             b.HasOne(c => c.Owner)
-                .WithMany(o => o.Chains)
+                .WithMany(o=>o.Chains)
                 .OnDelete(DeleteBehavior.Restrict);
 
             b.ToTable("Chains");

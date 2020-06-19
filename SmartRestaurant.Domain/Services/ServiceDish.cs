@@ -4,7 +4,7 @@ using System;
 
 namespace SmartRestaurant.Domain.Services
 {
-    public class ServiceDish : SmartRestaurantBaseEntity<Guid>
+    public class ServiceDish:SmartRestaurantBaseEntity<Guid>
     {
         public Guid ServiceId { get; set; }
 

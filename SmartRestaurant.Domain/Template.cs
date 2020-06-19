@@ -1,11 +1,12 @@
 ﻿using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Enumerations;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Domain
 {
-    public class Template : BaseEntity<Guid>
-    {
+    public class Template : BaseEntity<Guid> { 
         public EnumTemplateType Type { get; set; }
         public string Title { get; set; }
         public string Subject { get; set; }

@@ -22,7 +22,7 @@ namespace SmartRestaurant.Application.Notifications.Commands.Update
             .WithMessage(String.Format(SharedValidationResource.RequiredErrorMessage,
             BaseResource.Name));
 
-
+         
 
             RuleFor(x => x.Alias)
                 .MaximumLength(5)

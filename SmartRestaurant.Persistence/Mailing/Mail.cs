@@ -1,6 +1,8 @@
 ﻿using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Persistence.DateTime;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Persistence.Mailing
 {

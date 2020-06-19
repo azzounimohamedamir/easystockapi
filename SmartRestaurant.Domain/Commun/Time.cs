@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Domain.Commun
 {
@@ -13,7 +14,7 @@ namespace SmartRestaurant.Domain.Commun
         }
         public Time(TimeSpan value)
         {
-            Value = value;
+            Value = value;            
         }
 
         protected override bool EqualsCore(Time other)
@@ -27,7 +28,7 @@ namespace SmartRestaurant.Domain.Commun
         }
 
         public static Time operator +(Time time1, Time time2)
-        {
+        {            
             return new Time(time1.Value.Add(time2.Value));
         }
 

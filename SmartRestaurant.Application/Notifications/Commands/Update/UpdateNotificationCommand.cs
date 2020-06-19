@@ -1,11 +1,12 @@
-﻿using Helpers;
-using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Exceptions;
+﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace SmartRestaurant.Application.Notifications.Commands.Update
 {
@@ -25,7 +26,7 @@ namespace SmartRestaurant.Application.Notifications.Commands.Update
 
         public UpdateNotificationCommand(
             ISmartRestaurantDatabaseService db,
-            ILoggerService<UpdateNotificationCommand> logger,
+            ILoggerService<UpdateNotificationCommand> logger, 
             IMailingService mailing,
             INotifyService notify)
         {
@@ -47,7 +48,7 @@ namespace SmartRestaurant.Application.Notifications.Commands.Update
                     throw new NotValidException(result.Errors);
                 }
 
-                var entity = db.Notifications.Include(x => x.Users).FirstOrDefault(x => x.Id == model.Id.ToGuid());
+                var entity = db.Notifications.Include(x=>x.Users).FirstOrDefault(x=>x.Id==model.Id.ToGuid());
 
                 if (entity.ToString().IsNullOrEmpty())
                 {
@@ -96,7 +97,7 @@ namespace SmartRestaurant.Application.Notifications.Commands.Update
                 db.Save();
 
             }
-            catch (Exception e)
+            catch(Exception e )
             {
                 throw e;
             }

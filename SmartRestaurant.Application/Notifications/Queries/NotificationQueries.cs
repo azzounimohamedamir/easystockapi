@@ -6,10 +6,11 @@ using SmartRestaurant.Application.Notifications.Services;
 using SmartRestaurant.Domain;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Notifications.Queries
 {
-    public interface INotificationQueries
+    public interface INotificationQueries 
     {
         IGetNotificationByIdQuerie GetById { get; }
         IGetNotificationItemsQuery List { get; }
@@ -19,7 +20,7 @@ namespace SmartRestaurant.Application.Notifications.Queries
         IEnumerable<SelectItemModel> SelectList(ISpecification<Notification> specification);
 
     }
-    public class NotificationQueries
+     public class NotificationQueries
     {
         private readonly ILoggerService<NotificationQueries> logger;
         private readonly IMailingService mailing;

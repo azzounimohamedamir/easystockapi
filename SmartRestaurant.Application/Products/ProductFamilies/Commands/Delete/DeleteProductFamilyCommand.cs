@@ -1,10 +1,12 @@
-﻿using Helpers;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Products;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
+using SmartRestaurant.Domain.Products;
 
 namespace SmartRestaurant.Application.Products.ProductFamilies.Commands.Delete
 {
@@ -49,7 +51,7 @@ namespace SmartRestaurant.Application.Products.ProductFamilies.Commands.Delete
                 if (family == null)
                     throw new NotFoundException();
 
-                if (family.Products.Any())
+                if (family.Products.Any() )
                     throw new DeleteFailureException(nameof(ProductFamily));
 
                 db.ProductFamilies.Remove(family);

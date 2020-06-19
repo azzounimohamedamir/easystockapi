@@ -1,6 +1,10 @@
-﻿namespace SmartRestaurant.Application.Restaurants.Menu.Commands.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Application.Restaurants.Menu.Commands.Models
 {
-    public class MenuOwnerModel : IMenuOwnerModel
+    public class MenuOwnerModel: IMenuOwnerModel
     {
         public string Description { get; set; }
         public bool IsDisabled { get; set; }

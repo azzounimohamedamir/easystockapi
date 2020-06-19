@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Exceptions;
@@ -15,12 +17,10 @@ using SmartRestaurant.Client.Web.Models.Pricings;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Pricings.Tarifications;
 using SmartRestaurant.Resources.Utils;
-using System;
-using System.Collections.Generic;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
+   // [Area("Admin")]
     [Route("Tarifications")]
     [Route("{restaurant}/Tarifications")]
     public class TarificationsController : AdminBaseController
@@ -68,7 +68,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         {
             this.PageBreadcrumb.SetTitle(TarificationUtilsResource.HomePageTitle)
                 .AddHome()
-                .AddOptionalItem(restaurant, Url.Action("Index", "Restaurants", new { area = "Admin" }))
+                .AddOptionalItem(restaurant,Url.Action("Index","Restaurants",new { area="Admin"}))
                 .AddItem(TarificationUtilsResource.HomeNavigationTitle, Url.Action("Tarifications", "Index"))
                 .Save();
             var viewModel = new TarificationItemViewModel
@@ -100,7 +100,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
             var model = new TarificationViewModel
             {
-                Restaurants = GetRestaurants()
+               Restaurants = GetRestaurants()
             };
 
             return View(model);
@@ -113,7 +113,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             BreadcrumbForAdd();
             try
             {
-                createCommand.Execute(model.CreateModel);
+               createCommand.Execute(model.CreateModel);
             }
             catch (NotValidException ex)
             {
@@ -137,7 +137,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 {
                     UpdateModel = result,
                     Restaurants = GetRestaurants(result.RestaurantId),
-                    SelectedProducts = GetSelectedProducts(result.ProductsNames)
+                    SelectedProducts= GetSelectedProducts(result.ProductsNames)
 
                 };
                 BreadcrumbForEdit(result.Name);
@@ -229,7 +229,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             {
                 try
                 {
-                    deleteCommand.Execute(new DeleteTarificationModel { Id = id });
+                   deleteCommand.Execute(new DeleteTarificationModel { Id = id });
                     model.HasError = false;
 
                 }

@@ -2,7 +2,7 @@
 {
     public class DeleteStateModel
     {
-
+        
         public string Id { get; set; }
 
     }

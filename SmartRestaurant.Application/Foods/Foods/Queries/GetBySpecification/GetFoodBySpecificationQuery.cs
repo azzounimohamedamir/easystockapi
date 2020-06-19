@@ -1,4 +1,5 @@
 ﻿using SmartRestaurant.Application.ApplicationDataBase.Extensions;
+using SmartRestaurant.Application.FoodCategories.Queries;
 using SmartRestaurant.Application.Foods.FoodCategories.Queries.Factory;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Foods;
@@ -24,7 +25,7 @@ namespace SmartRestaurant.Application.Foods.Queries.GetBySpecification
 
         public GetFoodBySpecificationQuery(
             ISmartRestaurantDatabaseService db,
-            ILoggerService<GetFoodBySpecificationQuery> logger,
+            ILoggerService<GetFoodBySpecificationQuery> logger, 
             IMailingService mailing,
             INotifyService notify)
         {
@@ -35,7 +36,7 @@ namespace SmartRestaurant.Application.Foods.Queries.GetBySpecification
         }
 
         public List<FoodItemModel> Execute(ISpecification<Food> specification, out int count)
-        {
+        {            
             var query = db.Foods.Query(specification);
             count = query.Count();
             return query
@@ -43,13 +44,13 @@ namespace SmartRestaurant.Application.Foods.Queries.GetBySpecification
                 .Take(specification.Take)
                 .ToFoodItemModels()
                 .ToList();
-
+            
         }
 
         public List<FoodItemModel> Execute(ISpecification<Food> specification)
         {
-            var query = db.Foods.Query(specification);
-            return query
+            var query = db.Foods.Query(specification);            
+            return query                
                 .ToFoodItemModels()
                 .ToList();
         }

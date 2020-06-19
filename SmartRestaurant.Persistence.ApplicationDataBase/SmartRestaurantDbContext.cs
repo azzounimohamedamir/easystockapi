@@ -26,7 +26,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
     public class SmartRestaurantDbContext : DbContext, ISmartRestaurantDatabaseService
     {
 
-
+      
         public SmartRestaurantDbContext(DbContextOptions<SmartRestaurantDbContext> options) : base(options)
         {
         }
@@ -91,7 +91,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
 
             builder.Entity<Menu>(new MenuConfiguration().Configure);
             builder.Entity<MenuItem>(new MenuItemConfiguration().Configure);
-
+            
             builder.Entity<Service>(new ServiceConfiguration().Configure);
             builder.Entity<ServiceProduct>(new ServiceProductConfiguration().Configure);
             builder.Entity<ServiceState>(new ServiceStateConfiguration().Configure);
@@ -178,12 +178,12 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
             return await Set<T>().ToListAsync();
         }
 
-        public IQueryable<dynamic> Set(Type type)
+        public IQueryable<dynamic> Set(Type type)  
         {
             return Sett(type);
         }
 
-        public IQueryable<dynamic> Sett(Type type)
+        public IQueryable<dynamic> Sett (Type type)  
         {
 
             // Get the generic type definition

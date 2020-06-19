@@ -12,7 +12,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Factory
 {
     public interface ICreateDishFactory
     {
-
+        
         Dish Create(DishModel dishModel,
                     List<DishIngredientModel> ingredients,
                     List<DishAccompanyingModel> accompaniments,
@@ -32,14 +32,14 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Factory
             IDishAccompanyingFactory dishAccompanyingFactory,
             IDishEquivalenceFactory dishEquivalenceFactory,
             IGalleryFactory galleryFactory)
-        {
+        {            
             this.dishFactory = dishFactory ?? throw new ArgumentNullException(nameof(dishFactory));
             this.dishIngredientFactory = dishIngredientFactory ?? throw new ArgumentNullException(nameof(dishIngredientFactory));
             this.dishAccompanyingFactory = dishAccompanyingFactory ?? throw new ArgumentNullException(nameof(dishAccompanyingFactory));
             this.dishEquivalenceFactory = dishEquivalenceFactory ?? throw new ArgumentNullException(nameof(dishEquivalenceFactory));
             this.galleryFactory = galleryFactory ?? throw new ArgumentNullException(nameof(galleryFactory));
-        }
-
+        }       
+               
 
         public Dish Create(DishModel dishModel,
                             List<DishIngredientModel> ingredients,
@@ -71,7 +71,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Factory
                     dish.ChildEquivalences.Add(dishEquivalenceFactory.Create(equivalence));
                 }
             }
-
+            
             return dish;
         }
     }

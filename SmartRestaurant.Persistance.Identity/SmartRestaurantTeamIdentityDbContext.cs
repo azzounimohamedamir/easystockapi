@@ -1,11 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Domain.BaseIdentity;
+using SmartRestaurant.Persistance.Identity.Configuration;
+using SmartRestaurant.Persistance.Identity.GuestConfiguration;
 using SmartRestaurant.Persistance.Identity.TeamConfiguration;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Persistance.Identity
 {
-    public class SmartRestaurantTeamIdentityDbContext : IdentityDbContext<
+    public class SmartRestaurantTeamIdentityDbContext :IdentityDbContext<
            BaseIdentityUser,
            BaseIdentityRole,
             string,
@@ -16,7 +21,7 @@ namespace SmartRestaurant.Persistance.Identity
            BaseIdentityUserToken>
     {
 
-        //  private string strConnection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SRTeamIdentitydb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+      //  private string strConnection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SRTeamIdentitydb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         public SmartRestaurantTeamIdentityDbContext()
         {

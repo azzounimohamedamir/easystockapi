@@ -1,11 +1,13 @@
-﻿using Helpers;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Resources.Dishes.DishFamily;
-using SmartRestaurant.Resources.SharedException;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
+using SmartRestaurant.Resources.SharedException;
+using SmartRestaurant.Resources.Dishes.DishFamily;
 
 namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Delete
 {
@@ -42,7 +44,7 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Delete
                 {
                     throw new NotValidException(result.Errors);
                 }
-
+                
                 var _family = _db.DishFamilies
                     .Include(c => c.Childs)
                     .Include(c => c.Dishes)

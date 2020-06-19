@@ -1,6 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Dishes;
+using SmartRestaurant.Domain.Foods;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Dishes
 {
@@ -16,14 +21,14 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Dishes
 
             b.HasOne(c => c.Dish)
                 .WithMany(d => d.Ingredients)
-                .HasForeignKey(i => i.DishId);
+                .HasForeignKey(i=>i.DishId);
 
             b.HasOne(c => c.Food)
                 .WithMany(i => i.DishIngredients)
-                .HasForeignKey(i => i.FoodId);
+                .HasForeignKey(i=>i.FoodId);
 
             b.OwnsOne(c => c.Quantity);
-
+            
             b.ToTable("DishIngredients");
         }
     }

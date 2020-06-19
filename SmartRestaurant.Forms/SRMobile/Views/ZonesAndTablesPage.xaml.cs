@@ -1,11 +1,17 @@
-﻿using Rg.Plugins.Popup.Animations;
+﻿using MultiGestureViewPlugin;
+using Rg.Plugins.Popup.Animations;
 using Rg.Plugins.Popup.Enums;
 using Rg.Plugins.Popup.Services;
 using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.ViewModels.Zones;
 using SmartRestaurant.Diner.Views.Popups;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -24,7 +30,7 @@ namespace SmartRestaurant.Diner.Views
 
             BindingContext = _model;
             viewmodel = (ZonesListViewModel)BindingContext;
-
+            
 
 
         }
@@ -38,7 +44,7 @@ namespace SmartRestaurant.Diner.Views
                 var zone = e.Item as ZonesViewModel;
                 vm.HideOrShowItem(zone);
             }
-            catch (Exception)
+            catch(Exception ee)
             {
 
             }
@@ -49,7 +55,7 @@ namespace SmartRestaurant.Diner.Views
             if (!((TablesViewModel)(e.Item)).IsSelected)
             {
                 foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
-                    if (t.Numero != ((TablesViewModel)(e.Item)).Numero)
+                    if (t.Numero !=((TablesViewModel)( e.Item)).Numero)
                         t.IsSelected = false;
                 if (!((TablesViewModel)(e.Item)).IsSelected)
                     this.viewmodel.SelectedTable = ((TablesViewModel)(e.Item));
@@ -98,7 +104,7 @@ namespace SmartRestaurant.Diner.Views
                 {
                     foreach (TablesViewModel t in ((ZonesListViewModel)BindingContext).SelectedZone.Tables.Tables)
                         if (t.Numero != ((TablesViewModel)(((GesturesContentView)sender).BindingContext)).Numero)
-                            t.IsSelected = false;
+                            t.IsSelected = false;                   
                     if (!((TablesViewModel)(((((View)sender))).BindingContext)).IsSelected)
                         this.viewmodel.SelectedTable = ((TablesViewModel)(((GesturesContentView)sender).BindingContext));
                     else

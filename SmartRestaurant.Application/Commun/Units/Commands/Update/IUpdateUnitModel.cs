@@ -4,6 +4,6 @@ namespace SmartRestaurant.Application.Commun.Units.Commands.Update
 {
     public interface IUpdateUnitModel : ICreateUnitModel
     {
-        string Id { get; set; }
+         string Id { get; set; }
     }
 }

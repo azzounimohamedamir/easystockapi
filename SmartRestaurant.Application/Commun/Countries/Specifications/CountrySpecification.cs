@@ -1,13 +1,15 @@
 ﻿using SmartRestaurant.Application.Specifications;
 using SmartRestaurant.Domain.Commun;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Countries.Specifications
 {
     public class CountrySpecification : BaseSpecification<Country>
     {
-        public CountrySpecification() : base()
+        public CountrySpecification():base()
         {
 
         }

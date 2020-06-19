@@ -1,6 +1,9 @@
 ﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Users.Commands.Create
 {
@@ -18,13 +21,13 @@ namespace SmartRestaurant.Application.Users.Commands.Create
         private readonly INotifyService notify;
         private readonly ICreateUserFactory _factory;
         private readonly ISmartRestaurantDatabaseService db;
-
+        
 
         public CreateUserCommand(ISmartRestaurantDatabaseService db,
             ILoggerService<CreateUserCommand> logger, IMailingService mailing,
-            INotifyService notify,
-            ICreateUserFactory createUserFactory
-
+            INotifyService notify , 
+            ICreateUserFactory createUserFactory 
+            
             )
         {
             this.db = db;
@@ -52,7 +55,7 @@ namespace SmartRestaurant.Application.Users.Commands.Create
                 //    throw new AlreadyExistsExeption($"Country: {model.Name} Exists");
 
 
-                var entity = _factory.Create(model.FirstName, model.LastName,
+                var entity = _factory.Create(model.FirstName, model.LastName, 
                 model.UserName, model.Email, model.Password);
                 entity.Id = Guid.NewGuid().ToString();
                 //usermanger
@@ -60,13 +63,13 @@ namespace SmartRestaurant.Application.Users.Commands.Create
                 db.Save();
 
             }
-            catch (Exception e)
+            catch(Exception e )
             {
-                throw e;
+                throw e; 
 
             }
 
-
+               
 
 
         }

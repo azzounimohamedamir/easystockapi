@@ -5,7 +5,7 @@ using SmartRestaurant.Persistance.Identity.GuestConfiguration;
 
 namespace SmartRestaurant.Persistance.Identity
 {
-    public class SmartRestaurantGuestIdentityDbContext : IdentityDbContext<
+    public class SmartRestaurantGuestIdentityDbContext :IdentityDbContext<
             GuestIdentityUser,
             GuestIdentityRole,
             string,
@@ -15,7 +15,7 @@ namespace SmartRestaurant.Persistance.Identity
             GuestIdentityRoleClaim,
             GuestIdentityUserToken>
     {
-        //        private string strConnection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SRGuestIdentitydb1;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+//        private string strConnection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SRGuestIdentitydb1;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         public SmartRestaurantGuestIdentityDbContext()
         {

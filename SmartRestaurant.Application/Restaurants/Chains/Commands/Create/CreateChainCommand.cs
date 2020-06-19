@@ -1,9 +1,11 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Exceptions;
+﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Restaurants;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Helpers;
 using System.Linq;
+using SmartRestaurant.Domain.Restaurants;
 
 namespace SmartRestaurant.Application.Restaurants.Chains.Commands.Create
 {
@@ -39,7 +41,7 @@ namespace SmartRestaurant.Application.Restaurants.Chains.Commands.Create
                 {
                     throw new NotValidException(result.Errors);
                 }
-
+ 
                 var ownerGuid = model.OwnerId.ToGuid();
                 if (model.OwnerId.NotNullOrEmpty() &&
                     !db.Owners.Any(x => x.Id == ownerGuid))

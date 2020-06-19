@@ -1,12 +1,14 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Allergies.Allergies.Commands.Update;
+﻿using SmartRestaurant.Application.Allergies.Allergies.Commands.Update;
 using SmartRestaurant.Domain.Allergies;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Helpers;
 
 namespace SmartRestaurant.Application.Allergies.Allergies.Commands.Create
 {
-
-    public static class AllergyFactory
+   
+     public static class AllergyFactory
     {
         public static Allergy ToEntity(this CreateAllergyModel model)
         {

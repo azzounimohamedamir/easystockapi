@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Restaurants.RestaurantTypes.Commands.Create

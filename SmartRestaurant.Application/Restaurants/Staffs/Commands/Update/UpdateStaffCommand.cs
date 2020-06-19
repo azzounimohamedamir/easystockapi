@@ -1,10 +1,12 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Exceptions;
+﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Restaurants.Staffs.Commands.Create;
 using SmartRestaurant.Domain.Restaurants;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
+using SmartRestaurant.Application.Restaurants.Staffs.Commands.Create;
 
 namespace SmartRestaurant.Application.Restaurants.Staffs.Commands.Update
 {
@@ -48,7 +50,7 @@ namespace SmartRestaurant.Application.Restaurants.Staffs.Commands.Update
                 {
                     throw new NotFoundException(nameof(Staff) + model.Id);
                 }
-                model.ToEntity(ref staff);
+                 model.ToEntity(ref staff);
 
                 db.Staffs.Update(staff);
                 db.Save();

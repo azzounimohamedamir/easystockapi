@@ -1,4 +1,8 @@
-﻿namespace SmartRestaurant.Application.Commun.Specialites.Queries.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Application.Commun.Specialites.Queries.Models
 {
     public class SpecialityItemModel
     {

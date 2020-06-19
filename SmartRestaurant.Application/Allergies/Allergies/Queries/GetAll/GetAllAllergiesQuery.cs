@@ -1,8 +1,12 @@
-﻿using SmartRestaurant.Application.Helpers;
+﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
+using SmartRestaurant.Application.Allergies.Allergies.Queries.Factory;
+using SmartRestaurant.Application.Helpers;
 
 namespace SmartRestaurant.Application.Allergies.Allergies.Queries.GetAll
 {
@@ -10,7 +14,7 @@ namespace SmartRestaurant.Application.Allergies.Allergies.Queries.GetAll
 
     public interface IGetAllAllergiesQuery
     {
-        IEnumerable<AllergyItemModel> Execute();
+        IEnumerable<AllergyItemModel> Execute( );
     }
     public class GetAllAllergiesQuery : IGetAllAllergiesQuery
     {
@@ -31,7 +35,7 @@ namespace SmartRestaurant.Application.Allergies.Allergies.Queries.GetAll
             this.notify = notify;
         }
 
-        public IEnumerable<AllergyItemModel> Execute()
+        public IEnumerable< AllergyItemModel> Execute( )
         {
             try
             {

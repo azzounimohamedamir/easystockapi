@@ -2,7 +2,7 @@
 
 namespace SmartRestaurant.Application.Restaurants.RestaurantTypes.Commands.Update
 {
-    public interface IUpdateRestaurantTypeModel : ICreateRestaurantTypeModel
+    public interface IUpdateRestaurantTypeModel: ICreateRestaurantTypeModel
     {
         string Id { get; set; }
     }

@@ -1,4 +1,6 @@
 ﻿using FluentValidation;
+using SmartRestaurant.Resources.Commun.BaseEntity;
+using SmartRestaurant.Resources.Restaurants.Areas;
 using SmartRestaurant.Resources.Restaurants.Tables;
 using SmartRestaurant.Resources.SharedValidation;
 

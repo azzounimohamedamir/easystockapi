@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
@@ -19,15 +20,14 @@ using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Restaurants.Areas;
 using SmartRestaurant.Resources.Restaurants.Floors;
 using SmartRestaurant.Resources.Utils;
-using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    //[Area("Admin")]
+   //[Area("Admin")]
     [Route("areas")]
     public class AreasController : AdminBaseController
     {
-
+        
         private readonly ILoggerService<AreasController> _log;
         private readonly ICreateAreaCommand createCommand;
         private readonly IUpdateAreaCommand updateCommand;
@@ -71,7 +71,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
             _hostingEnvironnement = hostingEnvironnement;
         }
-        // [Route("")]
+       // [Route("")]
         [Route("index")]
         public IActionResult Index()
         {
@@ -97,12 +97,12 @@ namespace SmartRestaurant.Client.Web.Controllers
                 .AddHome()
                 .AddItem(AreaUtilsResource.HomeNavigationTitle, Url.Action("Areas", "Index"))
                 .Save();
-
-            viewmodel.AreaFilterViewModel.Restaurants =
-                GetRestaurants(viewmodel.AreaFilterViewModel.SelectedRestaurantId);
-            viewmodel.AreaFilterViewModel.Floors =
+         
+            viewmodel.AreaFilterViewModel.Restaurants = 
+                GetRestaurants(viewmodel.AreaFilterViewModel.SelectedRestaurantId) ;
+            viewmodel.AreaFilterViewModel.Floors = 
                 GetFloors(viewmodel.AreaFilterViewModel.SelectedRestaurantId,
-                viewmodel.AreaFilterViewModel.SelectedFloorId);
+                viewmodel.AreaFilterViewModel.SelectedFloorId) ;
             viewmodel.Areas = getByFloorId.Execute(viewmodel.AreaFilterViewModel.SelectedFloorId);
             return View(viewmodel);
         }
@@ -133,13 +133,13 @@ namespace SmartRestaurant.Client.Web.Controllers
 
         private SelectList GetRestaurants(string selectedRestaurant = null)
         {
-            return new SelectList(IGetAllRestaurantsQuery.Execute(null, null),
-                 "Id", "Name", selectedRestaurant);
-
+           return new SelectList(IGetAllRestaurantsQuery.Execute(null, null),
+                "Id", "Name", selectedRestaurant);
+             
         }
-        private SelectList GetFloors(string restId, string selectedFloor = null)
-        {
-            return new SelectList(IGetFloorsByRestaurantIdQuery.Execute(restId),
+        private SelectList GetFloors(string restId, string selectedFloor = null)        
+        {            
+            return new SelectList(IGetFloorsByRestaurantIdQuery.Execute (restId),               
                "Id", "Name", selectedFloor);
         }
         [HttpGet]
@@ -147,10 +147,10 @@ namespace SmartRestaurant.Client.Web.Controllers
         public IActionResult Add()
         {
             BreadcrumbForAdd();
-            var model = new AreaViewModel
+             var model = new AreaViewModel
             {
-                Restaurants = GetRestaurants()
-            };
+                 Restaurants = GetRestaurants()            
+             };
             return View(model);
         }
 
@@ -188,7 +188,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 var viewModel = new AreaViewModel
                 {
                     Restaurants = GetRestaurants(result.RestaurantId),
-                    Floors = GetFloors(result.RestaurantId, result.FloorId),
+                    Floors = GetFloors(result.RestaurantId,result.FloorId),
                     RestaurantId = result.RestaurantId,
                     UpdateModel = result,
                 };
@@ -309,10 +309,10 @@ namespace SmartRestaurant.Client.Web.Controllers
         public JsonResult GetFloorsByRestId(string parentVal)
         {
             var result = IGetFloorsByRestaurantIdQuery.Execute(parentVal);
-
+           
             var list = new SelectList(result, "Id", "Name");
             return Json(new TitleListModel(list, FloorResource.Floor));
         }
 
-    }
+    } 
 }

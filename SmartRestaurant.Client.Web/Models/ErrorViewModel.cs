@@ -1,3 +1,5 @@
+using System;
+
 namespace SmartRestaurant.Client.Web.Models
 {
     public class ErrorViewModel

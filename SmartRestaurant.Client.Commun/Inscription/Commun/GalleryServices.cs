@@ -2,6 +2,9 @@
 using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Create;
 using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Factory;
 using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Update;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Client.Commun.Inscription.Commun
 {

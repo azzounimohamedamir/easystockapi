@@ -9,7 +9,7 @@
         public string Alias { get; set; }
         public string StateName { get; set; }
         public string StateIsoCode { get; set; }
-
+     
 
     }
 }

@@ -1,4 +1,7 @@
 ﻿using SmartRestaurant.Domain.Enumerations;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Interfaces
@@ -9,5 +12,5 @@ namespace SmartRestaurant.Application.Interfaces
         Task SendAsync(params string[] args);
         Task SendAsync(EnumAction action, string tableName);
     }
-
+    
 }

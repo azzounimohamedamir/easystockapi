@@ -1,6 +1,9 @@
 ﻿using SmartRestaurant.Application.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
 namespace SmartRestaurant.Application.NotificationUsers.Queries.GetNotificationUserItem
 {
 
@@ -29,11 +32,11 @@ namespace SmartRestaurant.Application.NotificationUsers.Queries.GetNotificationU
         public List<NotificationUserItem> Execute()
         {
             var entity = db.NotificationUsers
-
+              
                .Select(p => new NotificationUserItem
                {
                    NotificationId = p.NotificationId,
-                   // UserId = p.SRUserId.ToGuid()
+                  // UserId = p.SRUserId.ToGuid()
                });
             return entity.ToList();
 

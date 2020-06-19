@@ -9,7 +9,7 @@ using SmartRestaurant.Application.Commun.Translates.Queries.GetByTableName;
 
 namespace SmartRestaurant.Client.Commun.Inscription.Translates
 {
-    public static class TranslateServices
+    public static class  TranslateServices
     {
         public static IServiceCollection AddTranslateServices(this IServiceCollection services)
         {
@@ -18,7 +18,7 @@ namespace SmartRestaurant.Client.Commun.Inscription.Translates
             services.AddScoped<IDeleteTranslateCommand, DeleteTranslateCommand>();
 
             services.AddScoped<IGetTranslatesByTableNameQuery, GetTranslatesByTableNameQuery>();
-
+ 
             return services;
         }
     }

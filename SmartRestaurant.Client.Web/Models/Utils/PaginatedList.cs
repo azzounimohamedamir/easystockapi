@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Models.Utils
 {
@@ -7,7 +10,7 @@ namespace SmartRestaurant.Client.Web.Models.Utils
     {
         public int PageIndex { get; private set; }
         public int TotalPages { get; private set; }
-
+        
         public PaginatedList(List<T> items, int count, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;
@@ -34,7 +37,7 @@ namespace SmartRestaurant.Client.Web.Models.Utils
 
         public static PaginatedList<T> Create(
             List<T> items, int count, int pageIndex, int pageSize)
-        {
+        {   
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
         }
     }

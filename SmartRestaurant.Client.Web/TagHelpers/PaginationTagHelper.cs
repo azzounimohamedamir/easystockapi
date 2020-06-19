@@ -1,15 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Web;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Razor.Runtime.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
 
 namespace SmartRestaurant.Client.Web.TagHelpers
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement("sr-pagination", TagStructure = TagStructure.NormalOrSelfClosing)]
+    [HtmlTargetElement("sr-pagination",TagStructure=TagStructure.NormalOrSelfClosing)]
     public class PaginationTagHelper : TagHelper
     {
         private readonly IHttpContextAccessor httpContextAccessor;
@@ -28,20 +36,20 @@ namespace SmartRestaurant.Client.Web.TagHelpers
                 urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
         }
 
-
+        
         public string Id { get; set; } = "sr-pagination";
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
-        public string Action { get; set; }
+        public string Action { get;set; }
         public string Controller { get; set; }
         public string Area { get; set; }
-
+        
 
         object BuildRoute(string page)
         {
             bool keyAdded = false;
-            var route = new Dictionary<string, object>();
-            foreach (var query in httpContextAccessor.HttpContext.Request.Query)
+            var route =new Dictionary<string,object>();
+            foreach(var query in httpContextAccessor.HttpContext.Request.Query)
             {
                 if (query.Key == "page")
                 {
@@ -51,31 +59,31 @@ namespace SmartRestaurant.Client.Web.TagHelpers
                 else
                 {
                     route.Add(query.Key, query.Value);
-                }
+                }                
             }
-            if (!keyAdded) route.Add("page", page);
+            if(!keyAdded)route.Add("page", page);
             return route;
-        }
-
+        }                
+        
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             var previousPageIsEllipsis = false;
-
-
-            output.TagName = "div";
+            
+            
+            output.TagName = "div";            
             if (TotalPages > 1)
-            {
+            {                
                 output.Content.AppendHtml($"<ul class=\"pagination\" id=\"{Id}\">");
-                for (int p = 1; p <= TotalPages; p++)
+                for(int p = 1; p <= TotalPages; p++)
                 {
                     // Add left arrow
                     if (p == 1)
                     {
                         if (p == CurrentPage)
                         {
-                            output.Content.AppendHtml("<li class=\"page-item\">");
+                            output.Content.AppendHtml("<li class=\"page-item\">");                                                       
                             output.Content.AppendHtml("<span class=\"page-link\" aria-hidden=\"true\">« Prev</span>");
-                            output.Content.AppendHtml("<span class=\"sr-only page-link\">Previous</span>");
+                            output.Content.AppendHtml("<span class=\"sr-only page-link\">Previous</span>"); 
                             output.Content.AppendHtml("</li>");
                         }
                         else
@@ -85,10 +93,10 @@ namespace SmartRestaurant.Client.Web.TagHelpers
                             output.Content.AppendHtml("<span aria-hidden=\"true\">« Prev</span>");
                             output.Content.AppendHtml("<span class=\"sr-only\">Previous</span>");
                             output.Content.AppendHtml("</a>");
-                            output.Content.AppendHtml("</li>");
+                            output.Content.AppendHtml("</li>");  
                         }
                     }
-
+                    
                     if (p == CurrentPage ||
                         p == 1 ||
                         p == CurrentPage - 1 ||
@@ -100,7 +108,7 @@ namespace SmartRestaurant.Client.Web.TagHelpers
                         p == CurrentPage - 3 ||
                         p == CurrentPage + 3 ||
 
-
+                        
                         p == TotalPages)
                     {
                         string active = (p == CurrentPage) ? " active" : String.Empty;
@@ -119,8 +127,8 @@ namespace SmartRestaurant.Client.Web.TagHelpers
                         }
                         else
                         {
-                            output.Content.AppendHtml("<li class=\"page-item\">");
-                            output.Content.AppendHtml("<span class=\"page-link\">...</span>");
+                            output.Content.AppendHtml("<li class=\"page-item\">");                            
+                            output.Content.AppendHtml("<span class=\"page-link\">...</span>");                            
                             output.Content.AppendHtml("</li>");
                             previousPageIsEllipsis = true;
                         }
@@ -131,9 +139,9 @@ namespace SmartRestaurant.Client.Web.TagHelpers
                     {
                         if (p == CurrentPage)
                         {
-                            output.Content.AppendHtml("<li class=\"page-item\">");
+                            output.Content.AppendHtml("<li class=\"page-item\">");                                                        
                             output.Content.AppendHtml("<span class=\"page-link\" aria-hidden=\"true\">Next »</span>");
-                            output.Content.AppendHtml("<span class=\"sr-only page-link\">Next</span>");
+                            output.Content.AppendHtml("<span class=\"sr-only page-link\">Next</span>");                            
                             output.Content.AppendHtml("</li>");
                         }
                         else
@@ -143,13 +151,13 @@ namespace SmartRestaurant.Client.Web.TagHelpers
                             output.Content.AppendHtml("<span aria-hidden=\"true\">Next »</span>");
                             output.Content.AppendHtml("<span class=\"sr-only\">Next</span>");
                             output.Content.AppendHtml("</a>");
-                            output.Content.AppendHtml("</li>");
+                            output.Content.AppendHtml("</li>");                                                      
                         }
                     }
-                }
+                }            
                 output.Content.AppendHtml("</ul>");
             }
-
+            
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Domain.Commun
 {
-    public class Quantity : ValueObject<Quantity>
+    public class Quantity: ValueObject<Quantity>
     {
         public decimal Value { get; private set; }
         public Guid UnitId { get; private set; }
@@ -16,7 +17,7 @@ namespace SmartRestaurant.Domain.Commun
 
         }
 
-        public Quantity(Guid unitId, decimal value)
+        public Quantity(Guid unitId,decimal value)
         {
             UnitId = unitId;
             Value = value;
@@ -31,7 +32,7 @@ namespace SmartRestaurant.Domain.Commun
         {
             yield return Value;
             yield return UnitId;
-        }
+        }               
 
         public static Quantity operator +(Quantity quantity1, Quantity quantity2)
         {

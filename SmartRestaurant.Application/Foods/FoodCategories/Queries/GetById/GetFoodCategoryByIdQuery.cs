@@ -1,11 +1,16 @@
-﻿using Helpers;
-using SmartRestaurant.Application.ApplicationDataBase.Extensions;
-using SmartRestaurant.Application.Exceptions;
-using SmartRestaurant.Application.FoodCategories.Commands.Update;
-using SmartRestaurant.Application.Foods.Specifications;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.FoodCategories.Queries.GetAll;
 using SmartRestaurant.Application.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
+using SmartRestaurant.Application.Foods.FoodCategories.Queries.Factory;
+using SmartRestaurant.Application.Foods.Specifications;
+using SmartRestaurant.Application.ApplicationDataBase.Extensions;
+using SmartRestaurant.Application.FoodCategories.Commands.Update;
+using SmartRestaurant.Application.Exceptions;
 
 namespace SmartRestaurant.Application.FoodCategories.Queries.GetById
 {
@@ -37,10 +42,10 @@ namespace SmartRestaurant.Application.FoodCategories.Queries.GetById
             {
                 var guid = id.ToGuid();
 
-                var specification = new FoodCategorySpecification(fc => fc.Id == guid)
-                    .AddInclude(fc => fc.Parent);
+                var specification = new FoodCategorySpecification(fc=>fc.Id==guid)
+                    .AddInclude(fc=>fc.Parent);
 
-                var _category = db.FoodCategories.AsQueryable()
+                var _category= db.FoodCategories.AsQueryable()
                     .ApplySpecification(specification)
                     .FirstOrDefault();
 
@@ -59,16 +64,16 @@ namespace SmartRestaurant.Application.FoodCategories.Queries.GetById
                 //     .Include(c => c.Picture)
                 //     .Where(f => f.Id == guid)
                 //     .FirstOrDefault()
-                //.ToFoodCategoryItemModel();
-                /*.Select(x => new FoodCategoryItemModel
-                {
-                    Id = x.Id.ToString(),
-                    Description = x.Description,
-                    Name = x.Name,
-                    ParentName = x.Parent.Name,
-                    PictureUrl = x.Picture != null ? x.Picture.ImageUrl : null,
-                    SlugUrl = x.SlugUrl
-                }).FirstOrDefault();*/
+                     //.ToFoodCategoryItemModel();
+                     /*.Select(x => new FoodCategoryItemModel
+                     {
+                         Id = x.Id.ToString(),
+                         Description = x.Description,
+                         Name = x.Name,
+                         ParentName = x.Parent.Name,
+                         PictureUrl = x.Picture != null ? x.Picture.ImageUrl : null,
+                         SlugUrl = x.SlugUrl
+                     }).FirstOrDefault();*/
 
                 //return FoodCategorie;
             }

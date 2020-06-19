@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Domain.Commun
 {
@@ -9,12 +10,12 @@ namespace SmartRestaurant.Domain.Commun
     [Owned]
     public class Address : ValueObject<Address>
     {
-        public string Street { get; private set; }
+        public string Street { get; private set; }        
         public string City { get; private set; }
         public string State { get; private set; }
         public string Country { get; private set; }
         public string ZipCode { get; private set; }
-
+               
         //Map
         public string Latitude { get; private set; }
         public string Longitude { get; private set; }
@@ -32,7 +33,7 @@ namespace SmartRestaurant.Domain.Commun
         }
 
         protected override IEnumerable<object> GetAtomicValues()
-        {
+        {            
             yield return Street;
             yield return City;
             yield return State;

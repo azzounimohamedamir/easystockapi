@@ -5,7 +5,7 @@ using SmartRestaurant.Persistance.Identity.Configuration;
 
 namespace SmartRestaurant.Persistance.Identity
 {
-    public class SmartRestaurantIdentityDbContext :
+    public class SmartRestaurantIdentityDbContext:
         IdentityDbContext<
             SRIdentityUser,
             SRIdentityRole,
@@ -16,14 +16,14 @@ namespace SmartRestaurant.Persistance.Identity
             SRIdentityRoleClaim,
             SRIdentityUserToken>
     {
-
-
+    
+        
         public SmartRestaurantIdentityDbContext(DbContextOptions options)
             : base(options)
         {
         }
 
-
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,7 +37,7 @@ namespace SmartRestaurant.Persistance.Identity
             modelBuilder.Entity<SRIdentityRoleClaim>(new SRIdentityRoleClaimConfiguration().Configure);
             modelBuilder.Entity<SRIdentityUserRole>(new SRIdentityUserRoleConfiguration().Configure);
 
-
+            
         }
     }
 }

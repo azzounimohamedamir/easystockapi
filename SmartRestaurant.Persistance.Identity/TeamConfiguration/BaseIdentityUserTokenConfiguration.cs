@@ -1,6 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartRestaurant.Domain.BaseIdentity;
+using SmartRestaurant.Domain.Clients.Identity;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Persistance.Identity.TeamConfiguration
 {

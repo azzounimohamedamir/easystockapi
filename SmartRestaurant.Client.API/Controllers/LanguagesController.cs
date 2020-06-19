@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.Application.Commun.Languages.Factory;
-using SmartRestaurant.Application.Helpers;
-using SmartRestaurant.Application.Interfaces;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using SmartRestaurant.Application.Commun.Languages.Factory;
+using SmartRestaurant.Application.Helpers;
+using SmartRestaurant.Application.Interfaces;
 
 namespace SmartRestaurant.Client.API.Controllers
 {
@@ -49,7 +50,7 @@ namespace SmartRestaurant.Client.API.Controllers
 
                         case "En":
                             lang.CultureIso = EnumLaguangeIso.En;
-                            lang.SelectLanguage = "Choose your Language ";
+                            lang.SelectLanguage =  "Choose your Language " ;
                             break;
                         default:
                             break;
@@ -60,12 +61,12 @@ namespace SmartRestaurant.Client.API.Controllers
 
                 return result;
             });
-
+        
             return list;
-
+                               
         }
 
 
 
-    }
+}
 }

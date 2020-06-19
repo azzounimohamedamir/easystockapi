@@ -1,8 +1,11 @@
-﻿namespace SmartRestaurant.Application.Commun.Specialites.Commands.Update
+﻿using SmartRestaurant.Application.Commun.Galleries.Pictures.Models;
+
+
+namespace SmartRestaurant.Application.Commun.Specialites.Commands.Update
 {
     public class UpdateSpecialityModel : IUpdateSpecialityModel
     {
-        public string Id { get; set; }
+        public string Id { get; set; }        
         public string Alias { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

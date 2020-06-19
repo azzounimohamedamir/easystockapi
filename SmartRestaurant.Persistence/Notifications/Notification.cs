@@ -1,6 +1,8 @@
 ﻿using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Persistence.DateTime;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Persistence.Notifications
 {
@@ -8,7 +10,7 @@ namespace SmartRestaurant.Persistence.Notifications
     {
         public Notification()
         {
-            Date = new MachineDateTime();
+            Date = new MachineDateTime();            
             Tos = new HashSet<string>();
         }
         public IDateTime Date { get; set; }

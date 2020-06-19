@@ -1,11 +1,12 @@
-﻿using Helpers;
-using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Helpers;
-using SmartRestaurant.Application.Interfaces;
+﻿using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Places.Queries.GetById;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using Helpers;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using SmartRestaurant.Application.Helpers;
 
 namespace SmartRestaurant.Application.Restaurants.Places.Queries.GetByRestaurantId
 {
@@ -40,8 +41,8 @@ namespace SmartRestaurant.Application.Restaurants.Places.Queries.GetByRestaurant
                 return db.Places
                     .Include(b => b.Table)
                     .Include(i => i.Table.Area)
-                    .Include(f => f.Table.Area.Floor)
-                    .Include(r => r.Table.Area.Floor.Restaurant)
+                    .Include(f=>f.Table.Area.Floor)
+                    .Include(r=>r.Table.Area.Floor.Restaurant)
                     .Where(t => t.Table.Area.Floor.RestaurantId == guid)
                     .Select(x => new PlaceItemModel
                     {
@@ -49,11 +50,11 @@ namespace SmartRestaurant.Application.Restaurants.Places.Queries.GetByRestaurant
                         AreaName = x.Table.Area.Name,
                         Description = x.Description,
                         Id = x.Id.ToString(),
-                        FloorName = x.Table.Area.Floor.Name,
+                        FloorName=x.Table.Area.Floor.Name,
                         Name = x.Name,
                         IsDisabled = x.IsDisabled.DisabledDisplay(),
-                        TableNumber = x.Table.TableNumber.ToString()
-
+                        TableNumber=x.Table.TableNumber.ToString()
+                        
                     }).ToList();
             }
             catch (Exception)

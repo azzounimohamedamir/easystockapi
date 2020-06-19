@@ -12,9 +12,9 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly ILoggerService<BillingController> _log;
 
         public BillingController(
-            IConfiguration configuration,
-            IMailingService mailing,
-            INotifyService notify,
+            IConfiguration configuration, 
+            IMailingService mailing, 
+            INotifyService notify, 
             ILoggerService<AdminBaseController> baselog,
             ILoggerService<BillingController> log) : base(configuration, mailing, notify, baselog)
         {
@@ -25,7 +25,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         //[Route("index")]
         public IActionResult Index()
         {
-            this.PageBreadcrumb
+            this.PageBreadcrumb                
                .AddHome()
                .AddItem(BillingUtilsResource.HomeNavigationTitle)
                .SetTitle(BillingUtilsResource.HomePageTitle)

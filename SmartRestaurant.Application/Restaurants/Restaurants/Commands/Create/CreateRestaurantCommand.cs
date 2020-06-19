@@ -1,10 +1,12 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Exceptions;
+﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Commun;
-using SmartRestaurant.Domain.Restaurants;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Helpers;
 using System.Linq;
+using SmartRestaurant.Domain.Restaurants;
+using SmartRestaurant.Domain.Commun;
 
 namespace SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create
 {
@@ -50,7 +52,7 @@ namespace SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create
                     throw new NotFoundException(nameof(Chain));
                 }
                 var typeGuid = model.RestaurantTypeId.ToGuid();
-                if (!db.RestaurantTypes.Any(x => x.Id == typeGuid))
+                if ( !db.RestaurantTypes.Any(x => x.Id == typeGuid))                   
                 {
                     throw new NotFoundException(nameof(RestaurantType));
                 }

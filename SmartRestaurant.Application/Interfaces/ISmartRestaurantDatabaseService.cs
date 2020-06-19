@@ -1,17 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Domain;
-using SmartRestaurant.Domain.Allergies;
-using SmartRestaurant.Domain.Commun;
-using SmartRestaurant.Domain.Dishes;
 using SmartRestaurant.Domain.Foods;
-using SmartRestaurant.Domain.Pricings;
-using SmartRestaurant.Domain.Products;
-using SmartRestaurant.Domain.Restaurants;
-using SmartRestaurant.Domain.Services;
+using SmartRestaurant.Domain.Commun;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
+using SmartRestaurant.Domain.Products;
+using SmartRestaurant.Domain.Restaurants;
+using SmartRestaurant.Domain;
+using SmartRestaurant.Domain.Dishes;
+using SmartRestaurant.Domain.Allergies;
+using SmartRestaurant.Domain.Pricings;
+using SmartRestaurant.Domain.Services;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Interfaces
 {

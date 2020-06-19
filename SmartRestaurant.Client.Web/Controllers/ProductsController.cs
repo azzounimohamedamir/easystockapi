@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
@@ -18,11 +19,10 @@ using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Products.ProductFamilies;
 using SmartRestaurant.Resources.Products.Products;
 using SmartRestaurant.Resources.Utils;
-using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
+   // [Area("Admin")]
     [Route("Products")]
     public class ProductsController : AdminBaseController
     {
@@ -37,7 +37,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly IGetAllCurrenciesQuery getAllCurrencies;
         private readonly IHostingEnvironment hostingEnvironnement;
         private readonly IGetProductFamiliesByRestaurantIdQuery getproductfamiliesByRestaurantId;
-
+ 
 
 
         public ProductsController(
@@ -55,7 +55,7 @@ namespace SmartRestaurant.Client.Web.Controllers
           IGetProductByProductFamilyIdQuery GetByFamilyId,
           IGetProductFamiliesByRestaurantIdQuery getproductfamiliesByRestaurantId,
             IHostingEnvironment hostingEnvironnement)
-
+            
             : base(configuration, mailing, notify, baselog)
         {
             _log = log;
@@ -120,7 +120,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             return View(model);
         }
 
-
+       
 
         [HttpPost]
         [Route("add")]
@@ -154,7 +154,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             }
             try
             {
-                var result = getById.Execute(id);
+                var result =  getById.Execute(id);
                 BreadcrumbForEdit(result.Name);
 
                 var viewModel = new ProductViewModel
@@ -172,7 +172,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             }
         }
 
-
+      
 
         [HttpPost]
         [Route("edit")]
@@ -236,7 +236,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         [HttpGet]
         [Route("getProductFamiliesByRestId")]
         public JsonResult GetFloorsByRestId(string parentVal)
-        {
+        {            
             var result = getproductfamiliesByRestaurantId.Execute(parentVal);
 
             var list = new SelectList(result, "Id", "Name");

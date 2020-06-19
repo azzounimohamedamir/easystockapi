@@ -3,10 +3,13 @@ using SmartRestaurant.Application.Commun.Prices.Validations;
 using SmartRestaurant.Application.Restaurants.Menu.Items.Commands.Models;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.SharedValidation;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Restaurants.Menu.Items.Commands.Validations
 {
-    public class MenuItemModelValidation : AbstractValidator<MenuItemModel>
+    public class MenuItemModelValidation:AbstractValidator<MenuItemModel>
     {
         public MenuItemModelValidation()
         {

@@ -3,10 +3,13 @@ using SmartRestaurant.Application.Commun.Quantities;
 using SmartRestaurant.Application.Foods.Models;
 using SmartRestaurant.Resources.Foods.Foods;
 using SmartRestaurant.Resources.SharedValidation;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Foods.Foods.Validations
 {
-    public class NutritionModelValidation : AbstractValidator<INutritionModel>
+    public class NutritionModelValidation: AbstractValidator<INutritionModel>
     {
         public NutritionModelValidation()
         {

@@ -15,20 +15,20 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Update
     {
         public UpdateDishModelValidation()
         {
-            RuleFor(x => x.Id)
+            RuleFor(x => x.Id)            
             .NotEmpty()
             .WithMessage(String.Format(SharedValidationResource.RequiredErrorMessage,
             BaseResource.Id));
-
+            
             RuleFor(x => x.DishModel).SetValidator(new DishModelValidation());
-            RuleFor(x => x.Ingredients).Must(BeANotNullCollection).WithMessage(string.Format(SharedValidationResource.EmptyCollectionMessage, DishResource.Ingredients));
+            RuleFor(x => x.Ingredients).Must(BeANotNullCollection).WithMessage(string.Format(SharedValidationResource.EmptyCollectionMessage,DishResource.Ingredients));
             RuleForEach(x => x.Ingredients).SetValidator(new DishIngredientModelValidation());
             RuleForEach(x => x.Accompaniments).SetValidator(new DishAccompanyingModelValidation());
             RuleForEach(x => x.Equivalences).SetValidator(new DishEquivalenceModelValidation());
             When(x => x.Gallery != null, () =>
             {
                 RuleFor(x => x.Gallery).SetValidator(new GalleryModelValidation());
-
+                
             });
 
         }

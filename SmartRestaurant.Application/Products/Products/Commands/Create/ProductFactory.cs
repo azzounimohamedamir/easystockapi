@@ -1,9 +1,11 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Commun.Prices;
+﻿using SmartRestaurant.Domain.Products;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Helpers;
 using SmartRestaurant.Application.Products.Products.Commands.Update;
 using SmartRestaurant.Domain.Pricings;
-using SmartRestaurant.Domain.Products;
-using System;
+using SmartRestaurant.Application.Commun.Prices;
 
 namespace SmartRestaurant.Application.Products.Products.Commands.Create
 {
@@ -31,7 +33,7 @@ namespace SmartRestaurant.Application.Products.Products.Commands.Create
             product.Alias = model.Alias;
             product.Description = model.Description;
             product.Name = model.Name;
-            product.IsDisabled = model.IsDisabled;
+            product.IsDisabled = model.IsDisabled;            
             product.ProductFamilyId = model.ProductFamilyId.ToGuid();
 
         }
@@ -44,9 +46,9 @@ namespace SmartRestaurant.Application.Products.Products.Commands.Create
                 Gain = pricing.Gain.Amount,
                 IsPercentage = pricing.IsPercentage,
                 PurchasePriceHT = pricing.PurchasePriceHT.Amount,
-                SalePriceHT = pricing.SalePriceHT.Amount,
-                SalePriceTTC = pricing.SalePriceTTC.Amount,
-                Tva = pricing.Tva
+                SalePriceHT= pricing.SalePriceHT.Amount,
+                SalePriceTTC= pricing.SalePriceTTC.Amount,
+                Tva= pricing.Tva
             };
         }
     }

@@ -2,10 +2,13 @@
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Dishes.DishFamily;
 using SmartRestaurant.Resources.SharedValidation;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Create
 {
-    public class CreateDishFamilyModelValidation : AbstractValidator<ICreateDishFamilyModel>
+    public class CreateDishFamilyModelValidation: AbstractValidator<ICreateDishFamilyModel>
     {
         public CreateDishFamilyModelValidation()
         {

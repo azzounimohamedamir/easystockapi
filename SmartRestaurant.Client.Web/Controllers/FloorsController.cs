@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
@@ -14,11 +15,10 @@ using SmartRestaurant.Client.Web.Models.Restaurants;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Restaurants.Floors;
 using SmartRestaurant.Resources.Utils;
-using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
+   // [Area("Admin")]
     [Route("Floors")]
     public class FloorsController : AdminBaseController
     {

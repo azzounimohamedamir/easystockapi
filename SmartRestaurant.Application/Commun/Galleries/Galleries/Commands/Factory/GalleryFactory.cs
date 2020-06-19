@@ -2,6 +2,8 @@
 using SmartRestaurant.Domain.Commun;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using Helpers;
 using System.Linq;
 
 namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Factory
@@ -12,7 +14,7 @@ namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Factor
                        string alias,
                        string name,
                        string description,
-                       List<GalleryPictureModel> pictures);
+                       List<GalleryPictureModel> pictures);        
 
         Gallery Create(GalleryModel model);
     }
@@ -37,8 +39,8 @@ namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Factor
                 Name = name,
                 Description = description,
                 Pictures = (from picture in pictures select galleryPictureFactory.Create(picture)).ToList(),
-            };
-
+            };            
+            
         }
 
         public Gallery Create(GalleryModel model)

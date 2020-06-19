@@ -2,11 +2,12 @@
 using SmartRestaurant.Domain.Dishes;
 using SmartRestaurant.Domain.Products;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace SmartRestaurant.Domain.Restaurants
 {
-    public class MenuItem : BaseEntity<Guid>
+    public class MenuItem: BaseEntity<Guid>
     {
         public Guid MenuId { get; set; }
 

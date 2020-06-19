@@ -2,10 +2,13 @@
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Dishes.DishFamily;
 using SmartRestaurant.Resources.SharedValidation;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Update
 {
-    public class UpdateDishFamilyModelValidation : AbstractValidator<IUpdateDishFamilyModel>
+    public class UpdateDishFamilyModelValidation:AbstractValidator<IUpdateDishFamilyModel>
     {
         public UpdateDishFamilyModelValidation()
         {
@@ -17,12 +20,12 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Update
                 .MaximumLength(5)
                 .WithMessage(string.Format(SharedValidationResource.MaxlengthNotValideErrorMessage, "5"));
 
-            RuleFor(x => x.Name)
+            RuleFor(x => x.Name)                
                 .NotEmpty()
                 .WithMessage(string.Format(SharedValidationResource.RemoteErrorMessage, BaseResource.Name));
 
             RuleFor(x => x.Name)
-                .NotNull()
+                .NotNull()                
                 .WithMessage(string.Format(SharedValidationResource.RemoteErrorMessage, BaseResource.Name));
 
             RuleFor(x => x.Name)

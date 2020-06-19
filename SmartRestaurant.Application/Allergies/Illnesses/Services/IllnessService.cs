@@ -1,14 +1,16 @@
-﻿using SmartRestaurant.Application.Allergies.Illnesses.Commands.Create;
+﻿using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Application.Allergies.Illnesses.Commands.Create;
 using SmartRestaurant.Application.Allergies.Illnesses.Commands.Delete;
 using SmartRestaurant.Application.Allergies.Illnesses.Commands.Update;
 using SmartRestaurant.Application.Allergies.Illnesses.Queries;
-using SmartRestaurant.Application.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Allergies.Illnesses.Services
 {
-
-    public interface IIllnessService
+   
+       public interface IIllnessService
     {
         ICreateIllnessCommand Create { get; }
         IUpdateIllnessCommand Update { get; }

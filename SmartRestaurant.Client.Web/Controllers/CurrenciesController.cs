@@ -1,4 +1,5 @@
-﻿using Helpers;
+﻿using System;
+using Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Commun.Currencies.Commands.Create;
@@ -14,11 +15,10 @@ using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Commun.Currency;
 using SmartRestaurant.Resources.Utils;
-using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
+   // [Area("Admin")]
     [Route("currencies")]
     [Route("{culture?}/currencies")]
 
@@ -74,24 +74,24 @@ namespace SmartRestaurant.Client.Web.Controllers
             return View(getAllCurrenciesQuerie.Execute());
         }
         #endregion
-
+        
         #region Add
         [HttpGet]
         [Route("add")]
         public IActionResult Add()
         {
             BreadcrumbForAdd();
-
+         
             var model = new CurrencyViewModel()
             {
 
                 CreateModel = new CreateCurrencyModel(),
-
+            
             };
             return View(model);
         }
 
-
+        
 
 
         [HttpPost]

@@ -2,11 +2,11 @@
 
 namespace SmartRestaurant.Application.Commun.Languages.Commands.Update
 {
-    public class UpdateLanguageModel : CreateLanguageModel, IUpdateLanguageModel
+    public class UpdateLanguageModel :CreateLanguageModel, IUpdateLanguageModel
     {
 
 
-
-
+        
+        
     }
 }

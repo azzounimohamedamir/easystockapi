@@ -6,7 +6,7 @@ using System;
 
 namespace SmartRestaurant.Application.Mails.Commands.Update
 {
-    public class UpdateMailCommandValidation : AbstractValidator<UpdateMailingModel>
+    public class UpdateMailCommandValidation:AbstractValidator<UpdateMailingModel>
     {
         public UpdateMailCommandValidation()
         {
@@ -21,7 +21,7 @@ namespace SmartRestaurant.Application.Mails.Commands.Update
             .WithMessage(String.Format(SharedValidationResource.RequiredErrorMessage,
             BaseResource.Name));
 
-
+        
 
             RuleFor(x => x.Alias)
                 .MaximumLength(5)

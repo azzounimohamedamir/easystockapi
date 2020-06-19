@@ -1,10 +1,14 @@
-﻿using Helpers;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Resources.SharedException;
+using SmartRestaurant.Domain.Foods;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
+using SmartRestaurant.Resources.Utils;
+using SmartRestaurant.Resources.SharedException;
 
 namespace SmartRestaurant.Application.FoodCategories.Commands.Delete
 {
@@ -61,10 +65,10 @@ namespace SmartRestaurant.Application.FoodCategories.Commands.Delete
                 db.Save();
             }
             catch (Exception ex)
-            {
+            { 
                 throw ex;
             }
-
+            
 
         }
     }

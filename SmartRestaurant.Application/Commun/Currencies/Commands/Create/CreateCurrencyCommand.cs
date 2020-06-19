@@ -2,7 +2,9 @@
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Currencies.Commands.Create
 {
@@ -23,7 +25,7 @@ namespace SmartRestaurant.Application.Commun.Currencies.Commands.Create
 
         public CreateCurrencyCommand(ISmartRestaurantDatabaseService db,
             ILoggerService<CreateCurrencyCommand> logger, IMailingService mailing,
-            INotifyService notify,
+            INotifyService notify , 
             ICreateCurrencyFactory createCurrencyFactory
             )
         {
@@ -31,7 +33,7 @@ namespace SmartRestaurant.Application.Commun.Currencies.Commands.Create
             this.logger = logger;
             this.mailing = mailing;
             this.notify = notify;
-            _factory = createCurrencyFactory;
+            _factory = createCurrencyFactory; 
         }
         public void Execute(CreateCurrencyModel model)
         {
@@ -40,26 +42,25 @@ namespace SmartRestaurant.Application.Commun.Currencies.Commands.Create
             {
 
                 var validator = new CreateCurrencyCommandValidation();
-                var result = validator.Validate(model);
-                if (!result.IsValid)
+                var result = validator.Validate(model); 
+                if(!result.IsValid)
                 {
 
-                    throw new NotValidException(result.Errors);
+                    throw new NotValidException(result.Errors); 
                 }
                 var _currency = db.Currencies.Where(c => c.Name == model.Name).FirstOrDefault();
                 if (_currency != null)
                     throw new AlreadyExistsExeption($"Currency: {model.Name} Exists");
 
-                var entity = _factory.Create(model.Name, model.IsoCode, model.Alias, model.IsDisabled);
+                var entity = _factory.Create(model.Name, model.IsoCode,model.Alias,model.IsDisabled);
                 entity.Id = Guid.NewGuid();
                 db.Currencies.Add(entity);
                 db.Save();
-            }
-            catch (Exception)
+            } catch (Exception)
             {
 
             }
-
+             
 
         }
     }

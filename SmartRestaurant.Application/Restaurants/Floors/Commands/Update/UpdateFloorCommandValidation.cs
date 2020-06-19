@@ -22,7 +22,7 @@ namespace SmartRestaurant.Application.Restaurants.Floors.Commands.Update
 
             RuleFor(x => x.Name)
                 .MaximumLength(256)
-                .WithMessage(string.Format(SharedValidationResource.MaxlengthNotValideErrorMessage, "256"));
+                .WithMessage(string.Format(SharedValidationResource.MaxlengthNotValideErrorMessage, "256"));  
             RuleFor(x => x.RestaurantId)
              .NotEmpty()
              .WithMessage(string.Format(SharedValidationResource.RequiredErrorMessage, RestaurantResource.Restaurant));

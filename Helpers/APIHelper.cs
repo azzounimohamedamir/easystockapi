@@ -1,9 +1,15 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System;
-using System.Net.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using System.Net;
+using Newtonsoft.Json.Serialization;
 
 namespace SmartRestaurant.Helpers
 {
@@ -51,10 +57,10 @@ namespace SmartRestaurant.Helpers
                         response = await client.PostAsync(uri, content);
 
                     }
-                    catch (Exception ex)
+                    catch (Exception ex )
                     {
 
-                        throw ex;
+                        throw ex ;
                     }
                     // Verification  
                     if (response.IsSuccessStatusCode)

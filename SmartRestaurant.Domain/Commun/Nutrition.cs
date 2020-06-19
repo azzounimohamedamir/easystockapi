@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Domain.Commun
 {
@@ -18,10 +19,10 @@ namespace SmartRestaurant.Domain.Commun
     /// }
     /// </summary>
     public class Nutrition : ValueObject<Nutrition>
-    {
+    {        
         //public Guid UnitId { get; private set; }
         //public decimal UnitValue { get; set; }
-        public Quantity Quantity { get; private set; }
+        public Quantity Quantity { get;private set; }
 
         public decimal GlycemicIndex { get; private set; }
         public decimal Fibre { get; private set; }
@@ -38,13 +39,13 @@ namespace SmartRestaurant.Domain.Commun
 
         }
         public Nutrition(
-            Quantity quantity,
+            Quantity quantity, 
             decimal glycemicIndex,
             decimal fibre,
-            decimal calorie,
+            decimal calorie, 
             decimal protein,
-            decimal carbohydrate,
-            decimal lipid)
+            decimal carbohydrate, 
+            decimal lipid )
         {
 
             Quantity = quantity;
@@ -61,42 +62,42 @@ namespace SmartRestaurant.Domain.Commun
             Quantity = quantity;
             return this;
         }
-        public Nutrition SetQuantity(Guid unitId, decimal value)
+        public Nutrition SetQuantity(Guid unitId,decimal value)
         {
-            Quantity = new Quantity(unitId, value);
+            Quantity = new Quantity(unitId,value);
             return this;
         }
-
+        
         public Nutrition SetGlycemicIndex(decimal value)
         {
             GlycemicIndex = value;
             return this;
         }
-
+        
         public Nutrition SetFibre(decimal value)
         {
             Fibre = value;
             return this;
         }
-
+        
         public Nutrition SetCalorie(decimal value)
         {
             Calorie = value;
             return this;
         }
-
+        
         public Nutrition SetProtein(decimal value)
         {
             Protein = value;
             return this;
         }
-
+        
         public Nutrition SetCarbohydrate(decimal value)
         {
             Carbohydrate = value;
             return this;
         }
-
+        
         public Nutrition SetLipid(decimal value)
         {
             Lipid = value;

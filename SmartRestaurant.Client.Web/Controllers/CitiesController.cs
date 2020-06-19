@@ -1,4 +1,5 @@
-﻿using Helpers;
+﻿using System;
+using Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
@@ -17,14 +18,13 @@ using SmartRestaurant.Client.Web.Models.Cities;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Commun.City;
 using SmartRestaurant.Resources.Utils;
-using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
+   // [Area("Admin")]
     [Route("/cities")]
     [Route("{culture}/cities")]
-
+    
 
     public class CitiesController : AdminBaseController
     {
@@ -39,8 +39,8 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly IGetCityByIdQuerie getCityByIdQuerie;
         private readonly IGetCitiesByStateIdQuerie getCityByStateIdQuery;
         private readonly ILoggerService<StatesController> _log;
-        public SelectList Countries;
-        public SelectList States;
+        public  SelectList Countries;
+        public  SelectList States;
         #endregion
         #region Constructor
         public CitiesController(
@@ -69,7 +69,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             this.getCityByIdQuerie = getCityByIdQuerie;
             this.getCityByStateIdQuery = getCityByStateIdQuery;
             _log = log;
-
+            
         }
 
         #endregion
@@ -82,7 +82,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 .AddItem(CityUtilsResource.HomeNavigationTitle)
                 .Save();
             Populate(null);
-
+          
             var viewModel = new CityItemViewModel
             {
                 CityFilterViewModel = new CityFilterViewModel
@@ -109,7 +109,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
             Populate(viewmodel.CityFilterViewModel.SelectedCountryId,
                 viewmodel.CityFilterViewModel.SelectedStateId);
-            viewmodel.CityFilterViewModel.Countries = Countries;
+             viewmodel.CityFilterViewModel.Countries = Countries;
             viewmodel.CityFilterViewModel.States = States;
 
 
@@ -128,7 +128,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             var model = new CityViewModel
             {
                 Countries = Countries,
-                States = States
+                States = States 
             };
 
             return View(model);
@@ -137,7 +137,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
         [HttpPost]
         [Route("add")]
-        public IActionResult Add(CityViewModel model)
+        public IActionResult Add( CityViewModel model)
         {
             BreadcrumbForAdd();
             try
@@ -146,7 +146,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 model.CreateModel.CountryId = model.CountryId;
                 //model.CreateModel.StateId = model.StateId;
                 createCityCommand.Execute(_City);
-
+               
                 //command.Execute(model);
             }
             catch (NotValidException ex)
@@ -155,8 +155,8 @@ namespace SmartRestaurant.Client.Web.Controllers
 
             }
             // model.States = PopulateStates(model.CreateModel.StateId); 
-            Populate(model.CountryId, model.StateId);
-
+            Populate(model.CountryId,model.StateId);
+            
 
 
             return View(model);
@@ -175,7 +175,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             try
             {
                 var result = getCityByIdQuerie.Execute(Id);
-                Populate(result.CountryId, result.CountryId, result.StateId);
+                Populate(result.CountryId,result.CountryId,result.StateId);
                 var viewModel = new CityViewModel
                 {
                     UpdateModel = result,
@@ -185,7 +185,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 BreadcrumbForEdit(result.Name);
 
                 return View(viewModel);
-
+                             
             }
             catch (NotFoundException)
             {
@@ -195,7 +195,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
         [HttpPost]
         [Route("edit")]
-        public IActionResult Edit(CityViewModel model)
+        public IActionResult Edit( CityViewModel model)
         {
             BreadcrumbForEdit(model.UpdateModel.Name);
 
@@ -321,12 +321,12 @@ namespace SmartRestaurant.Client.Web.Controllers
         [Route("getstates")]
 
         public JsonResult GetStates(string countryid)
-        {
+        {           
 
             States = new SelectList(getStatesByCountryIdQuerie.Execute(countryid),
                 "Id", "Name");
 
-
+                        
             return Json(States);
         }
 

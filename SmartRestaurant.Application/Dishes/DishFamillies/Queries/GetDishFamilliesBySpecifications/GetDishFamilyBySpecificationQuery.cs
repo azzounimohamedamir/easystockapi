@@ -3,8 +3,10 @@ using SmartRestaurant.Application.Dishes.DishFamillies.Queries.Factory;
 using SmartRestaurant.Application.Dishes.DishFamillies.Queries.Models;
 using SmartRestaurant.Application.Dishes.DishFamillies.Specifications;
 using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Domain.Dishes;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.GetDishFamilliesBySpecifications
 {
@@ -34,7 +36,7 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.GetDishFamill
         public IEnumerable<DishFamilyItemModel> Execute(DishFamilySpecification specification)
         {
             try
-            {
+            {  
                 return _db.DishFamilies
                     .ApplySpecification(specification)
                     .ToDishFamilyItemModels();

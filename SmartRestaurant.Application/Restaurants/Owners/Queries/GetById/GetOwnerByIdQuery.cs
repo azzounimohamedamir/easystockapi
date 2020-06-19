@@ -1,10 +1,13 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Restaurants.Owners.Commands.Update;
+﻿using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Owners.Queries.GetBySpecification;
-using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
+using SmartRestaurant.Application.Restaurants.Owners.Specifications;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Helpers;
 using System.Linq;
+using SmartRestaurant.Application.Restaurants.Owners.Commands.Update;
+using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
 
 namespace SmartRestaurant.Application.Restaurants.Owners.Queries.GetById
 {
@@ -37,18 +40,18 @@ namespace SmartRestaurant.Application.Restaurants.Owners.Queries.GetById
             try
             {
                 var id = Id.ToGuid();
-                return db.Owners.Where(o => o.Id == id)
+                return db.Owners.Where(o=>o.Id== id)
                     .Select(x => new UpdateOwnerModel
-                    {
-                        Address = x.Address.ToModel(),
-                        Alias = x.Alias,
-                        DateOfBirth = x.DateOfBirth,
-                        IsDisabled = x.IsDisabled,
-                        FirstName = x.FirstName,
-                        LastName = x.LastName,
-                        Id = x.Id.ToString(),
-                        UserName = x.UserName
-                    }).FirstOrDefault();
+                {
+                    Address = x.Address.ToModel(),
+                    Alias= x.Alias,
+                    DateOfBirth = x.DateOfBirth,
+                    IsDisabled = x.IsDisabled,
+                    FirstName = x.FirstName,
+                    LastName=x.LastName,
+                    Id = x.Id.ToString(),
+                    UserName = x.UserName
+                }).FirstOrDefault();
 
             }
             catch (Exception)

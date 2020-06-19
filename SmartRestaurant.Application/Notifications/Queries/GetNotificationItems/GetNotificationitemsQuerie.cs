@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Notifications.Queries.GetNotificationItems
 {
@@ -50,10 +52,10 @@ namespace SmartRestaurant.Application.Notifications.Queries.GetNotificationItems
                     Type = p.Type,
                     UserList = db.SRUsers
                     .Where(t => p.Users.Select(g => g.UserId).Contains(t.Id)).ToList()
+                  
+                   
 
-
-
-
+                  
 
                 }).ToList();
 
@@ -63,7 +65,7 @@ namespace SmartRestaurant.Application.Notifications.Queries.GetNotificationItems
                 {
                     item.UserNames = item.UserList.Select(x => x.UserName).Aggregate((a, b) => b + "-" + a);
                 }
-            }
+                }
             return entity;
 
         }

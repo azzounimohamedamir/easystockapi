@@ -1,13 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Menu.Commands.Models;
 using SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd;
-using System;
-using System.Linq;
 
 namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetById
 {
-    public class GetMenuByIdQuery : IGetMenuByIdQuery
+    public class GetMenuByIdQuery: IGetMenuByIdQuery
     {
         private ISmartRestaurantDatabaseService _db;
         private ILoggerService<GetAllMenuFilterdQuery> _logger;
@@ -31,7 +31,7 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetById
         }
         public MenuModel Execute(Guid id)
         {
-            return _db.Menus.Include(x => x.Restaurant).Where(m => m.Id == id).Select(x => new MenuModel()
+            return _db.Menus.Include(x=>x.Restaurant).Where(m => m.Id == id).Select(x => new MenuModel()
             {
                 MenuId = x.Id.ToString(),
                 Name = x.Name,

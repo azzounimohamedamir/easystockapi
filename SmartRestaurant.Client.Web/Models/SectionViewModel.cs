@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using SmartRestaurant.Application.Restaurants.Menu.Commands.Models;
 using SmartRestaurant.Application.Restaurants.Section.Commands.Models;
-using System;
 
 namespace SmartRestaurant.Client.Web.Models
 {

@@ -1,10 +1,14 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Exceptions;
-using SmartRestaurant.Application.Helpers;
+﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Foods;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
+using SmartRestaurant.Domain.Commun;
+using SmartRestaurant.Application.FoodCategories.Commands.Create;
+using SmartRestaurant.Application.Helpers;
 
 namespace SmartRestaurant.Application.FoodCategories.Commands.Update
 {

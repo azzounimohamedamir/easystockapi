@@ -5,7 +5,7 @@ using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Pricings.Tarifications.Commands.Update
 {
-    public class UpdateTarificationCommandValidation : AbstractValidator<IUpdateTarificationModel>
+    public class UpdateTarificationCommandValidation:AbstractValidator<IUpdateTarificationModel>
     {
         public UpdateTarificationCommandValidation()
         {

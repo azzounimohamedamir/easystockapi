@@ -1,6 +1,6 @@
-﻿using Helpers;
-using SmartRestaurant.Domain.Commun;
+﻿using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Pricings;
+using Helpers;
 using System;
 
 namespace SmartRestaurant.Application.Commun.Prices

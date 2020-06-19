@@ -1,10 +1,13 @@
-﻿using Helpers;
-using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Allergies.Allergies.Commands.Update;
-using SmartRestaurant.Application.Helpers;
+﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Helpers;
 using System.Linq;
+using SmartRestaurant.Application.Allergies.Allergies.Queries.Factory;
+using SmartRestaurant.Application.Allergies.Allergies.Commands.Update;
+using SmartRestaurant.Application.Helpers;
 
 
 namespace SmartRestaurant.Application.Allergies.Allergies.Queries.GetById

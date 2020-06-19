@@ -1,11 +1,13 @@
-﻿using SmartRestaurant.Application.Interfaces;
+﻿using System.Collections.Generic;
+using SmartRestaurant.Application.Commun.Countries.Commands.Update;
+using SmartRestaurant.Application.Commun.Countries.Queries.GetCountriesList;
+using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Commun;
-using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Commun.Countries.Services
 {
     public interface ICountryService
-    {
+    {        
         int Count();
         int Count(ISpecification<Country> specification);
         int Count(string name);

@@ -1,9 +1,12 @@
 ﻿using FluentValidation;
 using SmartRestaurant.Application.Commun.Countries.Commands.Create;
+using SmartRestaurant.Application.Commun.State.Commands.Create;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Commun.State;
 using SmartRestaurant.Resources.SharedValidation;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.States.Commands.Create
 {
@@ -29,7 +32,7 @@ namespace SmartRestaurant.Application.Commun.States.Commands.Create
                 .NotEmpty()
                 .WithMessage
                 (String.Format(SharedValidationResource.RequiredErrorMessage
-                , StateResource.Country));
+                , StateResource.Country)); 
         }
     }
 }

@@ -3,7 +3,10 @@ using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.MailingUsers.Queries;
 using SmartRestaurant.Domain;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers; 
 namespace SmartRestaurant.Application.MailingUsers.Commands.Create
 {
 
@@ -46,10 +49,10 @@ namespace SmartRestaurant.Application.MailingUsers.Commands.Create
 
                 var entity = new MailingUser();
                 entity.MailingId = model.MailingId;
-                // entity.SRUserId = model.UserId.ToString();
+               // entity.SRUserId = model.UserId.ToString();
 
                 entity.Mailing = db.Mailings.FirstOrDefault(p => p.Id == model.MailingId);
-                // entity.SampleUser = db.Users.FirstOrDefault(p => p.Id == model.UserId);
+              // entity.SampleUser = db.Users.FirstOrDefault(p => p.Id == model.UserId);
                 db.MailingUsers.Add(entity);
                 db.Save();
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +9,6 @@ using SmartRestaurant.Client.Web.Models;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Domain.Clients.Identity;
 using SmartRestaurant.Resources.Foods.FoodCategories;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
@@ -21,17 +21,17 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly ILoggerService<AdminBaseController> _baselog;
 
         public AdminBaseController(
-            IConfiguration configuration,
-            IMailingService mailing,
+            IConfiguration configuration, 
+            IMailingService mailing, 
             INotifyService notify,
             ILoggerService<AdminBaseController> baselog) : base(configuration, mailing, notify)
         {
             _baselog = baselog;
-            PageBreadcrumb = new BreadcrumbViewModel { Controller = this };
+            PageBreadcrumb = new BreadcrumbViewModel { Controller = this };            
         }
 
         public AdminBaseController(IConfiguration configuration,
-            IMailingService mailing,
+            IMailingService mailing, 
         INotifyService notify,
             IGetAllRestaurantsQuery getAllRestaurantsQuery,
             UserManager<SRIdentityUser> userManager, ILoggerService<AdminBaseController> baselog) : base(configuration, mailing, notify)

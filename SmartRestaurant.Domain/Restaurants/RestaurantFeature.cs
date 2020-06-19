@@ -3,18 +3,18 @@ using System;
 
 namespace SmartRestaurant.Domain.Restaurants
 {
-    //Caractéristiques du restaurant
-    //Accepte les cartes bancaires
-    //Accès personnes handicapées
-    //Parking
-    //Plats à emporter
-    //Réservations
-    //Salle privée
-    //Service de livraison
-    //Service de table
-    //Télévision
-    //Terrasse
-    //Wi-Fi gratuit
+//Caractéristiques du restaurant
+//Accepte les cartes bancaires
+//Accès personnes handicapées
+//Parking
+//Plats à emporter
+//Réservations
+//Salle privée
+//Service de livraison
+//Service de table
+//Télévision
+//Terrasse
+//Wi-Fi gratuit
     public class RestaurantFeature
     {
         public Guid RestaurantId { get; set; }

@@ -2,7 +2,7 @@
 
 namespace SmartRestaurant.Application.Restaurants.Owners.Commands.Update
 {
-    public interface IUpdateOwnerModel : ICreateOwnerModel
+    public interface IUpdateOwnerModel: ICreateOwnerModel
     {
         string Id { get; set; }
     }

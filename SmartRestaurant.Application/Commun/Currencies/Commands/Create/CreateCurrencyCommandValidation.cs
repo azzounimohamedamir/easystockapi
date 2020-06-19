@@ -1,7 +1,11 @@
 ﻿using FluentValidation;
+using SmartRestaurant.Application.Commun.Cities.Commands;
+using SmartRestaurant.Application.Commun.Cities.Commands.Update;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.SharedValidation;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Currencies.Commands.Create
 {
@@ -28,10 +32,10 @@ namespace SmartRestaurant.Application.Commun.Currencies.Commands.Create
                 "5"));
 
             RuleFor(x => x.Symbol)
-                .NotEmpty()
-                .WithMessage(String.Format(SharedValidationResource.RequiredErrorMessage, "Symbol"));
+                .NotEmpty()                
+                .WithMessage(String.Format(SharedValidationResource.RequiredErrorMessage,"Symbol"));
 
-            RuleFor(x => x.Symbol)
+            RuleFor(x => x.Symbol)                
                 .MaximumLength(5)
                 .WithMessage(String.Format(SharedValidationResource.MaxlengthNotValideErrorMessage,
                 "5"));

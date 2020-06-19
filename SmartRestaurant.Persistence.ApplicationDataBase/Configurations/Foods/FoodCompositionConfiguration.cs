@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Foods;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Foods
 {
@@ -16,15 +19,14 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Foods
                 .HasMaxLength(5);
 
             b.Property(a => a.FoodId).IsRequired();
-
+            
             //EF  Core
             //Food_Quantity_UnitId
             //Food_Quantity_Value
 
-            b.OwnsOne<Quantity>("Quantity", Qt =>
-            {
-                Qt.HasOne(u => u.Unit).WithMany();
-            });
+            b.OwnsOne<Quantity>("Quantity", Qt => {
+                Qt.HasOne(u => u.Unit).WithMany();                
+            });            
 
             b.ToTable("FoodCompositions");
         }

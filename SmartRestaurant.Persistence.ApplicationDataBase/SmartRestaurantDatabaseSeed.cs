@@ -1,14 +1,21 @@
-﻿using Helpers;
-using SmartRestaurant.Domain.Allergies;
+﻿using Microsoft.Extensions.Logging;
 using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Dishes;
-using SmartRestaurant.Domain.Foods;
 using SmartRestaurant.Domain.Products;
 using SmartRestaurant.Domain.Restaurants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static SmartRestaurant.Persistence.ApplicationDataBase.Seed.FoodsSeed;
+using Helpers;
+using SmartRestaurant.Domain.Foods;
+using SmartRestaurant.Domain.Allergies;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
+using SmartRestaurant.Domain.BaseIdentity;
+using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase
 {
@@ -40,7 +47,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                 "0c703c18-4d7f-4586-b1d6-d02a60df9b09".ToGuid()
             }
         };
-
+      
         private readonly Dictionary<string, Guid> restaurantsIds = new Dictionary<string, Guid>
         {
             {
@@ -84,7 +91,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
         private Dictionary<string, FoodCategory> foodCategories = new Dictionary<string, FoodCategory>();
         private Dictionary<string, Unit> units = new Dictionary<string, Unit>();
 
-        private Dictionary<string, Allergy> allergies = new Dictionary<string, Allergy>();
+        private Dictionary<string,Allergy> allergies = new Dictionary<string, Allergy>();
         private Dictionary<string, Illness> illness = new Dictionary<string, Illness>();
 
         List<ProductFamily> PopulateProductsFamillies()
@@ -376,11 +383,11 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                     }
             };
         }
-
+                
         private decimal RandomDecimal()
         {
             Random random = new Random();
-            int r = random.Next(100, 10000);
+            int r = random.Next(100, 10000); 
             return (decimal)r / 10;
         }
 
@@ -388,20 +395,20 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
         {
             var Qt = new Quantity(units.GetValueOrDefault("g").Id, RandomDecimal());
             var nutrrition = new Nutrition(Qt, RandomDecimal(), RandomDecimal(), RandomDecimal(), RandomDecimal(), RandomDecimal(), RandomDecimal());
-            return nutrrition;
+            return nutrrition;            
         }
 
-        void SetUnitAndPicture(FoodCategory category)
+        void SetUnitAndPicture(FoodCategory category )
         {
             if (category.Picture != null) category.Picture.Name = category.Name;
-            if (category.Childs != null)
+            if (category.Childs!=null)
             {
                 foreach (var child in category.Childs)
                 {
                     SetUnitAndPicture(child);
                 }
             }
-            if (category.Foods != null)
+            if (category.Foods!=null)
             {
                 foreach (var food in category.Foods)
                 {
@@ -410,7 +417,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                 }
             }
         }
-
+        
         void SeedFoodCategories()
         {
             foodCategories = new Dictionary<string, FoodCategory>
@@ -615,7 +622,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                                      Description="",
                                                      ImageUrl=$"{uploadsFood}/volailles.jpg"
                                                 }
-                                            },
+                                            },                                            
                                         }
                                     },
                                     new FoodCategory
@@ -633,7 +640,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                             Alias="",
                                             Description="",
                                             ImageUrl=$"{uploadsFoodCategories}/viandes-noires.jpg"
-                                        },
+                                        },                                        
                                         Foods=new List<Food>
                                         {
                                             new Food
@@ -725,7 +732,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                             Alias="",
                                             Description="",
                                             ImageUrl=$"{uploadsFoodCategories}/volailles.jpg"
-                                        },
+                                        },                                        
                                         Foods=new List<Food>
                                         {
                                             new Food
@@ -1025,7 +1032,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                              Name="Not defined",
                                              Alias="",
                                              Description="",
-                                             ImageUrl=$"{uploadsFood}/maquereau.jpg"
+                                             ImageUrl=$"{uploadsFood}/maquereau.jpg"                                             
                                         }
                                     },
                                     new Food
@@ -1043,7 +1050,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                              Name="Not defined",
                                              Alias="",
                                              Description="",
-                                             ImageUrl=$"{uploadsFood}/anguille.jpg"
+                                             ImageUrl=$"{uploadsFood}/anguille.jpg"                                             
                                         }
                                     },
                                     new Food
@@ -1209,7 +1216,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                              Description="",
                                              ImageUrl=$"{uploadsFood}/homard.jpg"
                                         }
-                                    },
+                                    },                                    
                                     new Food
                                     {
                                         Id=Guid.NewGuid(),
@@ -1225,7 +1232,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                              Name="Not defined",
                                              Alias="",
                                              Description="",
-                                             ImageUrl=$"{uploadsFood}/bulot.jpg"
+                                             ImageUrl=$"{uploadsFood}/bulot.jpg"                                             
                                         }
                                     },
                                     new Food
@@ -1349,7 +1356,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                         IsDisabled=false,
                         Alias="PL",
                         Name="Produits laitiers",
-                        Description="",
+                        Description="",                        
                         Picture=new Picture
                         {
                             Id=Guid.NewGuid(),
@@ -1543,7 +1550,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                     Alias="",
                                     Description="",
                                     ImageUrl=$"{uploadsFoodCategories}/legumes.jpg"
-                                },
+                                },                                
                                 Foods=new List<Food>
                                 {
                                     new Food
@@ -1833,7 +1840,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                              Description="",
                                              ImageUrl=$"{uploadsFood}/chou-vert.jpg"
                                         }
-                                    },
+                                    },                                   
                                     new Food
                                     {
                                         Id=Guid.NewGuid(),
@@ -2337,7 +2344,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                     Alias="",
                                     Description="",
                                     ImageUrl=$"{uploadsFoodCategories}/fruits.jpg"
-                                },
+                                },                                 
                                 Foods=new List<Food>
                                 {
                                     new Food
@@ -3235,7 +3242,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                             Alias="",
                             Description="",
                             ImageUrl=$"{uploadsFoodCategories}/cereales-feculents.jpg"
-                        },
+                        },                        
                         Childs=new List<FoodCategory>
                         {
                             new FoodCategory
@@ -3310,7 +3317,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                              ImageUrl=$"{uploadsFood}/blé.jpg"
                                         }
                                     },
-
+                                    
                                     new Food
                                     {
                                         Id=Guid.NewGuid(),
@@ -3547,7 +3554,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                              ImageUrl=$"{uploadsFood}/pois-chiches.jpg"
                                         }
                                     },
-
+                                    
                                     new Food
                                     {
                                         Id=Guid.NewGuid(),
@@ -3566,7 +3573,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                              ImageUrl=$"{uploadsFood}/petits-pois.jpg"
                                         }
                                     },
-                                }
+                                }                                
                             },
                             new FoodCategory
                             {
@@ -3614,7 +3621,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                         IsDisabled=false,
                         Alias="EPI",
                         Name="Les épices",
-                        Description="",
+                        Description="",   
                         Picture=new Picture
                         {
                             Id=Guid.NewGuid(),
@@ -3788,7 +3795,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                      Description="",
                                      ImageUrl=$"{uploadsFood}/paprika.jpg"
                                 }
-                            },
+                            },                           
                             new Food
                             {
                                 Id=Guid.NewGuid(),
@@ -3863,7 +3870,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                             Alias="",
                             Description="",
                             ImageUrl=$"{uploadsFoodCategories}/epices-herbes.jpg"
-                        },
+                        },                        
                         Foods=new List<Food>
                         {
                             new Food
@@ -4081,7 +4088,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                      Description="",
                                      ImageUrl=$"{uploadsFood}/thym.jpg"
                                 }
-                            },
+                            },                            
                         }
                     }
                 },
@@ -4093,7 +4100,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                         IsDisabled=false,
                         Alias="SPS",
                         Name="Sucres et produits sucrés",
-                        Description="",
+                        Description="",                        
                         Picture=new Picture
                         {
                             Id=Guid.NewGuid(),
@@ -4101,7 +4108,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                             Alias="",
                             Description="",
                             ImageUrl=$"{uploadsFoodCategories}/produits-sucres.jpg"
-                        },
+                        },                        
                         Foods=new List<Food>
                         {
                             new Food
@@ -4156,7 +4163,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                                      Description="",
                                      ImageUrl=$"{uploadsFood}/sucre.jpg"
                                 }
-                            },
+                            },                            
                         }
                     }
                 }
@@ -4646,8 +4653,8 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
                     Name="Galaxy Chains",
                     Description="",
                    OwnerId=owners.GetValueOrDefault(1).Id,
-
-
+                 
+                       
                 }
 
                 },
@@ -4689,13 +4696,13 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
             {
                 try
                 {
-                    context.Chains.Add(keyvalue.Value);
+               context.Chains.Add(keyvalue.Value);
                 }
                 catch (Exception)
                 {
 
                 }
-
+               
             }
 
         }
@@ -6166,7 +6173,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
 
         void SeedIllness()
         {
-
+            
             illness = new Dictionary<string, Illness>
             {
                 {
@@ -6269,10 +6276,10 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
             SeedAllergies();
             SeedIllness();
             SeedFoodCategories();
-
-            await context.SaveChangesAsync();
-
-
+           
+                await context.SaveChangesAsync();
+           
+          
         }
 
         public async Task ClearAllDataAsync()
@@ -6305,85 +6312,85 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase
         }
 
 
-        //        public async Task<List<string>> CreateRoles(IServiceProvider serviceProvider)
-        //        {
-        //            //adding custom roles
-        //            var RoleManager = serviceProvider.GetRequiredService<RoleManager<BaseIdentityRole>>();
-        //           var UserManager = serviceProvider.GetRequiredService<UserManager<BaseIdentityUser>>();
-        //            List<string> roleNames = new List<string>(){ "Owner", "Cashier", "Butler" ,
-        //             "Chef", "Cooker", "Waiter" , "Guest", "Storekeeper" ,"Developper"
+//        public async Task<List<string>> CreateRoles(IServiceProvider serviceProvider)
+//        {
+//            //adding custom roles
+//            var RoleManager = serviceProvider.GetRequiredService<RoleManager<BaseIdentityRole>>();
+//           var UserManager = serviceProvider.GetRequiredService<UserManager<BaseIdentityUser>>();
+//            List<string> roleNames = new List<string>(){ "Owner", "Cashier", "Butler" ,
+//             "Chef", "Cooker", "Waiter" , "Guest", "Storekeeper" ,"Developper"
 
-        //            };
-        //            IdentityResult roleResult;
-        //​
-        //            foreach (var roleName in roleNames)
-        //            {
-        //                //creating the roles and seeding them to the database
-        //                var roleExist = await RoleManager.RoleExistsAsync(roleName);
-        //                if (!roleExist)
-        //                {
-        //                    roleResult = await RoleManager.CreateAsync(new BaseIdentityRole(roleName));
-        //                }
-        //            }
-        //​
-        //             // creating a super user who could maintain the web app
-        ////            var poweruser = new BaseIdentityUser
-        ////            {
-        ////                UserName = Configuration.GetSection("AppSettings")["UserEmail"],
-        ////                Email = Configuration.GetSection("AppSettings")["UserEmail"]
-        ////            };
-        ////​
-        ////            string userPassword = Configuration.GetSection("AppSettings")["UserPassword"];
-        ////            var user = await UserManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["UserEmail"]);
-        ////​
-        ////            if (user == null)
-        ////            {
-        ////                var createPowerUser = await UserManager.CreateAsync(poweruser, userPassword);
-        ////                if (createPowerUser.Succeeded)
-        ////                {
-        ////                    // here we assign the new user the "Admin" role 
-        ////                    await UserManager.AddToRoleAsync(poweruser, "Admin");
-        ////                }
-        ////            }
+//            };
+//            IdentityResult roleResult;
+//​
+//            foreach (var roleName in roleNames)
+//            {
+//                //creating the roles and seeding them to the database
+//                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+//                if (!roleExist)
+//                {
+//                    roleResult = await RoleManager.CreateAsync(new BaseIdentityRole(roleName));
+//                }
+//            }
+//​
+//             // creating a super user who could maintain the web app
+////            var poweruser = new BaseIdentityUser
+////            {
+////                UserName = Configuration.GetSection("AppSettings")["UserEmail"],
+////                Email = Configuration.GetSection("AppSettings")["UserEmail"]
+////            };
+////​
+////            string userPassword = Configuration.GetSection("AppSettings")["UserPassword"];
+////            var user = await UserManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["UserEmail"]);
+////​
+////            if (user == null)
+////            {
+////                var createPowerUser = await UserManager.CreateAsync(poweruser, userPassword);
+////                if (createPowerUser.Succeeded)
+////                {
+////                    // here we assign the new user the "Admin" role 
+////                    await UserManager.AddToRoleAsync(poweruser, "Admin");
+////                }
+////            }
 
-        //            return roleNames;
-        //        }
+//            return roleNames;
+//        }
+
+      
+//        public async Task SeedUsers(IServiceProvider serviceProvider)
+//        {
+
+//            var RoleManager = serviceProvider.GetRequiredService<RoleManager<BaseIdentityRole>>();
+//            var UserManager = serviceProvider.GetRequiredService<UserManager<BaseIdentityUser>>();
+//            string password = "123456";
+//            /// adding user to each rolename 
+//            var rolesNames = await CreateRoles(serviceProvider);
+
+//            foreach (var item in rolesNames)
+//            {
+//                var user = new BaseIdentityUser();
+//                user.UserName = item+"01";
+//                user.Email = item+"01"+"@localhost";
+//                user.FirstName = item + "name";
+//                user.LastName = item + "lastname";
+
+//                var identityResult = await UserManager.CreateAsync(user, password);
+//                if (identityResult.Succeeded)
+//                {
+//                    await UserManager.AddClaimAsync(user, new Claim("organisation", "g22r"));
+                    
+//                    await UserManager.AddClaimAsync(user, new Claim("unique_name", user.UserName));
+//                    await UserManager.AddClaimAsync(user, new Claim("family_name", user.FirstName));
+//                    await UserManager.AddClaimAsync(user, new Claim("last_name", user.LastName));
+//                    await UserManager.AddClaimAsync(user, new Claim("gender", "1"));
+//                    await UserManager.AddClaimAsync(user, new Claim("email", user.Email));
+//                    await UserManager.AddClaimAsync(user, new Claim("id", user.Id));
+                  
+//                }
+
+//            }
 
 
-        //        public async Task SeedUsers(IServiceProvider serviceProvider)
-        //        {
-
-        //            var RoleManager = serviceProvider.GetRequiredService<RoleManager<BaseIdentityRole>>();
-        //            var UserManager = serviceProvider.GetRequiredService<UserManager<BaseIdentityUser>>();
-        //            string password = "123456";
-        //            /// adding user to each rolename 
-        //            var rolesNames = await CreateRoles(serviceProvider);
-
-        //            foreach (var item in rolesNames)
-        //            {
-        //                var user = new BaseIdentityUser();
-        //                user.UserName = item+"01";
-        //                user.Email = item+"01"+"@localhost";
-        //                user.FirstName = item + "name";
-        //                user.LastName = item + "lastname";
-
-        //                var identityResult = await UserManager.CreateAsync(user, password);
-        //                if (identityResult.Succeeded)
-        //                {
-        //                    await UserManager.AddClaimAsync(user, new Claim("organisation", "g22r"));
-
-        //                    await UserManager.AddClaimAsync(user, new Claim("unique_name", user.UserName));
-        //                    await UserManager.AddClaimAsync(user, new Claim("family_name", user.FirstName));
-        //                    await UserManager.AddClaimAsync(user, new Claim("last_name", user.LastName));
-        //                    await UserManager.AddClaimAsync(user, new Claim("gender", "1"));
-        //                    await UserManager.AddClaimAsync(user, new Claim("email", user.Email));
-        //                    await UserManager.AddClaimAsync(user, new Claim("id", user.Id));
-
-        //                }
-
-        //            }
-
-
-        //        }
+//        }
     }
 }

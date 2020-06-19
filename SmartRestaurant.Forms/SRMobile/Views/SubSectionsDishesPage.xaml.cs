@@ -1,11 +1,24 @@
-﻿using SmartRestaurant.Diner.CustomControls;
+﻿using MultiGestureViewPlugin;
+using Rg.Plugins.Popup.Animations;
+using Rg.Plugins.Popup.Enums;
+using Rg.Plugins.Popup.Services;
+using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.ViewModels.DeseasesAllergies;
 using SmartRestaurant.Diner.ViewModels.Sections;
+using SmartRestaurant.Diner.ViewModels.Tables;
+using SmartRestaurant.Diner.ViewModels.Zones;
+using SmartRestaurant.Diner.Views.Popups;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XLabs.Forms.Controls;
 
 namespace SmartRestaurant.Diner.Views
 {
@@ -15,9 +28,9 @@ namespace SmartRestaurant.Diner.Views
 
         public SubSectionsDishesPage(SubSectionsListViewModel _model)
         {
-            InitializeComponent();
+            InitializeComponent();           
             BindingContext = _model;
-            viewmodel = (SubSectionsListViewModel)BindingContext;
+            viewmodel = (SubSectionsListViewModel)BindingContext;                 
         }
         public SubSectionsListViewModel viewmodel { get; private set; }
 
@@ -29,17 +42,17 @@ namespace SmartRestaurant.Diner.Views
                 var subsection = e.Item as SubSectionViewModel;
                 vm.HideOrShowItem(subsection);
             }
-            catch (Exception)
+            catch(Exception ee)
             {
 
             }
         }
-
+             
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            if (((Label)sender).BindingContext != null)
-            {
+            if(((Label)sender).BindingContext !=null)
+                {
                 (((Label)sender).BindingContext as DishViewModel).IsSelected = !(((Label)sender).BindingContext as DishViewModel).IsSelected;
                 if (SectionsListViewModel.Instance.SelectedDishes.Select(d => d.Id).Contains((((Label)sender).BindingContext as DishViewModel).Id))
                 {

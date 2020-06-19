@@ -1,8 +1,13 @@
 ﻿using Newtonsoft.Json;
 using SmartRestaurant.Diner.Models;
+using SmartRestaurant.Diner.ViewModels.Sections;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 
 namespace SmartRestaurant.Diner.Services
 {
@@ -11,7 +16,7 @@ namespace SmartRestaurant.Diner.Services
     /// </summary>
     public class SectionsService
     {
-        private static ListSectionsObject Sections;
+        private static ListSectionsObject Sections;     
         public static ObservableCollection<SectionModel> GetListSections()
         {
             InitData();
@@ -29,12 +34,12 @@ namespace SmartRestaurant.Diner.Services
             if (Sections == null)
             {
                 Sections = JsonConvert.DeserializeObject<ListSectionsObject>(SimpleService.GetJsonString("Repositories.ListSections.json"));
-                foreach (var s in Sections.SectionsList)
+                foreach( var s in Sections.SectionsList)
                 {
-                    if (s.SubSections != null)
-                        foreach (var b in s.SubSections)
-                        {
-                            b.SectionId = s.Id;
+                    if(s.SubSections!=null)
+                    foreach(var b in s.SubSections)
+                    {
+                        b.SectionId = s.Id;
                             if (b.Dishes != null)
                                 foreach (var d in b.Dishes)
                                 {
@@ -44,7 +49,7 @@ namespace SmartRestaurant.Diner.Services
                                         ing.Quantity = ing.InitialValue;
                                     }
                                 }
-                        }
+                    }
                 }
             }
         }
@@ -55,16 +60,16 @@ namespace SmartRestaurant.Diner.Services
             {
                 return new ObservableCollection<DishModel>(
                     Sections.SectionsList.
-                    FirstOrDefault(s => s.Id == sectionid).
+                    FirstOrDefault(s=>s.Id==sectionid).
                     SubSections.FirstOrDefault
-                    (b => b.Id == subsectionid).Dishes.ToList()
+                    (b=>b.Id==subsectionid).Dishes.ToList()
                     );
             }
             else
             {
                 return new ObservableCollection<DishModel>();
             }
-
+            
         }
 
         internal static ObservableCollection<SubSectionModel> GetListSubSections(int sectionid)

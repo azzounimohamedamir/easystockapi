@@ -1,11 +1,13 @@
 ﻿using SmartRestaurant.Application.Dishes.DishFamillies.Queries.Models;
 using SmartRestaurant.Domain.Dishes;
 using SmartRestaurant.Resources.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.Factory
-{
+{   
     public static class DishFamilyItemModelFactory
     {
         public static DishFamilyItemModel ToDishFamilyItemModel(this DishFamily entity)
@@ -14,7 +16,7 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.Factory
             {
                 Id = entity.Id.ToString(),
                 Name = entity.Name,
-                RestaurantName = entity.Restaurant?.Name,
+                RestaurantName=entity.Restaurant?.Name,
                 ParentName = entity.Parent?.Name,
                 PictureUrl = entity.Picture?.ImageUrl,
                 SlugUrl = entity.SlugUrl,
@@ -27,5 +29,5 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.Factory
             return entities.Select(e => e.ToDishFamilyItemModel()).ToList();
         }
     }
-
+    
 }

@@ -1,4 +1,7 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Menu.Commands.Create;
 using SmartRestaurant.Application.Restaurants.Menu.Commands.Models;
@@ -10,7 +13,7 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Commands.Update
     {
         void Execute(MenuModel model);
     }
-    public class UpdateMenuCommand : IUpdateMenuCommand
+    public class UpdateMenuCommand :IUpdateMenuCommand
     {
         private readonly ILoggerService<CreateRestaurantCommand> logger;
         private readonly IMailingService mailing;

@@ -1,5 +1,8 @@
 ﻿using SmartRestaurant.Application.Interfaces;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Currencies.Queries.GetCurrencyByName
 {
@@ -36,7 +39,7 @@ namespace SmartRestaurant.Application.Commun.Currencies.Queries.GetCurrencyByNam
                     Id = p.Id.ToString(),
                     Name = p.Name,
                     IsoCode = p.IsoCode,
-                    Alias = p.Alias,
+                    Alias = p.Alias , 
                 })
                 .FirstOrDefault();
             ;

@@ -2,11 +2,12 @@
 using SmartRestaurant.Domain.Enumerations;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Domain
 {
-    public class Mailing : BaseEntity<Guid>
-    {
+   public class Mailing : BaseEntity<Guid> 
+   {
 
         public Mailing()
         {
@@ -18,7 +19,7 @@ namespace SmartRestaurant.Domain
 
         //TODO: Controle sur unicité de Action et TableName
         public EnumAction Action { get; set; }
-        public string TableName { get; set; }
+        public string TableName { get; set;  }
         //public string Title { get; set; }
         //public string Subject { get; set; }
         //public string Body { get; set; }
@@ -30,7 +31,7 @@ namespace SmartRestaurant.Domain
     {
         public Guid MailingId { get; set; }
         public string UserId { get; set; }
-        public SRUser User { get; set; }
-        public Mailing Mailing { get; set; }
+        public  SRUser User { get; set; }
+        public  Mailing Mailing { get; set; }
     }
 }

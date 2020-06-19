@@ -1,16 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using SmartRestaurant.Application.Commun.Address;
+using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
 using SmartRestaurant.Domain.Commun;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Models
 {
-    public class AddressViewModel
+    public class AddressViewModel   
     {
         private AddressViewModel() { }
 
         public AddressViewModel(IEnumerable<Country> countries
-            , string selectedCountry = null)
+            ,string selectedCountry=null)
         {
             Countries = new SelectList(countries, "Name", "Name", selectedCountry);
             AddressModel = new AddressModel();

@@ -5,7 +5,7 @@ using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Products.Products.Commands.Update
 {
-    public class UpdateProductCommandValidation : AbstractValidator<IUpdateProductModel>
+    public class UpdateProductCommandValidation:AbstractValidator<IUpdateProductModel>
     {
         public UpdateProductCommandValidation()
         {

@@ -1,7 +1,11 @@
-﻿using SmartRestaurant.Application.Foods.Queries;
+﻿using SmartRestaurant.Application.FoodCategories.Queries;
 using SmartRestaurant.Domain.Foods;
+using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Linq;
+using SmartRestaurant.Resources.Utils;
+using SmartRestaurant.Application.Foods.Queries;
 
 namespace SmartRestaurant.Application.Foods.FoodCategories.Queries.Factory
 {
@@ -16,8 +20,8 @@ namespace SmartRestaurant.Application.Foods.FoodCategories.Queries.Factory
                 Name = entity.Name,
                 FoodCategoryName = entity.Category.Name,
                 PictureUrl = entity.Picture != null ? entity.Picture.ImageUrl : null,
-                SlugUrl = entity.SlugUrl,
-                Unit = entity.Unit?.Name,
+                SlugUrl = entity.SlugUrl,  
+                Unit=entity.Unit?.Name,                
                 //NutritionModel = NutritionModel.GetNutritionModel(entity.Nutrition)
                 //TODO:Ef dont accept this
             };

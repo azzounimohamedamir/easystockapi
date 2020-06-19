@@ -1,8 +1,11 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Exceptions;
+﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Commun;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Helpers;
 
 namespace SmartRestaurant.Application.Commun.Units.Commands.Update
 {
@@ -26,8 +29,7 @@ namespace SmartRestaurant.Application.Commun.Units.Commands.Update
         }
         public void Execute(UpdateUnitModel model)
         {
-            try
-            {
+            try {
 
                 var validator = new UpdateUnitCommandValidation();
                 var result = validator.Validate(model);
@@ -44,19 +46,19 @@ namespace SmartRestaurant.Application.Commun.Units.Commands.Update
                 }
 
                 entity.Symbol = model.Symbol;
-                entity.Name = model.Name;
+                entity.Name = model.Name;                
                 entity.Alias = model.Alias;
                 entity.IsDisabled = model.IsDisabled;
                 _db.Units.Update(entity);
                 _db.Save();
 
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw ex;
             }
 
-
+             
         }
     }
 }

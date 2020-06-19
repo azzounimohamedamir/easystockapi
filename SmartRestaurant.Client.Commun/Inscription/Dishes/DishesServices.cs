@@ -5,7 +5,11 @@ using SmartRestaurant.Application.Dishes.Dishes.Commands.Create;
 using SmartRestaurant.Application.Dishes.Dishes.Commands.Factory;
 using SmartRestaurant.Application.Dishes.Dishes.Commands.Update;
 using SmartRestaurant.Application.Dishes.Dishes.Queries;
+using SmartRestaurant.Application.Dishes.DishFamillies.Commands.Create;
 using SmartRestaurant.Application.Dishes.DishIngredients.Commands.Factory;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Client.Commun.Inscription.Dishes
 {
@@ -16,7 +20,7 @@ namespace SmartRestaurant.Client.Commun.Inscription.Dishes
             services.AddScoped<ICreateDishCommand, CreateDishCommand>();
             services.AddScoped<ICreateDishFactory, CreateDishFactory>();
             services.AddScoped<IUpdateDishCommand, UpdateDishCommand>();
-
+            
             services.AddScoped<IDishFactory, DishFactory>();
             services.AddScoped<IDishAccompanyingFactory, DishAccompanyingFactory>();
             services.AddScoped<IDishEquivalenceFactory, DishEquivalenceFactory>();

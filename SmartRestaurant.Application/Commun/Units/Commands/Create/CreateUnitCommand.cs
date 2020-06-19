@@ -2,6 +2,7 @@
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Commun.Units.Commands.Create
 {
@@ -17,15 +18,15 @@ namespace SmartRestaurant.Application.Commun.Units.Commands.Create
             ISmartRestaurantDatabaseService db,
             INotifyService notify,
             IMailingService mailing,
-            ILoggerService<CreateUnitCommand> log,
-            ICreateUnitFactory createUnitFactory
+            ILoggerService<CreateUnitCommand> log , 
+            ICreateUnitFactory createUnitFactory 
             )
         {
             _db = db ?? throw new ArgumentNullException(nameof(db));
             _notify = notify;
             _mailing = mailing;
             _log = log;
-            _factory = createUnitFactory;
+            _factory = createUnitFactory; 
         }
         public void Execute(CreateUnitModel model)
         {
@@ -38,23 +39,23 @@ namespace SmartRestaurant.Application.Commun.Units.Commands.Create
 
                     throw new NotValidException(result.Errors);
                 }
-                var entity = _factory.Create(model.Name, model.Symbol, model.Alias, model.IsDisabled);
-                entity.Id = Guid.NewGuid();
+                var entity = _factory.Create(model.Name,model.Symbol,model.Alias,model.IsDisabled);
+                entity.Id = Guid.NewGuid();                
                 _db.Units.Add(entity);
                 _db.Save();
             }
-            catch (Exception e)
+            catch(Exception e )
             {
-                throw e;
+                throw e; 
 
-            }
+            } 
 
 
 
         }
-
-
-    }
+           
+            
+        }
 
 
 

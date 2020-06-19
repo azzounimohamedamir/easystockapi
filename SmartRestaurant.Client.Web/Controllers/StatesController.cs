@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Commun.Countries.Commands.Create;
@@ -14,11 +15,10 @@ using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Commun.State;
 using SmartRestaurant.Resources.Utils;
-using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
+   // [Area("Admin")]
 
     [Route("states")]
     [Route("{culture}/states")]
@@ -40,7 +40,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             ICreateStateCommand createStateCommand,
           IUpdateStateCommand updateStateCommand,
           IDeleteStateCommand deleteStateCommand,
-        IGetAllCountriesQuerie getAllCountriesQuerie,
+        IGetAllCountriesQuerie getAllCountriesQuerie ,
           IGetStateByIdQuerie getStateByIdQuerie,
           ILoggerService<AdminBaseController> baselog,
           ILoggerService<StatesController> log) : base(configuration, mailing, notify, baselog)
@@ -105,7 +105,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
         [HttpPost]
         [Route("add")]
-        public IActionResult Add(StateViewModel model)
+        public IActionResult Add( StateViewModel model)
         {
             BreadcrumbForAdd();
             try

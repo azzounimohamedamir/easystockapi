@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Commun.State.Commands.Create;
 using SmartRestaurant.Application.Interfaces;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.States.Queries.GetStateById
 {
@@ -49,7 +52,7 @@ namespace SmartRestaurant.Application.Commun.States.Queries.GetStateById
                 ).FirstOrDefault();
 
 
-            return entity;
+            return entity; 
         }
     }
 

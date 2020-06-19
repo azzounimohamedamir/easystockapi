@@ -1,5 +1,8 @@
 ﻿using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Models.Galleries
 {
@@ -10,7 +13,7 @@ namespace SmartRestaurant.Client.Web.Models.Galleries
             GalleryModel = new GalleryModel();
             Pictures = new HashSet<GalleryPictureViewModel>();
         }
-
+        
         public GalleryModel GalleryModel { get; set; }
         public ICollection<GalleryPictureViewModel> Pictures { get; set; }
         public string HtmlFieldPrefix { get; set; }

@@ -1,5 +1,6 @@
 ﻿using Helpers;
 using SmartRestaurant.Application.ApplicationDataBase.Extensions;
+using SmartRestaurant.Application.Commun.Galleries.Pictures.Models;
 using SmartRestaurant.Application.Commun.Specialites.Commands.Update;
 using SmartRestaurant.Application.Dishes.DishFamillies.Specifications;
 using SmartRestaurant.Application.Exceptions;
@@ -19,26 +20,26 @@ namespace SmartRestaurant.Application.Commun.Specialites.Queries.GetSpecialityBy
     {
         private readonly ISmartRestaurantDatabaseService _db;
         private readonly ILoggerService<GetSpecialityByIdQuery> _logger;
-        private readonly INotifyService _notifyService;
+        private readonly INotifyService _notifyService;        
         private readonly IMailingService _mailingService;
         public GetSpecialityByIdQuery(
             ISmartRestaurantDatabaseService db,
             ILoggerService<GetSpecialityByIdQuery> logger,
             IMailingService mailingService,
-            INotifyService notifyService
+            INotifyService notifyService            
 
             )
         {
             _db = db ?? throw new ArgumentNullException(nameof(db));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _notifyService = notifyService ?? throw new ArgumentNullException(nameof(notifyService));
+            _notifyService = notifyService ?? throw new ArgumentNullException(nameof(notifyService));            
             _mailingService = mailingService ?? throw new ArgumentNullException(nameof(mailingService));
         }
 
         public UpdateSpecialityModel Execute(string id)
         {
             try
-            {
+            {               
 
                 var specification = new SpecialitySpecification(fc => fc.Id == id.ToGuid());
 
@@ -52,12 +53,12 @@ namespace SmartRestaurant.Application.Commun.Specialites.Queries.GetSpecialityBy
 
                 return new UpdateSpecialityModel
                 {
-                    Id = _speciality.Id.ToString(),
+                    Id = _speciality.Id.ToString(),                    
                     Name = _speciality.Name,
-                    Alias = _speciality.Alias,
-                    Description = _speciality.Description,
-                    IsDisabled = _speciality.IsDisabled,
-                };
+                    Alias = _speciality.Alias,                    
+                    Description=_speciality.Description,
+                    IsDisabled=_speciality.IsDisabled,
+                };          
             }
             catch (Exception ex)
             {

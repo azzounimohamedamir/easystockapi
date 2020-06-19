@@ -4,7 +4,7 @@ using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Commun.City.Commands.Delete
 {
-    public class DeleteCityCommandValidation : AbstractValidator<IDeleteCityModel>
+    public class DeleteCityCommandValidation: AbstractValidator<IDeleteCityModel>
     {
         public DeleteCityCommandValidation()
         {

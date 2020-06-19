@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Services.Models
 {
     //OK
     public class OrderItemModel
-    {
+    {       
 
         public OrderItemModel()
         {
@@ -21,7 +22,7 @@ namespace SmartRestaurant.Application.Services.Models
         public string Id { get; set; }
 
         public string RestaurantId { get; set; }
-
+        
         public string PlaceId { get; set; }
         //Id of the Order Parent
         public string ParentId { get; set; }
@@ -41,7 +42,7 @@ namespace SmartRestaurant.Application.Services.Models
         public PriceModel TotalPrice { get; set; }
 
         public DateTime SysDate { get; private set; }
-
+       
         //public IDictionary<DateTime, StateAndWhom> States { get; private set; }
         public List<OrderItemState> States { get; set; }
 
@@ -55,7 +56,7 @@ namespace SmartRestaurant.Application.Services.Models
         {
             get
             {
-                return States.OrderByDescending(s => s.SysDate)
+                return States.OrderByDescending(s=>s.SysDate)
                      .FirstOrDefault();
             }
 
@@ -92,19 +93,19 @@ namespace SmartRestaurant.Application.Services.Models
                               EnumState state,
                               EnumWhom whom,
                               string userId,
-                              string causes) : this(sysDate, state, whom, causes)
+                              string causes):this(sysDate,state,whom,causes)
         {
-
+            
             UserId = userId;
-
+            
         }
 
-        public DateTime SysDate { get; set; }
+        public DateTime SysDate { get; set; }        
         public EnumState State { get; set; }
 
         public EnumWhom Whom { get; set; }
         public string UserId { get; set; }
         public string Causes { get; set; }
     }
-
+    
 }

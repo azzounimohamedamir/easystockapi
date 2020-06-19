@@ -1,4 +1,7 @@
-﻿namespace SmartRestaurant.Application.Pricings.Tarifications.Queries.GetById
+﻿using SmartRestaurant.Application.Helpers;
+using System.Collections.Generic;
+
+namespace SmartRestaurant.Application.Pricings.Tarifications.Queries.GetById
 {
     public class TarificationItemModel
     {
@@ -9,7 +12,7 @@
         public string RestaurantName { get; set; }
         public string SlugUrl { get; set; }
         public string IsDisabled { get; set; }
-        public bool IsPercentage { get; set; }
-        public decimal Amount { get; set; }
+        public bool IsPercentage { get;  set; }
+        public decimal Amount { get;  set; }
     }
 }

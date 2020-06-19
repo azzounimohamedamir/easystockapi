@@ -1,10 +1,12 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Allergies.Allergies.Commands.Create;
-using SmartRestaurant.Application.Exceptions;
+﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Allergies;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
+using SmartRestaurant.Domain.Allergies;
+using SmartRestaurant.Application.Allergies.Allergies.Commands.Create;
 
 namespace SmartRestaurant.Application.Allergies.Allergies.Commands.Update
 {

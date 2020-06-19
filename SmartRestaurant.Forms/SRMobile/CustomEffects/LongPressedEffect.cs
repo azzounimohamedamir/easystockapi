@@ -1,4 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.CustomEffects
@@ -12,7 +15,7 @@ namespace SmartRestaurant.Diner.CustomEffects
         {
         }
 
-        public static readonly BindableProperty CommandProperty = BindableProperty.CreateAttached("Command",
+        public static readonly BindableProperty CommandProperty = BindableProperty.CreateAttached("Command", 
             typeof(ICommand), typeof(LongPressedEffect), (object)null);
         public static ICommand GetCommand(BindableObject view)
         {

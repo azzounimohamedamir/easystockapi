@@ -3,7 +3,7 @@ using SmartRestaurant.Application.Restaurants.Section.Commands.Models;
 
 namespace SmartRestaurant.Application.Restaurants.Section.Commands.Create
 {
-    public class CreateSectionValidator : AbstractValidator<SectionModel>
+    public class CreateSectionValidator: AbstractValidator<SectionModel>
     {
         public CreateSectionValidator()
         {

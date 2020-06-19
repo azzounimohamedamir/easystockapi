@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Helpers;
-using SmartRestaurant.Application.Interfaces;
+﻿using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Chains.Queries.GetById;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Helpers;
 
 namespace SmartRestaurant.Application.Restaurants.Chains.Queries.GetAll
 {
@@ -12,7 +14,7 @@ namespace SmartRestaurant.Application.Restaurants.Chains.Queries.GetAll
 
     public interface IGetAllChainsQuery
     {
-        IEnumerable<ChainItemModel> Execute();
+        IEnumerable<ChainItemModel> Execute( );
     }
     public class GetAllChainsQuery : IGetAllChainsQuery
     {
@@ -32,7 +34,7 @@ namespace SmartRestaurant.Application.Restaurants.Chains.Queries.GetAll
             this.notify = notify;
         }
 
-        public IEnumerable<ChainItemModel> Execute()
+        public IEnumerable< ChainItemModel> Execute()
         {
             try
             {
@@ -46,7 +48,7 @@ namespace SmartRestaurant.Application.Restaurants.Chains.Queries.GetAll
                        IsDisabled = x.IsDisabled.DisabledDisplay(),
                        Name = x.Name,
                        OwnerName = x.Owner.FullName,
-                       OwnerId = x.OwnerId.ToString()
+                       OwnerId=x.OwnerId.ToString()
                    }).ToList();
             }
             catch (Exception)

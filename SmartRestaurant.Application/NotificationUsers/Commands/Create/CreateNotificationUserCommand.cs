@@ -2,7 +2,9 @@
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.NotificationUsers.Commands.Create
 {
@@ -46,10 +48,10 @@ namespace SmartRestaurant.Application.NotificationUsers.Commands.Create
 
                 var entity = new MailingUser();
                 entity.MailingId = model.MailingId;
-                entity.UserId = model.UserId.ToString();
+               entity.UserId = model.UserId.ToString();
 
                 entity.Mailing = db.Mailings.FirstOrDefault(p => p.Id == model.MailingId);
-                // entity.SampleUser = db.Users.FirstOrDefault(p => p.Id == model.UserId);
+             // entity.SampleUser = db.Users.FirstOrDefault(p => p.Id == model.UserId);
                 db.MailingUsers.Add(entity);
                 db.Save();
 

@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics;
+using System.IO;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Persistence.ApplicationDataBase;
-using System.Diagnostics;
-using System.IO;
 
 namespace SmartRestaurant.Client.Web.Core.Migration
 {
@@ -24,6 +24,6 @@ namespace SmartRestaurant.Client.Web.Core.Migration
 
             return new SmartRestaurantDbContext(dbContextBuilder.Options);
         }
-
+    
     }
 }

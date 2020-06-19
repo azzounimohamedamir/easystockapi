@@ -1,8 +1,10 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Exceptions;
+﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Helpers;
 
 namespace SmartRestaurant.Application.Templates.Commands.Delete
 {
@@ -44,7 +46,7 @@ namespace SmartRestaurant.Application.Templates.Commands.Delete
 
                 var entity = db.Templates.Find(model.Id.ToGuid());
 
-                if (entity == null)
+                if (entity ==null )
                 {
                     throw new NotFoundException(nameof(Template) + model.Id);
                 }

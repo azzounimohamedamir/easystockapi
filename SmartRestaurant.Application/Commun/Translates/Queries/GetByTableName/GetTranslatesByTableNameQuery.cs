@@ -7,6 +7,8 @@ using SmartRestaurant.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Translates.Queries.GetByTableName
 {
@@ -68,7 +70,7 @@ namespace SmartRestaurant.Application.Commun.Translates.Queries.GetByTableName
                         break;
                     case "Ingredients":
                         fullTypeName = "SmartRestaurant.Domain.Dishes.DishIngredient";
-                        break;
+                         break;
                     case "FoodCatigories":
                         fullTypeName = "SmartRestaurant.Domain.Foods.FoodCatigory";
                         break;

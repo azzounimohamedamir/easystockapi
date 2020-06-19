@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Mails.Commands.Update;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Mails.Queries.GetMailingById
 {
@@ -42,12 +45,12 @@ namespace SmartRestaurant.Application.Mails.Queries.GetMailingById
                   IsDisabled = p.IsDisabled,
                   Action = p.Action,
                   TemplateId = p.TemplateId,
-
+                 
                   Type = p.Type,
-                  UsersId = p.Users.Select(x => x.UserId).ToList()
+                  UsersId = p.Users.Select(x =>x.UserId).ToList() 
               }).FirstOrDefault();
-
-            return entity;
+                 
+            return entity; 
         }
 
     }

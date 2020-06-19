@@ -1,8 +1,10 @@
-﻿using SmartRestaurant.Application.Allergies.Allergies.Queries.GetAll;
+﻿using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Application.Allergies.Allergies.Queries.GetAll;
 using SmartRestaurant.Application.Allergies.Allergies.Queries.GetById;
 using SmartRestaurant.Application.Allergies.Allergies.Queries.GetBySpecification;
-using SmartRestaurant.Application.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Allergies.Allergies.Queries
 {

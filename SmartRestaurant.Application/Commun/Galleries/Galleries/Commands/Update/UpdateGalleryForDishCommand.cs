@@ -9,12 +9,13 @@ using SmartRestaurant.Domain.Commun;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Update
 {
     public interface IUpdateGalleryForDishCommand
     {
-        void Execute(Guid restaurantId, GalleryModel model, bool saveChange = true);
+        void Execute(Guid restaurantId,GalleryModel model, bool saveChange = true);
     }
     public class UpdateGalleryForDishCommand : IUpdateGalleryForDishCommand
     {
@@ -51,7 +52,7 @@ namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Update
                 var guid = model.Id.ToGuid();
 
                 Gallery gallery = db.Galleries
-                    .Include(g => g.Pictures)
+                    .Include(g=>g.Pictures)
                     .FirstOrDefault(g => g.Id == guid);
 
                 if (gallery == null) throw new NotFoundException();
@@ -62,22 +63,22 @@ namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Update
                 gallery.Description = model.Description;
                 gallery.Name = model.Name;
 
-                HashSet<string> picInDBIds = new HashSet<string>(gallery.Pictures.Select(p => p.Id.ToString()));
-                HashSet<string> picInModelIds = new HashSet<string>(model.Pictures.Where(p => !string.IsNullOrEmpty(p.Id)).Select(p => p.Id));
+                HashSet<string> picInDBIds =new HashSet<string>(gallery.Pictures.Select(p => p.Id.ToString()));
+                HashSet<string> picInModelIds = new HashSet<string>(model.Pictures.Where(p=>!string.IsNullOrEmpty(p.Id)).Select(p => p.Id));
 
-
+                
                 //ToDelete
-                foreach (string idDb in picInDBIds)
+                foreach(string idDb in picInDBIds)
                 {
                     if (!picInModelIds.Contains(idDb))
                     {
-                        db.Pictures.Remove(gallery.Pictures.FirstOrDefault(p => p.Id == idDb.ToGuid()));
-                    }
+                        db.Pictures.Remove(gallery.Pictures.FirstOrDefault(p=>p.Id==idDb.ToGuid()));
+                    }                    
                 }
                 //ToUpdate
                 foreach (var picModel in model.Pictures.Where(p => !string.IsNullOrEmpty(p.Id)))
-                {
-                    Picture pic = gallery.Pictures.FirstOrDefault(p => p.Id == picModel.Id.ToGuid());
+                {                    
+                    Picture pic =gallery.Pictures.FirstOrDefault(p => p.Id == picModel.Id.ToGuid());                    
                     pic.IsDisabled = picModel.IsDisabled;
                     pic.Alias = picModel.Alias;
                     pic.Description = picModel.Description;
@@ -88,19 +89,19 @@ namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Update
                 }
                 //ToAdd               
                 if (gallery.Pictures == null) gallery.Pictures = new List<Picture>();
-                foreach (var picModel in model.Pictures.Where(p => string.IsNullOrEmpty(p.Id)))
+                foreach (var picModel in model.Pictures.Where(p=>string.IsNullOrEmpty(p.Id)))
                 {
                     Guid newId = Guid.NewGuid();
                     Picture pic = new Picture
                     {
-                        Id = newId,
+                        Id= newId,
                         IsDisabled = picModel.IsDisabled,
                         Alias = picModel.Alias,
                         Description = picModel.Description,
                         Name = picModel.Name,
                         ImageUrl = picModel.ImageUrl,
-                        RestaurantId = restaurantId,
-                    };
+                        RestaurantId=restaurantId,                        
+                    };                    
                     gallery.Pictures.Add(pic);
 
                     if (picModel.IsTheCover) CoverId = newId.ToString();

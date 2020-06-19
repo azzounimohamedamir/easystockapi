@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Text;
 
 namespace SmartRestaurant.Application.Interfaces
 {
@@ -11,7 +12,7 @@ namespace SmartRestaurant.Application.Interfaces
         /// Les critèires de select dans les tables
         /// Exemple where x=20 and name='xxxxxx'
         /// </summary>
-        ICriteria<T> Criteria { get; }
+        ICriteria<T> Criteria { get; }        
         List<Expression<Func<T, object>>> Includes { get; }
         /// <summary>
         /// Include("Parent.Childs")

@@ -1,7 +1,9 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Interfaces;
+﻿using SmartRestaurant.Application.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Helpers;
 namespace SmartRestaurant.Application.MailingUsers.Queries.GetMailingUserByMailingId
 {
     public interface IGetMailingUserByMailingIdQuery

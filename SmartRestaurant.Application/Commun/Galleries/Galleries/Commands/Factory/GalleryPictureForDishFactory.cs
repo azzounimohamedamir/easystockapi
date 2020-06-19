@@ -1,7 +1,10 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Models;
+﻿using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Models;
 using SmartRestaurant.Domain.Commun;
+using System;
 using System.Collections.Generic;
+using System.Text;
+using Helpers;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Factory
 {

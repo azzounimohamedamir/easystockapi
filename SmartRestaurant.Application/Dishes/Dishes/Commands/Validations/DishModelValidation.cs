@@ -4,10 +4,12 @@ using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Dishes.Dish;
 using SmartRestaurant.Resources.SharedValidation;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Validations
 {
-    public class DishModelValidation : AbstractValidator<IDishModel>
+    public class DishModelValidation: AbstractValidator<IDishModel>
     {
         public DishModelValidation()
         {
@@ -50,7 +52,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Validations
             RuleFor(x => x.Type)
                 .NotNull()
                 .WithMessage(string.Format(SharedValidationResource.RemoteErrorMessage, DishResource.FamillyId));
-
+            
             RuleFor(x => x.PreparationTime)
                 .NotNull()
                 .WithMessage(string.Format(SharedValidationResource.RemoteErrorMessage, DishResource.PreparationTime));

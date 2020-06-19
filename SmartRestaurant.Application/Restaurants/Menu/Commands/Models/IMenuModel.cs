@@ -1,11 +1,14 @@
-﻿namespace SmartRestaurant.Application.Restaurants.Menu.Commands.Models
+﻿using System.Collections.Generic;
+using SmartRestaurant.Application.Restaurants.Menu.Items.Commands.Models;
+
+namespace SmartRestaurant.Application.Restaurants.Menu.Commands.Models
 {
     public interface IMenuModel
     {
         string Alias { get; set; }
         string ChefId { get; set; }
         string Description { get; set; }
-        bool IsDisabled { get; set; }
+        bool IsDisabled { get; set; }        
         string Name { get; set; }
         string RestaurantId { get; set; }
     }

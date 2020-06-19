@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.ApplicationDataBase.Extensions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Owners.Queries.Factory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Restaurants.Owners.Queries.GetAll
 {
@@ -31,7 +33,7 @@ namespace SmartRestaurant.Application.Restaurants.Owners.Queries.GetAll
         {
             try
             {
-                return db.Owners.Include(i => i.Restaurants).ToOwnerItemModels()
+                return db.Owners.Include(i=>i.Restaurants).ToOwnerItemModels()
                                 .ToList();
             }
             catch (Exception)

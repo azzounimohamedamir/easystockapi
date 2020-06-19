@@ -5,7 +5,7 @@ using System;
 
 namespace SmartRestaurant.Application.Commun.Languages.Commands.Create
 {
-    internal class CreateLangaugeCommandValidation : AbstractValidator<ICreateLanguageModel>
+    internal class CreateLangaugeCommandValidation:AbstractValidator<ICreateLanguageModel>
     {
         public CreateLangaugeCommandValidation()
         {

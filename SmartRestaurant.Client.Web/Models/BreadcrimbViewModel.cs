@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Models
 {
@@ -34,7 +37,7 @@ namespace SmartRestaurant.Client.Web.Models
             Items.Add(new BreadcrumbItemViewModel
             {
                 Text = "Home",
-                Url = Controller.Url.Action("Index", "Home"),
+                Url = Controller.Url.Action("Index","Home"),
                 IsActive = false
             });
             return this;
@@ -52,7 +55,7 @@ namespace SmartRestaurant.Client.Web.Models
         }
 
         public BreadcrumbViewModel AddItem(string text, string url)
-        {
+        {            
             Items.Add(new BreadcrumbItemViewModel
             {
                 Text = text,
@@ -72,7 +75,7 @@ namespace SmartRestaurant.Client.Web.Models
                     Url = url,
                     IsActive = false
                 });
-            }
+            }            
             return this;
         }
 

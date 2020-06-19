@@ -1,4 +1,9 @@
-﻿namespace SmartRestaurant.Client.API.Core
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace SmartRestaurant.Client.API.Core
 {
     public class PaginationHeader
     {

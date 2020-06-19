@@ -1,10 +1,12 @@
-﻿using SmartRestaurant.Application.ApplicationDataBase.Extensions;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.ApplicationDataBase.Extensions;
 using SmartRestaurant.Application.Foods.FoodCategories.Queries.Factory;
 using SmartRestaurant.Application.Foods.Specifications;
 using SmartRestaurant.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Foods.Queries.GetAll
 {
@@ -34,7 +36,7 @@ namespace SmartRestaurant.Application.Foods.Queries.GetAll
         {
             try
             {
-                var specification = new FoodSpecification()
+                var specification = new FoodSpecification()                    
                     .AddInclude(f => f.Nutrition.Quantity.Unit)
                     .ApplyOrderBy(fc => fc.Name);
 

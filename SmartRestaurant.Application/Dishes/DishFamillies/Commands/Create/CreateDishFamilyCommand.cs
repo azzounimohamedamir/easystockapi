@@ -5,6 +5,8 @@ using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Resources.Dishes.DishFamily;
 using SmartRestaurant.Resources.SharedException;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Create
 {
@@ -33,7 +35,7 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Create
             _mailingService = mailingService ?? throw new ArgumentNullException(nameof(mailingService));
             _notifyService = notifyService ?? throw new ArgumentNullException(nameof(notifyService));
             _factory = createDishFamilyFactory ?? throw new ArgumentNullException(nameof(createDishFamilyFactory));
-        }
+        }        
 
         public void Execute(CreateDishFamilyModel model)
         {
@@ -53,10 +55,10 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Create
                     model.Alias,
                     model.Description,
                     model.IsDisabled);
-
+                                
 
                 var restaurant = _db.Restaurants.Find(family.RestaurantId);
-                if (restaurant == null)
+                if (restaurant==null)
                 {
                     throw new NotValidOperation(string.Format(SharedExceptionResource.NotValidOperationErrorMessage, DishFamilyResource.RestaurantId));
                 }

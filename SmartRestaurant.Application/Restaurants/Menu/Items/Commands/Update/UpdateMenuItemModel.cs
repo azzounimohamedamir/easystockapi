@@ -6,6 +6,6 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Items.Commands.Update
     {
         public string Id { get; set; }
         public string MenuId { get; set; }
-        public MenuItemModel MenuItemModel { get; set; }
+        public MenuItemModel MenuItemModel { get; set; }        
     }
 }

@@ -1,8 +1,10 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Restaurants.Owners.Commands.Update;
+﻿using SmartRestaurant.Application.Restaurants.Owners.Commands.Update;
 using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
 using SmartRestaurant.Domain.Restaurants;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Helpers;
 
 namespace SmartRestaurant.Application.Restaurants.Owners.Commands.Create
 {
@@ -22,7 +24,7 @@ namespace SmartRestaurant.Application.Restaurants.Owners.Commands.Create
                 UserId = model.UserId
             };
         }
-        public static void ToEntity(this UpdateOwnerModel model, ref Owner Owner)
+        public static void ToEntity(this UpdateOwnerModel model,ref Owner Owner)
         {
             Owner.Id = model.Id.ToGuid();
             Owner.Address = model.Address.ToValueObject();
@@ -31,7 +33,7 @@ namespace SmartRestaurant.Application.Restaurants.Owners.Commands.Create
             Owner.FirstName = model.FirstName;
             Owner.LastName = model.LastName;
             Owner.IsDisabled = model.IsDisabled;
-            Owner.UserId = model.UserId;
+            Owner.UserId = model.UserId;           
         }
     }
 }

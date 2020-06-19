@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using SmartRestaurant.Application.Commun.Galleries.Pictures.Models;
+﻿using Microsoft.AspNetCore.Http;
 using SmartRestaurant.Client.Web.Extensions;
 using System;
+using Microsoft.AspNetCore.Hosting;
+using System.Collections.Generic;
+using SmartRestaurant.Application.Commun.Galleries.Pictures.Models;
 
 namespace SmartRestaurant.Client.Web.Models.Utils
 {
@@ -14,13 +15,13 @@ namespace SmartRestaurant.Client.Web.Models.Utils
 
     public class FileViewModel
     {
-        string uniqueId;
+        string uniqueId;        
 
         public FileViewModel()
         {
             uniqueId = Guid.NewGuid().ToString();
         }
-        public FileViewModel(FileType type = FileType.Image) : this()
+        public FileViewModel(FileType type = FileType.Image): this()
         {
 
             uniqueId = Guid.NewGuid().ToString();
@@ -58,7 +59,7 @@ namespace SmartRestaurant.Client.Web.Models.Utils
             }
         }
 
-        public FileViewModel(PictureModel picture) : this(FileType.Image)
+        public FileViewModel(PictureModel picture): this(FileType.Image)
         {
             if (picture != null)
             {

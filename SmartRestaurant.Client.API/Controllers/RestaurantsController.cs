@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Update;
 using SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetAll;
 using SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetById;
 using SmartRestaurant.Application.Services.Models;
 using SmartRestaurant.Application.Services.Queries;
-using System;
-using System.Collections.Generic;
+using SmartRestaurant.Domain.Restaurants;
 
 namespace SmartRestaurant.Client.API.Controllers
 {
@@ -17,7 +20,7 @@ namespace SmartRestaurant.Client.API.Controllers
         private readonly IGetServiceByRestaurantIdQuery getServiceByRestaurantId;
 
         public RestaurantsController(IGetRestaurantByIdQuery getRestaurantById
-            , IGetAllRestaurantsQuery getAllRestaurants,
+            , IGetAllRestaurantsQuery getAllRestaurants, 
             IGetServiceByRestaurantIdQuery getServiceByRestaurantId)
         {
             this.getRestaurantById = getRestaurantById;
@@ -44,7 +47,7 @@ namespace SmartRestaurant.Client.API.Controllers
         public ActionResult<UpdateRestaurantModel> Get(string id)
         {
             try
-            {
+            {               
                 var result = getRestaurantById.Execute(id);
                 if (result == null) return NotFound();
                 return result;

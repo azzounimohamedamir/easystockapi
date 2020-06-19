@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Exceptions;
@@ -19,13 +22,10 @@ using SmartRestaurant.Domain.Enumerations;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Notification;
 using SmartRestaurant.Resources.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
+   // [Area("Admin")]
     [Route("notifications")]
     [Route("{culture?}/notifications")]
     public class NotificationsController : AdminBaseController
@@ -52,7 +52,7 @@ namespace SmartRestaurant.Client.Web.Controllers
           IGetNotificationByIdQuerie getNotificationByIdQuerie,
           IGetUsersItemsQuery getUsersItemsQuery,
           IGetUserByIdQuery getUserByIdQuery,
-
+         
           IGetAllTemplateQuerie getAllTemplateQuerie,
             ILoggerService<AdminBaseController> baselog,
             ILoggerService<NotificationsController> log) :
@@ -79,7 +79,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 .Save();
 
             var test = getAllNotificationQuerie.Execute();
-
+          
             return View(test);
         }
         #endregion
@@ -99,7 +99,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             };
             return View(model);
         }
-
+      
 
         [HttpPost]
         [Route("add")]
@@ -121,7 +121,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             model.Templates = PopulateTemplates(model.CreateModel.TemplateId);
             model.NotificationTypes = EnumHelper<EnumNotificationType>.ToSelectList(model.CreateModel.Type.ToString());
             model.ActionTypes = EnumHelper<EnumAction>.ToSelectList(model.CreateModel.Action.ToString());
-
+          
             //Templates = PopulateEnum<EnumTemplateType>(),
             //    ActionTypes = PopulateEnum<EnumAction>() ,
             //    NotificationTypes = PopulateEnum<EnumNotificationType>(),
@@ -134,7 +134,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         [Route("edit")]
         public IActionResult Edit(string Id)
         {
-            if (String.IsNullOrEmpty(Id))
+            if ( String.IsNullOrEmpty(Id))
             {
                 return View("NotFound");
             }
@@ -164,7 +164,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
         [HttpPost]
         [Route("edit")]
-
+      
         public IActionResult Edit(NotificationViewModel model)
         {
             BreadcrumbForEdit(model.UpdateModel.Name);

@@ -3,7 +3,7 @@ using System;
 
 namespace SmartRestaurant.Domain.Dishes
 {
-    public class DishEquivalence : SmartRestaurantEntity
+    public class DishEquivalence: SmartRestaurantEntity
     {
         public Guid ParentId { get; set; }
         public Dish Parent { get; set; }

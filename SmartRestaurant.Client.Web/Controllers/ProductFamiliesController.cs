@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Exceptions;
@@ -14,11 +15,10 @@ using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Products.ProductFamilies;
 using SmartRestaurant.Resources.Products.Products;
 using SmartRestaurant.Resources.Utils;
-using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
+   // [Area("Admin")]
     [Route("ProductFamilies")]
     public class ProductFamiliesController : AdminBaseController
     {
@@ -30,7 +30,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly IGetProductFamilyByIdQuery getById;
         private readonly IGetProductFamiliesByRestaurantIdQuery getByRestaurantId;
         private readonly IGetAllRestaurantsQuery getAllRestaurants;
-
+ 
 
 
         public ProductFamiliesController(
@@ -101,7 +101,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         public IActionResult Add()
         {
 
-            var model = new ProductFamilyViewModel
+            var model = new  ProductFamilyViewModel
             {
                 CreateModel = new CreateProductFamilyModel(),
                 Parents = GetParent()
@@ -196,7 +196,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                .Save();
         }
 
-        private SelectList GetParent(object selected = null)
+        private SelectList GetParent( object selected = null)
         {
             return new SelectList(getAllRestaurants.Execute(), "Id", "Name", selected);
         }
@@ -264,7 +264,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             {
                 try
                 {
-                    deleteCommand.Execute(new DeleteProductFamilyModel { Id = id });
+                   deleteCommand.Execute(new DeleteProductFamilyModel { Id = id });
                     model.HasError = false;
 
                 }

@@ -10,8 +10,8 @@ namespace SmartRestaurant.Application.Commun.Translates.Queries.GetByTableName
         public string PrimaryKeyValue { get; set; }
         public string TableName { get; set; }
         public string Id { get; set; }
-        public Language Language { get; set; }
-        public string ColumnName { get; set; }
+        public Language Language { get;  set; }
+        public string ColumnName { get;  set; }
         public dynamic OriginalText { get; internal set; }
     }
 }

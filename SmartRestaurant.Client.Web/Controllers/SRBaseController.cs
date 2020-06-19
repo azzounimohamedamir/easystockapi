@@ -24,14 +24,14 @@ namespace SmartRestaurant.Client.Web.Controllers
         protected readonly IConfiguration _configuration;
         protected readonly IMailingService _mailing;
         protected readonly INotifyService _notify;
-
+        
         public SRBaseController(IConfiguration configuration,
                                 IMailingService mailing,
                                 INotifyService notify)
         {
             _configuration = configuration;
             _mailing = mailing;
-            _notify = notify;
+            _notify = notify;            
         }
 
         public CultureInfo AppCulture => new CultureInfo(CurrentLanguage);
@@ -107,11 +107,11 @@ namespace SmartRestaurant.Client.Web.Controllers
         {
             foreach (var err in ex.Errors)
             {
-                ModelState.AddModelError(err.PropertyName, err.ErrorMessage);
+                ModelState.AddModelError(err.PropertyName,err.ErrorMessage);
             }
         }
 
-
+        
 
     }
 }

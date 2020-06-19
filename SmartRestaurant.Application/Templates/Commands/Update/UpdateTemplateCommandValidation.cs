@@ -5,7 +5,7 @@ using System;
 
 namespace SmartRestaurant.Application.Templates.Commands.Update
 {
-    public class UpdateTemplateCommandValidation : AbstractValidator<IUpdateTemplateModel>
+    public class UpdateTemplateCommandValidation :AbstractValidator<IUpdateTemplateModel>
     {
         public UpdateTemplateCommandValidation()
         {

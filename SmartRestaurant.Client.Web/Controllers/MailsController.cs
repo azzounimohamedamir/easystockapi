@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Exceptions;
@@ -22,13 +25,10 @@ using SmartRestaurant.Domain.Enumerations;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Mailing;
 using SmartRestaurant.Resources.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
+   // [Area("Admin")]
     [Route("mails")]
     [Route("{culture?}/mails")]
     public class MailsController : AdminBaseController
@@ -146,7 +146,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
 
         #endregion
-
+  
         #region Edit
 
         [HttpGet]
@@ -194,7 +194,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                     .Select(i => i.Id).ToList();
 
                 updateMailCommand.Execute(model.UpdateModel);
-
+              
 
 
 
@@ -341,12 +341,12 @@ namespace SmartRestaurant.Client.Web.Controllers
 
         private SelectList PopulateTemplates(string selected = null)
         {
-            var EmailTemplates = getAllTemplateQuerie.Execute().Where(m => m.Type == EnumTemplateType.Email);
+           var EmailTemplates = getAllTemplateQuerie.Execute().Where(m=>m.Type == EnumTemplateType.Email);
 
             return new SelectList(EmailTemplates, "Id", "Name", selected);
         }
 
-
+        
         #endregion
     }
 }

@@ -3,8 +3,9 @@ using SmartRestaurant.Application.Dishes.DishFamillies.Queries.Factory;
 using SmartRestaurant.Application.Dishes.DishFamillies.Queries.Models;
 using SmartRestaurant.Application.Dishes.DishFamillies.Specifications;
 using SmartRestaurant.Application.Interfaces;
-using System;
+using System; 
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.GetDishFamilliesList
 {
@@ -39,14 +40,14 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.GetDishFamill
                     (
                     fc => fc.ParentId.ToString() == parentId
                     )
-                    .AddInclude(fc => fc.Restaurant)
-                    .AddInclude(fc => fc.Parent)
+                    .AddInclude(fc=>fc.Restaurant)
+                    .AddInclude(fc => fc.Parent)                    
                     .ApplyOrderBy(fc => fc.Name);
 
                 return _db.DishFamilies
                     .ApplySpecification(specification)
                     .ToDishFamilyItemModels();
-
+                    
             }
             catch (Exception ex)
             {

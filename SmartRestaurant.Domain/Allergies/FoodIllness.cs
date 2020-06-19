@@ -1,6 +1,8 @@
 ﻿using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Foods;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Domain.Allergies
 {

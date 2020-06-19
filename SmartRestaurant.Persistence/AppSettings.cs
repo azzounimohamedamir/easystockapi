@@ -1,4 +1,8 @@
-﻿namespace SmartRestaurant.Persistence
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Persistence
 {
     public class AppSettings
     {

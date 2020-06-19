@@ -1,8 +1,12 @@
-﻿namespace SmartRestaurant.Application.Services.Models
-{
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Application.Services.Models
+{    
     public class BaseStaffModel
     {
-        public string Id { get; set; }
+        public string Id       { get; set; }       
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -16,9 +20,9 @@
 
     }
 
-    public class WaiterModel : BaseStaffModel
+    public class WaiterModel:BaseStaffModel
     {
-
+        
     }
 
     public class CookerModel : BaseStaffModel

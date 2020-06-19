@@ -1,4 +1,8 @@
-﻿namespace SmartRestaurant.Application.Restaurants.Menu.Items.Commands.Update
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Application.Restaurants.Menu.Items.Commands.Update
 {
     public interface IUpdateMenuItemCommand
     {

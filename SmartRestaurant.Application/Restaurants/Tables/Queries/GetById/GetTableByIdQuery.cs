@@ -1,9 +1,11 @@
-﻿using Helpers;
-using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Restaurants.Tables.Commands.Update;
+﻿using SmartRestaurant.Application.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Helpers;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Restaurants.Tables.Commands.Update;
 
 namespace SmartRestaurant.Application.Restaurants.Tables.Queries.GetById
 {
@@ -48,7 +50,7 @@ namespace SmartRestaurant.Application.Restaurants.Tables.Queries.GetById
                         RestaurantId = x.Area.Floor.RestaurantId.ToString(),
                         FloorId = x.Area.FloorId.ToString(),
                         Name = x.Name,
-                        IsDisabled = x.IsDisabled
+                        IsDisabled= x.IsDisabled
                     }).FirstOrDefault();
             }
             catch (Exception)

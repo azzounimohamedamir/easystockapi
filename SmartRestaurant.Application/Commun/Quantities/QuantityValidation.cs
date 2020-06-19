@@ -2,19 +2,22 @@
 using SmartRestaurant.Resources.Commun.Quantity;
 using SmartRestaurant.Resources.Commun.Unit;
 using SmartRestaurant.Resources.SharedValidation;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Quantities
 {
-    public class QuantityValidation : AbstractValidator<IQuantityModel>
+    public class QuantityValidation:AbstractValidator<IQuantityModel>
     {
         public QuantityValidation()
         {
-            RuleFor(x => x.UnitId)
+            RuleFor(x => x.UnitId)              
               .NotEmpty()
               .WithMessage(string.Format(SharedValidationResource.RequiredErrorMessage, UnitResource.Unite));
 
             RuleFor(x => x.UnitId)
-              .NotNull()
+              .NotNull()              
               .WithMessage(string.Format(SharedValidationResource.RequiredErrorMessage, UnitResource.Unite));
 
             RuleFor(x => x.Value)

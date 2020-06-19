@@ -2,7 +2,7 @@
 
 namespace SmartRestaurant.Application.Commun.Currencies.Commands.Update
 {
-    public interface IUpdateCurrencyModel : ICreateCurrencyModel
+    public interface IUpdateCurrencyModel:ICreateCurrencyModel
     {
         string Id { get; set; }
     }

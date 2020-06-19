@@ -7,6 +7,6 @@
         string Id { get; set; }
         bool IsDisabled { get; set; }
         string Name { get; set; }
-
+        
     }
 }

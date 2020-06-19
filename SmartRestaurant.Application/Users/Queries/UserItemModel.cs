@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Users.Queries
 {
-    public class UserItemModel
+     public  class UserItemModel
     {
         public String Id { get; set; }
         public String FirstName { get; set; }

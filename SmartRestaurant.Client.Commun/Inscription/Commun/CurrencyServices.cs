@@ -18,13 +18,13 @@ namespace SmartRestaurant.Client.Commun.Inscription.Commun
             services.AddScoped<ICreateCurrencyCommand, CreateCurrencyCommand>();
             services.AddScoped<IUpdateCurrencyCommand, UpdateCurrencyCommand>();
             services.AddScoped<IDeleteCurrencyCommand, DeleteCurrencyCommand>();
-
+            
             services.AddScoped<ICreateCurrencyFactory, CreateCurrencyFactory>();
             services.AddScoped<IGetCurrencyByNameQuerie, GetCurrencyByNameQuerie>();
 
             services.AddScoped<IGetAllCurrenciesQuery, GetAllCurrenciesQuerie>();
             services.AddScoped<IGetCurrencyByIdQuerie, GetCurrencyByIdQuerie>();
-
+            
             return services;
         }
 

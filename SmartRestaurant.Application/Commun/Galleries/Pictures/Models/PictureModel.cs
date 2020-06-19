@@ -1,4 +1,8 @@
-﻿namespace SmartRestaurant.Application.Commun.Galleries.Pictures.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Application.Commun.Galleries.Pictures.Models
 {
     public class PictureModel : IPictureModel
     {

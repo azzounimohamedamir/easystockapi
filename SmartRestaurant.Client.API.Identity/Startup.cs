@@ -1,18 +1,25 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SmartRestaurant.Client.API.Identity.Extension;
 using SmartRestaurant.Domain.BaseIdentity;
 using SmartRestaurant.Domain.Clients.Identity;
 using SmartRestaurant.Domain.Identity.Guests;
 using SmartRestaurant.Persistance.Identity;
-using System;
-using System.Text;
 
 namespace SmartRestaurant.Client.API.Identity
 {
@@ -42,7 +49,7 @@ namespace SmartRestaurant.Client.API.Identity
 
             services.AddDbContext<SmartRestaurantIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
-            services.AddDbContext<SmartRestaurantTeamIdentityDbContext>(c => c.UseSqlServer(Configuration.GetConnectionString("SmartRestaurantTeamIdentityDbContext")));
+  services.AddDbContext<SmartRestaurantTeamIdentityDbContext>(c => c.UseSqlServer(Configuration.GetConnectionString("SmartRestaurantTeamIdentityDbContext")));
             services.AddDbContext<SmartRestaurantGuestIdentityDbContext>(c => c.UseSqlServer(Configuration.GetConnectionString("SmartRestaurantGuestIdentityDbContext")));
 
             try
@@ -57,21 +64,21 @@ namespace SmartRestaurant.Client.API.Identity
                 services.AddSecondIdentity<BaseIdentityUser, BaseIdentityRole>()
                    .AddEntityFrameworkStores<SmartRestaurantTeamIdentityDbContext>();
             }
-            catch (Exception ex)
+            catch (Exception ex )
             {
 
-                throw ex;
+                throw ex ;
             }
 
-            // services.AddIdentityCore<GuestIdentityUser>().AddRoles<GuestIdentityRole>()
-            //.AddEntityFrameworkStores<SmartRestaurantGuestIdentityDbContext>()
-            //.AddDefaultTokenProviders();
+           // services.AddIdentityCore<GuestIdentityUser>().AddRoles<GuestIdentityRole>()
+           //.AddEntityFrameworkStores<SmartRestaurantGuestIdentityDbContext>()
+           //.AddDefaultTokenProviders();
 
-
-            //     services.AddIdentityCore<BaseIdentityUser>().AddRoles<BaseIdentityRole>()
-            //            .AddEntityFrameworkStores<SmartRestaurantTeamIdentityDbContext>()
-            //            .AddDefaultTokenProviders();
-
+            
+           //     services.AddIdentityCore<BaseIdentityUser>().AddRoles<BaseIdentityRole>()
+           //            .AddEntityFrameworkStores<SmartRestaurantTeamIdentityDbContext>()
+           //            .AddDefaultTokenProviders();
+          
             #endregion
 
             #region Add Authentication  
@@ -104,7 +111,7 @@ namespace SmartRestaurant.Client.API.Identity
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-
+            
             app.UseCors("Cors");
             app.UseAuthentication();
             if (env.IsDevelopment())
@@ -116,7 +123,7 @@ namespace SmartRestaurant.Client.API.Identity
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            
             //app.UseHttpsRedirection();
             app.UseMvc();
         }

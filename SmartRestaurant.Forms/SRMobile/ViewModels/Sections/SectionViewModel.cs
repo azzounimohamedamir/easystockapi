@@ -4,7 +4,9 @@ using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Views;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -13,7 +15,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
     /// <summary>
     /// Used to manage sections objects as a ViewModel
     /// </summary>
-    public class SectionViewModel : SimpleViewModel
+    public class SectionViewModel: SimpleViewModel
     {
         readonly SectionModel section;
         public SectionViewModel(SectionModel _section)
@@ -21,10 +23,8 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             this.section = _section;
         }
 
-        public int Id
-        {
-            get
-            {
+        public int Id {
+            get {
                 return section.Id;
             }
         }
@@ -107,7 +107,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// <summary>
         /// Image to indicate the nature of the section.
         /// </summary>
-        public string Image
+        public string Image 
         {
             get { return section.Image; }
             set
@@ -147,9 +147,9 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             get
             {
-
+                
                 int x = Math.Min(section.SubSections.Count, 3);
-                if (x == 0) return "";
+                if (x == 0) return ""; 
                 string temp = (AppResources.Culture.Name == "ar" ?
                   String.Join(",", section.SubSections.Select(s => s.NameAr).Take(x)) :
                     (
@@ -159,18 +159,17 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                     ));
                 if (temp == "")
                     return "";
-                return temp.Substring(0, Math.Min(temp.Length, 35)) + " ...";
+                  return temp.Substring(0,Math.Min(temp.Length,35))+" ...";
             }
         }
         public ICommand ShowSubsectionsCommand
         {
             get
             {
-                return new Command(async () =>
-                {
+                return new Command(async () => {
                     try
                     {
-                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SubSectionsDishesPage(new SubSectionsListViewModel(this)));
+                       await  ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SubSectionsDishesPage(new SubSectionsListViewModel(this)));
                     }
                     catch (Exception)
                     {

@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.States.Queries.GetStateByCountry
 {
@@ -42,7 +44,7 @@ namespace SmartRestaurant.Application.Commun.States.Queries.GetStateByCountry
                CountryName = p.Country.Name,
                IsoCode = p.IsoCode,
                Name = p.Name,
-               Alias = p.Alias,
+               Alias = p.Alias ,
 
            }
 

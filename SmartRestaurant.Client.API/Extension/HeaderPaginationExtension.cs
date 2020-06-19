@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SmartRestaurant.Client.API.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.API.Extension
 {
@@ -32,7 +36,7 @@ namespace SmartRestaurant.Client.API.Extension
 
         public static void AddCulture(this HttpResponse response,
                                          string currentCulture)
-        {
+        {            
 
             response.Headers.Add("CultureName",
                 Newtonsoft.Json.JsonConvert.SerializeObject(currentCulture));

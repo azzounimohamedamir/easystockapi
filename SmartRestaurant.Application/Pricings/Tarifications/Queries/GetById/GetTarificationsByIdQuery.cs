@@ -3,7 +3,9 @@ using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Pricings.Tarifications.Commands.Update;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Pricings.Tarifications.Queries.GetById
 {
@@ -36,8 +38,8 @@ namespace SmartRestaurant.Application.Pricings.Tarifications.Queries.GetById
             try
             {
                 return db.Tarifications
-                    .Include(x => x.DishTarifications)
-                    .Include(x => x.ProductTarifications)
+                    .Include(x=>x.DishTarifications)
+                    .Include(x=>x.ProductTarifications)
                     .Include("DishTarifications.Dish")
                     .Include("ProductTarifications.Product")
                     .Select(x => new UpdateTarificationModel
@@ -48,13 +50,13 @@ namespace SmartRestaurant.Application.Pricings.Tarifications.Queries.GetById
                         IsDisabled = x.IsDisabled,
                         Name = x.Name,
                         SlugUrl = x.SlugUrl,
-                        IsPercentage = x.IsPercentage,
-                        Amount = x.Amount,
-                        RestaurantId = x.RestaurantId.ToString(),
-                        DishesNames = x.DishTarifications.Select(d => new IdName
+                        IsPercentage=x.IsPercentage,
+                        Amount=x.Amount,
+                        RestaurantId =x.RestaurantId.ToString(),
+                        DishesNames = x.DishTarifications.Select(d=> new IdName
                         {
                             Name = d.Dish.Name,
-                            Id = d.Dish.Id.ToString()
+                            Id=d.Dish.Id.ToString()
                         }).ToList(),
                         ProductsNames = x.ProductTarifications.Select(d => new IdName
                         {

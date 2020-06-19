@@ -1,10 +1,12 @@
 ﻿using SmartRestaurant.Domain.Enumerations;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Models
 {
     public interface IDishModel
-    {
+    {       
         string Alias { get; set; }
         bool CanBeAccompanying { get; set; }
         string Description { get; set; }

@@ -1,7 +1,9 @@
 ﻿using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Models;
 using SmartRestaurant.Domain.Commun;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Factory
 {
@@ -13,7 +15,7 @@ namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Factor
                                    string name,
                                    string description,
                                    string imageUrl,
-                                   bool isTheCover = false);
+                                   bool isTheCover=false);
 
         GalleryPictureModel Create(Picture entity, string coverId);
 
@@ -21,19 +23,19 @@ namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Factor
     }
 
     public class GalleryPictureModelFactory : IGalleryPictureModelFactory
-    {
-        public GalleryPictureModel Create(Picture entity, string coverId)
-            => Create
-            (
+    {       
+        public GalleryPictureModel Create(Picture entity,string coverId)        
+            =>Create
+            (   
                 entity.Id.ToString(),
                 entity.IsDisabled,
                 entity.Alias,
                 entity.Name,
                 entity.Description,
                 entity.ImageUrl,
-                entity.Id.ToString() == coverId ? true : false
+                entity.Id.ToString() == coverId?true:false
             );
-
+        
 
         public GalleryPictureModel Create(string id,
                                           bool isDisabled,
@@ -41,20 +43,20 @@ namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Factor
                                           string name,
                                           string description,
                                           string imageUrl,
-                                          bool isTheCover = false)
+                                          bool isTheCover=false)
         => new GalleryPictureModel
-        {
-            Id = id,
-            IsDisabled = isDisabled,
-            Alias = alias,
-            Name = name,
-            Description = description,
-            ImageUrl = imageUrl,
-            IsTheCover = isTheCover,
-        };
-
+            {
+                Id = id,
+                IsDisabled = isDisabled,
+                Alias = alias,
+                Name = name,
+                Description = description,
+                ImageUrl = imageUrl,
+                IsTheCover=isTheCover,                
+            };
+        
 
         public IEnumerable<GalleryPictureModel> Create(IEnumerable<Picture> entities, string coverId)
-        => (from entity in entities select Create(entity, coverId)).AsEnumerable();
+        => (from entity in entities select Create(entity,coverId)).AsEnumerable();
     }
 }

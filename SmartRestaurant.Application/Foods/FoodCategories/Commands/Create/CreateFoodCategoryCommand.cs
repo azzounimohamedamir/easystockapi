@@ -23,7 +23,7 @@ namespace SmartRestaurant.Application.FoodCategories.Commands
 
         public CreateFoodCategoryCommand(
             ISmartRestaurantDatabaseService db,
-            ILoggerService<CreateFoodCategoryCommand> logger,
+            ILoggerService<CreateFoodCategoryCommand> logger, 
             IMailingService mailing,
             INotifyService notify)
         {

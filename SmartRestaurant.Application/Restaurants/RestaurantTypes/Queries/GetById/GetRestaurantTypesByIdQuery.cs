@@ -1,9 +1,12 @@
-﻿using Helpers;
-using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Restaurants.RestaurantTypes.Commands.Update;
+﻿using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetBySpecification;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Helpers;
+using SmartRestaurant.Application.Restaurants.RestaurantTypes.Specifications;
 using System.Linq;
+using SmartRestaurant.Application.Restaurants.RestaurantTypes.Commands.Update;
 
 namespace SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetById
 {
@@ -22,7 +25,7 @@ namespace SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetByI
         private readonly IGetRestaurantTypeBySpecificationQuery spec;
 
         public GetRestaurantTypeByIdQuery(ISmartRestaurantDatabaseService db,
-            ILoggerService<IGetRestaurantTypeByIdQuery> log,
+            ILoggerService<IGetRestaurantTypeByIdQuery> log, 
             IMailingService mailing,
             IGetRestaurantTypeBySpecificationQuery spec,
             INotifyService notify)
@@ -42,9 +45,9 @@ namespace SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetByI
                 return db.RestaurantTypes.Where(x => x.Id == guid).Select(x => new UpdateRestaurantTypeModel
                 {
                     Alias = x.Alias,
-                    Description = x.Description,
-                    Id = x.Id.ToString(),
-                    Name = x.Name
+                    Description =x.Description,
+                    Id =x.Id.ToString(),
+                    Name =x.Name
                 }).FirstOrDefault();
             }
             catch (Exception)

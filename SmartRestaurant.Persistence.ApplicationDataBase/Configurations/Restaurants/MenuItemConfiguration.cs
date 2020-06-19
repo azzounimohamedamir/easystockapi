@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Restaurants;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Restaurants
 {
@@ -27,9 +30,8 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Restaur
                 .WithOne(g => g.MenuItem)
                 .HasForeignKey<Gallery>(gal => gal.MenuItemId);
 
-            b.OwnsOne<Price>("Discount", dis =>
-            {
-                dis.HasOne(x => x.Currency)
+            b.OwnsOne<Price>("Discount", dis => {
+                dis.HasOne(x=>x.Currency)
                 .WithMany()
                 .HasForeignKey("CurrencyId");
                 dis.HasForeignKey("MenuItemId");

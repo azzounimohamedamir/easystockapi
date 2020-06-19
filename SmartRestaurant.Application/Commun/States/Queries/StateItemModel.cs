@@ -1,4 +1,8 @@
-﻿namespace SmartRestaurant.Application.Commun.States.Queries
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Application.Commun.States.Queries
 {
     public class StateItemModel
     {

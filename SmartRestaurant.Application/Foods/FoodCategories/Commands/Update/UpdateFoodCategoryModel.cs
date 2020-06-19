@@ -1,4 +1,6 @@
-﻿namespace SmartRestaurant.Application.FoodCategories.Commands.Update
+﻿using System;
+
+namespace SmartRestaurant.Application.FoodCategories.Commands.Update
 {
     public class UpdateFoodCategoryModel : CreateFoodCategoryModel, IUpdateFoodCategoryModel
     {

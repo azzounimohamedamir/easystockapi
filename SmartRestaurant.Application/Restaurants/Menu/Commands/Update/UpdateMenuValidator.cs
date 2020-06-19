@@ -3,7 +3,7 @@ using SmartRestaurant.Application.Restaurants.Menu.Commands.Models;
 
 namespace SmartRestaurant.Application.Restaurants.Menu.Commands.Update
 {
-    public class updateMenuValidator : AbstractValidator<MenuModel>
+    public class updateMenuValidator: AbstractValidator<MenuModel>
     {
         public updateMenuValidator()
         {

@@ -1,8 +1,11 @@
 ﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.MailingUsers.Queries;
 using SmartRestaurant.Domain;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Helpers;
+using SmartRestaurant.Application.MailingUsers.Queries;
 
 namespace SmartRestaurant.Application.MailingUsers.Commands.Delete
 {

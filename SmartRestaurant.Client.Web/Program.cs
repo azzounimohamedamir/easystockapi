@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore;
+﻿using System.IO;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using System.IO;
 
 namespace SmartRestaurant.Client.Web
 {
@@ -8,11 +8,11 @@ namespace SmartRestaurant.Client.Web
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args)
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                 .UseWebRoot("wwwroot").Build().Run();
+           CreateWebHostBuilder(args)
+               .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseWebRoot("wwwroot").Build().Run();
         }
-
+      
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)

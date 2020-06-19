@@ -1,5 +1,5 @@
-﻿using SmartRestaurant.Application.Commun.Select;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using SmartRestaurant.Application.Commun.Select;
 
 namespace SmartRestaurant.Application.Commun.Countries.Commands.Create
 {

@@ -2,7 +2,7 @@
 
 namespace SmartRestaurant.Application.Restaurants.Areas.Commands.Update
 {
-    public interface IUpdateAreaModel : ICreateAreaModel
+    public interface IUpdateAreaModel: ICreateAreaModel
     {
         string Id { get; set; }
     }

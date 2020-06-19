@@ -8,7 +8,7 @@ namespace SmartRestaurant.Application.Foods.Commands.Create
 {
     public static class FoodFactory
     {
-
+      
         public static Nutrition GetNutrition(this NutritionModel model)
         {
             return new Nutrition(model.Quantity.ToVOQuantity(), model.GlycemicIndex,

@@ -1,10 +1,13 @@
-﻿using Helpers;
-using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Interfaces;
+﻿using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetAll;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Helpers;
 using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
 using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Update;
-using System;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetById
 {

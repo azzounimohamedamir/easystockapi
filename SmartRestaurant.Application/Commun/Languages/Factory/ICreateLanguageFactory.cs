@@ -1,16 +1,19 @@
 ﻿using SmartRestaurant.Domain.Commun;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Languages.Factory
 {
     public interface ICreateLanguageFactory
     {
-        Language Create(string Name, string IsoCode, bool IsRTL,
-            string Alias, bool IsDisabled, string EnglishName);
+        Language Create(string Name, string IsoCode, bool IsRTL, 
+            string Alias,bool IsDisabled, string EnglishName );
     }
-
+    
     public class CreateLanguageFactory : ICreateLanguageFactory
     {
-        public Language Create(string Name, string IsoCode, bool IsRTL,
+        public Language Create(string Name, string IsoCode, bool IsRTL , 
             string Alias, bool IsDisabled, string EnglishName)
         {
             var entity = new Language();
@@ -20,7 +23,7 @@ namespace SmartRestaurant.Application.Commun.Languages.Factory
             entity.IsRTL = IsRTL;
             entity.IsDisabled = IsDisabled;
             entity.EnglishName = EnglishName;
-
+     
 
             return entity;
 

@@ -1,4 +1,7 @@
-﻿using Helpers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Commun.Countries.Commands.Create;
@@ -18,15 +21,12 @@ using SmartRestaurant.Client.Web.Models.Countries;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Commun.Country;
 using SmartRestaurant.Resources.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    // [Area("Admin")]
+   // [Area("Admin")]
     [Route("/countries")]
-    [Route("{culture?}/countries")]
+    [Route("{culture?}/countries")]    
     public class CountriesController : AdminBaseController
     {
         #region Private Fields 
@@ -46,18 +46,18 @@ namespace SmartRestaurant.Client.Web.Controllers
         #region Constructor
 
         public CountriesController(
-            IConfiguration configuration,
-            IMailingService mailing,
-            INotifyService notify,
-            ICountryService countryService,
+            IConfiguration configuration, 
+            IMailingService mailing, 
+            INotifyService notify, 
+            ICountryService countryService ,
                      IGetAllCurrenciesQuery getAllCurrenciesQuerie,
           ICreateCountryCommand createCountryCommand,
-          IUpdateCountryCommand updateCountryCommand,
-          IDeleteCountryCommand deleteCountryCommand,
+          IUpdateCountryCommand updateCountryCommand ,
+          IDeleteCountryCommand deleteCountryCommand ,
           IGetAllCountriesQuerie getAllCountriesQuerie,
           IGetCountryByIdQuerie getCountryByIdQuerie,
           IGetCountryByNameQuery getCountryByNameQuery,
-          IGetCurrencyByIdQuerie getCurrencyByIdQuerie,
+          IGetCurrencyByIdQuerie getCurrencyByIdQuerie ,   
           ILoggerService<AdminBaseController> baselog,
             ILoggerService<StatesController> log) : base(configuration, mailing, notify, baselog)
         {
@@ -70,8 +70,8 @@ namespace SmartRestaurant.Client.Web.Controllers
             this.getAllCountriesQuerie = getAllCountriesQuerie;
             this.getCountryByIdQuerie = getCountryByIdQuerie;
             this.getCountryByNameQuery = getCountryByNameQuery;
-            this.getCurrencyByIdQuerie = getCurrencyByIdQuerie;
-
+           this.getCurrencyByIdQuerie = getCurrencyByIdQuerie;
+          
         }
         #endregion
 
@@ -80,15 +80,15 @@ namespace SmartRestaurant.Client.Web.Controllers
         [Route("index")]
         public IActionResult Index()
         {
-            this.PageBreadcrumb.SetTitle(CountryUtilsResource.HomePageTitle)
+            this.PageBreadcrumb.SetTitle(CountryUtilsResource.HomePageTitle)   
                 .AddHome()
                 .AddItem(CountryUtilsResource.HomeNavigationTitle)
                 .Save();
 
-            return View(getAllCountriesQuerie.Execute());
+            return View(getAllCountriesQuerie.Execute()) ;
         }
         #endregion
-
+        
         #region Add
         [HttpGet]
         [Route("add")]
@@ -98,9 +98,9 @@ namespace SmartRestaurant.Client.Web.Controllers
             var q = getAllCurrenciesQuerie.Execute();
             var model = new CountryViewModel()
             {
-
-                CreateModel = new CreateCountryModel(),
-                CurrenciesItemModel = q
+              
+                 CreateModel = new CreateCountryModel(),          
+                 CurrenciesItemModel = q                 
             };
             return View(model);
         }
@@ -117,20 +117,19 @@ namespace SmartRestaurant.Client.Web.Controllers
             try
             {
                 var _Country = model.CreateModel;
-                if (model.CurrenciesItemModel != null)
-                {
+                if(model.CurrenciesItemModel != null) {
                     _Country.CurrenciesId = model.CurrenciesItemModel.Where(i => i.IsSelected).Select(i => i.Id).ToList();
                 }
-
+                
                 createCountryCommand.Execute(_Country);
 
             }
-            catch (NotValidException ex)
+            catch(NotValidException ex)
             {
                 AddErrorToModelState(ex);
 
             }
-
+           
             return View(model);
         }
         #endregion
@@ -144,26 +143,25 @@ namespace SmartRestaurant.Client.Web.Controllers
             {
                 return View("NotFound");
             }
-            try
-            {
-
+            try {
+               
                 var result = getCountryByIdQuerie.Execute(Id);
                 var model = new CountryViewModel()
                 {
-                    UpdateModel = result,
-                    CurrenciesItemModel = PopulateCurrencies(result.CurrenciesId)
+                     UpdateModel = result ,
+                     CurrenciesItemModel = PopulateCurrencies(result.CurrenciesId)
                 };
                 BreadcrumbForEdit(result.Name);
                 return View(model);
             }
-            catch (NotFoundException)
+            catch(NotFoundException)
             {
                 return View("NotFound");
             }
 
 
-
-
+                      
+            
         }
 
         [HttpPost]
@@ -176,9 +174,9 @@ namespace SmartRestaurant.Client.Web.Controllers
             {
                 var _country = model.UpdateModel;
                 var CountryId = model.UpdateModel.Id;
-                _country.CurrenciesId = model.CurrenciesItemModel.Where(i => i.IsSelected).Select(i => i.Id).ToList();
+                _country.CurrenciesId = model.CurrenciesItemModel.Where(i=>i.IsSelected).Select(i => i.Id).ToList();
                 updateCountryCommand.Execute(_country);
-
+                
 
             }
             catch (NotValidException ex)
@@ -186,7 +184,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 AddErrorToModelState(ex);
 
             }
-
+            
             return View(model);
         }
 
@@ -215,7 +213,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                     model.Args.Add(Url.Action("Delete", "countries"));
                     model.Args.Add("country");
 
-                    model.Title = string.Format(UtilsResource.DefaultDeleteEntityModalTitle, CountryResource.Name);
+                    model.Title = string.Format(UtilsResource.DefaultDeleteEntityModalTitle,CountryResource.Name);
                     model.Message = string.Format(UtilsResource.DeleteModalBodyMessage, country.Name);
                     model.HasError = false;
 

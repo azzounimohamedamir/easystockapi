@@ -2,8 +2,10 @@
 using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Dishes;
 using SmartRestaurant.Domain.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Services.Queries.GetByRestaurantId
 {

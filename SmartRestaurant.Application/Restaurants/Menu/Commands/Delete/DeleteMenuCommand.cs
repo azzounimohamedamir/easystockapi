@@ -1,7 +1,7 @@
-﻿using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
 
 namespace SmartRestaurant.Application.Restaurants.Menu.Commands.Delete
 {
@@ -28,7 +28,7 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Commands.Delete
 
         public async Task Execute(DeleteMenuModel model)
         {
-            var item = await db.Menus.FindAsync(Guid.Parse(model.Id));
+            var item =await db.Menus.FindAsync(Guid.Parse(model.Id));
             if (item == null) return;
             db.Menus.Remove(item);
             db.Save();

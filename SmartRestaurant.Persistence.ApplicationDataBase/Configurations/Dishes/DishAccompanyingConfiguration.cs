@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Dishes;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Dishes
 {
@@ -21,7 +24,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Dishes
                 .HasForeignKey(d => d.AccompanyingId);
 
 
-            b.OwnsOne<Quantity>("Quantity", Qt =>
+            b.OwnsOne<Quantity>("Quantity", Qt => 
             {
                 Qt.HasOne(u => u.Unit).WithMany();
             });

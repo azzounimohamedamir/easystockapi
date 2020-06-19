@@ -1,6 +1,7 @@
 ﻿using SmartRestaurant.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Domain.Commun
 {
@@ -23,7 +24,7 @@ namespace SmartRestaurant.Domain.Commun
             return new Price(left.CurrencyId, left.Amount - right.Amount);
         }
         public static Price operator +(Price left, decimal right)
-        {
+        {   
             return new Price(left.CurrencyId, left.Amount + right);
         }
         public static Price operator -(Price left, decimal right)

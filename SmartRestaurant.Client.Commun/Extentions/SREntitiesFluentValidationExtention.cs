@@ -154,7 +154,7 @@ namespace SmartRestaurant.Client.Commun
 
             services.AddTransient<IValidator<DishAccompanyingModel>, DishAccompanyingModelValidation>();
             services.AddTransient<IValidator<IDishAccompanyingModel>, DishAccompanyingModelValidation>();
-
+            
             #endregion
 
             #region Galleries
@@ -172,7 +172,7 @@ namespace SmartRestaurant.Client.Commun
             services.AddTransient<IValidator<IUpdateSpecialityModel>, UpdateSpecialityModelValidation>();
 
             #endregion
-            return services;
+            return services;            
         }
     }
 }

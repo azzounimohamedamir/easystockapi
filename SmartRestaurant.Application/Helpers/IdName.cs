@@ -1,4 +1,8 @@
-﻿namespace SmartRestaurant.Application.Helpers
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Application.Helpers
 {
     public class IdName
     {

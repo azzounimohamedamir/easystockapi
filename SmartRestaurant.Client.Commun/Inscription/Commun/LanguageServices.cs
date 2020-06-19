@@ -18,7 +18,7 @@ namespace SmartRestaurant.Client.Commun.Inscription.Commun
             services.AddScoped<ICreateLanguageCommand, CreateLanguageCommand>();
             services.AddScoped<IUpdateLanguageCommand, UpdateLanguageCommand>();
             services.AddScoped<IDeleteLanguageCommand, DeleteLanguageCommand>();
-
+            
             services.AddScoped<ICreateLanguageFactory, CreateLanguageFactory>();
 
             services.AddScoped<IGetAllLanguagesQuerie, GetAllLanguagesQuerie>();

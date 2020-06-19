@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Exceptions;
@@ -15,13 +17,11 @@ using SmartRestaurant.Client.Web.Models.Restaurants;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Restaurants.Restaurants;
 using SmartRestaurant.Resources.Utils;
-using System;
-using System.Collections.Generic;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
     //[Area("Admin")]
-    [Route("Restaurants")]
+   [Route("Restaurants")]
     public class RestaurantsController : AdminBaseController
     {
         private readonly ILoggerService<RestaurantsController> _log;
@@ -74,7 +74,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         {
             this.PageBreadcrumb.SetTitle(RestaurantUtilsResource.HomePageTitle)
                 .AddHome()
-                .AddItem(RestaurantUtilsResource.HomeNavigationTitle, Url.Action("Index", "Restaurants"))
+                .AddItem(RestaurantUtilsResource.HomeNavigationTitle, Url.Action( "Index", "Restaurants"))
                 .Save();
 
             var result = new RestaurantItemViewModel
@@ -92,17 +92,17 @@ namespace SmartRestaurant.Client.Web.Controllers
         {
             this.PageBreadcrumb.SetTitle(RestaurantUtilsResource.HomePageTitle)
                 .AddHome()
-                .AddItem(RestaurantUtilsResource.HomeNavigationTitle, Url.Action("Index", "Restaurants"))
+                .AddItem(RestaurantUtilsResource.HomeNavigationTitle, Url.Action( "Index", "Restaurants"))
                 .Save();
 
             viewModel.Entities = getAllRestaurants
-                .Execute(viewModel.SelectedRestaurantTypeId, viewModel.SelectedOwnerId);
-
+                .Execute(viewModel.SelectedRestaurantTypeId,viewModel.SelectedOwnerId);
+               
             viewModel.RestaurantTypes = GetTypes(viewModel.SelectedRestaurantTypeId);
             viewModel.Owners = GetOwners(viewModel.SelectedOwnerId);
             return View(viewModel);
         }
-
+        
         #endregion
 
 
@@ -154,7 +154,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
                 var viewModel = new RestaurantViewModel
                 {
-                    UpdateModel = result,
+                    UpdateModel = result,              
                     RestaurantTypes = GetTypes(result.RestaurantTypeId),
                     Owners = GetOwners(result.OwnerId)
                 };
@@ -242,7 +242,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             {
                 try
                 {
-                    var entity = getById.Execute(id);
+                    var entity =  getById.Execute(id);
                     model.Args.Add(entity.Id);
                     model.Args.Add(Url.Action("Delete", "Restaurants"));
                     model.Args.Add("Restaurant");

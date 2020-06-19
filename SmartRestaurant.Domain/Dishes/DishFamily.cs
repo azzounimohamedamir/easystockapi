@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SmartRestaurant.Domain.Dishes
 {
-    public class DishFamily : BaseEntity<Guid>
+    public class DishFamily:BaseEntity<Guid>
     {
         public Guid RestaurantId { get; set; }
         public Guid? ParentId { get; set; }

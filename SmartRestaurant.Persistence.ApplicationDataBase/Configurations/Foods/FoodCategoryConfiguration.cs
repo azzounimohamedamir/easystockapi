@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartRestaurant.Domain.Foods;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Foods
 {
@@ -22,7 +25,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Foods
                 .HasForeignKey(ch => ch.ParentId);
 
             b.HasOne(c => c.Picture).WithOne();
-
+                  
         }
     }
 }

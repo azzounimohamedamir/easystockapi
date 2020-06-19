@@ -3,10 +3,11 @@ using SmartRestaurant.Domain.Pricings;
 using SmartRestaurant.Domain.Restaurants;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Domain.Products
 {
-    public class Product : BaseEntity<Guid>
+    public class Product: BaseEntity<Guid>
     {
         public Guid? PictureId { get; set; }
         public Guid ProductFamilyId { get; set; }
@@ -18,6 +19,6 @@ namespace SmartRestaurant.Domain.Products
         public ProductFamily ProductFamily { get; set; }
         public ICollection<ProductTarification> ProductTarifications { get; set; }
 
-
+        
     }
 }

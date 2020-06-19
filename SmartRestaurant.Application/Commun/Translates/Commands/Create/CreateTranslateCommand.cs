@@ -1,9 +1,15 @@
-﻿using SmartRestaurant.Application.Commun.Translates.Queries.GetByTableName;
+﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Commun;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using Helpers;
 using System.Linq;
+using SmartRestaurant.Domain.Commun;
+using SmartRestaurant.Application.Helpers;
+using SmartRestaurant.Domain.Pricings;
+using SmartRestaurant.Application.Commun.Prices;
+using SmartRestaurant.Application.Commun.Translates.Queries.GetByTableName;
 
 namespace SmartRestaurant.Application.Commun.Translates.Commands.Create
 {
@@ -41,7 +47,7 @@ namespace SmartRestaurant.Application.Commun.Translates.Commands.Create
                 var tableTranslates = db.Translates.Where(x => x.TableName == tableName).ToList();
                 var languages = db.Languages.OrderBy(o => o.EnglishName).ToList();
 
-
+               
                 foreach (var translate in model)
                 {
                     foreach (var text in translate.TextTraslations)
@@ -73,7 +79,7 @@ namespace SmartRestaurant.Application.Commun.Translates.Commands.Create
                     }
                 }
 
-
+              
             }
             catch (Exception ex)
             {

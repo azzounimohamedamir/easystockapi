@@ -1,4 +1,6 @@
-﻿public interface IDeleteCountryCommand
+﻿using System;
+
+public interface IDeleteCountryCommand
 {
-    void Execute(DeleteCountryModel model);
+     void Execute(DeleteCountryModel model);
 }

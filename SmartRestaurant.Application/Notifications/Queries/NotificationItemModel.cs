@@ -1,12 +1,15 @@
-﻿using SmartRestaurant.Domain;
+﻿using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Domain;
 using SmartRestaurant.Domain.Enumerations;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Application.Notifications.Queries
 {
     public class NotificationItemModel
     {
-
+        
         public string Id { get; set; }
         public EnumAction Action { get; set; }
         public string TableName { get; set; }
@@ -20,11 +23,11 @@ namespace SmartRestaurant.Application.Notifications.Queries
         //public string Body { get; set; }
         public EnumNotificationType Type { get; set; }
 
-        public List<SRUser> UserList { get; set; }
+        public List<SRUser> UserList { get;  set; }
         public string UserNames
         {
 
-            get; set;
+            get; set ;
         }
     }
 }

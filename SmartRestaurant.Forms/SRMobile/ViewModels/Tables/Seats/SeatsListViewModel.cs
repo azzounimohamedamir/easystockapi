@@ -1,11 +1,15 @@
 ﻿using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Infrastructures;
+using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using SmartRestaurant.Diner.Services;
 using SmartRestaurant.Diner.ViewModels.Sections;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -29,12 +33,12 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             Numero_Table = table.Numero;
             Seats = new List<SeatViewModel>();
             table.CurrentOrders = null;
-            for (int i = 1; i <= table.SeatCount; i++)
+            for(int i=1;i<=table.SeatCount;i++)
             {
                 Seats.Add(new SeatViewModel(table.Id, i, table.Numero, table));
             }
         }
-
+ 
 
 
         /// <summary>
@@ -55,18 +59,17 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         {
             get
             {
-                return new Command(async () =>
-                {
+                return new Command(async () => {
                     try
                     {
                         if (SelectedSeat != null)
                         {
                             SelectedSeat.IsTaken = true;
                             SectionsListViewModel.Seats = this;
-                            if (SelectedSeat.CurrentOrder.Lines != null && SelectedSeat.CurrentOrder.Lines.Count > 0)
+                            if(SelectedSeat.CurrentOrder.Lines!=null && SelectedSeat.CurrentOrder.Lines.Count>0)
                                 await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap());
                             else
-                                await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new LanguageView(new LanguageViewModel()));
+                            await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new LanguageView(new LanguageViewModel()));
                         }
                     }
                     catch (Exception)
@@ -81,13 +84,12 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         {
             get
             {
-                return new Command(async () =>
-                {
+                return new Command(async () => {
                     try
                     {
                         if (SelectedSeat != null)
                         {
-                            SelectedSeat.IsTaken = true;
+                            SelectedSeat.IsTaken = true; 
                             await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap());
                         }
                     }

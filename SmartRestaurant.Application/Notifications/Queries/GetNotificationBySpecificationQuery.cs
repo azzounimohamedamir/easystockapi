@@ -1,4 +1,5 @@
 ﻿using SmartRestaurant.Application.ApplicationDataBase.Extensions;
+using SmartRestaurant.Application.Commun.Countries.Queries;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Notifications.Commands.Factory;
 using SmartRestaurant.Application.Notifications.Queries;
@@ -9,7 +10,7 @@ using System.Linq;
 
 namespace SmartRestaurant.Application.Notifications.Services
 {
-    public interface IGetNotificationBySpecificationQuery
+    public  interface IGetNotificationBySpecificationQuery
     {
         List<NotificationItemModel> Execute(ISpecification<Notification> specifications);
     }

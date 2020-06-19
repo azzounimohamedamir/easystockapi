@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using SmartRestaurant.Application.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Persistence.Logger
 {
@@ -14,12 +17,12 @@ namespace SmartRestaurant.Persistence.Logger
         public void LogCritical(string message, params object[] args)
         {
             _logger.LogCritical(message, args);
-
+           
         }
 
         public void LogDebug(string message, params object[] args)
         {
-
+            
             _logger.LogDebug(message, args);
         }
 
@@ -41,7 +44,7 @@ namespace SmartRestaurant.Persistence.Logger
         public void LogWarning(string message, params object[] args)
         {
             _logger.LogWarning(message, args);
-
+            
         }
     }
 }

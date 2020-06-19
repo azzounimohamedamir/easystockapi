@@ -1,7 +1,9 @@
 ﻿using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Currencies.Queries.GetCurrenciesList
 {
@@ -35,11 +37,11 @@ namespace SmartRestaurant.Application.Commun.Currencies.Queries.GetCurrenciesLis
                     Id = p.Id.ToString(),
                     Name = p.Name,
                     IsoCode = p.IsoCode,
-                    Alias = p.Alias,
+                    Alias = p.Alias ,
                     IsDisabled = p.IsDisabled.DisabledDisplay(),
                 });
 
-            return entity.ToList();
+            return entity.ToList(); 
 
 
         }
