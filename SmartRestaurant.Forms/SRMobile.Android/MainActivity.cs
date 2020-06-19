@@ -1,5 +1,6 @@
 ﻿
 using Android.App;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using PanCardView.Droid;
@@ -7,7 +8,7 @@ using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.Droid
 {
-    [Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true)]
+    [Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
