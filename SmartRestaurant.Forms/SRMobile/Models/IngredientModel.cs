@@ -15,6 +15,7 @@ namespace SmartRestaurant.Diner.Models
         public string NameEn { get; set; }
         public float Price { get; set; }
         public string Image { get; set; }
+        //To be deleted
         public int Weight { get; set; }
         public float Calories { get; set; }
         public float Carbo { get; set; }

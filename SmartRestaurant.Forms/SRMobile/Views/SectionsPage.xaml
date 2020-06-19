@@ -16,12 +16,12 @@
                                         <RowDefinition Height="259"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Image HeightRequest="163" Grid.Row="0" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="AspectFill" />
-                                    <Label Grid.Row="0" BackgroundColor="White" HorizontalTextAlignment="{Binding OrientationText}" VerticalTextAlignment="Start" HeightRequest="74" HorizontalOptions="FillAndExpand" Margin="32,170,32,0" VerticalOptions="FillAndExpand">
+                                    <Label Style="{StaticResource RobotoLabel}" Grid.Row="0" BackgroundColor="White" HorizontalTextAlignment="{Binding OrientationText}" VerticalTextAlignment="Start" HeightRequest="74" HorizontalOptions="FillAndExpand" Margin="32,170,16,0" VerticalOptions="FillAndExpand">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="{Binding Name}" TextColor="#01A9AC" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf" FontAttributes="Bold" />
-                                                <Span Text="&#10;" TextColor="#77000000" FontSize="13" FontFamily="Assets/Fonts/Roboto.ttf" />
-                                                <Span Text="{Binding AbstractSubSections}" TextColor="#77000000" FontSize="13" FontFamily="Assets/Fonts/Roboto.ttf" />
+                                                <Span Text="{Binding Name}" TextColor="#01A9AC" FontSize="24" FontAttributes="Bold" />
+                                                <Span Text="&#10;" TextColor="#77000000" FontSize="13"  />
+                                                <Span Text="{Binding AbstractSubSections}" TextColor="#77000000" FontSize="11"   />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>

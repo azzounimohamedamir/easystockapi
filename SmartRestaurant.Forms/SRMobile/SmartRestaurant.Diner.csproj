@@ -6,9 +6,8 @@
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="CustomControls\GradientColorStack.cs" />    
+    <Compile Remove="CustomControls\GradientColorStack.cs" />
   </ItemGroup>
- 
 
   <ItemGroup>
     <None Remove="Repositories\ListAllergies.json" />
@@ -106,6 +105,9 @@
     <EmbeddedResource Update="Views\DeseasesAllergiesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\DinerCommandRecap.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\LanguageView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -154,15 +156,11 @@
     <None Update="Views\ZonesAndTablesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="Views\DinerCommandRecap.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ViewModels\Tables\Seats\" />
   </ItemGroup>
 
-
-  <ProjectExtensions><VisualStudio><UserProperties repositories_4listsections_1json__JsonSchema="http://json.schemastore.org/asmdef" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties repositories_4listsections_1json__JsonSchema="https://json.schemastore.org/ansible-stable-2.9" /></VisualStudio></ProjectExtensions>
 </Project>

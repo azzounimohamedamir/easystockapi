@@ -8,7 +8,7 @@ using Xamarin.Forms.Xaml;
 namespace SmartRestaurant.Diner.Helpers
 {
     /// <summary>
-    /// This class is used by the plugin Mulrilingual to translate texts of the UI according to the languages resources installed
+    /// This class is used by the plugin Multilingual to translate texts of the UI according to the languages resources installed
     /// so for that each sentenses in the UI has a <key:value> in the three resources languages.
     /// </summary>
     [ContentProperty("Text")]
