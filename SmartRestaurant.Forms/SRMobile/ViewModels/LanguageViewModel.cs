@@ -1,12 +1,10 @@
 ﻿using Plugin.Multilingual;
 using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Infrastructures;
-using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.ViewModels.Sections;
 using SmartRestaurant.Diner.Views;
 using System;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -16,7 +14,7 @@ namespace SmartRestaurant.Diner.ViewModels
     /// <summary>
     /// Used to Bind with the language View and to select a language.
     /// </summary>
-    public class LanguageViewModel: SimpleViewModel
+    public class LanguageViewModel : SimpleViewModel
     {
 
         public LanguageViewModel()
@@ -27,7 +25,7 @@ namespace SmartRestaurant.Diner.ViewModels
         private bool arabicLanguage;
         public bool ArabicLanguage
         {
-            get 
+            get
             {
                 return arabicLanguage;
             }
@@ -221,7 +219,7 @@ namespace SmartRestaurant.Diner.ViewModels
         {
             string language = "fr";
             language = EnglishLanguage ? "en" : (ArabicLanguage ? "ar" : "fr");
-            
+
             var culture = new CultureInfo(language);
             AppResources.Culture = culture;
             CrossMultilingual.Current.CurrentCultureInfo = culture;
@@ -237,7 +235,7 @@ namespace SmartRestaurant.Diner.ViewModels
 
             }
         }
-        
+
         #endregion
 
 
@@ -249,8 +247,9 @@ namespace SmartRestaurant.Diner.ViewModels
         {
             get
             {
-                return new Command<string>((x) => {
-                    switch(x)
+                return new Command<string>((x) =>
+                {
+                    switch (x)
                     {
                         case "ar":
                             ArabicLanguage = true;

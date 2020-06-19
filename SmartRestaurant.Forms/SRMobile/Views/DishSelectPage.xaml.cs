@@ -1,24 +1,11 @@
-﻿using MultiGestureViewPlugin;
-using Rg.Plugins.Popup.Animations;
-using Rg.Plugins.Popup.Enums;
-using Rg.Plugins.Popup.Services;
-using SmartRestaurant.Diner.CustomControls;
-using SmartRestaurant.Diner.Models;
+﻿using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.ViewModels.Sections;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Currencies.Currencies;
-using SmartRestaurant.Diner.ViewModels.Tables;
-using SmartRestaurant.Diner.ViewModels.Zones;
-using SmartRestaurant.Diner.Views.Popups;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XLabs.Forms.Controls;
 
 namespace SmartRestaurant.Diner.Views
 {
@@ -30,9 +17,9 @@ namespace SmartRestaurant.Diner.Views
         {
             BindingContext = _model;
             InitializeComponent();
-            
+
             viewmodel = (DishViewModel)BindingContext;
-            
+
         }
         public DishViewModel viewmodel { get; private set; }
 
@@ -97,7 +84,7 @@ namespace SmartRestaurant.Diner.Views
 
         private void Curlv_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            
+
             ((DishViewModel)BindingContext).Currency = (CurrencyViewModel)(e.SelectedItem);
             ShowCurrencies = false;
         }

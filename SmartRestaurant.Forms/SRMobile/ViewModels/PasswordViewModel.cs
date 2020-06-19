@@ -2,10 +2,7 @@
 using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Views;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -14,7 +11,7 @@ namespace SmartRestaurant.Diner.ViewModels
     /// <summary>
     /// ViewModel of the Login view.
     /// </summary>
-    public class PasswordViewModel: SimpleViewModel
+    public class PasswordViewModel : SimpleViewModel
     {
 
         #region Properties to manage password
@@ -52,7 +49,7 @@ namespace SmartRestaurant.Diner.ViewModels
             set
             {
                 SetPropertyValue(ref firstChar, value);
-                
+
                 //Check if the four chars are not null to construct the password.
                 if ((FirstChar != null) && (SecondChar != null) && (ThirdChar != null) && (FourthChar != null))
                 {
@@ -135,10 +132,10 @@ namespace SmartRestaurant.Diner.ViewModels
         {
             // In the beguening the password is set to "0000" before implementing the fonctionnalite to change it
             string pw = GetPassword().Result;
-            if ((pw == password)|| (password == "0000"))
+            if ((pw == password) || (password == "0000"))
             {
                 App.Current.MainPage = new CustomNavigationPage(new ZonesAndTablesPage(new ViewModels.Zones.ZonesListViewModel()));
-                 
+
             }
             else
             {

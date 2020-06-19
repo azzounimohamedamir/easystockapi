@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -19,12 +17,12 @@ namespace SmartRestaurant.Diner.Views
         public OrderViewModel viewmodel { get; private set; }
         public DinerCommandRecap()
         {
-            InitializeComponent();            
-            var sections =SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines.Select(d => d.SubSection.Section.Name);
+            InitializeComponent();
+            var sections = SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines.Select(d => d.SubSection.Section.Name);
             var sorted = from d in SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines
                          orderby d.SubSection.Section.Name
                          group d by d.SubSection.Section.Name into DishGroup
-                             select new Grouping<string, DishViewModel>(DishGroup.Key, DishGroup);
+                         select new Grouping<string, DishViewModel>(DishGroup.Key, DishGroup);
 
             //create a new collection of groups
             SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.DishesGrouped = new ObservableCollection<Grouping<string, DishViewModel>>(sorted);
@@ -32,14 +30,14 @@ namespace SmartRestaurant.Diner.Views
             viewmodel = (OrderViewModel)BindingContext;
         }
 
-        private  async void Button_Clicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e)
         {
-            await((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SectionsPage(SectionsListViewModel.Instance));
+            await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SectionsPage(SectionsListViewModel.Instance));
         }
 
         private async void Button_Clicked_1(object sender, EventArgs e)
         {
-            await((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SelectSeatPage(
+            await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SelectSeatPage(
                 SectionsListViewModel.Seats));
         }
     }
@@ -54,5 +52,5 @@ namespace SmartRestaurant.Diner.Views
                 this.Items.Add(item);
         }
     }
-    
+
 }

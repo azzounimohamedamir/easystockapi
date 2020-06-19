@@ -1,11 +1,8 @@
 ﻿using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
-using SmartRestaurant.Diner.ViewModels.Tables;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections
@@ -13,7 +10,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
     /// <summary>
     /// Used to manage subsections as a ViewModel
     /// </summary>
-    public class SubSectionViewModel: SimpleViewModel
+    public class SubSectionViewModel : SimpleViewModel
     {
         readonly SubSectionModel subsection;
 
@@ -28,7 +25,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         }
 
         public int Id { get; set; }
-        
+
 
         #region Name of the subsection according to the language selected.
         /// <summary>
@@ -128,13 +125,14 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             }
         }
         #endregion
-        public DishListViewModel Dishes {
+        public DishListViewModel Dishes
+        {
 
-            get { return new DishListViewModel(subsection.SectionId,subsection.Id, this); }
+            get { return new DishListViewModel(subsection.SectionId, subsection.Id, this); }
             set
             {
                 if (subsection.Dishes != value)
-                {                    
+                {
                     subsection.Dishes = value.Dishes.Select(t => t.dish).ToList();
                     RaisePropertyChanged();
                 }
@@ -143,7 +141,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         public SectionViewModel Section
         {
             get;
-            set;           
+            set;
         }
         public int SectionId
         {

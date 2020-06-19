@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SmartRestaurant.Diner.Models;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Reflection;
-using System.Text;
 
 namespace SmartRestaurant.Diner.Services
 {
@@ -16,8 +12,8 @@ namespace SmartRestaurant.Diner.Services
     {
         public static ObservableCollection<ZoneModel> GetListZones()
         {
-            
-            var Zones = JsonConvert.DeserializeObject < ListZones > (SimpleService.GetJsonString("Repositories.ListZones.json"));
+
+            var Zones = JsonConvert.DeserializeObject<ListZones>(SimpleService.GetJsonString("Repositories.ListZones.json"));
             foreach (ZoneModel z in Zones.ZonesList)
             {
                 z.Tables = TableService.GetListTables(z.Id);

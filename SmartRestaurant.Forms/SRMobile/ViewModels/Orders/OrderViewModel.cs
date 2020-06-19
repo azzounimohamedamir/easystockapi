@@ -7,23 +7,21 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Orders
 {
-    public class OrderViewModel:SimpleViewModel
+    public class OrderViewModel : SimpleViewModel
     {
         public readonly OrderModel Order;
-        
+
         /// <summary>
         /// Get the OrderModel from the Model.
         /// </summary>
         /// <param name="_Order"></param>
         public OrderViewModel(OrderModel _Order)
         {
-            this.Order = _Order;            
+            this.Order = _Order;
         }
 
         public int Id
@@ -105,28 +103,39 @@ ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefau
                 ConvertedTotalDollar =
 (Math.Round(Total / (SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).
     ExchangeRate == 0 ? 1 : SectionsListViewModel.Currencies.Currencies.FirstOrDefault(c => c.Id == 2).ExchangeRate), 2));
-                
+
                 RaisePropertyChanged();
             }
         }
-        public int TableId { get
+        public int TableId
+        {
+            get
             {
                 return Order.TableId;
             }
         }
-        
-        public string TableNumber { get {
+
+        public string TableNumber
+        {
+            get
+            {
                 return Order.TableNumber;
-            } }
-        public int SeatNumber { get
+            }
+        }
+        public int SeatNumber
+        {
+            get
             {
                 return Order.SeatNumber;
-            }  }
+            }
+        }
         public List<DishViewModel> Lines { get; set; }
         private ObservableCollection<Grouping<string, DishViewModel>> _DishesGrouped;
-        public ObservableCollection<Grouping<string, DishViewModel>> DishesGrouped { get { return _DishesGrouped; }
-            set { _DishesGrouped = value;RaisePropertyChanged(); }
-                }
+        public ObservableCollection<Grouping<string, DishViewModel>> DishesGrouped
+        {
+            get { return _DishesGrouped; }
+            set { _DishesGrouped = value; RaisePropertyChanged(); }
+        }
         public FlowDirection FlowDirectionValue
         {
 

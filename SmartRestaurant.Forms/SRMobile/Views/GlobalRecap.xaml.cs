@@ -1,13 +1,5 @@
-﻿using SmartRestaurant.Diner.CustomControls;
-using SmartRestaurant.Diner.ViewModels.Orders;
-using SmartRestaurant.Diner.ViewModels.Sections;
-using SmartRestaurant.Diner.ViewModels.Tables;
+﻿using SmartRestaurant.Diner.ViewModels.Tables;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -34,13 +26,13 @@ namespace SmartRestaurant.Diner.Views
                 var seat = e.Item as SeatViewModel;
                 vm.HideOrShowItem(seat);
             }
-            catch (Exception ee)
+            catch (Exception)
             {
 
             }
         }
 
     }
-   
-    
+
+
 }
