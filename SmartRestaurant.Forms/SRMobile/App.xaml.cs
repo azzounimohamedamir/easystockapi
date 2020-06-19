@@ -1,7 +1,9 @@
 ﻿using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.ViewModels;
 using SmartRestaurant.Diner.Views;
+using System;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace SmartRestaurant.Diner
 {

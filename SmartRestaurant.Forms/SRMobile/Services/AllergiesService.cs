@@ -1,7 +1,11 @@
 ﻿using Newtonsoft.Json;
 using SmartRestaurant.Diner.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Reflection;
+using System.Text;
 
 namespace SmartRestaurant.Diner.Services
 {
@@ -12,7 +16,7 @@ namespace SmartRestaurant.Diner.Services
     {
         public static ObservableCollection<AllergyModel> GetListAllergies()
         {
-            var lao = JsonConvert.DeserializeObject<ListAllergiesObject>(SimpleService.GetJsonString("Repositories.ListAllergies.json"));
+            var lao = JsonConvert.DeserializeObject<ListAllergiesObject>(SimpleService.GetJsonString("Repositories.ListAllergies.json"));            
             if (lao.ListAllergies != null)
             {
                 return new ObservableCollection<AllergyModel>(lao.ListAllergies);

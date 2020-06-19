@@ -1,13 +1,16 @@
 ﻿using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Diner.ViewModels.DeseasesAllergies
 {
     /// <summary>
     /// Used to manage allergies objects as a ViewModel
     /// </summary>
-    public class AllergiesViewModel : SimpleViewModel
+    public class AllergiesViewModel: SimpleViewModel
     {
         readonly AllergyModel allergy;
 

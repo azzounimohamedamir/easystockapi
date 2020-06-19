@@ -1,4 +1,12 @@
-﻿using Android.Content;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using SmartRestaurant.Diner.Droid.CustomControlsRenderers;
@@ -7,54 +15,54 @@ using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(Xamarin.Forms.ScrollView), typeof(RtlFixScrollViewRenderer))]
 namespace SmartRestaurant.Diner.Droid.CustomControlsRenderers
-{
-    public class RtlFixScrollViewRenderer : ScrollViewRenderer
     {
-        LayoutDirection currentDirection;
-
-        public RtlFixScrollViewRenderer(Context context) : base(context)
+        public class RtlFixScrollViewRenderer : ScrollViewRenderer
         {
-            currentDirection = LayoutDirection;
-        }
+            LayoutDirection currentDirection;
 
-        protected override void OnElementChanged(VisualElementChangedEventArgs e)
-        {
-            base.OnElementChanged(e);
-
-            UpdateFlowDirection();
-
-            if (e.OldElement != null)
+            public RtlFixScrollViewRenderer(Context context) : base(context)
             {
-                e.OldElement.PropertyChanged -= OnElementPropertyChanged;
+                currentDirection = LayoutDirection;
             }
 
-            if (e.NewElement != null)
+            protected override void OnElementChanged(VisualElementChangedEventArgs e)
             {
-                e.NewElement.PropertyChanged += OnElementPropertyChanged;
-            }
-        }
+                base.OnElementChanged(e);
 
-        private void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == VisualElement.FlowDirectionProperty.PropertyName)
-            {
                 UpdateFlowDirection();
-            }
-        }
 
-        void UpdateFlowDirection()
-        {
-            if (Element is IVisualElementController controller)
-            {
-                Rtl = controller.EffectiveFlowDirection.IsRightToLeft();
-                LayoutDirection = controller.EffectiveFlowDirection.IsLeftToRight()
-                    ? LayoutDirection.Ltr
-                    : LayoutDirection.Rtl;
+                if (e.OldElement != null)
+                {
+                    e.OldElement.PropertyChanged -= OnElementPropertyChanged;
+                }
+
+                if (e.NewElement != null)
+                {
+                    e.NewElement.PropertyChanged += OnElementPropertyChanged;
+                }
             }
-        }
+
+            private void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+            {
+                if (e.PropertyName == VisualElement.FlowDirectionProperty.PropertyName)
+                {
+                    UpdateFlowDirection();
+                }
+            }
+
+            void UpdateFlowDirection()
+            {
+                if (Element is IVisualElementController controller)
+                {
+                Rtl = controller.EffectiveFlowDirection.IsRightToLeft();
+                    LayoutDirection = controller.EffectiveFlowDirection.IsLeftToRight()
+                        ? LayoutDirection.Ltr
+                        : LayoutDirection.Rtl;
+                }
+            }
         bool Rtl;
-        protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
-        {
+            protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
+            {
             base.OnLayout(changed, left, top, right, bottom);
 
             if (Element is Xamarin.Forms.ScrollView scrollView && (scrollView.Orientation == ScrollOrientation.Horizontal || scrollView.Orientation == ScrollOrientation.Both))
@@ -81,6 +89,6 @@ namespace SmartRestaurant.Diner.Droid.CustomControlsRenderers
                     Rtl = false;
                 }
             }
+            }
         }
     }
-}

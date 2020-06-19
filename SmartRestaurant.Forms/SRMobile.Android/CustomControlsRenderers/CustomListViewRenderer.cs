@@ -1,4 +1,6 @@
-﻿using SmartRestaurant.Diner.CustomControls;
+﻿
+using Android.Widget;
+using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Droid.CustomControlsRenderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -10,7 +12,7 @@ namespace SmartRestaurant.Diner.Droid.CustomControlsRenderers
         protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.ListView> e)
         {
             base.OnElementChanged(e);
-
+            
         }
     }
 }

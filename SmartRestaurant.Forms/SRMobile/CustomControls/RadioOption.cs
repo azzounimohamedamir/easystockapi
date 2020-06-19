@@ -1,11 +1,13 @@
 ﻿using SmartRestaurant.Diner.Infrastructures;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Diner.CustomControls
 {
     public class RadioOption : SimpleViewModel
     {
-        public string Name
-        {
+        public string Name {
             get;
         }
         private bool _isSelected { get; set; }

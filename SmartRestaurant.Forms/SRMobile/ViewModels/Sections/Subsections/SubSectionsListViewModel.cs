@@ -5,6 +5,7 @@ using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Services;
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -14,7 +15,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
     /// <summary>
     /// Used to bind subsections liste with the View.
     /// </summary>
-    public class SubSectionsListViewModel : SimpleViewModel
+    public class SubSectionsListViewModel: SimpleViewModel
     {
         /// <summary>
         /// SubSections to bind with the View.
@@ -83,7 +84,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
 
         public FlowDirection FlowDirectionValue
         {
-
+            
             get
             {
                 if (AppResources.Culture != null)
@@ -115,16 +116,15 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             get
             {
-                return new Command(async () =>
-                {
+                return new Command(async() => {
                     try
                     {
-
+                        
                     }
                     catch (Exception)
                     {
 
-
+                         
                     }
                 });
             }

@@ -9,18 +9,21 @@ using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.Spec
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements;
 using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.Views;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections
 {
-
+    
     /// <summary>
     /// Used to bind Sections List to the view.
     /// </summary>
-    public class SectionsListViewModel : SimpleViewModel
+    public class SectionsListViewModel: SimpleViewModel
     {
         public static SupplementListViewModel Supplements { get; set; }
         public static IngredientListViewModel Ingredients { get; set; }
@@ -29,8 +32,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         public static SectionsListViewModel Instance { get; set; }
         public static SeatsListViewModel Seats { get; set; }
         private static OrderListViewModel orders;
-        public static OrderListViewModel Orders
-        {
+        public static OrderListViewModel Orders {
             get
             {
                 if (orders == null) orders = new OrderListViewModel();
@@ -41,7 +43,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             {
                 orders = value;
             }
-        }
+        } 
         /// <summary>
         /// The list of section to be binded to the List control.
         /// </summary>
@@ -53,10 +55,10 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// </summary>
         public SectionsListViewModel()
         {
-            Supplements = new SupplementListViewModel();
-            Ingredients = new IngredientListViewModel();
-            Currencies = new CurrencyListViewModel() { Currencies = null };
-            Specifications = new SpecificationListViewModel();
+            Supplements = new SupplementListViewModel() ;
+            Ingredients = new IngredientListViewModel() ;
+            Currencies = new CurrencyListViewModel() { Currencies = null } ;
+            Specifications = new SpecificationListViewModel() ;
             ObservableCollection<SectionModel> listSections = SectionsService.GetListSections();
             Sections = new ObservableCollection<SectionViewModel>();
             foreach (var item in listSections)
@@ -97,7 +99,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 }
             }
         }
-        private List<DishViewModel> selectedDishes;
+         private List<DishViewModel> selectedDishes; 
 
         public List<DishViewModel> SelectedDishes
         {
@@ -105,15 +107,15 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             {
                 if (selectedDishes == null)
                     selectedDishes = new List<DishViewModel>();
-
+                
                 return selectedDishes;
             }
             set
             {
                 selectedDishes = value;
-                TotalPrice = SelectedDishes.Sum(d => d.Price * d.Qty);
+                TotalPrice= SelectedDishes.Sum(d => d.Price * d.Qty);
                 Seats.SelectedSeat.CurrentOrder.Lines = SelectedDishes;
-                Seats.SelectedSeat.CurrentOrder.Calories = SelectedDishes.Sum(d => d.Calories * d.Qty);
+                Seats.SelectedSeat.CurrentOrder.Calories = SelectedDishes.Sum(d => d.Calories*d.Qty);
                 Seats.SelectedSeat.CurrentOrder.Fat = SelectedDishes.Sum(d => d.Fat * d.Qty);
                 Seats.SelectedSeat.CurrentOrder.Protein = SelectedDishes.Sum(d => d.Protein * d.Qty);
                 Seats.SelectedSeat.CurrentOrder.Carbo = SelectedDishes.Sum(d => d.Carbo * d.Qty);
@@ -133,15 +135,14 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             }
         }
 
-        public double TotalPrice
+         public double TotalPrice
         {
             get { return SelectedDishes.Sum(d => d.Price * d.Qty); }
-            set
-            {
-                if (TotalPrice != value)
+            set {
+                if(TotalPrice!=value)
                     TotalPrice = value;
-                RaisePropertyChanged();
-
+                    RaisePropertyChanged();
+                
             }
 
         }

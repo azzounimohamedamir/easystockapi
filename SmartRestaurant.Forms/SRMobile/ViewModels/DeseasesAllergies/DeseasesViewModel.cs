@@ -1,6 +1,9 @@
 ﻿using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SmartRestaurant.Diner.ViewModels.DeseasesAllergies
 {

@@ -1,10 +1,19 @@
-﻿
+﻿using System;
+
 using Android.App;
 using Android.Content.PM;
-using Android.OS;
 using Android.Runtime;
-using PanCardView.Droid;
+using Android.Views;
+using Android.Widget;
+using Android.OS;
+using Java.Lang;
+using Java.Lang.Reflect;
+using Android.Graphics;
+using Android.Content;
+using Android.Util;
+using CarouselView.FormsPlugin.Android;
 using Xamarin.Forms;
+using PanCardView.Droid;
 
 namespace SmartRestaurant.Diner.Droid
 {
@@ -26,9 +35,9 @@ namespace SmartRestaurant.Diner.Droid
             Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
 
+            
 
-
-
+            
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

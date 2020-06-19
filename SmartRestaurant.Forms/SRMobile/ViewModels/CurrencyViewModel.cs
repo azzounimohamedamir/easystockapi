@@ -1,14 +1,18 @@
 ﻿using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Currencies.Currencies
 {
-    public class CurrencyViewModel : SimpleViewModel
+    public class CurrencyViewModel:SimpleViewModel
     {
         public readonly CurrencyModel Currency;
-
+        
         /// <summary>
         /// Get the CurrencyModel from the Model.
         /// </summary>
@@ -152,7 +156,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Currencies.Curre
                 }
             }
         }
-
+     
 
 
 

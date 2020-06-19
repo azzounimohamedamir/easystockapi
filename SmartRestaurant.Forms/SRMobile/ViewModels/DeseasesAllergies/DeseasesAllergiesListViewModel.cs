@@ -1,4 +1,5 @@
-﻿using SmartRestaurant.Diner.CustomControls;
+﻿using Plugin.Multilingual;
+using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
@@ -9,7 +10,9 @@ using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -19,7 +22,7 @@ namespace SmartRestaurant.Diner.ViewModels.DeseasesAllergies
     /// Used to bind the Deseases and allergies View.
     /// So this class contain the list of allergies and deseases to be selected by the customer.
     /// </summary>
-    public class DeseasesAllergiesListViewModel : SimpleViewModel
+    public class DeseasesAllergiesListViewModel: SimpleViewModel
     {
         /// <summary>
         /// Deseases is bind to a List control, and it's fill when an object is instantiated to be binded to the View.
@@ -119,20 +122,19 @@ namespace SmartRestaurant.Diner.ViewModels.DeseasesAllergies
         {
             get
             {
-                return new Command(async () =>
-                {
+                return new Command(async() => {
                     try
 
                     {
                         if (SectionsListViewModel.Seats.Seats.Any(s => s.CurrentOrder.Lines == null ||
 s.CurrentOrder.Lines.Count == 0))
                         {
-                            _seat.IlnessesAllergiesClicked =
+                            _seat.IlnessesAllergiesClicked=
                            SectionsListViewModel.Seats.SelectedSeat.IlnessesAllergiesClicked = true;
-
-                            if (SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines != null && SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines.Count > 0)
-                                await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap());
-
+                            
+                                if (SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines != null && SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines.Count > 0)
+                                    await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap());
+                           
                         }
                         else
                         {

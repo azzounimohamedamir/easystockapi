@@ -1,13 +1,16 @@
-﻿using System;
+﻿using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.Helpers
 {
-    public class IntMultiplyConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public class IntMultiplyConverter : IValueConverter
         {
-            int w = 0;
+            public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+            {
+            int w = 0; 
             try
             {
                 int.TryParse(((Label)parameter).Text, out w);
@@ -18,8 +21,8 @@ namespace SmartRestaurant.Diner.Helpers
                 w = 250;
             }
             return (int)value * w;
-        }
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+            }
+            public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             int w = 0;
             try
@@ -32,5 +35,5 @@ namespace SmartRestaurant.Diner.Helpers
             }
             return (int)value * w;
         }
-    }
+        }    
 }
