@@ -6,11 +6,9 @@
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="CustomControls\GradientColorStack.cs" />
+    <Compile Remove="CustomControls\GradientColorStack.cs" />    
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Remove="Views\DinerCommandRecap.xaml" />
-  </ItemGroup>
+ 
 
   <ItemGroup>
     <None Remove="Repositories\ListAllergies.json" />
@@ -156,17 +154,15 @@
     <None Update="Views\ZonesAndTablesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Update="Views\DinerCommandRecap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ViewModels\Tables\Seats\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Page Include="Views\DinerCommandRecap.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </Page>
-  </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties repositories_4listsections_1json__JsonSchema="http://json.schemastore.org/asmdef" /></VisualStudio></ProjectExtensions>
 </Project>
