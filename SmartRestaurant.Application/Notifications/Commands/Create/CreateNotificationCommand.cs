@@ -3,10 +3,7 @@ using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Notifications.Commands.Factory;
 using SmartRestaurant.Domain;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers; 
 
 namespace SmartRestaurant.Application.Notifications.Commands.Create
 {
@@ -27,15 +24,15 @@ namespace SmartRestaurant.Application.Notifications.Commands.Create
 
         public CreateNotificationCommand(ISmartRestaurantDatabaseService db,
             ILoggerService<CreateNotificationCommand> logger, IMailingService mailing,
-            INotifyService notify , 
-            ICreateNotificationFactory createNotificationFactory 
+            INotifyService notify,
+            ICreateNotificationFactory createNotificationFactory
             )
         {
             this.db = db;
             this.logger = logger;
             this.mailing = mailing;
             this.notify = notify;
-            _factory = createNotificationFactory; 
+            _factory = createNotificationFactory;
         }
         public void Execute(CreateNotificationModel model)
         {
@@ -69,11 +66,11 @@ namespace SmartRestaurant.Application.Notifications.Commands.Create
                         NotificationId = entity.Id,
                         UserId = item,
                         User = db.SRUsers.FirstOrDefault(x => x.Id == item),
-                        Notification = entity , 
+                        Notification = entity,
                     });
 
                 }
-                db.Save();       
+                db.Save();
             }
             catch (Exception)
             {

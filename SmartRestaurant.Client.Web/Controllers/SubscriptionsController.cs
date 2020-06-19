@@ -5,16 +5,16 @@ using SmartRestaurant.Resources.Subscriptions.Subscription;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-   // [Area("Admin")]
+    // [Area("Admin")]
     [Route("subscriptions")]
     public class SubscriptionsController : AdminBaseController
     {
         private readonly ILoggerService<SubscriptionsController> _log;
 
         public SubscriptionsController(
-            IConfiguration configuration, 
-            IMailingService mailing, 
-            INotifyService notify, 
+            IConfiguration configuration,
+            IMailingService mailing,
+            INotifyService notify,
             ILoggerService<AdminBaseController> baselog,
             ILoggerService<SubscriptionsController> log) : base(configuration, mailing, notify, baselog)
         {
@@ -34,7 +34,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             return View();
         }
 
-        
+
         [Route("SoonToExpire")]
         public IActionResult SoonToExpire()
         {

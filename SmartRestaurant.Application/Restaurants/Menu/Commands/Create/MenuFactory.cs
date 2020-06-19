@@ -1,6 +1,5 @@
-﻿using System;
-using SmartRestaurant.Application.Restaurants.Menu.Commands.Models;
-using SmartRestaurant.Application.Restaurants.Menu.Commands.Update;
+﻿using SmartRestaurant.Application.Restaurants.Menu.Commands.Models;
+using System;
 
 namespace SmartRestaurant.Application.Restaurants.Menu.Commands.Create
 {
@@ -10,7 +9,7 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Commands.Create
         {
             return new Domain.Restaurants.Menu
             {
-                Id = (string.IsNullOrEmpty(model.MenuId))? Guid.NewGuid() : Guid.Parse(model.MenuId),
+                Id = (string.IsNullOrEmpty(model.MenuId)) ? Guid.NewGuid() : Guid.Parse(model.MenuId),
                 CreatedDate = DateTime.Now,
                 Description = model.Description,
                 IsDisabled = model.IsDisabled,
@@ -18,6 +17,6 @@ namespace SmartRestaurant.Application.Restaurants.Menu.Commands.Create
                 RestaurantId = Guid.Parse(model.RestaurantId)
             };
         }
-       
+
     }
 }

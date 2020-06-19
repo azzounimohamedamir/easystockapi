@@ -50,33 +50,33 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Queries
         {
             try
             {
-                var dish= db.Dishes
+                var dish = db.Dishes
                     .Include(d => d.Family)
                     .Include(d => d.Restaurant)
-                    .Include(d=>d.Ingredients)
-                    .ThenInclude(ding=>ding.Food)
-                    .ThenInclude(fo=>fo.Category)
-                    .ThenInclude(focat=>focat.Parent)
-                    .ThenInclude(parent=> parent.Parent)
+                    .Include(d => d.Ingredients)
+                    .ThenInclude(ding => ding.Food)
+                    .ThenInclude(fo => fo.Category)
+                    .ThenInclude(focat => focat.Parent)
+                    .ThenInclude(parent => parent.Parent)
                     .ThenInclude(parent => parent.Parent.Parent)
-                    .Include(d=>d.ChildAccompaniments)
+                    .Include(d => d.ChildAccompaniments)
                     //.Include("Ingredients.Food")   
                     //.Include("Ingredients.Food.Category.Parent")
-                    .Include(d=>d.Gallery).ThenInclude(gal=>gal.Pictures)
+                    .Include(d => d.Gallery).ThenInclude(gal => gal.Pictures)
                     //.Include("Gallery.Pictures")
-                    .Where(d=>d.Id==id.ToGuid())                                        
+                    .Where(d => d.Id == id.ToGuid())
                     .FirstOrDefault();
 
                 return new UpdateDishModel
                 {
                     Id = dish.Id.ToString(),
                     DishModel = dishModelFactory.Create(dish),
-                    Ingredients= dishIngredientModelFactory.Create(dish.Ingredients).ToList(),
-                    Accompaniments= dishAccompanimentModelFactory.Create(dish.ChildAccompaniments).ToList(),
+                    Ingredients = dishIngredientModelFactory.Create(dish.Ingredients).ToList(),
+                    Accompaniments = dishAccompanimentModelFactory.Create(dish.ChildAccompaniments).ToList(),
                     Gallery = galleryModelFactory.Create(dish.Gallery)
                 };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

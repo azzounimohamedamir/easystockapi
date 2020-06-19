@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Commun.Datatables
 {
-    public class DatatablesQueryModel <T>
+    public class DatatablesQueryModel<T>
     {
         [JsonProperty("recordsTotal")]
         public int RecordsTotal { get; set; }

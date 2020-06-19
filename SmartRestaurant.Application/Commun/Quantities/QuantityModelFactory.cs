@@ -1,7 +1,5 @@
 ﻿using SmartRestaurant.Domain.Commun;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Quantities
 {

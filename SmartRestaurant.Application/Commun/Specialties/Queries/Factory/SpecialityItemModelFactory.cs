@@ -13,7 +13,7 @@ namespace SmartRestaurant.Application.Commun.Specialites.Queries.Factory
             return new SpecialityItemModel
             {
                 Id = entity.Id.ToString(),
-                Name = entity.Name,                
+                Name = entity.Name,
                 SlugUrl = entity.SlugUrl,
                 IsDisabled = entity.IsDisabled ? UtilsResource.IsDisabledTrueValueText : UtilsResource.IsDisabledFalseValueText,
             };
@@ -24,5 +24,5 @@ namespace SmartRestaurant.Application.Commun.Specialites.Queries.Factory
             return entities.Select(e => e.ToSpecialityItemModel()).ToList();
         }
     }
-    
+
 }

@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using SmartRestaurant.Resources.Commun.BaseEntity;
-using SmartRestaurant.Resources.Restaurants.Restaurants;
 using SmartRestaurant.Resources.Restaurants.Staffs;
 using SmartRestaurant.Resources.SharedValidation;
 
@@ -29,7 +28,7 @@ namespace SmartRestaurant.Application.Restaurants.Chains.Commands.Update
             RuleFor(x => x.OwnerId)
              .NotEmpty()
              .WithMessage(string.Format(SharedValidationResource.RequiredErrorMessage, StaffResource.Owner));
- 
+
         }
     }
 }

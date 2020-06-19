@@ -14,6 +14,6 @@
         public string UnitId { get; set; }
         public decimal Value { get; set; }
 
-        
+
     }
 }

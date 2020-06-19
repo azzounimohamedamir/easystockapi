@@ -1,11 +1,10 @@
-﻿using SmartRestaurant.Application.ApplicationDataBase.Extensions;
-using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Allergies.Allergies.Queries.Factory;
+﻿using SmartRestaurant.Application.Allergies.Allergies.Queries.Factory;
 using SmartRestaurant.Application.Allergies.Allergies.Specifications;
+using SmartRestaurant.Application.ApplicationDataBase.Extensions;
+using SmartRestaurant.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Allergies.Allergies.Queries.GetBySpecification
 {
@@ -33,7 +32,7 @@ namespace SmartRestaurant.Application.Allergies.Allergies.Queries.GetBySpecifica
             this.notify = notify;
         }
 
-        public IEnumerable< AllergyItemModel> Execute(AllergySpecification spec)
+        public IEnumerable<AllergyItemModel> Execute(AllergySpecification spec)
         {
             try
             {

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -21,10 +20,11 @@ using SmartRestaurant.Resources.Restaurants.Areas;
 using SmartRestaurant.Resources.Restaurants.Places;
 using SmartRestaurant.Resources.Restaurants.Tables;
 using SmartRestaurant.Resources.Utils;
+using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-   // [Area("Admin")]
+    // [Area("Admin")]
     [Route("Places")]
     public class PlacesController : AdminBaseController
     {
@@ -83,7 +83,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
             var viewModel = new PlaceItemViewModel
             {
-                
+
                 Filter = new FilterViewModel
                 {
                     Restaurants = GetRestaurants()
@@ -107,12 +107,12 @@ namespace SmartRestaurant.Client.Web.Controllers
                 viewmodel.Filter.SelectedFloorId);
             GetAreas(viewmodel.Filter.SelectedFloorId,
                viewmodel.Filter.SelectedAreaId);
-              
+
             GetTables(viewmodel.Filter.SelectedAreaId,
                viewmodel.Filter.SelectedTableId);
 
             viewmodel.Places = getPlacesByAreaId.Execute(viewmodel.Filter.SelectedTableId);
-            return View(viewmodel); 
+            return View(viewmodel);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             return new SelectList(getFloorsByRestaurantId.Execute(restId),
                "Id", "Name", selectedFloor);
         }
-        private SelectList GetAreas(string floorId, string selectedArea= null)
+        private SelectList GetAreas(string floorId, string selectedArea = null)
         {
             return new SelectList(getAreasByFloorId.Execute(floorId),
                "Id", "Name", selectedArea);

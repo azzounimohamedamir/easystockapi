@@ -1,8 +1,5 @@
 ﻿using SmartRestaurant.Domain.Commun;
-using SmartRestaurant.Domain.Restaurants;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Dishes
 {
@@ -16,7 +13,7 @@ namespace SmartRestaurant.Domain.Dishes
 
 
         public Quantity Quantity { get; set; }
-        
-        
+
+
     }
 }

@@ -1,21 +1,17 @@
 ﻿
 using SmartRestaurant.Application.Commun.Cities.Commands.Factory;
-using SmartRestaurant.Application.Commun.States.Commands.Create;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Commun;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-  
+
 namespace SmartRestaurant.Application.Commun.Cities.Commands
 {
 
 
-    
-    
-    
+
+
+
     public class CreateCityCommand : ICreateCityCommand
     {
         private readonly ISmartRestaurantDatabaseService _db;
@@ -28,20 +24,20 @@ namespace SmartRestaurant.Application.Commun.Cities.Commands
             ISmartRestaurantDatabaseService db,
             INotifyService notify,
             IMailingService mailing,
-            ILoggerService<CreateCityCommand> log , 
-            ICreateCityFactory createCityFactory 
+            ILoggerService<CreateCityCommand> log,
+            ICreateCityFactory createCityFactory
             )
         {
             _db = db ?? throw new ArgumentNullException(nameof(db));
             _notify = notify;
             _mailing = mailing;
             _log = log;
-            _factory = createCityFactory; 
+            _factory = createCityFactory;
         }
         public void Execute(CreateCityModel model)
         {
 
-           
+
             try
             {
 
@@ -54,24 +50,24 @@ namespace SmartRestaurant.Application.Commun.Cities.Commands
 
                     throw new NotValidException(result.Errors);
                 }
-                var entity = _factory.Create(model.Name, model.IsoCode, model.StateId , model.Alias , model.IsDisabled);
+                var entity = _factory.Create(model.Name, model.IsoCode, model.StateId, model.Alias, model.IsDisabled);
                 entity.Id = Guid.NewGuid().ToString();
                 entity.State = _db.States.FirstOrDefault(c => c.Id == model.StateId);
                 _db.Cities.Add(entity);
                 _db.Save();
             }
-            catch(Exception e )
+            catch (Exception e)
             {
-                throw e; 
+                throw e;
 
-            } 
+            }
 
 
 
         }
-           
-            
-        }
+
+
+    }
 
 
 

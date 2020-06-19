@@ -2,10 +2,7 @@
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
 namespace SmartRestaurant.Application.Mails.Commands.Create
 {
 
@@ -32,7 +29,7 @@ namespace SmartRestaurant.Application.Mails.Commands.Create
             this.logger = logger;
             this.mailing = mailing;
             this.notify = notify;
-            _factory = createMailingFactory; 
+            _factory = createMailingFactory;
         }
         public void Execute(CreateMailingModel model)
         {
@@ -55,10 +52,10 @@ namespace SmartRestaurant.Application.Mails.Commands.Create
 
 
                 var entity = _factory.Create(model.Action, model.TableName,
-                    model.TemplateId,model.Name , model.Alias
-                    , model.Description , model.IsDisabled , model.Type);
+                    model.TemplateId, model.Name, model.Alias
+                    , model.Description, model.IsDisabled, model.Type);
 
-                entity.Id = Guid.NewGuid(); 
+                entity.Id = Guid.NewGuid();
                 entity.Template = db.Templates.FirstOrDefault(c => c.Id.ToString() == model.TemplateId);
 
                 db.Mailings.Add(entity);
@@ -68,8 +65,8 @@ namespace SmartRestaurant.Application.Mails.Commands.Create
                     {
                         MailingId = entity.Id,
                         UserId = item,
-                        User = db.SRUsers.FirstOrDefault(x=>x.Id == item) ,
-                        Mailing = entity ,
+                        User = db.SRUsers.FirstOrDefault(x => x.Id == item),
+                        Mailing = entity,
                     });
 
                 }

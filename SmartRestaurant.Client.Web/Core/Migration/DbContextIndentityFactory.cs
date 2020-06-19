@@ -1,9 +1,9 @@
-﻿using System.Diagnostics;
-using System.IO;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Persistance.Identity;
+using System.Diagnostics;
+using System.IO;
 
 namespace SmartRestaurant.Client.Web.Core.Migration
 {

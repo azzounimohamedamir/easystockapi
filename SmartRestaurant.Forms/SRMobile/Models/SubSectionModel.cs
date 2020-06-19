@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Diner.Models
 {
@@ -29,7 +28,7 @@ namespace SmartRestaurant.Diner.Models
                 return String.IsNullOrEmpty(Image) ? null : new Uri(Image);
             }
         }
-        public ICollection<DishModel> Dishes {get;set;}
+        public ICollection<DishModel> Dishes { get; set; }
         public int SectionId { get; set; }
     }
 }

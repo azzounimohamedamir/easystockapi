@@ -1,27 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Commun.Currencies.Queries.GetCurrenciesList;
-using SmartRestaurant.Application.Exceptions;
-using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Translates.Translates.Commands.Update;
-using SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetAll;
-using SmartRestaurant.Client.Web.Models;
- using SmartRestaurant.Client.Web.Models.Utils;
-using SmartRestaurant.Resources.Utils;
-using SmartRestaurant.Application.Commun.Translates.Commands.Create;
-using SmartRestaurant.Application.Commun.Translates.Commands.Update;
-using SmartRestaurant.Application.Commun.Translates.Commands.Delete;
-using SmartRestaurant.Application.Commun.Translates.Queries.GetByTableName;
-using SmartRestaurant.Resources.Commun.Translator;
-using SmartRestaurant.Client.Web.Areas.Translate.Models;
 using SmartRestaurant.Application.Commun.Languages.Queries.GetLanguagesList;
+using SmartRestaurant.Application.Commun.Translates.Commands.Create;
+using SmartRestaurant.Application.Commun.Translates.Commands.Delete;
+using SmartRestaurant.Application.Commun.Translates.Commands.Update;
+using SmartRestaurant.Application.Commun.Translates.Queries.GetByTableName;
+using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetAll;
+using SmartRestaurant.Client.Web.Areas.Translate.Models;
 using SmartRestaurant.Client.Web.Controllers;
+using SmartRestaurant.Resources.Commun.Translator;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartRestaurant.Client.Web.Areas.Admin.Controllers
 {
@@ -43,13 +36,13 @@ namespace SmartRestaurant.Client.Web.Areas.Admin.Controllers
         private readonly IUpdateTranslateCommand updateCommand;
         private readonly IDeleteTranslateCommand deleteCommand;
 
-       
+
         private readonly IGetAllRestaurantsQuery getAllRestaurants;
         private readonly IGetAllLanguagesQuerie getAllLanguagesQuerie;
         private readonly IGetAllCurrenciesQuery getAllCurrencies;
         private readonly IHostingEnvironment hostingEnvironnement;
         private readonly IGetTranslatesByTableNameQuery getTranslatesByTableNameQuery;
- 
+
 
 
         public TranslatesController(
@@ -66,7 +59,7 @@ namespace SmartRestaurant.Client.Web.Areas.Admin.Controllers
           IGetAllRestaurantsQuery getAllRestaurants,
           IGetAllLanguagesQuerie getAllLanguagesQuerie,
             IHostingEnvironment hostingEnvironnement)
-            
+
             : base(configuration, mailing, notify, baselog)
         {
             _log = log;
@@ -80,7 +73,7 @@ namespace SmartRestaurant.Client.Web.Areas.Admin.Controllers
             this.getAllCurrencies = getAllCurrencies;
 
             this.getTranslatesByTableNameQuery = getTranslatesByTableNameQuery;
-            
+
         }
 
         #region Index
@@ -102,7 +95,7 @@ namespace SmartRestaurant.Client.Web.Areas.Admin.Controllers
             return View(result);
         }
 
-       
+
 
         [HttpPost]
         [Route("")]
@@ -117,7 +110,7 @@ namespace SmartRestaurant.Client.Web.Areas.Admin.Controllers
             viewModel.Translates = getTranslatesByTableNameQuery
                 .Execute(viewModel.SelectedTableName);
             viewModel.TablesNames = GetTablesName();
-            viewModel.Languages =  getAllLanguagesQuerie.Execute().OrderBy(x => x.EnglishName).ToList();
+            viewModel.Languages = getAllLanguagesQuerie.Execute().OrderBy(x => x.EnglishName).ToList();
             return View(viewModel);
         }
         #endregion
@@ -129,14 +122,14 @@ namespace SmartRestaurant.Client.Web.Areas.Admin.Controllers
             try
             {
                 //System.Threading.Thread.Sleep(5000);
-                createCommand.Execute(new List<ItemTranslatesModel> {  viewModel });
-                return Ok(new TransationResult { Failed=false,Message="Ok"});
+                createCommand.Execute(new List<ItemTranslatesModel> { viewModel });
+                return Ok(new TransationResult { Failed = false, Message = "Ok" });
             }
             catch
             {
                 return Ok(new TransationResult { Failed = true, Message = "ERROR" });
             }
-                    
+
         }
 
         #region Methods
@@ -178,8 +171,8 @@ namespace SmartRestaurant.Client.Web.Areas.Admin.Controllers
             return new SelectList(tables);
 
         }
- 
-        
+
+
         #endregion
 
     }

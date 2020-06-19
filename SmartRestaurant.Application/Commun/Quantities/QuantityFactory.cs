@@ -1,8 +1,5 @@
-﻿using SmartRestaurant.Domain.Commun;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
+﻿using Helpers;
+using SmartRestaurant.Domain.Commun;
 
 namespace SmartRestaurant.Application.Commun.Quantities
 {
@@ -14,9 +11,9 @@ namespace SmartRestaurant.Application.Commun.Quantities
     {
         public Quantity Create(string unitId, decimal value)
         {
-            return new Quantity(unitId.ToGuid(), value);            
+            return new Quantity(unitId.ToGuid(), value);
         }
     }
 
-    
+
 }

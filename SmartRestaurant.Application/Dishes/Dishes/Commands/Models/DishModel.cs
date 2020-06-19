@@ -1,7 +1,5 @@
 ﻿using SmartRestaurant.Domain.Enumerations;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Models
 {
@@ -18,6 +16,6 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Models
         public TimeSpan PreparationTime { get; set; }
         public TimeSpan ServiceTime { get; set; }
         public bool CanBeAccompanying { get; set; }
-        
+
     }
 }

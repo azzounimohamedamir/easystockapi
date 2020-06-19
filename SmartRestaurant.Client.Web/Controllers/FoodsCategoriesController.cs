@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Helpers;
+﻿using Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,10 +13,12 @@ using SmartRestaurant.Client.Web.Models.Foods;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Foods.FoodCategories;
 using SmartRestaurant.Resources.Utils;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-   // [Area("Admin")]
+    // [Area("Admin")]
     [Route("foods/categories")]
     public class FoodsCategoriesController : AdminBaseController
     {
@@ -65,7 +65,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
         [Route("LoadItemChilds")]
         public IActionResult LoadItemChilds(string id)
-        {   
+        {
             var result = BuildSelectListViewModelForFoodsCategories(new SelectList(_categoryService.Queries.List.Execute(id), "Id", "Name"));
             return PartialView("_CascadingSelectListView", result);
         }
@@ -92,11 +92,11 @@ namespace SmartRestaurant.Client.Web.Controllers
                .AddItem(string.Format(FoodCategoryUtilsResource.EditNavigationTitle, name), null)
                .Save();
         }
-                
+
         private SelectListViewModel PopulateCategories()
         {
             var result = _categoryService.Queries.List.Execute(null);
-            return BuildSelectListViewModelForFoodsCategories(new SelectList(result, "Id", "Name"));            
+            return BuildSelectListViewModelForFoodsCategories(new SelectList(result, "Id", "Name"));
 
         }
         private SelectListViewModel PopulateCategories(string id, string parentId)
@@ -123,7 +123,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             Guid? parentId = null;
             if (!string.IsNullOrEmpty(_category.ParentId))
             {
-                parentId = _category.ParentId.ToGuid();                
+                parentId = _category.ParentId.ToGuid();
             }
             var brothersSpe = new FoodCategorySpecification
                 (
@@ -132,15 +132,15 @@ namespace SmartRestaurant.Client.Web.Controllers
             var brothers = _categoryService.Queries.Filter.Execute(brothersSpe);
 
             var parentModel = BuildSelectListViewModelForFoodsCategories(new SelectList(brothers, "Id", "Name", _category.Id));
-            parentModel.NestedItems=result;
-             
+            parentModel.NestedItems = result;
+
             if (!string.IsNullOrEmpty(_category.ParentId))
             {
                 parentModel = PopulateCategories(parentModel, _category.ParentId);
-            } 
+            }
             return parentModel;
         }
-        
+
 
         [HttpGet]
         [Route("add")]
@@ -159,7 +159,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         [Route("add")]
         public IActionResult Add(FoodCategoryViewModel model)
         {
-            
+
             try
             {
                 var _category = model.CreateModel;
@@ -197,10 +197,10 @@ namespace SmartRestaurant.Client.Web.Controllers
                 {
                     UpdateModel = _category,
                     ParentId = _category.ParentId,
-                    Parents = PopulateCategories(_category.Id, _category.ParentId), 
-                    Picture=new FileViewModel(_category.PictureId,_category.PictureUrl),
+                    Parents = PopulateCategories(_category.Id, _category.ParentId),
+                    Picture = new FileViewModel(_category.PictureId, _category.PictureUrl),
                 };
-               
+
                 BreadcrumbForEdit(_category.Name);
 
                 return View(model);
@@ -216,7 +216,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         [Route("edit")]
         public IActionResult Edit(FoodCategoryViewModel model)
         {
-            
+
             try
             {
                 var _category = model.UpdateModel;
@@ -235,14 +235,14 @@ namespace SmartRestaurant.Client.Web.Controllers
 
             }
             BreadcrumbForEdit(model.UpdateModel.Name);
-            model.Parents = PopulateCategories(model.UpdateModel.Id, model.UpdateModel.ParentId);           
+            model.Parents = PopulateCategories(model.UpdateModel.Id, model.UpdateModel.ParentId);
             return View(model);
         }
 
         [HttpGet]
         [Route("delete")]
         public IActionResult Delete(string id)
-        {            
+        {
             var model = new DeleteEntityViewModel
             {
                 Title = UtilsResource.DefaultDeleteEntityModalTitle
@@ -326,5 +326,5 @@ namespace SmartRestaurant.Client.Web.Controllers
 
     }
 
-    
+
 }

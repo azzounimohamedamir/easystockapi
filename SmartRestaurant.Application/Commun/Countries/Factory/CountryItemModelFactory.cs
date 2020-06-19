@@ -1,13 +1,10 @@
-﻿using SmartRestaurant.Application.Commun.Countries.Queries.GetCountriesList;
-using SmartRestaurant.Domain.Commun;
-using System;
+﻿using SmartRestaurant.Domain.Commun;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace SmartRestaurant.Application.Commun.Countries.Factory
 {
-    
+
     public static class CountryItemModelExtension
     {
         public static CountryItemModel ToCountryItemModel(this Country entity)

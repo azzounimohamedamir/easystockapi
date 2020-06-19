@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartRestaurant.Domain.Commun;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Commun
 {
@@ -24,7 +21,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Commun
             b.Property(x => x.IsoCode)
                 .HasMaxLength(5)
                 .IsRequired();
-            
+
             b.ToTable("Currencies");
         }
     }

@@ -4,6 +4,6 @@ namespace SmartRestaurant.Application.Commun.State.Commands.Create
 {
     public interface IUpdateStateModel : ICreateStateModel
     {
-       string Id { get; set; }
+        string Id { get; set; }
     }
 }

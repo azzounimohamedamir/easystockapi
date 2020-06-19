@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries
+﻿namespace SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries
 {
     public class RestaurantTypeItemModel
     {

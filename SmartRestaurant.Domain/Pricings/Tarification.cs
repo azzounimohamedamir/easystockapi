@@ -1,11 +1,8 @@
-﻿using SmartRestaurant.Domain.Commun;
-using SmartRestaurant.Domain.Dishes;
-using SmartRestaurant.Domain.Products;
+﻿using Helpers;
+using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Restaurants;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Helpers;
 namespace SmartRestaurant.Domain.Pricings
 {
     public class Tarification : BaseEntity<Guid>

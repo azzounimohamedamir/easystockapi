@@ -1,10 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Interfaces;
+﻿using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Resources.Utils;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Units.Queries.GetUnitsList
 {
@@ -23,7 +20,7 @@ namespace SmartRestaurant.Application.Commun.Units.Queries.GetUnitsList
 
         public GetAllUnitsQuerie(
             ISmartRestaurantDatabaseService db,
-            ILoggerService<GetAllUnitsQuerie> logger, 
+            ILoggerService<GetAllUnitsQuerie> logger,
             IMailingService mailing,
             INotifyService notify)
         {
@@ -34,18 +31,18 @@ namespace SmartRestaurant.Application.Commun.Units.Queries.GetUnitsList
         }
         public List<UnitItemModel> Execute()
         {
-            var entity = db.Units.OrderBy(u=>u.Name)  
+            var entity = db.Units.OrderBy(u => u.Name)
                 .Select(u => new UnitItemModel()
-              {
+                {
                     Id = u.Id.ToString(),
                     Alias = u.Alias,
                     Symbol = u.Symbol,
                     Name = u.Name,
-                    IsDisabled= u.IsDisabled ? UtilsResource.IsDisabledTrueValueText : UtilsResource.IsDisabledFalseValueText
+                    IsDisabled = u.IsDisabled ? UtilsResource.IsDisabledTrueValueText : UtilsResource.IsDisabledFalseValueText
                 });
 
 
-            return entity.ToList(); 
+            return entity.ToList();
         }
     }
 

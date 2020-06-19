@@ -1,9 +1,7 @@
 ﻿using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
 using SmartRestaurant.Domain.Restaurants;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Restaurants.Owners.Queries.Factory
 {

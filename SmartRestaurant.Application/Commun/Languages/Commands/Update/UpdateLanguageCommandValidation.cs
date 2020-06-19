@@ -5,7 +5,7 @@ using System;
 
 namespace SmartRestaurant.Application.Commun.Languages.Commands.Update
 {
-    public  class UpdateLanguageCommandValidation : AbstractValidator<IUpdateLanguageModel>
+    public class UpdateLanguageCommandValidation : AbstractValidator<IUpdateLanguageModel>
     {
         public UpdateLanguageCommandValidation()
         {

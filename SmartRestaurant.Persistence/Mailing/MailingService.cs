@@ -1,15 +1,13 @@
 ﻿using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Enumerations;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.Persistence.Mailing
 {
     public class MailingService : IMailingService
     {
-        
+
 
         public Task SendAsync(params string[] args)
         {
@@ -28,8 +26,8 @@ namespace SmartRestaurant.Persistence.Mailing
             //Users
             //Binding composition du mail
             //Send
-             throw new NotImplementedException();
-            
+            throw new NotImplementedException();
+
         }
     }
 }

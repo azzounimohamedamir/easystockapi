@@ -15,9 +15,9 @@ namespace Helpers
             return !input.IsNullOrEmpty();
         }
 
-        public static decimal FormatDecimal(this decimal input,short digits=2)
+        public static decimal FormatDecimal(this decimal input, short digits = 2)
         {
-           return decimal.Round(input, digits, MidpointRounding.AwayFromZero);
+            return decimal.Round(input, digits, MidpointRounding.AwayFromZero);
         }
         public static string FormatDecimal(this decimal input)
         {

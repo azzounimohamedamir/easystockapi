@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Commun.Specialites.Commands.Create;
 using SmartRestaurant.Application.Commun.Specialites.Commands.Delete;
@@ -13,10 +12,11 @@ using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Commun;
 using SmartRestaurant.Resources.Commun.Specialities;
 using SmartRestaurant.Resources.Utils;
+using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-   // [Area("Admin")]
+    // [Area("Admin")]
     [Route("commun/specialites")]
     public class SpecialtiesController : AdminBaseController
     {
@@ -28,11 +28,11 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly IGetSpecialityByIdQuery getSpecialityByIdQuery;
 
         public SpecialtiesController(
-            IConfiguration configuration, 
-            IMailingService mailing, 
-            INotifyService notify, 
+            IConfiguration configuration,
+            IMailingService mailing,
+            INotifyService notify,
             ILoggerService<AdminBaseController> baselog,
-            ILoggerService<SpecialtiesController> log,            
+            ILoggerService<SpecialtiesController> log,
             ICreateSpecialityCommand createSpecialityCommand,
             IUpdateSpecialityCommand updateSpecialityCommand,
             IDeleteSpecialityCommand deleteSpecialityCommand,
@@ -54,12 +54,12 @@ namespace SmartRestaurant.Client.Web.Controllers
         public IActionResult Index()
         {
             this.PageBreadcrumb
-                .AddHome()                
+                .AddHome()
                 .AddItem(CommunResource.HomeNavigationTitle, Url.Action("Index", "Communs", new { area = "admin" }))
                 .AddItem(SpecialityUtilsResource.HomeNavigationTitle)
                 .SetTitle(SpecialityUtilsResource.HomePageTitle)
-                .Save();            
-            
+                .Save();
+
             return View(getSpecialityListQuery.Execute());
         }
 
@@ -71,7 +71,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             this.PageBreadcrumb
                .AddHome()
                .AddItem(CommunResource.HomeNavigationTitle, Url.Action("Index", "Communs", new { area = "admin" }))
-               .AddItem(SpecialityUtilsResource.HomeNavigationTitle, Url.Action("Index", "Specialites", new { area = "admin" }))               
+               .AddItem(SpecialityUtilsResource.HomeNavigationTitle, Url.Action("Index", "Specialites", new { area = "admin" }))
                .AddItem(SpecialityUtilsResource.AddNewNavigationTitle)
                .SetTitle(SpecialityUtilsResource.AddPageTitle)
                .Save();
@@ -85,7 +85,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             this.PageBreadcrumb
                .AddHome()
                .AddItem(CommunResource.HomeNavigationTitle, Url.Action("Index", "Communs", new { area = "admin" }))
-               .AddItem(SpecialityUtilsResource.HomeNavigationTitle, Url.Action("Index", "Specialites", new { area = "admin" }))               
+               .AddItem(SpecialityUtilsResource.HomeNavigationTitle, Url.Action("Index", "Specialites", new { area = "admin" }))
                .AddItem(string.Format(SpecialityUtilsResource.EditNavigationTitle, name), null)
                .SetTitle(SpecialityUtilsResource.EditPageTitle)
                .Save();
@@ -96,7 +96,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         public IActionResult Add()
         {
             BreadcrumbForAdd();
-            var model = new CreateSpecialityModel();            
+            var model = new CreateSpecialityModel();
             return View(model);
         }
 
@@ -106,7 +106,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         public IActionResult Add(CreateSpecialityModel model)
         {
             try
-            {                
+            {
                 createSpecialityCommand.Execute(model);
                 return RedirectToAction("Index");
             }
@@ -114,7 +114,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             {
                 AddErrorToModelState(ex);
             }
-            BreadcrumbForAdd();            
+            BreadcrumbForAdd();
             return View(model);
         }
 
@@ -128,7 +128,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             }
             try
             {
-                var model = getSpecialityByIdQuery.Execute(id); 
+                var model = getSpecialityByIdQuery.Execute(id);
                 BreadcrumbForEdit(model.Name);
                 return View(model);
             }
@@ -145,7 +145,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         public IActionResult Edit(UpdateSpecialityModel model)
         {
             try
-            {                
+            {
                 updateSpecialityCommand.Execute(model);
                 return RedirectToAction("Index");
             }
@@ -157,7 +157,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             {
                 AddErrorToModelState(ex);
             }
-            BreadcrumbForEdit(model.Name);            
+            BreadcrumbForEdit(model.Name);
             return View(model);
         }
 

@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using SmartRestaurant.Application.Identity;
-using SmartRestaurant.Application.Identity.Interfaces;
 using SmartRestaurant.Domain.BaseIdentity;
 using SmartRestaurant.Domain.Clients.Identity;
 using SmartRestaurant.Domain.Identity.Guests;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.API.Identity.Controllers
 {
@@ -82,7 +80,7 @@ namespace SmartRestaurant.Client.API.Identity.Controllers
         [HttpPost]
         [Route("refreshtoken")]
         public async Task<IActionResult> RefreshToken()
-        {            
+        {
             var user = await userManager.FindByNameAsync(
                 User.Identity.Name ??
                 User.Claims.Where(
@@ -105,16 +103,16 @@ namespace SmartRestaurant.Client.API.Identity.Controllers
                 IdentityResult identityResult;
                 if (registerModel.RoleName == "Guest")
                 {
-         
+
                     var guest = new GuestIdentityUser
                     {
-                         
+
                         UserName = registerModel.Username,
                         FirstName = registerModel.FirstName,
                         LastName = registerModel.LastName,
                         Email = registerModel.Email
                     };
-                 identityResult = await this.guestManager.CreateAsync(guest, registerModel.Password);
+                    identityResult = await this.guestManager.CreateAsync(guest, registerModel.Password);
                     if (identityResult.Succeeded)
                     {
                         await this.guestManager.AddClaimAsync(guest, new Claim("organisation", "g22r"));
@@ -126,7 +124,7 @@ namespace SmartRestaurant.Client.API.Identity.Controllers
                         await this.guestManager.AddClaimAsync(guest, new Claim("gender", "1"));
                         await this.guestManager.AddClaimAsync(guest, new Claim("email", guest.Email));
                         await this.guestManager.AddClaimAsync(guest, new Claim("id", guest.Id));
-                        
+
                         //await this.guestManager.AddToRoleAsync(guest, registerModel.RoleName);
                         await guestsignInManager.SignInAsync(guest, isPersistent: false);
                         return GetToken(guest);
@@ -139,7 +137,7 @@ namespace SmartRestaurant.Client.API.Identity.Controllers
                     }
 
                 }
-                else if(registerModel.RoleName == "Developper")
+                else if (registerModel.RoleName == "Developper")
                 {
                     var team = new BaseIdentityUser
                     {
@@ -188,7 +186,7 @@ namespace SmartRestaurant.Client.API.Identity.Controllers
                         Email = registerModel.Email
                     };
 
-                 identityResult = await this.userManager.CreateAsync(user, registerModel.Password);
+                    identityResult = await this.userManager.CreateAsync(user, registerModel.Password);
                     if (identityResult.Succeeded)
                     {
                         await this.userManager.AddClaimAsync(user, new Claim("organisation", "g22r"));
@@ -204,20 +202,21 @@ namespace SmartRestaurant.Client.API.Identity.Controllers
                         await signInManager.SignInAsync(user, isPersistent: false);
                         return GetToken(user);
 
-                    } else
-                {
-                    return null;
-                  
+                    }
+                    else
+                    {
+                        return null;
+
+                    }
+
+
+
+
+
                 }
 
-
-
-              
-             
-                }
-               
             }
-            return null ;
+            return null;
         }
 
         private String GetToken(IdentityUser user)
@@ -262,20 +261,20 @@ namespace SmartRestaurant.Client.API.Identity.Controllers
                 var user = await this.guestManager.FindByNameAsync(loginModel.Username);
                 if (user == null)
                 {
-                    return null; 
+                    return null;
 
-                } 
+                }
 
                 var UserhasValidPass = await guestManager.CheckPasswordAsync(user, loginModel.Password);
-                    if (!UserhasValidPass)
+                if (!UserhasValidPass)
                 {
                     return null;
 
 
 
                 }
-                 
-                    return GetToken(user);
+
+                return GetToken(user);
 
             }
             return null;

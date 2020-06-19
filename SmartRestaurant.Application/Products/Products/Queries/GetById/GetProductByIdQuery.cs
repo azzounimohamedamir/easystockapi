@@ -1,15 +1,10 @@
-﻿using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Products.Products.Queries.GetAll;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using System.Linq;
-using SmartRestaurant.Application.Products.Products.Commands.Update;
+﻿using Helpers;
 using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Products.Products.Commands.Create;
-using SmartRestaurant.Application.Commun.Translators.Extensions;
-using SmartRestaurant.Domain.Products;
+using SmartRestaurant.Application.Products.Products.Commands.Update;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Products.Products.Queries.GetById
 {
@@ -43,7 +38,7 @@ namespace SmartRestaurant.Application.Products.Products.Queries.GetById
                 if (Id.IsNullOrEmpty()) return null;
 
                 var prod = db.Products.FirstOrDefault();
-               
+
                 var guid = Id.ToGuid();
                 var product = db.Products
                     .Include(i => i.Picture)

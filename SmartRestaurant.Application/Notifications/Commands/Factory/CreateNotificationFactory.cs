@@ -1,8 +1,5 @@
 ﻿using SmartRestaurant.Domain;
 using SmartRestaurant.Domain.Enumerations;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Notifications.Commands.Factory
 {
@@ -10,7 +7,7 @@ namespace SmartRestaurant.Application.Notifications.Commands.Factory
     {
         Notification Create(EnumAction enumAction, string tablename, string templateId
             , string Name, string Alias
-            , string Description, 
+            , string Description,
             bool IsDisabled, EnumNotificationType type);
 
 
@@ -18,7 +15,7 @@ namespace SmartRestaurant.Application.Notifications.Commands.Factory
     public class CreateNotificationFactory : ICreateNotificationFactory
     {
         public Notification Create(EnumAction enumAction, string tablename, string templateId, string Name, string Alias
-            , string Description, bool IsDisabled,  EnumNotificationType type)
+            , string Description, bool IsDisabled, EnumNotificationType type)
         {
             var entity = new Notification();
 
@@ -30,7 +27,7 @@ namespace SmartRestaurant.Application.Notifications.Commands.Factory
             entity.TemplateId = templateId;
             //  entity.Template.enumTemplateType = enumTemplateType; 
             entity.Name = Name;
-            
+
             entity.Type = type;
             return entity;
 

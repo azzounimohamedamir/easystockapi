@@ -9,7 +9,7 @@ namespace SmartRestaurant.Application.Restaurants.Section.Commands.Create
     {
         void Execute(SectionModel model);
     }
-    public class CreateSectionCommand :ICreateSectionCommand
+    public class CreateSectionCommand : ICreateSectionCommand
     {
         private readonly ILoggerService<CreateRestaurantCommand> logger;
         private readonly IMailingService mailing;

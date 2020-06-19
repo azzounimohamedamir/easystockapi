@@ -1,12 +1,10 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using System.Linq;
-using SmartRestaurant.Domain.Restaurants;
 using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
+using SmartRestaurant.Domain.Restaurants;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Restaurants.Restaurants.Commands.Update
 {
@@ -48,7 +46,7 @@ namespace SmartRestaurant.Application.Restaurants.Restaurants.Commands.Update
                 var restaurant = db.Restaurants.FirstOrDefault(x => x.Id == idGuid);
                 if (restaurant == null)
                 {
-                    throw new NotFoundException(nameof(Restaurant)+model.Id);
+                    throw new NotFoundException(nameof(Restaurant) + model.Id);
                 }
 
                 var chainGuid = model.ChainId.ToGuid();
@@ -69,7 +67,7 @@ namespace SmartRestaurant.Application.Restaurants.Restaurants.Commands.Update
                     throw new NotFoundException(nameof(Owner));
                 }
 
-                 model.ToEntity(ref restaurant);
+                model.ToEntity(ref restaurant);
 
                 db.Restaurants.Update(restaurant);
                 db.Save();

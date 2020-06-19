@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Commun.Countries.Commands.Update;
 using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Countries.Queries.GetCountryById
 {
@@ -23,7 +20,7 @@ namespace SmartRestaurant.Application.Commun.Countries.Queries.GetCountryById
 
         public GetCountryByIdQuerie(
             ISmartRestaurantDatabaseService db,
-            ILoggerService<GetCountryByIdQuerie> logger, 
+            ILoggerService<GetCountryByIdQuerie> logger,
             IMailingService mailing,
             INotifyService notify)
         {
@@ -40,14 +37,15 @@ namespace SmartRestaurant.Application.Commun.Countries.Queries.GetCountryById
                 .Where(p => p.Id == Id)
                 .Include(c => c.Currencies)
                 .Select(p => new UpdateCountryModel()
-                { Id = p.Id,
+                {
+                    Id = p.Id,
                     IsoCode = p.IsoCode,
                     Name = p.Name,
                     Alias = p.Alias,
                     CurrenciesId = p.Currencies.Select(c => c.CurrencyId.ToString()).ToList(),
-                    IsDisabled = p.IsDisabled ,
+                    IsDisabled = p.IsDisabled,
                 }).FirstOrDefault();
-            return entity; 
+            return entity;
 
         }
     }

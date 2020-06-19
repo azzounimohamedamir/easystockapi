@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace SmartRestaurant.Application.Commun.Countries.Commands.Create
 {

@@ -1,21 +1,17 @@
 ﻿using SmartRestaurant.Application.ApplicationDataBase.Extensions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Restaurants.Owners.Commands.Update;
 using SmartRestaurant.Application.Restaurants.Owners.Queries.Factory;
 using SmartRestaurant.Domain.Restaurants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Application.Restaurants.Owners.Specifications;
 
 namespace SmartRestaurant.Application.Restaurants.Owners.Queries.GetBySpecification
 {
     public interface IGetOwnerBySpecificationQuery
     {
         List<OwnerItemModel> Execute(ISpecification<Owner> specification);
-      
+
     }
 
     public class GetOwnerBySpecificationQuery : IGetOwnerBySpecificationQuery
@@ -51,6 +47,6 @@ namespace SmartRestaurant.Application.Restaurants.Owners.Queries.GetBySpecificat
 
         }
 
-      
+
     }
 }

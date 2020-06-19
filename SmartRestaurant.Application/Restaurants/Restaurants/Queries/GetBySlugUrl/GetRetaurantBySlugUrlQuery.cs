@@ -34,7 +34,7 @@ namespace SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetBySlugU
         public RestaurantItemModel Execute(string slugUrl)
         {
             try
-            {                
+            {
                 return db.Restaurants
                     .Where(r => r.SlugUrl == slugUrl)
                     .Include(o => o.Owner)
@@ -47,7 +47,7 @@ namespace SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetBySlugU
                         Alias = x.Alias,
                         ChainName = x.Chain != null ? x.Chain.Name : null,
                         Name = x.Name,
-                        SlugUrl=x.SlugUrl,
+                        SlugUrl = x.SlugUrl,
                         IsDisabled = x.IsDisabled.DisabledDisplay(),
                         CreatedDate = x.CreatedDate,
                         Description = x.Description,
@@ -61,7 +61,7 @@ namespace SmartRestaurant.Application.Restaurants.Restaurants.Queries.GetBySlugU
                 return null;
             }
         }
-                
+
     }
 
 }

@@ -1,17 +1,14 @@
-﻿using SmartRestaurant.Domain.Dishes;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
+﻿using Helpers;
+using SmartRestaurant.Domain.Dishes;
 namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Factory
 {
     public interface IUpdateDishFamilyFactory
     {
         DishFamily Create(
             DishFamily source,
-            string restaurantId, 
-            string parentId, 
-            string name, 
+            string restaurantId,
+            string parentId,
+            string name,
             string alias,
             string description,
             bool isDesabled);
@@ -19,11 +16,11 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Factory
     public class UpdateDishFamilyFactory : IUpdateDishFamilyFactory
     {
         public DishFamily Create(
-            DishFamily source, 
-            string restaurantId, 
-            string parentId, 
-            string name, 
-            string alias, 
+            DishFamily source,
+            string restaurantId,
+            string parentId,
+            string name,
+            string alias,
             string description,
             bool isDesabled)
         {

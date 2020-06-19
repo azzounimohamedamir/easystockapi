@@ -1,12 +1,10 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using System.Linq;
-using SmartRestaurant.Domain.Pricings;
 using SmartRestaurant.Application.Pricings.Tarifications.Commands.Create;
+using SmartRestaurant.Domain.Pricings;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Pricings.Tarifications.Commands.Update
 {

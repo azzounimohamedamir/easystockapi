@@ -1,12 +1,8 @@
 ﻿using SmartRestaurant.Application.ApplicationDataBase.Extensions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Restaurants.Staffs.Projections;
 using SmartRestaurant.Application.Restaurants.Staffs.Queries.Factory;
 using SmartRestaurant.Domain.Restaurants;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Restaurants.Staffs.Queries.GetBySpecification
 {
@@ -38,8 +34,8 @@ namespace SmartRestaurant.Application.Restaurants.Staffs.Queries.GetBySpecificat
             //     .ApplySpecification(specification)                 
             //     .Select(StaffItemModelProjection.Projection).ToList();
 
-            return db.Staffs              
-                .ApplySpecification(specification)              
+            return db.Staffs
+                .ApplySpecification(specification)
                 .ToStaffItemModels();
 
         }

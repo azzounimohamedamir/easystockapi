@@ -2,7 +2,7 @@
 
 namespace SmartRestaurant.Application.NotificationUsers.Commands.Create
 {
-    public  class CreateNotificationUserCommandValidation : AbstractValidator<CreateNotificationUserModel>
+    public class CreateNotificationUserCommandValidation : AbstractValidator<CreateNotificationUserModel>
     {
         public CreateNotificationUserCommandValidation()
         {

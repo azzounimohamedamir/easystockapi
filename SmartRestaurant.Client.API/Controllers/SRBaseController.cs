@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Client.API.Models;
+using System;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Client.API.Controllers
 {
@@ -23,8 +19,8 @@ namespace SmartRestaurant.Client.API.Controllers
             {
                 result.Add(new CountryViewModel
                 {
-                    Id=Guid.NewGuid().ToString(),
-                    Name=$"Country {i}",
+                    Id = Guid.NewGuid().ToString(),
+                    Name = $"Country {i}",
                 });
             }
             return result;
@@ -38,7 +34,7 @@ namespace SmartRestaurant.Client.API.Controllers
                                 ? RouteData.Values["culture"].ToString()
                                 : "fr-FR";
             }
-         }
-        
+        }
+
     }
 }

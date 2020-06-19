@@ -2,6 +2,6 @@
 {
     public interface IUpdateCityModel : ICreateCityModel
     {
-         string Id { get; set; }
+        string Id { get; set; }
     }
 }

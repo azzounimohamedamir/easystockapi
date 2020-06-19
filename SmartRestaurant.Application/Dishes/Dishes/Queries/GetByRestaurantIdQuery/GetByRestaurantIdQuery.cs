@@ -1,13 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Helpers;
+using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Dishes.Dishes.Queries.Models;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Dishes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Domain.Enumerations;
 
 namespace SmartRestaurant.Application.Dishes.Dishes.Queries
 {
@@ -41,12 +38,12 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Queries
                 return db.Dishes
                     .Include(d => d.Family)
                     .Include(d => d.Restaurant)
-                    .Where(d=>d.RestaurantId==restaurantId.ToGuid())
-                    .Select(DishItemModel.Projection)                    
+                    .Where(d => d.RestaurantId == restaurantId.ToGuid())
+                    .Select(DishItemModel.Projection)
                     .AsEnumerable();
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

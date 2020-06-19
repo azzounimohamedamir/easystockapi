@@ -6,6 +6,6 @@
         string IsoCode { get; set; }
         string Name { get; set; }
         string StateId { get; set; }
-        
+
     }
 }

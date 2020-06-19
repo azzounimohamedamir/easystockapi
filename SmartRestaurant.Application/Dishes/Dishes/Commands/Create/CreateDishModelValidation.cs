@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Create
 {
-    public class CreateDishModelValidation:AbstractValidator<CreateDishModel>
+    public class CreateDishModelValidation : AbstractValidator<CreateDishModel>
     {
         public CreateDishModelValidation()
         {

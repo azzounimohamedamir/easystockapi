@@ -1,11 +1,9 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Restaurants;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
 
 namespace SmartRestaurant.Application.Restaurants.Staffs.Commands.Delete
 {
@@ -49,7 +47,7 @@ namespace SmartRestaurant.Application.Restaurants.Staffs.Commands.Delete
                 {
                     throw new NotFoundException(nameof(Staff));
                 }
-                 
+
                 db.Staffs.Remove(staff);
                 db.Save();
             }

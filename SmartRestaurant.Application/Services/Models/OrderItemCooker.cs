@@ -1,9 +1,4 @@
-﻿using SmartRestaurant.Application.Restaurants.Staffs.Queries;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Application.Services.Models
+﻿namespace SmartRestaurant.Application.Services.Models
 {
     //public class OrderStaff
     //{

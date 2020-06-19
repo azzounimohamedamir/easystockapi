@@ -1,16 +1,9 @@
-﻿using SmartRestaurant.Application.Commun.Select;
-using SmartRestaurant.Application.FoodCategories.Commands;
+﻿using SmartRestaurant.Application.FoodCategories.Commands;
 using SmartRestaurant.Application.FoodCategories.Commands.Delete;
 using SmartRestaurant.Application.FoodCategories.Commands.Update;
-using SmartRestaurant.Application.FoodCategories.Queries;
-using SmartRestaurant.Application.FoodCategories.Queries.GetAll;
 using SmartRestaurant.Application.Foods.FoodCategories.Queries;
-using SmartRestaurant.Application.Foods.Specifications;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Foods;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.FoodCategories.Services
 {
@@ -31,7 +24,7 @@ namespace SmartRestaurant.Application.FoodCategories.Services
             IDeleteFoodCatergoryCommand delete,
             IFoodCategoryQueries queries
             )
-        {            
+        {
             this.db = db ?? throw new ArgumentNullException(nameof(db));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.mailing = mailing ?? throw new ArgumentNullException(nameof(mailing));
@@ -49,6 +42,6 @@ namespace SmartRestaurant.Application.FoodCategories.Services
         public IDeleteFoodCatergoryCommand Delete { get; private set; }
 
         public IFoodCategoryQueries Queries { get; private set; }
-        
+
     }
 }

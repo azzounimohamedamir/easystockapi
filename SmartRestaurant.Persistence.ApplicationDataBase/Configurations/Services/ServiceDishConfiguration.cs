@@ -2,9 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Services
 {
@@ -24,10 +21,11 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Service
                 .HasForeignKey(s => s.ServiceId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            b.OwnsOne<Quantity>("Quantity", Qt => {
+            b.OwnsOne<Quantity>("Quantity", Qt =>
+            {
                 Qt.HasOne(x => x.Unit)
                 .WithMany()
-                .HasForeignKey("UnitId");               
+                .HasForeignKey("UnitId");
             });
 
             b.ToTable("ServiceDishes");

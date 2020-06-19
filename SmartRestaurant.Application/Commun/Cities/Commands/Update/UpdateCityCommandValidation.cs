@@ -1,11 +1,7 @@
 ﻿using FluentValidation;
-using SmartRestaurant.Application.Commun.Cities.Commands;
-using SmartRestaurant.Application.Commun.Cities.Commands.Update;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.SharedValidation;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Cities.Commands.Update
 {
@@ -33,7 +29,7 @@ namespace SmartRestaurant.Application.Commun.Cities.Commands.Update
              .NotEmpty()
              .WithMessage(string.Format(SharedValidationResource.RequiredErrorMessage,
              BaseResource.Id));
-           
+
         }
     }
 }

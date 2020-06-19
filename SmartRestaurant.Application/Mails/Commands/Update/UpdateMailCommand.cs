@@ -1,12 +1,11 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace SmartRestaurant.Application.Mails.Commands.Update
 {
@@ -46,7 +45,7 @@ namespace SmartRestaurant.Application.Mails.Commands.Update
                     throw new NotValidException(result.Errors);
                 }
 
-                var entity = db.Mailings.Include(x=>x.Users).FirstOrDefault(x=>x.Id==model.Id.ToGuid());
+                var entity = db.Mailings.Include(x => x.Users).FirstOrDefault(x => x.Id == model.Id.ToGuid());
 
                 if (entity.ToString().IsNullOrEmpty())
                 {
@@ -59,9 +58,9 @@ namespace SmartRestaurant.Application.Mails.Commands.Update
                 entity.Alias = model.Alias;
                 entity.IsDisabled = model.IsDisabled;
                 entity.Type = model.Type;
-                entity.TemplateId = model.TemplateId; 
+                entity.TemplateId = model.TemplateId;
                 entity.Template = db.Templates.FirstOrDefault(p => p.Id.ToString() == model.TemplateId);
-                
+
                 //in db
                 HashSet<string> idsDB = new HashSet<string>(entity.Users.Select(i => i.UserId.ToString()));
                 //if not null 
@@ -85,7 +84,7 @@ namespace SmartRestaurant.Application.Mails.Commands.Update
                             new MailingUser
                             {
 
-                                  UserId = s,
+                                UserId = s,
                             }
                             );
                     }
@@ -99,9 +98,9 @@ namespace SmartRestaurant.Application.Mails.Commands.Update
                 db.Save();
 
             }
-            catch(Exception e )
+            catch (Exception e)
             {
-                throw e; 
+                throw e;
             }
 
 

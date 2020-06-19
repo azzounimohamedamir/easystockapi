@@ -7,7 +7,7 @@
         public string Alias { get; set; }
         public string Description { get; set; }
         public string IsDisabled { get; set; }
- 
+
         public string FloorName { get; set; }
     }
 }

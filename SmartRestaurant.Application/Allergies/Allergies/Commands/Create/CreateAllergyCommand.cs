@@ -1,10 +1,8 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Allergies;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
 using System.Linq;
 
 namespace SmartRestaurant.Application.Allergies.Allergies.Commands.Create
@@ -47,7 +45,7 @@ namespace SmartRestaurant.Application.Allergies.Allergies.Commands.Create
                 var namedAllergy =
                   db.Allergies.FirstOrDefault(f => f.Name == model.Name);
 
-                if (namedAllergy != null  )
+                if (namedAllergy != null)
                     throw new AlreadyExistsExeption($"{ nameof(Allergy)}:{model.Name} Exists");
 
 

@@ -1,10 +1,8 @@
-﻿using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
+﻿using Helpers;
+using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
+using SmartRestaurant.Application.Restaurants.Staffs.Commands.Update;
 using SmartRestaurant.Domain.Restaurants;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Application.Restaurants.Staffs.Commands.Update;
 
 namespace SmartRestaurant.Application.Restaurants.Staffs.Commands.Create
 {
@@ -17,12 +15,12 @@ namespace SmartRestaurant.Application.Restaurants.Staffs.Commands.Create
                 Id = Guid.NewGuid(),
                 Address = model.Address.ToValueObject(),
                 Alias = model.Alias,
-                
+
                 DateOfBirth = model.DateOfBirth,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 IsDisabled = model.IsDisabled,
-                UserName = model.FirstName ,
+                UserName = model.FirstName,
                 StaffRole = model.StaffRole,
                 RestaurantId = model.RestaurantId.ToGuid(),
                 UserId = model.UserId

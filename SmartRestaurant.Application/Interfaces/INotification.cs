@@ -13,10 +13,10 @@ namespace SmartRestaurant.Application.Interfaces
     }
     public enum NotificationType
     {
-        Error=3,
-        Warning=2,
-        Success=1,
-        Infos=4
+        Error = 3,
+        Warning = 2,
+        Success = 1,
+        Infos = 4
     }
 }
 

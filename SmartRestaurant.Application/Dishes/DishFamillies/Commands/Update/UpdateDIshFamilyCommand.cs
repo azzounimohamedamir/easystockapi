@@ -1,15 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Helpers;
+using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Dishes.DishFamillies.Commands.Factory;
 using SmartRestaurant.Application.Exceptions;
+using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Helpers;
 using SmartRestaurant.Resources.Dishes.DishFamily;
 using SmartRestaurant.Resources.SharedException;
-using SmartRestaurant.Application.Helpers;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Update
 {
@@ -52,23 +50,23 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Update
 
                 var _family = _db.DishFamilies
                     .Include(f => f.Picture)
-                    .FirstOrDefault(f=>f.Id==model.Id.ToGuid());
+                    .FirstOrDefault(f => f.Id == model.Id.ToGuid());
 
-                if(_family==null)
-                    throw new NotFoundException(string.Format(SharedExceptionResource.NotFoundExceptionErrorMessage, DishFamilyUtilsResource.TableName , model.Id));
+                if (_family == null)
+                    throw new NotFoundException(string.Format(SharedExceptionResource.NotFoundExceptionErrorMessage, DishFamilyUtilsResource.TableName, model.Id));
 
-                _family = _factory.Create(_family, 
-                    model.RestaurantId, 
-                    model.ParentId, 
-                    model.Name, 
-                    model.Alias, 
+                _family = _factory.Create(_family,
+                    model.RestaurantId,
+                    model.ParentId,
+                    model.Name,
+                    model.Alias,
                     model.Description,
                     model.IsDisabled);
 
                 var restaurant = _db.Restaurants.Find(_family.RestaurantId);
                 if (restaurant == null)
                 {
-                    throw new NotValidOperation(string.Format(SharedExceptionResource.NotValidOperationErrorMessage,DishFamilyResource.RestaurantId));
+                    throw new NotValidOperation(string.Format(SharedExceptionResource.NotValidOperationErrorMessage, DishFamilyResource.RestaurantId));
                 }
 
                 if (_family.ParentId != null)
@@ -86,7 +84,7 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Update
                 _db.DishFamilies.Update(_family);
                 _db.Save();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

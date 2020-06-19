@@ -2,10 +2,6 @@
 using SmartRestaurant.Application.Products.Products.Commands.Create;
 using SmartRestaurant.Application.Products.Products.Commands.Update;
 using SmartRestaurant.Client.Web.Models.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Models.Products
 {

@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using SmartRestaurant.Domain.BaseIdentity;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SmartRestaurant.Domain.BaseIdentity;
 
 namespace SmartRestaurant.Domain.Identity.Guests
 {

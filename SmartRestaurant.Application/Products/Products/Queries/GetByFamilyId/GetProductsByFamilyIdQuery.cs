@@ -1,12 +1,11 @@
-﻿using SmartRestaurant.Application.Interfaces;
+﻿using Helpers;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Helpers;
+using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Products.Products.Queries.GetAll;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Helpers;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Helpers;
 
 namespace SmartRestaurant.Application.Products.Products.Queries.GetByFamilyId
 {
@@ -42,8 +41,8 @@ namespace SmartRestaurant.Application.Products.Products.Queries.GetByFamilyId
                 var guid = Id.ToGuid();
                 return db.Products
                     .Where(p => p.ProductFamilyId == guid)
-                    .Include(i=>i.ProductFamily)
-                    .Include(i=>i.ProductFamily.Restaurant)
+                    .Include(i => i.ProductFamily)
+                    .Include(i => i.ProductFamily.Restaurant)
                     .Select(x => new
                     ProductItemModel
                     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SmartRestaurant.Application.Restaurants.Chains.Commands.Create
+﻿namespace SmartRestaurant.Application.Restaurants.Chains.Commands.Create
 {
     public class CreateChainModel : ICreateChainModel
     {

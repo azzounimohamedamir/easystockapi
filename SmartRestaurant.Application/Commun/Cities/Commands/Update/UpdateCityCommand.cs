@@ -1,11 +1,8 @@
 ﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Commun;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-  
+
 namespace SmartRestaurant.Application.Commun.Cities.Commands.Update
 {
     public class UpdateCityCommand : IUpdateCityCommand
@@ -28,7 +25,8 @@ namespace SmartRestaurant.Application.Commun.Cities.Commands.Update
         }
         public void Execute(UpdateCityModel model)
         {
-            try {
+            try
+            {
 
                 var validator = new UpdateCityCommandValidation();
                 var result = validator.Validate(model);
@@ -61,7 +59,7 @@ namespace SmartRestaurant.Application.Commun.Cities.Commands.Update
 
             }
 
-             
+
         }
     }
 }

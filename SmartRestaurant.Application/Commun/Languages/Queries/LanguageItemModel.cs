@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Application.Commun.Languages.Queries
+﻿namespace SmartRestaurant.Application.Commun.Languages.Queries
 {
     public class LanguageItemModel
     {
@@ -13,7 +9,7 @@ namespace SmartRestaurant.Application.Commun.Languages.Queries
         public string Alias { get; set; }
         public string SelectLanguage { get; set; }
         public string IsDisabled { get; set; }
-       
+
         public string EnglishName { get; set; }
     }
 }

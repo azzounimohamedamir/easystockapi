@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartRestaurant.Domain.Restaurants;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Restaurants
 {

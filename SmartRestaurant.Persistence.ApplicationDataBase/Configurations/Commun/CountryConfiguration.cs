@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartRestaurant.Domain.Commun;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Commun
 {
@@ -26,13 +23,13 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Commun
                 .IsRequired();
             b.HasMany(x => x.States)
                 .WithOne(s => s.Country)
-                .HasForeignKey(s=>s.CountryId);
+                .HasForeignKey(s => s.CountryId);
 
             b.HasMany(x => x.Currencies)
                 .WithOne(cc => cc.Country)
                 .HasForeignKey(cc => cc.CountryId)
                 .OnDelete(DeleteBehavior.Cascade);
-               
+
 
             b.ToTable("Countries");
         }

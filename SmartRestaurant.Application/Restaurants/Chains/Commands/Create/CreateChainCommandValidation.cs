@@ -26,7 +26,7 @@ namespace SmartRestaurant.Application.Restaurants.Chains.Commands.Create
              .NotEmpty()
              .WithMessage(string.Format(SharedValidationResource.RequiredErrorMessage, StaffResource.Owner));
 
-            
+
         }
     }
 }

@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Models;
 using SmartRestaurant.Application.Dishes.Dishes.Commands.Models;
 using SmartRestaurant.Client.Web.Models.Galleries;
 using SmartRestaurant.Client.Web.Models.Utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Models.Dishes
 {
@@ -24,13 +20,13 @@ namespace SmartRestaurant.Client.Web.Models.Dishes
         public SelectList DishTypes { get; set; }
 
         public int IngredientIndex { get; set; } = 0;
-        public int IngredientToDeleteIndex { get; set; } 
+        public int IngredientToDeleteIndex { get; set; }
 
         public int AccompanyingIndex { get; set; } = 0;
-        public int AccompanyingToDeleteIndex { get; set; } 
+        public int AccompanyingToDeleteIndex { get; set; }
 
         public int EquivalenceIndex { get; set; } = 0;
-        public int EquivalenceToDeleteIndex { get; set; } 
+        public int EquivalenceToDeleteIndex { get; set; }
         public string GalleryId { get; set; }
         public SelectList Galleries { get; set; }
 
@@ -39,5 +35,5 @@ namespace SmartRestaurant.Client.Web.Models.Dishes
         public GalleryViewModel GalleryViewModel { get; set; }
     }
 
-    
+
 }

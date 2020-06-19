@@ -1,14 +1,12 @@
 ﻿using SmartRestaurant.Application.Commun.Select;
 using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetAll;
+using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetById;
 using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetBySpecification;
+using SmartRestaurant.Application.Restaurants.Staffs.Queries.IGetByRestaurantId;
 using SmartRestaurant.Domain.Restaurants;
 using System;
 using System.Collections.Generic;
-using Helpers;
-using SmartRestaurant.Application.Restaurants.Staffs.Specifications;
-using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetById;
-using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetAll;
-using SmartRestaurant.Application.Restaurants.Staffs.Queries.IGetByRestaurantId;
 
 namespace SmartRestaurant.Application.Restaurants.Staffs.Queries
 {

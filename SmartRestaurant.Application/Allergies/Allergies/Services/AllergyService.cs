@@ -1,16 +1,14 @@
-﻿using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Allergies.Allergies.Commands.Create;
+﻿using SmartRestaurant.Application.Allergies.Allergies.Commands.Create;
 using SmartRestaurant.Application.Allergies.Allergies.Commands.Delete;
 using SmartRestaurant.Application.Allergies.Allergies.Commands.Update;
 using SmartRestaurant.Application.Allergies.Allergies.Queries;
+using SmartRestaurant.Application.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Allergies.Allergies.Services
 {
-       
-      public interface IAllergyService
+
+    public interface IAllergyService
     {
         ICreateAllergyCommand Create { get; }
         IUpdateAllergyCommand Update { get; }

@@ -1,12 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Helpers;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Foods;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
 
 namespace SmartRestaurant.Application.Foods.Commands.Delete
 {
@@ -49,7 +46,7 @@ namespace SmartRestaurant.Application.Foods.Commands.Delete
                 if (food == null)
                     throw new NotFoundException();
 
-                
+
 
                 db.Foods.Remove(food);
                 db.Save();

@@ -1,12 +1,11 @@
-﻿using SmartRestaurant.Application.Interfaces;
+﻿using Helpers;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Helpers;
+using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Areas.Queries.GetById;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
-using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Helpers;
 
 namespace SmartRestaurant.Application.Restaurants.Areas.Queries.GetByFloorId
 {

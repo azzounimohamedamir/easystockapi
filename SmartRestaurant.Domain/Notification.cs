@@ -2,7 +2,6 @@
 using SmartRestaurant.Domain.Enumerations;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Domain
 {
@@ -20,7 +19,7 @@ namespace SmartRestaurant.Domain
         //public string Subject { get; set; }
         //public string Body { get; set; }
         public EnumNotificationType Type { get; set; }
-        public virtual  ICollection<NotificationUser> Users { get; set; }
+        public virtual ICollection<NotificationUser> Users { get; set; }
     }
 
     public class NotificationUser : SmartRestaurantEntity

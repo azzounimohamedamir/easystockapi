@@ -8,9 +8,9 @@ namespace SmartRestaurant.Application.Allergies.Allergies.Commands.Create
     {
         public CreateAllergyCommandValidation()
         {
- RuleFor(x => x.Alias)
-               .MaximumLength(5)
-               .WithMessage(string.Format(SharedValidationResource.MaxlengthNotValideErrorMessage, "5"));
+            RuleFor(x => x.Alias)
+                          .MaximumLength(5)
+                          .WithMessage(string.Format(SharedValidationResource.MaxlengthNotValideErrorMessage, "5"));
             RuleFor(x => x.Name)
                  .NotNull()
                  .NotEmpty()

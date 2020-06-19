@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Application.Commun.Currencies.Queries
+﻿namespace SmartRestaurant.Application.Commun.Currencies.Queries
 {
     public class CurrencyItemModel
     {

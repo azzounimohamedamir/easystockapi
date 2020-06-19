@@ -1,12 +1,11 @@
-﻿using SmartRestaurant.Application.Interfaces;
+﻿using Helpers;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Helpers;
+using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Places.Queries.GetById;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using SmartRestaurant.Application.Helpers;
 
 namespace SmartRestaurant.Application.Restaurants.Places.Queries.GetByAreaId
 {
@@ -40,7 +39,7 @@ namespace SmartRestaurant.Application.Restaurants.Places.Queries.GetByAreaId
                 var guid = Id.ToGuid();
                 return db.Places
                     .Include(t => t.Table)
-                    .Include(i => i.Table.Area)                   
+                    .Include(i => i.Table.Area)
                     .Where(t => t.TableId == guid)
                     .Select(x => new PlaceItemModel
                     {

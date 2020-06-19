@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
 using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Update;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Models.Restaurants
 {

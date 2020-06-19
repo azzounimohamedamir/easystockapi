@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using SmartRestaurant.Resources.Commun.BaseEntity;
-using SmartRestaurant.Resources.Mailing;
 using SmartRestaurant.Resources.Notification;
 using SmartRestaurant.Resources.SharedValidation;
 using System;

@@ -4,10 +4,8 @@ using SmartRestaurant.Application.Commun.States.Factory;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-  
+
 namespace SmartRestaurant.Application.Commun.State.Commands.Create
 {
     public class CreateStateCommand : ICreateStateCommand
@@ -22,20 +20,21 @@ namespace SmartRestaurant.Application.Commun.State.Commands.Create
             ISmartRestaurantDatabaseService database,
             INotifyService notify,
             IMailingService mailing,
-            ILoggerService<CreateStateCommand> log , 
+            ILoggerService<CreateStateCommand> log,
             ICreateStateFactory createStateFactory)
         {
             _db = database ?? throw new ArgumentNullException(nameof(database));
             _notify = notify;
             _mailing = mailing;
             _log = log;
-            _factory = createStateFactory; 
+            _factory = createStateFactory;
 
-            
+
         }
         public void Execute(CreateStateModel model)
         {
-            try {
+            try
+            {
                 var validator = new CreateStateCommandValidation();
                 var result = validator.Validate(model);
                 if (!result.IsValid)
@@ -44,7 +43,7 @@ namespace SmartRestaurant.Application.Commun.State.Commands.Create
                     throw new NotValidException(result.Errors);
                 }
 
-                var entity = _factory.Create(model.Name, model.IsoCode, model.CountryId,model.Alias ,model.IsDisabled);
+                var entity = _factory.Create(model.Name, model.IsoCode, model.CountryId, model.Alias, model.IsDisabled);
                 entity.Id = Guid.NewGuid().ToString();
                 entity.Country = _db.Countries.FirstOrDefault(c => c.Id == model.CountryId);
 
@@ -64,7 +63,7 @@ namespace SmartRestaurant.Application.Commun.State.Commands.Create
             }
 
         }
-       
-        }
+
     }
+}
 

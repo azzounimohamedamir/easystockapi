@@ -2,11 +2,7 @@
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.ViewModels.Orders;
 using SmartRestaurant.Diner.ViewModels.Sections;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Tables
@@ -24,7 +20,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         /// Get the TableModel from the Model.
         /// </summary>
         /// <param name="_table"></param>
-        public SeatViewModel(int _table_Id,int _numero,string _table_number, TablesViewModel table)
+        public SeatViewModel(int _table_Id, int _numero, string _table_number, TablesViewModel table)
         {
             table_Id = _table_Id;
             seat_number = _numero;
@@ -48,7 +44,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         }
 
         public int Id { get; }
-        
+
         public int SeatNumber
         {
             get { return seat_number; }
@@ -61,7 +57,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 }
             }
         }
- 
+
         /// <summary>
         /// Used to indicate when a seat is selected.
         /// </summary>
@@ -73,32 +69,32 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 return isSelected;
             }
             set
-            { 
-                    isSelected = value;
-                    RaisePropertyChanged();
-                if(IsTaken)
+            {
+                isSelected = value;
+                RaisePropertyChanged();
+                if (IsTaken)
                     BackgroundColor = Color.FromHex("#FFA374");
                 else
                 if (IsSelected)
-                        BackgroundColor = Color.FromHex("#F2FBFB");
-                    else
-                        BackgroundColor = Color.White;
+                    BackgroundColor = Color.FromHex("#F2FBFB");
+                else
+                    BackgroundColor = Color.White;
                 RaisePropertyChanged("BackgroundColor");
                 if (IsTaken)
-                    BorderColor= Color.FromHex("#EEEEEE");
+                    BorderColor = Color.FromHex("#EEEEEE");
                 else
                 if (isSelected) BorderColor = Color.FromHex("#3CBDBF");
-                    else
+                else
                     BorderColor = Color.FromHex("#EEEEEE");
-                    RaisePropertyChanged("BorderColor");
-                    
+                RaisePropertyChanged("BorderColor");
+
             }
         }
         private Color bordercolor;
         public Color BorderColor
         {
             get
-            {                                                   
+            {
                 if (IsTaken)
                     return Color.FromHex("#EEEEEE");
                 else
@@ -123,7 +119,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
             get
             {
                 if (!isTaken)
-                    isTaken = (CurrentOrder == null || CurrentOrder.Lines==null) ? false : CurrentOrder.Lines.Count > 0;
+                    isTaken = (CurrentOrder == null || CurrentOrder.Lines == null) ? false : CurrentOrder.Lines.Count > 0;
                 return isTaken;
             }
             set
@@ -134,9 +130,9 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                     BackgroundColor = Color.FromHex("#FFA374");
                 else
                     if (IsSelected)
-                    BackgroundColor= Color.FromHex("#F2FBFB");
+                    BackgroundColor = Color.FromHex("#F2FBFB");
                 else
-                    BackgroundColor= Color.White;
+                    BackgroundColor = Color.White;
                 RaisePropertyChanged("BackgroundColor");
 
             }
@@ -149,7 +145,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 if (IsTaken)
                     return Color.FromHex("#FFA374");
                 else
-                    if(IsSelected)
+                    if (IsSelected)
                     return Color.FromHex("#F2FBFB");
                 else
                     return Color.White;
@@ -170,8 +166,8 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 {
                     SeatId = Id,
                     TableId = table_Id,
-                    SeatNumber=seat_number,
-                    TableNumber=table_number
+                    SeatNumber = seat_number,
+                    TableNumber = table_number
                 });
                 return currentOrder;
             }
@@ -192,7 +188,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                 isVisible = value;
                 RaisePropertyChanged();
             }
-        
+
         }
         public bool IlnessesAllergiesClicked { get; set; }
     }

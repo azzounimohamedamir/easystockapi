@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Application.Restaurants.Menu.Items.Commands.Delete
+﻿namespace SmartRestaurant.Application.Restaurants.Menu.Items.Commands.Delete
 {
     public interface IDeleteMenuItemCommand
     {

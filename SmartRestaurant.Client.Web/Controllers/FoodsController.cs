@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Helpers;
+﻿using Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -23,17 +21,19 @@ using SmartRestaurant.Client.Web.Models.Foods;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Foods.Foods;
 using SmartRestaurant.Resources.Utils;
+using System;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-   // [Area("Admin")]
+    // [Area("Admin")]
     [Route("foods")]
     public class FoodsController : AdminBaseController
     {
         private readonly ILoggerService<FoodsCategoriesController> _log;
         private readonly IFoodService _foodService;
         private readonly IFoodCategoryService _foodCategoryService;
-        private readonly IGetAllUnitsQuerie _getAllUnitsQuery;       
+        private readonly IGetAllUnitsQuerie _getAllUnitsQuery;
         private readonly IHostingEnvironment _hostingEnvironment;
 
 
@@ -45,7 +45,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             ILoggerService<FoodsCategoriesController> log,
             IFoodService foodService,
             IFoodCategoryService foodCategoryService,
-            IGetAllUnitsQuerie getAllUnitsQuery,            
+            IGetAllUnitsQuerie getAllUnitsQuery,
             IHostingEnvironment hostingEnvironment
             )
             : base(configuration, mailing, notify, baselog)
@@ -53,34 +53,34 @@ namespace SmartRestaurant.Client.Web.Controllers
             _log = log;
             _foodService = foodService;
             _foodCategoryService = foodCategoryService;
-            _getAllUnitsQuery = getAllUnitsQuery;            
+            _getAllUnitsQuery = getAllUnitsQuery;
             _hostingEnvironment = hostingEnvironment;
         }
 
         [Route("")]
         [Route("index")]
-        public IActionResult Index(string categoryId,string name,int? page)
+        public IActionResult Index(string categoryId, string name, int? page)
         {
             this.PageBreadcrumb.SetTitle(FoodUtilsResource.HomePageTitle)
                 .AddHome()
                 .AddItem(FoodUtilsResource.HomeNavigationTitle, Url.Action("Index", "Foods"))
                 .Save();
-            
-            var specification = new FoodSpecification(categoryId,name)
-                .ApplyOrderBy(fo=>fo.Name)
-                .ApplyPagination(page*pageSize ?? 0, pageSize);
-            
-            var foods = _foodService.Queries.Filter.Execute(specification,out itemCount);
-            
-            var model =new FoodListViewModel
+
+            var specification = new FoodSpecification(categoryId, name)
+                .ApplyOrderBy(fo => fo.Name)
+                .ApplyPagination(page * pageSize ?? 0, pageSize);
+
+            var foods = _foodService.Queries.Filter.Execute(specification, out itemCount);
+
+            var model = new FoodListViewModel
             {
-                List=PaginatedList<FoodItemModel>.Create(foods, itemCount, page ?? 1, pageSize),
-                Filter=new FoodListFilterViewModel
+                List = PaginatedList<FoodItemModel>.Create(foods, itemCount, page ?? 1, pageSize),
+                Filter = new FoodListFilterViewModel
                 {
-                    Categories=new SelectList(_foodCategoryService.Queries.List.Execute(null),"Id","Name",categoryId),
-                    FoodCategoryId=categoryId,
-                    Name=name,                    
-                }                
+                    Categories = new SelectList(_foodCategoryService.Queries.List.Execute(null), "Id", "Name", categoryId),
+                    FoodCategoryId = categoryId,
+                    Name = name,
+                }
             };
             return View(model);
         }
@@ -225,7 +225,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             return Json(selectList);
         }
 
-        
+
         [HttpGet]
         [Route("getfoodsdetails")]
         public JsonResult GetFoodDetails(string foodId)
@@ -234,7 +234,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             {
                 return Json("");
             }
-            var result = new FoodJsonDetailsModel();            
+            var result = new FoodJsonDetailsModel();
             var food = _foodService.Queries.GetById.Execute(foodId);
             if (food != null)
             {
@@ -253,12 +253,12 @@ namespace SmartRestaurant.Client.Web.Controllers
         {
             BreadcrumbForAdd();
             var model = new FoodViewModel
-            {                
+            {
                 Categories = PopulateCascadingCategories("FoodModel_FoodCategoryId"),
                 FoodModel = new FoodModel(),
-                Nutrition = new NutritionModel(),                
+                Nutrition = new NutritionModel(),
                 Units = PopulateUnits(),
-                
+
             };
 
             return View(model);
@@ -272,9 +272,9 @@ namespace SmartRestaurant.Client.Web.Controllers
             try
             {
                 CreateFoodModel food = new CreateFoodModel
-                {                    
+                {
                     FoodModel = model.FoodModel,
-                    Nutrition = model.Nutrition,                  
+                    Nutrition = model.Nutrition,
                 };
 
                 if (model.Picture.IsChanged)
@@ -311,34 +311,34 @@ namespace SmartRestaurant.Client.Web.Controllers
                 var _food = _foodService.Queries.GetById.Execute(id);
                 var model = new FoodViewModel
                 {
-                    Categories = PopulateCascadingCategories(null,_food.FoodModel.FoodCategoryId, "FoodModel_FoodCategoryId"),
+                    Categories = PopulateCascadingCategories(null, _food.FoodModel.FoodCategoryId, "FoodModel_FoodCategoryId"),
                     FoodModel = new FoodModel
                     {
-                        Id= _food.FoodModel.Id,
-                        Name= _food.FoodModel.Name,
-                        Alias= _food.FoodModel.Alias,
-                        Description= _food.FoodModel.Description,
-                        FoodCategoryId= _food.FoodModel.FoodCategoryId,
-                        IsDisabled= _food.FoodModel.IsDisabled,
-                        Picture= _food.FoodModel.Picture
+                        Id = _food.FoodModel.Id,
+                        Name = _food.FoodModel.Name,
+                        Alias = _food.FoodModel.Alias,
+                        Description = _food.FoodModel.Description,
+                        FoodCategoryId = _food.FoodModel.FoodCategoryId,
+                        IsDisabled = _food.FoodModel.IsDisabled,
+                        Picture = _food.FoodModel.Picture
                     },
                     Nutrition = new NutritionModel
                     {
-                        Quantity=new QuantityModel
+                        Quantity = new QuantityModel
                         {
-                            UnitId= _food.Nutrition.Quantity.UnitId,
-                            Value=_food.Nutrition.Quantity.Value
+                            UnitId = _food.Nutrition.Quantity.UnitId,
+                            Value = _food.Nutrition.Quantity.Value
                         },
-                        GlycemicIndex= _food.Nutrition.GlycemicIndex,
-                        Fibre= _food.Nutrition.Fibre,
-                        Calorie= _food.Nutrition.Calorie,
-                        Protein= _food.Nutrition.Protein,
-                        Carbohydrate= _food.Nutrition.Carbohydrate,
-                        Lipid= _food.Nutrition.Lipid,
+                        GlycemicIndex = _food.Nutrition.GlycemicIndex,
+                        Fibre = _food.Nutrition.Fibre,
+                        Calorie = _food.Nutrition.Calorie,
+                        Protein = _food.Nutrition.Protein,
+                        Carbohydrate = _food.Nutrition.Carbohydrate,
+                        Lipid = _food.Nutrition.Lipid,
                     },
                     Units = PopulateUnits(_food.Nutrition?.Quantity?.UnitId),
-                    Action = "Edit",  
-                    Picture=new FileViewModel(_food.FoodModel.Picture),
+                    Action = "Edit",
+                    Picture = new FileViewModel(_food.FoodModel.Picture),
                 };
                 BreadcrumbForAdd();
                 return View(model);
@@ -374,7 +374,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 AddErrorToModelState(ex);
 
             }
-            BreadcrumbForEdit(model.FoodModel.Name);            
+            BreadcrumbForEdit(model.FoodModel.Name);
             model.Categories = PopulateCascadingCategories(null, model.FoodModel.FoodCategoryId, "FoodModel_FoodCategoryId");
             model.Units = PopulateUnits(model.Nutrition?.Quantity?.UnitId);
             model.Action = "Edit";

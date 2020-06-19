@@ -1,13 +1,8 @@
 ﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Products.Products.Commands.Delete;
 using SmartRestaurant.Domain;
-using SmartRestaurant.Domain.Commun;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-  
+
 namespace SmartRestaurant.Application.Commun.City.Commands.Delete
 {
     public class DeleteCityCommand : IDeleteCityCommand
@@ -46,7 +41,7 @@ namespace SmartRestaurant.Application.Commun.City.Commands.Delete
                 {
                     throw new NotFoundException(nameof(Template) + model.Id);
                 }
-                
+
 
                 _db.Cities.Remove(entity);
                 _db.Save();
@@ -58,8 +53,8 @@ namespace SmartRestaurant.Application.Commun.City.Commands.Delete
             {
 
             }
-           
-          
+
+
 
 
 

@@ -2,8 +2,6 @@
 using SmartRestaurant.Domain.Dishes;
 using SmartRestaurant.Domain.Products;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Pricings
 {

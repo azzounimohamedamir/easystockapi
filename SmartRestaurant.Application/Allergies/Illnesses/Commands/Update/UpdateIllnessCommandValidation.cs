@@ -4,7 +4,7 @@ using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Allergies.Illnesses.Commands.Update
 {
-    public class UpdateIllnessCommandValidation:AbstractValidator<IUpdateIllnessModel>
+    public class UpdateIllnessCommandValidation : AbstractValidator<IUpdateIllnessModel>
     {
         public UpdateIllnessCommandValidation()
         {
@@ -22,7 +22,7 @@ namespace SmartRestaurant.Application.Allergies.Illnesses.Commands.Update
             RuleFor(x => x.Name)
                 .MaximumLength(256)
                 .WithMessage(string.Format(SharedValidationResource.MaxlengthNotValideErrorMessage, "256"));
-             
+
         }
     }
 }

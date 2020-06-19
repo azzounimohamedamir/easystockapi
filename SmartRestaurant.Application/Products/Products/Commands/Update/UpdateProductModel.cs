@@ -1,5 +1,4 @@
 ﻿using SmartRestaurant.Application.Products.Products.Commands.Create;
-using SmartRestaurant.Domain.Pricings;
 
 namespace SmartRestaurant.Application.Products.Products.Commands.Update
 {
@@ -9,6 +8,6 @@ namespace SmartRestaurant.Application.Products.Products.Commands.Update
         public string SlugUrl { get; set; }
         public string ProductFamilyName { get; set; }
         public string ResturantId { get; set; }
-        
+
     }
 }

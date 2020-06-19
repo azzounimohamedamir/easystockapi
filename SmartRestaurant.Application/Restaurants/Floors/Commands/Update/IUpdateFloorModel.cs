@@ -2,7 +2,7 @@
 
 namespace SmartRestaurant.Application.Restaurants.Floors.Commands.Update
 {
-    public interface IUpdateFloorModel: ICreateFloorModel
+    public interface IUpdateFloorModel : ICreateFloorModel
     {
         string Id { get; set; }
     }

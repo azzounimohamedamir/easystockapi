@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Exceptions
 {
@@ -10,7 +8,7 @@ namespace SmartRestaurant.Application.Exceptions
         {
 
         }
-        public DeleteFailureException(string message):base(message)
+        public DeleteFailureException(string message) : base(message)
         {
 
         }

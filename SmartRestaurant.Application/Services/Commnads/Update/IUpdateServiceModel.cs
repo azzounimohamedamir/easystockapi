@@ -2,7 +2,7 @@
 
 namespace SmartRestaurant.Application.Services.Commnads.Update
 {
-    public interface IUpdateServiceModel:ICreateServiceModel
+    public interface IUpdateServiceModel : ICreateServiceModel
     {
         string Id { get; set; }
     }

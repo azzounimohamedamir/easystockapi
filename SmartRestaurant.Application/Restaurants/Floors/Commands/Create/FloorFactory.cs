@@ -1,9 +1,7 @@
-﻿using SmartRestaurant.Domain.Restaurants;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
+﻿using Helpers;
 using SmartRestaurant.Application.Restaurants.Floors.Commands.Update;
+using SmartRestaurant.Domain.Restaurants;
+using System;
 
 namespace SmartRestaurant.Application.Restaurants.Floors.Commands.Create
 {

@@ -1,11 +1,9 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using System.Linq;
 using SmartRestaurant.Application.Products.ProductFamilies.Commands.Create;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Products.ProductFamilies.Commands.Update
 {
@@ -50,7 +48,7 @@ namespace SmartRestaurant.Application.Products.ProductFamilies.Commands.Update
                 if (family == null)
                     throw new NotFoundException();
 
-                 model.ToEntity(ref family);
+                model.ToEntity(ref family);
 
                 db.ProductFamilies.Update(family);
                 db.Save();

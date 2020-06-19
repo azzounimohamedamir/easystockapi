@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SmartRestaurant.Domain.Commun;
+﻿using SmartRestaurant.Domain.Commun;
 namespace SmartRestaurant.Application.Commun.Units.Commands.Factory
 {
-     public interface ICreateUnitFactory
+    public interface ICreateUnitFactory
     {
-        Unit Create(string name , string symbol, string alias,bool isDisabled);        
+        Unit Create(string name, string symbol, string alias, bool isDisabled);
 
     }
     public class CreateUnitFactory : ICreateUnitFactory
     {
         public Unit Create(
-            string name, 
-            string symbol, 
+            string name,
+            string symbol,
             string alias,
             bool isDisabled)
         {
@@ -23,7 +20,7 @@ namespace SmartRestaurant.Application.Commun.Units.Commands.Factory
             entity.Symbol = symbol;
             entity.Alias = alias;
             entity.IsDisabled = isDisabled;
-            return entity; 
+            return entity;
 
         }
     }

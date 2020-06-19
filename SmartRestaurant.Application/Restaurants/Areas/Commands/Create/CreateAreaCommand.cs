@@ -1,11 +1,9 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Restaurants;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
 
 namespace SmartRestaurant.Application.Restaurants.Areas.Commands.Create
 {
@@ -25,7 +23,7 @@ namespace SmartRestaurant.Application.Restaurants.Areas.Commands.Create
 
         public CreateAreaCommand(
             ISmartRestaurantDatabaseService db,
-            ILoggerService<CreateAreaCommand> logger, 
+            ILoggerService<CreateAreaCommand> logger,
             IMailingService mailing,
             INotifyService notify)
         {

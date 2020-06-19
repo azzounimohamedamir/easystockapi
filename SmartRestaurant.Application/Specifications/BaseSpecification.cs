@@ -3,23 +3,22 @@ using SmartRestaurant.Domain.Commun;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace SmartRestaurant.Application.Specifications
 {
-    public abstract class BaseSpecification<T> :ISpecification<T> where T: SmartRestaurantEntity
+    public abstract class BaseSpecification<T> : ISpecification<T> where T : SmartRestaurantEntity
     {
         public BaseSpecification()
         {
             Criteria = new BaseCriteria<T>();
         }
 
-        public BaseSpecification(Expression<Func<T, bool>> expression):this()
-        {           
+        public BaseSpecification(Expression<Func<T, bool>> expression) : this()
+        {
             Criteria.Expression = expression;
         }
 
-       
+
 
         public ICriteria<T> Criteria { get; private set; }
 
@@ -33,11 +32,11 @@ namespace SmartRestaurant.Application.Specifications
 
         public int Skip { get; private set; }
 
-        public int Take { get; private set; }        
+        public int Take { get; private set; }
 
         public bool IsPagingEnabled { get; private set; }
 
-       // public Func<T, object> Selects { get; private set; }
+        // public Func<T, object> Selects { get; private set; }
 
         public BaseSpecification<T> AddInclude(Expression<Func<T, object>> include)
         {
@@ -56,7 +55,7 @@ namespace SmartRestaurant.Application.Specifications
             return this;
         }
 
-        public BaseSpecification<T> ApplyPagination(int skip,int take)
+        public BaseSpecification<T> ApplyPagination(int skip, int take)
         {
             IsPagingEnabled = true;
             Skip = skip;
@@ -76,5 +75,5 @@ namespace SmartRestaurant.Application.Specifications
             return this;
         }
     }
-       
+
 }

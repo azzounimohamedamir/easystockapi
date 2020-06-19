@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Exceptions;
@@ -16,10 +15,11 @@ using SmartRestaurant.Client.Web.Utils;
 using SmartRestaurant.Domain.Enumerations;
 using SmartRestaurant.Resources.Restaurants.Staffs;
 using SmartRestaurant.Resources.Utils;
+using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-   // [Area("Admin")]
+    // [Area("Admin")]
     [Route("Staffs")]
     public class StaffsController : AdminBaseController
     {
@@ -37,7 +37,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             ILoggerService<StaffsController> log,
             IStaffService service,
             IGetAllRestaurantsQuery getAllRestaurants,
-            IGetRestaurantByIdQuery getRestaurantById          
+            IGetRestaurantByIdQuery getRestaurantById
             //IHostingEnvironment hostingEnvironnement
             )
             : base(configuration, mailing, notify, baselog)
@@ -61,12 +61,12 @@ namespace SmartRestaurant.Client.Web.Controllers
 
             var spe = new StaffSpecification()
                 .AddInclude(s => s.Restaurant);
-            var staffs=staffService.Queries.Filter.Execute(new StaffSpecification());
-            
+            var staffs = staffService.Queries.Filter.Execute(new StaffSpecification());
+
             var result = new StaffItemViewModel
             {
                 Parents = GetParent(),
-                Entities=staffs,
+                Entities = staffs,
             };
             return View(result);
 
@@ -81,10 +81,10 @@ namespace SmartRestaurant.Client.Web.Controllers
                 .AddItem(StaffUtilsResource.HomeNavigationTitle, Url.Action("Staffs", "Index"))
                 .Save();
 
-            viewModel.Entities =staffService.Queries.GetByRestaurantId
+            viewModel.Entities = staffService.Queries.GetByRestaurantId
                 .Execute(viewModel.SelectedParentId);
             viewModel.Parents = GetParent(viewModel.SelectedParentId);
-            
+
             return View(viewModel);
         }
         #endregion
@@ -192,9 +192,9 @@ namespace SmartRestaurant.Client.Web.Controllers
                .Save();
         }
 
-        private SelectList GetParent(object selected=null)
+        private SelectList GetParent(object selected = null)
         {
-           return  new SelectList(getAllRestaurants.Execute(null,null), "Id", "Name", selected);
+            return new SelectList(getAllRestaurants.Execute(null, null), "Id", "Name", selected);
         }
         #endregion
 
@@ -223,7 +223,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                     model.Args.Add("Staff");
 
                     model.Title = string.Format(UtilsResource.DefaultDeleteEntityModalTitle, StaffResource.Staff);
-                    model.Message = string.Format(UtilsResource.DeleteModalBodyMessage, entity.FirstName+" "+entity.LastName);
+                    model.Message = string.Format(UtilsResource.DeleteModalBodyMessage, entity.FirstName + " " + entity.LastName);
                     model.HasError = false;
 
                 }

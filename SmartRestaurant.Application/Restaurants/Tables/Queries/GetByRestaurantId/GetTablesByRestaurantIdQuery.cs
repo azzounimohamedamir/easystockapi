@@ -1,12 +1,11 @@
-﻿using SmartRestaurant.Application.Interfaces;
+﻿using Helpers;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Helpers;
+using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Tables.Queries.GetById;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using SmartRestaurant.Application.Helpers;
 
 namespace SmartRestaurant.Application.Restaurants.Tables.Queries.GetByRestaurantId
 {
@@ -40,8 +39,8 @@ namespace SmartRestaurant.Application.Restaurants.Tables.Queries.GetByRestaurant
                 var guid = Id.ToGuid();
                 return db.Tables
                     .Include(i => i.Area)
-                    .ThenInclude(a=>a.Floor)
-                    .ThenInclude(f=>f.Restaurant)
+                    .ThenInclude(a => a.Floor)
+                    .ThenInclude(f => f.Restaurant)
                     .Where(t => t.Area.Floor.RestaurantId == guid)
                     .Select(x => new TableItemModel
                     {
@@ -49,7 +48,7 @@ namespace SmartRestaurant.Application.Restaurants.Tables.Queries.GetByRestaurant
                         AreaName = x.Area.Name,
                         Description = x.Description,
                         Id = x.Id.ToString(),
-                        FloorName=x.Area.Floor.Name,
+                        FloorName = x.Area.Floor.Name,
                         Name = x.Name,
                         IsDisabled = x.IsDisabled.DisabledDisplay(),
                     }).ToList();

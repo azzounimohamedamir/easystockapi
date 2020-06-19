@@ -1,15 +1,13 @@
-﻿using SmartRestaurant.Domain.Commun;
-using SmartRestaurant.Domain.Allergies;
+﻿using SmartRestaurant.Domain.Allergies;
+using SmartRestaurant.Domain.Commun;
+using SmartRestaurant.Domain.Dishes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SmartRestaurant.Domain.Dishes;
 
 namespace SmartRestaurant.Domain.Foods
 {
-    public class Food:BaseEntity<Guid>
-    {        
+    public class Food : BaseEntity<Guid>
+    {
         public Guid FoodCategoryId { get; set; }
         public Guid? PictureId { get; set; }
         public Guid? UnitId { get; set; }

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllFilterd;
 
 namespace SmartRestaurant.Application.Restaurants.Menu.Queries.GetAllMenus
 {
-   public class GetAllMenusQuery: IGetAllMenusQuery
+    public class GetAllMenusQuery : IGetAllMenusQuery
     {
         private ISmartRestaurantDatabaseService _db;
         private ILoggerService<GetAllMenuFilterdQuery> _logger;

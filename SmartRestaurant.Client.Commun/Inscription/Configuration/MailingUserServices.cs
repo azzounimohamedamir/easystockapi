@@ -15,7 +15,7 @@ namespace SmartRestaurant.Client.Commun.Inscription.Configuration
         {
             services.AddScoped<ICreateMailingUserCommand, CreateMailingUserCommand>();
             services.AddScoped<IDeleteMailingUserCommand, DeleteMailingUserCommand>();
-            
+
             services.AddScoped<IGetMailingUserByMailingIdQuery, GetMailingUserByMailingIdQuery>();
             services.AddScoped<IGetMailingUserByUserIdQuery, GetMailingUserByUserIdQuery>();
             services.AddScoped<IGetMailingUserItemsQuerie, GetMailingUserItemsQuerie>();

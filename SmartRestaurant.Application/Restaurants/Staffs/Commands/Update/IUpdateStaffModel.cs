@@ -2,7 +2,7 @@
 
 namespace SmartRestaurant.Application.Restaurants.Staffs.Commands.Update
 {
-    public interface IUpdateStaffModel: ICreateStaffModel
+    public interface IUpdateStaffModel : ICreateStaffModel
     {
         string Id { get; set; }
     }

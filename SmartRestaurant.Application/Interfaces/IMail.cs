@@ -2,7 +2,7 @@
 
 namespace SmartRestaurant.Application.Interfaces
 {
-    public interface IMail:INotification
+    public interface IMail : INotification
     {
         IEnumerable<string> CCs { get; set; }
     }

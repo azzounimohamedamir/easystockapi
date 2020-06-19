@@ -2,9 +2,6 @@
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
 namespace SmartRestaurant.Application.NotificationUsers.Commands.Delete
 {
 

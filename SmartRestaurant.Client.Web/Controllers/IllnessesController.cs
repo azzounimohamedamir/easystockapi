@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Allergies.Illnesses.Commands.Delete;
@@ -13,10 +11,12 @@ using SmartRestaurant.Client.Web.Models.Allergies;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Allergies.Illnesses;
 using SmartRestaurant.Resources.Utils;
+using System;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-   // [Area("Admin")]
+    // [Area("Admin")]
     [Route("Illnesses")]
     public class IllnessesController : AdminBaseController
     {
@@ -31,7 +31,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             IGetAllFoodsQuery getAllFoods,
             ILoggerService<AdminBaseController> baselog,
             ILoggerService<IllnessesController> log,
-           
+
             IIllnessService IllnessesService
             //IHostingEnvironment hostingEnvironnement
             )
@@ -73,7 +73,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         public IActionResult Add(IllnessViewModel model)
         {
             BreadcrumbForAdd();
-             try
+            try
             {
                 IllnessesService.Create.Execute(model.CreateModel);
             }
@@ -99,7 +99,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 {
                     UpdateModel = result,
                     Foods = GetFoods(),
-                    SelectedFoods=GetSelectedFoods(result.FoodsIdsNames)
+                    SelectedFoods = GetSelectedFoods(result.FoodsIdsNames)
                 };
                 BreadcrumbForEdit(result.Name);
                 return View(model);
@@ -119,7 +119,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         [Route("edit")]
         public IActionResult Edit(IllnessViewModel model)
         {
-             BreadcrumbForEdit(model.UpdateModel.Name);
+            BreadcrumbForEdit(model.UpdateModel.Name);
             try
             {
                 IllnessesService.Update.Execute(model.UpdateModel);
@@ -244,7 +244,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                .Save();
         }
 
-        private SelectList GetFoods( )
+        private SelectList GetFoods()
         {
             return new SelectList(getAllFoods.Execute(), "Id", "Name");
         }

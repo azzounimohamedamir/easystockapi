@@ -1,9 +1,7 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers; 
 namespace SmartRestaurant.Application.Mails.Commands.Delete
 {
 
@@ -34,35 +32,35 @@ namespace SmartRestaurant.Application.Mails.Commands.Delete
             try
             {
 
-                   var validator = new DeleteMailingCommandValidation();
-                    var result = validator.Validate(model);
-                    if (!result.IsValid)
-                    {
-                        throw new NotValidException(result.Errors);
-                    }
-
-
-                    var entity = db.Mailings.Find(model.Id.ToGuid());
-
-                    if (string.IsNullOrEmpty(entity.ToString()))
-                    {
-                        throw new NotFoundException(nameof(mailing) + model.Id);
-                    }
-
-
-
-                    db.Mailings.Remove(entity);
-                    db.Save();
-
-
-
-                }
-                catch (Exception e)
+                var validator = new DeleteMailingCommandValidation();
+                var result = validator.Validate(model);
+                if (!result.IsValid)
                 {
-                    throw e;
+                    throw new NotValidException(result.Errors);
                 }
+
+
+                var entity = db.Mailings.Find(model.Id.ToGuid());
+
+                if (string.IsNullOrEmpty(entity.ToString()))
+                {
+                    throw new NotFoundException(nameof(mailing) + model.Id);
+                }
+
+
+
+                db.Mailings.Remove(entity);
+                db.Save();
+
+
+
             }
-    
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
 
     }
 }

@@ -1,13 +1,10 @@
 ﻿using SmartRestaurant.Application.Commun.Quantities;
 using SmartRestaurant.Application.Dishes.DishIngredients.Commands.Models;
 using SmartRestaurant.Domain.Dishes;
+using SmartRestaurant.Domain.Foods;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Domain.Commun;
 using System.Linq;
-using SmartRestaurant.Domain.Foods;
 
 namespace SmartRestaurant.Application.Dishes.DishIngredients.Commands.Factory
 {
@@ -57,14 +54,14 @@ namespace SmartRestaurant.Application.Dishes.DishIngredients.Commands.Factory
         public DishIngredientModel Create(DishIngredient entity)
         {
             DishIngredientModel ingredient = new DishIngredientModel();
-            
-            ingredient =Create(
+
+            ingredient = Create(
                 entity.Id.ToString(),
                 entity.Name,
                 entity.Alias,
                 entity.Description,
                 entity.IsDisabled,
-                entity.FoodId.ToString(),  
+                entity.FoodId.ToString(),
                 entity.Food.FoodCategoryId.ToString(),
                 entity.Food.UnitId.ToString(),
                 entity.IsPrincipal,
@@ -89,14 +86,14 @@ namespace SmartRestaurant.Application.Dishes.DishIngredients.Commands.Factory
                                           QuantityModel quantity)
         => new DishIngredientModel
         {
-            Id=id,
+            Id = id,
             Name = name,
             Alias = alias,
             Description = description,
             IsDisabled = isDisabled,
             FoodId = foodId,
-            FoodCategoryId=foodCategoryId,
-            FoodUnitId=foodUnitId,
+            FoodCategoryId = foodCategoryId,
+            FoodUnitId = foodUnitId,
             IsPrincipal = isPrincipal,
             IsSwitchable = isSwitchable,
             Quantity = quantity,

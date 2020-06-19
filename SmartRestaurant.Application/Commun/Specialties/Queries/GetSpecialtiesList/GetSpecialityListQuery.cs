@@ -35,13 +35,13 @@ namespace SmartRestaurant.Application.Commun.Specialites.Queries.GetSpecialtiesL
         {
             try
             {
-                var specification = new SpecialitySpecification()                                     
+                var specification = new SpecialitySpecification()
                     .ApplyOrderBy(fc => fc.Name);
 
                 return _db.Specialties
                     .ApplySpecification(specification)
                     .ToSpecialityItemModels();
-                    
+
             }
             catch (Exception ex)
             {

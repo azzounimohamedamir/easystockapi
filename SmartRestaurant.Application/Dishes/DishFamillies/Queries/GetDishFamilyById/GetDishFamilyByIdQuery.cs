@@ -1,17 +1,14 @@
-﻿using SmartRestaurant.Application.Dishes.DishFamillies.Commands.Update;
-using SmartRestaurant.Application.Dishes.DishFamillies.Specifications;
-using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
+﻿using Helpers;
 using SmartRestaurant.Application.ApplicationDataBase.Extensions;
-using SmartRestaurant.Application.Exceptions;
-using System.Linq;
-using SmartRestaurant.Application.Dishes.DishFamillies.Commands.Factory;
 using SmartRestaurant.Application.Commun.Galleries.Pictures.Models;
-using SmartRestaurant.Resources.SharedException;
+using SmartRestaurant.Application.Dishes.DishFamillies.Commands.Update;
+using SmartRestaurant.Application.Dishes.DishFamillies.Specifications;
+using SmartRestaurant.Application.Exceptions;
+using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Resources.Dishes.DishFamily;
+using SmartRestaurant.Resources.SharedException;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.GetDishFamilyById
 {
@@ -23,26 +20,26 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.GetDishFamily
     {
         private readonly ISmartRestaurantDatabaseService _db;
         private readonly ILoggerService<GetDishFamilyByIdQuery> _logger;
-        private readonly INotifyService _notifyService;        
+        private readonly INotifyService _notifyService;
         private readonly IMailingService _mailingService;
         public GetDishFamilyByIdQuery(
             ISmartRestaurantDatabaseService db,
             ILoggerService<GetDishFamilyByIdQuery> logger,
             IMailingService mailingService,
-            INotifyService notifyService            
+            INotifyService notifyService
 
             )
         {
             _db = db ?? throw new ArgumentNullException(nameof(db));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _notifyService = notifyService ?? throw new ArgumentNullException(nameof(notifyService));            
+            _notifyService = notifyService ?? throw new ArgumentNullException(nameof(notifyService));
             _mailingService = mailingService ?? throw new ArgumentNullException(nameof(mailingService));
         }
 
         public UpdateDishFamilyModel Execute(string id)
         {
             try
-            {               
+            {
 
                 var specification = new DishFamilySpecification(fc => fc.Id == id.ToGuid())
                     .AddInclude(fc => fc.Parent);
@@ -67,9 +64,9 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.GetDishFamily
                         Id = _family.Picture?.Id.ToString(),
                         Url = _family.Picture?.ImageUrl,
                     },
-                    Description=_family.Description,
-                    IsDisabled=_family.IsDisabled,
-                };          
+                    Description = _family.Description,
+                    IsDisabled = _family.IsDisabled,
+                };
             }
             catch (Exception ex)
             {

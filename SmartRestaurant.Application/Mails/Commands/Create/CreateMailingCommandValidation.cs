@@ -6,11 +6,11 @@ using System;
 
 namespace SmartRestaurant.Application.Mails.Commands.Create
 {
-    public  class CreateMailingCommandValidation : AbstractValidator<ICreateMailingModel>
+    public class CreateMailingCommandValidation : AbstractValidator<ICreateMailingModel>
     {
         public CreateMailingCommandValidation()
         {
-         
+
             RuleFor(x => x.TemplateId)
                 .NotEmpty()
                 .WithMessage(String.Format(SharedValidationResource.RequiredErrorMessage,
@@ -21,8 +21,8 @@ namespace SmartRestaurant.Application.Mails.Commands.Create
                 .NotEmpty()
                 .WithMessage(String.Format(SharedValidationResource.RequiredErrorMessage,
                 BaseResource.Name));
-            
-          
+
+
 
             RuleFor(x => x.Alias)
                 .MaximumLength(5)
@@ -32,4 +32,4 @@ namespace SmartRestaurant.Application.Mails.Commands.Create
 
         }
     }
-    }
+}

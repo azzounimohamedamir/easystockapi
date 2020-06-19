@@ -1,14 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using SmartRestaurant.Application.ApplicationDataBase.Extensions;
 using SmartRestaurant.Application.Dishes.Dishes.Queries.Models;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Dishes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Domain.Enumerations;
-using SmartRestaurant.Application.ApplicationDataBase.Extensions;
 
 namespace SmartRestaurant.Application.Dishes.Dishes.Queries
 {
@@ -63,7 +59,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Queries
                     .Select(DishItemModel.Projection)
                     .ToList();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

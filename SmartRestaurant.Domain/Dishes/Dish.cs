@@ -4,17 +4,16 @@ using SmartRestaurant.Domain.Pricings;
 using SmartRestaurant.Domain.Restaurants;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Dishes
 {
-    public class Dish:BaseEntity<Guid>
+    public class Dish : BaseEntity<Guid>
     {
         public Guid RestaurantId { get; set; }
         public EnumDishType Type { get; set; }
         public Guid FamillyId { get; set; }
-        public Guid? GalleryId { get; set; } 
-        public Time PreparationTime { get; set; }        
+        public Guid? GalleryId { get; set; }
+        public Time PreparationTime { get; set; }
         public Time ServiceTime { get; set; }
         public Time Total { get; } //=> PreparationTime + ServiceTime;
         public DishFamily Family { get; set; }

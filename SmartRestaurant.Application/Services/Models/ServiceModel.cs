@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Services.Models
 {
@@ -12,7 +10,7 @@ namespace SmartRestaurant.Application.Services.Models
         //DateService StartDate, EndDate, StartTime, EndTime
         public List<SectionModel> Sections { get; set; }
         public bool IsClosed { get; set; }
-        public string Alias { get;  set; }
-        public string SlugUrl { get;  set; }
+        public string Alias { get; set; }
+        public string SlugUrl { get; set; }
     }
 }

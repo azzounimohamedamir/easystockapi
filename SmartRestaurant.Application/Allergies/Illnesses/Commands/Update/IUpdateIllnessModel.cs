@@ -4,6 +4,6 @@ namespace SmartRestaurant.Application.Allergies.Illnesses.Commands.Update
 {
     public interface IUpdateIllnessModel : ICreateIllnessModel
     {
-          string Id { get; set; }
+        string Id { get; set; }
     }
 }

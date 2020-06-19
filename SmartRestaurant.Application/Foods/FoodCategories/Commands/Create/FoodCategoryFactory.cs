@@ -1,8 +1,6 @@
-﻿using SmartRestaurant.Domain.Foods;
+﻿using Helpers;
+using SmartRestaurant.Domain.Foods;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
 
 namespace SmartRestaurant.Application.FoodCategories.Commands.Create
 {
@@ -15,9 +13,9 @@ namespace SmartRestaurant.Application.FoodCategories.Commands.Create
                 Id = Guid.NewGuid(),
                 Alias = model.Alias,
                 Description = model.Description,
-                Name = model.Name,   
-                IsDisabled=model.IsDisabled,
-                ParentId = model.ParentId.ToNullableGuid() ,
+                Name = model.Name,
+                IsDisabled = model.IsDisabled,
+                ParentId = model.ParentId.ToNullableGuid(),
                 PictureId = model.PictureId.ToNullableGuid(),
             };
         }

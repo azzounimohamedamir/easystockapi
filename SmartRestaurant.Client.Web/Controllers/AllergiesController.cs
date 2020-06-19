@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Allergies.Allergies.Commands.Delete;
@@ -13,6 +11,8 @@ using SmartRestaurant.Client.Web.Models.Allergies;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Allergies.Allergies;
 using SmartRestaurant.Resources.Utils;
+using System;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {

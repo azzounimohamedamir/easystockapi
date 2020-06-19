@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Commun.Cities.Commands.Update;
 using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Cities.Queries.GetCityById
 {
@@ -41,12 +38,12 @@ namespace SmartRestaurant.Application.Commun.Cities.Queries.GetCityById
                {
                    Id = p.Id,
                    StateId = p.StateId,
-                   Alias = p.Alias , 
+                   Alias = p.Alias,
                    IsoCode = p.IsoCode,
                    Name = p.Name,
                    CountryId = p.State.CountryId,
                    IsDisabled = p.IsDisabled,
-                   
+
 
                })
                 .FirstOrDefault();

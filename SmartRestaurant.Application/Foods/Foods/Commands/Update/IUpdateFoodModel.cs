@@ -2,7 +2,7 @@
 
 namespace SmartRestaurant.Application.Foods.Commands.Update
 {
-    public interface IUpdateFoodModel: IFoodModelCommand
+    public interface IUpdateFoodModel : IFoodModelCommand
     {
         string Id { get; set; }
     }

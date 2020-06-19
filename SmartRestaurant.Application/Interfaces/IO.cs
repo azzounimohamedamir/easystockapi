@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Interfaces
 {
@@ -19,7 +17,7 @@ namespace SmartRestaurant.Application.Interfaces
             _databaseService = databaseService ?? throw new ArgumentNullException(nameof(databaseService));
             _notify = notify;
         }
-       
+
         //ILogger Logger;
         //Inotify Notify;
     }

@@ -30,7 +30,7 @@ namespace SmartRestaurant.Application.Commun.Specialites.Commands.Create
             _mailingService = mailingService ?? throw new ArgumentNullException(nameof(mailingService));
             _notifyService = notifyService ?? throw new ArgumentNullException(nameof(notifyService));
             _factory = createSpecialityFactory ?? throw new ArgumentNullException(nameof(createSpecialityFactory));
-        }        
+        }
 
         public void Execute(CreateSpecialityModel model)
         {
@@ -43,7 +43,7 @@ namespace SmartRestaurant.Application.Commun.Specialites.Commands.Create
                     throw new NotValidException(result.Errors);
                 }
 
-                var speciality = _factory.Create(                    
+                var speciality = _factory.Create(
                     model.Name,
                     model.Alias,
                     model.Description,

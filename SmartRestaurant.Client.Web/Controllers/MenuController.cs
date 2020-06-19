@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using DataTables.AspNetCore.Mvc.Binder;
+﻿using DataTables.AspNetCore.Mvc.Binder;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +16,14 @@ using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetChefsByRestauran
 using SmartRestaurant.Client.Web.Models.Menu;
 using SmartRestaurant.Domain.Clients.Identity;
 using SmartRestaurant.Resources.Menus.Menu;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-     [Route("menu")]
+    [Route("menu")]
     [Route("{culture}/menu")]
-     [Authorize(Policy = "RequireAdministratorRole")]
+    [Authorize(Policy = "RequireAdministratorRole")]
     public class MenuController : AdminBaseController
     {
         private readonly ILoggerService<MenuController> _log;
@@ -36,14 +36,14 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly IDeleteMenuCommand _deleteMenuCommand;
         private readonly UserManager<SRIdentityUser> _userManager;
         public MenuController(
-            IConfiguration configuration, 
-            IMailingService mailing, 
-            INotifyService notify, 
+            IConfiguration configuration,
+            IMailingService mailing,
+            INotifyService notify,
             ILoggerService<AdminBaseController> baselog,
             ILoggerService<MenuController> log,
             IGetAllRestaurantsQuery getAllRestaurantsQuery,
-            IGetChefsByRestaurantIdQuery getChefsByRestaurantIdQuery, 
-            ICreateMenuCommand createMenuCommand, 
+            IGetChefsByRestaurantIdQuery getChefsByRestaurantIdQuery,
+            ICreateMenuCommand createMenuCommand,
             IGetAllMenuFilterdQuery getAllMenuFilterdQuery,
             IGetMenuByIdQuery getMenuByIdQuery,
             IUpdateMenuCommand updateMenuCommand,
@@ -67,7 +67,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         }
 
         [HttpGet]
-        public SelectList GetChefsByRestaurantId(string restaurantId,string chefId=null)
+        public SelectList GetChefsByRestaurantId(string restaurantId, string chefId = null)
         {
             return new SelectList(_getChefsByRestaurantIdQuery.Execute(restaurantId), "Id", "Name", chefId);
         }
@@ -76,15 +76,15 @@ namespace SmartRestaurant.Client.Web.Controllers
         [Route("index")]
         public IActionResult Index()
         {
-             this.PageBreadcrumb.SetTitle(MenuUtilsResource.HomePageTitle)   
-                .AddHome()
-                .AddItem(MenuUtilsResource.HomeNavigationTitle, Url.Action("Menu","Index"))
-                .Save();
-             return View();
+            this.PageBreadcrumb.SetTitle(MenuUtilsResource.HomePageTitle)
+               .AddHome()
+               .AddItem(MenuUtilsResource.HomeNavigationTitle, Url.Action("Menu", "Index"))
+               .Save();
+            return View();
         }
 
         [Route("search")]
-       // [Authorize(Roles = "Admin,Owner")]
+        // [Authorize(Roles = "Admin,Owner")]
         public IActionResult Search()
         {
             this.PageBreadcrumb
@@ -121,10 +121,10 @@ namespace SmartRestaurant.Client.Web.Controllers
 
 
         [Route("add")]
-       // [HttpGet]
+        // [HttpGet]
         public async Task<IActionResult> AddMenu()
         {
-            PageBreadcrumb               
+            PageBreadcrumb
                .AddHome()
                .AddItem(MenuUtilsResource.HomeNavigationTitle, Url.Action("Menu", "Index"))
                .AddItem(MenuUtilsResource.AddMenuNavigationTitle)
@@ -150,7 +150,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 };
                 return View(menu);
             }
-            throw new InvalidOperationException("utilisateur non autorisé"); 
+            throw new InvalidOperationException("utilisateur non autorisé");
 
         }
         [Route("edit")]
@@ -163,7 +163,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 .SetTitle(MenuUtilsResource.editMenuPageTitle)
                 .Save();
             var menu = _getMenuByIdQuery.Execute(Guid.Parse(id));
-            if(menu == null)
+            if (menu == null)
                 throw new InvalidOperationException("menu non trouvé");
             var menuModel = new MenuViewModel();
 
@@ -183,7 +183,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
         [Route("add")]
         [HttpPost]
-       // [Authorize(Roles = "Admin,Owner")]
+        // [Authorize(Roles = "Admin,Owner")]
         public IActionResult AddMenu(MenuViewModel model)
         {
             try
@@ -191,7 +191,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 //au  cas ou l'utlisateur en cours est le propriétaire du restaurant
                 if (model.RestaurantId.HasValue && User.IsInRole("Owner"))
                     model.MenuModel.RestaurantId = model.RestaurantId.ToString();
-                else if(!model.RestaurantId.HasValue && User.IsInRole("Owner"))
+                else if (!model.RestaurantId.HasValue && User.IsInRole("Owner"))
                     throw new ArgumentNullException(nameof(model.RestaurantId));
                 _createMenuCommand.Execute(model.MenuModel);
             }
@@ -203,7 +203,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
         [Route("edit")]
         [HttpPost]
         // [Authorize(Roles = "Admin,Owner")]
@@ -212,7 +212,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             try
             {
                 model.MenuModel.MenuId = model.Id;
-                 _updateMenuCommand.Execute(model.MenuModel);
+                _updateMenuCommand.Execute(model.MenuModel);
             }
 
             catch (NotValidException ex)
@@ -224,11 +224,11 @@ namespace SmartRestaurant.Client.Web.Controllers
         }
         [Route("delete")]
         [HttpPost]
-        public async Task< IActionResult> DeleteMenu(string id)
+        public async Task<IActionResult> DeleteMenu(string id)
         {
             try
             {
-                await _deleteMenuCommand.Execute(new DeleteMenuModel {Id = id});
+                await _deleteMenuCommand.Execute(new DeleteMenuModel { Id = id });
                 return Json(MenuResource.MessageDeleteSuccess);
             }
             catch (InvalidOperationException e)

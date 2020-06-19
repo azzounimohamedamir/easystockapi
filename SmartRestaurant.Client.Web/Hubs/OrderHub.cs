@@ -226,7 +226,7 @@ namespace SmartRestaurant.Client.Web.Hubs
 
             await Clients.Group(restaurantId).SendAsync("freeOrder", freeOrder);
         }
- 
+
         #region Refresh
 
         public async Task RefreshClientsOrders(string restaurantId)
@@ -248,7 +248,7 @@ namespace SmartRestaurant.Client.Web.Hubs
             {
                 await Clients.Client(cid).SendAsync("ReadyOrdersRefreshed", ready);
             }
-         }
+        }
         public async Task RefreshDeliveredOrders(string restaurantId)
         {
             var restaurantOrders = await GetOrdersManagerAsync(restaurantId);

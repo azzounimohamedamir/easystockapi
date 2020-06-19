@@ -1,10 +1,6 @@
 ﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
 namespace SmartRestaurant.Application.Users.Commands.Update
 {
 
@@ -43,7 +39,7 @@ namespace SmartRestaurant.Application.Users.Commands.Update
                     throw new NotValidException(result.Errors);
                 }
                 //  var entity = db.SRUsers.Find(model.Id.ToGuid());
-               
+
                 //if (entity.ToString().IsNullOrEmpty())
                 //{
                 //    throw new NotFoundException(nameof(SRUser) + model.Id);

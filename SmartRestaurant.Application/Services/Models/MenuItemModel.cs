@@ -1,7 +1,5 @@
 ﻿using SmartRestaurant.Domain.Products;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SmartRestaurant.Application.Services.Models
 {
@@ -47,7 +45,7 @@ namespace SmartRestaurant.Application.Services.Models
             return new MenuProductItemModel
             {
                 Description = product.Description,
-                Images=images,
+                Images = images,
                 Name = product.Name,
                 Price = price,
                 ProductId = product.Id.ToString()

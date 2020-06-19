@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Application.Commun.Galleries.Pictures.Models
+﻿namespace SmartRestaurant.Application.Commun.Galleries.Pictures.Models
 {
     public class PictureModel : IPictureModel
     {

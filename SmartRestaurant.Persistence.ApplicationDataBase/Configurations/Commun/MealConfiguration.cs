@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartRestaurant.Domain.Commun;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Commun
 {
@@ -17,7 +14,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Commun
             b.Property(a => a.Alias).HasMaxLength(5);
             b.Property(x => x.Name)
                 .HasMaxLength(256)
-                .IsRequired(); 
+                .IsRequired();
 
             b.ToTable("Meals");
         }

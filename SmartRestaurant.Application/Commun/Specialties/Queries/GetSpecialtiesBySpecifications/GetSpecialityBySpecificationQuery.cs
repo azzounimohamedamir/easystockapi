@@ -34,7 +34,7 @@ namespace SmartRestaurant.Application.Commun.Specialites.Queries.GetSpecialtiesB
         public IEnumerable<SpecialityItemModel> Execute(SpecialitySpecification specification)
         {
             try
-            {  
+            {
                 return _db.Specialties
                     .ApplySpecification(specification)
                     .ToSpecialityItemModels();

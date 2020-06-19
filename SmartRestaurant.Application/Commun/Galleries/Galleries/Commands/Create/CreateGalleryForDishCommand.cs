@@ -4,15 +4,13 @@ using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Validation
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Create
 {
     public interface ICreateGalleryForDishCommand
     {
-        void Execute(Guid restaurantId,Guid DishId,GalleryModel model, bool saveChange = true);
+        void Execute(Guid restaurantId, Guid DishId, GalleryModel model, bool saveChange = true);
     }
     public class CreateGalleryForDishCommand : ICreateGalleryForDishCommand
     {
@@ -48,13 +46,13 @@ namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Create
                 var gallery = factory.Create(model);
                 gallery.Id = Guid.NewGuid();
                 gallery.DishId = DishId;
-                foreach(var picture in gallery.Pictures)
+                foreach (var picture in gallery.Pictures)
                 {
                     picture.Id = Guid.NewGuid();
                     picture.RestaurantId = restaurantId;
                 }
                 var cover = model.Pictures.Where(p => p.IsTheCover).FirstOrDefault();
-                var pictureGalleryCover = cover != null ? gallery.Pictures.FirstOrDefault(p => p.ImageUrl.Equals(cover.ImageUrl)):null ;
+                var pictureGalleryCover = cover != null ? gallery.Pictures.FirstOrDefault(p => p.ImageUrl.Equals(cover.ImageUrl)) : null;
                 gallery.TheCoverPictureId = pictureGalleryCover != null ? pictureGalleryCover.Id.ToString() : null;
                 db.Galleries.Add(gallery);
                 if (saveChange)

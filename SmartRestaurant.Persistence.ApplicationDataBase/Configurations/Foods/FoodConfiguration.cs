@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SmartRestaurant.Domain.Foods;
 using SmartRestaurant.Domain.Commun;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SmartRestaurant.Domain.Foods;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Foods
 {
@@ -28,7 +25,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Foods
 
             b.Property(a => a.FoodCategoryId).IsRequired();
             b.Property(a => a.UnitId).IsRequired();
-            
+
             b.HasMany(a => a.Compositions)
                 .WithOne(c => c.Food)
                 .HasForeignKey(c => c.FoodId)
@@ -38,12 +35,13 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Foods
             //Food_Quantity_UnitId
             //Food_Quantity_Value
 
-            b.OwnsOne<Nutrition>("Nutrition", nut => {
+            b.OwnsOne<Nutrition>("Nutrition", nut =>
+            {
                 nut.HasForeignKey("FoodId");
-                nut.OwnsOne<Quantity>("Quantity", Qt => 
+                nut.OwnsOne<Quantity>("Quantity", Qt =>
                 {
-                    Qt.HasOne(u=>u.Unit).WithMany();
-                });                
+                    Qt.HasOne(u => u.Unit).WithMany();
+                });
             });
 
             b.HasOne(a => a.Picture).WithOne();

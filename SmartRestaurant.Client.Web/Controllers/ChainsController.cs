@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Exceptions;
@@ -15,10 +14,11 @@ using SmartRestaurant.Client.Web.Models.Restaurants;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Restaurants.Chains;
 using SmartRestaurant.Resources.Utils;
+using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-   // [Area("Admin")]
+    // [Area("Admin")]
     [Route("/Chains")]
     public class ChainsController : AdminBaseController
     {
@@ -93,7 +93,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             viewModel.Entities = getByOwnerId
                 .Execute(viewModel.SelectedOwnerId);
 
-             viewModel.Owners = GetOwners(viewModel.SelectedOwnerId);
+            viewModel.Owners = GetOwners(viewModel.SelectedOwnerId);
             return View(viewModel);
         }
         #endregion
@@ -107,7 +107,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             var model = new ChainViewModel
             {
                 CreateModel = new CreateChainModel(),
-            
+
                 Owners = GetOwners()
             };
             return View(model);
@@ -147,7 +147,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 var viewModel = new ChainViewModel
                 {
                     UpdateModel = result,
-                     Owners = GetOwners(result.OwnerId)
+                    Owners = GetOwners(result.OwnerId)
                 };
                 return View(viewModel);
             }

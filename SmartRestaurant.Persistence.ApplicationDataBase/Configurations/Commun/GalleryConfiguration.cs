@@ -3,9 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Dishes;
 using SmartRestaurant.Domain.Restaurants;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Commun
 {
@@ -28,7 +25,7 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Commun
 
             b.Property(x => x.SlugUrl).IsRequired();
 
-            b.HasOne(x => x.Dish).WithOne(d => d.Gallery).HasForeignKey<Dish>(d=>d.GalleryId);
+            b.HasOne(x => x.Dish).WithOne(d => d.Gallery).HasForeignKey<Dish>(d => d.GalleryId);
             b.HasOne(x => x.MenuItem).WithOne(d => d.Gallery).HasForeignKey<MenuItem>(d => d.GalleryId);
             b.ToTable("Galleries");
         }

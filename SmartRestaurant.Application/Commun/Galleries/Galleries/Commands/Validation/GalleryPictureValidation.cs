@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FluentValidation.Validators;
 using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Models;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.SharedValidation;

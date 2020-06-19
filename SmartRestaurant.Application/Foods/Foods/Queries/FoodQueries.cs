@@ -1,12 +1,9 @@
 ﻿using SmartRestaurant.Application.Foods.Foods.Queries.GetByCategoryId;
-using SmartRestaurant.Application.Foods.Queries;
 using SmartRestaurant.Application.Foods.Queries.GetAll;
 using SmartRestaurant.Application.Foods.Queries.GetById;
 using SmartRestaurant.Application.Foods.Queries.GetBySpecification;
 using SmartRestaurant.Application.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Foods.Queries
 {
@@ -14,7 +11,7 @@ namespace SmartRestaurant.Application.Foods.Queries
     {
         private readonly ILoggerService<FoodQueries> logger;
         private readonly IMailingService mailing;
-        private readonly INotifyService notify;        
+        private readonly INotifyService notify;
         private readonly ISmartRestaurantDatabaseService db;
 
         public FoodQueries(

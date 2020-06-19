@@ -1,14 +1,12 @@
 ﻿using FluentValidation;
-using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Resources.Commun.BaseEntity;
-using SmartRestaurant.Resources.Restaurants.Owners;
 using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Restaurants.Owners.Commands.Create
 {
-    public class CreateOwnerCommandValidation:AbstractValidator<ICreateOwnerModel>
+    public class CreateOwnerCommandValidation : AbstractValidator<ICreateOwnerModel>
     {
-        public CreateOwnerCommandValidation( )
+        public CreateOwnerCommandValidation()
         {
             RuleFor(x => x.Alias)
                .MaximumLength(5)

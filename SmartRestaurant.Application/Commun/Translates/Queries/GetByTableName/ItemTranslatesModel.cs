@@ -8,7 +8,7 @@ namespace SmartRestaurant.Application.Commun.Translates.Queries.GetByTableName
         public string PrimaryKeyValue { get; set; }
         public string ColumnName { get; set; }
         public string TableName { get; set; }
-        public string OriginalText { get;  set; }
+        public string OriginalText { get; set; }
         public int Index { get; set; }
     }
 }

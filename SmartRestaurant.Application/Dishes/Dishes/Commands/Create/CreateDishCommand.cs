@@ -1,16 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Create;
 using SmartRestaurant.Application.Dishes.Dishes.Commands.Factory;
-using SmartRestaurant.Application.Dishes.Dishes.Commands.Models;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Dishes;
 using SmartRestaurant.Resources.Dishes.Dish;
 using SmartRestaurant.Resources.SharedException;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Create
 {
@@ -59,7 +55,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Create
                                                     model.Accompaniments,
                                                     model.Equivalences);
 
-                Guid dishId= Guid.NewGuid();
+                Guid dishId = Guid.NewGuid();
                 dish.Id = dishId;
 
                 var restaurant = db.Restaurants.Find(dish.RestaurantId);
@@ -80,8 +76,8 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Create
                         accompaniment.ParentId = dishId;
                     }
                 }
-                
-                var family = db.DishFamilies.Include(f=>f.Childs).FirstOrDefault(f=>f.Id==dish.FamillyId);
+
+                var family = db.DishFamilies.Include(f => f.Childs).FirstOrDefault(f => f.Id == dish.FamillyId);
                 if (family == null)
                 {
                     throw new NotValidOperation(string.Format(SharedExceptionResource.NotValidOperationErrorMessage, DishResource.FamillyId));

@@ -4,7 +4,7 @@ using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Products.ProductFamilies.Commands.Delete
 {
-    public class DeleteProductFamilyCommandValidation:AbstractValidator<DeleteProductFamilyModel>
+    public class DeleteProductFamilyCommandValidation : AbstractValidator<DeleteProductFamilyModel>
     {
         public DeleteProductFamilyCommandValidation()
         {

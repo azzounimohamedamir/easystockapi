@@ -1,8 +1,4 @@
-﻿using SmartRestaurant.Domain.Commun;
-using System;
-using System.Linq.Expressions;
-
-namespace SmartRestaurant.Application.Commun.Countries
+﻿namespace SmartRestaurant.Application.Commun.Countries
 {
     public class CountryItemModel
     {

@@ -1,9 +1,6 @@
 ﻿using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Templates.Commands.Update;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Templates.Queries.GetTemplateById
 {
@@ -45,7 +42,7 @@ namespace SmartRestaurant.Application.Templates.Queries.GetTemplateById
                Alias = p.Alias,
                Title = p.Title,
                Subject = p.Subject,
-               Body = p.Body ,
+               Body = p.Body,
            }).FirstOrDefault();
 
             return entity;

@@ -8,7 +8,7 @@ namespace SmartRestaurant.Application.Foods.Models
         string Name { get; set; }
         string Alias { get; set; }
         string Description { get; set; }
-        string FoodCategoryId { get; set; }        
+        string FoodCategoryId { get; set; }
         bool IsDisabled { get; set; }
         PictureModel Picture { get; set; }
         string UnitId { get; set; }

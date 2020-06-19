@@ -1,9 +1,6 @@
 ﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Services.Commnads.Create
 {
@@ -40,7 +37,7 @@ namespace SmartRestaurant.Application.Services.Commnads.Create
                 }
 
                 var Service = model.ToEntity();
-                 
+
                 db.Services.Add(Service);
                 db.Save();
             }

@@ -1,9 +1,7 @@
 ﻿using SmartRestaurant.Application.Notifications.Queries;
 using SmartRestaurant.Domain;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Notifications.Commands.Factory
 {
@@ -17,7 +15,7 @@ namespace SmartRestaurant.Application.Notifications.Commands.Factory
                 Action = entity.Action,
                 TableName = entity.TableName,
                 TemplateId = entity.TemplateId,
-               
+
 
 
             };
@@ -27,7 +25,7 @@ namespace SmartRestaurant.Application.Notifications.Commands.Factory
         public static List<NotificationItemModel> ToNotificationItemModels(this IEnumerable<Notification> entities)
         {
             return (from entity in entities
-                    select entity.ToNotificationItemModel()).ToList(); 
+                    select entity.ToNotificationItemModel()).ToList();
         }
 
     }

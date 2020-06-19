@@ -25,7 +25,7 @@ namespace SmartRestaurant.Application.Pricings.Tarifications.Commands.Create
            .NotEmpty()
            .WithMessage(string.Format(SharedValidationResource.RequiredErrorMessage, RestaurantResource.Restaurant));
 
-            
+
         }
     }
 }

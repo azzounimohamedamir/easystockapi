@@ -1,12 +1,12 @@
-﻿using System;
-using SmartRestaurant.Domain.Commun;
+﻿using SmartRestaurant.Domain.Commun;
+using System;
 
 namespace SmartRestaurant.Domain.Restaurants
 {
     public class Section : BaseEntity<Guid>
     {
         public Guid RestaurantId { get; set; }
-       
+
         public Restaurant Restaurant { get; set; }
         public DateTime CreatedDate { get; set; }
         public Guid MenuId { get; set; }

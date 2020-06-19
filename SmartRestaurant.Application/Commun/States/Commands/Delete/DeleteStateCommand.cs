@@ -1,10 +1,7 @@
 ﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Commun;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.State.Commands.Delete
 {
@@ -66,7 +63,7 @@ namespace SmartRestaurant.Application.Commun.State.Commands.Delete
 
                 throw;
             }
-            
+
 
         }
     }

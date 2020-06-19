@@ -1,8 +1,6 @@
 ﻿using FluentValidation;
-using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.SharedValidation;
-using SmartRestaurant.Resources.Restaurants.Owners;
 namespace SmartRestaurant.Application.Restaurants.Owners.Commands.Update
 {
     public class UpdateOwnerCommandValidation : AbstractValidator<IUpdateOwnerModel>

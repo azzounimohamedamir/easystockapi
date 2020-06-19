@@ -1,13 +1,10 @@
 ﻿using FluentValidation;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.SharedValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Foods.Commands.Delete
 {
-    public class DeleteFoodCommandValidation:AbstractValidator<DeleteFoodModel>
+    public class DeleteFoodCommandValidation : AbstractValidator<DeleteFoodModel>
     {
         public DeleteFoodCommandValidation()
         {

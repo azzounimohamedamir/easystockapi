@@ -1,10 +1,8 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
 namespace SmartRestaurant.Application.Notifications.Commands.Delete
 {
 
@@ -23,7 +21,7 @@ namespace SmartRestaurant.Application.Notifications.Commands.Delete
 
         public DeleteNotificationCommand(
             ISmartRestaurantDatabaseService db,
-            ILoggerService<DeleteNotificationCommand> logger, 
+            ILoggerService<DeleteNotificationCommand> logger,
             IMailingService mailing,
             INotifyService notify)
         {
@@ -58,9 +56,9 @@ namespace SmartRestaurant.Application.Notifications.Commands.Delete
 
 
             }
-            catch (Exception e )
+            catch (Exception e)
             {
-                throw e; 
+                throw e;
             }
 
 

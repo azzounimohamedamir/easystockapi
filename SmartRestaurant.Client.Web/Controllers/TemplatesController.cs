@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
@@ -15,11 +14,12 @@ using SmartRestaurant.Domain.Enumerations;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Templates;
 using SmartRestaurant.Resources.Utils;
+using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
 
-   // [Area("Admin")]
+    // [Area("Admin")]
     [Route("templates")]
     [Route("{culture}/templates")]
     public class TemplatesController : AdminBaseController
@@ -30,7 +30,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly IGetAllTemplateQuerie getAllTemplatesQuerie;
         private readonly IGetTemplateByIdQuerie getTemplateByIdQuerie;
         private readonly ILoggerService<TemplatesController> _log;
-     
+
         public TemplatesController(
             IConfiguration configuration,
             IMailingService mailing,
@@ -104,7 +104,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             try
             {
                 var _Template = model.CreateModel;
-               // model.CreateModel.Type = model.Type; 
+                // model.CreateModel.Type = model.Type; 
                 createTemplateCommand.Execute(_Template);
                 //command.Execute(model);
             }
@@ -161,7 +161,7 @@ namespace SmartRestaurant.Client.Web.Controllers
 
             }
             model.TemplateType = EnumHelper<EnumTemplateType>.ToSelectList(model.UpdateModel.Type.ToString());
-         
+
             return View(model);
         }
 

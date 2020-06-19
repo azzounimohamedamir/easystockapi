@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -19,10 +18,11 @@ using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Restaurants.Areas;
 using SmartRestaurant.Resources.Restaurants.Tables;
 using SmartRestaurant.Resources.Utils;
+using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-   // [Area("Admin")]
+    // [Area("Admin")]
     [Route("tables")]
     public class TablesController : AdminBaseController
     {
@@ -140,7 +140,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             return new SelectList(getFloorsByRestaurantId.Execute(restId),
                "Id", "Name", selectedFloor);
         }
-        private SelectList GetAreas(string floorId, string selectedArea= null)
+        private SelectList GetAreas(string floorId, string selectedArea = null)
         {
             return new SelectList(getAreasByFloorId.Execute(floorId),
                "Id", "Name", selectedArea);

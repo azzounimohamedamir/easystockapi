@@ -2,7 +2,7 @@
 
 namespace SmartRestaurant.Application.Commun.Languages.Commands.Update
 {
-    public interface IUpdateLanguageModel:ICreateLanguageModel
+    public interface IUpdateLanguageModel : ICreateLanguageModel
     {
         string Id { get; set; }
     }

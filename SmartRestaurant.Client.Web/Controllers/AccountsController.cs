@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class AccountsController : Controller
     {
         public IActionResult Index()

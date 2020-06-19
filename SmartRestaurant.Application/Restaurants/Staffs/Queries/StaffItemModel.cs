@@ -1,9 +1,6 @@
 ﻿using SmartRestaurant.Application.Commun.Address;
-using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
 using SmartRestaurant.Domain.Enumerations;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Restaurants.Staffs.Queries
 {

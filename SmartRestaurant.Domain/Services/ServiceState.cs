@@ -1,5 +1,4 @@
-﻿using SmartRestaurant.Domain.Commun;
-using System;
+﻿using System;
 
 namespace SmartRestaurant.Domain.Services
 {
@@ -11,7 +10,7 @@ namespace SmartRestaurant.Domain.Services
     }
 
     public class ServiceState
-    {        
+    {
         public Guid ServiceId { get; set; }
         public TypeStatus State { get; set; }
 

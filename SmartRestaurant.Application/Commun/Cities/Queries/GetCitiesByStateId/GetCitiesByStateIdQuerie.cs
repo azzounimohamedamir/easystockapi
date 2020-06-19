@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Cities.Queries.GetCitiesByStateId
 {
@@ -42,13 +40,13 @@ namespace SmartRestaurant.Application.Commun.Cities.Queries.GetCitiesByStateId
                  StateId = p.StateId,
                  StateName = p.State.Name,
                  StateIsoCode = p.State.IsoCode,
-                 Alias = p.Alias , 
+                 Alias = p.Alias,
                  IsoCode = p.IsoCode,
                  Name = p.Name,
                  IsDisabled = p.IsDisabled.DisabledDisplay(),
 
-             }); 
-         
+             });
+
             return entity.ToList();
 
         }

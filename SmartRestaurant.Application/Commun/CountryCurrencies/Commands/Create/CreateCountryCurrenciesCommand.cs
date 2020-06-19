@@ -4,9 +4,7 @@ using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Commun;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.CountryCurrencies.Commands.Create
 {
@@ -28,14 +26,14 @@ namespace SmartRestaurant.Application.Commun.CountryCurrencies.Commands.Create
         public CreateCountryCurrenciesCommand(ISmartRestaurantDatabaseService db,
             ILoggerService<CreateCountryCurrenciesCommand> logger, IMailingService mailing,
             INotifyService notify,
-            ICreateCountryCurrenciesFactory createCountryCurrenciesFactory  
+            ICreateCountryCurrenciesFactory createCountryCurrenciesFactory
             )
         {
             this.db = db;
             this.log = logger;
             this.mailing = mailing;
             this.notify = notify;
-            _factory = createCountryCurrenciesFactory; 
+            _factory = createCountryCurrenciesFactory;
         }
         public void Execute(CountryCurrencyItem model)
         {
@@ -53,7 +51,7 @@ namespace SmartRestaurant.Application.Commun.CountryCurrencies.Commands.Create
 
 
                 var entity = new CountryCurrency();
-                entity = _factory.Create(model.CountryId, model.CurrencyId); 
+                entity = _factory.Create(model.CountryId, model.CurrencyId);
                 entity.Country = db.Countries.FirstOrDefault(p => p.Id == model.CountryId);
                 entity.Currency = db.Currencies.FirstOrDefault(p => p.Id == model.CurrencyId);
                 db.CountryCurrencies.Add(entity);

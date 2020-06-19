@@ -7,7 +7,7 @@ using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Validations
 {
-    public class DishIngredientModelValidation:AbstractValidator<IDishIngredientModel>
+    public class DishIngredientModelValidation : AbstractValidator<IDishIngredientModel>
     {
         public DishIngredientModelValidation()
         {
@@ -38,7 +38,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Commands.Validations
 
 
             RuleFor(x => x.Quantity).SetValidator(new QuantityValidation());
-               
+
         }
     }
 }

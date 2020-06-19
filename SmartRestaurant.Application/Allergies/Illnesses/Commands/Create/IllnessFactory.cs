@@ -1,9 +1,7 @@
-﻿using SmartRestaurant.Application.Allergies.Illnesses.Commands.Update;
+﻿using Helpers;
+using SmartRestaurant.Application.Allergies.Illnesses.Commands.Update;
 using SmartRestaurant.Domain.Allergies;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
 
 namespace SmartRestaurant.Application.Allergies.Illnesses.Commands.Create
 {

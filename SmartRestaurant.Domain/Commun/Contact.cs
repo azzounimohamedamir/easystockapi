@@ -1,13 +1,11 @@
 ﻿using SmartRestaurant.Domain.Enumerations;
 using SmartRestaurant.Domain.Restaurants;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Commun
 {
-    public class Contact:SmartRestaurantBaseEntity<Guid>
-    {        
+    public class Contact : SmartRestaurantBaseEntity<Guid>
+    {
         public EnumContactType Type { get; private set; }
         /// <summary>
         /// if Type=SocialNetwork then Issuer Facebook,google,wk ...for example
@@ -17,7 +15,7 @@ namespace SmartRestaurant.Domain.Commun
 
         //private Contact() { }
 
-        public Contact(EnumContactType type,string value,string issuer)
+        public Contact(EnumContactType type, string value, string issuer)
         {
             Type = type;
             Value = value;

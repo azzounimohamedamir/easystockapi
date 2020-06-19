@@ -1,10 +1,8 @@
-﻿using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using System.Linq;
+﻿using Helpers;
+using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Commun;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Helpers
 {
@@ -25,7 +23,7 @@ namespace SmartRestaurant.Application.Helpers
                 Picture pic = new Picture
                 {
                     Id = picId,
-                    Name="Not defined",
+                    Name = "Not defined",
                     ImageUrl = PictureUrl
                 };
                 db.Pictures.Add(pic);
@@ -53,7 +51,7 @@ namespace SmartRestaurant.Application.Helpers
                 Picture newPic = new Picture
                 {
                     Id = picGuid,
-                    Name="Not Defined",                    
+                    Name = "Not Defined",
                     ImageUrl = PictureUrl
                 };
                 db.Pictures.Add(newPic);

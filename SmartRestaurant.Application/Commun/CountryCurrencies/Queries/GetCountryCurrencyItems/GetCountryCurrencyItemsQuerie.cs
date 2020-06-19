@@ -1,8 +1,6 @@
 ﻿using SmartRestaurant.Application.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.CountryCurrencies.Queries.GetCountryCurrencyItems
 {
@@ -31,13 +29,13 @@ namespace SmartRestaurant.Application.Commun.CountryCurrencies.Queries.GetCountr
         {
             var entity = db.CountryCurrencies
              .Select(p => new CountryCurrencyItem()
-               {
-                   CurrencyId = p.CurrencyId,
-                   CountryId = p.CountryId
-               });
+             {
+                 CurrencyId = p.CurrencyId,
+                 CountryId = p.CountryId
+             });
             return entity.ToList();
 
-            
+
         }
     }
 

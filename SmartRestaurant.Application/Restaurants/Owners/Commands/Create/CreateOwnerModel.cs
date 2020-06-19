@@ -1,6 +1,5 @@
-﻿using System;
-using SmartRestaurant.Application.Commun.Address;
-using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
+﻿using SmartRestaurant.Application.Commun.Address;
+using System;
 
 namespace SmartRestaurant.Application.Restaurants.Owners.Commands.Create
 {

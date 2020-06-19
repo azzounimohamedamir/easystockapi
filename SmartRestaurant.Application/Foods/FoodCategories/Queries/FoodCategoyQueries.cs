@@ -1,19 +1,8 @@
-﻿using SmartRestaurant.Application.Commun.Select;
-using SmartRestaurant.Application.FoodCategories.Commands.Update;
-using SmartRestaurant.Application.FoodCategories.Queries;
-using SmartRestaurant.Application.FoodCategories.Queries.GetAll;
+﻿using SmartRestaurant.Application.FoodCategories.Queries.GetAll;
 using SmartRestaurant.Application.FoodCategories.Queries.GetById;
 using SmartRestaurant.Application.Foods.FoodCategories.Queries.GetBySpecification;
-using SmartRestaurant.Application.Foods.Specifications;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Foods;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using Helpers;
-using SmartRestaurant.Application.ApplicationDataBase.Extensions;
-using SmartRestaurant.Application.Foods.FoodCategories.Queries.Factory;
 
 namespace SmartRestaurant.Application.Foods.FoodCategories.Queries
 {
@@ -22,7 +11,7 @@ namespace SmartRestaurant.Application.Foods.FoodCategories.Queries
         IGetFoodCategoryByIdQuery GetById { get; }
         IGetAllFoodCategoriesQuery List { get; }
         IGetFoodCategoryBySpecificationQuery Filter { get; }
-        
+
     }
 
     public class FoodCategoryQueries : IFoodCategoryQueries
@@ -56,7 +45,7 @@ namespace SmartRestaurant.Application.Foods.FoodCategories.Queries
         public IGetAllFoodCategoriesQuery List { get; private set; }
 
         public IGetFoodCategoryBySpecificationQuery Filter { get; private set; }
-        
-        
+
+
     }
 }

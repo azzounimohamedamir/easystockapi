@@ -1,7 +1,4 @@
 ﻿using SmartRestaurant.Application.Commun.Quantities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Foods.Foods.Models
 {

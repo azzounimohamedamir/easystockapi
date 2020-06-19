@@ -4,8 +4,6 @@ using SmartRestaurant.Application.Restaurants.Staffs.Commands.Delete;
 using SmartRestaurant.Application.Restaurants.Staffs.Commands.Update;
 using SmartRestaurant.Application.Restaurants.Staffs.Queries;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Restaurants.Staffs.Services
 {

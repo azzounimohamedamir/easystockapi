@@ -8,7 +8,7 @@ namespace SmartRestaurant.Domain.Foods
     //__Food==>throw Exception <Name>
     //__ Child Category
     //______Child Category
-    public class FoodCategory:BaseEntity<Guid>
+    public class FoodCategory : BaseEntity<Guid>
     {
         public Guid? ParentId { get; set; }
         public Guid? PictureId { get; set; }

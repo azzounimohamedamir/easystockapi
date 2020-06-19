@@ -1,15 +1,11 @@
-﻿using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Allergies.Illnesses.Queries.GetBySpesification;
-using SmartRestaurant.Application.Allergies.Illnesses.Specifications;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using System.Linq;
-using SmartRestaurant.Application.Allergies.Illnesses.Queries.Factory;
+﻿using Helpers;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Allergies.Illnesses.Commands.Update;
+using SmartRestaurant.Application.Allergies.Illnesses.Queries.GetBySpesification;
 using SmartRestaurant.Application.Helpers;
+using SmartRestaurant.Application.Interfaces;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Allergies.Illnesses.Queries.GetById
 {

@@ -1,15 +1,11 @@
 ﻿using FluentValidation;
 using SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Models;
 using SmartRestaurant.Resources.Commun.BaseEntity;
-using SmartRestaurant.Resources.Commun.Gallery;
 using SmartRestaurant.Resources.SharedValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Validation
 {
-    public class GalleryModelValidation:AbstractValidator<IGalleryModel>
+    public class GalleryModelValidation : AbstractValidator<IGalleryModel>
     {
         public GalleryModelValidation()
         {
@@ -32,7 +28,7 @@ namespace SmartRestaurant.Application.Commun.Galleries.Galleries.Commands.Valida
             RuleFor(x => x.Description)
                .MaximumLength(380)
                .WithMessage(string.Format(SharedValidationResource.MaxlengthNotValideErrorMessage, "380"));
-                        
+
         }
     }
 }

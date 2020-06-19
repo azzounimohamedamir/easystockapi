@@ -1,11 +1,9 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using System.Linq;
 using SmartRestaurant.Domain.Restaurants;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Restaurants.Floors.Commands.Create
 {
@@ -44,11 +42,11 @@ namespace SmartRestaurant.Application.Restaurants.Floors.Commands.Create
                 }
 
                 var restaurantGuid = model.RestaurantId.ToGuid();
-                if ( !db.Restaurants.Any(x => x.Id == restaurantGuid))                 
+                if (!db.Restaurants.Any(x => x.Id == restaurantGuid))
                 {
-                    throw new NotFoundException(nameof(Restaurant)+ model.RestaurantId);
+                    throw new NotFoundException(nameof(Restaurant) + model.RestaurantId);
                 }
-                
+
                 var floor = model.ToEntity();
 
                 db.Floors.Add(floor);

@@ -1,11 +1,9 @@
 ﻿using SmartRestaurant.Domain.Commun;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.CountryCurrencies.Factory
 {
-    public  interface ICreateCountryCurrenciesFactory
+    public interface ICreateCountryCurrenciesFactory
     {
         CountryCurrency Create(string CountryId, Guid CurrencyId);
     }
@@ -17,7 +15,7 @@ namespace SmartRestaurant.Application.Commun.CountryCurrencies.Factory
             entity.CountryId = CountryId;
             entity.CurrencyId = CurrencyId;
 
-            return entity; 
+            return entity;
         }
     }
 }

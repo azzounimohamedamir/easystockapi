@@ -4,7 +4,7 @@ using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Commun.Specialites.Commands.Create
 {
-    public class CreateSpecialityModelValidation: AbstractValidator<ICreateSpecialityModel>
+    public class CreateSpecialityModelValidation : AbstractValidator<ICreateSpecialityModel>
     {
         public CreateSpecialityModelValidation()
         {
@@ -28,7 +28,7 @@ namespace SmartRestaurant.Application.Commun.Specialites.Commands.Create
                .MaximumLength(380)
                .WithMessage(string.Format(SharedValidationResource.MaxlengthNotValideErrorMessage, "380"));
 
-            
+
         }
     }
 }

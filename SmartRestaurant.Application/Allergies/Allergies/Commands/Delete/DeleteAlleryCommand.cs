@@ -1,11 +1,8 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Allergies;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
 
 namespace SmartRestaurant.Application.Allergies.Allergies.Commands.Delete
 {

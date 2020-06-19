@@ -1,12 +1,9 @@
-﻿using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using System.Linq;
+﻿using Helpers;
 using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Helpers;
+using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Chains.Commands.Update;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Restaurants.Chains.Queries.GetById
 {
@@ -48,7 +45,7 @@ namespace SmartRestaurant.Application.Restaurants.Chains.Queries.GetById
                          Description = x.Description,
                          IsDisabled = x.IsDisabled,
                          Name = x.Name,
-                         OwnerId= x.OwnerId.ToString()
+                         OwnerId = x.OwnerId.ToString()
                      }).FirstOrDefault();
             }
             catch (Exception)

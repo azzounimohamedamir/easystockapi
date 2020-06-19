@@ -1,9 +1,5 @@
 ﻿using SmartRestaurant.Application.Foods.Queries;
-using SmartRestaurant.Application.Foods.Queries.GetAll;
-using SmartRestaurant.Application.Restaurants.Floors.Queries.GetById;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Allergies.Illnesses.Queries
 {

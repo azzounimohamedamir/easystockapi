@@ -1,8 +1,5 @@
 ﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Languages.Commands.Update
 {
@@ -53,7 +50,7 @@ namespace SmartRestaurant.Application.Commun.Languages.Commands.Update
                 entity.Alias = model.Alias;
                 entity.IsDisabled = model.IsDisabled;
                 entity.EnglishName = model.EnglishName;
-              
+
 
                 db.Languages.Update(entity);
                 db.Save();
@@ -64,6 +61,6 @@ namespace SmartRestaurant.Application.Commun.Languages.Commands.Update
             }
         }
     }
-    }
+}
 
 

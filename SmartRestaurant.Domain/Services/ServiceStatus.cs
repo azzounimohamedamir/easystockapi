@@ -12,7 +12,7 @@ namespace SmartRestaurant.Domain.Services
 
     public class ServiceStatus : BaseEntity<Guid>
     {
-        
-        
+
+
     }
 }

@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using SmartRestaurant.Domain.Enumerations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Client.Web.Models.Dishes
 {
@@ -27,10 +23,10 @@ namespace SmartRestaurant.Client.Web.Models.Dishes
             get
             {
                 return !string.IsNullOrEmpty(Name)
-                     || !string.IsNullOrEmpty(RestaurantId)                     
+                     || !string.IsNullOrEmpty(RestaurantId)
                      || Type != null;
-                    //|| !string.IsNullOrEmpty(FamilyId)
-                    //|| (HasIngredients != null && HasIngredients.Count > 0)
+                //|| !string.IsNullOrEmpty(FamilyId)
+                //|| (HasIngredients != null && HasIngredients.Count > 0)
             }
         }
 

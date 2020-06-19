@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Create
+﻿namespace SmartRestaurant.Application.Dishes.DishFamillies.Commands.Create
 {
     public class CreateDishFamilyModel : ICreateDishFamilyModel
     {

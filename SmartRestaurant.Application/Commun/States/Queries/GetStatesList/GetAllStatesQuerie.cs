@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.States.Queries.GetStatesList
 {
@@ -35,15 +33,15 @@ namespace SmartRestaurant.Application.Commun.States.Queries.GetStatesList
             var entity = db.States
                .Include(p => p.Country)
                .Select(p => new StateItemModel()
-            {
-                Id = p.Id,
-                CountryId = p.CountryId,
-                CountryIsoCode = p.Country.IsoCode,
-                CountryName = p.Country.Name,
-                IsoCode = p.IsoCode,
-                Name = p.Name,
-                Alias = p.Alias ,
-               IsDisabled = p.IsDisabled.DisabledDisplay(),
+               {
+                   Id = p.Id,
+                   CountryId = p.CountryId,
+                   CountryIsoCode = p.Country.IsoCode,
+                   CountryName = p.Country.Name,
+                   IsoCode = p.IsoCode,
+                   Name = p.Name,
+                   Alias = p.Alias,
+                   IsDisabled = p.IsDisabled.DisabledDisplay(),
                }
 
             );

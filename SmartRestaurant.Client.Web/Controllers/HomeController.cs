@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Client.Web.Models;
 using SmartRestaurant.Resources.UI.Areas.Admin.Breadcrumb;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
@@ -21,9 +21,9 @@ namespace SmartRestaurant.Client.Web.Controllers
         private readonly IHostingEnvironment _hostingEnvironment;
 
         public HomeController(
-            IConfiguration configuration, 
-            IMailingService mailing, 
-            INotifyService notify, 
+            IConfiguration configuration,
+            IMailingService mailing,
+            INotifyService notify,
             ILoggerService<AdminBaseController> baselog,
             ILoggerService<HomeController> log,
             IHostingEnvironment hostingEnvironment) : base(configuration, mailing, notify, baselog)
@@ -34,9 +34,9 @@ namespace SmartRestaurant.Client.Web.Controllers
 
         private List<SelectListItem> PopulateDemo(string id)
         {
-            var result = new List<SelectListItem>();            
-            
-            for(var index=1; index <= 10; index++)
+            var result = new List<SelectListItem>();
+
+            for (var index = 1; index <= 10; index++)
             {
                 result.Add(new SelectListItem
                 {
@@ -54,12 +54,12 @@ namespace SmartRestaurant.Client.Web.Controllers
                 .AddItem(BreadcrumbResource.Home)
                 .SetTitle(BreadcrumbResource.Administration)
                 .Save();
-            
-            
+
+
             return View();
         }
 
-       
+
         [Route("Dashboard")]
         public IActionResult Dashboard()
         {
@@ -68,9 +68,9 @@ namespace SmartRestaurant.Client.Web.Controllers
                 .SetTitle(BreadcrumbResource.Dashboard)
                 .Save();
             return View();
-        }              
+        }
 
-        
+
         [Route("LoadTest")]
         public IActionResult LoadTest(string id)
         {
@@ -83,7 +83,7 @@ namespace SmartRestaurant.Client.Web.Controllers
                 {
                     Value="02",Text="Text 02"
                 }
-            };           
+            };
             var select = new SelectList(items, "Value", "Text");
             return PartialView("_Test", select);
         }
@@ -97,7 +97,8 @@ namespace SmartRestaurant.Client.Web.Controllers
 
 
         [Route("Cheff")]
-        public IActionResult Cheff() {
+        public IActionResult Cheff()
+        {
             return View();
         }
     }

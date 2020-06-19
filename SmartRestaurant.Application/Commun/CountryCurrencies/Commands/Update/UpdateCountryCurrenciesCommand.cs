@@ -2,9 +2,7 @@
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Commun;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.CountryCurrencies.Commands.Update
 {
@@ -43,7 +41,7 @@ namespace SmartRestaurant.Application.Commun.CountryCurrencies.Commands.Update
 
                     throw new NotValidException(result.Errors);
                 }
-                var entity = new CountryCurrency(); 
+                var entity = new CountryCurrency();
 
                 var _country = db.Countries.Where(c => c.Id == model.CountryId).FirstOrDefault();
                 if (_country != null)

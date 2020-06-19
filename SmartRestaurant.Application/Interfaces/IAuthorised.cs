@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Application.Interfaces
+﻿namespace SmartRestaurant.Application.Interfaces
 {
     public interface IAutor
     {
@@ -12,6 +8,6 @@ namespace SmartRestaurant.Application.Interfaces
     }
     public interface IAutorisation
     {
-        bool IsAuthorised(string userId,params string[] args);        
+        bool IsAuthorised(string userId, params string[] args);
     }
 }

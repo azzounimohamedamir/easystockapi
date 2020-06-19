@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Application.Commun.Cities.Queries
+﻿namespace SmartRestaurant.Application.Commun.Cities.Queries
 {
     public class CityItemModel
     {

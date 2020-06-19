@@ -4,7 +4,7 @@ using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Commun.Specialites.Commands.Update
 {
-    public class UpdateSpecialityModelValidation:AbstractValidator<IUpdateSpecialityModel>
+    public class UpdateSpecialityModelValidation : AbstractValidator<IUpdateSpecialityModel>
     {
         public UpdateSpecialityModelValidation()
         {
@@ -16,12 +16,12 @@ namespace SmartRestaurant.Application.Commun.Specialites.Commands.Update
                 .MaximumLength(5)
                 .WithMessage(string.Format(SharedValidationResource.MaxlengthNotValideErrorMessage, "5"));
 
-            RuleFor(x => x.Name)                
+            RuleFor(x => x.Name)
                 .NotEmpty()
                 .WithMessage(string.Format(SharedValidationResource.RemoteErrorMessage, BaseResource.Name));
 
             RuleFor(x => x.Name)
-                .NotNull()                
+                .NotNull()
                 .WithMessage(string.Format(SharedValidationResource.RemoteErrorMessage, BaseResource.Name));
 
             RuleFor(x => x.Name)
@@ -32,7 +32,7 @@ namespace SmartRestaurant.Application.Commun.Specialites.Commands.Update
                .MaximumLength(380)
                .WithMessage(string.Format(SharedValidationResource.MaxlengthNotValideErrorMessage, "380"));
 
-           
+
 
         }
     }

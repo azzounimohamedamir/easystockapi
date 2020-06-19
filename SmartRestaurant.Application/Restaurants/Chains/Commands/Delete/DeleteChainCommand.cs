@@ -1,11 +1,9 @@
-﻿using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using System.Linq;
+﻿using Helpers;
 using SmartRestaurant.Application.Exceptions;
+using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Domain.Restaurants;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Restaurants.Chains.Commands.Delete
 {

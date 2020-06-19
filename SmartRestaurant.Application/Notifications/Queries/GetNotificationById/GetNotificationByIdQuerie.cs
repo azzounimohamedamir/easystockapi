@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Notifications.Commands.Update;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Notifications.Queries.GetNotificationById
 {
@@ -23,7 +20,7 @@ namespace SmartRestaurant.Application.Notifications.Queries.GetNotificationById
 
         public GetNotificationByIdQuerie(
             ISmartRestaurantDatabaseService db,
-            ILoggerService<GetNotificationByIdQuerie> logger, 
+            ILoggerService<GetNotificationByIdQuerie> logger,
             IMailingService mailing,
             INotifyService notify)
         {
@@ -49,9 +46,9 @@ namespace SmartRestaurant.Application.Notifications.Queries.GetNotificationById
                  TemplateId = p.TemplateId,
                  Type = p.Type,
                  UsersId = p.Users.Select(x => x.UserId).ToList()
-                 }).FirstOrDefault();
+             }).FirstOrDefault();
 
-             return entity;
+            return entity;
 
 
 

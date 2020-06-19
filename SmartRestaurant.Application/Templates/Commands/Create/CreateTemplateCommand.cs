@@ -2,8 +2,6 @@
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Templates.Commands.Factory;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Templates.Commands.Create
 {
@@ -24,7 +22,7 @@ namespace SmartRestaurant.Application.Templates.Commands.Create
 
         public CreateTemplateCommand(ISmartRestaurantDatabaseService db,
             ILoggerService<CreateTemplateCommand> logger, IMailingService mailing,
-            INotifyService notify , 
+            INotifyService notify,
             ICreateTemplateFactory createTemplateFactory
             )
         {
@@ -32,7 +30,7 @@ namespace SmartRestaurant.Application.Templates.Commands.Create
             this.logger = logger;
             this.mailing = mailing;
             this.notify = notify;
-            _factory = createTemplateFactory; 
+            _factory = createTemplateFactory;
         }
         public void Execute(CreateTemplateModel model)
         {
@@ -49,10 +47,10 @@ namespace SmartRestaurant.Application.Templates.Commands.Create
 
                     throw new NotValidException(result.Errors);
                 }
-                var entity = _factory.Create(model.Name, model.Description ,
-                    model.Type,model.IsDisabled,model.Alias, model.Title, model.Subject, model.Body);
+                var entity = _factory.Create(model.Name, model.Description,
+                    model.Type, model.IsDisabled, model.Alias, model.Title, model.Subject, model.Body);
                 entity.Id = Guid.NewGuid();
-                db.Templates.Add(entity); 
+                db.Templates.Add(entity);
                 db.Save();
             }
             catch (Exception e)

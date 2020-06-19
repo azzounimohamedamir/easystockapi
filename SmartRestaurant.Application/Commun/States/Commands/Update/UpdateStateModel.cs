@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using SmartRestaurant.Application.Commun.Countries.Commands.Create;
-using SmartRestaurant.Application.Commun.Select;
+﻿using SmartRestaurant.Application.Commun.Countries.Commands.Create;
 
 namespace SmartRestaurant.Application.Commun.State.Commands.Create
 {
-    public class UpdateStateModel :CreateStateModel,IUpdateStateModel
+    public class UpdateStateModel : CreateStateModel, IUpdateStateModel
     {
 
         public string Id { get; set; }

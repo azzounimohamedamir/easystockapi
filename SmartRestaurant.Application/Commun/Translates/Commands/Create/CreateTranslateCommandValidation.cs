@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using SmartRestaurant.Resources.Commun.BaseEntity;
-using SmartRestaurant.Resources.SharedValidation;
 using SmartRestaurant.Resources.Commun.Language;
+using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Commun.Translates.Commands.Create
 {

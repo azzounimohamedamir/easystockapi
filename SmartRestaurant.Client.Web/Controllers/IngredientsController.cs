@@ -4,21 +4,21 @@ using SmartRestaurant.Application.Interfaces;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-   // [Area("Admin")]
+    // [Area("Admin")]
     [Route("dishesandingredients")]
     [Route("{restaurant}/dishesandingredients")]
     public class IngredientsController : AdminBaseController
     {
         public IngredientsController(
-            IConfiguration configuration, 
-            IMailingService mailing, 
-            INotifyService notify, 
-            ILoggerService<AdminBaseController> baselog) 
+            IConfiguration configuration,
+            IMailingService mailing,
+            INotifyService notify,
+            ILoggerService<AdminBaseController> baselog)
             : base(configuration, mailing, notify, baselog)
         {
         }
 
-        [Route("ingredients")]        
+        [Route("ingredients")]
         public IActionResult Ingredients()
         {
             return View();

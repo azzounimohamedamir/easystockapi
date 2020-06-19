@@ -1,22 +1,18 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using SmartRestaurant.Application.Exceptions;
+using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Foods;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Domain.Commun;
-using SmartRestaurant.Application.Helpers;
-using SmartRestaurant.Application.Foods.Models;
-using SmartRestaurant.Application.Commun.Quantities;
 
 namespace SmartRestaurant.Application.Foods.Commands.Create
 {
 
     public interface ICreateFoodCommand
     {
-        void Execute(CreateFoodModel model);        
+        void Execute(CreateFoodModel model);
     }
 
     public class CreateFoodCommand : ICreateFoodCommand
@@ -38,7 +34,7 @@ namespace SmartRestaurant.Application.Foods.Commands.Create
         public void Execute(CreateFoodModel model)
         {
             try
-            {                
+            {
                 var validator = new CreateFoodCommandValidation();
                 var result = validator.Validate(model);
                 if (!result.IsValid)
@@ -56,13 +52,13 @@ namespace SmartRestaurant.Application.Foods.Commands.Create
 
                 // check picture
                 food.PictureId =
-                PictureHelper.AddPictureToEntity(db, model.FoodModel.Picture.Url);                
+                PictureHelper.AddPictureToEntity(db, model.FoodModel.Picture.Url);
 
                 var guid = model.FoodModel.FoodCategoryId.ToGuid();
                 if (model.FoodModel.FoodCategoryId == null ||
                     !db.FoodCategories.Any(c => c.Id == guid))
                     throw new NotFoundException("Food Categories Not Found");
-               
+
                 db.Foods.Add(food);
                 db.Save();
                 //db.Areas.Select
@@ -72,7 +68,7 @@ namespace SmartRestaurant.Application.Foods.Commands.Create
                 throw ex;
             }
         }
-                
+
 
         public Food GetFood(CreateFoodModel model)
         {
@@ -83,7 +79,7 @@ namespace SmartRestaurant.Application.Foods.Commands.Create
                 FoodCategoryId = model.FoodModel.FoodCategoryId.ToGuid(),
                 Description = model.FoodModel.Description,
                 Name = model.FoodModel.Name,
-                UnitId=model.FoodModel.UnitId.ToGuid(),
+                UnitId = model.FoodModel.UnitId.ToGuid(),
                 PictureId =
                     PictureHelper.AddPictureToEntity(db, model.FoodModel.Picture.Url),
                 Nutrition = new Nutrition(

@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
-using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Restaurants.Restaurants;
 using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Products.ProductFamilies.Commands.Create
 {
-    public class CreateProductFamilyCommandValidation:AbstractValidator<ICreateProductFamilyModel>
+    public class CreateProductFamilyCommandValidation : AbstractValidator<ICreateProductFamilyModel>
     {
         public CreateProductFamilyCommandValidation()
         {

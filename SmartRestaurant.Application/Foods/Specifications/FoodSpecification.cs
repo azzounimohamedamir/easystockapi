@@ -1,12 +1,8 @@
-﻿using SmartRestaurant.Application.Interfaces;
+﻿using Helpers;
 using SmartRestaurant.Application.Specifications;
 using SmartRestaurant.Domain.Foods;
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
-using Helpers;
-using System.Linq;
 
 namespace SmartRestaurant.Application.Foods.Specifications
 {
@@ -16,26 +12,26 @@ namespace SmartRestaurant.Application.Foods.Specifications
     /// </summary>
     public class FoodSpecification : BaseSpecification<Food>
     {
-        
-        public FoodSpecification():base()
+
+        public FoodSpecification() : base()
         {
             BaseInclude();
         }
 
-        public FoodSpecification(string categoryId,string name) 
+        public FoodSpecification(string categoryId, string name)
             : base(
-                  food=>(!string.IsNullOrEmpty(categoryId)?food.FoodCategoryId.Equals(categoryId.ToGuid()) 
+                  food => (!string.IsNullOrEmpty(categoryId) ? food.FoodCategoryId.Equals(categoryId.ToGuid())
                   || food.Category.ParentId.Equals(categoryId.ToGuid())
                   || food.Category.Parent.ParentId.Equals(categoryId.ToGuid())
                   || food.Category.Parent.Parent.ParentId.Equals(categoryId.ToGuid())
                   || food.Category.Parent.Parent.Parent.ParentId.Equals(categoryId.ToGuid())
                   || food.Category.Parent.Parent.Parent.Parent.ParentId.Equals(categoryId.ToGuid()) : true)
-                  && (!string.IsNullOrEmpty(name)?food.Name.Contains(name) :true)
+                  && (!string.IsNullOrEmpty(name) ? food.Name.Contains(name) : true)
                 )
         {
             BaseInclude();
         }
-        public FoodSpecification(Expression<Func<Food,bool>> expression) : base(expression)
+        public FoodSpecification(Expression<Func<Food, bool>> expression) : base(expression)
         {
             BaseInclude();
         }

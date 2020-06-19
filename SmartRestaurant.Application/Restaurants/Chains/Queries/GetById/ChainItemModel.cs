@@ -9,6 +9,6 @@
         public string IsDisabled { get; set; }
 
         public string OwnerName { get; set; }
-        public string OwnerId { get;  set; }
+        public string OwnerId { get; set; }
     }
 }

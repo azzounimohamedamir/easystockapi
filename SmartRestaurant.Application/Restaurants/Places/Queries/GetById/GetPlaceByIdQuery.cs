@@ -1,11 +1,9 @@
-﻿using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using System.Linq;
+﻿using Helpers;
 using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Places.Commands.Update;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Restaurants.Places.Queries.GetById
 {
@@ -39,9 +37,9 @@ namespace SmartRestaurant.Application.Restaurants.Places.Queries.GetById
                 var guid = Id.ToGuid();
                 return db.Places
                     .Include(i => i.Table)
-                    .Include(a=>a.Table.Area)
-                    .Include(f=>f.Table.Area.Floor)
-                    .Include(r=>r.Table.Area.Floor.Restaurant)               
+                    .Include(a => a.Table.Area)
+                    .Include(f => f.Table.Area.Floor)
+                    .Include(r => r.Table.Area.Floor.Restaurant)
                     .Where(t => t.Id == guid)
                     .Select(x => new UpdatePlaceModel
                     {
@@ -55,8 +53,8 @@ namespace SmartRestaurant.Application.Restaurants.Places.Queries.GetById
                         Name = x.Name,
                         AreaId = x.Table.AreaId.ToString(),
                         WaiterId = x.Table.Area.Floor.Restaurant.Staffs.FirstOrDefault().Id.ToString(),
-                        IsDisabled=x.IsDisabled,
-                        
+                        IsDisabled = x.IsDisabled,
+
                     }).FirstOrDefault();
             }
             catch (Exception)

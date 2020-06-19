@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Commun
 {
-    public class CountryCurrency:SmartRestaurantEntity
+    public class CountryCurrency : SmartRestaurantEntity
     {
         public string CountryId { get; set; }
         public Country Country { get; set; }

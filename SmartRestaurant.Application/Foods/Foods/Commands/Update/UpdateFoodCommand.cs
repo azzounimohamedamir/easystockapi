@@ -1,13 +1,11 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using SmartRestaurant.Application.Exceptions;
+using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Foods;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Domain.Commun;
-using SmartRestaurant.Application.Helpers;
 
 namespace SmartRestaurant.Application.Foods.Commands.Update
 {
@@ -80,7 +78,7 @@ namespace SmartRestaurant.Application.Foods.Commands.Update
                 throw ex;
             }
         }
-        
+
     }
 
 }

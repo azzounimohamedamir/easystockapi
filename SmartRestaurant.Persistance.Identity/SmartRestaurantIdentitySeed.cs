@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Helpers;
+﻿using Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using SmartRestaurant.Domain.Clients.Identity;
 using SmartRestaurant.Domain.Enumerations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Persistance.Identity
 {
@@ -19,7 +19,7 @@ namespace SmartRestaurant.Persistance.Identity
                 "RST01",
                 "27e7e25a-cf92-4ea5-a9cc-b77d4d220efc".ToGuid()
             }
-            
+
         };
         private readonly Dictionary<string, Guid> chainsIds = new Dictionary<string, Guid>
         {
@@ -38,7 +38,7 @@ namespace SmartRestaurant.Persistance.Identity
         /// Seeding a custom Roles 
         public async Task CreateRoles(IServiceProvider serviceProvider)
         {
-           
+
             var roleManager = serviceProvider.GetRequiredService<RoleManager<SRIdentityRole>>();
             string[] roleNames = Enum.GetNames(typeof(EnumPersoneType));
 
@@ -56,20 +56,20 @@ namespace SmartRestaurant.Persistance.Identity
 
             var userManager = serviceProvider.GetRequiredService<UserManager<SRIdentityUser>>();
             var staffManager = serviceProvider.GetRequiredService<UserManager<SRIdentityUser>>();
-           // adding admin account
+            // adding admin account
             await CreateUserToRole(userManager, "admin", "admin", "Administrator", "adminn@sr.com");
             string[] roleNames = Enum.GetNames(typeof(EnumPersoneType));
             var count = 0;
-        
+
             foreach (var restaurantId in restaurantsIds)
             {
 
-                foreach (var roleName in roleNames.Where(r=>  r.Equals("Owner")))
+                foreach (var roleName in roleNames.Where(r => r.Equals("Owner")))
                 {
 
                     await CreateStaffToRole(staffManager,
                         roleName + restaurantId.Key.ToString()
-                        ,roleName + restaurantId.Key.ToString(),
+                        , roleName + restaurantId.Key.ToString(),
                         roleName + restaurantId.Key.ToString(),
                         roleName + restaurantId.Value.ToString() + "@" + "com",
                         roleName,
@@ -96,7 +96,7 @@ namespace SmartRestaurant.Persistance.Identity
         /// <param name="lastname"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public async Task CreateUserToRole(UserManager<SRIdentityUser> userManager,string username, string firstname, string lastname, string email)
+        public async Task CreateUserToRole(UserManager<SRIdentityUser> userManager, string username, string firstname, string lastname, string email)
         {
 
             string pass = "Abcd$001";
@@ -127,13 +127,13 @@ namespace SmartRestaurant.Persistance.Identity
                 Email = email,
                 RestaurantId = restuarantId,
                 ChainId = ChainId,
-                IsDisabled = true ,
-                
+                IsDisabled = true,
+
             };
-          
+
             await userManager.CreateAsync(user, pass);
             await userManager.AddToRoleAsync(user, RoleName);
-            
+
 
         }
         #endregion

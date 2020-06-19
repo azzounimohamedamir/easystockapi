@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Client.Commun.Inscription;
 using SmartRestaurant.Client.Commun.Inscription.Commun;
 using SmartRestaurant.Client.Commun.Inscription.Configuration;
 using SmartRestaurant.Client.Commun.Inscription.Dishes;
@@ -20,7 +19,7 @@ namespace SmartRestaurant.Client.Commun
 
             services.AddFoodCategoryServices();
             services.AddFoodServices();
-            services.AddUnitServices();            
+            services.AddUnitServices();
 
             services.AddQuantityServices();
             services.AddGalleryServices();
@@ -46,7 +45,7 @@ namespace SmartRestaurant.Client.Commun
             //services.AddChainServices(); 
             services.AddProductFamilyServices();
             services.AddProductServices();
-           // services.AddRestaurantServices();
+            // services.AddRestaurantServices();
             services.AddIllnessServices();
             services.AddAllergyServices();
             services.AddCountryCurrencyServices();

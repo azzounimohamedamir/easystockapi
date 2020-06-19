@@ -5,14 +5,13 @@ using SmartRestaurant.Domain.Dishes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Dishes.Dishes.Queries
 {
     public interface IGetAllDishQuery
     {
         List<DishItemModel> Execute();
-        List<DishItemModel> Execute(out int count,int skip,int take);
+        List<DishItemModel> Execute(out int count, int skip, int take);
     }
     public class GetAllDishQuery : IGetAllDishQuery
     {
@@ -38,7 +37,7 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Queries
             return db.Dishes
                     .Include(d => d.Family)
                     .Include(d => d.Restaurant)
-                    .Include(d=>d.Gallery)
+                    .Include(d => d.Gallery)
                     .Include(d => d.Gallery.Pictures)
                     .AsQueryable();
         }
@@ -49,10 +48,10 @@ namespace SmartRestaurant.Application.Dishes.Dishes.Queries
                 var query = GetQuery();
                 count = query.Count();
                 return query.Skip(skip).Take(take)
-                    .Select(DishItemModel.Projection)                    
+                    .Select(DishItemModel.Projection)
                     .ToList();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

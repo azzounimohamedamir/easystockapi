@@ -1,12 +1,8 @@
 ﻿using FluentValidation;
 using SmartRestaurant.Application.Commun.Cities.Commands;
 using SmartRestaurant.Resources.Commun.BaseEntity;
-using SmartRestaurant.Resources.Commun.City;
 using SmartRestaurant.Resources.SharedValidation;
-using SmartRestaurant.Resources.UI.Shared;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Cities
 {
@@ -33,7 +29,7 @@ namespace SmartRestaurant.Application.Commun.Cities
              .NotEmpty()
              .WithMessage(string.Format(SharedValidationResource.RequiredErrorMessage,
              BaseResource.Id));
-         
+
         }
     }
 }

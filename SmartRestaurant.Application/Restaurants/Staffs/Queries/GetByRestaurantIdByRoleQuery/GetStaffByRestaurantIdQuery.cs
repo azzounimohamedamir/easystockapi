@@ -1,11 +1,10 @@
-﻿using SmartRestaurant.Application.Interfaces;
+﻿using Helpers;
+using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetBySpecification;
 using SmartRestaurant.Application.Restaurants.Staffs.Specifications;
+using SmartRestaurant.Domain.Enumerations;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Domain.Enumerations;
 
 namespace SmartRestaurant.Application.Restaurants.Staffs.Queries.IGetByRestaurantId
 {
@@ -44,7 +43,7 @@ namespace SmartRestaurant.Application.Restaurants.Staffs.Queries.IGetByRestauran
                 var id = restaurantId.ToGuid();
                 return spec.Execute(
                     new StaffSpecification(x => string.IsNullOrEmpty(restaurantId)
-                    ||( x.RestaurantId == id & x.StaffRole==role))
+                    || (x.RestaurantId == id & x.StaffRole == role))
                     .AddInclude(i => i.Restaurant));
             }
             catch (Exception)

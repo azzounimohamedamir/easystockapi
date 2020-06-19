@@ -1,16 +1,10 @@
-﻿using SmartRestaurant.Application.Exceptions;
-using SmartRestaurant.Application.Interfaces;
- 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Domain.Commun;
-using SmartRestaurant.Application.Helpers;
-using SmartRestaurant.Application.Commun.Prices;
-using Microsoft.EntityFrameworkCore;
+﻿using Helpers;
 using SmartRestaurant.Application.Commun.Translates.Commands.Create;
+using SmartRestaurant.Application.Exceptions;
+using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Domain.Commun;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Commun.Translates.Commands.Update
 {
@@ -47,7 +41,7 @@ namespace SmartRestaurant.Application.Commun.Translates.Commands.Update
                 }
 
                 var guid = model.Id.ToGuid();
-                var Translate = db.Translates                    
+                var Translate = db.Translates
                     .FirstOrDefault(f => f.Id == guid);
                 if (Translate == null) throw new NotFoundException();
 
@@ -59,7 +53,7 @@ namespace SmartRestaurant.Application.Commun.Translates.Commands.Update
                     throw new NotFoundException(nameof(Language) +
                         Translate.LanguageId);
 
-            
+
                 db.Translates.Update(Translate);
                 db.Save();
 

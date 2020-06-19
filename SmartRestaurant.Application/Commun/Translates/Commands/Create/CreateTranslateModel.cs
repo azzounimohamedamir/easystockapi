@@ -1,6 +1,4 @@
-﻿using SmartRestaurant.Application.Commun.Prices;
-
-namespace SmartRestaurant.Application.Commun.Translates.Commands.Create
+﻿namespace SmartRestaurant.Application.Commun.Translates.Commands.Create
 {
     public class CreateTranslateModel : ICreateTranslateModel
     {

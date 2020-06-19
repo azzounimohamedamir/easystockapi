@@ -12,7 +12,7 @@ namespace SmartRestaurant.Application.Foods.Queries
         public string Name { get; set; }
         public string Description { get; set; }
         public string SlugUrl { get; set; }
-        public string IsDisabled { get; set; }        
+        public string IsDisabled { get; set; }
         public string Unit { get; set; }
     }
 }

@@ -1,9 +1,7 @@
-﻿using SmartRestaurant.Application.Restaurants.Chains.Commands.Update;
+﻿using Helpers;
+using SmartRestaurant.Application.Restaurants.Chains.Commands.Update;
 using SmartRestaurant.Domain.Restaurants;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
 
 namespace SmartRestaurant.Application.Restaurants.Chains.Commands.Create
 {
@@ -14,7 +12,7 @@ namespace SmartRestaurant.Application.Restaurants.Chains.Commands.Create
             return new Chain
             {
                 Id = Guid.NewGuid(),
-                
+
                 Alias = model.Alias,
                 Name = model.Name,
                 Description = model.Description,

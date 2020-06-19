@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SmartRestaurant.Domain.BaseIdentity;
-using SmartRestaurant.Domain.Clients.Identity;
 using SmartRestaurant.Domain.Identity.Guests;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Persistance.Identity.GuestConfiguration
 {

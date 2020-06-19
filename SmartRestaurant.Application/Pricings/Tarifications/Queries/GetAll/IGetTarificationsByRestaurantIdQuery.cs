@@ -1,12 +1,11 @@
-﻿using SmartRestaurant.Application.Helpers;
+﻿using Helpers;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Pricings.Tarifications.Queries.GetById;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
-using Microsoft.EntityFrameworkCore;
 
 namespace SmartRestaurant.Application.Pricings.Tarifications.Queries.GetAll
 {
@@ -39,7 +38,7 @@ namespace SmartRestaurant.Application.Pricings.Tarifications.Queries.GetAll
             try
             {
                 return db.Tarifications
-                    .Include(x=>x.Restaurant)
+                    .Include(x => x.Restaurant)
                     .Where(x => x.RestaurantId == id.ToGuid())
                     .Select(x => new TarificationItemModel
                     {

@@ -1,11 +1,8 @@
 ﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Identity;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Enumerations;
 using SmartRestaurant.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Restaurants.Staffs.Commands.Create
 {

@@ -1,11 +1,6 @@
 ﻿using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Commun;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Helpers;
 
 namespace SmartRestaurant.Application.Products.ProductFamilies.Commands.Create
 {
@@ -46,7 +41,7 @@ namespace SmartRestaurant.Application.Products.ProductFamilies.Commands.Create
                 var familty = model.ToEntity();
                 familty.Id = Guid.NewGuid();
 
-            
+
                 db.ProductFamilies.Add(familty);
                 db.Save();
             }

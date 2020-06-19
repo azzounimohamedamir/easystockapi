@@ -2,7 +2,7 @@
 
 namespace SmartRestaurant.Application.Restaurants.Chains.Commands.Update
 {
-    public interface IUpdateChainModel: ICreateChainModel
+    public interface IUpdateChainModel : ICreateChainModel
     {
         string Id { get; set; }
     }

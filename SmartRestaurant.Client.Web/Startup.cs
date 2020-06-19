@@ -1,30 +1,30 @@
-﻿using System;
-using FluentValidation.AspNetCore;
+﻿using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Client.Commun;
 using SmartRestaurant.Client.Web.Hubs;
+using SmartRestaurant.Domain.Clients.Identity;
 using SmartRestaurant.Persistance.Identity;
+using SmartRestaurant.Persistence;
 using SmartRestaurant.Persistence.ApplicationDataBase;
 using SmartRestaurant.Persistence.Logger;
 using SmartRestaurant.Persistence.Mailing;
 using SmartRestaurant.Persistence.Notifications;
+using System;
 using System.Globalization;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.EntityFrameworkCore.Internal;
-using SmartRestaurant.Domain.Clients.Identity;
-using SmartRestaurant.Persistence;
 
 namespace SmartRestaurant.Client.Web
 {
@@ -34,7 +34,7 @@ namespace SmartRestaurant.Client.Web
         {
             Configuration = configuration;
         }
-        
+
         public IConfiguration Configuration { get; }
         public const string CookieScheme = "SR.Application";
         public void ConfigureDevelopmentServices(IServiceCollection services)
@@ -52,7 +52,7 @@ namespace SmartRestaurant.Client.Web
 
         private void ConfigureInMemoryDataBases(IServiceCollection services)
         {
-           
+
             ConfigureSqlServerDatabases(services);
             ConfigureServices(services);
         }
@@ -62,7 +62,7 @@ namespace SmartRestaurant.Client.Web
             string assemblyName = typeof(SmartRestaurantDbContext).Namespace;
 
             services.AddDbContext<SmartRestaurantDbContext>(
-                c => c.UseSqlServer(Configuration.GetConnectionString("SmartRestaurantSqlConnection"), x=>x.MigrationsAssembly(assemblyName)));
+                c => c.UseSqlServer(Configuration.GetConnectionString("SmartRestaurantSqlConnection"), x => x.MigrationsAssembly(assemblyName)));
             services.AddDbContext<SmartRestaurantTeamIdentityDbContext>(c => c.UseSqlServer(Configuration.GetConnectionString("SmartRestaurantTeamIdentityDbContext")));
             services.AddDbContext<SmartRestaurantGuestIdentityDbContext>(c => c.UseSqlServer(Configuration.GetConnectionString("SmartRestaurantGuestIdentityDbContext")));
             services.AddDbContext<SmartRestaurantIdentityDbContext>(c => c.UseSqlServer(Configuration.GetConnectionString("SmartRestaurantIdentityDbContext")));
@@ -80,7 +80,7 @@ namespace SmartRestaurant.Client.Web
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequireAdministratorRole",
-                    policy => policy.RequireRole("Owner", "Developer","Admin"));
+                    policy => policy.RequireRole("Owner", "Developer", "Admin"));
             });
             services.AddLocalization();
             services.Configure<RequestLocalizationOptions>(options =>
@@ -102,9 +102,9 @@ namespace SmartRestaurant.Client.Web
                 options.SupportedUICultures = supportedCultures;
                 options.RequestCultureProviders.Insert(0, new UrlRequestCultureProvider());
 
-            });            
+            });
 
-          
+
             //Injection des service Mailling,Notify et logger implémenté dans la couche infrastructure
             services.AddScoped<IMail, Mail>();
             services.AddScoped<IMailingService, MailingService>();
@@ -112,9 +112,9 @@ namespace SmartRestaurant.Client.Web
             services.AddScoped<INotifyService, NotifyService>();
             services.AddScoped(typeof(ILoggerService<>), typeof(LoggerService<>));
 
-         
+
             services.AddSRServices();
-            
+
             services.AddSingleton(Configuration);
             services.AddCors();
 
@@ -139,7 +139,7 @@ namespace SmartRestaurant.Client.Web
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                 options.LoginPath = "/Account/Login";
-                
+
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.SlidingExpiration = true;
             });
@@ -164,7 +164,7 @@ namespace SmartRestaurant.Client.Web
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
             });
-           
+
             services.AddMvc(options => options.Filters.Add(new AuthorizeFilter()));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -177,7 +177,7 @@ namespace SmartRestaurant.Client.Web
             app.UseRequestLocalization();
             var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
-      
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -193,8 +193,8 @@ namespace SmartRestaurant.Client.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
-          //  app.UseMvcWithDefaultRoute();
-             
+            //  app.UseMvcWithDefaultRoute();
+
             app.UseMvc(routes =>
             {
                 routes.MapAreaRoute(
@@ -202,7 +202,7 @@ namespace SmartRestaurant.Client.Web
                    areaName: "Translate",
                    template: "Translate/{controller=Home}/{action=Index}/{id?}");
 
-              
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}",
@@ -221,11 +221,11 @@ namespace SmartRestaurant.Client.Web
                 cors.AllowAnyOrigin();
                 cors.AllowAnyMethod();
             });
-           
+
 
             app.UseWebSockets();
             app.UseMvc();
-          
+
             SeedInitialData(app);
 
 
@@ -239,7 +239,7 @@ namespace SmartRestaurant.Client.Web
 
                 var identityContext = scope.ServiceProvider.GetService<SmartRestaurantIdentityDbContext>();
                 var identitySeed = new SmartRestaurantIdentitySeed(identityContext);
-               
+
                 if (!identityContext.Roles.Any())
                 {
                     identitySeed.CreateRoles(scope.ServiceProvider).GetAwaiter().GetResult();
@@ -258,7 +258,7 @@ namespace SmartRestaurant.Client.Web
                     seed.ClearAllDataAsync().Wait();
                     seed.SeedEverythingAsync().Wait();
                 }
-               
+
 
                 #endregion
 

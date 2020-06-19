@@ -1,5 +1,4 @@
 ﻿using Helpers;
-using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Resources.Commun.Specialities;
@@ -42,14 +41,14 @@ namespace SmartRestaurant.Application.Commun.Specialites.Commands.Delete
                 {
                     throw new NotValidException(result.Errors);
                 }
-                
-                var _speciality = _db.Specialties                    
+
+                var _speciality = _db.Specialties
                     .FirstOrDefault(f => f.Id == model.Id.ToGuid());
 
                 if (_speciality == null)
                     throw new NotFoundException(string.Format(SharedExceptionResource.NotFoundExceptionErrorMessage, SpecialityUtilsResource.TableName, model.Id));
 
-                
+
 
                 _db.Specialties.Remove(_speciality);
                 _db.Save();

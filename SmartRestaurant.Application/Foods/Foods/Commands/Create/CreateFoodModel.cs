@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using SmartRestaurant.Application.Foods.Foods.Models;
+﻿using SmartRestaurant.Application.Foods.Foods.Models;
 using SmartRestaurant.Application.Foods.Models;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Foods.Commands.Create
 {

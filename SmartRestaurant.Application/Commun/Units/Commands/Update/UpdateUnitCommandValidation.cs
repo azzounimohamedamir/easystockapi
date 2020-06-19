@@ -1,9 +1,4 @@
 ﻿using FluentValidation;
-using SmartRestaurant.Application.Commun.Cities.Commands;
-using SmartRestaurant.Application.Commun.Cities.Commands.Update;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Units.Commands.Update
 {

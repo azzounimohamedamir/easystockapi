@@ -6,7 +6,6 @@ using SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries.GetBySpeci
 using SmartRestaurant.Domain.Restaurants;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Restaurants.RestaurantTypes.Queries
 {

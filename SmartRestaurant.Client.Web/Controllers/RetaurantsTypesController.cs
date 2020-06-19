@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Exceptions;
 using SmartRestaurant.Application.Interfaces;
@@ -10,10 +9,11 @@ using SmartRestaurant.Application.Restaurants.RestaurantTypes.Services;
 using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Restaurants.RestaurantTypes;
 using SmartRestaurant.Resources.Utils;
+using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-   // [Area("Admin")]
+    // [Area("Admin")]
     [Route("restaurants/types")]
     public class RestaurantsTypesController : AdminBaseController
     {
@@ -37,14 +37,14 @@ namespace SmartRestaurant.Client.Web.Controllers
         }
 
         [Route("")]
-        [Route("index")]        
+        [Route("index")]
         public IActionResult Index()
         {
             this.PageBreadcrumb.SetTitle(RestaurantTypeUtilsResource.HomePageTitle)
                 .AddHome()
                 .AddItem(RestaurantTypeUtilsResource.HomeNavigationTitle, Url.Action("RestaurantTypes", "Index"))
                 .Save();
- 
+
             return View(RestaurantTypeService.Queries.List.Execute());
         }
 

@@ -1,12 +1,9 @@
-﻿using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Application.Products.ProductFamilies.Queries.GetByRestaurantId;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using System.Linq;
-using SmartRestaurant.Application.Products.ProductFamilies.Commands.Update;
+﻿using Helpers;
 using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Application.Products.ProductFamilies.Commands.Update;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Products.ProductFamilies.Queries.GetById
 {
@@ -34,14 +31,14 @@ namespace SmartRestaurant.Application.Products.ProductFamilies.Queries.GetById
         }
 
         public UpdateProductFamilyModel Execute(string Id)
-        {          
+        {
             try
             {
                 if (Id.IsNullOrEmpty()) return null;
 
                 var guid = Id.ToGuid();
                 return db.ProductFamilies
-                    .Include(i=>i.Restaurant)
+                    .Include(i => i.Restaurant)
                     .Where(p => p.Id == guid)
                     .Select(x => new
                     UpdateProductFamilyModel

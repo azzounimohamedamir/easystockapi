@@ -5,6 +5,6 @@
         string Alias { get; set; }
         string Symbol { get; set; }
         string Name { get; set; }
-        
+
     }
 }

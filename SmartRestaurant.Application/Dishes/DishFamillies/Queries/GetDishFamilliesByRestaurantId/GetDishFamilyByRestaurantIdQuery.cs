@@ -1,13 +1,11 @@
-﻿using SmartRestaurant.Application.ApplicationDataBase.Extensions;
+﻿using Helpers;
+using SmartRestaurant.Application.ApplicationDataBase.Extensions;
 using SmartRestaurant.Application.Dishes.DishFamillies.Queries.Factory;
 using SmartRestaurant.Application.Dishes.DishFamillies.Queries.Models;
 using SmartRestaurant.Application.Dishes.DishFamillies.Specifications;
 using SmartRestaurant.Application.Interfaces;
-using SmartRestaurant.Domain.Dishes;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Helpers;
 
 namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.GetDishFamilliesBySpecifications
 {
@@ -38,7 +36,7 @@ namespace SmartRestaurant.Application.Dishes.DishFamillies.Queries.GetDishFamill
         {
             try
             {
-                var specification = new DishFamilySpecification(df => df.RestaurantId == restaurantId.ToGuid() && df.ParentId==null).RemoveAllInclude();
+                var specification = new DishFamilySpecification(df => df.RestaurantId == restaurantId.ToGuid() && df.ParentId == null).RemoveAllInclude();
                 return _db.DishFamilies
                     .ApplySpecification(specification)
                     .ToDishFamilyItemModels();

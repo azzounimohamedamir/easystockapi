@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using SmartRestaurant.Domain.BaseIdentity;
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Text;
+﻿using SmartRestaurant.Domain.BaseIdentity;
 
 namespace SmartRestaurant.Domain.Clients.Identity
 {
-    public class SRIdentityUser: BaseIdentityUser
+    public class SRIdentityUser : BaseIdentityUser
     {
         public string RestaurantId { get; set; }
         public string ChainId { get; set; }

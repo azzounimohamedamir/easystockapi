@@ -1,12 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Application.Allergies.Illnesses.Queries.Factory;
-using SmartRestaurant.Application.Helpers;
 
 namespace SmartRestaurant.Application.Allergies.Illnesses.Queries.GetAll
 {
@@ -37,7 +33,7 @@ namespace SmartRestaurant.Application.Allergies.Illnesses.Queries.GetAll
             try
             {
                 return db.Illnesses
-                    
+
                     .Select(x => new IllnessItemModel
                     {
                         Description = x.Description,

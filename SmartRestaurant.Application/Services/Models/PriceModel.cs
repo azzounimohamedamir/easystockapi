@@ -2,7 +2,7 @@
 {
     public class PriceModel
     {
-        public string Currency{ get; set; }//$
+        public string Currency { get; set; }//$
         public decimal Amount { get; set; }
     }
 }

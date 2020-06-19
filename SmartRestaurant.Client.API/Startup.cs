@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using FluentValidation.AspNetCore;
+﻿using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using SmartRestaurant.Client.Commun;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace SmartRestaurant.Client.API
 {
@@ -33,7 +27,7 @@ namespace SmartRestaurant.Client.API
             {
                 options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-US");
                 //By default the below will be set to whatever the server culture is. 
-                options.SupportedCultures = new List<CultureInfo> { new CultureInfo("en-US")};
+                options.SupportedCultures = new List<CultureInfo> { new CultureInfo("en-US") };
                 options.RequestCultureProviders = new List<IRequestCultureProvider>();
             });
 

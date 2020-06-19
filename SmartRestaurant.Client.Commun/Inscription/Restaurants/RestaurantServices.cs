@@ -95,7 +95,7 @@ namespace SmartRestaurant.Client.Commun.Inscription.Restaurants
             services.AddScoped<IGetAllMenusQuery, GetAllMenusQuery>();
             services.AddScoped<IGetMenuByIdQuery, GetMenuByIdQuery>();
             services.AddScoped<IUpdateMenuCommand, UpdateMenuCommand>();
-            services.AddScoped<IDeleteMenuCommand, DeleteMenuCommand>(); 
+            services.AddScoped<IDeleteMenuCommand, DeleteMenuCommand>();
             return services;
         }
         public static IServiceCollection AddChainService(this IServiceCollection services)
@@ -106,7 +106,7 @@ namespace SmartRestaurant.Client.Commun.Inscription.Restaurants
             services.AddScoped<IGetAllChainsQuery, GetAllChainsQuery>();
             services.AddScoped<IGetChainsByOwnerIdQuery, GetChainsByOwnerIdQuery>();
             services.AddScoped<IGetChainByIdQuery, GetChainByIdQuery>();
-           
+
             return services;
         }
 
@@ -123,14 +123,14 @@ namespace SmartRestaurant.Client.Commun.Inscription.Restaurants
 
             return services;
         }
- public static IServiceCollection AddPlaceServices(this IServiceCollection services)
+        public static IServiceCollection AddPlaceServices(this IServiceCollection services)
         {
             services.AddScoped<ICreatePlaceCommand, CreatePlaceCommand>();
             services.AddScoped<IUpdatePlaceCommand, UpdatePlaceCommand>();
             services.AddScoped<IDeletePlaceCommand, DeletePlaceCommand>();
 
             services.AddScoped<IGetPlacesByRestaurantIdQuery, GetPlacesByRestaurantIdQuery>();
-            services.AddScoped<IGetPlacesByAreaIdQuery, GetPlacesByAreaIdQuery>();           
+            services.AddScoped<IGetPlacesByAreaIdQuery, GetPlacesByAreaIdQuery>();
             services.AddScoped<IGetPlaceByIdQuery, GetPlaceByIdQuery>();
 
             return services;
@@ -208,7 +208,7 @@ namespace SmartRestaurant.Client.Commun.Inscription.Restaurants
 
         public static IServiceCollection AddSectionServices(this IServiceCollection services)
         {
-            
+
             services.AddScoped<ICreateSectionCommand, CreateSectionCommand>();
             return services;
 

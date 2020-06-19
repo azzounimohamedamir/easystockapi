@@ -1,15 +1,12 @@
-﻿using SmartRestaurant.Application.Foods.Queries.GetAll;
+﻿using Helpers;
+using SmartRestaurant.Application.ApplicationDataBase.Extensions;
+using SmartRestaurant.Application.Foods.FoodCategories.Queries.Factory;
+using SmartRestaurant.Application.Foods.Queries;
+using SmartRestaurant.Application.Foods.Specifications;
 using SmartRestaurant.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
-using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Foods.Queries;
-using SmartRestaurant.Application.Foods.Specifications;
-using SmartRestaurant.Application.ApplicationDataBase.Extensions;
-using SmartRestaurant.Application.Foods.FoodCategories.Queries.Factory;
 
 namespace SmartRestaurant.Application.Foods.Foods.Queries.GetByCategoryId
 {
@@ -27,7 +24,7 @@ namespace SmartRestaurant.Application.Foods.Foods.Queries.GetByCategoryId
         private readonly ISmartRestaurantDatabaseService db;
 
         public GetFoodsByCategoryIdQuery(ISmartRestaurantDatabaseService db,
-            ILoggerService<GetFoodsByCategoryIdQuery>  logger, IMailingService mailing,
+            ILoggerService<GetFoodsByCategoryIdQuery> logger, IMailingService mailing,
             INotifyService notify)
         {
             this.db = db;
@@ -41,8 +38,8 @@ namespace SmartRestaurant.Application.Foods.Foods.Queries.GetByCategoryId
             try
             {
                 var specification = new FoodSpecification(
-                    f=>f.FoodCategoryId==categoryId.ToGuid()
-                    || f.Category.Parent.Id== categoryId.ToGuid()
+                    f => f.FoodCategoryId == categoryId.ToGuid()
+                    || f.Category.Parent.Id == categoryId.ToGuid()
                     || f.Category.Parent.Parent.Id == categoryId.ToGuid()
                     || f.Category.Parent.Parent.Parent.Id == categoryId.ToGuid()
                     )

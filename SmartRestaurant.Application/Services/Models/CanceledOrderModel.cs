@@ -1,11 +1,8 @@
 ﻿using SmartRestaurant.Domain.Enumerations;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Services.Models
 {
-    
+
     public class CanceledOrderItemModel
     {
         public EnumWhom Whom { get; set; }
@@ -22,5 +19,5 @@ namespace SmartRestaurant.Application.Services.Models
         public string Causes { get; set; }
     }
 
-    
+
 }

@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
 using SmartRestaurant.Resources.Commun.BaseEntity;
-using SmartRestaurant.Resources.Restaurants.Owners;
 using SmartRestaurant.Resources.Restaurants.Restaurants;
 using SmartRestaurant.Resources.SharedValidation;
 
 namespace SmartRestaurant.Application.Restaurants.Staffs.Commands.Create
 {
-    public class CreateStaffCommandValidation:AbstractValidator<ICreateStaffModel>
+    public class CreateStaffCommandValidation : AbstractValidator<ICreateStaffModel>
     {
         public CreateStaffCommandValidation()
         {

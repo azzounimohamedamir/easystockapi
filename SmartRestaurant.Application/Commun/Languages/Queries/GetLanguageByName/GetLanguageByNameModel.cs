@@ -9,7 +9,7 @@
         public string Alias { get; set; }
         public string Id { get; set; }
         public string EnglishName { get; set; }
-     
+
 
 
     }

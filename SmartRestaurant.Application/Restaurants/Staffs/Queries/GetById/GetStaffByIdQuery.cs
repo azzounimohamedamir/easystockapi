@@ -1,13 +1,10 @@
-﻿using SmartRestaurant.Application.Interfaces;
+﻿using Helpers;
+using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
+using SmartRestaurant.Application.Restaurants.Staffs.Commands.Update;
 using SmartRestaurant.Application.Restaurants.Staffs.Queries.GetBySpecification;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Application.Restaurants.Staffs.Specifications;
 using System.Linq;
-using SmartRestaurant.Application.Restaurants.Staffs.Commands.Update;
-using SmartRestaurant.Application.Restaurants.Restaurants.Commands.Create;
 
 namespace SmartRestaurant.Application.Restaurants.Staffs.Queries.GetById
 {

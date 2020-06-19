@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SmartRestaurant.Domain.Foods;
 using SmartRestaurant.Domain.Commun;
 using SmartRestaurant.Domain.Restaurants;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Restaurants
 {
@@ -21,8 +17,9 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Configurations.Restaur
             b.Property(a => a.FirstName).HasMaxLength(256).IsRequired();
             b.Property(a => a.LastName).HasMaxLength(256).IsRequired();
 
-            b.OwnsOne<Address>("Address", a => {
-                a.HasForeignKey("StaffId");                
+            b.OwnsOne<Address>("Address", a =>
+            {
+                a.HasForeignKey("StaffId");
             });
             //b.OwnsMany<Contact>("Contacts", c => {
             //    c.HasForeignKey("StaffId");

@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Application.Helpers;
 namespace SmartRestaurant.Application.Commun.Cities.Queries.GetCitiesList
 {
 
@@ -23,7 +20,7 @@ namespace SmartRestaurant.Application.Commun.Cities.Queries.GetCitiesList
 
         public GetAllCitiesQuerie(
             ISmartRestaurantDatabaseService db,
-            ILoggerService<GetAllCitiesQuerie> logger, 
+            ILoggerService<GetAllCitiesQuerie> logger,
             IMailingService mailing,
             INotifyService notify)
         {
@@ -36,23 +33,23 @@ namespace SmartRestaurant.Application.Commun.Cities.Queries.GetCitiesList
         {
             var entity = db.Cities
                 .Include(q => q.State)
-                
+
                 .Select(p => new CityItemModel()
-              {
-                  Id = p.Id,
-                  StateId = p.StateId,
-                  StateName = p.State.Name,
-                  StateIsoCode = p.State.IsoCode,
-                  Alias = p.Alias , 
-                  IsoCode = p.IsoCode,
-                  Name = p.Name,
-                  IsDisabled = p.IsDisabled.DisabledDisplay(),
+                {
+                    Id = p.Id,
+                    StateId = p.StateId,
+                    StateName = p.State.Name,
+                    StateIsoCode = p.State.IsoCode,
+                    Alias = p.Alias,
+                    IsoCode = p.IsoCode,
+                    Name = p.Name,
+                    IsDisabled = p.IsDisabled.DisabledDisplay(),
 
 
                 });
 
 
-            return entity.ToList(); 
+            return entity.ToList();
         }
     }
 

@@ -1,9 +1,6 @@
-﻿using System;
+﻿using SmartRestaurant.Application.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Application.Interfaces;
 
 namespace SmartRestaurant.Application.MailingUsers.Queries.GetMailingUsersByUserId
 {
@@ -32,11 +29,11 @@ namespace SmartRestaurant.Application.MailingUsers.Queries.GetMailingUsersByUser
         public List<MailingUserItem> Execute(string UserId)
         {
             var entity = db.MailingUsers
-             //  .Where(p => p.SRUserId == UserId)
+               //  .Where(p => p.SRUserId == UserId)
                .Select(p => new MailingUserItem
                {
                    MailingId = p.MailingId,
-                 //  UserId = p.SRUserId.ToGuid(),
+                   //  UserId = p.SRUserId.ToGuid(),
                });
             return entity.ToList();
 

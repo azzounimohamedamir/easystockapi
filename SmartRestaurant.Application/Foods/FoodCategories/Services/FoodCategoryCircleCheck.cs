@@ -4,13 +4,12 @@ using SmartRestaurant.Domain.Foods;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Foods.FoodCategories.Services
 {
     public static class FoodCategoryCircleCheck
     {
-        public static bool CircleCheckNotValid(this FoodCategory category, 
+        public static bool CircleCheckNotValid(this FoodCategory category,
             ISmartRestaurantDatabaseService db,
            Guid newParent)
         {
@@ -22,7 +21,7 @@ namespace SmartRestaurant.Application.Foods.FoodCategories.Services
 
 
             var allChildren = GetElementAndChilds(me);
-           
+
             return allChildren.Any(x => x.Id == newParent);
 
         }

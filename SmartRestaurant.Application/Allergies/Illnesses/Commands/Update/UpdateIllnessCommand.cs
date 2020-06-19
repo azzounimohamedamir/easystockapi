@@ -1,12 +1,10 @@
-﻿using SmartRestaurant.Application.Exceptions;
-using SmartRestaurant.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Domain.Allergies;
+﻿using Helpers;
 using SmartRestaurant.Application.Allergies.Illnesses.Commands.Create;
+using SmartRestaurant.Application.Exceptions;
+using SmartRestaurant.Application.Interfaces;
+using SmartRestaurant.Domain.Allergies;
+using System;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Allergies.Illnesses.Commands.Update
 {
@@ -46,7 +44,7 @@ namespace SmartRestaurant.Application.Allergies.Illnesses.Commands.Update
                 }
 
                 var id = model.Id.ToGuid();
-                var illnes = db.Illnesses.FirstOrDefault(x => x.Id ==id);
+                var illnes = db.Illnesses.FirstOrDefault(x => x.Id == id);
                 if (illnes == null)
                 {
                     throw new NotFoundException(nameof(Illness) + model.Id);

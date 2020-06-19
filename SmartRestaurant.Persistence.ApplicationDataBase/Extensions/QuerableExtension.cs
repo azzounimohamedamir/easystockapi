@@ -1,21 +1,18 @@
-﻿using SmartRestaurant.Domain.Commun;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Domain.Commun;
+using System.Linq;
 
 namespace SmartRestaurant.Persistence.ApplicationDataBase.Extensions
 {
-    public  static class QuerableExtension<T> where T : SmartRestaurantEntity
+    public static class QuerableExtension<T> where T : SmartRestaurantEntity
     {
         public static IQueryable<T> ApplySpecification(IQueryable<T> query, ISpecification<T> specification)
         {
             //application des critaires
             if (specification.Criteria != null)
             {
-                query = ApplyCriteria(query,specification.Criteria);
+                query = ApplyCriteria(query, specification.Criteria);
             }
             //application des includes
             query = specification.Includes.Aggregate(query, (current, include) => current.Include(include));
@@ -47,5 +44,5 @@ namespace SmartRestaurant.Persistence.ApplicationDataBase.Extensions
         }
     }
 
-    
+
 }

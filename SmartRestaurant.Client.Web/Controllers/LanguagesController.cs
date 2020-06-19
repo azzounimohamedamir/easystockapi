@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Commun.Languages.Commands.Create;
 using SmartRestaurant.Application.Commun.Languages.Commands.Delete;
@@ -14,10 +13,11 @@ using SmartRestaurant.Client.Web.Models.Utils;
 using SmartRestaurant.Resources.Commun.BaseEntity;
 using SmartRestaurant.Resources.Commun.Language;
 using SmartRestaurant.Resources.Utils;
+using System;
 
 namespace SmartRestaurant.Client.Web.Controllers
 {
-   // [Area("Admin")]
+    // [Area("Admin")]
     [Route("languages")]
     [Route("{culture?}/languages")]
     public class LanguagesController : AdminBaseController
@@ -34,7 +34,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         #region Constructor 
         public LanguagesController(
 
-        
+
             IConfiguration configuration,
             IMailingService mailing,
             INotifyService notify,
@@ -45,7 +45,7 @@ namespace SmartRestaurant.Client.Web.Controllers
           IGetLanguageByIdQuerie getLanguageByIdQuerie,
           IGetLanguageByNameQuerie getLanguageByNameQuery,
             ILoggerService<AdminBaseController> baselog,
-            ILoggerService<LanguagesController> log) : 
+            ILoggerService<LanguagesController> log) :
             base(configuration, mailing, notify, baselog)
         {
             this.createLanguageCommand = createLanguageCommand;
@@ -55,7 +55,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             this.getLanguageByIdQuerie = getLanguageByIdQuerie;
             this.getLanguageByNameQuery = getLanguageByNameQuery;
             _log = log;
-          
+
         }
         #endregion
         #region Index
@@ -72,7 +72,7 @@ namespace SmartRestaurant.Client.Web.Controllers
         }
         #endregion
 
-       
+
         #region Add 
         [HttpGet]
         [Route("add")]
@@ -86,7 +86,7 @@ namespace SmartRestaurant.Client.Web.Controllers
             return View(model);
         }
 
-    
+
         [HttpPost]
         [Route("add")]
         public IActionResult Add(LanguageViewModel model)

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SmartRestaurant.Application.FoodCategories.Commands.Delete
+﻿namespace SmartRestaurant.Application.FoodCategories.Commands.Delete
 {
     public class DeleteFoodCatergoryModel
     {

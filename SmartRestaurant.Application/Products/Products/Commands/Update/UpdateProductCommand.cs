@@ -1,16 +1,13 @@
-﻿using SmartRestaurant.Application.Exceptions;
+﻿using Helpers;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Commun.Prices;
+using SmartRestaurant.Application.Exceptions;
+using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
 using SmartRestaurant.Application.Products.Products.Commands.Create;
 using SmartRestaurant.Domain.Products;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Helpers;
-using SmartRestaurant.Domain.Commun;
-using SmartRestaurant.Application.Helpers;
-using SmartRestaurant.Application.Commun.Prices;
-using Microsoft.EntityFrameworkCore;
 
 namespace SmartRestaurant.Application.Products.Products.Commands.Update
 {
@@ -50,7 +47,7 @@ namespace SmartRestaurant.Application.Products.Products.Commands.Update
 
                 var guid = model.Id.ToGuid();
                 var product = db.Products
-                    .Include(x=>x.Pricing)
+                    .Include(x => x.Pricing)
                     .FirstOrDefault(f => f.Id == guid);
                 if (product == null) throw new NotFoundException();
 

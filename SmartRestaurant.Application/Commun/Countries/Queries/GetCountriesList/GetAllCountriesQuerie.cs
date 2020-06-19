@@ -1,9 +1,7 @@
 ﻿using SmartRestaurant.Application.Helpers;
 using SmartRestaurant.Application.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Application.Commun.Countries.Queries.GetCountriesList
 {
@@ -41,9 +39,9 @@ namespace SmartRestaurant.Application.Commun.Countries.Queries.GetCountriesList
                     Id = p.Id,
                     IsoCode = p.IsoCode,
                     Name = p.Name,
-                    Alias = p.Alias ,
+                    Alias = p.Alias,
                     IsDisabled = p.IsDisabled.DisabledDisplay(),
-                }); 
+                });
             return entity.ToList();
         }
     }
