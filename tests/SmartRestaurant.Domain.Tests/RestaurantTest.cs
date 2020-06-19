@@ -18,7 +18,7 @@ namespace SmartRestaurant.Domain.Tests
                 isHandicapFreindly: true, 
                 acceptsCreditCards: true, 
                 acceptTakeout: false, 
-                tags: "Traditionnelle", 
+                tags: "Traditionnelle, Algerien", 
                 website: "www.restaurant-exemple.com", 
                 averageRating: 4.5, 
                 numberRatings: 150);
