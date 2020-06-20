@@ -6,13 +6,13 @@ using SmartRestaurant.Domain.Entities;
 using Xunit;
 
 
-namespace SmartRestaurant.Application.Tests
+namespace SmartRestaurant.Application.Tests.MappingTests
 {
-    public class MappingTests : IClassFixture<MappingTestsFixture>
+    public class RestaurantMappingTests : IClassFixture<MappingTestsFixture>
     {
         private readonly IMapper _mapper;
 
-        public MappingTests(MappingTestsFixture fixture)
+        public RestaurantMappingTests(MappingTestsFixture fixture)
         {
             _mapper = fixture.Mapper;
         }

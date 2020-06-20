@@ -4,7 +4,7 @@ using System;
 
 namespace SmartRestaurant.Domain.Entities.Glabalisation
 {
-    public class City :  AuditableEntity
+    public class City : AuditableEntity
     {
         public Guid CityId { get; protected set; }
         public string Name { get; protected set; }
