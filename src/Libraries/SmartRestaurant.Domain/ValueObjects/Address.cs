@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Domain.Common;
-using SmartRestaurant.Domain.Entities.Glabalisation;
 using SmartRestaurant.Domain.ValueObjects;
-using System;
 using System.Collections.Generic;
 using System.Text;
 

@@ -2,7 +2,6 @@
 using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Users.Commands;
 using SmartRestaurant.Domain.Entities.User;
 using System;
 using System.Threading;
