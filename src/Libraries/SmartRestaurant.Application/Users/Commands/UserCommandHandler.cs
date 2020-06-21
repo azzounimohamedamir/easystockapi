@@ -8,7 +8,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SmartUser.Application.Users.Commands
+namespace SmartRestaurant.Application.Users.Commands
 {
     public class UserCommandHandler :
     IRequestHandler<AuthenticateUserCommand, UserDto>,
