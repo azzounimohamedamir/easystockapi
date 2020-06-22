@@ -28,6 +28,9 @@ namespace SmartRestaurant.Application.Restaurants.Commands
     {
         public UpdateRestaurantCommandValidator()
         {
+            RuleFor(v => v.RestaurantId)
+                .NotNull();
+
             RuleFor(v => v.NameEnglish)
                 .MaximumLength(200)
                 .NotEmpty();
