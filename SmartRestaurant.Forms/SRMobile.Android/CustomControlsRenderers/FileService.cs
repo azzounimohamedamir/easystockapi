@@ -32,8 +32,8 @@ namespace SmartRestaurant.Diner.Droid.CustomControlsRenderers
 
                 var partedURL = URL.Split('/');
                 string localFilename = partedURL[partedURL.Length - 1];
-                string localPath = System.IO.Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, documentsPath, "SmartRestaurant", localFilename);
-                File.Create(localPath);
+                string localPath = System.IO.Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, documentsPath, localFilename);
+                File.Create(localPath);                
                 File.WriteAllBytes(localPath, bytes); // writes to local storage
             };
             var url = new Uri(URL);
@@ -43,10 +43,10 @@ namespace SmartRestaurant.Diner.Droid.CustomControlsRenderers
         {
             string documentsPath = Android.OS.Environment.DirectoryDcim;
             if( File.Exists(System.IO.Path.Combine(Android.OS.Environment.ExternalStorageDirectory.
-                AbsolutePath,documentsPath,"SmartRestaurant"
+                AbsolutePath,documentsPath
                 , name)))
             {
-                return System.IO.Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath,documentsPath, "SmartRestaurant", name);
+                return System.IO.Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath,documentsPath, name);
             }
             else
             {
