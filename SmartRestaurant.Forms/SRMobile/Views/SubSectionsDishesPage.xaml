@@ -11,7 +11,7 @@
                         <RowDefinition Height="140" />
                         <RowDefinition Height="56" />
                     </Grid.RowDefinitions>
-                    <Image HeightRequest="140" Grid.Row="0" Source="{Binding Section.Image}" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Aspect="AspectFill" />
+                    <ffimageloading:CachedImage HeightRequest="140" Grid.Row="0" Source="{Binding Section.Image}" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Aspect="AspectFill" />
                     <Label Grid.Row="1" BackgroundColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HeightRequest="56" HorizontalOptions="FillAndExpand" Text="{Binding Section.Name}" TextColor="#01A9AC" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf" FontAttributes="Bold" VerticalOptions="End"></Label>
                 </Grid>
             </pancakeview:PancakeView>
@@ -47,7 +47,7 @@
                                                     </pancakeview:PancakeView.GestureRecognizers>
                                                     <StackLayout FlowDirection="MatchParent" HeightRequest="102" VerticalOptions="Start" Orientation="Horizontal">
                                                         <pancakeview:PancakeView Padding="12" VerticalOptions="Start" BorderColor="Transparent" BackgroundColor="Transparent" HorizontalOptions="Start" HeightRequest="78" WidthRequest="78" IsClippedToBounds="True" CornerRadius="10" HasShadow="False" Elevation="0">
-                                                            <Image Source="{Binding Images[0]}" Aspect="AspectFill" />
+                                                            <ffimageloading:CachedImage Source="{Binding Images[0]}" Aspect="AspectFill" />
                                                         </pancakeview:PancakeView>
                                                         <StackLayout Margin="48,12,48,12" Orientation="Vertical" HorizontalOptions="StartAndExpand">
                                                             <Label FontSize="14" TextColor="Black" Text="{Binding Name, Mode=TwoWay}" FontAttributes="Bold" VerticalTextAlignment="Start" HorizontalTextAlignment="Start" HorizontalOptions="StartAndExpand" VerticalOptions="Start" FontFamily="Assets/Fonts/Roboto.ttf" />

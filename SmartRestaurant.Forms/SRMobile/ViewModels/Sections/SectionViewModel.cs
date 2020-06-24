@@ -109,7 +109,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// </summary>
         public string Image 
         {
-            get { return section.Image; }
+            get { return DependencyService.Get<IFileService>().GetImage(section.Image); }
             set
             {
                 section.Image = value;
@@ -124,7 +124,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             get
             {
-                return String.IsNullOrEmpty(section.Image) ? null : new Uri(Image);
+                return String.IsNullOrEmpty(DependencyService.Get<IFileService>().GetImage(section.Image)) ? null : new Uri(DependencyService.Get<IFileService>().GetImage(Image));
             }
         }
         #endregion

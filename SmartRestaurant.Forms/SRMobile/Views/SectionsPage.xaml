@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" NavigationPage.HasNavigationBar="True" NavigationPage.HasBackButton="False" x:Class="SmartRestaurant.Diner.Views.SectionsPage" xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers" xmlns:local="clr-namespace:SmartRestaurant.Diner.CustomControls" xmlns:vms="clr-namespace:SmartRestaurant.Diner.ViewModels.Sections" xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView" xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" Title="{translator:Translate RestaurantName}" BackgroundColor="White">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" NavigationPage.HasNavigationBar="True" NavigationPage.HasBackButton="False" x:Class="SmartRestaurant.Diner.Views.SectionsPage" xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers" xmlns:local="clr-namespace:SmartRestaurant.Diner.CustomControls" xmlns:vms="clr-namespace:SmartRestaurant.Diner.ViewModels.Sections" xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView" xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" Title="{translator:Translate RestaurantName}" BackgroundColor="White">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Margin="0">
             <StackLayout Orientation="Vertical" Padding="22,51,22,0" VerticalOptions="FillAndExpand">
@@ -15,7 +15,7 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="259"></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <Image HeightRequest="163" Grid.Row="0" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="AspectFill" />
+                                    <ff:CachedImage HeightRequest="163" Grid.Row="0" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="AspectFill" />
                                     <Label Style="{StaticResource RobotoLabel}" Grid.Row="0" BackgroundColor="White" HorizontalTextAlignment="{Binding OrientationText}" VerticalTextAlignment="Start" HeightRequest="74" HorizontalOptions="FillAndExpand" Margin="32,170,16,0" VerticalOptions="FillAndExpand">
                                         <Label.FormattedText>
                                             <FormattedString>

@@ -34,7 +34,11 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             SubSection = _subsection;
             _EstimatedTime = _dish.EstimatedTime;
-
+            for(int i=0;i<_dish.Images.Count();i++)
+            {
+                if(!_dish.Images[i].Contains("/"))
+                _dish.Images[i]= DependencyService.Get<IFileService>().GetImage(_dish.Images[i]);
+            }
             this.dish = _dish;
             Specifications =
                 SectionsListViewModel.Specifications;
