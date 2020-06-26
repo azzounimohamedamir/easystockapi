@@ -10,17 +10,19 @@ namespace SmartRestaurant.Domain.Tests
 
         public RestaurantTest()
         {
-            Restaurant = Restaurant.Create(nameArabic: "مطعمي", 
-                nameFrench: "Mon Restaurant", 
-                nameEnglish: "My Restaurant", 
-                description: "Bienvenue chez mon restaurant algerien", 
-                hasCarParking: true, 
-                isHandicapFreindly: true, 
-                acceptsCreditCards: true, 
-                acceptTakeout: false, 
-                tags: "Traditionnelle, Algerien", 
-                website: "www.restaurant-exemple.com", 
-                averageRating: 4.5, 
+            Restaurant = new Restaurant();
+            Restaurant.UpdateRestaurantInfo(
+                nameArabic: "مطعمي",
+                nameFrench: "Mon Restaurant",
+                nameEnglish: "My Restaurant",
+                description: "Bienvenue chez mon restaurant algerien",
+                hasCarParking: true,
+                isHandicapFreindly: true,
+                acceptsCreditCards: true,
+                acceptTakeout: false,
+                tags: "Traditionnelle, Algerien",
+                website: "www.restaurant-exemple.com",
+                averageRating: 4.5,
                 numberRatings: 150);
         }
 

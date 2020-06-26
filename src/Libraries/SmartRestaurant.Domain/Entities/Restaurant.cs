@@ -25,24 +25,20 @@ namespace SmartRestaurant.Domain.Entities
         public string Website { get; protected set; }
         public RestaurantState RestaurantState { get; protected set; }
 
-        public static Restaurant Create(string nameArabic, string nameFrench, string nameEnglish, string description, bool hasCarParking, bool isHandicapFreindly, bool acceptsCreditCards, bool acceptTakeout, string tags, string website, double averageRating, int numberRatings)
+        public void UpdateRestaurantInfo(string nameArabic, string nameFrench, string nameEnglish, string description, bool hasCarParking, bool isHandicapFreindly, bool acceptsCreditCards, bool acceptTakeout, string tags, string website, double averageRating, int numberRatings)
         {
-            Restaurant restaurant = new Restaurant()
-            {
-                NameArabic = nameArabic,
-                NameFrench = nameFrench,
-                NameEnglish = nameEnglish,
-                Description = description,
-                HasCarParking = hasCarParking,
-                IsHandicapFreindly = isHandicapFreindly,
-                AcceptsCreditCards = acceptsCreditCards,
-                AcceptTakeout = acceptTakeout,
-                Tags = tags,
-                Website = website,
-                AverageRating = averageRating,
-                NumberRatings = numberRatings
-            };
-            return restaurant;
+            NameArabic = nameArabic;
+            NameFrench = nameFrench;
+            NameEnglish = nameEnglish;
+            Description = description;
+            HasCarParking = hasCarParking;
+            IsHandicapFreindly = isHandicapFreindly;
+            AcceptsCreditCards = acceptsCreditCards;
+            AcceptTakeout = acceptTakeout;
+            Tags = tags;
+            Website = website;
+            AverageRating = averageRating;
+            NumberRatings = numberRatings;
         }
 
         public void LocatedAt(string streetAddress, string city, string country)
