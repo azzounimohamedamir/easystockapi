@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using NUnit.Framework;
 using SmartRestaurant.Application.Restaurants.Commands;
 using SmartRestaurant.Domain.Entities;
 using System.Threading.Tasks;
@@ -9,24 +10,9 @@ namespace SmartRestaurant.Application.IntegrationTests.IntegrationTest
     using static Testing;
     public class RestaurantIntegrationTest : TestBase
     {
-        [Fact]
+        [Test]
         public async Task CreateRestaurant_SouldSaveDB()
         {
-            //Restaurant rs = new Restaurant();
-            //rs.UpdateRestaurantInfo("تاج محل", "Taj mahal", "Taj mahal", "res indian", false, true, true, true, "Rice", null, 3.5, 3);
-            //CreateRestaurantCommand command = new CreateRestaurantCommand
-            //{
-            //    NameArabic = "تاج محل",
-            //    NameFrench = "Taj mahal",
-            //    NameEnglish = "Taj mahal"
-            //};
-
-            //var itemId = await SendAsync(command);
-
-            //var item = await FindAsync<Restaurant>(itemId);
-
-            //item.Should().BeEquivalentTo(command);
-
             Restaurant restaurant = new Restaurant();
             restaurant.UpdateRestaurantInfo(
 
@@ -48,7 +34,7 @@ namespace SmartRestaurant.Application.IntegrationTests.IntegrationTest
             CreateRestaurantCommand createRestaurantCommand = new CreateRestaurantCommand();
             Restaurant RestaurantFind = new Restaurant();
             RestaurantFind.Should().BeEquivalentTo(restaurant);
-
+            
             var itemId = await SendAsync(createRestaurantCommand);
 
             var item = await FindAsync<Restaurant>(itemId);
