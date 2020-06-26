@@ -48,7 +48,7 @@ namespace SmartRestaurant.Application.Users.Commands
 
         public async Task<UserDto> Handle(AuthenticateUserCommand request, CancellationToken cancellationToken)
         {
-            User user = await _userService.Authenticate(request.Email,request.Password);
+            User user = await _userService.Authenticate(request.Email, request.Password);
             return _mapper.Map<UserDto>(user);
         }
     }

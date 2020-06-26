@@ -19,7 +19,7 @@ namespace SmartRestaurant.Web.Controllers
         [HttpGet("{id}")]
         public async Task<UserDto> GetById(Guid Id)
         {
-            return await Mediator.Send(new GetUserByIdQuery { UserId = Id});
+            return await Mediator.Send(new GetUserByIdQuery { UserId = Id });
         }
 
         [HttpPost]

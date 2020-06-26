@@ -23,6 +23,7 @@ namespace SmartRestaurant.Application.Restaurants.Commands
         public string Website { get; set; }
     }
 
+
     public class CreateRestaurantCommandValidator : AbstractValidator<CreateRestaurantCommand>
     {
         public CreateRestaurantCommandValidator()

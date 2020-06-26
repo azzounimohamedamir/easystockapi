@@ -1,8 +1,6 @@
 ﻿using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Infrastructure.Persistence;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.IntegrationTests.Helpers
 {
@@ -24,9 +22,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Helpers
         {
             return new List<Restaurant>()
             {
-                new Restaurant(){ NameArabic="Test 1" },
-                new Restaurant(){ NameArabic="Test 2" },
-                new Restaurant(){ NameArabic="Test 3"  }
+
             };
         }
     }

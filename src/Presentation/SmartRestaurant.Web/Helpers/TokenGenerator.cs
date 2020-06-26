@@ -9,7 +9,7 @@ namespace SmartRestaurant.Web.Helpers
 {
     public static class TokenGenerator
     {
-        public static string Generate(UserDto user,string secret)
+        public static string Generate(UserDto user, string secret)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);

@@ -4,20 +4,17 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Security.Claims;
-using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace SmartRestaurant.Application.IntegrationTests.IntegrationTest
 {
-    
-    public class AuthTests: IClassFixture<CustomWebApplicationFactory<SmartRestaurant.Web.Startup>>
+
+    public class AuthTests : IClassFixture<CustomWebApplicationFactory<SmartRestaurant.Web.Startup>>
     {
         private readonly CustomWebApplicationFactory<SmartRestaurant.Web.Startup>
             _factory;

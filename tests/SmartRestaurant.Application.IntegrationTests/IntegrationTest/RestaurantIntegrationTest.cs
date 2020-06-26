@@ -1,39 +1,59 @@
 ﻿using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Restaurants.Commands;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Mvc.Testing;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 using Xunit;
-
 
 namespace SmartRestaurant.Application.IntegrationTests.IntegrationTest
 {
-    
-    public class RestaurantIntegrationTest
+    using static Testing;
+    public class RestaurantIntegrationTest : TestBase
     {
         [Fact]
-        public void CreateRestaurant_SouldSaveDB()
+        public async Task CreateRestaurant_SouldSaveDB()
         {
-            Restaurant restaurant = new Restaurant
-            {
-                NameArabic = "تاج محل",
-                NameFrench = "Taj mahal",
-                NameEnglish = "Taj mahal",
-                Address = { City = "Algiers", StreetAddress = "Bznknoun", GeoPosition = { Longitude = "332444", Latitude = "2324342" } },
-                PhoneNumber = { CountryCode = 00213, Number = 555064434 },
-                Description = "Restaurant indien"
+            //Restaurant rs = new Restaurant();
+            //rs.UpdateRestaurantInfo("تاج محل", "Taj mahal", "Taj mahal", "res indian", false, true, true, true, "Rice", null, 3.5, 3);
+            //CreateRestaurantCommand command = new CreateRestaurantCommand
+            //{
+            //    NameArabic = "تاج محل",
+            //    NameFrench = "Taj mahal",
+            //    NameEnglish = "Taj mahal"
+            //};
 
-            };
+            //var itemId = await SendAsync(command);
+
+            //var item = await FindAsync<Restaurant>(itemId);
+
+            //item.Should().BeEquivalentTo(command);
+
+            Restaurant restaurant = new Restaurant();
+            restaurant.UpdateRestaurantInfo(
+
+
+
+                 "تاج محل",
+                 "Taj mahal",
+                 "Taj mahal",
+                 "It's a traditional indian restaurant",
+                 true,
+                 true,
+                 true,
+                 true,
+                 "#TAJ#Mahal",
+                 "", 4, 645);
+            restaurant.LocatedAt("Didouche Mourad", "Algiers", "Algeria");
+            restaurant.ChangePhoneNumber(213, 670217536);
+
             CreateRestaurantCommand createRestaurantCommand = new CreateRestaurantCommand();
             Restaurant RestaurantFind = new Restaurant();
             RestaurantFind.Should().BeEquivalentTo(restaurant);
 
+            var itemId = await SendAsync(createRestaurantCommand);
 
+            var item = await FindAsync<Restaurant>(itemId);
+
+            item.Should().BeEquivalentTo(restaurant);
         }
         //deleteRestaurant_ShouldSaveDB
     }

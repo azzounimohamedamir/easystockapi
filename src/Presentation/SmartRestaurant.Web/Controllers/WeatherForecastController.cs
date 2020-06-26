@@ -1,9 +1,9 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using SmartRestaurant.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SmartRestaurant.Web.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace SmartRestaurant.Web.Controllers
 {
