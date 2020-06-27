@@ -1,52 +1,52 @@
 <template>
-    <div id="app">
-        <div v-if="IsAdmin">
-            <router-view />
-        </div>
-        <div v-else>
-            <!--
-            <div id="nav">
-                <router-link to="/">Home</router-link> |
-                <router-link to="/about">About</router-link>
+    <div v-if="IsAdmin">
+        <TopNav />
+        <SideNav />
+        <div class="app-content content">
+            <div class="content-overlay"></div>
+            <div class="content-wrapper">
+                <div class="content-body">
+                    <router-view />
+                    <div class="sidenav-overlay"></div>
+                    <div class="drag-target"></div>
+                </div>
             </div>
-                -->
-            <router-view />
         </div>
-
+        <footer />
+    </div>
+    <div v-else>
+        <!--
+        <div id="nav">
+            <router-link to="/">Home</router-link> |
+            <router-link to="/about">About</router-link>
+        </div>
+            -->
+        <router-view />
     </div>
 </template>
 
 <script>
+    import TopNav from '@/components/Dashboard/TopNav.vue'
+    import SideNav from '@/components/Dashboard/SideNav.vue'
+    import Footer from '@/components/Dashboard/Footer.vue'
+
+
     export default {
         name: 'app',
+        components: {
+            TopNav,
+            SideNav,
+            Footer
+        },
+        mounted() {
+            if (this.IsAdmin) {
+                document.body.className = 'vertical-layout vertical-menu 2-columns fixed-navbar';
+            }
+        },
         data() {
             return {
-                IsAdmin: false
+                IsAdmin: true
             }
         }
     }
 </script>
-
-<style>
-
-    #app {
-        font-family: Avenir, Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-    }
-
-    #nav {
-        padding: 30px;
-    }
-
-        #nav a {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-            #nav a.router-link-exact-active {
-                color: #42b983;
-            }
-</style>

@@ -11,7 +11,7 @@
                                     <div class="card-content">
                                         <div class="text-center">
                                             <h5 class="card-text pb-2 white">WE ARE LAUNCHING SOON.</h5>
-                                            <img src="img/logo.png" class="img-responsive block width-300 mx-auto" height="300" alt="bg-img">
+                                            <img src="/assets/img/logo.png" class="img-responsive block width-300 mx-auto" height="300" alt="bg-img">
                                             <br />
                                             <div class="col-12 pt-1">
                                                 <p class="card-text lead white">Our website is under construction.</p>
@@ -55,7 +55,7 @@
     }
 
     .comingsoonOne {
-        background-image: url("/img/background.jpg");
+        background-image: url("/assets/img/background.jpg");
         background-repeat: no-repeat;
         background-size: cover;
     }
@@ -72,7 +72,7 @@
     }
 
     .comingsoonFlat {
-        background-image: url("/img/background.jpg");
+        background-image: url("/assets/img/background.jpg");
         background-repeat: no-repeat;
         background-size: cover;
     }
