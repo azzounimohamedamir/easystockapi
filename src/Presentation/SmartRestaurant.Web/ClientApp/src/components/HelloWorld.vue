@@ -1,13 +1,6 @@
 <template>
-  <div>
-    <blockquote>
-      &#8220;{{ quote }}&#8221;
-      <footer>
-        <small>
-          <em>&mdash;{{ author }}</em>
-        </small>
-      </footer>
-    </blockquote>    
+  <div class="hello">
+    <h1>{{ msg }}</h1>
   </div>
 </template>
 
@@ -15,10 +8,9 @@
 export default {
   name: 'HelloWorld',
   props: {
-    quote: String,
-    author: String,
-  },
-};
+    msg: String
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
