@@ -26,12 +26,19 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\public\css\**" />
+    <Compile Remove="ClientApp\public\js\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\public\css\**" />
+    <Content Remove="ClientApp\public\js\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="ClientApp\tsconfig.json" />
+    <EmbeddedResource Remove="ClientApp\public\css\**" />
+    <EmbeddedResource Remove="ClientApp\public\js\**" />
+    <None Remove="ClientApp\public\css\**" />
+    <None Remove="ClientApp\public\js\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -44,10 +44,10 @@
                     <a href="#"><i class="feather icon-check-square"></i><span class="menu-title">Order</span></a>
                 </li>
                 <li class="nav-item has-sub">
-                    <a href="#"><i class="feather icon-user"></i><span class="menu-title">Client</span></a>
+                    <a href="#"><i class="feather icon-user"></i><span class="menu-title">Clients</span></a>
                     <ul class="menu-content">
                         <li>
-                            <a class="menu-item" href="#">Client</a>
+                            <a class="menu-item" href="#">Clients</a>
                             <a class="menu-item" href="#">Billing</a>
                             <a class="menu-item" href="#">Reservation</a>
                         </li>
