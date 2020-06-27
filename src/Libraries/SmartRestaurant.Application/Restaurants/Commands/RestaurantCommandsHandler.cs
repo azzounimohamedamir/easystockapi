@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SmartRestaurant.Application.Restaurants.Commands
 {
     public class RestaurantCommandHandler :
-    //IRequestHandler<CreateRestaurantCommand, Guid>,
+    IRequestHandler<CreateRestaurantCommand, Guid>,
     IRequestHandler<UpdateRestaurantCommand, Guid>,
     IRequestHandler<DeleteRestaurantCommand>
     {

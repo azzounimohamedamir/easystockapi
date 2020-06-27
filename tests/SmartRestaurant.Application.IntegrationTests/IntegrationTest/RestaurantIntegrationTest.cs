@@ -2,44 +2,57 @@
 using NUnit.Framework;
 using SmartRestaurant.Application.Restaurants.Commands;
 using SmartRestaurant.Domain.Entities;
+using System;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace SmartRestaurant.Application.IntegrationTests.IntegrationTest
 {
     using static Testing;
+    [TestFixture]
     public class RestaurantIntegrationTest : TestBase
     {
         [Test]
         public async Task CreateRestaurant_SouldSaveDB()
         {
-            Restaurant restaurant = new Restaurant();
-            restaurant.UpdateRestaurantInfo(
+            CreateRestaurantCommand createRestaurantCommand = new CreateRestaurantCommand
+            {               
+                AcceptsCreditCards = true,
+                AcceptTakeout = true,
+                Address = new Common.Dtos.ValueObjects.AddressDto()
+                {
+                    City = "Algiers",
+                    Country = "Algeria",
+                    GeoPosition = new Common.Dtos.ValueObjects.GeoPositionDto()
+                    {
+                        Latitude = "0",
+                        Longitude = "0"
+                    },
+                    StreetAddress = "Didouche Mourad"
+                },
+                AverageRating = 4,
+                Description = "",
+                HasCarParking = true,
+                IsHandicapFreindly = true,
+                NameArabic = "تاج محل",
+                NameEnglish = "Taj mahal",
+                NameFrench = "Taj mahal",
+                 OffersTakeout=true,
+ PhoneNumber=new Common.Dtos.ValueObjects.PhoneNumberDto() { CountryCode=213,Number= 670217536 },
+ Tags="" ,Website=""
 
+            };
+            var itemId = await SendAsync<Guid>(createRestaurantCommand);
 
-
-                 "تاج محل",
-                 "Taj mahal",
-                 "Taj mahal",
-                 "It's a traditional indian restaurant",
-                 true,
-                 true,
-                 true,
-                 true,
-                 "#TAJ#Mahal",
-                 "", 4, 645);
-            restaurant.LocatedAt("Didouche Mourad", "Algiers", "Algeria");
-            restaurant.ChangePhoneNumber(213, 670217536);
-
-            CreateRestaurantCommand createRestaurantCommand = new CreateRestaurantCommand();
-            Restaurant RestaurantFind = new Restaurant();
-            RestaurantFind.Should().BeEquivalentTo(restaurant);
-            
-            var itemId = await SendAsync(createRestaurantCommand);
 
             var item = await FindAsync<Restaurant>(itemId);
 
-            item.Should().BeEquivalentTo(restaurant);
+            item.Should().NotBeNull();
+            item.RestaurantId.Should().Be(itemId);
+            item.NameArabic.Should().BeEquivalentTo(createRestaurantCommand.NameArabic);
+            item.NameEnglish.Should().BeEquivalentTo(createRestaurantCommand.NameEnglish);
+            item.NameFrench.Should().BeEquivalentTo(createRestaurantCommand.NameFrench);
+            item.Address.Should().BeEquivalentTo(createRestaurantCommand.Address);
         }
         //deleteRestaurant_ShouldSaveDB
     }
