@@ -15,6 +15,7 @@ namespace SmartRestaurant.Application.Restaurants.Commands
         public PhoneNumberDto PhoneNumber { get; set; }
         public string Description { get; set; }
         public float AverageRating { get; set; }
+        public int NumberRatings { get; set; }
         public bool HasCarParking { get; set; }
         public bool IsHandicapFreindly { get; set; }
         public bool OffersTakeout { get; set; }

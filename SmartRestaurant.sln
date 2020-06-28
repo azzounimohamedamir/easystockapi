@@ -35,11 +35,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Android", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.IOS", "src\Presentation\SmartRestaurant.Mobile\SmartRestaurant.IOS\SmartRestaurant.IOS.csproj", "{142CA60B-5884-459E-AB9A-A268D0873113}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Application.IntegrationTests", "tests\SmartRestaurant.Application.IntegrationTests\SmartRestaurant.Application.IntegrationTests.csproj", "{EF8E2CD1-DA10-461C-848F-2FA25284FA5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Application.IntegrationTests", "tests\SmartRestaurant.Application.IntegrationTests\SmartRestaurant.Application.IntegrationTests.csproj", "{EF8E2CD1-DA10-461C-848F-2FA25284FA5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Application.Tests", "tests\SmartRestaurant.Application.Tests\SmartRestaurant.Application.Tests.csproj", "{6DACC0EF-6761-4979-8293-745055D3BFDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Application.Tests", "tests\SmartRestaurant.Application.Tests\SmartRestaurant.Application.Tests.csproj", "{6DACC0EF-6761-4979-8293-745055D3BFDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Domain.Tests", "tests\SmartRestaurant.Domain.Tests\SmartRestaurant.Domain.Tests.csproj", "{BF970DCA-C78C-40FE-89C1-20755DD313C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Domain.Tests", "tests\SmartRestaurant.Domain.Tests\SmartRestaurant.Domain.Tests.csproj", "{BF970DCA-C78C-40FE-89C1-20755DD313C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

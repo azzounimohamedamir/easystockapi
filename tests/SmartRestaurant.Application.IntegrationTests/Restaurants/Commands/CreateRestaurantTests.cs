@@ -4,19 +4,18 @@ using SmartRestaurant.Application.Restaurants.Commands;
 using SmartRestaurant.Domain.Entities;
 using System;
 using System.Threading.Tasks;
-using Xunit;
 
-namespace SmartRestaurant.Application.IntegrationTests.IntegrationTest
+namespace SmartRestaurant.Application.IntegrationTests.Restaurants
 {
     using static Testing;
     [TestFixture]
-    public class RestaurantIntegrationTest : TestBase
+    public class CreateRestaurantTests : TestBase
     {
         [Test]
         public async Task CreateRestaurant_SouldSaveDB()
         {
             CreateRestaurantCommand createRestaurantCommand = new CreateRestaurantCommand
-            {               
+            {
                 AcceptsCreditCards = true,
                 AcceptTakeout = true,
                 Address = new Common.Dtos.ValueObjects.AddressDto()
@@ -37,9 +36,10 @@ namespace SmartRestaurant.Application.IntegrationTests.IntegrationTest
                 NameArabic = "تاج محل",
                 NameEnglish = "Taj mahal",
                 NameFrench = "Taj mahal",
-                 OffersTakeout=true,
- PhoneNumber=new Common.Dtos.ValueObjects.PhoneNumberDto() { CountryCode=213,Number= 670217536 },
- Tags="" ,Website=""
+                OffersTakeout = true,
+                PhoneNumber = new Common.Dtos.ValueObjects.PhoneNumberDto() { CountryCode = 213, Number = 670217536 },
+                Tags = "",
+                Website = ""
 
             };
             var itemId = await SendAsync<Guid>(createRestaurantCommand);
@@ -54,6 +54,5 @@ namespace SmartRestaurant.Application.IntegrationTests.IntegrationTest
             item.NameFrench.Should().BeEquivalentTo(createRestaurantCommand.NameFrench);
             item.Address.Should().BeEquivalentTo(createRestaurantCommand.Address);
         }
-        //deleteRestaurant_ShouldSaveDB
     }
 }

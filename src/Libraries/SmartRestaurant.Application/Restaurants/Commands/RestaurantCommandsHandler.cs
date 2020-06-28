@@ -57,8 +57,10 @@ namespace SmartRestaurant.Application.Restaurants.Commands
                 throw new NotFoundException(nameof(Restaurant), request.RestaurantId);
             }
 
-            entity = _mapper.Map<Restaurant>(request);
-            _context.Restaurants.Add(entity);
+            //entity = _mapper.Map<Restaurant>(request);
+            //_context.Restaurants.Add(entity);
+            entity.UpdateRestaurantInfo(request.NameArabic, request.NameFrench, request.NameEnglish, request.Description, request.HasCarParking, request.IsHandicapFreindly, request.AcceptsCreditCards, request.AcceptTakeout, request.Tags, request.Website, request.AverageRating, request.NumberRatings);
+
             await _context.SaveChangesAsync(cancellationToken);
 
             return entity.RestaurantId;

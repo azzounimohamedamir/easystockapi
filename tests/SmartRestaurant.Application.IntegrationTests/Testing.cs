@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -24,7 +23,7 @@ public class Testing
     private static string _currentUserId;
     [OneTimeSetUp]
     public void RunBeforeAnyTests()
-   {
+    {
         var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", true, true)
@@ -38,7 +37,7 @@ public class Testing
 
         services.AddSingleton(Mock.Of<IWebHostEnvironment>(w =>
             w.EnvironmentName == "Development" &&
-            w.ApplicationName == "SmartRestaurant.Web"));        
+            w.ApplicationName == "SmartRestaurant.Web"));
         services.AddLogging();
         ////Add Mediator 
         //services.AddMediatR(typeof(Startup));
@@ -59,7 +58,7 @@ public class Testing
         services.AddTransient(provider =>
             Mock.Of<ICurrentUserService>(s => s.UserId == _currentUserId));
 
-        _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();        
+        _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
         _checkpoint = new Checkpoint
         {

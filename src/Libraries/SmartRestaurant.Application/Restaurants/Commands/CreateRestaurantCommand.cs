@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using System;
@@ -9,7 +8,7 @@ namespace SmartRestaurant.Application.Restaurants.Commands
     public class CreateRestaurantCommand : IRequest<Guid>
     {
         public string NameArabic { get; set; }
-        public string NameFrench { get; set; }        
+        public string NameFrench { get; set; }
         public string NameEnglish { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
@@ -35,4 +34,4 @@ namespace SmartRestaurant.Application.Restaurants.Commands
                 .NotEmpty();
         }
     }
-    }
+}
