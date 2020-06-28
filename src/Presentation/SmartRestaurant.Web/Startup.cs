@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SpaServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SmartRestaurant.Application;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Services;
 using SmartRestaurant.Infrastructure;
@@ -24,6 +25,7 @@ namespace SmartRestaurant.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplication();
             services.AddInfrastructure(Configuration);
             services.AddHttpContextAccessor();
 

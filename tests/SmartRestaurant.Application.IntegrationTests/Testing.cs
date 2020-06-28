@@ -40,12 +40,12 @@ public class Testing
             w.EnvironmentName == "Development" &&
             w.ApplicationName == "SmartRestaurant.Web"));        
         services.AddLogging();
-        //Add Mediator 
-        services.AddMediatR(typeof(Startup));
-        //Because the mediator & Mapper belongs to other assemly not "SmartRestaurant.Web" 
-        var assembly = AppDomain.CurrentDomain.Load("SmartRestaurant.Application");
-        services.AddMediatR(assembly);
-        services.AddAutoMapper(assembly);
+        ////Add Mediator 
+        //services.AddMediatR(typeof(Startup));
+        ////Because the mediator & Mapper belongs to other assemly not "SmartRestaurant.Web" 
+        //var assembly = AppDomain.CurrentDomain.Load("SmartRestaurant.Application");
+        //services.AddMediatR(assembly);
+        //services.AddAutoMapper(assembly);
         startup.ConfigureServices(services);
 
         // Replace service registration for ICurrentUserService
