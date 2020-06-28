@@ -14,6 +14,7 @@ namespace SmartRestaurant.Application.Common.Mappers
         {
             CreateMap<Restaurant, RestaurantDto>().ReverseMap();
             CreateMap<Restaurant, CreateRestaurantCommand>().ReverseMap();
+            CreateMap<Restaurant, UpdateRestaurantCommand>().ReverseMap();
             CreateMap<GeoPosition, GeoPositionDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<PhoneNumber, PhoneNumberDto>().ReverseMap();

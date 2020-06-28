@@ -5,7 +5,7 @@ using System;
 
 namespace SmartRestaurant.Application.Restaurants.Commands
 {
-    public class UpdateRestaurantCommand : IRequest<Guid>
+    public class UpdateRestaurantCommand : IRequest
     {
         public Guid RestaurantId { get; set; }
         public string NameArabic { get; set; }
