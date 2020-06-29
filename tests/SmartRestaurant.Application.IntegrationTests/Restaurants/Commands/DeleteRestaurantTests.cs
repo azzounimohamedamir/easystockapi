@@ -11,7 +11,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Restaurants.Commands
     public class DeleteRestaurantTests : TestBase
     {
         [Test]
-        public async Task Sould_DeleteRestaurant()
+        public async Task DeleteRestaurant_ShouldSaveToDB()
         {
             var RestaurantId = await SendAsync(new CreateRestaurantCommand
             {

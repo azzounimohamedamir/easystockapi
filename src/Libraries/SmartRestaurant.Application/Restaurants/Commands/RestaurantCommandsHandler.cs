@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FluentValidation.Internal;
 using MediatR;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
@@ -57,7 +56,7 @@ namespace SmartRestaurant.Application.Restaurants.Commands
             {
                 throw new NotFoundException(nameof(Restaurant), request.RestaurantId);
             }
-            
+
             entity.UpdateRestaurantInfo(_mapper.Map<Restaurant>(request));
             await _context.SaveChangesAsync(cancellationToken);
 

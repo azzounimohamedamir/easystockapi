@@ -12,7 +12,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Restaurants
     public class CreateRestaurantTests : TestBase
     {
         [Test]
-        public async Task CreateRestaurant_SouldSaveDB()
+        public async Task CreateRestaurant_ShouldSaveToDB()
         {
             CreateRestaurantCommand createRestaurantCommand = new CreateRestaurantCommand
             {

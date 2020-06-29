@@ -61,7 +61,7 @@ namespace SmartRestaurant.Domain.Entities
             AverageRating = restaurant.AverageRating;
             NumberRatings = restaurant.NumberRatings;
             LocatedAt(restaurant.Address?.StreetAddress, restaurant.Address?.City, restaurant.Address?.Country);
-            if(restaurant.PhoneNumber!=null)
+            if (restaurant.PhoneNumber != null)
                 ChangePhoneNumber(restaurant.PhoneNumber.CountryCode, restaurant.PhoneNumber.Number);
             ChangeState(restaurant.RestaurantState);
             CreateMapMarker(restaurant.Address?.GeoPosition?.Latitude, restaurant.Address?.GeoPosition?.Longitude);

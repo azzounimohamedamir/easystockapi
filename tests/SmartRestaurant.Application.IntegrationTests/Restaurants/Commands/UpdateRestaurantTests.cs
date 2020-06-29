@@ -15,13 +15,16 @@ namespace SmartRestaurant.Application.IntegrationTests.Restaurants.Commands
 
             var RestaurantId = await SendAsync(new CreateRestaurantCommand
             {
-                NameEnglish = "Taj mahal"
+                NameEnglish = "Taj mahal",
+                AverageRating = 12,
+                HasCarParking = true
             });
 
             var command = new UpdateRestaurantCommand
             {
                 RestaurantId = RestaurantId,
                 NameEnglish = "Taj mahal Updated test"
+
             };
 
             await SendAsync(command);
