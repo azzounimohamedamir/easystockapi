@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using SmartRestaurant.Application.Restaurants.Commands;
 using SmartRestaurant.Application.Restaurants.Queries;
 using SmartRestaurant.Domain.Entities;
 using System.Threading.Tasks;
@@ -14,9 +15,15 @@ namespace SmartRestaurant.Application.IntegrationTests.Restaurants
         {
             for (int i = 0; i < 5; i++)
             {
-                Restaurant restaurant = new Restaurant();
-                restaurant.UpdateRestaurantInfo("تاكوس دزاد", "tacos Dz" + i.ToString() + "", "tacos Dz" + i.ToString() + "", "Tasty Tacos", true, true, true, true, "#Tacos", "wwww.wwww.wwww", 12, 3);
-                await AddAsync(restaurant);
+                var RestaurantId = await SendAsync(new CreateRestaurantCommand
+                {
+                    NameFrench = "tacos Dz  " + i.ToString(),
+                    NameEnglish = "tacos Dz  " + i.ToString(),
+                    NameArabic = "تاكوس دزاد" + i.ToString(),
+
+                    AverageRating = 12,
+                    HasCarParking = true
+                });
             }
             var query = new GetRestaurantsListQuery();
 
