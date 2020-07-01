@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using SmartRestaurant.Application.Restaurants.Commands;
 using SmartRestaurant.Application.Restaurants.Queries;
-using SmartRestaurant.Domain.Entities;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Restaurants
