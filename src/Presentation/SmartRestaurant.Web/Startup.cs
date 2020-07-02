@@ -32,10 +32,8 @@ namespace SmartRestaurant.Web
 
             services.AddControllersWithViews();
 
-            // Add AddRazorPages if the app uses Razor Pages.
             services.AddRazorPages();
 
-            // In production, the Vue files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
