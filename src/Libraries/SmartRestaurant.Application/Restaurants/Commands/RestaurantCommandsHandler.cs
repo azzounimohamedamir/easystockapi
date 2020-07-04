@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 namespace SmartRestaurant.Application.Restaurants.Commands
 {
     public class RestaurantCommandHandler :
-    //IRequestHandler<CreateRestaurantCommand, Guid>,
-    IRequestHandler<UpdateRestaurantCommand, Guid>,
+    IRequestHandler<CreateRestaurantCommand, Guid>,
+    IRequestHandler<UpdateRestaurantCommand>,
     IRequestHandler<DeleteRestaurantCommand>
     {
         private readonly IApplicationDbContext _context;
@@ -48,7 +48,7 @@ namespace SmartRestaurant.Application.Restaurants.Commands
             return Unit.Value;
         }
 
-        public async Task<Guid> Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
         {
             var entity = await _context.Restaurants.FindAsync(request.RestaurantId);
 
@@ -57,11 +57,10 @@ namespace SmartRestaurant.Application.Restaurants.Commands
                 throw new NotFoundException(nameof(Restaurant), request.RestaurantId);
             }
 
-            entity = _mapper.Map<Restaurant>(request);
-            _context.Restaurants.Add(entity);
+            entity.UpdateRestaurantInfo(_mapper.Map<Restaurant>(request));
             await _context.SaveChangesAsync(cancellationToken);
 
-            return entity.RestaurantId;
+            return Unit.Value;
         }
     }
 }

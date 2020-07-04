@@ -31,8 +31,8 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<bool>("AcceptsCreditCards")
                         .HasColumnType("bit");
 
-                    b.Property<float>("AverageRating")
-                        .HasColumnType("real");
+                    b.Property<double>("AverageRating")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -64,8 +64,8 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<string>("NameFrench")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("OffersTakeout")
-                        .HasColumnType("bit");
+                    b.Property<int>("NumberRatings")
+                        .HasColumnType("int");
 
                     b.Property<int>("RestaurantState")
                         .HasColumnType("int");
@@ -89,6 +89,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("City")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Country")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("StreetAddress")

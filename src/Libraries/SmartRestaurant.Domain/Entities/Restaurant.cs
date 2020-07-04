@@ -46,6 +46,27 @@ namespace SmartRestaurant.Domain.Entities
             Address = Address.Create(streetAddress, city, country);
         }
 
+        public void UpdateRestaurantInfo(Restaurant restaurant)
+        {
+            NameArabic = restaurant.NameArabic;
+            NameFrench = restaurant.NameFrench;
+            NameEnglish = restaurant.NameEnglish;
+            Description = restaurant.Description;
+            HasCarParking = restaurant.HasCarParking;
+            IsHandicapFreindly = restaurant.IsHandicapFreindly;
+            AcceptsCreditCards = restaurant.AcceptsCreditCards;
+            AcceptTakeout = restaurant.AcceptTakeout;
+            Tags = restaurant.Tags;
+            Website = restaurant.Website;
+            AverageRating = restaurant.AverageRating;
+            NumberRatings = restaurant.NumberRatings;
+            LocatedAt(restaurant.Address?.StreetAddress, restaurant.Address?.City, restaurant.Address?.Country);
+            if (restaurant.PhoneNumber != null)
+                ChangePhoneNumber(restaurant.PhoneNumber.CountryCode, restaurant.PhoneNumber.Number);
+            ChangeState(restaurant.RestaurantState);
+            CreateMapMarker(restaurant.Address?.GeoPosition?.Latitude, restaurant.Address?.GeoPosition?.Longitude);
+        }
+
         public void CreateMapMarker(string latitude, string longitude)
         {
             Address.CreateMapMarker(latitude, longitude);
