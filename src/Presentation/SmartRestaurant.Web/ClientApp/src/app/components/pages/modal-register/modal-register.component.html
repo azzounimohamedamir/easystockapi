@@ -1,0 +1,444 @@
+<div class="ms-body ms-aside-left-open ms-primary-theme ms-logged-out">
+    <app-side-navbar></app-side-navbar>
+    <main class="body-content">
+        <app-top-navbar></app-top-navbar>
+        <div class="ms-content-wrapper">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="dropdown ms-site-select">
+                        <h2 class="ms-active-site d-inline-block has-chevron" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Costic Dashboard
+                        </h2>
+                        <ul class="dropdown-menu">
+                            <li class="ms-dropdown-list">
+                                <form method="get" class="p-2">
+                                    <input type="search" class="form-control p-2" id="exampleDropdownFormEmail1" placeholder="Search Site">
+                                </form>
+                                <div class="dropdown-divider"></div>
+                                <a class="media p-2 selected" href="#">
+                                    <div class="media-body">
+                                        <span>Costic Dashboard</span>
+                                    </div>
+                                </a>
+                                <a class="media p-2" href="#">
+                                    <div class="media-body">
+                                        <span>Example Site 2</span>
+                                    </div>
+                                </a>
+                                <a class="media p-2" href="#">
+                                    <div class="media-body">
+                                        <span>Example Site 3</span>
+                                    </div>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="media p-2" href="#">
+                                    <div class="media-body">
+                                        <span>Add New Site</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- Audience Metrics -->
+                <div class="col-xl-7 col-md-12">
+                    <div class="ms-panel">
+                        <div class="ms-panel-header header-mini">
+                            <div class="d-flex justify-content-between">
+                                <h6>Website Audience Metrics</h6>
+                                <div class="btn-group btn-group-toggle ms-graph-metrics" data-toggle="buttons">
+                                    <label class="btn btn-sm btn-outline-primary active day">
+                    <input type="radio" checked=""> Day
+                  </label>
+                                    <label class="btn btn-sm btn-outline-primary month">
+                    <input type="radio"> Month
+                  </label>
+                                    <label class="btn btn-sm btn-outline-primary year">
+                    <input type="radio"> Year
+                  </label>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between ms-graph-meta">
+                                <ul class="ms-list-flex">
+                                    <li>
+                                        <span>Page Views</span>
+                                        <h3 class="ms-count">95,703</h3>
+                                    </li>
+                                    <li>
+                                        <span>Bounce Rate</span>
+                                        <h3 class="ms-count">19.03%</h3>
+                                    </li>
+                                    <li>
+                                        <span>Sessions</span>
+                                        <h3 class="ms-count">12,785</h3>
+                                    </li>
+                                </ul>
+                                <div class="ms-graph-labels">
+                                    <span class="ms-graph-decrease"></span>
+                                    <p>Traffic</p>
+                                    <span class="ms-graph-regular"></span>
+                                    <p>Sales</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ms-panel-body">
+                            <canvas id="audience-metrics-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="ms-panel">
+                        <div class="ms-panel-header">
+                            <h6>Session by Channel</h6>
+                            <p>Track all sessions by channel</p>
+                        </div>
+                        <div class="ms-panel-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover thead-light">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Channel</th>
+                                            <th scope="col">Sessions</th>
+                                            <th scope="col">Previous Period</th>
+                                            <th scope="col">Change</th>
+                                            <th scope="col">Trend</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Organic Search</td>
+                                            <td>208,874</td>
+                                            <td>106,849</td>
+                                            <td class="ms-text-success">+17.24%</td>
+                                            <td class="ms-trend"> <canvas id="trend-01"></canvas> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Organic Search</td>
+                                            <td>208,874</td>
+                                            <td>106,849</td>
+                                            <td class="ms-text-danger">-2.33%</td>
+                                            <td class="ms-trend"> <canvas id="trend-02"></canvas> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Organic Search</td>
+                                            <td>208,874</td>
+                                            <td>106,849</td>
+                                            <td class="ms-text-success">+1.97%</td>
+                                            <td class="ms-trend"> <canvas id="trend-03"></canvas> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Organic Search</td>
+                                            <td>208,874</td>
+                                            <td>106,849</td>
+                                            <td class="ms-text-success">+7.14%</td>
+                                            <td class="ms-trend"> <canvas id="trend-04"></canvas> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Organic Search</td>
+                                            <td>208,874</td>
+                                            <td>106,849</td>
+                                            <td class="ms-text-danger">-27.45%</td>
+                                            <td class="ms-trend"> <canvas id="trend-05"></canvas> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ms-panel">
+                        <div class="ms-panel-header">
+                            <h6>Page Views by Title</h6>
+                            <p>Keep track of the pages being viewed</p>
+                        </div>
+                        <div class="ms-panel-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover thead-light">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Page Name</th>
+                                            <th scope="col">Page URL</th>
+                                            <th scope="col">Average Traffic</th>
+                                            <th scope="col">Impressions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Admin Home</td>
+                                            <td>site.com/admin/index.html</td>
+                                            <td>7.65%</td>
+                                            <td class="ms-text-success">+17.24%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Crypto Dashboard</td>
+                                            <td>site.com/admin/dashboard/crypto.html</td>
+                                            <td>9.12%</td>
+                                            <td class="ms-text-danger">-12.24%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Widgets Page</td>
+                                            <td>site.com/admin/widgets.html</td>
+                                            <td>14.29%</td>
+                                            <td class="ms-text-success">+32.04%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Buttons Page</td>
+                                            <td>site.com/admin/pages/buttons.html</td>
+                                            <td>12.25%</td>
+                                            <td class="ms-text-danger">-20.75%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Web Analaytics</td>
+                                            <td>site.com/admin/dashboard/web-analytics.html</td>
+                                            <td>4.65%</td>
+                                            <td class="ms-text-success">+13.38%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xl-5 col-md-12">
+
+                    <!-- Website Performance -->
+                    <div class="ms-panel">
+                        <div class="ms-panel-header">
+                            <h6>Google Analytics Website Performance</h6>
+                        </div>
+                        <div class="ms-panel-body p-0">
+                            <ul class="ms-list ms-website-performance clearfix">
+                                <li class="ms-list-item">
+                                    <h4>Bounce Rate (Avg)</h4>
+                                    <div class="d-flex justify-content-between align-items-end">
+                                        <div class="website-performance-canvas">
+                                            <canvas id="bounce-rate"></canvas>
+                                        </div>
+                                        <div class="website-performance-meta">
+                                            <p class="ms-text-dark">45.07%</p>
+                                            <p class="ms-text-success">+28.44%</p>
+                                            <p>VS 66.68% (Prev)</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ms-list-item">
+                                    <h4>Page Views (Avg)</h4>
+                                    <div class="d-flex justify-content-between align-items-end">
+                                        <div class="website-performance-canvas">
+                                            <canvas id="page-views"></canvas>
+                                        </div>
+                                        <div class="website-performance-meta">
+                                            <p class="ms-text-dark">4.30%</p>
+                                            <p class="ms-text-danger">-28.44%</p>
+                                            <p>VS 1.90% (Prev)</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ms-list-item">
+                                    <h4>New Sessions</h4>
+                                    <div class="d-flex justify-content-between align-items-end">
+                                        <div class="website-performance-canvas">
+                                            <canvas id="new-sessions"></canvas>
+                                        </div>
+                                        <div class="website-performance-meta">
+                                            <p class="ms-text-dark">5.75%</p>
+                                            <p class="ms-text-danger">-2.41%</p>
+                                            <p>VS 8.75% (Prev)</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ms-list-item">
+                                    <h4>Time on Site (Avg)</h4>
+                                    <div class="d-flex justify-content-between align-items-end">
+                                        <div class="website-performance-canvas">
+                                            <canvas id="time-site"></canvas>
+                                        </div>
+                                        <div class="website-performance-meta">
+                                            <p class="ms-text-dark">8m:55s</p>
+                                            <p class="ms-text-success">+50.07%</p>
+                                            <p>VS 66.88% (Prev)</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ms-list-item">
+                                    <h4>Site Impressions (Avg)</h4>
+                                    <div class="d-flex justify-content-between align-items-end">
+                                        <div class="website-performance-canvas">
+                                            <canvas id="site-impressions"></canvas>
+                                        </div>
+                                        <div class="website-performance-meta">
+                                            <p class="ms-text-dark">17.03%</p>
+                                            <p class="ms-text-success">+15.03%</p>
+                                            <p>VS 12.09% (Prev)</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Sessions by Device -->
+                    <div class="ms-panel ms-device-sessions">
+                        <div class="ms-panel-header">
+                            <h6>Google Analytics Sessions by Device</h6>
+                        </div>
+                        <div class="ms-panel-body">
+                            <div class="row">
+                                <div class="col-xl-4 col-md-4 col-sm-6 col-6 ms-device">
+                                    <i class="material-icons bg-primary">desktop_windows</i>
+                                    <h4>Desktop</h4>
+                                    <p class="ms-text-primary">45.07%</p>
+                                    <p class="ms-text-primary">201,434</p>
+                                </div>
+                                <div class="col-xl-4 col-md-4 col-sm-6 col-6 ms-device">
+                                    <i class="material-icons bg-danger">tablet_mac</i>
+                                    <h4>Tablet</h4>
+                                    <p class="ms-text-danger">29.05%</p>
+                                    <p class="ms-text-danger">134,693</p>
+                                </div>
+                                <div class="col-xl-4 col-md-4 col-sm-6 col-6 ms-device">
+                                    <i class="material-icons bg-warning">phone_iphone</i>
+                                    <h4>Mobile</h4>
+                                    <p class="ms-text-warning">18.43%</p>
+                                    <p class="ms-text-warning">81,525</p>
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 45.07%" aria-valuenow="45.07" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 29.05%" aria-valuenow="29.05" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 25.48%" aria-valuenow="25.48" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="ms-panel-footer">
+                            <h6>Previous Result</h6>
+                            <div class="row">
+                                <div class="col-xl-4 col-md-4 col-sm-6 col-6 ms-device">
+                                    <h4 class="ms-text-primary">Desktop</h4>
+                                    <p class="ms-text-dark">45.07%</p>
+                                    <p>201,434</p>
+                                </div>
+                                <div class="col-xl-4 col-md-4 col-sm-6 col-6 ms-device">
+                                    <h4 class="ms-text-danger">Tablet</h4>
+                                    <p class="ms-text-dark">39.00%</p>
+                                    <p>134,693</p>
+                                </div>
+                                <div class="col-xl-4 col-md-4 col-sm-6 col-6 ms-device">
+                                    <h4 class="ms-text-warning">Mobile</h4>
+                                    <p class="ms-text-dark">19.45%</p>
+                                    <p>81,525</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-xl-5 col-md-12">
+                    <div class="ms-panel ms-widget">
+                        <div class="ms-panel-header">
+                            <h6>Top User Activity By Country</h6>
+                            <p>Users activity performance and bounce rate based on country</p>
+                        </div>
+                        <div class="ms-panel-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover thead-light">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Country</th>
+                                            <th scope="col">Entrances</th>
+                                            <th scope="col">Bounce Rate</th>
+                                            <th scope="col">Exits</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row"> <img src="assets/img/costic/country-1.jpg" alt="flags"></th>
+                                            <td>725</td>
+                                            <td>17.24%</td>
+                                            <td>7.65%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"> <img src="assets/img/costic/country-2.jpg" alt="flags"></th>
+                                            <td>890</td>
+                                            <td>12.90%</td>
+                                            <td>9.12%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"> <img src="assets/img/costic/country-3.jpg" alt="flags"></th>
+                                            <td>729</td>
+                                            <td>20.75%</td>
+                                            <td>14.29%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"> <img src="assets/img/costic/country-4.jpg" alt="flags"></th>
+                                            <td>316</td>
+                                            <td>32.09%</td>
+                                            <td>10.99%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"> <img src="assets/img/costic/country-5.jpg" alt="flags"></th>
+                                            <td>275</td>
+                                            <td>33.58%</td>
+                                            <td>6.75%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-7 col-md-12">
+
+                    <div class="ms-panel ms-panel-fh">
+                        <div class="ms-panel-header header-mini">
+                            <h6>Average Users By Country</h6>
+                            <p>The top locations where users of your product are located</p>
+                        </div>
+                        <div class="ms-panel-body ms-average-users-country">
+                            <div class="row">
+                                <div class="col-xl-4 col-md-12">
+                                    <span class="progress-label">United States</span>
+                                    <span class="progress-status">14,805</span>
+                                    <div class="progress progress-tiny">
+                                        <div class="progress-bar bg-secondary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <span class="progress-label">Brazil</span>
+                                    <span class="progress-status">11,651</span>
+                                    <div class="progress progress-tiny">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <span class="progress-label">Russia</span>
+                                    <span class="progress-status">9,157</span>
+                                    <div class="progress progress-tiny">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <span class="progress-label">India</span>
+                                    <span class="progress-status">7,846</span>
+                                    <div class="progress progress-tiny">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <span class="progress-label">Australia</span>
+                                    <span class="progress-status">6,789</span>
+                                    <div class="progress progress-tiny mb-0">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="offset-xl-1 col-xl-7 col-md-12">
+                                    <div id="world-map" class="vector-map"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>

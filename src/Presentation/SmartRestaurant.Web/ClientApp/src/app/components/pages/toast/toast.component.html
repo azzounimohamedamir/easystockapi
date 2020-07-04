@@ -1,0 +1,164 @@
+<div class="ms-body ms-aside-left-open ms-primary-theme">
+    <app-side-navbar></app-side-navbar>
+    <main class="body-content">
+        <app-top-navbar></app-top-navbar>
+        <div class="ms-content-wrapper">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb pl-0">
+                            <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="#">Popups</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Toast</li>
+                        </ol>
+                    </nav>
+                    <div class="ms-panel">
+                        <div class="ms-panel-header">
+                            <h6>Toast</h6>
+                        </div>
+                        <div class="ms-panel-body">
+                            <p class="ms-directions">Check <code>/assets/js/toast.js</code> for reference</p>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-6">
+                                    <h6 class="section-title">Top Left Success</h6>
+                                    <button class="btn btn-primary" id="toast-success">Click Me</button>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <h6 class="section-title">Top Right Warning</h6>
+                                    <button class="btn btn-primary" id="toast-warning">Click Me</button>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <h6 class="section-title">Bottom Left Danger</h6>
+                                    <button class="btn btn-primary" id="toast-danger">Click Me</button>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <h6 class="section-title">Bottom Right Info</h6>
+                                    <button class="btn btn-primary" id="toast-info">Click Me</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ms-panel">
+                        <div class="ms-panel-header">
+                            <h6>Toast Playground</h6>
+                        </div>
+                        <div class="ms-panel-body">
+                            <p class="ms-directions">Mix and match whatever toast you would like to see</p>
+                            <form id="toast-form">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="toastTitle">Toast Title</label>
+                                            <input type="text" class="form-control" id="toastTitle" placeholder="Toast Title" name="title" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="toastMessage">Toast Message</label>
+                                            <input type="text" class="form-control" id="toastMessage" placeholder="Toast Message" name="message" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="ms-list mt-3 ms-list-display">
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="checkbox" name="closeButton" value="true"> <i class="ms-checkbox-check"></i>
+                        </label> <span> Close Button </span>
+                                            </li>
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="checkbox" name="progressBar" value="true"> <i class="ms-checkbox-check"></i>
+                        </label> <span> Progress Bar </span>
+                                            </li>
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="checkbox" name="preventDuplicates" value="true"> <i class="ms-checkbox-check"></i>
+                        </label> <span> Prevent Duplicates </span>
+                                            </li>
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="checkbox" name="debug" value="true"> <i class="ms-checkbox-check"></i>
+                        </label> <span> Debug </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="ms-list mt-3 ms-list-display">
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="radio" value="success" name="toastType" checked> <i class="ms-checkbox-check"></i>
+                        </label> <span> Success </span>
+                                            </li>
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="radio" value="info" name="toastType"> <i class="ms-checkbox-check"></i>
+                        </label> <span> Info </span>
+                                            </li>
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="radio" value="warning" name="toastType"> <i class="ms-checkbox-check"></i>
+                        </label> <span> Warning </span>
+                                            </li>
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="radio" value="danger" name="toastType"> <i class="ms-checkbox-check"></i>
+                        </label> <span> Danger </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="ms-list mt-3 ms-list-display">
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="radio" value="toast-top-left" name="toastPosition" checked> <i class="ms-checkbox-check"></i>
+                        </label> <span> Top Left </span>
+                                            </li>
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="radio" value="toast-top-right" name="toastPosition"> <i class="ms-checkbox-check"></i>
+                        </label> <span> Top Right </span>
+                                            </li>
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="radio" value="toast-top-center" name="toastPosition"> <i class="ms-checkbox-check"></i>
+                        </label> <span> Top Center </span>
+                                            </li>
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="radio" value="toast-bottom-left" name="toastPosition"> <i class="ms-checkbox-check"></i>
+                        </label> <span> Bottom Left </span>
+                                            </li>
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="radio" value="toast-bottom-right" name="toastPosition"> <i class="ms-checkbox-check"></i>
+                        </label> <span> Bottom Right </span>
+                                            </li>
+                                            <li>
+                                                <label class="ms-checkbox-wrap">
+                          <input type="radio" value="toast-bottom-center" name="toastPosition"> <i class="ms-checkbox-check"></i>
+                        </label> <span> Bottom Center </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="form-row mt-3">
+                                    <div class="col-md-6">
+                                        <button type="submit" name="toastSubmit" class="btn btn-primary w-100">Toast Me!</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="button" id="clearToast" name="toastClear" class="btn btn-danger w-100">Clear Toast Data</button>
+                                    </div>
+                                </div>
+                            </form> <pre id="toast-options">
+
+              </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>

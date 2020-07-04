@@ -1,0 +1,93 @@
+<div class="ms-body ms-aside-left-open ms-primary-theme">
+    <app-side-navbar></app-side-navbar>
+    <main class="body-content">
+        <app-top-navbar></app-top-navbar>
+        <div class="ms-content-wrapper">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb pl-0">
+                            <li class="breadcrumb-item"><a routerLink="/"><i class="material-icons">home</i> Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Advanced UI Elements</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cropper</li>
+                        </ol>
+                    </nav>
+
+                </div>
+
+                <div class="col-xl-6 col-md-6 col-sm-12">
+                    <div class="ms-panel">
+                        <div class="ms-panel-header">
+                            <h6>Default Cropper</h6>
+                        </div>
+                        <div class="ms-panel-body">
+                            <div class="ms-cropper-container">
+                                <img id="default" src="assets/img/costic/add-product-3.jpg" alt="cropper">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-md-6 col-sm-12">
+                    <div class="ms-panel">
+                        <div class="ms-panel-header">
+                            <h6>Disabled Zoom Cropper</h6>
+                        </div>
+                        <div class="ms-panel-body">
+                            <div class="ms-cropper-container">
+                                <img id="zoom-disabled" src="assets/img/costic/add-product-2.jpg" alt="cropper">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="ms-panel">
+                        <div class="ms-panel-header">
+                            <h6>Cropper with Controls</h6>
+                        </div>
+                        <div class="ms-panel-body">
+                            <div class="row">
+                                <div class="col-xl-9 col-md-12">
+                                    <div class="ms-cropper-container">
+                                        <img id="cropper-expanded" src="assets/img/costic/cropper.jpg" alt="cropper">
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-md-12">
+                                    <div class="ms-crop-preview ms-crop-preview-lg">
+
+                                    </div>
+                                    <div class="ms-crop-preview ms-crop-preview-md">
+
+                                    </div>
+                                    <div class="ms-crop-preview ms-crop-preview-sm">
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-9 col-md-12">
+                                    <div class="ms-cropper-controls">
+                                        <button id="zoom-in" type="button" data-toggle="tooltip" data-placement="top" title="Zoom In" class="ms-btn-icon btn-primary" name="button"><i class="material-icons">zoom_in</i></button>
+                                        <button id="zoom-out" type="button" data-toggle="tooltip" data-placement="top" title="Zoom Out" class="ms-btn-icon btn-primary" name="button"><i class="material-icons">zoom_out</i></button>
+                                        <button id="rotate-right" type="button" data-toggle="tooltip" data-placement="top" title="Rotate Right" class="ms-btn-icon btn-primary" name="button"><i class="material-icons">rotate_right</i></button>
+                                        <button id="rotate-left" type="button" data-toggle="tooltip" data-placement="top" title="Rotate Left" class="ms-btn-icon btn-primary" name="button1"><i class="material-icons">rotate_left</i></button>
+                                        <button id="move-left" type="button" data-toggle="tooltip" data-placement="top" title="Move Left" class="ms-btn-icon btn-primary" name="button2"><i class="material-icons">arrow_back</i></button>
+                                        <button id="move-down" type="button" data-toggle="tooltip" data-placement="top" title="Move Down" class="ms-btn-icon btn-primary" name="button3"><i class="material-icons">arrow_downward</i></button>
+                                        <button id="move-right" type="button" data-toggle="tooltip" data-placement="top" title="Move Right" class="ms-btn-icon btn-primary" name="button4"><i class="material-icons">arrow_forward</i></button>
+                                        <button id="move-up" type="button" data-toggle="tooltip" data-placement="top" title="Move Up" class="ms-btn-icon btn-primary" name="button5"><i class="material-icons">arrow_upward</i></button>
+                                        <button id="lock" type="button" data-toggle="tooltip" data-placement="top" title="Lock" class="ms-btn-icon btn-primary" name="button4"><i class="material-icons">lock_outline</i></button>
+                                        <button id="unlock" type="button" data-toggle="tooltip" data-placement="top" title="Unlock" class="ms-btn-icon btn-primary" name="button5"><i class="material-icons">lock_open</i></button>
+                                        <button id="reset" type="button" data-toggle="tooltip" data-placement="top" title="Reset" class="ms-btn-icon btn-primary" name="button5"><i class="material-icons">refresh</i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+</div>
