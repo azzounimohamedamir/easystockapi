@@ -5,11 +5,12 @@ using Microsoft.Extensions.Options;
 using SmartRestaurant.Application.Users.Commands;
 using SmartRestaurant.Domain.Exceptions;
 using SmartRestaurant.Web.Helpers;
-using SmartRestaurant.Web.Models;
+using SmartRestaurant.Web.ViewModels;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.Web.Controllers
 {
+    [Authorize]
     [ApiController]
     public class AuthenticationController : ApiController
     {

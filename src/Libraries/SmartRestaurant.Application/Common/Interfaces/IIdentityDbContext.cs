@@ -7,7 +7,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
 {
     public interface IIdentityDbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

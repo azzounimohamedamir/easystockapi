@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SmartRestaurant.Web.Models
+namespace SmartRestaurant.Web.ViewModels
 {
     public class UserModel
     {

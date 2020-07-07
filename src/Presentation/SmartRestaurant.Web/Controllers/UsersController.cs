@@ -1,15 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Users.Commands;
 using SmartRestaurant.Application.Users.Queries;
+using SmartRestaurant.Domain.Constants;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.Web.Controllers
 {
+    [Authorize]
+    [ApiController]
     public class UsersController : ApiController
     {
+        [Authorize(Roles = Role.Admin)]
         [HttpGet]
         public async Task<List<UserDto>> Get()
         {

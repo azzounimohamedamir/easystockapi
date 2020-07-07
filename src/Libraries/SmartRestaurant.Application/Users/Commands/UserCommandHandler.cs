@@ -27,13 +27,13 @@ namespace SmartRestaurant.Application.Users.Commands
 
         public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = _mapper.Map<User>(request);
+            var user = _mapper.Map<ApplicationUser>(request);
             return await _userService.Create(user, request.Password, cancellationToken);
         }
 
         public async Task<Guid> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = _mapper.Map<User>(request);
+            var user = _mapper.Map<ApplicationUser>(request);
             return await _userService.Update(user, request.Password, cancellationToken);
         }
 
@@ -48,7 +48,7 @@ namespace SmartRestaurant.Application.Users.Commands
 
         public async Task<UserDto> Handle(AuthenticateUserCommand request, CancellationToken cancellationToken)
         {
-            User user = await _userService.Authenticate(request.Email, request.Password);
+            ApplicationUser user = await _userService.Authenticate(request.Email, request.Password);
             return _mapper.Map<UserDto>(user);
         }
     }

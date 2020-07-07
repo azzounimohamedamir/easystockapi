@@ -19,7 +19,7 @@ namespace SmartRestaurant.Application.Common.Services
             _context = context;
         }
 
-        public async Task<User> Authenticate(string Email, string password)
+        public async Task<ApplicationUser> Authenticate(string Email, string password)
         {
             if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(password))
                 return null;
@@ -35,17 +35,17 @@ namespace SmartRestaurant.Application.Common.Services
             return user;
         }
 
-        public async Task<List<User>> GetAllAsync()
+        public async Task<List<ApplicationUser>> GetAllAsync()
         {
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<User> GetByIdAsync(Guid id)
+        public async Task<ApplicationUser> GetByIdAsync(Guid id)
         {
             return await _context.Users.FindAsync(id);
         }
 
-        public async Task<Guid> Create(User user, string password, CancellationToken cancellationToken)
+        public async Task<Guid> Create(ApplicationUser user, string password, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(password))
                 throw new AppException("Password is required");
@@ -65,7 +65,7 @@ namespace SmartRestaurant.Application.Common.Services
             return user.UserId;
         }
 
-        public async Task<Guid> Update(User userParam, string password, CancellationToken cancellationToken)
+        public async Task<Guid> Update(ApplicationUser userParam, string password, CancellationToken cancellationToken)
         {
             var user = _context.Users.Find(userParam.UserId);
 
