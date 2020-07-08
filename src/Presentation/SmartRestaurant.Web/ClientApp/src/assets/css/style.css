@@ -7276,7 +7276,7 @@ body:not(.ms-settings-open) .ms-settings-toggle:hover{
 .ms-card-heading-title{
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .red-text{

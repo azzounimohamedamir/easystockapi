@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using SmartRestaurant.Infrastructure.Persistence;
 using System;
 
 namespace SmartRestaurant.Web
@@ -19,8 +17,8 @@ namespace SmartRestaurant.Web
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<ApplicationDbContext>();
-                    context.Database.Migrate();
+                    /*  var context = services.GetRequiredService<ApplicationDbContext>();
+                      context.Database.Migrate(); */
                 }
                 catch (Exception ex)
                 {

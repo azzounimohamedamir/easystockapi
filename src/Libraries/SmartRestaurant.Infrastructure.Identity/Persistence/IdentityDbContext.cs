@@ -18,7 +18,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
             _currentUserService = currentUserService;
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
 
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

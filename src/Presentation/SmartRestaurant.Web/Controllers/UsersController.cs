@@ -14,7 +14,7 @@ namespace SmartRestaurant.Web.Controllers
     [ApiController]
     public class UsersController : ApiController
     {
-        [Authorize(Roles = Role.Admin)]
+        [Authorize(Roles = ApplicationRoles.Admin)]
         [HttpGet]
         public async Task<List<UserDto>> Get()
         {
