@@ -1,4 +1,5 @@
-﻿using SmartRestaurant.Diner.Infrastructures;
+﻿using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using System;
@@ -115,7 +116,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
         /// </summary>
         public string Image
         {
-            get { return Ingredient.Image; }
+            get { return DependencyService.Get<IFileService>().GetImage(Ingredient.Image); }
         }
  
         public float Price

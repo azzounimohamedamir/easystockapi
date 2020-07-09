@@ -10,6 +10,7 @@
              xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              mc:Ignorable="d"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"  
              NavigationPage.HasBackButton="True"
              x:Class="SmartRestaurant.Diner.Views.DishSelectPage"
              x:Name="instance" BackgroundColor="White">
@@ -74,7 +75,7 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="266" /> 
                                     </Grid.RowDefinitions>
-                                    <Image Grid.Row="0"  HeightRequest="266" Source="{Binding .}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
+                                        <ff:CachedImage Grid.Row="0"  HeightRequest="266" Source="{Binding .}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
                                     <Label Margin="40,0,40,0" Grid.Row="0" BackgroundColor="Transparent"
                                            HeightRequest="91" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" 
                                            Style="{StaticResource Key=RobotoLabel}"
@@ -150,7 +151,7 @@
                                                     <RowDefinition Height="37" />
                                                     <RowDefinition Height="37" />
                                                 </Grid.RowDefinitions>
-                                                <Image Grid.Row="0" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="Fill" />
+                                                <ff:CachedImage Grid.Row="0" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="Fill" />
                                                     <pancakeview:PancakeView IsVisible="{Binding  IsEssential}" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Start"
                                                                              Margin="6,6,6,0" BackgroundColor="#01A9AC"
                                                                              HeightRequest="24" WidthRequest="24" CornerRadius="4" 
@@ -288,7 +289,7 @@
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="80" />
                                                 </Grid.RowDefinitions>
-                                                <Image Grid.Row="0" Opacity=".64" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="AspectFill" />
+                                                <ff:CachedImage Grid.Row="0" Opacity=".64" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="AspectFill" />
                                                 <Label Style="{StaticResource Key=RobotoLabel}" Grid.Row="0" Margin="7" 
                                                        TextColor="White" FontAttributes="Bold" FontSize="13"
                                                        HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalOptions="End">
