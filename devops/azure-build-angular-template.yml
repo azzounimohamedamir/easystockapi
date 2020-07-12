@@ -13,3 +13,12 @@
          cd ${{ parameters.AngularProjectName }}
          ng build --prod
         displayName: Build Angular WebClient
+
+  - job: Deploy_angular_WebClient
+    steps:
+      - script: |
+         cd ${{ parameters.AngularProjectName }}
+         sudo cp -r dist/costic /var/www/html/
+         sudo chown -R www-data:www-data /var/www/html/costic
+         sudo systemctl restart nginx
+        displayName: Angular Deployment
