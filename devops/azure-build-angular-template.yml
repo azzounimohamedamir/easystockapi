@@ -7,7 +7,7 @@
     steps:
       - script: |
          cd ${{ parameters.AngularProjectName }}
-         npm install --only=prod
+         npm install 
         displayName: Install Angular Dependencies
       - script: |
          cd ${{ parameters.AngularProjectName }}
