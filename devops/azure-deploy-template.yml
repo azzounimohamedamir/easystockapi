@@ -1,7 +1,7 @@
   parameters:
     envName: '' 
     ArtifactsOutputPath: '/home/ubuntu/test-SmartRestaurant'
-    WebProjectName: 'SmartRestaurant.Client.Web'
+    WebProjectName: 'src/Presentation/SmartRestaurant.Web/'
 
   jobs:
   - deployment: Deploy
