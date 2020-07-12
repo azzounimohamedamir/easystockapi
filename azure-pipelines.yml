@@ -22,7 +22,7 @@ stages:
 
 
 - stage: Deploy_Angular_To_Test_Env
-  dependsOn: Deploy_To_Test_Env
+#  dependsOn: Deploy_To_Test_Env
   condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
   pool: 
     name: test-SmartRestaurant-agent
