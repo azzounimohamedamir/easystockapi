@@ -1,24 +1,24 @@
 stages:
-- stage: Build_On_Test_Evn
-  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
-  pool: 
-    name: test-SmartRestaurant-agent
-    workspace:
-      clean: all
-  jobs:
-  - template: devops/azure-build-template.yml
+#- stage: Build_On_Test_Evn
+#  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
+#  pool: 
+#    name: test-SmartRestaurant-agent
+#    workspace:
+#      clean: all
+#  jobs:
+#  - template: devops/azure-build-template.yml
 
-- stage: Deploy_To_Test_Env
-  dependsOn: Build_On_Test_Evn
-  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
-  pool: 
-    name: test-SmartRestaurant-agent
-    workspace:
-      clean: none
-  jobs:
-  - template: devops/azure-deploy-template.yml
-    parameters:
-      envName: SmartRestaurant-Test-Env
+#- stage: Deploy_To_Test_Env
+#  dependsOn: Build_On_Test_Evn
+#  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
+#  pool: 
+#    name: test-SmartRestaurant-agent
+#    workspace:
+#      clean: none
+#  jobs:
+#  - template: devops/azure-deploy-template.yml
+#    parameters:
+#      envName: SmartRestaurant-Test-Env
 
 
 - stage: Deploy_Angular_To_Test_Env
