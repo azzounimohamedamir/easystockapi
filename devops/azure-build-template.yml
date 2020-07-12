@@ -6,6 +6,7 @@
   - job: Build_the_Website
     steps:
       - script: |
+         cp devops/appsettings.json ${{ parameters.WebProjectName }}
          cd ${{ parameters.WebProjectName }}
          dotnet clean
          dotnet restore
