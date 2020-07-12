@@ -13,6 +13,7 @@
         displayName: Restore Common Packages
       - script: |
          cp devops/appsettings.json src/Libraries/SmartRestaurant.Application/
+         cp devops/appsettings.json src/Libraries/SmartRestaurant.Infrastructure/
          cd "src/Libraries/SmartRestaurant.Application/"
          dotnet add package DataTables.AspNetCore.Mvc
         displayName: Add AspNetCore.Mvc Packages
