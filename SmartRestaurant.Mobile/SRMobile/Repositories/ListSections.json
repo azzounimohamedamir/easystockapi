@@ -1,0 +1,1880 @@
+﻿{
+  "SectionsList": [
+    {
+      "Id": 1,
+      "NameAr": "المقبلات",
+      "NameFr": "Entrées",
+      "NameEn": "Starters ",
+      "Image": "starters.png",
+      "SubSections": [
+
+        {
+          "Id": 81,
+          "NameAr": "المقبلات الدافئة",
+          "NameFr": "Entrées chaudes",
+          "NameEn": "Hot starters",
+          "Image": "Soupe_de_poisson.png",
+          "Dishes": [
+            {
+              "Id": 91,
+              "NameAr": "حساءالسمك",
+              "NameFr": "Soupe de poisson",
+              "NameEn": "Fish Soup",
+              "Images": [ "Soupe_de_poisson.png", "soupe_de_poisson2.png", "soupe_de_poisson3.png" ],
+
+              "Supplements": [ 1, 3 ],
+              "Specifications": [],"Ingredients": [
+                {
+                  "Id": 1,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 4,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 5,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 7,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 10,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+              ],
+              "EstimatedTime": "10",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 81
+            },
+            {
+              "Id": 92,
+              "NameAr": "حساء الخضر",
+              "NameFr": "Soupe de légumes",
+              "NameEn": "Vegetables Soup",
+              "Images": [ "Soupe_de_legumes3.png", "Soupe_de_legumes.png", "Soupe_de_legumes2.png" ],
+
+              "Supplements": [],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 1,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
+                },
+                {
+                  "Id": 2,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 3,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 4,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 5,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },          
+                {
+                  "Id": 6,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
+                },
+                {
+                  "Id": 7,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 9,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "200",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 81
+            },
+            {
+              "Id": 93,
+              "NameAr": "حساء العدس",
+              "NameFr": "Soupe de lentilles",
+              "NameEn": "Lentil soup",
+              "Images": [ "soupe_de_lentilles.png", "soupe_de_lentilles2.png", "soupe_de_lentilles3.png" ],
+
+              "Supplements": [ 1, 3 ,4],"Specifications": [1,2],"Ingredients": [
+                {
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 11,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "200",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 81
+            }
+           
+          ]
+        },
+        {
+          "Id": 82,
+          "NameAr": "المقبلات الباردة",
+          "NameFr": "Entrées froides",
+          "NameEn": "Cold starters",
+          "Image": "Soupe_de_poisson.png",
+          "Dishes": [
+            {
+              "Id": 93,
+              "NameAr": "توست سلمون مدخن",
+              "NameFr": "La tartine saumon fumé",
+              "NameEn": "Smoked salmon toast",
+              "Images": [ "tartine_saumon.png", "tartine_saumon2.png", "tartine_saumon3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 12,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
+                },
+                {
+                  "Id": 13,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 14,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                } 
+
+              ],
+              "EstimatedTime": "15",
+              "Price": "200",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 82
+            },
+            {
+              "Id": 94,
+              "NameAr": "سلطة سيزار",
+              "NameFr": "Salade César",
+              "NameEn": "Cesar salad",
+              "Images": [ "salade_cezar.png", "salade_cezar2.png", "salade_cezar3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 15,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
+                },
+                {
+                  "Id": 16,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 17,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 12,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                }
+              ],
+              "EstimatedTime": "15",
+              "Price": "200",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 82
+            },
+            {
+              "Id": 95,
+              "NameAr": "سلطة التونة",
+              "NameFr": "Salade de thon",
+              "NameEn": "Thon salad",
+              "Images": [ "salade_de_thon.png", "salade_de_thon2.png", "salade_de_thon3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 18,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
+                },
+                {
+                  "Id": 19,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 20,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "15",
+              "Price": "150",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 82
+            },
+            {
+              "Id": 96,
+              "NameAr": "سلطة الخضار",
+              "NameFr": "Macédoine",
+              "NameEn": "Macedonia",
+              "Images": [ "macedoine.png", "macedoine2.png", "macedoine3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 1,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 2
+                },
+                {
+                  "Id": 3,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 21,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 1
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,"MinValue": 2,"MaxValue": 10,"IsEssential": true,"InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "15",
+              "Price": "100",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 82
+            }
+
+
+          ]
+        }
+      ]
+    },
+      
+    {
+      "Id": 2,
+      "NameAr": "الأطباق الرئيسية",
+      "NameFr": "Plats principaux",
+      "NameEn": "Main courses",
+      "Image": "maincourses.png",
+      "SubSections": [
+        {
+          "Id": 1,
+          "NameAr": "بيتزا",
+          "NameFr": "Pizza",
+          "NameEn": "Pizza ",
+          "Image": "pizza.png",
+
+          "Dishes": [
+            {
+              "Id": 11,
+              "NameAr": "بيتزا الدجاج",
+              "NameFr": "Pizza poulet",
+              "NameEn": "Chicken Pizza ",
+              "Images": [ "Chicken_Pizza.png", "Chicken_Pizza2.png", "Chicken_Pizza3.png" ],
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+
+                {
+                  "Id": 22,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 16,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 17,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                }
+
+
+              ],
+              "EstimatedTime": "25",
+              "Price": "450",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 2
+            },
+            {
+              "Id": 12,
+              "NameAr": "بيتزا اللحم",
+              "NameFr": "Pizza viande",
+              "NameEn": "Meat Pizza ",
+              "Images": [ "Meat_Pizza.png", "Meat_Pizza2.png", "Meat_Pizza3.png" ],
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 22,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 17,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                }
+
+
+              ],
+
+
+              "EstimatedTime": "25",
+              "Price": "450",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 2
+            },
+            {
+              "Id": 13,
+              "NameAr": "بيتزا 3 أجبان",
+              "NameFr": "Pizza 3 Fromages",
+              "NameEn": "3 cheeses Pizza ",
+              "Images": [ "cheeses_Pizza.png", "cheeses_Pizza2.png", "cheeses_Pizza3.png" ],
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+
+                {
+                  "Id": 22,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 25,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 17,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 24,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                }
+              ],
+              "EstimatedTime": "20",
+              "Price": "500",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 2
+            }
+
+          ]
+        },
+
+        {
+          "Id": 2,
+          "NameAr": "سندويتش",
+          "NameFr": "Sandwich",
+          "NameEn": "Sandwich ",
+          "Image": "sandwich.png",
+
+          "Dishes": [
+            {
+              "Id": 21,
+              "NameAr": "هامبورجر",
+              "NameFr": "Hamburger",
+              "NameEn": "hamburger ",
+              "Images": [ "hamburger.png", "hamburger2.png", "hamburger3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 26,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id":25,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "30",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 2
+            },
+            {
+              "Id": 22,
+              "NameAr": "طاكوس",
+              "NameFr": "Tacos",
+              "NameEn": "Tacos ",
+              "Images": [ "tacos.png", "Tacos2.png", "Tacos3.png" ],
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 28,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 25,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 16,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 1,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+              ],
+              "EstimatedTime": "30",
+              "Price": "500",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 2
+            },
+            {
+              "Id": 23,
+              "NameAr": " ساندويتش مكسيكي",
+              "NameFr": "Sandwich Mexicain",
+              "NameEn": "Sandwich Mexican ",
+              "Images": [ "Mexican.png", "Mexican2.png", "Mexican3.png" ],
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 27,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 25,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+              ],
+              "EstimatedTime": "20",
+              "Price": "250",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 2
+            },
+            {
+              "Id": 24,
+              "NameAr": "شوارما",
+              "NameFr": "Chawarma",
+              "NameEn": "Chawarma ",
+              "Images": [ "Chawarma.png", "Chawarma2.png", "Chawarma3.png" ],
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 29,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 16,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+              ],
+              "EstimatedTime": "20",
+              "Price": "250",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 2
+            }
+          ]
+        },
+        {
+          "Id": 3,
+          "NameAr": "شواء",
+          "NameFr": "Grillades",
+          "NameEn": "Grill",
+          "Image": "grillades.png",
+
+          "Dishes": [
+            {
+              "Id": 31,
+              "NameAr": "شواء",
+              "NameFr": "Gril",
+              "NameEn": "Grill ",
+              "Images": [ "Grill.png", "Grill2.png", "Grill3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 30,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 16,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 1,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                }
+              ],
+              "EstimatedTime": "30",
+              "Price": "500",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 3
+            },
+            {
+              "Id": 32,
+              "NameAr": "سمك مشوي",
+              "NameFr": "Poisson Grillé",
+              "NameEn": "Grilled fich ",
+              "Images": [ "Grill_Fish.png", "Grill_Fish2.png", "Grill_Fish3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 10,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 1,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "30",
+              "Price": "600",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 3
+            },
+            {
+              "Id": 33,
+              "NameAr": "كباب ",
+              "NameFr": " Kebab",
+              "NameEn": " Kebab ",
+              "Images": [ "Kebab.png", "Kebab2.png", "Kebab3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 1,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 15,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "30",
+              "Price": "500",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 3
+            }
+
+          ]
+        },
+        {
+          "Id": 4,
+          "NameAr": "معجنات",
+          "NameFr": "Pâtes",
+          "NameEn": "Pasta",
+          "Image": "pates.png",
+
+          "Dishes": [
+            {
+              "Id": 41,
+              "NameAr": "سباغيتي ",
+              "NameFr": " Spaghetti",
+              "NameEn": " Spaghetti ",
+              "Images": [ "Spaghetti.png", "Spaghetti2.png", "Spaghetti3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 31,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+
+
+                {
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 24,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "500",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            },
+            {
+              "Id": 42,
+              "NameAr": "لازانيا ",
+              "NameFr": " Lasagne",
+              "NameEn": " Lasagna ",
+              "Images": [ "Lasagne.png", "Lasagne2.png", "Lasagne3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 32,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 24,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "500",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            },
+            {
+              "Id": 43,
+              "NameAr": "كانيلوني ",
+              "NameFr": " Cannelloni",
+              "NameEn": " Cannelloni ",
+              "Images": [ "Cannelloni.png", "Cannelloni2.png", "Cannelloni3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 33,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 24,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "20",
+              "Price": "500",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            }
+
+          ]
+        },
+        {
+          "Id": 5,
+          "NameAr": "دجاج",
+          "NameFr": "Volaille",
+          "NameEn": "Chicken",
+          "Image": "volaille.png",
+
+          "Dishes": [
+            {
+              "Id": 51,
+              "NameAr": "دجاج مشوي",
+              "NameFr": " Poulet rôti",
+              "NameEn": " Roast chicken ",
+              "Images": [ "Poulet_roti.png", "Poulet_roti2.png", "Poulet_roti3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 34,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+
+
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 1,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 21,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "600",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            },
+            {
+              "Id": 52,
+              "NameAr": "دجاج محشي",
+              "NameFr": " Poulet farci",
+              "NameEn": " Stuffed chicken ",
+              "Images": [ "Poulet_farci.png", "Poulet_farci2.png", "Poulet_farci3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 34,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 23,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "700",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            },
+            {
+              "Id": 53,
+              "NameAr": "دجاج مقلي",
+              "NameFr": " Poulet pané",
+              "NameEn": " Paned chicken ",
+              "Images": [ "Poulet_pane.png", "Poulet_pane2.png", "Poulet_pane3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 34,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                }
+              ],
+              "EstimatedTime": "20",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 4
+            }
+          ]
+        },
+        {
+          "Id": 6,
+          "NameAr": "لحم",
+          "NameFr": "Viande",
+          "NameEn": "Meat",
+          "Image": "viande.png",
+
+          "Dishes": [
+            {
+              "Id": 61,
+              "NameAr": "أضلاع مشوية",
+              "NameFr": " Côtes rôties",
+              "NameEn": " Roasted ribs ",
+              "Images": [ "Cotes_roties.png", "Cotes_roties2.png", "Cotes_roties3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 35,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                }
+
+
+              ],
+              "EstimatedTime": "30",
+              "Price": "500",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 6
+            },
+            {
+              "Id": 62,
+              "NameAr": " شريحة لحم مشوية",
+              "NameFr": " Steak grillé",
+              "NameEn": " Grilled steak ",
+              "Images": [ "Steak_grille.png", "Steak_grille2.png", "Steak_grille3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 36,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                }
+              ],
+              "EstimatedTime": "30",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 6
+            },
+            {
+              "Id": 63,
+              "NameAr": " لحم عجل مشوي",
+              "NameFr": " Rôti de veau",
+              "NameEn": " Roast veal ",
+              "Images": [ "Roti_de_veau.png", "Roti_de_veau2.png", "Roti_de_veau3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 37,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+
+
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 1,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 21,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": false,
+                  "InitialValue": 3
+                }
+              ],
+              "EstimatedTime": "30",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 6
+            }
+          ]
+        },
+        {
+          "Id": 7,
+          "NameAr": "أطباق تقليدية",
+          "NameFr": "Plats traditionnels",
+          "NameEn": "Traditional dishes ",
+          "Image": "platstraditionnels.png",
+
+          "Dishes": [
+            {
+              "Id": 71,
+              "NameAr": " كسكسس",
+              "NameFr": " Couscous",
+              "NameEn": " Couscous",
+              "Images": [ "Couscous.png", "Couscous2.png", "Couscous3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 34,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 37,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 38,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+
+                {
+                  "Id": 1,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 5,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 7
+            },
+            {
+              "Id": 72,
+              "NameAr": " رشتة",
+              "NameFr": " Rechta",
+              "NameEn": " Rechta",
+              "Images": [ "Rechta.png", "Rechta2.png", "Rechta3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 34,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 39,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+
+                {
+                  "Id": 5,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 7
+            },
+            {
+              "Id": 73,
+              "NameAr": " شخشوخة",
+              "NameFr": " Chakhchoukha",
+              "NameEn": " Chakhchoukha",
+              "Images": [ "Chakhchoukha.png", "Chakhchoukha2.png", "Chakhchoukha3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 34,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 37,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 40,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+
+                {
+                  "Id": 1,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 3,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 5,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                },
+                {
+                  "Id": 6,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 8,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                },
+                {
+                  "Id": 9,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 3
+                }
+
+              ],
+              "EstimatedTime": "10",
+              "Price": "400",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 7
+            }
+          ]
+        }
+
+      ]
+
+    },
+    {
+      "Id": 3,
+      "NameAr": "الحلوى",
+      "NameFr": "Desserts",
+      "NameEn": "Desserts",
+      "Image": "desserts.png",
+      "SubSections": [
+        {
+
+          "Id": 31,
+          "NameAr": "حلويات",
+          "NameFr": "Pâtisserie ",
+          "NameEn": "Pastry",
+          "Image": "Tarte.png",
+
+          "Dishes": [
+            {
+
+              "Id": 311,
+              "NameAr": "تيراميسو",
+              "NameFr": "Tiramissu",
+              "NameEn": "Tiramissu",
+              "Images": [ "Tiramissu.png", "Tiramissu2.PNG", "Tiramissu3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 41,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 42,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 43,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+
+                {
+                  "Id": 44,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 14,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 1
+                }
+              ],
+              "EstimatedTime": "20",
+              "Price": "200",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 31
+
+            },
+            {
+              "Id": 313,
+              "NameAr": "موس الشكلاطة",
+              "NameFr": "Mousse au chocolat",
+              "NameEn": "Chocolate mousse",
+              "Images": [ "ChocolateMousse.png", "ChocolateMousse2.png", "ChocolateMousse3.png" ],
+
+              "Supplements": [ 1, 3 ],"Specifications": [1],"Ingredients": [
+                {
+                  "Id": 41,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                },
+                {
+                  "Id": 45,
+                  "Step": 20,
+                  "MinValue": 2,
+                  "MaxValue": 10,
+                  "IsEssential": true,
+                  "InitialValue": 2
+                }
+              ],
+              "EstimatedTime": "20",
+              "Price": "200",
+              "Calories": 0,
+              "Carbo": 0,
+              "Fat": 0,
+              "Protein": 0,
+              "SubSectionId": 31
+            }
+          ]
+
+        }
+      ]
+    },
+    {
+      "Id": 4,
+      "NameAr": "المشروبات",
+      "NameFr": "Boissons",
+      "NameEn": "Drinks",
+      "Image": "drinks.png",
+      "SubSections": [
+
+      ]
+    }
+  ]
+}

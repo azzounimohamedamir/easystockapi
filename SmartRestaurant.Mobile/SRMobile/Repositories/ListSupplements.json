@@ -1,0 +1,56 @@
+﻿{
+  "SupplementsList": [
+    {
+      "Id": 1,
+      "NameAr": " دجاج",
+      "NameFr": " poulet",
+      "NameEn": "Chicken ",
+      "Price": 70,
+      "Weight": 100,
+      "Calories": 121,
+      "Carbo": 0.1,
+      "Fat": 1.8,
+      "Protein": 26.2,
+      "Image": "Blanc_de_poulet.png"
+    },
+    {
+      "Id": 2,
+      "NameAr": "جبن ",
+      "NameFr": "Fromage",
+      "NameEn": "Cheese",
+      "Price": 100,
+      "Weight": 100,
+      "Calories": 402,
+      "Carbo": 1.3,
+      "Fat": 33,
+      "Protein": 25,
+      "Image": "Cheddar.png"
+    },
+    {
+      "Id": 3,
+      "NameAr": " اللحم ",
+      "NameFr": "Viande",
+      "NameEn": "Meat",
+      "Price": 100,
+      "Weight": 100,
+      "Calories": 324,
+      "Carbo": 0,
+      "Fat": 25,
+      "Protein": 24,
+      "Image": "Viande.png"
+    },
+    {
+
+      "Id": 4,
+      "NameAr": "خضر",
+      "NameFr": "légumes",
+      "NameEn": "Vegetables ",
+      "Price": 50,
+      "Calories": 50,
+      "Carbo": 12,
+      "Fat": 10,
+      "Protein": 15,
+      "Image": "legumes.png"
+    }
+  ]
+}
