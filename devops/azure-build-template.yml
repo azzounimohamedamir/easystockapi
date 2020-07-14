@@ -21,6 +21,10 @@
           cd ${{ parameters.WebProjectName }}
           dotnet build --no-restore
         displayName: Build the Website
+      - task: VisualStudioTestPlatformInstaller@1
+        inputs:
+          packageFeedSelector: 'nugetOrg'
+          versionSelector: 'latestPreRelease'
       - task: VSTest@2
         inputs:
             testSelector: 'testAssemblies'
