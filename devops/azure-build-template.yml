@@ -37,7 +37,7 @@
      - checkout: none
      - script: |
          cd ${{ parameters.WebProjectName }}
-         dotnet ef database update --context:DbContext
+         dotnet ef database update --context:ApplicationDbContext
          dotnet ef database update --context:IdentityDbContext
        displayName: Database Initialization
     dependsOn: Build_the_Website
