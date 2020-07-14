@@ -37,8 +37,8 @@
      - checkout: none
      - script: |
          cd ${{ parameters.WebProjectName }}
-         dotnet ef database update --context:SmartRestaurantDbContext
-         dotnet ef database update --context:SmartRestaurantIdentityDbContext
+         dotnet ef database update --context:DbContext
+         dotnet ef database update --context:IdentityDbContext
        displayName: Database Initialization
     dependsOn: Build_the_Website
     condition: succeeded()
