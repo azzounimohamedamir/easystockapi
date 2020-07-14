@@ -145,10 +145,4 @@
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\SmartRestaurant.Forms\SmartRestaurant.Forms.csproj">
-      <Project>{2B2DC2F7-2CAC-40EE-BF81-024D841DD8A7}</Project>
-      <Name>SmartRestaurant.Forms</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
