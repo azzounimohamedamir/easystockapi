@@ -1,0 +1,452 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:helpers="clr-namespace:SmartRestaurant.Diner.Helpers"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:pancardview="clr-namespace:PanCardView;assembly=PanCardView"
+             xmlns:controls="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+             xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             mc:Ignorable="d"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"  
+             NavigationPage.HasBackButton="True"
+             x:Class="SmartRestaurant.Diner.Views.DishSelectPage"
+             x:Name="instance" BackgroundColor="White">
+    <NavigationPage.TitleView>
+        <Grid Grid.Row="0" Grid.Column="1" FlowDirection="{Binding FlowDirectionValue}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"  />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="26" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" FontSize="20" Style="{StaticResource Key=RobotoLabel}" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Text="{Binding Name}" TextColor="Black" />
+            <Label 
+                x:Name="curlbl"
+                FontSize="16"
+                  
+                   Grid.Column="1" Text="{Binding Currency.Name}" HorizontalOptions="FillAndExpand" WidthRequest="50" HorizontalTextAlignment="End"
+                TextColor="Black"
+                VerticalTextAlignment="Center" VerticalOptions="FillAndExpand" >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Grid.Column="2" Style="{StaticResource Key=MatLabel}" Text="&#xf140;"
+                        VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand"
+                        HorizontalTextAlignment="End"
+                       VerticalOptions="FillAndExpand" TextColor="Black" FontSize="26">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+                
+            
+        </Grid>
+
+        </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout FlowDirection="{Binding FlowDirectionValue}" Orientation="Vertical">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+            <ScrollView Grid.Row="0"  VerticalOptions="StartAndExpand" FlowDirection="MatchParent">
+                <StackLayout FlowDirection="MatchParent" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical">
+                    
+                      <pancardview:CarouselView
+                        IsPanSwipeEnabled="True"                        
+                          IsCyclical="False"
+                          SlideShowDuration="80000"
+                          IsRightToLeftFlowDirectionEnabled="{Binding .,Converter={StaticResource culturebooleanconverter}}"
+                          AreAnimationsEnabled="True"
+                        x:Name="carouselView" 
+                        HeightRequest="266" 
+                        FlowDirection="MatchParent"
+                        ItemsSource="{Binding Images}" 
+                        HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+
+                        <pancardview:CarouselView.ItemTemplate>
+                            <DataTemplate>                                     
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="266" /> 
+                                    </Grid.RowDefinitions>
+                                        <ff:CachedImage Grid.Row="0"  HeightRequest="266" Source="{Binding .}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" />
+                                    <Label Margin="40,0,40,0" Grid.Row="0" BackgroundColor="Transparent"
+                                           HeightRequest="91" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" 
+                                           Style="{StaticResource Key=RobotoLabel}"
+                                           HorizontalOptions="FillAndExpand" TextColor="White" VerticalOptions="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding viewmodel.Name,Source={x:Reference instance}}" FontAttributes="Bold" FontSize="32" />
+                                                <Span Text="&#10;" />
+                                                <Span Text="{Binding viewmodel.SubSection.Name,Source={x:Reference instance}}"  FontSize="14" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                                    
+                                </DataTemplate>
+                        </pancardview:CarouselView.ItemTemplate>
+                            <controls:IndicatorsControl 
+                                FlowDirection="MatchParent"
+                                
+                                                        SelectedIndicatorStyle="{StaticResource ActiveIndicator}"
+                                                        UnselectedIndicatorStyle="{StaticResource InactiveIndicator}" />
+                        </pancardview:CarouselView>
+
+                    
+               
+                <pancakeview:PancakeView Margin="40" HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="98" FlowDirection="MatchParent" CornerRadius="10">
+                        <Grid BackgroundColor="#F2FBFB" FlowDirection="MatchParent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" WidthRequest="26" HeightRequest="26" HorizontalTextAlignment="{Binding OrientationTextInverted}" VerticalTextAlignment="Center" TextColor="#3C536A" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Style="{StaticResource Key=MatLabel}" Text="&#xf51b;" FontSize="26" BackgroundColor="Transparent" FontAttributes="Bold" />
+                                <Label Grid.Column="1" Style="{StaticResource Key=RobotoLabel}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="20">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span TextColor="#3C536A"   FontSize="14" Text="{helpers:Translate EstimatedTime}" />
+                                        <Span Text="&#10;" />
+                                        <Span TextColor="#01A9AC"   FontSize="24" FontAttributes="Bold" Text="{Binding EstimatedTime}" />
+                                        <Span Text=" " />
+                                        <Span TextColor="#01A9AC"   FontSize="24" FontAttributes="Bold" Text="{helpers:Translate minute}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <BoxView Grid.Column="2" WidthRequest="2" HeightRequest="50" Margin="0,24,0,24" BackgroundColor="#01A9AC" Opacity=".8" />
+                            <Image Source="coins_icon.png" WidthRequest="26" HeightRequest="26" Aspect="AspectFill" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" />
+                                <Label Style="{StaticResource Key=RobotoLabel}" Grid.Column="4" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="20">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span TextColor="#3C536A"  FontSize="14" Text="{helpers:Translate uprice}" />
+                                        <Span Text="&#10;" />
+                                            <Span TextColor="#01A9AC"  FontSize="24" FontAttributes="Bold" Text="{Binding ConvertedInitialPrice}" />
+                                        <Span Text=" " />
+                                        <Span TextColor="#01A9AC"  FontSize="24" FontAttributes="Bold" Text="{Binding Currency.Name}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </pancakeview:PancakeView>
+                        <Label Margin="40,-20,40,20" Text="{helpers:Translate Ingredients}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" Style="{StaticResource Key=RobotoLabel}" FontSize="20" FontAttributes="Bold" />
+                    <ScrollView Margin="{Binding Path=Margin,Source={x:Reference lbl},Converter= {x:StaticResource RtlScrollViewMargin}}" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                        <StackLayout HeightRequest="148" HorizontalOptions="StartAndExpand" Orientation="Horizontal" 
+                                     BindableLayout.ItemsSource="{Binding Dish_Ingredients_Measures}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid WidthRequest="124" MinimumWidthRequest="124" HorizontalOptions="FillAndExpand" Margin="6,0,6,0">
+                                        <pancakeview:PancakeView BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="144" WidthRequest="124" MinimumWidthRequest="124" BorderDrawingStyle="Outside" FlowDirection="MatchParent" IsClippedToBounds="True" HasShadow="True" BorderColor="#29000000" Elevation="2">
+                                            <Grid FlowDirection="MatchParent">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="70" />
+                                                    <RowDefinition Height="37" />
+                                                    <RowDefinition Height="37" />
+                                                </Grid.RowDefinitions>
+                                                <ff:CachedImage Grid.Row="0" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="Fill" />
+                                                    <pancakeview:PancakeView IsVisible="{Binding  IsEssential}" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Start"
+                                                                             Margin="6,6,6,0" BackgroundColor="#01A9AC"
+                                                                             HeightRequest="24" WidthRequest="24" CornerRadius="4" 
+                                                                             BorderDrawingStyle="Outside" FlowDirection="MatchParent">
+                                                        <Image Source="star.png" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" />
+                                                    </pancakeview:PancakeView>
+                                                    <Label x:Name="weightspan" Text="{Binding Step}" FontSize="1" IsVisible="False"   />
+                                                    <Label x:Name="caloriespan" Text="{Binding Calories}" FontSize="1" IsVisible="False"   />
+                                                    <Label  Style="{StaticResource Key=RobotoLabel}"  Grid.Row="1" Margin="7,0,7,0" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" VerticalOptions="Center">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding Name}" TextColor="#3C536A" FontAttributes="Bold" FontSize="12"  />
+                                                            <Span Text="&#10;" />
+                                                            <Span 
+                                                                   Text="{Binding Quantity,
+                                                                                Converter={StaticResource FloatMultiply} ,
+                                                                                ConverterParameter={x:Reference caloriespan},}"
+                                                                  TextColor="#773C536A" FontSize="12"   />
+                                                            <Span Text=" " />
+                                                            <Span Text="{helpers:Translate kcal}" TextColor="#773C536A" FontSize="12"   />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                                <StackLayout Grid.Row="2" HorizontalOptions="FillAndExpand">
+                                                    <pancakeview:PancakeView Margin="5,0,5,17" WidthRequest="80" HeightRequest="37" HorizontalOptions="Start" 
+                                                                             VerticalOptions="Start" BorderColor="Transparent" CornerRadius="12" 
+                                                                             HasShadow="false" BackgroundColor="#F2FBFB" Elevation="0">
+                                                        <StackLayout HeightRequest="37" Orientation="Horizontal" VerticalOptions="Start" 
+                                                                     HorizontalOptions="Center">
+                                                            <Label WidthRequest="35" Style="{StaticResource Key=MatLabel}" 
+                                                                   HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                                                   TextColor="#773C536A" IsEnabled="{Binding minus_enabled}" Text="&#xf374;" FontSize="14">
+                                                                <Label.GestureRecognizers>
+                                                                    <TapGestureRecognizer Command="{Binding minus}" />
+                                                                </Label.GestureRecognizers>
+                                                            </Label>
+                                                                <Label Style="{StaticResource Key=RobotoLabel}" WidthRequest="25" 
+                                                                       HorizontalOptions="Center"
+                                                                       TextColor="#3C536A" 
+                                                                       FontAttributes="Bold"  VerticalTextAlignment="Center"
+                                                                       HorizontalTextAlignment="Center" >
+                                                                    <Label.FormattedText>
+                                                                        <FormattedString>
+                                                                            <Span FontSize="9"  Text="{Binding Quantity,
+                                                                                Converter={StaticResource FloatMultiply} ,
+                                                                                ConverterParameter={x:Reference weightspan}}"/>
+                                                                            <Span Text=" " FontSize="4" />
+                                                                            <Span FontSize="9"  Text="{helpers:Translate g}"/>
+                                                                        </FormattedString>
+                                                                    </Label.FormattedText>
+                                                                </Label>
+                                                                <Label WidthRequest="35" Style="{StaticResource Key=MatLabel}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#773C536A" BackgroundColor="#F2FBFB" IsEnabled="{Binding plus_enabled}" Text="&#xf0217;" FontSize="14">
+                                                                <Label.GestureRecognizers>
+                                                                    <TapGestureRecognizer Command="{Binding plus}" />
+                                                                </Label.GestureRecognizers>
+                                                            </Label>
+                                                        </StackLayout>
+                                                    </pancakeview:PancakeView>
+                                                </StackLayout>
+                                            </Grid>
+                                        </pancakeview:PancakeView>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </ScrollView>
+                        <Label Margin="40,20,40,0" Text="{helpers:Translate DishSpec}"
+                               IsVisible="{Binding DishSpecifications.Count,Converter={x:StaticResource inttobooleanconverter}}" 
+                               HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" Style="{StaticResource Key=RobotoLabel}" FontSize="20" FontAttributes="Bold" />
+                        <flv:FlowListView IsVisible="{Binding DishSpecifications.Count,Converter={x:StaticResource inttobooleanconverter}}"  HeightRequest="150" HorizontalScrollBarVisibility="Default" VerticalScrollBarVisibility="Never" FlowColumnCount="{Binding Specifications.Specifications.Count}" Margin="30,0,30,0" HasUnevenRows="True" HorizontalOptions="Start" VerticalOptions="Start" SelectionMode="None" FlowItemsSource="{Binding DishSpecifications}">
+                        <flv:FlowListView.FlowColumnTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Vertical" Margin="10,0,10,0" VerticalOptions="Start" HorizontalOptions="StartAndExpand">
+                                        <Label Text="{Binding Name}" TextColor="#3C536A" Style="{StaticResource Key=RobotoLabel}" FontSize="16" FontAttributes="Bold" />
+                                    <ListView ItemTapped="ListView_ItemTapped" RowHeight="40" VerticalScrollBarVisibility="Never" SelectionMode="None" VerticalOptions="Start" HorizontalOptions="StartAndExpand" SeparatorVisibility="None" ItemsSource="{Binding RadioOptionsVM}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <StackLayout VerticalOptions="Start" HorizontalOptions="StartAndExpand" Orientation="Horizontal" Margin="10,5,10,5">
+                                                        <Grid>
+                                                            <Grid.GestureRecognizers>
+                                                                <TapGestureRecognizer Tapped="Button_Clicked" />
+                                                            </Grid.GestureRecognizers>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="18" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="18" />
+                                                            </Grid.RowDefinitions>
+                                                            <Button IsEnabled="False" Grid.Column="0" Grid.Row="0" IsVisible="{Binding IsSelected}" CornerRadius="9" WidthRequest="18" BorderWidth="1" BackgroundColor="Transparent" BorderColor="#01A9AC" />
+                                                            <Grid Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding IsSelected}">
+                                                                <Grid.GestureRecognizers>
+                                                                    <TapGestureRecognizer Tapped="Button_Clicked" />
+                                                                </Grid.GestureRecognizers>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="12" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="12" />
+                                                                </Grid.RowDefinitions>
+                                                                <Button IsEnabled="False" Grid.Column="0" Grid.Row="0" CornerRadius="6" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="12" BackgroundColor="#01A9AC" />
+                                                            </Grid>
+                                                            <Button IsEnabled="False" Grid.Column="0" Grid.Row="0" IsVisible="{Binding IsSelected,Converter={x:StaticResource boolinverter} }" CornerRadius="9" WidthRequest="18" BackgroundColor="Transparent" VerticalOptions="Center" HorizontalOptions="Center" BorderWidth="1" Clicked="Button_Clicked" BorderColor="#707070" />
+                                                        </Grid>
+                                                            <Label Text="{Binding Name}" IsEnabled="False" TextColor="#3C536A" VerticalOptions="Start" Style="{StaticResource Key=RobotoLabel}" FontSize="14" />
+                                                    </StackLayout>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackLayout>
+                            </DataTemplate>
+                        </flv:FlowListView.FlowColumnTemplate>
+                    </flv:FlowListView>
+                        <Label x:Name="lbl" 
+                               IsVisible="{Binding DishSupplements.Count,Converter={x:StaticResource inttobooleanconverter}}" 
+                               VerticalOptions="Start" Margin="40,20,40,0" Text="{helpers:Translate Supplements}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" Style="{StaticResource Key=RobotoLabel}" FontSize="20" FontAttributes="Bold" />
+                        <ScrollView IsVisible="{Binding DishSupplements.Count,Converter={x:StaticResource inttobooleanconverter}}" 
+                                    Margin="{Binding Path=Margin,Source={x:Reference lbl},Converter= {x:StaticResource RtlScrollViewMargin}}" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" VerticalOptions="Start">
+                            <StackLayout HeightRequest="148" FlowDirection="MatchParent" HorizontalOptions="StartAndExpand" Orientation="Horizontal" BindableLayout.ItemsSource="{Binding DishSupplements}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid WidthRequest="156" MinimumWidthRequest="156" HeightRequest="92" Padding="0,0,7,0" FlowDirection="MatchParent">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding SelectEvent}" />
+                                        </Grid.GestureRecognizers>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="106" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="156" />
+                                        </Grid.ColumnDefinitions>
+                                        <pancakeview:PancakeView Elevation="0" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="80" WidthRequest="156" MinimumWidthRequest="156" BackgroundGradientStartColor="#FFFFFF" BackgroundGradientEndColor="#000000" BackgroundGradientAngle="180" CornerRadius="10" BorderDrawingStyle="Outside" FlowDirection="MatchParent" IsClippedToBounds="True" BackgroundColor="Transparent" BorderColor="Transparent">
+                                            <Grid FlowDirection="MatchParent">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="80" />
+                                                </Grid.RowDefinitions>
+                                                <ff:CachedImage Grid.Row="0" Opacity=".64" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="AspectFill" />
+                                                <Label Style="{StaticResource Key=RobotoLabel}" Grid.Row="0" Margin="7" 
+                                                       TextColor="White" FontAttributes="Bold" FontSize="13"
+                                                       HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalOptions="End">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding Name}"   />
+                                                                <Span Text="&#10;" />
+                                                                <Span Text="{Binding Calories, StringFormat='{0:0.##}'}"  />
+                                                                <Span Text=" " />
+                                                                <Span Text="{helpers:Translate kcal}" />
+                                                            </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </Grid>
+                                        </pancakeview:PancakeView>
+                                        <pancakeview:PancakeView Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="84" WidthRequest="156" IsVisible="{Binding IsSelected}" MinimumWidthRequest="156" Elevation="1" BorderThickness="5" CornerRadius="10" BorderDrawingStyle="Outside" FlowDirection="MatchParent" IsClippedToBounds="True" BorderColor="#01A9AC" />
+                                        <pancakeview:PancakeView Margin="-6,0,-6,0" Grid.Column="0" Grid.Row="0" Elevation="0" BorderThickness="0" BorderColor="Transparent" Padding="-2" BackgroundColor="Transparent" WidthRequest="24" HeightRequest="24" CornerRadius="12" HorizontalOptions="End" IsClippedToBounds="True" VerticalOptions="Start">
+                                            <Label Margin="0" TextColor="#01A9AC" BackgroundColor="White" Text="&#xf133;" Style="{StaticResource Key=MatLabel}" IsVisible="{Binding IsSelected}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center" FontSize="24" />
+                                        </pancakeview:PancakeView>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </ScrollView>
+                    <Label Style="{StaticResource Key=RobotoLabel}" VerticalOptions="Start" Margin="40,20,40,20" Text="{helpers:Translate Energy}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" TextColor="#3C536A" Opacity=".5" FontSize="20" FontAttributes="Bold" />
+                    <Grid Margin="30,0,30,20" HeightRequest="84" HorizontalOptions="Start" VerticalOptions="Start" FlowDirection="MatchParent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="124" />
+                            <ColumnDefinition Width="124" />
+                            <ColumnDefinition Width="124" />
+                            <ColumnDefinition Width="124" />
+                        </Grid.ColumnDefinitions>
+                        <pancakeview:PancakeView Grid.Column="0" HorizontalOptions="Center" Padding="10" HeightRequest="82" WidthRequest="124" CornerRadius="10" BackgroundColor="#F2FBFB">
+                            <Label Style="{StaticResource Key=RobotoLabel}" VerticalOptions="Start" HeightRequest="82" WidthRequest="124" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                            <Span Text="{Binding Calories, StringFormat='{0:0.##}'}" TextColor="#3C536A"  FontSize="18" FontAttributes="Bold" />
+                                        <Span Text="&#10;" />
+                                        <Span Text="{helpers:Translate Calories}" TextColor="#3C536A" FontSize="16" />
+                                        <Span Text="&#10;" />
+                                        <Span Text="{helpers:Translate kcal}" TextColor="#AA3C536A"  FontSize="16" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </pancakeview:PancakeView>
+                        <pancakeview:PancakeView Grid.Column="1" HorizontalOptions="Center" Padding="10" HeightRequest="82" WidthRequest="124" CornerRadius="10" BackgroundColor="#F2FBFB">
+                                <Label Style="{StaticResource Key=RobotoLabel}" VerticalOptions="Start" HeightRequest="82" WidthRequest="124" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                            <Span Text="{Binding Carbo, StringFormat='{0:0.##}'}" TextColor="#3C536A"  FontSize="18" FontAttributes="Bold" />
+                                        <Span Text="&#10;" />
+                                        <Span Text="{helpers:Translate Carbo}" TextColor="#3C536A"  FontSize="16" />
+                                        <Span Text="&#10;" />
+                                        <Span Text="{helpers:Translate g}" TextColor="#AA3C536A"  FontSize="16" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </pancakeview:PancakeView>
+                        <pancakeview:PancakeView Grid.Column="2" Padding="10" HorizontalOptions="Center" HeightRequest="82" WidthRequest="124" CornerRadius="10" BackgroundColor="#F2FBFB">
+                                <Label Style="{StaticResource Key=RobotoLabel}" HeightRequest="82" WidthRequest="124" VerticalOptions="Start" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                            <Span Text="{Binding Fat, StringFormat='{0:0.##}'}" TextColor="#3C536A" FontSize="18" FontAttributes="Bold" />
+                                        <Span Text="&#10;" />
+                                        <Span Text="{helpers:Translate Fat}" TextColor="#3C536A"   FontSize="16" />
+                                        <Span Text="&#10;" />
+                                        <Span Text="{helpers:Translate g}" TextColor="#AA3C536A"   FontSize="16" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </pancakeview:PancakeView>
+                        <pancakeview:PancakeView Grid.Column="3" Padding="10" HorizontalOptions="Center" HeightRequest="82" WidthRequest="124" CornerRadius="10" BackgroundColor="#F2FBFB">
+                                <Label Style="{StaticResource Key=RobotoLabel}" HeightRequest="82" WidthRequest="124" VerticalOptions="Start" HorizontalOptions="Start" VerticalTextAlignment="Start" HorizontalTextAlignment="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                            <Span Text="{Binding Protein, StringFormat='{0:0.##}'}" TextColor="#3C536A"  FontSize="18" FontAttributes="Bold" />
+                                        <Span Text="&#10;" />
+                                        <Span Text="{helpers:Translate Protein}" TextColor="#3C536A"  FontSize="16" />
+                                        <Span Text="&#10;" />
+                                        <Span Text="{helpers:Translate g}" TextColor="#AA3C536A"  FontSize="16" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </pancakeview:PancakeView>
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+                <ListView Grid.Row="0" x:Name="curlv" ItemsSource="{Binding Currencies.Currencies}"
+                            FlowDirection="{Binding FlowDirectionValue}"
+                          HasUnevenRows="True"   SeparatorVisibility="Default" 
+                          SeparatorColor="Black"   VerticalOptions="Start"
+                          HeightRequest="100"
+                          HorizontalOptions="End" WidthRequest="50" ItemSelected="Curlv_ItemSelected" 
+                          ItemTapped="Curlv_ItemTapped"
+                          Margin="52,0" 
+                          SelectionMode="Single" IsVisible="{Binding ShowCurrencies,Source={Reference instance}}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell> 
+                                <Label FontSize="16" Text="{Binding Name}" HeightRequest="30" BackgroundColor="#E0E0E0"
+                                        HorizontalTextAlignment="End"
+                                       VerticalTextAlignment="Center" TextColor="Black" />
+                                
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            <pancakeview:PancakeView VerticalOptions="EndAndExpand" Margin="0" FlowDirection="MatchParent" BackgroundColor="White" HorizontalOptions="FillAndExpand" HeightRequest="88" BorderDrawingStyle="Inside" IsClippedToBounds="True" CornerRadius="20,20,0,0" HasShadow="true" Elevation="6">
+                <Grid VerticalOptions="Center" Margin="0,0,38,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="156" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" CornerRadius="28" HeightRequest="56" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="119" BackgroundColor="#01A9AC" FontSize="14" Style="{StaticResource Key=RobotoButton}" FontAttributes="Bold" TextColor="White" Text="{helpers:Translate Add}" Command="{Binding AddToOrder}" />
+                    <Label Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Margin="10,0" HorizontalTextAlignment="{Binding OrientationText}" VerticalTextAlignment="Center" HeightRequest="56" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="119" BackgroundColor="Transparent" Style="{StaticResource Key=MatLabel}" Text="&#xf0217;" FontSize="18" TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddToOrder}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <pancakeview:PancakeView Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" WidthRequest="116" HeightRequest="36" HorizontalOptions="Start" VerticalOptions="Center" BorderColor="Transparent" CornerRadius="12" HasShadow="false" BackgroundColor="#F2FBFB" Elevation="0">
+                        <StackLayout HeightRequest="36" WidthRequest="106" Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="Center">
+                            <Label WidthRequest="29" HorizontalOptions="End" Style="{StaticResource Key=MatLabel}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#773C536A" IsEnabled="{Binding minus_enabled}" Text="&#xf374;" FontSize="18">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding minus}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label WidthRequest="48" HorizontalOptions="Center" TextColor="#3C536A" FontSize="16" FontAttributes="Bold" 
+                                   Style="{StaticResource Key=RobotoLabel}"
+                                   Text="{Binding Qty}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                            <Label WidthRequest="29" HorizontalOptions="Start" Style="{StaticResource Key=MatLabel}" HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center" TextColor="#773C536A" BackgroundColor="#F2FBFB" IsEnabled="{Binding plus_enabled}" 
+                                   Text="&#xf0217;" FontSize="18">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding plus}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                    </pancakeview:PancakeView>
+                    <Label Style="{StaticResource Key=RobotoLabel}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" BackgroundColor="Transparent" HorizontalTextAlignment="{Binding OrientationText}" VerticalTextAlignment="Start" HorizontalOptions="Start" Margin="38,0,0,0" VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{helpers:Translate price}" TextColor="#77000000" FontSize="14"  FontAttributes="Bold" />
+                                <Span Text="&#10;" />
+                                <Span Text="{Binding ConvertedTotal}" TextColor="#01A9AC" FontAttributes="Bold" FontSize="24"   />
+                                <Span Text=" " />
+                                <Span Text="{Binding Currency.Name}" TextColor="#01A9AC" FontAttributes="Bold" FontSize="24"  />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+            </pancakeview:PancakeView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
