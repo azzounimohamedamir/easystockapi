@@ -4,12 +4,12 @@
     steps:
       - task: VSTest@2
         inputs:
-            testSelector: 'testAssemblies'
             testAssemblyVer2: |
-              **\*test*.dll
+              **\$(BuildConfiguration)\*test*.dll
               !**\*TestAdapter.dll
               !**\obj\**
-            searchFolder: 'tests\**'
+            platform: '$(BuildPlatform)'
+            configuration: '$(BuildConfiguration)'
             runTestsInIsolation: true
             codeCoverageEnabled: true
         displayName: Run tests
