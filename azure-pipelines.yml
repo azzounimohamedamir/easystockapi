@@ -5,8 +5,7 @@ stages:
     vmImage: 'windows-2019'
     workspace:
       clean: all
-  jobs:
-  - template: devops/azure-unittest-template.yml
+  
 
 - stage: Build_On_Test_Evn
   condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
