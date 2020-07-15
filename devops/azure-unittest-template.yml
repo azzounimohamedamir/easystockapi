@@ -1,6 +1,6 @@
 
  jobs:
-  - job: Unit Tests
+  - job: Tests
     steps:
       - task: VSTest@2
         inputs:
