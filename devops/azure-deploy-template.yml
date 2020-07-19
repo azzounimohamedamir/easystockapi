@@ -1,7 +1,7 @@
   parameters:
     envName: '' 
     ArtifactsOutputPath: '/home/ubuntu/test-SmartRestaurant'
-    WebProjectName: 'src/Presentation/SmartRestaurant.Web/'
+    WebProjectName: 'src/Presentation/SmartRestaurant.API/'
 
   jobs:
   - deployment: Deploy
@@ -17,5 +17,5 @@
                mkdir -p ${{ parameters.ArtifactsOutputPath }}
                rm -rf ${{ parameters.ArtifactsOutputPath }}
                cd ${{ parameters.WebProjectName }}
-               dotnet publish --no-restore -c Release --output=${{ parameters.ArtifactsOutputPath }}
+               dotnet publish --no-restore -c Release --output=${{ parameters.ArtifactsOutputPath }} SmartRestaurant.API.csproj
                sudo systemctl restart SmartRestaurant.service
