@@ -2,23 +2,24 @@ parameters:
   buildConfiguration: 'Release'
 
 jobs:
-  - job: Tsts_on_Wind
+  - job: Tests_on_Wind
     steps:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'restore'
         projects: 'src/Presentation/SmartRestaurant.API/*.csproj'
-#      displayName: 'dotnet restore ${{ parameters.buildConfiguration }}'
+      displayName: 'dotnet restore ${{ parameters.buildConfiguration }}'
 
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
         projects: 'src/Presentation/SmartRestaurant.API/*.csproj'
         arguments: '--configuration ${{ parameters.buildConfiguration }}'
-#      displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
+      displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
 
     - task: DotNetCoreCLI@2
       inputs:
-       command: test
-       projects: '**/*Tests/*.csproj'
-       arguments: '--configuration ${{ parameters.buildConfiguration }}'
+        command: test
+        projects: '**/*Tests/*.csproj'
+        arguments: '--configuration ${{ parameters.buildConfiguration }}'
+      displayName: 'dotnet test ${{ parameters.buildConfiguration }}'
