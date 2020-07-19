@@ -5,9 +5,10 @@
       - task: VSTest@2
         inputs:
             testAssemblyVer2: |
-              **\$(BuildConfiguration)\*test*.dll
+              **\*.Test.dll
               !**\*TestAdapter.dll
               !**\obj\**
+            searchFolder: '$(Build.SourcesDirectory)\tests' 
             platform: '$(BuildPlatform)'
             configuration: '$(BuildConfiguration)'
             runTestsInIsolation: true
