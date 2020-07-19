@@ -25,7 +25,7 @@ jobs:
     - task: VisualStudioTestPlatformInstaller@1
       inputs:
         packageFeedSelector: 'nugetOrg'
-        versionSelector: 'latestStable'
+        versionSelector: '16.0'
       displayName: 'install SQL tools'
 
     - task: DotNetCoreCLI@2
