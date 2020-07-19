@@ -1,12 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SmartRestaurant.Diner.Models;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 
 namespace SmartRestaurant.Diner.Services
 {
@@ -18,8 +13,8 @@ namespace SmartRestaurant.Diner.Services
         static private ListCurrenciesObject Currencies;
         public static ObservableCollection<CurrencyModel> GetListCurrencies()
         {
-            if(Currencies ==null)
-            Currencies = JsonConvert.DeserializeObject<ListCurrenciesObject>(SimpleService.GetJsonString("Repositories.ListCurrencies.json"));            
+            if (Currencies == null)
+                Currencies = JsonConvert.DeserializeObject<ListCurrenciesObject>(SimpleService.GetJsonString("Repositories.ListCurrencies.json"));
             if (Currencies.CurrenciesList != null)
             {
                 return new ObservableCollection<CurrencyModel>(Currencies.CurrenciesList);
