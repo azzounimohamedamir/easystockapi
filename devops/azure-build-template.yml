@@ -1,5 +1,5 @@
   parameters:
-    WebProjectName: 'src/Presentation/SmartRestaurant.Web/'
+    WebProjectName: 'src/Presentation/SmartRestaurant.API/'
     TestProjectFolder: 'tests'
   
   jobs:
