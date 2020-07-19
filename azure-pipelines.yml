@@ -1,5 +1,5 @@
 stages:
-- stage: uTests
+- stage: Run_Tests
   dependsOn: []
   pool: 
     vmImage: 'windows-2019'
