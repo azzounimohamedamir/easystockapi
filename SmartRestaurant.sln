@@ -35,9 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Domain.Test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartRestaurant.Mobile", "SmartRestaurant.Mobile", "{CA924675-8B75-4E9B-88A3-0AA6679AF719}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Diner", "SmartRestaurant.Mobile\SRMobile\SmartRestaurant.Diner.csproj", "{72FC615C-FC3B-486F-B59D-79CCA7E2F851}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Diner", "src\Presentation\SmartRestaurant.Mobile\SRMobile\SmartRestaurant.Diner.csproj", "{72FC615C-FC3B-486F-B59D-79CCA7E2F851}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Diner.Android", "SmartRestaurant.Mobile\SRMobile.Android\SmartRestaurant.Diner.Android.csproj", "{DE0598B0-1C28-47CB-BA41-EC6298FA1837}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Diner.Android", "src\Presentation\SmartRestaurant.Mobile\SRMobile.Android\SmartRestaurant.Diner.Android.csproj", "{DE0598B0-1C28-47CB-BA41-EC6298FA1837}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
