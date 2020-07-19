@@ -22,6 +22,12 @@ jobs:
         arguments: '--configuration ${{ parameters.buildConfiguration }}'
       displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
 
+    - task: VisualStudioTestPlatformInstaller@1
+      inputs:
+        packageFeedSelector: 'nugetOrg'
+        versionSelector: 'latestStable'
+      displayName: 'install SQL tools'
+
     - task: DotNetCoreCLI@2
       inputs:
         command: test
