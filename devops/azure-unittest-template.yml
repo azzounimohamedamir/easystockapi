@@ -1,4 +1,4 @@
-variables:
+parameters:
   buildConfiguration: 'Release'
 
 jobs:
@@ -8,17 +8,17 @@ jobs:
       inputs:
         command: 'restore'
         projects: 'src/Presentation/SmartRestaurant.Web/*.csproj'
-      displayName: 'dotnet restore $(buildConfiguration)'
+      displayName: 'dotnet restore ${{ parameters.buildConfiguration }}'
 
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
         projects: 'src/Presentation/SmartRestaurant.Web/*.csproj'
-        arguments: '--configuration $(buildConfiguration)'
-      displayName: 'dotnet build $(buildConfiguration)'
+        arguments: '--configuration ${{ parameters.buildConfiguration }}'
+      displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
 
     - task: DotNetCoreCLI@2
       inputs:
        command: test
        projects: '**/*Tests/*.csproj'
-       arguments: '--configuration $(buildConfiguration)'
+       arguments: '--configuration ${{ parameters.buildConfiguration }}'
