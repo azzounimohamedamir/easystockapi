@@ -32,6 +32,6 @@ jobs:
       inputs:
         command: test
         projects: '**/*Tests/*.csproj'
-        arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "Code coverage"'
+        arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "Code Coverage"'
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
       
