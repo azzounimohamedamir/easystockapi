@@ -25,12 +25,20 @@ jobs:
     - task: VisualStudioTestPlatformInstaller@1
       inputs:
         packageFeedSelector: 'nugetOrg'
-        versionSelector: '16.0'
+        versionSelector: 'latestStable'
       displayName: 'install SQL tools'
 
-    - task: DotNetCoreCLI@2
+#    - task: DotNetCoreCLI@2
+#      inputs:
+#        command: test
+#        projects: '**/*Tests/*.csproj'
+#        arguments: '--configuration ${{ parameters.buildConfiguration }}'
+#      displayName: 'dotnet test ${{ parameters.buildConfiguration }}'
+
+    - script: dotnet test '**/*Tests/*.csproj' --logger trx
+    - task: PublishTestResults@2
+      condition: succeededOrFailed()
       inputs:
-        command: test
-        projects: '**/*Tests/*.csproj'
-        arguments: '--configuration ${{ parameters.buildConfiguration }}'
-      displayName: 'dotnet test ${{ parameters.buildConfiguration }}'
+        testRunner: VSTest
+        testResultsFiles: '**/*.trx'
+    displayName: 'dotnet test and publish ${{ parameters.buildConfiguration }}'
