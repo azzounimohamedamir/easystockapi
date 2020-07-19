@@ -6,7 +6,7 @@
       inputs:
         command: 'test'
         projects: '$(Build.SourcesDirectory)\tests\SmartRestaurant.Application.Tests' 
-        arguments: ' --configuration Debug'
+        arguments: '--no-build --configuration Debug'
         testRunTitle: 'Unit Tests'
         publishTestResults: true
       displayName: Run tests
