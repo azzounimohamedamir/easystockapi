@@ -4,6 +4,11 @@ parameters:
 jobs:
   - job: Tests_on_Wind
     steps:
+    - task: UseDotNet@2
+      inputs:
+        version: '3.0.x'
+      displayName: 'Use dotnet core 3.0.x'
+
     - task: DotNetCoreCLI@2
       inputs:
         command: 'restore'
