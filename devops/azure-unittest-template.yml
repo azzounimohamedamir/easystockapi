@@ -2,7 +2,7 @@ parameters:
   buildConfiguration: 'Release'
 
 jobs:
-  - job: Build and Test on Windows 
+  - job: Tsts on Wind
     steps:
     - task: DotNetCoreCLI@2
       inputs:
