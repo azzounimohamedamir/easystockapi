@@ -2,14 +2,11 @@
  jobs:
   - job: Tests
     steps:
-      - task: VSTest@2
-        inputs:
-            testAssemblyVer2: |
-              **\*.test.dll
-              !**\*TestAdapter.dll
-              !**\obj\**
-            searchFolder: '$(Build.SourcesDirectory)\tests\SmartRestaurant.Application.Tests' 
-            platform: '$(BuildPlatform)'
-            configuration: '$(BuildConfiguration)'
-            codeCoverageEnabled: true
-        displayName: Run tests
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'test'
+        projects: '$(Build.SourcesDirectory)\tests\SmartRestaurant.Application.Tests' 
+        arguments: ' --configuration Debug'
+        testRunTitle: 'Unit Tests'
+        publishTestResults: true
+      displayName: Run tests
