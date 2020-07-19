@@ -2,18 +2,18 @@ parameters:
   buildConfiguration: 'Release'
 
 jobs:
-  - job: Build and Test on Windows Environment 
+  - job: Build and Test on Windows 
     steps:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'restore'
-        projects: 'src/Presentation/SmartRestaurant.Web/*.csproj'
+        projects: 'src/Presentation/SmartRestaurant.API/*.csproj'
       displayName: 'dotnet restore ${{ parameters.buildConfiguration }}'
 
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: 'src/Presentation/SmartRestaurant.Web/*.csproj'
+        projects: 'src/Presentation/SmartRestaurant.API/*.csproj'
         arguments: '--configuration ${{ parameters.buildConfiguration }}'
       displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
 
