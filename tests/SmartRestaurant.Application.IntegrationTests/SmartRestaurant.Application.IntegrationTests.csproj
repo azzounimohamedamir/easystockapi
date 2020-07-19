@@ -40,7 +40,7 @@
     <ProjectReference Include="..\..\src\Libraries\SmartRestaurant.Domain\SmartRestaurant.Domain.csproj" />
     <ProjectReference Include="..\..\src\Libraries\SmartRestaurant.Infrastructure.Identity\SmartRestaurant.Infrastructure.Identity.csproj" />
     <ProjectReference Include="..\..\src\Libraries\SmartRestaurant.Infrastructure\SmartRestaurant.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\src\Presentation\SmartRestaurant.Web\SmartRestaurant.Web.csproj" />
+    <ProjectReference Include="..\..\src\Presentation\SmartRestaurant.API\SmartRestaurant.API.csproj" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmartRestaurant.Application.Tests\SmartRestaurant.Application.Tests.csproj" />

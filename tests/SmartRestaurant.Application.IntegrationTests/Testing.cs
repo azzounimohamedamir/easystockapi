@@ -8,7 +8,7 @@ using NUnit.Framework;
 using Respawn;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Infrastructure.Persistence;
-using SmartRestaurant.Web;
+using SmartRestaurant.API;
 using System;
 using System.IO;
 using System.Linq;
@@ -37,7 +37,7 @@ public class Testing
 
         services.AddSingleton(Mock.Of<IWebHostEnvironment>(w =>
             w.EnvironmentName == "Development" &&
-            w.ApplicationName == "SmartRestaurant.Web"));
+            w.ApplicationName == "SmartRestaurant.API"));
         services.AddLogging();
         startup.ConfigureServices(services);
 

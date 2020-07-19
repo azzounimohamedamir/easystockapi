@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Application
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Infrastructure", "src\Libraries\SmartRestaurant.Infrastructure\SmartRestaurant.Infrastructure.csproj", "{4D1C4FE9-3EB2-44F9-B932-008CE9376771}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Web", "src\Presentation\SmartRestaurant.Web\SmartRestaurant.Web.csproj", "{F3F91EA5-7723-4DC7-A211-CE1551BAEB3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.API", "src\Presentation\SmartRestaurant.API\SmartRestaurant.API.csproj", "{F3F91EA5-7723-4DC7-A211-CE1551BAEB3B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Infrastructure.Identity", "src\Libraries\SmartRestaurant.Infrastructure.Identity\SmartRestaurant.Infrastructure.Identity.csproj", "{933F7ABC-47D4-4F62-A772-39471F365EED}"
 EndProject
