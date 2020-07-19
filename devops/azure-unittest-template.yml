@@ -8,7 +8,7 @@
               **\*.Test.dll
               !**\*TestAdapter.dll
               !**\obj\**
-            searchFolder: '$(Build.SourcesDirectory)\tests' 
+            searchFolder: '$(Build.SourcesDirectory)\tests\SmartRestaurant.Application.Tests' 
             platform: '$(BuildPlatform)'
             configuration: '$(BuildConfiguration)'
             runTestsInIsolation: true
