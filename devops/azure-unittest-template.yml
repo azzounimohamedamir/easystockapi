@@ -28,17 +28,10 @@ jobs:
         versionSelector: 'latestStable'
       displayName: 'install SQL tools'
 
-#    - task: DotNetCoreCLI@2
-#      inputs:
-#        command: test
-#        projects: '**/*Tests/*.csproj'
-#        arguments: '--configuration ${{ parameters.buildConfiguration }}'
-#      displayName: 'dotnet test ${{ parameters.buildConfiguration }}'
-
-    - script: dotnet test '**/*Tests/*.csproj' --logger trx
-    - task: PublishTestResults@2
-      condition: succeededOrFailed()
+    - task: DotNetCoreCLI@2
       inputs:
-        testRunner: VSTest
-        testResultsFiles: '**/*.trx'
-    displayName: 'dotnet test and publish ${{ parameters.buildConfiguration }}'
+        command: test
+        projects: '**/*Tests/*.csproj'
+        arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "Code coverage"'
+      displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
+      
