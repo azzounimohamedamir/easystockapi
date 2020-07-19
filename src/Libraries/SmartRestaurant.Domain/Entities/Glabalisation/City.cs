@@ -6,8 +6,8 @@ namespace SmartRestaurant.Domain.Entities.Glabalisation
 {
     public class City : AuditableEntity
     {
-        public Guid CityId { get; protected set; }
-        public string Name { get; protected set; }
-        public GeoPosition GeoPosition { get; protected set; }
+        public Guid CityId { get; set; }
+        public string Name { get; set; }
+        public GeoPosition GeoPosition { get; set; }
     }
 }

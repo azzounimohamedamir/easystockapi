@@ -8,8 +8,8 @@ namespace SmartRestaurant.Domain.ValueObjects
     [Owned]
     public class PhoneNumber : ValueObject
     {
-        public int CountryCode { get; protected set; }
-        public int Number { get; protected set; }
+        public int CountryCode { get; set; }
+        public int Number { get; set; }
 
         protected override IEnumerable<object> GetAtomicValues()
         {
@@ -18,21 +18,6 @@ namespace SmartRestaurant.Domain.ValueObjects
                 CountryCode,
                 Number
             };
-        }
-
-        public string GetPhoneNumber()
-        {
-            return new StringBuilder("+").Append(CountryCode).Append(Number).ToString();
-        }
-
-        public static PhoneNumber Create(int countryCode, int number)
-        {
-            PhoneNumber phoneNumber = new PhoneNumber()
-            {
-                CountryCode = countryCode,
-                Number = number
-            };
-            return phoneNumber;
         }
     }
 }

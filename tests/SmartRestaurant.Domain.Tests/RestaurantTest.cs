@@ -10,20 +10,20 @@ namespace SmartRestaurant.Domain.Tests
 
         public RestaurantTest()
         {
-            Restaurant = new Restaurant();
-            Restaurant.UpdateRestaurantInfo(
-                nameArabic: "مطعمي",
-                nameFrench: "Mon Restaurant",
-                nameEnglish: "My Restaurant",
-                description: "Bienvenue chez mon restaurant algerien",
-                hasCarParking: true,
-                isHandicapFreindly: true,
-                acceptsCreditCards: true,
-                acceptTakeout: false,
-                tags: "Traditionnelle, Algerien",
-                website: "www.restaurant-exemple.com",
-                averageRating: 4.5,
-                numberRatings: 150);
+            Restaurant = new Restaurant {
+                NameArabic = "مطعمي",
+                NameFrench = "Mon Restaurant",
+                NameEnglish = "My Restaurant",
+                Description = "Bienvenue chez mon restaurant algerien",
+                HasCarParking = true,
+                IsHandicapFreindly = true,
+                AcceptsCreditCards = true,
+                AcceptTakeout = false,
+                Tags = "Traditionnelle, Algerien",
+                Website = "www.restaurant-exemple.com",
+                AverageRating = 4.5,
+                NumberRatings = 150
+            };
         }
 
         [Fact]
@@ -35,23 +35,20 @@ namespace SmartRestaurant.Domain.Tests
         [Fact]
         public void Restaurant_Address_Valide_Test()
         {
-            Restaurant.LocatedAt(
-                streetAddress: "12 rue exemple",
-                city: "Oran",
-                country: "Algeria");
+            Restaurant.Address = new Entities.Globalisation.Address{ 
+                StreetAddress = "12 rue exemple",
+                City = "Oran",
+                Country = "Algeria"
+            };
 
-            Assert.Equal("12 rue exemple, Oran, Algeria", Restaurant.Address.GetAddresse());
+            Assert.Equal("12 rue exemple", Restaurant.Address.StreetAddress);
         }
 
         [Fact]
         public void Restaurant_MapMarker_Valide_Test()
         {
-            Restaurant.LocatedAt(
-                streetAddress: "12 rue exemple",
-                city: "Oran",
-                country: "Algeria");
-
-            Restaurant.CreateMapMarker(latitude: "+40.75", longitude: "-074.00");
+            Restaurant.Address.GeoPosition = new ValueObjects.GeoPosition{
+                Latitude = "+40.75", Longitude = "-074.00" };
 
             Assert.Equal("-074.00", Restaurant.Address.GeoPosition.Longitude);
         }
@@ -59,25 +56,18 @@ namespace SmartRestaurant.Domain.Tests
         [Fact]
         public void Restaurant_PhoneNumber_Valide_Test()
         {
-            Restaurant.ChangePhoneNumber(CountryCode: 213, Number: 798924059);
+            Restaurant.PhoneNumber = new ValueObjects.PhoneNumber{
+                CountryCode = 213, Number = 798924059 };
 
-            Assert.Equal("+213798924059", Restaurant.PhoneNumber.GetPhoneNumber());
+            Assert.Equal("798924059", Restaurant.PhoneNumber.Number.ToString());
         }
 
         [Fact]
         public void Restaurant_State_Valide_Test()
         {
-            Restaurant.ChangeState(RestaurantState.Active);
+            Restaurant.RestaurantState = RestaurantState.Active;
 
             Assert.Equal(RestaurantState.Active, Restaurant.RestaurantState);
-        }
-
-        [Fact]
-        public void Restaurant_Rating_NotValide_Test()
-        {
-            Restaurant.Rate(4);
-
-            Assert.NotEqual(4.5, Restaurant.AverageRating);
         }
     }
 }

@@ -50,14 +50,14 @@ namespace SmartRestaurant.Application.Restaurants.Commands
 
         public async Task<Unit> Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _context.Restaurants.FindAsync(request.RestaurantId);
+            Restaurant entity = await _context.Restaurants.FindAsync(request.RestaurantId);
 
             if (entity == null)
             {
                 throw new NotFoundException(nameof(Restaurant), request.RestaurantId);
             }
 
-            entity.UpdateRestaurantInfo(_mapper.Map<Restaurant>(request));
+            entity = _mapper.Map<Restaurant>(request);
             await _context.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;

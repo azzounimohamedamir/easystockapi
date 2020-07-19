@@ -48,7 +48,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             };
             Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
 
-            Assert.Equal("+12.5,-24.3", restaurant.Address.GeoPosition.GetPosition());
+            Assert.Equal("+12.5", restaurant.Address.GeoPosition.Latitude);
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             };
             Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
 
-            Assert.Equal("12 rue exemple, Oran, Algeria", restaurant.Address.GetAddresse());
+            Assert.Equal("12 rue exemple", restaurant.Address.StreetAddress);
         }
 
         [Fact]
@@ -81,7 +81,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             };
             Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
 
-            Assert.Equal("+213798924059", restaurant.PhoneNumber.GetPhoneNumber());
+            Assert.Equal("798924059", restaurant.PhoneNumber.Number.ToString());
         }
     }
 }
