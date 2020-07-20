@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -8,7 +9,7 @@ namespace SmartRestaurant.API.Controllers
     public class ValuesController : ControllerBase
     {
         [Authorize]
-        [HttpGet]
+        [HttpGet("GetValues")]
         public ActionResult GetValues()
         {
             var value = "I am logged in";
@@ -29,6 +30,12 @@ namespace SmartRestaurant.API.Controllers
         {
             var value = "I am admin";
             return Ok(value);
+        }
+
+        [HttpGet]
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
         }
     }
 }
