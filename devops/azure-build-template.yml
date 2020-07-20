@@ -31,5 +31,5 @@
          dotnet ef database update --context:ApplicationDbContext
          dotnet ef database update --context:IdentityContext
        displayName: Database Initialization
-    dependsOn: Build_the_Website
+    dependsOn: Build_the_API
     condition: succeeded()
