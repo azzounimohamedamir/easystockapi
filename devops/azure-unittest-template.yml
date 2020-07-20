@@ -40,7 +40,7 @@ jobs:
         testSelector: 'testAssemblies' # Options: testAssemblies, testPlan, testRun
         testAssemblyVer2: | # Required when testSelector == TestAssemblies
           **\*.Test.dll
-        searchFolder: '**/*tests/*' 
+        #searchFolder: '**/*tests/*' 
         codeCoverageEnabled: true
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
       
