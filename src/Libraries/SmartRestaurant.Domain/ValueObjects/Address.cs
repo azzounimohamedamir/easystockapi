@@ -2,7 +2,6 @@
 using SmartRestaurant.Domain.Common;
 using SmartRestaurant.Domain.ValueObjects;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Entities.Globalisation
 {

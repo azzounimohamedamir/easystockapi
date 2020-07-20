@@ -10,7 +10,8 @@ namespace SmartRestaurant.Domain.Tests
 
         public RestaurantTest()
         {
-            Restaurant = new Restaurant {
+            Restaurant = new Restaurant
+            {
                 NameArabic = "مطعمي",
                 NameFrench = "Mon Restaurant",
                 NameEnglish = "My Restaurant",
@@ -35,7 +36,8 @@ namespace SmartRestaurant.Domain.Tests
         [Fact]
         public void Restaurant_Address_Valide_Test()
         {
-            Restaurant.Address = new Entities.Globalisation.Address{ 
+            Restaurant.Address = new Entities.Globalisation.Address
+            {
                 StreetAddress = "12 rue exemple",
                 City = "Oran",
                 Country = "Algeria"
@@ -47,8 +49,11 @@ namespace SmartRestaurant.Domain.Tests
         [Fact]
         public void Restaurant_MapMarker_Valide_Test()
         {
-            Restaurant.Address.GeoPosition = new ValueObjects.GeoPosition{
-                Latitude = "+40.75", Longitude = "-074.00" };
+            Restaurant.Address.GeoPosition = new ValueObjects.GeoPosition
+            {
+                Latitude = "+40.75",
+                Longitude = "-074.00"
+            };
 
             Assert.Equal("-074.00", Restaurant.Address.GeoPosition.Longitude);
         }
@@ -56,8 +61,11 @@ namespace SmartRestaurant.Domain.Tests
         [Fact]
         public void Restaurant_PhoneNumber_Valide_Test()
         {
-            Restaurant.PhoneNumber = new ValueObjects.PhoneNumber{
-                CountryCode = 213, Number = 798924059 };
+            Restaurant.PhoneNumber = new ValueObjects.PhoneNumber
+            {
+                CountryCode = 213,
+                Number = 798924059
+            };
 
             Assert.Equal("798924059", Restaurant.PhoneNumber.Number.ToString());
         }

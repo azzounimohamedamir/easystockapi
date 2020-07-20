@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SmartRestaurant.API.Services;
 using SmartRestaurant.Application;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Infrastructure;
-using SmartRestaurant.API.Services;
+using SmartRestaurant.Infrastructure.Identity;
 
 namespace SmartRestaurant.API
 {
@@ -22,7 +23,10 @@ namespace SmartRestaurant.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication();
+
             services.AddInfrastructure(Configuration);
+            services.AddIdentityInfrastructure(Configuration);
+
             services.AddHttpContextAccessor();
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
@@ -46,12 +50,12 @@ namespace SmartRestaurant.API
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }

@@ -2,18 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
-    <IsPackable>false</IsPackable>
-    <Authors>Software Ateliers</Authors>
-    <Company>Software Ateliers</Company>
-    <Description>ASP.NET Core + Vue.js starter project</Description>
-    <Copyright>MIT 2020 Software Ateliers</Copyright>
-    <AssemblyName>SmartRestaurant.Web</AssemblyName>
-    <RootNamespace>SmartRestaurant.Web</RootNamespace>
-    <Version>2.4.0</Version>
-    <AssemblyVersion>2.4.0.0</AssemblyVersion>
-    <FileVersion>2.4.0.0</FileVersion>
+    <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,12 +11,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\SmartRestaurant.Application\SmartRestaurant.Application.csproj" />
+    <ProjectReference Include="..\..\Libraries\SmartRestaurant.Infrastructure.Identity\SmartRestaurant.Infrastructure.Identity.csproj" />
     <ProjectReference Include="..\..\Libraries\SmartRestaurant.Infrastructure\SmartRestaurant.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>
