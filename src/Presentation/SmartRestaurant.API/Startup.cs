@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SmartRestaurant.API.Services;
 using SmartRestaurant.Application;
-using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Infrastructure;
 using SmartRestaurant.Infrastructure.Identity;
 
@@ -28,8 +26,6 @@ namespace SmartRestaurant.API
             services.AddIdentityInfrastructure(Configuration);
 
             services.AddHttpContextAccessor();
-
-            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             services.AddControllersWithViews();
         }
