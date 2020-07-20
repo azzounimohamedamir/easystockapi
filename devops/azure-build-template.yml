@@ -20,7 +20,7 @@
       - script: |
           cd ${{ parameters.WebProjectName }}
           dotnet build --no-restore SmartRestaurant.API.csproj
-        displayName: Build the API
+        displayName: Build
       
       
   - job: Database_Migration
