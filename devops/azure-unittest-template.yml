@@ -35,6 +35,12 @@ jobs:
 #        arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "Code Coverage"'
 #      displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
 
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'restore'
+        projects: '**/*Tests/*.csproj'
+      displayName: 'dotnet tests packages'
+
     - task: VSTest@2
       inputs:
         testSelector: 'testAssemblies' # Options: testAssemblies, testPlan, testRun
