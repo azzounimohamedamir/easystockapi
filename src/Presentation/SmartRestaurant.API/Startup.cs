@@ -42,7 +42,6 @@ namespace SmartRestaurant.API
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
