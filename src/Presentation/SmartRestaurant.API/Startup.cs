@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SmartRestaurant.Application;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Common.Services;
 using SmartRestaurant.Infrastructure;
 using SmartRestaurant.API.Services;
 
@@ -27,7 +26,6 @@ namespace SmartRestaurant.API
             services.AddHttpContextAccessor();
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
-            services.AddScoped<IUserService, UserService>();
 
             services.AddControllersWithViews();
         }
