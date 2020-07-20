@@ -3,7 +3,7 @@
     TestProjectFolder: 'tests'
   
   jobs:
-  - job: Build_the_Website
+  - job: Build_the_API
     steps:
       - script: |
          cp devops/appsettings.json ${{ parameters.WebProjectName }}
@@ -20,7 +20,7 @@
       - script: |
           cd ${{ parameters.WebProjectName }}
           dotnet build --no-restore SmartRestaurant.API.csproj
-        displayName: Build the Website
+        displayName: Build the API
       
       
   - job: Database_Migration
