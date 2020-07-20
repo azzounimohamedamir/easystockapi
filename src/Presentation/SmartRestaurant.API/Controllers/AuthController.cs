@@ -31,7 +31,7 @@ namespace SmartRestaurant.API.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
@@ -46,7 +46,7 @@ namespace SmartRestaurant.API.Controllers
             return Ok(new { token, appUser.UserName });
         }
 
-        [HttpPost("register")]
+        [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterModel model)
         {
             var user = new ApplicationUser
@@ -60,7 +60,7 @@ namespace SmartRestaurant.API.Controllers
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.Admin.ToString());
+                await _userManager.AddToRoleAsync(user, Roles.User.ToString());
 
                 return Ok("Ok");
             }
