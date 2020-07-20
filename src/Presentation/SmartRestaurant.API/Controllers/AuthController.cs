@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
@@ -40,7 +41,7 @@ namespace SmartRestaurant.API.Controllers
 
             var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
 
-            var token = await GenerateJwtToken(appUser);
+            var token = await TokenGenerator.Generate(appUser,_userManager,_configuration);
 
             return Ok(new { token, appUser.UserName });
         }
@@ -65,37 +66,6 @@ namespace SmartRestaurant.API.Controllers
             }
 
             return BadRequest("Username already exists");
-        }
-
-        private async Task<string> GenerateJwtToken(IdentityUser user)
-        {
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName)
-            };
-
-            var roles = await _userManager.GetRolesAsync(user);
-
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-            var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration["JwtExpireDays"]));
-
-            var token = new JwtSecurityToken(
-                _configuration["JwtIssuer"],
-                _configuration["JwtIssuer"],
-                claims,
-                expires: expires,
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
