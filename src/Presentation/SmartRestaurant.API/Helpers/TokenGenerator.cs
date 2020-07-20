@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using SmartRestaurant.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,7 +13,7 @@ namespace SmartRestaurant.API.Helpers
 {
     public static class TokenGenerator
     {
-        public static async Task<string> Generate(IdentityUser user, UserManager<IdentityUser> _userManager, IConfiguration _configuration)
+        public static async Task<string> Generate(ApplicationUser user, UserManager<ApplicationUser> _userManager, IConfiguration _configuration)
         {
             var claims = new List<Claim>
             {
