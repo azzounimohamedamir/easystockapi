@@ -11,8 +11,8 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         public ActionResult GetValues()
         {
-            var values = new[] { "1", "2", "3" };
-            return Ok(values);
+            var value = "I am logged in";
+            return Ok(value);
         }
 
         [Authorize(Roles = "User")]
