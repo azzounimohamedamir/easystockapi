@@ -7,11 +7,9 @@ using Moq;
 using NUnit.Framework;
 using Respawn;
 using SmartRestaurant.API;
-using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Infrastructure.Persistence;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 [SetUpFixture]
@@ -20,7 +18,7 @@ public class Testing
     private static IConfigurationRoot _configuration;
     private static IServiceScopeFactory _scopeFactory;
     private static Checkpoint _checkpoint;
-    private static string _currentUserId;
+
     [OneTimeSetUp]
     public void RunBeforeAnyTests()
     {
@@ -40,17 +38,6 @@ public class Testing
             w.ApplicationName == "SmartRestaurant.API"));
         services.AddLogging();
         startup.ConfigureServices(services);
-
-        // Replace service registration for ICurrentUserService
-        // Remove existing registration
-        var currentUserServiceDescriptor = services.FirstOrDefault(d =>
-            d.ServiceType == typeof(ICurrentUserService));
-
-        services.Remove(currentUserServiceDescriptor);
-
-        // Register testing version
-        services.AddTransient(provider =>
-            Mock.Of<ICurrentUserService>(s => s.UserId == _currentUserId));
 
         _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
@@ -83,7 +70,6 @@ public class Testing
     public static async Task ResetState()
     {
         await _checkpoint.Reset(_configuration.GetConnectionString("DefaultConnection"));
-        _currentUserId = null;
     }
 
     public static async Task<TEntity> FindAsync<TEntity>(Guid id)
