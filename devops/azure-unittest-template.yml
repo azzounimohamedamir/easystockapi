@@ -28,28 +28,22 @@ jobs:
         versionSelector: 'latestStable'
       displayName: 'install SQL tools'
 
-#    - task: DotNetCoreCLI@2
-#      inputs:
-#        command: test
-#        projects: '**/*Tests/*.csproj'
-#        arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "Code Coverage"'
-#      displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
-
     - task: DotNetCoreCLI@2
       inputs:
-        command: 'restore'
+        command: test
         projects: '**/*Tests/*.csproj'
-      displayName: 'dotnet tests packages'
-
-    - task: VSTest@2
-      inputs:
-        testSelector: 'testAssemblies' # Options: testAssemblies, testPlan, testRun
-        testAssemblyVer2: | # Required when testSelector == TestAssemblies
-          **\*[Tt]est*.dll
-          !**\*[Tt]estAdapter*.dll
-          !**\obj\**
-        searchFolder: '**/*Tests/*'
-        configuration: '${{ parameters.buildConfiguration }}'
-        codeCoverageEnabled: true
+        arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "Code Coverage"'
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
+
+#    - task: VSTest@2
+#      inputs:
+#        testSelector: 'testAssemblies' # Options: testAssemblies, testPlan, testRun
+#        testAssemblyVer2: | # Required when testSelector == TestAssemblies
+#          **\*[Tt]est*.dll
+#          !**\*[Tt]estAdapter*.dll
+#          !**\obj\**
+#        searchFolder: '**/*Tests/*'
+#        configuration: '${{ parameters.buildConfiguration }}'
+#        codeCoverageEnabled: true
+#      displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
       
