@@ -1,17 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
@@ -41,7 +35,7 @@ namespace SmartRestaurant.API.Controllers
 
             var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
 
-            var token = await TokenGenerator.Generate(appUser,_userManager,_configuration);
+            var token = await TokenGenerator.Generate(appUser, _userManager, _configuration);
 
             return Ok(new { token, appUser.UserName });
         }
