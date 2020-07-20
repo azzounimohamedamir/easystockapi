@@ -10,7 +10,6 @@ using SmartRestaurant.API;
 using SmartRestaurant.Infrastructure.Persistence;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 [SetUpFixture]
