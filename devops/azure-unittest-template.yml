@@ -32,8 +32,8 @@ jobs:
       inputs:
         command: test
         projects: |
-           '**/SmartRestaurant.Domain.Tests/*.csproj'
-           '**/SmartRestaurant.Application.Tests/*.csproj'
+           'tests/SmartRestaurant.Domain.Tests/*.csproj'
+           'tests/SmartRestaurant.Application.Tests/*.csproj'
         arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "XPlat Code Coverage"'
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
 
