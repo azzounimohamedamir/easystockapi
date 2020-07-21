@@ -43,6 +43,7 @@ jobs:
           **\*.Test*.dll
           !**Testhost*
           !**testhost*
+          !**hostpolicy*.dll
           !**\xunit.runner.visualstudio.testadapter.dll
           !**\xunit.runner.visualstudio.dotnetcore.testadapter.dll
           !**\*[Tt]estAdapter*.dll
