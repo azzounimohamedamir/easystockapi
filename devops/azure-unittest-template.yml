@@ -22,29 +22,29 @@ jobs:
         arguments: '--configuration ${{ parameters.buildConfiguration }}'
       displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
 
-    - task: DotNetCoreCLI@2
-      inputs:
-        command: test
-        projects:  '**/*Tests/*.csproj'
-        arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "XPlat Code Coverage"'
-      displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
-
-    - task: PublishCodeCoverageResults@1
-      inputs:
-        codeCoverageTool: 'Cobertura'
-        summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
-      displayName: 'Publish code coverage report'
-
-
-#    - task: VSTest@2
+#    - task: DotNetCoreCLI@2
 #      inputs:
-#        testSelector: 'testAssemblies' # Options: testAssemblies, testPlan, testRun
-#        testAssemblyVer2: | # Required when testSelector == TestAssemblies
-#          **\*[Tt]est*.dll
-#          !**\*[Tt]estAdapter*.dll
-#          !**\obj\**
-#        searchFolder: '**/*Tests/*'
-#        configuration: '${{ parameters.buildConfiguration }}'
-#        codeCoverageEnabled: true
+#        command: test
+#        projects:  '**/*Tests/*.csproj'
+#        arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "XPlat Code Coverage"'
 #      displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
+
+#    - task: PublishCodeCoverageResults@1
+#      inputs:
+#        codeCoverageTool: 'Cobertura'
+#        summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
+#      displayName: 'Publish code coverage report'
+
+
+    - task: VSTest@2
+      inputs:
+        testSelector: 'testAssemblies' # Options: testAssemblies, testPlan, testRun
+        testAssemblyVer2: | # Required when testSelector == TestAssemblies
+          **\*[Tt]est*.dll
+          !**\*[Tt]estAdapter*.dll
+          !**\obj\**
+        searchFolder: '**/*Tests/*'
+        configuration: '${{ parameters.buildConfiguration }}'
+        codeCoverageEnabled: true
+      displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
       
