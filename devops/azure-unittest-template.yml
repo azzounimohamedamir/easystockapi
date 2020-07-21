@@ -18,7 +18,7 @@ jobs:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: '**/*Tests/*.csproj'
+        projects: '**/SmartRestaurant.Application.Tests/*.csproj'
         arguments: '--configuration ${{ parameters.buildConfiguration }}'
       displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
 
@@ -31,7 +31,7 @@ jobs:
     - task: DotNetCoreCLI@2
       inputs:
         command: test
-        projects:  '**/*Tests/*.csproj'
+        projects:  '**/SmartRestaurant.Application.Tests/*.csproj'
         arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "XPlat Code Coverage"'
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
 
