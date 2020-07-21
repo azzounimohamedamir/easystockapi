@@ -32,7 +32,7 @@ jobs:
       inputs:
         command: test
         projects: '**/*Tests/*.csproj'
-        arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "Code Coverage"'
+        arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "XPlat Code Coverage"'
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
 
 #    - task: VSTest@2
