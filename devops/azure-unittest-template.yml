@@ -40,7 +40,7 @@ jobs:
       inputs:
         testSelector: 'testAssemblies' # Options: testAssemblies, testPlan, testRun
         testAssemblyVer2: | # Required when testSelector == TestAssemblies
-          **\*[Tt]est*.dll
+          **\*[Tt]est.dll
           !**\xunit.runner.visualstudio.testadapter.dll
           !**\xunit.runner.visualstudio.dotnetcore.testadapter.dll
           !**\*[Tt]estAdapter*.dll
@@ -48,6 +48,7 @@ jobs:
         searchFolder: 'tests/SmartRestaurant.Application.Tests/'
         configuration: '${{ parameters.buildConfiguration }}'
         platform: '$(buildPlatform)'
+        testRunTitle: $(Agent.JobName)
         otherConsoleOptions: '/Platform:x64 /Framework:.NETCoreApp,Version=v3.1'
         codeCoverageEnabled: true
         publishRunAttachments: true
