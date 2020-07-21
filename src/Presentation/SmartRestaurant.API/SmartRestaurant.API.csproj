@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GenerateProgramFile>false</GenerateProgramFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\SmartRestaurant.Application\SmartRestaurant.Application.csproj" />
+    <ProjectReference Include="..\..\Libraries\SmartRestaurant.Infrastructure.Identity\SmartRestaurant.Infrastructure.Identity.csproj" />
+    <ProjectReference Include="..\..\Libraries\SmartRestaurant.Infrastructure\SmartRestaurant.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

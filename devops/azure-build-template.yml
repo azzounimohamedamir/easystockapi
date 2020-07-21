@@ -1,42 +1,35 @@
   parameters:
-    WebProjectName: 'SmartRestaurant.Client.Web'
+    WebProjectName: 'src/Presentation/SmartRestaurant.API/'
+    TestProjectFolder: 'tests'
   
   jobs:
-  - job: Build_the_Website
+  - job: Build_the_API
     steps:
-      - task: SonarQubePrepare@4
-        inputs:
-          SonarQube: 'TestSonar'
-          scannerMode: 'MSBuild'
-          projectKey: 'test01'
-          projectName: 'TestEADNproject'
-        displayName: Prepare SonarQube
       - script: |
+         cp devops/appsettings.json ${{ parameters.WebProjectName }}
          cd ${{ parameters.WebProjectName }}
-         dotnet clean
-         dotnet restore
+         dotnet clean SmartRestaurant.API.csproj
+         dotnet restore SmartRestaurant.API.csproj
         displayName: Restore Common Packages
       - script: |
-         cd "SmartRestaurant.Application"
+         cp devops/appsettings.json src/Libraries/SmartRestaurant.Application/
+         cp devops/appsettings.json src/Libraries/SmartRestaurant.Infrastructure/
+         cd "src/Libraries/SmartRestaurant.Application/"
          dotnet add package DataTables.AspNetCore.Mvc
         displayName: Add AspNetCore.Mvc Packages
       - script: |
           cd ${{ parameters.WebProjectName }}
-          dotnet build --no-restore
-        displayName: Build the Website
-      - task: SonarQubeAnalyze@4
-        displayName: SonarQube Analyze Code
-      - task: SonarQubePublish@4
-        inputs:
-          pollingTimeoutSec: '300'
-        displayName: SonarQube Publish Report
+          dotnet build --no-restore SmartRestaurant.API.csproj
+        displayName: Build
+      
+      
   - job: Database_Migration
     steps:
      - checkout: none
      - script: |
          cd ${{ parameters.WebProjectName }}
-         dotnet ef database update --context:SmartRestaurantDbContext
-         dotnet ef database update --context:SmartRestaurantIdentityDbContext
+         dotnet ef database update --context:ApplicationDbContext
+         dotnet ef database update --context:IdentityContext
        displayName: Database Initialization
-    dependsOn: Build_the_Website
+    dependsOn: Build_the_API
     condition: succeeded()
