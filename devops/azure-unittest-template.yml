@@ -36,6 +36,7 @@ jobs:
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
 
     - task: PublishCodeCoverageResults@1
+      condition: always()
       inputs:
         codeCoverageTool: 'Cobertura'
         summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
