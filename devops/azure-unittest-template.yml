@@ -31,12 +31,11 @@ jobs:
     - task: DotNetCoreCLI@2
       inputs:
         command: test
-        projects: '**/*Tests/*.csproj'
+        projects: '**/*.Tests/*.csproj'
         arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "XPlat Code Coverage"'
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
 
     - task: PublishCodeCoverageResults@1
-      dependsOn: []
       inputs:
         codeCoverageTool: 'Cobertura'
         summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
