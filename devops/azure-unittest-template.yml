@@ -41,12 +41,14 @@ jobs:
         testSelector: 'testAssemblies' # Options: testAssemblies, testPlan, testRun
         testAssemblyVer2: | # Required when testSelector == TestAssemblies
           **\*[Tt]est*.dll
+          !**\xunit.runner.visualstudio.testadapter.dll
+          !**\xunit.runner.visualstudio.dotnetcore.testadapter.dll
           !**\*[Tt]estAdapter*.dll
           !**\obj\**
         searchFolder: 'tests/SmartRestaurant.Application.Tests/'
         configuration: '${{ parameters.buildConfiguration }}'
-        codeCoverageEnabled: true
+        platform: '$(buildPlatform)'
         otherConsoleOptions: '/Platform:x86'
-        platform: 'x86|x64'
+        codeCoverageEnabled: true
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
       
