@@ -35,6 +35,13 @@ jobs:
         arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "XPlat Code Coverage"'
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
 
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
+      displayName: 'Publish code coverage report'
+
+
 #    - task: VSTest@2
 #      inputs:
 #        testSelector: 'testAssemblies' # Options: testAssemblies, testPlan, testRun
