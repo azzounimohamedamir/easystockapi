@@ -48,7 +48,7 @@ jobs:
         searchFolder: 'tests/SmartRestaurant.Application.Tests/'
         configuration: '${{ parameters.buildConfiguration }}'
         platform: '$(buildPlatform)'
-        otherConsoleOptions: '/Platform:x86'
+        otherConsoleOptions: '/Platform:x64'
         codeCoverageEnabled: true
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
       
