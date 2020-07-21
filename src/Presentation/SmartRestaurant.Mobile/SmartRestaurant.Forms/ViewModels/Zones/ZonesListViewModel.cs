@@ -6,7 +6,9 @@ using SmartRestaurant.Diner.Services;
 using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -111,8 +113,10 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
 
                         selectedTable.SeatCount = ZonesAndTablesPage.cs_popup.viewmodel.selectedTable.SeatCount;
                         if (selectedTable.SeatCount > 0)
-                        {
-                            await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SelectSeatPage(SelectedTable.Seats));
+                        {                                
+                                    ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new WelcomePage(new WelcomeViewModel(SelectedTable.Seats)));
+
+                            
                         }
                     }
                     catch (Exception)

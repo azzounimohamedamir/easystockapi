@@ -77,7 +77,7 @@
                     </pancakeview:PancakeView>
                     <pancakeview:PancakeView Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" 
                                              HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="128"
-                                             WidthRequest="128" IsVisible="{Binding FrenchLanguage, Mode=TwoWay}" MinimumWidthRequest="128"
+                                             WidthRequest="128" IsVisible="{Binding FrenchLanguage}" MinimumWidthRequest="128"
                                              Elevation="0" BorderThickness="2" CornerRadius="10" BorderDrawingStyle="Outside" 
                                              FlowDirection="MatchParent" IsClippedToBounds="True" BorderColor="#3CBDBF" />
                     <pancakeview:PancakeView Margin="-12,-12,-12,0" Grid.Column="0" Grid.Row="0" Elevation="0" BorderThickness="0" 
@@ -85,7 +85,7 @@
                                              HeightRequest="28" CornerRadius="14" HorizontalOptions="End" 
                                              IsClippedToBounds="True" VerticalOptions="Start">
                         <Label Margin="0" TextColor="#01A9AC" BackgroundColor="White" Text="&#xf133;" 
-                               Style="{StaticResource Key=MatLabel}" IsVisible="{Binding FrenchLanguage, Mode=TwoWay}"
+                               Style="{StaticResource Key=MatLabel}" IsVisible="{Binding FrenchLanguage}"
                                VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
                                HorizontalOptions="Center" VerticalOptions="Center" FontSize="28" />
                     </pancakeview:PancakeView>
@@ -138,7 +138,7 @@
                     </pancakeview:PancakeView>
                     <pancakeview:PancakeView Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" 
                                              HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="128"
-                                             WidthRequest="128" IsVisible="{Binding ArabicLanguage, Mode=TwoWay}" MinimumWidthRequest="128"
+                                             WidthRequest="128" IsVisible="{Binding ArabicLanguage}" MinimumWidthRequest="128"
                                              Elevation="0" BorderThickness="2" CornerRadius="10" BorderDrawingStyle="Outside" 
                                              FlowDirection="MatchParent" IsClippedToBounds="True" BorderColor="#3CBDBF" />
                     <pancakeview:PancakeView Margin="-12,-12,-12,0" Grid.Column="0" Grid.Row="0" Elevation="0" BorderThickness="0" 
@@ -146,7 +146,7 @@
                                              HeightRequest="28" CornerRadius="14" HorizontalOptions="End" 
                                              IsClippedToBounds="True" VerticalOptions="Start">
                         <Label Margin="0" TextColor="#01A9AC" BackgroundColor="White" Text="&#xf133;" 
-                               Style="{StaticResource Key=MatLabel}" IsVisible="{Binding ArabicLanguage, Mode=TwoWay}"
+                               Style="{StaticResource Key=MatLabel}" IsVisible="{Binding ArabicLanguage}"
                                VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
                                HorizontalOptions="Center" VerticalOptions="Center" FontSize="28" />
                     </pancakeview:PancakeView>
@@ -200,7 +200,7 @@
                     </pancakeview:PancakeView>
                     <pancakeview:PancakeView Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" 
                                              HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="128"
-                                             WidthRequest="128" IsVisible="{Binding EnglishLanguage, Mode=TwoWay}" MinimumWidthRequest="128"
+                                             WidthRequest="128" IsVisible="{Binding EnglishLanguage}" MinimumWidthRequest="128"
                                              Elevation="0" BorderThickness="2" CornerRadius="10" BorderDrawingStyle="Outside" 
                                              FlowDirection="MatchParent" IsClippedToBounds="True" BorderColor="#3CBDBF" />
                     <pancakeview:PancakeView Margin="-12,-12,-12,0" Grid.Column="0" Grid.Row="0" Elevation="0" BorderThickness="0" 
@@ -208,7 +208,7 @@
                                              HeightRequest="28" CornerRadius="14" HorizontalOptions="End" 
                                              IsClippedToBounds="True" VerticalOptions="Start">
                         <Label Margin="0" TextColor="#01A9AC" BackgroundColor="White" Text="&#xf133;" 
-                               Style="{StaticResource Key=MatLabel}" IsVisible="{Binding EnglishLanguage, Mode=TwoWay}"
+                               Style="{StaticResource Key=MatLabel}" IsVisible="{Binding EnglishLanguage}"
                                VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
                                HorizontalOptions="Center" VerticalOptions="Center" FontSize="28" />
                     </pancakeview:PancakeView>

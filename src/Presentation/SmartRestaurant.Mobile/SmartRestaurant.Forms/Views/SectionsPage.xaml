@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" NavigationPage.HasNavigationBar="True" NavigationPage.HasBackButton="False" x:Class="SmartRestaurant.Diner.Views.SectionsPage" xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers" xmlns:local="clr-namespace:SmartRestaurant.Diner.CustomControls" xmlns:vms="clr-namespace:SmartRestaurant.Diner.ViewModels.Sections" xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView" xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" Title="{translator:Translate RestaurantName}" BackgroundColor="White">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" NavigationPage.HasNavigationBar="True" NavigationPage.HasBackButton="False" x:Class="SmartRestaurant.Diner.Views.SectionsPage" xmlns:translator="clr-namespace:SmartRestaurant.Diner.Helpers" xmlns:local="clr-namespace:SmartRestaurant.Diner.CustomControls" xmlns:vms="clr-namespace:SmartRestaurant.Diner.ViewModels.Sections" xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView" xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" Title="{translator:Translate RestaurantName}" BackgroundColor="White">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Margin="0">
             <StackLayout Orientation="Vertical" Padding="22,51,22,0" VerticalOptions="FillAndExpand">
@@ -15,13 +15,13 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="259"></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <Image HeightRequest="163" Grid.Row="0" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="AspectFill" />
-                                    <Label Grid.Row="0" BackgroundColor="White" HorizontalTextAlignment="{Binding OrientationText}" VerticalTextAlignment="Start" HeightRequest="74" HorizontalOptions="FillAndExpand" Margin="32,170,32,0" VerticalOptions="FillAndExpand">
+                                    <ff:CachedImage HeightRequest="163" Grid.Row="0" Source="{Binding Image}" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Aspect="AspectFill" />
+                                    <Label Style="{StaticResource RobotoLabel}" Grid.Row="0" BackgroundColor="White" HorizontalTextAlignment="{Binding OrientationText}" VerticalTextAlignment="Start" HeightRequest="74" HorizontalOptions="FillAndExpand" Margin="32,170,16,0" VerticalOptions="FillAndExpand">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="{Binding Name}" TextColor="#01A9AC" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf" FontAttributes="Bold" />
-                                                <Span Text="&#10;" TextColor="#77000000" FontSize="13" FontFamily="Assets/Fonts/Roboto.ttf" />
-                                                <Span Text="{Binding AbstractSubSections}" TextColor="#77000000" FontSize="13" FontFamily="Assets/Fonts/Roboto.ttf" />
+                                                <Span Text="{Binding Name}" TextColor="#01A9AC" FontSize="24" FontAttributes="Bold" />
+                                                <Span Text="&#10;" TextColor="#77000000" FontSize="13"  />
+                                                <Span Text="{Binding AbstractSubSections}" TextColor="#77000000" FontSize="11"   />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -41,7 +41,10 @@
                         <RowDefinition Height="32" />
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
-                    <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" CornerRadius="28" HeightRequest="60" HorizontalOptions="EndAndExpand" VerticalOptions="Center" WidthRequest="174" BackgroundColor="#01A9AC" FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf" FontAttributes="Bold" ImageSource="food.png" TextColor="White" Text="{translator:Translate Order}" />
+                    <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" CornerRadius="28" HeightRequest="60"
+                            HorizontalOptions="EndAndExpand" VerticalOptions="Center" WidthRequest="174" BackgroundColor="#01A9AC"
+                            FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf" FontAttributes="Bold" ImageSource="food.png"
+                            TextColor="White" Text="{translator:Translate Order}" Clicked="Button_Clicked"/>
                     <Button Grid.Row="0" HeightRequest="32" WidthRequest="32" Margin="8,-8,-8,-8" CornerRadius="16" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Start" FontAttributes="Bold" BackgroundColor="White" FontSize="12" FontFamily="Assets/Fonts/Roboto.ttf" Text="{Binding SelectedDishes.Count, Source={x:Static vms:SectionsListViewModel.Instance},Mode=TwoWay}"></Button>
                     <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" BackgroundColor="Transparent" HorizontalTextAlignment="{Binding OrientationText}" VerticalTextAlignment="Start" HorizontalOptions="Start" Margin="38,0,0,0" VerticalOptions="Center">
                         <Label.FormattedText>

@@ -6,11 +6,13 @@ using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Currencies.Currencie
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Specificationes.Specifications;
 using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements;
+using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -32,9 +34,14 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             SubSection = _subsection;
             _EstimatedTime = _dish.EstimatedTime;
-
+            for(int i=0;i<_dish.Images.Count();i++)
+            {
+                if(!_dish.Images[i].Contains("/"))
+                _dish.Images[i]= DependencyService.Get<IFileService>().GetImage(_dish.Images[i]);
+            }
             this.dish = _dish;
-            Specifications = SectionsListViewModel.Specifications;
+            Specifications =
+                SectionsListViewModel.Specifications;
             Supplements = SectionsListViewModel.Supplements;
             Currencies = SectionsListViewModel.Currencies;
             Qty = 1;
@@ -49,17 +56,24 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
             }
             foreach (var s in Supplements.Supplements)
             {
-                s.IsSelected = false;
+                
                 s.refDishViewModel = this;
             }
+            _DishSupplements = Supplements.Supplements.Where(s => dish.Supplements.Contains(s.Id)).ToList();
+            foreach (var s in _DishSupplements)
+            {
+                s.IsSelected = false;
+                s.refDishViewModel = this;
+
+            }
             Calories = _dish.Calories +
-                Dish_Ingredients_Measures.Sum(d => d.Calories * d.Measure);
+                Dish_Ingredients_Measures.Sum(d => d.Calories * d.Quantity);
             Carbo = _dish.Carbo +
-                Dish_Ingredients_Measures.Sum(d => d.Carbo * d.Measure); 
+                Dish_Ingredients_Measures.Sum(d => d.Carbo * d.Quantity); 
             Fat = _dish.Fat +
-                Dish_Ingredients_Measures.Sum(d => d.Fat * d.Measure);
+                Dish_Ingredients_Measures.Sum(d => d.Fat * d.Quantity);
             Protein = _dish.Protein +
-                Dish_Ingredients_Measures.Sum(d => d.Protein * d.Measure) ;
+                Dish_Ingredients_Measures.Sum(d => d.Protein * d.Quantity) ;
 
         }
 
@@ -396,6 +410,30 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                 });
             }
         }
+
+        public List<SupplementViewModel> _DishSupplements;
+        public List<SupplementViewModel> DishSupplements
+        {
+            get
+            {
+
+              
+                    return _DishSupplements;
+            }
+            set
+            {
+                _DishSupplements = value;
+                RaisePropertyChanged();
+            }
+        }
+        public List<SpecificationViewModel> DishSpecifications
+        {
+            get
+            {
+
+                return Specifications.Specifications.Where(s => dish.Specifications.Contains(s.Id)).ToList();
+            }
+        }
         private SupplementListViewModel _Supplements;
         public SupplementListViewModel Supplements
         {
@@ -477,21 +515,25 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                         var ing = SectionsListViewModel.Ingredients.Ingredients.FirstOrDefault(i => i.Id == di.Id);
                         if (ing != null)
                         {
-                            ing.Measure = di.Measure;
-                            ing.IsPrincipal = true;
+                            ing.Quantity = di.Quantity;
+                            ing.InitialValue = di.InitialValue;
+                            ing.IsEssential = di.IsEssential;
+                            ing.MinValue = di.MinValue;
+                            ing.MaxValue = di.MaxValue;
+                            ing.Step = di.Step;
                             ing.refDishViewModel = this;
                             _Dish_Ingredients_Measures.Add(ing);
                         }
                     }
-                    foreach (IngredientViewModel di in SectionsListViewModel.Ingredients.Ingredients)
-                    {
-                        if (dish.Ingredients.Select(d => d.Id).Contains(di.Id)) continue;
-                        var ing = di;
-                        ing.Measure = 0;
-                        ing.IsPrincipal = false;
-                        ing.refDishViewModel = this;
-                        _Dish_Ingredients_Measures.Add(ing);
-                    }
+                    //foreach (IngredientViewModel di in SectionsListViewModel.Ingredients.Ingredients)
+                    //{
+                    //    if (dish.Ingredients.Select(d => d.Id).Contains(di.Id)) continue;
+                    //    var ing = di;
+                    //    ing.InitialValue = 0;
+                    //    ing.IsPrincipal = false;
+                    //    ing.refDishViewModel = this;
+                    //    _Dish_Ingredients_Measures.Add(ing);
+                    //}
                 }
                 else
                     foreach (IngredientViewModel di in _Dish_Ingredients_Measures)

@@ -1,10 +1,18 @@
-﻿using Rg.Plugins.Popup.Pages;
+﻿using Rg.Plugins.Popup.Animations;
+using Rg.Plugins.Popup.Enums;
+using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
+using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.ViewModels.Zones;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XLabs.Forms.Controls;
 
 namespace SmartRestaurant.Diner.Views.Popups
 {

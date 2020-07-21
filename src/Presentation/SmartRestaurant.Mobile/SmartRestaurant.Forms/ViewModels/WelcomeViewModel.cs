@@ -1,7 +1,12 @@
 ﻿using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Infrastructures;
+using SmartRestaurant.Diner.ViewModels.Sections;
+using SmartRestaurant.Diner.ViewModels.Tables;
+using SmartRestaurant.Diner.ViewModels.Zones;
 using SmartRestaurant.Diner.Views;
 using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -12,6 +17,13 @@ namespace SmartRestaurant.Diner.ViewModels
     /// </summary>
     public class WelcomeViewModel: SimpleViewModel
     {
+        private SeatsListViewModel seats;
+
+        public WelcomeViewModel(SeatsListViewModel seats)
+        {
+            this.seats = seats;
+        }
+
         /// <summary>
         /// Command to navigate to the next page or view.
         /// </summary>
@@ -21,9 +33,9 @@ namespace SmartRestaurant.Diner.ViewModels
             {
                 return new Command(async () => {
                     try
-
                     {
-                         await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DeseasesAllergiesPage(new DeseasesAllergies.DeseasesAllergiesListViewModel()));                        
+                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SelectSeatPage(seats));
+                        //await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DeseasesAllergiesPage(new DeseasesAllergies.DeseasesAllergiesListViewModel()));                        
                     }
                     catch (Exception)
                     {

@@ -1,8 +1,12 @@
 ﻿using Plugin.Multilingual;
 using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Infrastructures;
+using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using SmartRestaurant.Diner.ViewModels.Sections;
 using SmartRestaurant.Diner.Views;
+using System;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -213,7 +217,7 @@ namespace SmartRestaurant.Diner.ViewModels
         /// <summary>
         /// Fonction used to set CultureInfo of the app and change language.
         /// </summary>
-        public void SetLanguage()
+        public async void SetLanguage()
         {
             string language = "fr";
             language = EnglishLanguage ? "en" : (ArabicLanguage ? "ar" : "fr");
@@ -221,17 +225,19 @@ namespace SmartRestaurant.Diner.ViewModels
             var culture = new CultureInfo(language);
             AppResources.Culture = culture;
             CrossMultilingual.Current.CurrentCultureInfo = culture;
-            
-            var stack = App.Current.MainPage.Navigation.NavigationStack;
-            var typeLastElement = stack[stack.Count - 1].GetType();
-            if (typeLastElement != typeof(SelectSeatPage))
+
+
+            try
+
             {
-                if(!welcome_loaded)
-                  ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new WelcomePage(new WelcomeViewModel()));
-                welcome_loaded = true;
-                
+                await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SectionsPage(new SectionsListViewModel()));
+            }
+            catch (Exception)
+            {
+
             }
         }
+        
         #endregion
 
 

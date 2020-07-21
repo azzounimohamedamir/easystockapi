@@ -4,7 +4,9 @@ using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Views;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -107,7 +109,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// </summary>
         public string Image 
         {
-            get { return section.Image; }
+            get { return DependencyService.Get<IFileService>().GetImage(section.Image); }
             set
             {
                 section.Image = value;
@@ -122,7 +124,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             get
             {
-                return String.IsNullOrEmpty(section.Image) ? null : new Uri(Image);
+                return String.IsNullOrEmpty(DependencyService.Get<IFileService>().GetImage(section.Image)) ? null : new Uri(DependencyService.Get<IFileService>().GetImage(Image));
             }
         }
         #endregion
@@ -157,7 +159,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
                     ));
                 if (temp == "")
                     return "";
-                  return temp.Substring(0,Math.Min(temp.Length,40))+" ...";
+                  return temp.Substring(0,Math.Min(temp.Length,35))+" ...";
             }
         }
         public ICommand ShowSubsectionsCommand

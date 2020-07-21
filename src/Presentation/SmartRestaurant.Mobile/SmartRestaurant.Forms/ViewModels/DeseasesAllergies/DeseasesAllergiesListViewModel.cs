@@ -1,13 +1,18 @@
-﻿using SmartRestaurant.Diner.CustomControls;
+﻿using Plugin.Multilingual;
+using SmartRestaurant.Diner.CustomControls;
 using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Services;
 using SmartRestaurant.Diner.ViewModels.Sections;
+using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -28,12 +33,13 @@ namespace SmartRestaurant.Diner.ViewModels.DeseasesAllergies
         /// Allergies is bind to a List control, and it's fill when an object is instantiated to be binded to the View.
         /// </summary>
         public IList<AllergiesViewModel> Allergies { get; set; }
-
+        private readonly SeatViewModel _seat;
         /// <summary>
         /// Constructor to fill allergies and deseases.
         /// </summary>
-        public DeseasesAllergiesListViewModel()
+        public DeseasesAllergiesListViewModel(SeatViewModel seat)
         {
+            _seat = seat;
             // Fill the deseases
             ObservableCollection<DeseaseModel> listDeseases = DeseasesService.GetListDeseases();
             Deseases = new ObservableCollection<DeseasesViewModel>();
@@ -120,7 +126,23 @@ namespace SmartRestaurant.Diner.ViewModels.DeseasesAllergies
                     try
 
                     {
-                        await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new SectionsPage(new SectionsListViewModel()));                                             
+                        if (SectionsListViewModel.Seats.Seats.Any(s => s.CurrentOrder.Lines == null ||
+s.CurrentOrder.Lines.Count == 0))
+                        {
+                            _seat.IlnessesAllergiesClicked=
+                           SectionsListViewModel.Seats.SelectedSeat.IlnessesAllergiesClicked = true;
+                            
+                                if (SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines != null && SectionsListViewModel.Seats.SelectedSeat.CurrentOrder.Lines.Count > 0)
+                                    await ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new DinerCommandRecap());
+                           
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.Navigation.PushAsync(new GlobalRecap(
+                                SectionsListViewModel.Seats.SelectedSeat.Table
+                                ));
+                        }
+
                     }
                     catch (Exception)
                     {

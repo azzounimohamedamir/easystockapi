@@ -1,11 +1,17 @@
-﻿using Rg.Plugins.Popup.Animations;
+﻿using MultiGestureViewPlugin;
+using Rg.Plugins.Popup.Animations;
 using Rg.Plugins.Popup.Enums;
 using Rg.Plugins.Popup.Services;
 using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.ViewModels.Zones;
 using SmartRestaurant.Diner.Views.Popups;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

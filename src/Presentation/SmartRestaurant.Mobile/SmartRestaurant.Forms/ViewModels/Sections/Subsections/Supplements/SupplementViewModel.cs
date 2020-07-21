@@ -1,7 +1,11 @@
-﻿using SmartRestaurant.Diner.Infrastructures;
+﻿using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -113,7 +117,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Sup
         /// </summary>
         public string Image
         {
-            get { return Supplement.Image; }
+            get { return DependencyService.Get<IFileService>().GetImage(Supplement.Image); }
         }
 
         public float Price
@@ -196,7 +200,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Sup
                 }
             }
         }
-        internal DishViewModel refDishViewModel { get; set; }
+        public DishViewModel refDishViewModel { get; set; }
         public ICommand SelectEvent
         {
             get
@@ -204,6 +208,11 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Sup
                 return new Command(() =>
                 {
                     IsSelected = !IsSelected;
+                     
+                    int index = refDishViewModel.DishSupplements.FindIndex(
+
+                       s => s.Id == Id);
+                    refDishViewModel.DishSupplements[index].IsSelected = IsSelected;
                     if (IsSelected)
                     {
                         refDishViewModel.Price += Price;
@@ -211,6 +220,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Sup
                         refDishViewModel.Fat += Fat;
                         refDishViewModel.Protein += Protein;
                         refDishViewModel.Carbo += Carbo;
+                        
                     }
                     else
                     {

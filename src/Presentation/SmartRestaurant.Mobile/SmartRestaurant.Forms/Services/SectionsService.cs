@@ -1,8 +1,13 @@
 ﻿using Newtonsoft.Json;
 using SmartRestaurant.Diner.Models;
+using SmartRestaurant.Diner.ViewModels.Sections;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 
 namespace SmartRestaurant.Diner.Services
 {
@@ -35,9 +40,15 @@ namespace SmartRestaurant.Diner.Services
                     foreach(var b in s.SubSections)
                     {
                         b.SectionId = s.Id;
-                        if(b.Dishes!=null)
-                        foreach (var d in b.Dishes)
-                            d.SubSectionId = b.Id;
+                            if (b.Dishes != null)
+                                foreach (var d in b.Dishes)
+                                {
+                                    d.SubSectionId = b.Id;
+                                    foreach (var ing in d.Ingredients)
+                                    {
+                                        ing.Quantity = ing.InitialValue;
+                                    }
+                                }
                     }
                 }
             }

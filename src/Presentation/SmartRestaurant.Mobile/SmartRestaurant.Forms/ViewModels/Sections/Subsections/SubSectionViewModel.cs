@@ -1,8 +1,12 @@
-﻿using SmartRestaurant.Diner.Infrastructures;
+﻿using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
+using SmartRestaurant.Diner.ViewModels.Tables;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections
@@ -106,7 +110,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         /// </summary>
         public string Image
         {
-            get { return subsection.Image; }
+            get { return DependencyService.Get<IFileService>().GetImage(subsection.Image); }
             set
             {
                 subsection.Image = value;
@@ -121,7 +125,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections
         {
             get
             {
-                return String.IsNullOrEmpty(subsection.Image) ? null : new Uri(Image);
+                return String.IsNullOrEmpty(DependencyService.Get<IFileService>().GetImage(subsection.Image)) ? null : new Uri(DependencyService.Get<IFileService>().GetImage(Image));
             }
         }
         #endregion

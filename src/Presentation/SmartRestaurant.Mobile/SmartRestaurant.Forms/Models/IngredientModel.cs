@@ -1,4 +1,8 @@
-﻿namespace SmartRestaurant.Diner.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartRestaurant.Diner.Models
 {
     /// <summary>
     /// Used to manage dish ingredients
@@ -11,6 +15,7 @@
         public string NameEn { get; set; }
         public float Price { get; set; }
         public string Image { get; set; }
+        //To be deleted
         public int Weight { get; set; }
         public float Calories { get; set; }
         public float Carbo { get; set; }

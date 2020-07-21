@@ -11,7 +11,7 @@
                         <RowDefinition Height="140" />
                         <RowDefinition Height="56" />
                     </Grid.RowDefinitions>
-                    <Image HeightRequest="140" Grid.Row="0" Source="{Binding Section.Image}" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Aspect="AspectFill" />
+                    <ffimageloading:CachedImage HeightRequest="140" Grid.Row="0" Source="{Binding Section.Image}" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Aspect="AspectFill" />
                     <Label Grid.Row="1" BackgroundColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HeightRequest="56" HorizontalOptions="FillAndExpand" Text="{Binding Section.Name}" TextColor="#01A9AC" FontSize="24" FontFamily="Assets/Fonts/Roboto.ttf" FontAttributes="Bold" VerticalOptions="End"></Label>
                 </Grid>
             </pancakeview:PancakeView>
@@ -47,7 +47,7 @@
                                                     </pancakeview:PancakeView.GestureRecognizers>
                                                     <StackLayout FlowDirection="MatchParent" HeightRequest="102" VerticalOptions="Start" Orientation="Horizontal">
                                                         <pancakeview:PancakeView Padding="12" VerticalOptions="Start" BorderColor="Transparent" BackgroundColor="Transparent" HorizontalOptions="Start" HeightRequest="78" WidthRequest="78" IsClippedToBounds="True" CornerRadius="10" HasShadow="False" Elevation="0">
-                                                            <Image Source="{Binding Images[0]}" Aspect="AspectFill" />
+                                                            <ffimageloading:CachedImage Source="{Binding Images[0]}" Aspect="AspectFill" />
                                                         </pancakeview:PancakeView>
                                                         <StackLayout Margin="48,12,48,12" Orientation="Vertical" HorizontalOptions="StartAndExpand">
                                                             <Label FontSize="14" TextColor="Black" Text="{Binding Name, Mode=TwoWay}" FontAttributes="Bold" VerticalTextAlignment="Start" HorizontalTextAlignment="Start" HorizontalOptions="StartAndExpand" VerticalOptions="Start" FontFamily="Assets/Fonts/Roboto.ttf" />
@@ -103,7 +103,7 @@
                         <RowDefinition Height="32" />
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
-                    <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" CornerRadius="28" HeightRequest="60" HorizontalOptions="EndAndExpand" VerticalOptions="Center" WidthRequest="174" BackgroundColor="#01A9AC" FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf" FontAttributes="Bold" ImageSource="food.png" TextColor="White" Text="{translator:Translate Order}" />
+                    <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" CornerRadius="28" HeightRequest="60" HorizontalOptions="EndAndExpand" VerticalOptions="Center" WidthRequest="174" BackgroundColor="#01A9AC" FontSize="14" FontFamily="Assets/Fonts/Roboto.ttf" FontAttributes="Bold" ImageSource="food.png" TextColor="White" Text="{translator:Translate Order}" Clicked="Button_Clicked" />
                     <Button Grid.Row="0" HeightRequest="32" WidthRequest="32" Margin="8,-8,-8,-8" CornerRadius="16" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Start" FontAttributes="Bold" BackgroundColor="White" FontSize="12" FontFamily="Assets/Fonts/Roboto.ttf" Text="{Binding SelectedDishes.Count, Source={x:Static vms:SectionsListViewModel.Instance},Mode=TwoWay}"></Button>
                     <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" BackgroundColor="Transparent" HorizontalTextAlignment="{Binding OrientationText}" VerticalTextAlignment="Start" HorizontalOptions="Start" Margin="38,0,0,0" VerticalOptions="Center">
                         <Label.FormattedText>

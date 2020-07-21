@@ -1,16 +1,19 @@
-﻿using SmartRestaurant.Diner.Infrastructures;
+﻿using SmartRestaurant.Diner.CustomControls;
+using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ingredients
 {
-    public class IngredientViewModel:SimpleViewModel
+    public class IngredientViewModel : SimpleViewModel
     {
         public readonly IngredientModel Ingredient;
-        
+
         /// <summary>
         /// Get the IngredientModel from the Model.
         /// </summary>
@@ -18,7 +21,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
         public IngredientViewModel(IngredientModel _Ingredient)
         {
             this.Ingredient = _Ingredient;
-            calories= _Ingredient.Calories;
+            calories = _Ingredient.Calories;
             carbo = _Ingredient.Carbo;
             fat = _Ingredient.Fat;
             protein = _Ingredient.Protein;
@@ -113,17 +116,9 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
         /// </summary>
         public string Image
         {
-            get { return Ingredient.Image; }
+            get { return DependencyService.Get<IFileService>().GetImage(Ingredient.Image); }
         }
-        public int Weight
-        {
-            get { return Ingredient.Weight; }
-            set
-            {
-                Ingredient.Weight = value;
-                RaisePropertyChanged();
-            }
-        }
+ 
         public float Price
         {
             get { return Ingredient.Price; }
@@ -192,18 +187,18 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
                 }
             }
         }
-        private int measure;
-        public int Measure
+        private float quantity;
+        public float Quantity
         {
             get
             {
-                return measure;
+                return quantity;
             }
             set
             {
-                measure = value;
-                minus_enabled = (measure > 0 && !IsPrincipal) || measure > 1;
-                plus_enabled = measure < 99;
+                quantity = value;
+                minus_enabled = (quantity > 0 && !IsEssential) || quantity > MinValue;
+                plus_enabled = quantity < MaxValue;
                 RaisePropertyChanged();
 
             }
@@ -214,8 +209,8 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
         {
             get
             {
-                _minus_enabled = (measure > 0 && !IsPrincipal) || measure > 1;
-                    return _minus_enabled;
+                _minus_enabled = (Quantity > 0 && !IsEssential) || Quantity > MinValue;
+                return _minus_enabled;
             }
             set
             {
@@ -230,7 +225,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
         {
             get
             {
-                _plus_enabled= Measure < 99;
+                _plus_enabled = Quantity < MaxValue;
                 return _plus_enabled;
             }
             set
@@ -243,12 +238,13 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
         {
             get
             {
-                return new Command(() => {
+                return new Command(() =>
+                {
                     try
                     {
-                        if (Measure < 99)
+                        if (Quantity < MaxValue)
                         {
-                            Measure++;
+                            Quantity++;
                             refDishViewModel.Price += Price;
                             refDishViewModel.Calories += Calories;
                             refDishViewModel.Fat += Fat;
@@ -272,12 +268,13 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
         {
             get
             {
-                return new Command(() => {
+                return new Command(() =>
+                {
                     try
                     {
-                        if ((Measure > 0 && !IsPrincipal) || Measure > 1)
+                        if ((Quantity > 0 && !IsEssential) || Quantity > 1)
                         {
-                            Measure--;
+                            Quantity--;
                             refDishViewModel.Price -= Price;
                             refDishViewModel.Calories -= Calories;
                             refDishViewModel.Fat -= Fat;
@@ -297,15 +294,34 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
                 });
             }
         }
-        public bool IsPrincipal { get; set; }
+        public bool IsEssential { get => isEssential; set => isEssential = value; }
         private float calories;
         private float carbo;
         private float fat;
         private float protein;
+        private float minValue;
+        private float maxValue;
+        private float step;
+        private bool isEssential;
+        private int initialValue;
+
         public float Calories { get => calories; set => calories = value; }
         public float Carbo { get => carbo; set => carbo = value; }
         public float Fat { get => fat; set => fat = value; }
         public float Protein { get => protein; set => protein = value; }
+        public float MinValue { get => minValue; set => minValue = value; }
+        public float MaxValue { get => maxValue; set => maxValue = value; }
+        public float Step { get => step; set => step = value; }
+        public int Weight
+        {
+            get { return Ingredient.Weight; }
+            set
+            {
+                Ingredient.Weight = value;
+                RaisePropertyChanged();
+            }
+        }
+        public int InitialValue { get => initialValue; set => initialValue = value; }
 
     }
 }

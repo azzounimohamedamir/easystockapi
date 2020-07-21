@@ -1,4 +1,8 @@
 ﻿using SmartRestaurant.Diner.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -24,13 +28,13 @@ namespace SmartRestaurant.Diner.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await Task.Delay(3000);
-            if (((WelcomeViewModel)BindingContext).NextCommand.CanExecute(null))
-            {                
-                LanguageViewModel.welcome_loaded = false;
-                ((WelcomeViewModel)BindingContext).NextCommand.Execute(null);
+            //await Task.Delay(3000);
+            //if (((WelcomeViewModel)BindingContext).NextCommand.CanExecute(null))
+            //{                
+            //    LanguageViewModel.welcome_loaded = false;
+            //    ((WelcomeViewModel)BindingContext).NextCommand.Execute(null);
 
-            }
+            //}
             
         }
     }

@@ -2,7 +2,9 @@
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Services;
+using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections
