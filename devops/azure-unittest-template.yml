@@ -43,7 +43,7 @@ jobs:
           **\*[Tt]est*.dll
           !**\*[Tt]estAdapter*.dll
           !**\obj\**
-        searchFolder: 'tests/*Tests/*'
+        searchFolder: 'tests/*Tests/'
         configuration: '${{ parameters.buildConfiguration }}'
         codeCoverageEnabled: true
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
