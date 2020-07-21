@@ -42,6 +42,7 @@ jobs:
         testAssemblyVer2: | # Required when testSelector == TestAssemblies
           **\*.Test*.dll
           !**Testhost*
+          !**testhost*
           !**\xunit.runner.visualstudio.testadapter.dll
           !**\xunit.runner.visualstudio.dotnetcore.testadapter.dll
           !**\*[Tt]estAdapter*.dll
