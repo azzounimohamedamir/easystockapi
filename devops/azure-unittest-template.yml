@@ -18,27 +18,21 @@ jobs:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: '**/SmartRestaurant.Application.Tests/*.csproj'
+        projects: '**/*Tests/*.csproj'
         arguments: '--configuration ${{ parameters.buildConfiguration }}'
       displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
 
     - task: DotNetCoreCLI@2
       inputs:
         command: test
-        projects:  '**/SmartRestaurant.Application.Tests/*.csproj'
+        projects:  '**/*Tests/*.csproj'
         arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "XPlat Code Coverage"'
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
-
-    - script: 'dotnet tool install --global dotnet-reportgenerator-globaltool'  
-      displayName: 'Install ReportGenerator tool' 
-
-    - script: 'reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"Cobertura"'  
-      displayName: 'Create reports'
 
     - task: PublishCodeCoverageResults@1
       inputs:
         codeCoverageTool: 'Cobertura'
-        summaryFileLocation: '$(Build.SourcesDirectory)/coverlet/reports'
+        summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
       displayName: 'Publish code coverage report'
 
 
