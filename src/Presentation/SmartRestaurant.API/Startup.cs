@@ -29,7 +29,7 @@ namespace SmartRestaurant.API
             services.AddHttpContextAccessor();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Smart Restaurant api v1", Version = "v1" });
             });
             services.AddControllersWithViews();
         }
@@ -50,7 +50,7 @@ namespace SmartRestaurant.API
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Smart Restaurant api v1");
             });
             app.UseRouting();
             app.UseAuthentication();
