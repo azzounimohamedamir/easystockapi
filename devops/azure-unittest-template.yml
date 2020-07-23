@@ -49,7 +49,7 @@ jobs:
         configuration: '${{ parameters.buildConfiguration }}'
         platform: '$(buildPlatform)'
         testRunTitle: $(Agent.JobName)
-        otherConsoleOptions: '/Platform:x64 /Framework:.NETCoreApp,Version=v3.1'
+        otherConsoleOptions: '/Platform:x64 /Framework:.NETCoreApp,Version=v2.2'
         codeCoverageEnabled: true
         publishRunAttachments: true
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
