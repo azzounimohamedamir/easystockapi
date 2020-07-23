@@ -12,13 +12,13 @@ jobs:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'restore'
-        projects: '**/*Tests/*.csproj'
+        projects: 'tests/unit-testing-using-dotnet-test/PrimeService.Tests/*.csproj'
       displayName: 'dotnet restore ${{ parameters.buildConfiguration }}'
 
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: '**/SmartRestaurant.Application.Tests/*.csproj'
+        projects: 'tests/unit-testing-using-dotnet-test/PrimeService.Tests/*.csproj'
         arguments: '--configuration ${{ parameters.buildConfiguration }}'
       displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
 
@@ -40,12 +40,12 @@ jobs:
       inputs:
         testSelector: 'testAssemblies' # Options: testAssemblies, testPlan, testRun
         testAssemblyVer2: | # Required when testSelector == TestAssemblies
-          **\*SmartRestaurant*.dll
+          **\*Tests.dll
           !**\xunit.runner.visualstudio.testadapter.dll
           !**\xunit.runner.visualstudio.dotnetcore.testadapter.dll
           !**\*[Tt]estAdapter*.dll
           !**\obj\**
-        searchFolder: 'tests/SmartRestaurant.Application.Tests/'
+        searchFolder: 'tests/unit-testing-using-dotnet-test/PrimeService.Tests'
         configuration: '${{ parameters.buildConfiguration }}'
         platform: '$(buildPlatform)'
         testRunTitle: $(Agent.JobName)
