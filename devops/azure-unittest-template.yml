@@ -6,8 +6,8 @@ jobs:
     steps:
     - task: UseDotNet@2
       inputs:
-        version: '3.1.x'
-      displayName: 'Use dotnet core 3.1.x'
+        version: '2.2.x'
+      displayName: 'Use dotnet core 2.2.x'
 
     - task: DotNetCoreCLI@2
       inputs:
