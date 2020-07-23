@@ -1,12 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SmartRestaurant.Diner.Models;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 
 namespace SmartRestaurant.Diner.Services
 {
@@ -18,8 +13,8 @@ namespace SmartRestaurant.Diner.Services
         static private ListIngredientsObject Ingredients;
         public static ObservableCollection<IngredientModel> GetListIngredients()
         {
-            if(Ingredients ==null)
-            Ingredients = JsonConvert.DeserializeObject<ListIngredientsObject>(SimpleService.GetJsonString("Repositories.ListIngredients.json"));            
+            if (Ingredients == null)
+                Ingredients = JsonConvert.DeserializeObject<ListIngredientsObject>(SimpleService.GetJsonString("Repositories.ListIngredients.json"));
             if (Ingredients.IngredientsList != null)
             {
                 return new ObservableCollection<IngredientModel>(Ingredients.IngredientsList);

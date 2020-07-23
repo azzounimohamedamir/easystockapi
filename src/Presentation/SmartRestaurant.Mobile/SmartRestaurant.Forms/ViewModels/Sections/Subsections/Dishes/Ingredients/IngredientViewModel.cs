@@ -3,8 +3,6 @@ using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -118,7 +116,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Ingredientes.Ing
         {
             get { return DependencyService.Get<IFileService>().GetImage(Ingredient.Image); }
         }
- 
+
         public float Price
         {
             get { return Ingredient.Price; }

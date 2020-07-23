@@ -4,7 +4,6 @@ using SmartRestaurant.Diner.Views;
 using System;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace SmartRestaurant.Diner
 {

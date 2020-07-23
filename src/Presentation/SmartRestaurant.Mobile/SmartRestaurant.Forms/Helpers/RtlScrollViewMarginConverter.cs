@@ -1,8 +1,5 @@
 ﻿using SmartRestaurant.Diner.Resources;
-using SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.Helpers

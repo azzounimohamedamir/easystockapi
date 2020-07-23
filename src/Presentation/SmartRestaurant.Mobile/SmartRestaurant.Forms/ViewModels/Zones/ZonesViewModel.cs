@@ -1,17 +1,14 @@
 ﻿using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.ViewModels.Tables;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SmartRestaurant.Diner.ViewModels.Zones
 {
     /// <summary>
     /// Used to manage zones as a ViewModel
     /// </summary>
-    public class ZonesViewModel: SimpleViewModel
+    public class ZonesViewModel : SimpleViewModel
     {
         readonly ZoneModel zone;
 
@@ -25,7 +22,7 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
         }
 
         public int Id { get; set; }
-        
+
         public string Name
         {
             get { return zone.Name; }
@@ -38,13 +35,14 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
                 }
             }
         }
-        public TablesListViewModel Tables {
+        public TablesListViewModel Tables
+        {
 
             get { return new TablesListViewModel(zone.Id); }
             set
             {
                 if (zone.Tables != value)
-                {                    
+                {
                     zone.Tables = value.Tables.Select(t => t.table).ToList();
                     RaisePropertyChanged();
                 }
