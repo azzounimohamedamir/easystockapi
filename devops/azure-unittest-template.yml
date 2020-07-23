@@ -18,7 +18,7 @@ jobs:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: |
+        projects:  |
           '**/*Tests/*.csproj'
         arguments: '--configuration ${{ parameters.buildConfiguration }}'
       displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
