@@ -6,26 +6,26 @@ jobs:
     steps:
     - task: UseDotNet@2
       inputs:
-        version: '2.2.x'
-      displayName: 'Use dotnet core 2.2.x'
+        version: '3.1.x'
+      displayName: 'Use dotnet core 3.1.x'
 
     - task: DotNetCoreCLI@2
       inputs:
         command: 'restore'
-        projects: 'tests/unit-testing-using-dotnet-test/PrimeService.Tests/*.csproj'
+        projects: '**/*Tests/*.csproj'
       displayName: 'dotnet restore ${{ parameters.buildConfiguration }}'
 
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: 'tests/unit-testing-using-dotnet-test/PrimeService.Tests/*.csproj'
+        projects: 'tests/SmartRestaurant.Domain.Tests/*.csproj'
         arguments: '--configuration ${{ parameters.buildConfiguration }}'
       displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
 
     - task: DotNetCoreCLI@2
       inputs:
         command: test
-        projects:  'tests/unit-testing-using-dotnet-test/PrimeService.Tests/*.csproj'
+        projects:  'tests/SmartRestaurant.Domain.Tests/*.csproj'
         arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "XPlat Code Coverage"'
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
 
