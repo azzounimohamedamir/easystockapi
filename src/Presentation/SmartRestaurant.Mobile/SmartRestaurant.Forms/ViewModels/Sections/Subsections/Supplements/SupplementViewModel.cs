@@ -3,18 +3,15 @@ using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements
 {
-    public class SupplementViewModel:SimpleViewModel
+    public class SupplementViewModel : SimpleViewModel
     {
         public readonly SupplementModel Supplement;
-        
+
         /// <summary>
         /// Get the SupplementModel from the Model.
         /// </summary>
@@ -208,7 +205,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Sup
                 return new Command(() =>
                 {
                     IsSelected = !IsSelected;
-                     
+
                     int index = refDishViewModel.DishSupplements.FindIndex(
 
                        s => s.Id == Id);
@@ -220,7 +217,7 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Sup
                         refDishViewModel.Fat += Fat;
                         refDishViewModel.Protein += Protein;
                         refDishViewModel.Carbo += Carbo;
-                        
+
                     }
                     else
                     {

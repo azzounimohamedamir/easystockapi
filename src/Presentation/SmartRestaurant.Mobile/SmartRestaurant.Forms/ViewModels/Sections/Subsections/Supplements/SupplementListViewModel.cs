@@ -1,13 +1,8 @@
 ﻿using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
-using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.Services;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Supplements
 {
@@ -21,14 +16,14 @@ namespace SmartRestaurant.Diner.ViewModels.Sections.Subsections.Supplementes.Sup
         {
             get
             {
-              
-                    List<SupplementModel> listSupplement = SupplementService.GetListSupplements().ToList();
-                    supplements = new List<SupplementViewModel>();
-                    foreach (var item in listSupplement)
-                    {
-                        supplements.Add(new SupplementViewModel(item));
-                    }
-                
+
+                List<SupplementModel> listSupplement = SupplementService.GetListSupplements().ToList();
+                supplements = new List<SupplementViewModel>();
+                foreach (var item in listSupplement)
+                {
+                    supplements.Add(new SupplementViewModel(item));
+                }
+
                 return supplements;
             }
             set

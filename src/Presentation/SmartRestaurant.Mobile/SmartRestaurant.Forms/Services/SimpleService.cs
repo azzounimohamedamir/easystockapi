@@ -1,10 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
-using System.Text;
 
 namespace SmartRestaurant.Diner.Services
 {
