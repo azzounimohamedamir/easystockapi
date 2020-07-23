@@ -50,7 +50,7 @@ jobs:
     - task: PublishCodeCoverageResults@1
       inputs:
         codeCoverageTool: 'Cobertura'
-        summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
+        summaryFileLocation: '**/coverage.cobertura.xml'
         reportDirectory: '**/coveragereport'
       displayName: 'Publish code coverage report'
 
