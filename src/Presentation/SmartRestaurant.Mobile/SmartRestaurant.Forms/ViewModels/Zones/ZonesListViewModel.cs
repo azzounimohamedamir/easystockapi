@@ -6,9 +6,7 @@ using SmartRestaurant.Diner.Services;
 using SmartRestaurant.Diner.ViewModels.Tables;
 using SmartRestaurant.Diner.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -17,13 +15,13 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
     /// <summary>
     /// Used to bind zones liste with the View.
     /// </summary>
-    public class ZonesListViewModel: SimpleViewModel
+    public class ZonesListViewModel : SimpleViewModel
     {
         /// <summary>
         /// Zones to bind with the View.
         /// </summary>
         public ObservableCollection<ZonesViewModel> Zones { get; set; }
-        
+
         /// <summary>
         /// Constructor to Fill the List of zones from the Database or Json file stored locally.
         /// </summary>
@@ -103,26 +101,27 @@ namespace SmartRestaurant.Diner.ViewModels.Zones
         {
             get
             {
-                return new Command(async() => {
+                return new Command(async () =>
+                {
                     try
                     {
                         await PopupNavigation.PopAllAsync(true);
-                        ((ZonesAndTablesPage)(((NavigationPage )Application.Current.MainPage)).CurrentPage).SetOpacity (1);
+                        ((ZonesAndTablesPage)(((NavigationPage)Application.Current.MainPage)).CurrentPage).SetOpacity(1);
 
                         //Post new state 
 
                         selectedTable.SeatCount = ZonesAndTablesPage.cs_popup.viewmodel.selectedTable.SeatCount;
                         if (selectedTable.SeatCount > 0)
-                        {                                
-                                    ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new WelcomePage(new WelcomeViewModel(SelectedTable.Seats)));
+                        {
+                            ((CustomNavigationPage)(App.Current.MainPage)).PushAsync(new WelcomePage(new WelcomeViewModel(SelectedTable.Seats)));
 
-                            
+
                         }
                     }
                     catch (Exception)
                     {
 
-                         
+
                     }
                 });
             }

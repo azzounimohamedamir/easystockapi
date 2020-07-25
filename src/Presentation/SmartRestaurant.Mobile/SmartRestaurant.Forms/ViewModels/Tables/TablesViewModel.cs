@@ -1,15 +1,7 @@
-﻿using SmartRestaurant.Diner.CustomControls;
-using SmartRestaurant.Diner.Infrastructures;
+﻿using SmartRestaurant.Diner.Infrastructures;
 using SmartRestaurant.Diner.Models;
 using SmartRestaurant.Diner.Resources;
 using SmartRestaurant.Diner.ViewModels.Orders;
-using SmartRestaurant.Diner.ViewModels.Sections;
-using SmartRestaurant.Diner.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SmartRestaurant.Diner.ViewModels.Tables
@@ -17,7 +9,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
     /// <summary>
     /// Used to manage tables as a ViewModel
     /// </summary>
-    public class TablesViewModel: SimpleViewModel
+    public class TablesViewModel : SimpleViewModel
     {
         public readonly TableModel table;
 
@@ -54,7 +46,7 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
                     table.SeatCount = value;
                     RaisePropertyChanged();
 
-                    if (table.SeatCount>0) BackgroundColor = Color.FromHex("#FFA374");
+                    if (table.SeatCount > 0) BackgroundColor = Color.FromHex("#FFA374");
                     else
                         BackgroundColor = Color.Transparent;
                     RaisePropertyChanged("BackgroundColor");
@@ -136,9 +128,9 @@ namespace SmartRestaurant.Diner.ViewModels.Tables
         {
             get
             {
-                if(seats==null)
-                seats = new SeatsListViewModel(this);
-                return seats;                
+                if (seats == null)
+                    seats = new SeatsListViewModel(this);
+                return seats;
             }
             set
             {

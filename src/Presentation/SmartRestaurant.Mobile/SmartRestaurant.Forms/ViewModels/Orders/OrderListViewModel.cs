@@ -1,13 +1,6 @@
 ﻿using SmartRestaurant.Diner.Infrastructures;
-using SmartRestaurant.Diner.Models;
-using SmartRestaurant.Diner.Resources;
-using SmartRestaurant.Diner.Services;
 using SmartRestaurant.Diner.Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using Xamarin.Forms;
 using System.Linq;
 namespace SmartRestaurant.Diner.ViewModels.Orders
 {

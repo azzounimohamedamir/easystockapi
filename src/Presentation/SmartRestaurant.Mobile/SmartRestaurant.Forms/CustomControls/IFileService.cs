@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Diner.CustomControls
+﻿namespace SmartRestaurant.Diner.CustomControls
 {
     public interface IFileService
     {
