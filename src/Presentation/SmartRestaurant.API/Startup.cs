@@ -58,7 +58,7 @@ namespace SmartRestaurant.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Smart Restaurant api v1");
             });
-            
+
             app.UseRouting();
 
             CORSConfiguration.UseCORS(app, env);
