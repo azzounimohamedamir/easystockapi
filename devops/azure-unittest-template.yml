@@ -20,7 +20,7 @@ jobs:
         command: 'build'
         projects: |
             **/*Tests/*.csproj
-            !**/*Application.IntegrationTests/*.csproj
+#            !**/*Application.IntegrationTests/*.csproj
         arguments: '--configuration ${{ parameters.buildConfiguration }}'
       displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
 
@@ -29,7 +29,7 @@ jobs:
         command: test
         projects: |
            **/*Tests/*.csproj
-           !**/*Application.IntegrationTests/*.csproj
+#           !**/*Application.IntegrationTests/*.csproj
         arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "XPlat Code Coverage"'
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
 
