@@ -1,13 +1,4 @@
 stages:
-#- stage: Run_Tests
-#  dependsOn: []
-#  pool: 
-#    vmImage: 'windows-2019'
-#    workspace:
-#      clean: all
-#  jobs:
-#  - template: devops/azure-unittest-template.yml
-
 - stage: Build_On_Test_Evn
   condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
   pool: 
@@ -62,6 +53,15 @@ stages:
   - template: devops/azure-deploy-template.yml
     parameters:
       envName: SmartRestaurant-Prod-Env
+
+- stage: Run_Tests
+  dependsOn: []
+  pool: 
+    vmImage: 'windows-2019'
+    workspace:
+      clean: all
+  jobs:
+  - template: devops/azure-unittest-template.yml
 
 #- stage: Deploy_Angular_To_Prod_Env
 #  dependsOn: Deploy_To_Prod_Env
