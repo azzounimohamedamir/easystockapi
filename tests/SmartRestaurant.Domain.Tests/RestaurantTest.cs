@@ -49,6 +49,13 @@ namespace SmartRestaurant.Domain.Tests
         [Fact]
         public void Restaurant_MapMarker_Valide_Test()
         {
+            Restaurant.Address = new Entities.Globalisation.Address
+            {
+                StreetAddress = "12 rue exemple",
+                City = "Oran",
+                Country = "Algeria"
+            };
+
             Restaurant.Address.GeoPosition = new ValueObjects.GeoPosition
             {
                 Latitude = "+40.75",
