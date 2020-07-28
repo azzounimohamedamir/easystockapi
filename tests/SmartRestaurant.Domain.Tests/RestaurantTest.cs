@@ -6,18 +6,18 @@ namespace SmartRestaurant.Domain.Tests
 {
     public class RestaurantTest
     {
-        readonly Restaurant Restaurant;
+        readonly FoodBusiness Restaurant;
 
         public RestaurantTest()
         {
-            Restaurant = new Restaurant
+            Restaurant = new FoodBusiness
             {
                 NameArabic = "مطعمي",
                 NameFrench = "Mon Restaurant",
                 NameEnglish = "My Restaurant",
                 Description = "Bienvenue chez mon restaurant algerien",
                 HasCarParking = true,
-                IsHandicapFreindly = true,
+                IsHandicapFriendly = true,
                 AcceptsCreditCards = true,
                 AcceptTakeout = false,
                 Tags = "Traditionnelle, Algerien",
@@ -73,9 +73,9 @@ namespace SmartRestaurant.Domain.Tests
         [Fact]
         public void Restaurant_State_Valide_Test()
         {
-            Restaurant.RestaurantState = RestaurantState.Active;
+            Restaurant.FoodBusinessState = FoodBusinessState.Active;
 
-            Assert.Equal(RestaurantState.Active, Restaurant.RestaurantState);
+            Assert.Equal(FoodBusinessState.Active, Restaurant.FoodBusinessState);
         }
     }
 }

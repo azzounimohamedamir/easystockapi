@@ -8,6 +8,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<FoodBusiness> FoodBusinesses { get; set; }
+       
     }
 }

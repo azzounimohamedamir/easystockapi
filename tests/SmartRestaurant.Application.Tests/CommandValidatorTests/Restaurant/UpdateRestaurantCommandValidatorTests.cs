@@ -1,9 +1,9 @@
-﻿using FluentValidation.TestHelper;
-using SmartRestaurant.Application.Restaurants.Commands;
-using System;
+﻿using System;
+using FluentValidation.TestHelper;
+using SmartRestaurant.Application.FoodBusiness.Commands;
 using Xunit;
 
-namespace SmartRestaurant.Application.Tests.CommandValidatorTests
+namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Restaurant
 {
     public class UpdateRestaurantCommandValidatorTests
     {
@@ -18,7 +18,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests
         public void Given_EmptyGuid_WhenValidating_ShouldError()
         {
             Guid EmptyGuid = Guid.Empty;
-            _validator.ShouldHaveValidationErrorFor(restaurant => restaurant.RestaurantId, EmptyGuid);
+            _validator.ShouldHaveValidationErrorFor(restaurant => restaurant.CmdId, EmptyGuid);
         }
 
         [Fact]

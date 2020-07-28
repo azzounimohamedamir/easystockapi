@@ -20,11 +20,11 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         [Fact]
         public void Map_RestaurantDto_To_Restaurant_Valide_Test()
         {
-            RestaurantDto restaurantDto = new RestaurantDto()
+            FoodBusinessDto foodBusinessDto = new FoodBusinessDto()
             {
                 NameFrench = "Mon Restaurant"
             };
-            Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
+            Domain.Entities.FoodBusiness restaurant = _mapper.Map<Domain.Entities.FoodBusiness>(foodBusinessDto);
 
             Assert.Equal("Mon Restaurant", restaurant.NameFrench);
         }
@@ -32,7 +32,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         [Fact]
         public void Map_RestaurantDto_GeoLocationDto_to_Restaurant_Geolocation_Valide_Test()
         {
-            RestaurantDto restaurantDto = new RestaurantDto()
+            FoodBusinessDto foodBusinessDto = new FoodBusinessDto()
             {
                 Address = new AddressDto()
                 {
@@ -46,7 +46,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                     }
                 }
             };
-            Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
+            Domain.Entities.FoodBusiness restaurant = _mapper.Map<Domain.Entities.FoodBusiness>(foodBusinessDto);
 
             Assert.Equal("+12.5", restaurant.Address.GeoPosition.Latitude);
         }
@@ -54,7 +54,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         [Fact]
         public void Map_RestaurantDto_AddressDto_to_Restaurant_Address_Valide_Test()
         {
-            RestaurantDto restaurantDto = new RestaurantDto()
+            FoodBusinessDto foodBusinessDto = new FoodBusinessDto()
             {
                 Address = new AddressDto()
                 {
@@ -63,7 +63,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                     Country = "Algeria"
                 }
             };
-            Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
+            Domain.Entities.FoodBusiness restaurant = _mapper.Map<Domain.Entities.FoodBusiness>(foodBusinessDto);
 
             Assert.Equal("12 rue exemple", restaurant.Address.StreetAddress);
         }
@@ -71,7 +71,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         [Fact]
         public void Map_RestaurantDto_PhoneNumberDto_to_Restaurant_PhoneNumber_Valide_Test()
         {
-            RestaurantDto restaurantDto = new RestaurantDto()
+            FoodBusinessDto foodBusinessDto = new FoodBusinessDto()
             {
                 PhoneNumber = new PhoneNumberDto()
                 {
@@ -79,7 +79,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                     Number = 798924059
                 }
             };
-            Restaurant restaurant = _mapper.Map<Restaurant>(restaurantDto);
+            Domain.Entities.FoodBusiness restaurant = _mapper.Map<Domain.Entities.FoodBusiness>(foodBusinessDto);
 
             Assert.Equal("798924059", restaurant.PhoneNumber.Number.ToString());
         }

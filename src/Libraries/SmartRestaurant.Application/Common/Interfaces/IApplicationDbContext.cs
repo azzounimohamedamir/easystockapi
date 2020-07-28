@@ -7,8 +7,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
 {
     public interface IApplicationDbContext
     {
-        public DbSet<Restaurant> Restaurants { get; set; }
-
+        public DbSet<Domain.Entities.FoodBusiness> FoodBusinesses { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

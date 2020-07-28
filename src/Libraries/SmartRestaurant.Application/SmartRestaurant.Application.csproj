@@ -15,4 +15,8 @@
   <ItemGroup>
     <ProjectReference Include="..\SmartRestaurant.Domain\SmartRestaurant.Domain.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Suppliers\Queries\" />
+  </ItemGroup>
 </Project>

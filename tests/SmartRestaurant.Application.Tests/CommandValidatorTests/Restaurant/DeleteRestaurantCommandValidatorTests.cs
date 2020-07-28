@@ -1,9 +1,9 @@
-﻿using FluentValidation.TestHelper;
-using SmartRestaurant.Application.Restaurants.Commands;
-using System;
+﻿using System;
+using FluentValidation.TestHelper;
+using SmartRestaurant.Application.FoodBusiness.Commands;
 using Xunit;
 
-namespace SmartRestaurant.Application.Tests.CommandValidatorTests
+namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Restaurant
 {
     public class DeleteRestaurantCommandValidatorTests
     {

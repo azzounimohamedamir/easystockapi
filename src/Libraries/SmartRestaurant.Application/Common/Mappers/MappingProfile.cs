@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
-using SmartRestaurant.Application.Restaurants.Commands;
-using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Domain.Entities.Globalisation;
 using SmartRestaurant.Domain.ValueObjects;
 
@@ -12,9 +11,13 @@ namespace SmartRestaurant.Application.Common.Mappers
     {
         public MappingProfile()
         {
-            CreateMap<Restaurant, RestaurantDto>().ReverseMap();
-            CreateMap<Restaurant, CreateRestaurantCommand>().ReverseMap();
-            CreateMap<Restaurant, UpdateRestaurantCommand>().ReverseMap();
+            CreateMap<Domain.Entities.FoodBusiness, FoodBusinessDto>().ReverseMap();
+            CreateMap<Domain.Entities.FoodBusiness, CreateFoodBusinnessCommand>()
+                .ForMember(x=>x.CmdId , o=>o.MapFrom(p=>p.FoodBusinessId))
+                .ReverseMap();
+            CreateMap<Domain.Entities.FoodBusiness, UpdateFoodBusinessCommand>()
+                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.FoodBusinessId))
+                .ReverseMap();
             CreateMap<GeoPosition, GeoPositionDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<PhoneNumber, PhoneNumberDto>().ReverseMap();
