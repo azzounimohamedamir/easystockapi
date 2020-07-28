@@ -2,6 +2,7 @@
 using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
+using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
@@ -31,6 +32,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public int NIF { get; set; }
         public int NIS { get; set; }
         public string Email { get; set; }
+        public FoodBusinessCategory FoodBusinessCategory { get; set; }
     }
 
     public class UpdateRestaurantCommandValidator : AbstractValidator<UpdateFoodBusinessCommand>

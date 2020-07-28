@@ -4,6 +4,7 @@ using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
 {
@@ -41,7 +42,8 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 PhoneNumber = new Common.Dtos.ValueObjects.PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                 Tags = "",
                 Website = "",
-                RestaurantAdministratorId = "4"
+                RestaurantAdministratorId = "4",
+                FoodBusinessCategory = FoodBusinessCategory.Restaurant
 
             };
             var validationResult = await SendAsync(createRestaurantCommand);
