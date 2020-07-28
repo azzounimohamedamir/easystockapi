@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SmartRestaurant.Infrastructure.Identity.Migrations
 {
-    public partial class InitialMigratiion : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,7 +39,10 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    FullName = table.Column<string>(nullable: true),
+                    FoodBusinessId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -155,17 +158,13 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "1", "88f0dec2-5364-4881-9817-1f2a135a8649", "SuperAdmin", "SUPERADMIN" });
-
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "2", "5719c2b8-22fd-4eee-9c21-4bfbd2ce18d7", "Admin", "ADMIN" });
-
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "3", "eccc7115-422c-487d-95b0-58cfa8e66a94", "User", "USER" });
+                values: new object[,]
+                {
+                    { "2f862c1b-99b8-4596-b363-f1133c2b8522", "88f0dec2-5364-4881-9817-1f2a135a8649", "SuperAdmin", "SUPERADMIN" },
+                    { "e8c28517-b118-41a8-add6-1cdb0490b2ce", "5719c2b8-22fd-4eee-9c21-4bfbd2ce18d7", "Admin", "ADMIN" },
+                    { "a528d63f-5907-44e4-ac62-f963dc6e7b42", "eccc7115-422c-487d-95b0-58cfa8e66a94", "User", "USER" },
+                    { "1be6e704-c26e-40c8-9bd0-8c094fb9f103", "5de5ee9b-7f2a-4a99-b0dc-dfd235f15a63", "FoodBusinessAdministrator", "FOODBUSINESSADMINISTRATOR" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

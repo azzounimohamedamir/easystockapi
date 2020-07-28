@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Identity.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20200727093611_addRestaurantAdministrator")]
-    partial class addRestaurantAdministrator
+    partial class IdentityContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,23 +48,30 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1",
+                            Id = "2f862c1b-99b8-4596-b363-f1133c2b8522",
                             ConcurrencyStamp = "88f0dec2-5364-4881-9817-1f2a135a8649",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = "2",
+                            Id = "e8c28517-b118-41a8-add6-1cdb0490b2ce",
                             ConcurrencyStamp = "5719c2b8-22fd-4eee-9c21-4bfbd2ce18d7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "3",
+                            Id = "a528d63f-5907-44e4-ac62-f963dc6e7b42",
                             ConcurrencyStamp = "eccc7115-422c-487d-95b0-58cfa8e66a94",
                             Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "1be6e704-c26e-40c8-9bd0-8c094fb9f103",
+                            ConcurrencyStamp = "5de5ee9b-7f2a-4a99-b0dc-dfd235f15a63",
+                            Name = "RestaurantAdministrator",
                             NormalizedName = "USER"
                         });
                 });
@@ -250,11 +255,11 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("FoodBusinessId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });

@@ -35,6 +35,7 @@ namespace SmartRestaurant.Domain.Entities
         public string Website { get; set; }
         public string FoodBusinessAdministratorId { get; set; }
         public FoodBusinessState FoodBusinessState { get; set; }
+        public FoodBusinessCategory FoodBusinessCategory { get; set; }
         
 
     }
