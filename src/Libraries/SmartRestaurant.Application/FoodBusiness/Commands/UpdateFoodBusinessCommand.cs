@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
@@ -44,9 +46,23 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
 
             RuleFor(v => v.NameEnglish)
                 .MaximumLength(200)
-                .NotEmpty()
-                .When(n => n.NameFrench == String.Empty && n.NameArabic == String.Empty && n.NameChinese == String.Empty && n.NameRussian == String.Empty && n.NameTurkish == String.Empty);
+                .Must(CheckName);
 
         }
+
+        private bool CheckName(UpdateFoodBusinessCommand arg1, string arg2)
+        {
+            return !string.IsNullOrEmpty(arg2) && !string.IsNullOrWhiteSpace(arg2) || string.IsNullOrEmpty(arg2) &&
+                (!string.IsNullOrEmpty(arg1.NameFrench) && !string.IsNullOrWhiteSpace(arg1.NameFrench)
+                 || !string.IsNullOrEmpty(arg1.NameArabic) && !string.IsNullOrWhiteSpace(arg1.NameArabic)
+                 || !string.IsNullOrEmpty(arg1.NameSpanish) && !string.IsNullOrWhiteSpace(arg1.NameSpanish)
+                 || !string.IsNullOrEmpty(arg1.NameTurkish) && !string.IsNullOrWhiteSpace(arg1.NameTurkish)
+                 || !string.IsNullOrEmpty(arg1.NameChinese) && !string.IsNullOrWhiteSpace(arg1.NameChinese)
+                );
+        }
+
+        
+
+        
     }
 }

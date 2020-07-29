@@ -15,10 +15,10 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Restaurant
         }
 
         [Fact]
-        public void Given_EmptyGuid_WhenValidating_ShouldError()
+        public void Given_EmptyGuid_WhenValidating_ShouldNotHaveError()
         {
             Guid EmptyGuid = Guid.Empty;
-            _validator.ShouldHaveValidationErrorFor(restaurant => restaurant.CmdId, EmptyGuid);
+            _validator.ShouldNotHaveValidationErrorFor(restaurant => restaurant.CmdId, EmptyGuid);
         }
 
         [Fact]
