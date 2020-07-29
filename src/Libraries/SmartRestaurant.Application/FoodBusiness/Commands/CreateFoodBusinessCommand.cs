@@ -7,7 +7,7 @@ using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class CreateFoodBusinnessCommand : SRCommand
+    public class CreateFoodBusinessCommand : SRCommand
     {
        
         public string NameArabic { get; set; }
@@ -38,7 +38,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     }
 
 
-    public class CreateRestaurantCommandValidator : AbstractValidator<CreateFoodBusinnessCommand>
+    public class CreateRestaurantCommandValidator : AbstractValidator<CreateFoodBusinessCommand>
     {
         public CreateRestaurantCommandValidator()
         {
@@ -50,7 +50,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
 
         
 
-        private async Task<bool> CheckNameAsync(CreateFoodBusinnessCommand arg1, string arg2, CancellationToken arg3)
+        private async Task<bool> CheckNameAsync(CreateFoodBusinessCommand arg1, string arg2, CancellationToken arg3)
         {
             return !string.IsNullOrEmpty(arg2) && !string.IsNullOrWhiteSpace(arg2) || string.IsNullOrEmpty(arg2) &&
                 (!string.IsNullOrEmpty(arg1.NameFrench) && !string.IsNullOrWhiteSpace(arg1.NameFrench)

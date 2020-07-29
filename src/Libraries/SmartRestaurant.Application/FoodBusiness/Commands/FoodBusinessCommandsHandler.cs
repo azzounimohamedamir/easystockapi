@@ -9,7 +9,7 @@ using SmartRestaurant.Application.Common.Interfaces;
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
     public class FoodBusinessCommandHandler :
-    IRequestHandler<CreateFoodBusinnessCommand, ValidationResult>,
+    IRequestHandler<CreateFoodBusinessCommand, ValidationResult>,
     IRequestHandler<UpdateFoodBusinessCommand, ValidationResult>,
     IRequestHandler<DeletefoodBusinessCommand>
     {
@@ -22,7 +22,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             _mapper = mapper;
         }
 
-        public async Task<ValidationResult> Handle(CreateFoodBusinnessCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(CreateFoodBusinessCommand request, CancellationToken cancellationToken)
         {
             var validator = new CreateRestaurantCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);

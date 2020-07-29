@@ -12,7 +12,7 @@ namespace SmartRestaurant.Application.Common.Mappers
         public MappingProfile()
         {
             CreateMap<Domain.Entities.FoodBusiness, FoodBusinessDto>().ReverseMap();
-            CreateMap<Domain.Entities.FoodBusiness, CreateFoodBusinnessCommand>()
+            CreateMap<Domain.Entities.FoodBusiness, CreateFoodBusinessCommand>()
                 .ForMember(x=>x.CmdId , o=>o.MapFrom(p=>p.FoodBusinessId))
                 .ReverseMap();
             CreateMap<Domain.Entities.FoodBusiness, UpdateFoodBusinessCommand>()
