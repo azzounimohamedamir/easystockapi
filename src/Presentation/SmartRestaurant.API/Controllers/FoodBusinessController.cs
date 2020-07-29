@@ -57,7 +57,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {
-            await Mediator.Send(new DeletefoodBusinessCommand { RestaurantId = id }).ConfigureAwait(false);
+            await Mediator.Send(new DeletefoodBusinessCommand { FoodBusinessId = id }).ConfigureAwait(false);
             return NoContent();
         }
         [HttpPost]

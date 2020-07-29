@@ -22,7 +22,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Restaurants.Commands
             await SendAsync(createCommand);
             await SendAsync(new DeletefoodBusinessCommand
             {
-                RestaurantId = createCommand.CmdId
+                FoodBusinessId = createCommand.CmdId
                 
             });
 
