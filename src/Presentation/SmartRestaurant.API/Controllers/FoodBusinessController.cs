@@ -27,7 +27,8 @@ namespace SmartRestaurant.API.Controllers
         {
             return Mediator.Send(new GetFoodBusinessListByAdmin {RestaurantAdministratorId = adminId });
         }
-        [HttpGet("{id}")]
+        [ActionName("getById")]
+        [HttpGet]
         public Task<FoodBusinessDto> GetById(Guid id)
         {
             return Mediator.Send(new GetFoodBusinessByIdQuery { RestaurantId = id });
@@ -41,7 +42,8 @@ namespace SmartRestaurant.API.Controllers
             return ApiCustomResponse(validationResult);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
+        [ActionName("update")]
         public async Task<ActionResult> Update(Guid id, UpdateFoodBusinessCommand command)
         {
             if (id != command.CmdId)
