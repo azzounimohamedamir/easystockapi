@@ -14,7 +14,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
         public async Task ShouldReturnRestaurant()
         {
             var restaurantId = Guid.NewGuid(); 
-            await SendAsync(new CreateFoodBusinnessCommand
+            await SendAsync(new CreateFoodBusinessCommand
             {
                 NameEnglish = "TobeGotByID For Test",
                 AverageRating = 12,

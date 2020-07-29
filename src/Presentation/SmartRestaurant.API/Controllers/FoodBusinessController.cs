@@ -35,7 +35,7 @@ namespace SmartRestaurant.API.Controllers
 
         [HttpPost]
         [ActionName("create")]
-        public async Task<ActionResult> Create(CreateFoodBusinnessCommand command)
+        public async Task<ActionResult> Create(CreateFoodBusinessCommand command)
         {
             var validationResult =  await Mediator.Send(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);

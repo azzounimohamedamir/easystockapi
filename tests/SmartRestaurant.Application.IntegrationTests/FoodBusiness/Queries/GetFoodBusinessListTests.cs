@@ -14,7 +14,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
         {
             for (int i = 0; i < 5; i++)
             {
-                var restaurantId = await SendAsync(new CreateFoodBusinnessCommand
+                var restaurantId = await SendAsync(new CreateFoodBusinessCommand
                 {
                     NameFrench = "tacos Dz  " + i.ToString(),
                     NameEnglish = "tacos Dz  " + i.ToString(),

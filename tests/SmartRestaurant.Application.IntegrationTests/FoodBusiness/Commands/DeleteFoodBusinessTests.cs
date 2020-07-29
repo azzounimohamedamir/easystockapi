@@ -13,7 +13,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Restaurants.Commands
         [Test]
         public async Task DeleteRestaurant_ShouldSaveToDB()
         {
-            var createCommand = new CreateFoodBusinnessCommand
+            var createCommand = new CreateFoodBusinessCommand()
             {
                 NameEnglish = "Taj mahal",
                 CmdId = Guid.NewGuid()

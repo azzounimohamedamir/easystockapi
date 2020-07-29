@@ -13,7 +13,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
         public async Task ShouldUpdateRestaurant()
         {
             var restaurantId = Guid.NewGuid();
-            await SendAsync(new CreateFoodBusinnessCommand
+            await SendAsync(new CreateFoodBusinessCommand
             {
                 NameEnglish = "Taj mahal",
                 AverageRating = 12,
