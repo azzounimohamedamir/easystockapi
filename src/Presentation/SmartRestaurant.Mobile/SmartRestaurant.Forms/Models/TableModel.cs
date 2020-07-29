@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Diner.Models
+﻿namespace SmartRestaurant.Diner.Models
 {
     /// <summary>
     /// Used to manage tables of the restaurant.

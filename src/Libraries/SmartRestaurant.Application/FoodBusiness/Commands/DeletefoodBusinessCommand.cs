@@ -14,7 +14,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public DeleteRestaurantCommandValidator()
         {
             RuleFor(v => v.RestaurantId)
-                .NotNull();
+                .NotNull()
+                .NotEmpty();
         }
     }
 }
