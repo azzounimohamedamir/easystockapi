@@ -23,13 +23,13 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public float AverageRating { get; set; }
         public int NumberRatings { get; set; }
         public bool HasCarParking { get; set; }
-        public bool IsHandicapFreindly { get; set; }
+        public bool IsHandicapFriendly { get; set; }
         public bool OffersTakeout { get; set; }
         public bool AcceptsCreditCards { get; set; }
         public bool AcceptTakeout { get; set; }
         public string Tags { get; set; }
         public string Website { get; set; }
-        public string RestaurantAdministratorId { get; set; }
+        public string FoodBusinessAdministratorId { get; set; }
         public int NRC { get; set; }
         public int NIF { get; set; }
         public int NIS { get; set; }
@@ -38,14 +38,14 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     }
 
 
-    public class CreateRestaurantCommandValidator : AbstractValidator<CreateFoodBusinessCommand>
+    public class CreateFoodBusinessCommandValidator : AbstractValidator<CreateFoodBusinessCommand>
     {
-        public CreateRestaurantCommandValidator()
+        public CreateFoodBusinessCommandValidator()
         {
             RuleFor(v => v.NameEnglish)
                 .MaximumLength(200)
                 .MustAsync(CheckNameAsync);
-            RuleFor(v => v.RestaurantAdministratorId).NotEmpty();
+            RuleFor(v => v.FoodBusinessAdministratorId).NotEmpty();
         }
 
         

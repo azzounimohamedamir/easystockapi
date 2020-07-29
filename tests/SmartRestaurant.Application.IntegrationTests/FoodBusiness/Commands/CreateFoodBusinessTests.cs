@@ -34,7 +34,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 AverageRating = 4,
                 Description = "",
                 HasCarParking = true,
-                IsHandicapFreindly = true,
+                IsHandicapFriendly = true,
                 NameArabic = "تاج محل",
                 NameEnglish = "Taj mahal",
                 NameFrench = "Taj mahal",
@@ -42,7 +42,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 PhoneNumber = new Common.Dtos.ValueObjects.PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                 Tags = "",
                 Website = "",
-                RestaurantAdministratorId = "4",
+                FoodBusinessAdministratorId = "4",
                 FoodBusinessCategory = FoodBusinessCategory.Restaurant
 
             };

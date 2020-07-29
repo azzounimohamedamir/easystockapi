@@ -7,11 +7,11 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Restaurant
 {
     public class DeleteRestaurantCommandValidatorTests
     {
-        private readonly DeleteRestaurantCommandValidator _validator;
+        private readonly DeleteFoodBusinessCommandValidator _validator;
 
         public DeleteRestaurantCommandValidatorTests()
         {
-            _validator = new DeleteRestaurantCommandValidator();
+            _validator = new DeleteFoodBusinessCommandValidator();
         }
 
         [Fact]

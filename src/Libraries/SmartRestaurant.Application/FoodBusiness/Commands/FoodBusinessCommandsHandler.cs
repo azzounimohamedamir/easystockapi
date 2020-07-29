@@ -24,7 +24,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
 
         public async Task<ValidationResult> Handle(CreateFoodBusinessCommand request, CancellationToken cancellationToken)
         {
-            var validator = new CreateRestaurantCommandValidator();
+            var validator = new CreateFoodBusinessCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
             var entity = _mapper.Map<Domain.Entities.FoodBusiness>(request);
@@ -47,17 +47,17 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
 
         public async Task<ValidationResult> Handle(UpdateFoodBusinessCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _context.FoodBusinesses.FindAsync(request.CmdId).ConfigureAwait(true);
+            var entity = await _context.FoodBusinesses.FindAsync(request.CmdId).ConfigureAwait(false);
 
             if (entity == null)
-                throw new NotFoundException(nameof(Domain.Entities.FoodBusiness), request.CmdId);
+                throw new NotFoundException(nameof(FoodBusiness), request.CmdId);
       
-            var validator = new UpdateRestaurantCommandValidator();
+            var validator = new UpdateFoodBusinessCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
             entity = _mapper.Map<Domain.Entities.FoodBusiness>(request);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
+           
             return default;
         }
     }

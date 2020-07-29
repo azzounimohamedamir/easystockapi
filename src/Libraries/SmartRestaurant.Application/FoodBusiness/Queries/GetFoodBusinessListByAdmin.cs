@@ -2,10 +2,10 @@
 using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
 
-namespace SmartRestaurant.Application.Restaurants.Queries
+namespace SmartRestaurant.Application.FoodBusiness.Queries
 {
     public class GetFoodBusinessListByAdmin : IRequest<List<FoodBusinessDto>>
     {
-        public string RestaurantAdministratorId { get; set; }
+        public string FoodBusinessAdministratorId { get; set; }
     }
 }

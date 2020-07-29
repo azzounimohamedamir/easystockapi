@@ -9,9 +9,9 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public Guid RestaurantId { get; set; }
     }
 
-    public class DeleteRestaurantCommandValidator : AbstractValidator<DeletefoodBusinessCommand>
+    public class DeleteFoodBusinessCommandValidator : AbstractValidator<DeletefoodBusinessCommand>
     {
-        public DeleteRestaurantCommandValidator()
+        public DeleteFoodBusinessCommandValidator()
         {
             RuleFor(v => v.RestaurantId)
                 .NotNull()

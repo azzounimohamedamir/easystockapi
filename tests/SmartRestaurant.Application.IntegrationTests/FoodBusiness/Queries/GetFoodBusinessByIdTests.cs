@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
-using SmartRestaurant.Application.Restaurants.Queries;
+using SmartRestaurant.Application.FoodBusiness.Queries;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
 {
@@ -24,7 +24,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
 
             var query = new GetFoodBusinessByIdQuery
             {
-                RestaurantId = restaurantId
+                FoodBusinessId = restaurantId
             };
 
             var result = await SendAsync(query);

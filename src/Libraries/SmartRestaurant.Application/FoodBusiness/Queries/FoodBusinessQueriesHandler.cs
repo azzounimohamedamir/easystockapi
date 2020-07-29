@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Restaurants.Queries;
 
 namespace SmartRestaurant.Application.FoodBusiness.Queries
 {
@@ -36,24 +35,24 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
 
         public async Task<FoodBusinessDto> Handle(GetFoodBusinessByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _context.FoodBusinesses.FindAsync(request.RestaurantId).ConfigureAwait(false);
+            var entity = await _context.FoodBusinesses.FindAsync(request.FoodBusinessId).ConfigureAwait(false);
 
             if (entity == null)
             {
-                throw new NotFoundException(nameof(FoodBusiness), request.RestaurantId);
+                throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
             }
             return _mapper.Map<FoodBusinessDto>(entity);
         }
 
         public async Task<List<FoodBusinessDto>> Handle(GetFoodBusinessListByAdmin request, CancellationToken cancellationToken)
         {
-            if (request.RestaurantAdministratorId == String.Empty)
-                throw new InvalidOperationException();
+            if (request.FoodBusinessAdministratorId == String.Empty || string.IsNullOrWhiteSpace(request.FoodBusinessAdministratorId))
+                throw new InvalidOperationException("FoodBusinessAdministratorId shouldn't be null or  empty");
 
-            List<Domain.Entities.FoodBusiness> restaurants = await _context.FoodBusinesses
-                .Where(x=>x.FoodBusinessAdministratorId == request.RestaurantAdministratorId).ToListAsync(cancellationToken: cancellationToken)
+            List<Domain.Entities.FoodBusiness> foodBusinesses = await _context.FoodBusinesses
+                .Where(x=>x.FoodBusinessAdministratorId == request.FoodBusinessAdministratorId).ToListAsync(cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
-            return _mapper.Map<List<FoodBusinessDto>>(restaurants);
+            return _mapper.Map<List<FoodBusinessDto>>(foodBusinesses);
         }
     }
 }

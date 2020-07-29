@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.Restaurants.Queries;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -25,13 +24,13 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         public Task<List<FoodBusinessDto>> GetByAdministratorId(string adminId)
         {
-            return Mediator.Send(new GetFoodBusinessListByAdmin {RestaurantAdministratorId = adminId });
+            return Mediator.Send(new GetFoodBusinessListByAdmin {FoodBusinessAdministratorId = adminId });
         }
         [ActionName("getById")]
         [HttpGet]
         public Task<FoodBusinessDto> GetById(Guid id)
         {
-            return Mediator.Send(new GetFoodBusinessByIdQuery { RestaurantId = id });
+            return Mediator.Send(new GetFoodBusinessByIdQuery { FoodBusinessId = id });
         }
 
         [HttpPost]
@@ -67,7 +66,7 @@ namespace SmartRestaurant.API.Controllers
         {
             if (images.RestaurantId == Guid.Empty)
                 throw new InvalidOperationException("Restaurant id shouldn't be empty or  null");
-            var restaurant = await Mediator.Send(new GetFoodBusinessByIdQuery { RestaurantId = images.RestaurantId }).ConfigureAwait(false);
+            var restaurant = await Mediator.Send(new GetFoodBusinessByIdQuery { FoodBusinessId = images.RestaurantId }).ConfigureAwait(false);
             if (restaurant == null)
                 return "Restaurant wasn't found";
             if (images.Files.Count <= 0)

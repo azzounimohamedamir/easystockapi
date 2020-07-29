@@ -6,11 +6,11 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Restaurant
 {
     public class CreateRestaurantCommandValidatorTests
     {
-        private readonly CreateRestaurantCommandValidator _validator;
+        private readonly CreateFoodBusinessCommandValidator _validator;
 
         public CreateRestaurantCommandValidatorTests()
         {
-            _validator = new CreateRestaurantCommandValidator();
+            _validator = new CreateFoodBusinessCommandValidator();
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Restaurant
         public void Given_EmptyFoodBusinessAdmin_WhenValidating_ShouldError()
         {
             string adminId = string.Empty;
-            _validator.ShouldHaveValidationErrorFor(restaurant => restaurant.RestaurantAdministratorId, adminId);
+            _validator.ShouldHaveValidationErrorFor(restaurant => restaurant.FoodBusinessAdministratorId, adminId);
         }
     }
 }
