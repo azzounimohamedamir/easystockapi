@@ -15,9 +15,9 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
         [Test]
         public async Task CreateRestaurant_ShouldSaveToDB()
         {
-            CreateFoodBusinnessCommand createRestaurantCommand = new CreateFoodBusinnessCommand
+            CreateFoodBusinessCommand createRestaurantCommand = new CreateFoodBusinessCommand
             {
-                CmdId = Guid.NewGuid(),
+                
                 AcceptsCreditCards = true,
                 AcceptTakeout = true,
                 Address = new Common.Dtos.ValueObjects.AddressDto
