@@ -37,7 +37,9 @@ namespace SmartRestaurant.API.Controllers
 
             var token = await TokenGenerator.Generate(appUser, _userManager, _configuration);
 
-            return Ok(new { token, appUser.UserName });
+            var roles = await _userManager.GetRolesAsync(appUser);
+
+            return Ok(new { token, appUser.UserName, roles });
         }
 
         [HttpPost("Register")]
