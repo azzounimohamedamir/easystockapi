@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 

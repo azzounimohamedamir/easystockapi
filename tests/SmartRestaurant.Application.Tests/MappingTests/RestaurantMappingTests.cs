@@ -2,7 +2,6 @@
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Tests.Configuration;
-using SmartRestaurant.Domain.Entities;
 using Xunit;
 
 

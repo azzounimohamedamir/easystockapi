@@ -4,12 +4,12 @@ using MediatR;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class DeletefoodBusinessCommand : IRequest
+    public class DeleteFoodBusinessCommand : IRequest
     {
         public Guid FoodBusinessId { get; set; }
     }
 
-    public class DeleteFoodBusinessCommandValidator : AbstractValidator<DeletefoodBusinessCommand>
+    public class DeleteFoodBusinessCommandValidator : AbstractValidator<DeleteFoodBusinessCommand>
     {
         public DeleteFoodBusinessCommandValidator()
         {

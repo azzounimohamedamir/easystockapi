@@ -1,15 +1,15 @@
-﻿using SmartRestaurant.Domain.Common;
+﻿using System;
+using SmartRestaurant.Domain.Common;
 using SmartRestaurant.Domain.Entities.Globalisation;
 using SmartRestaurant.Domain.Enums;
-using SmartRestaurant.Domain.ValueObjects;
-using System;
 using SmartRestaurant.Domain.Interfaces;
+using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Domain.Entities
 {
-    public class FoodBusiness : AuditableEntity,IOrganization
+    public class FoodBusiness : AuditableEntity, IOrganization
     {
-       
+
         public Guid FoodBusinessId { get; set; }
         public string NameArabic { get; set; }
         public string NameFrench { get; set; }
@@ -36,7 +36,7 @@ namespace SmartRestaurant.Domain.Entities
         public string FoodBusinessAdministratorId { get; set; }
         public FoodBusinessState FoodBusinessState { get; set; }
         public FoodBusinessCategory FoodBusinessCategory { get; set; }
-        
 
+   
     }
 }

@@ -13,10 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SmartRestaurant.Domain\SmartRestaurant.Domain.csproj" />
+    <Folder Include="Suppliers\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Suppliers\Queries\" />
+    <ProjectReference Include="..\SmartRestaurant.Domain\SmartRestaurant.Domain.csproj" />
   </ItemGroup>
 </Project>

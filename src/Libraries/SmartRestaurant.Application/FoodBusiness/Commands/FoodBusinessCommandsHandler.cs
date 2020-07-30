@@ -11,7 +11,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     public class FoodBusinessCommandHandler :
     IRequestHandler<CreateFoodBusinessCommand, ValidationResult>,
     IRequestHandler<UpdateFoodBusinessCommand, ValidationResult>,
-    IRequestHandler<DeletefoodBusinessCommand>
+    IRequestHandler<DeleteFoodBusinessCommand>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -33,12 +33,12 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             return default;
         }
 
-        public async Task<Unit> Handle(DeletefoodBusinessCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteFoodBusinessCommand request, CancellationToken cancellationToken)
         {
             var entity = await _context.FoodBusinesses.FindAsync(request.FoodBusinessId).ConfigureAwait(false);
 
             if (entity == null)
-                throw new NotFoundException(nameof(Domain.Entities.FoodBusiness), request.FoodBusinessId);
+                throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
 
             _context.FoodBusinesses.Remove(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

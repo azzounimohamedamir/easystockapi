@@ -1,14 +1,11 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class UpdateFoodBusinessCommand : SRCommand
+    public class UpdateFoodBusinessCommand : SmartRestaurantCommand
     {
         public string NameArabic { get; set; }
         public string NameFrench { get; set; }
@@ -50,14 +47,14 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
 
         }
 
-        private bool CheckName(UpdateFoodBusinessCommand arg1, string arg2)
+        private bool CheckName(UpdateFoodBusinessCommand updateFoodBusinessCommand, string nameEnglish)
         {
-            return !string.IsNullOrEmpty(arg2) && !string.IsNullOrWhiteSpace(arg2) || string.IsNullOrEmpty(arg2) &&
-                (!string.IsNullOrEmpty(arg1.NameFrench) && !string.IsNullOrWhiteSpace(arg1.NameFrench)
-                 || !string.IsNullOrEmpty(arg1.NameArabic) && !string.IsNullOrWhiteSpace(arg1.NameArabic)
-                 || !string.IsNullOrEmpty(arg1.NameSpanish) && !string.IsNullOrWhiteSpace(arg1.NameSpanish)
-                 || !string.IsNullOrEmpty(arg1.NameTurkish) && !string.IsNullOrWhiteSpace(arg1.NameTurkish)
-                 || !string.IsNullOrEmpty(arg1.NameChinese) && !string.IsNullOrWhiteSpace(arg1.NameChinese)
+            return !string.IsNullOrEmpty(nameEnglish) && !string.IsNullOrWhiteSpace(nameEnglish) || string.IsNullOrEmpty(nameEnglish) &&
+                (!string.IsNullOrEmpty(updateFoodBusinessCommand.NameFrench) && !string.IsNullOrWhiteSpace(updateFoodBusinessCommand.NameFrench)
+                 || !string.IsNullOrEmpty(updateFoodBusinessCommand.NameArabic) && !string.IsNullOrWhiteSpace(updateFoodBusinessCommand.NameArabic)
+                 || !string.IsNullOrEmpty(updateFoodBusinessCommand.NameSpanish) && !string.IsNullOrWhiteSpace(updateFoodBusinessCommand.NameSpanish)
+                 || !string.IsNullOrEmpty(updateFoodBusinessCommand.NameTurkish) && !string.IsNullOrWhiteSpace(updateFoodBusinessCommand.NameTurkish)
+                 || !string.IsNullOrEmpty(updateFoodBusinessCommand.NameChinese) && !string.IsNullOrWhiteSpace(updateFoodBusinessCommand.NameChinese)
                 );
         }
 

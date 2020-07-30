@@ -20,7 +20,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Restaurants.Commands
                 FoodBusinessAdministratorId = "4"
             };
             await SendAsync(createCommand);
-            await SendAsync(new DeletefoodBusinessCommand
+            await SendAsync(new DeleteFoodBusinessCommand
             {
                 FoodBusinessId = createCommand.CmdId
                 

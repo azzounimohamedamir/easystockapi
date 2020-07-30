@@ -4,9 +4,9 @@ using MediatR;
 
 namespace SmartRestaurant.Application.Common.Commands
 {
-    public class SRCommand : IRequest<ValidationResult>
+    public class SmartRestaurantCommand : IRequest<ValidationResult>
     {
-        public SRCommand()
+        public SmartRestaurantCommand()
         {
             CmdId = Guid.NewGuid();
         }

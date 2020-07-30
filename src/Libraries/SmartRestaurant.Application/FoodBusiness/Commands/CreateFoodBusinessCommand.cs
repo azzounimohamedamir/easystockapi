@@ -7,7 +7,7 @@ using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class CreateFoodBusinessCommand : SRCommand
+    public class CreateFoodBusinessCommand : SmartRestaurantCommand
     {
        
         public string NameArabic { get; set; }
@@ -50,14 +50,14 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
 
         
 
-        private async Task<bool> CheckNameAsync(CreateFoodBusinessCommand arg1, string arg2, CancellationToken arg3)
+        private async Task<bool> CheckNameAsync(CreateFoodBusinessCommand createFoodBusiness, string nameEnglish, CancellationToken token)
         {
-            return !string.IsNullOrEmpty(arg2) && !string.IsNullOrWhiteSpace(arg2) || string.IsNullOrEmpty(arg2) &&
-                (!string.IsNullOrEmpty(arg1.NameFrench) && !string.IsNullOrWhiteSpace(arg1.NameFrench)
-                 || !string.IsNullOrEmpty(arg1.NameArabic ) && !string.IsNullOrWhiteSpace(arg1.NameArabic)
-                 || !string.IsNullOrEmpty(arg1.NameSpanish) && !string.IsNullOrWhiteSpace(arg1.NameSpanish)
-                 || !string.IsNullOrEmpty(arg1.NameTurkish)&& !string.IsNullOrWhiteSpace(arg1.NameTurkish)
-                 || !string.IsNullOrEmpty(arg1.NameChinese) && !string.IsNullOrWhiteSpace(arg1.NameChinese)
+            return !string.IsNullOrEmpty(nameEnglish) && !string.IsNullOrWhiteSpace(nameEnglish) || string.IsNullOrEmpty(nameEnglish) &&
+                (!string.IsNullOrEmpty(createFoodBusiness.NameFrench) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameFrench)
+                 || !string.IsNullOrEmpty(createFoodBusiness.NameArabic ) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameArabic)
+                 || !string.IsNullOrEmpty(createFoodBusiness.NameSpanish) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameSpanish)
+                 || !string.IsNullOrEmpty(createFoodBusiness.NameTurkish)&& !string.IsNullOrWhiteSpace(createFoodBusiness.NameTurkish)
+                 || !string.IsNullOrEmpty(createFoodBusiness.NameChinese) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameChinese)
                  );
         }
     }
