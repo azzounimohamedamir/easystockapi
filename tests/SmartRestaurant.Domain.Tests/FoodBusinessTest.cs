@@ -6,52 +6,52 @@ using Xunit;
 
 namespace SmartRestaurant.Domain.Tests
 {
-    public class RestaurantTest
+    public class FoodBusinessTest
     {
-        readonly FoodBusiness Restaurant;
+        readonly FoodBusiness _foodBusiness;
 
-        public RestaurantTest()
+        public FoodBusinessTest()
         {
-            Restaurant = new FoodBusiness
+            _foodBusiness = new FoodBusiness
             {
                 NameArabic = "مطعمي",
-                NameFrench = "Mon Restaurant",
-                NameEnglish = "My Restaurant",
-                Description = "Bienvenue chez mon restaurant algerien",
+                NameFrench = "Mon FoodBusiness",
+                NameEnglish = "My FoodBusiness",
+                Description = "Bienvenue chez mon FoodBusiness algerien",
                 HasCarParking = true,
                 IsHandicapFriendly = true,
                 AcceptsCreditCards = true,
                 AcceptTakeout = false,
                 Tags = "Traditionnelle, Algerien",
-                Website = "www.restaurant-exemple.com",
+                Website = "www.FoodBusiness-exemple.com",
                 AverageRating = 4.5,
                 NumberRatings = 150
             };
         }
 
         [Fact]
-        public void Restaurant_Information_Valide_Test()
+        public void FoodBusiness_Information_Valide_Test()
         {
-            Assert.Equal("Mon Restaurant", Restaurant.NameFrench);
+            Assert.Equal("Mon FoodBusiness", _foodBusiness.NameFrench);
         }
 
         [Fact]
-        public void Restaurant_Address_Valide_Test()
+        public void FoodBusiness_Address_Valide_Test()
         {
-            Restaurant.Address = new Address
+            _foodBusiness.Address = new Address
             {
                 StreetAddress = "12 rue exemple",
                 City = "Oran",
                 Country = "Algeria"
             };
 
-            Assert.Equal("12 rue exemple", Restaurant.Address.StreetAddress);
+            Assert.Equal("12 rue exemple", _foodBusiness.Address.StreetAddress);
         }
 
         [Fact]
-        public void Restaurant_MapMarker_Valide_Test()
+        public void FoodBusiness_MapMarker_Valide_Test()
         {
-            Restaurant.Address = new Address
+            _foodBusiness.Address = new Address
             {
                 StreetAddress = "12 rue exemple",
                 City = "Oran",
@@ -63,27 +63,27 @@ namespace SmartRestaurant.Domain.Tests
                 }
             };
 
-            Assert.Equal("-074.00", Restaurant.Address.GeoPosition.Longitude);
+            Assert.Equal("-074.00", _foodBusiness.Address.GeoPosition.Longitude);
         }
 
         [Fact]
-        public void Restaurant_PhoneNumber_Valide_Test()
+        public void FoodBusiness_PhoneNumber_Valide_Test()
         {
-            Restaurant.PhoneNumber = new PhoneNumber
+            _foodBusiness.PhoneNumber = new PhoneNumber
             {
                 CountryCode = 213,
                 Number = 798924059
             };
 
-            Assert.Equal("798924059", Restaurant.PhoneNumber.Number.ToString());
+            Assert.Equal("798924059", _foodBusiness.PhoneNumber.Number.ToString());
         }
 
         [Fact]
-        public void Restaurant_State_Valide_Test()
+        public void FoodBusiness_State_Valide_Test()
         {
-            Restaurant.FoodBusinessState = FoodBusinessState.Active;
+            _foodBusiness.FoodBusinessState = FoodBusinessState.Active;
 
-            Assert.Equal(FoodBusinessState.Active, Restaurant.FoodBusinessState);
+            Assert.Equal(FoodBusinessState.Active, _foodBusiness.FoodBusinessState);
         }
     }
 }

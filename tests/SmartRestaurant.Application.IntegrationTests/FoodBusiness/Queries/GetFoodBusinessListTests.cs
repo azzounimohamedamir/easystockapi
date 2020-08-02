@@ -10,11 +10,11 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
     public class GetFoodBusinessListTests : TestBase
     {
         [Test]
-        public async Task ShouldReturnAllRestaurantList()
+        public async Task ShouldReturnAllFoodBusinessList()
         {
             for (int i = 0; i < 5; i++)
-            {
-                var restaurantId = await SendAsync(new CreateFoodBusinessCommand
+            { 
+                await SendAsync(new CreateFoodBusinessCommand
                 {
                     NameFrench = "tacos Dz  " + i.ToString(),
                     NameEnglish = "tacos Dz  " + i.ToString(),

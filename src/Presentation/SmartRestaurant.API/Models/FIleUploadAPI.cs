@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace SmartRestaurant.API.Models
 {
-    public class FIleUploadAPI
+    public class FIleUploadApi
     {
         public List<IFormFile> Files { get; set; }
-        public Guid RestaurantId { get; set; }
-        public Boolean Logo { get; set; }
+        public Guid FoodBusinessId { get; set; }
+        public bool IsLogo { get; set; }
     }
 }

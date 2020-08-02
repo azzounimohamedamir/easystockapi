@@ -3,13 +3,13 @@ using FluentValidation.TestHelper;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using Xunit;
 
-namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Restaurant
+namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusiness
 {
-    public class DeleteRestaurantCommandValidatorTests
+    public class DeleteFoodBusinessCommandValidatorTests
     {
         private readonly DeleteFoodBusinessCommandValidator _validator;
 
-        public DeleteRestaurantCommandValidatorTests()
+        public DeleteFoodBusinessCommandValidatorTests()
         {
             _validator = new DeleteFoodBusinessCommandValidator();
         }

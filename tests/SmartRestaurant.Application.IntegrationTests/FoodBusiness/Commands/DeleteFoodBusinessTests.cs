@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using System.Threading.Tasks;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 
-namespace SmartRestaurant.Application.IntegrationTests.Restaurants.Commands
+namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
 {
     using static Testing;
     [TestFixture]
@@ -26,8 +26,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Restaurants.Commands
                 
             });
 
-            var restaurantIdFound = await FindAsync<Domain.Entities.FoodBusiness>(createCommand.CmdId);
-            restaurantIdFound.Should().BeNull();
+            var foodBusiness = await FindAsync<Domain.Entities.FoodBusiness>(createCommand.CmdId);
+            foodBusiness.Should().BeNull();
         }
     }
 }

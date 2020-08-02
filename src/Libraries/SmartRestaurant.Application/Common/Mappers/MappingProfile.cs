@@ -2,6 +2,7 @@
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Entities.Globalisation;
 using SmartRestaurant.Domain.ValueObjects;
 
@@ -21,6 +22,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<GeoPosition, GeoPositionDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<PhoneNumber, PhoneNumberDto>().ReverseMap();
+            CreateMap<CreateFoodBusinessImageCommand, FoodBusinessImage>().ReverseMap(); 
         }
     }
 }

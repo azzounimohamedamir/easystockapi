@@ -20,9 +20,9 @@ namespace SmartRestaurant.API.Controllers
         {
             return Mediator.Send(new GetFoodBusinessListQuery());
         }
-        [ActionName("getByAdministratorId")]
+        [ActionName("getByFoodBusinessAdministratorId")]
         [HttpGet]
-        public Task<List<FoodBusinessDto>> GetByAdministratorId(string adminId)
+        public Task<List<FoodBusinessDto>> GetByFoodBusinessAdministratorId(string adminId)
         {
             return Mediator.Send(new GetFoodBusinessListByAdmin {FoodBusinessAdministratorId = adminId });
         }
@@ -62,26 +62,33 @@ namespace SmartRestaurant.API.Controllers
         }
         [HttpPost]
         [ActionName("uploadImages")]
-        public async Task<string> UploadImages([FromForm] FIleUploadAPI images)
+        public async Task<ActionResult> UploadImages([FromForm] FIleUploadApi images)
         {
-            if (images.RestaurantId == Guid.Empty)
-                throw new InvalidOperationException("Restaurant id shouldn't be empty or  null");
-            var restaurant = await Mediator.Send(new GetFoodBusinessByIdQuery { FoodBusinessId = images.RestaurantId }).ConfigureAwait(false);
-            if (restaurant == null)
-                return "Restaurant wasn't found";
+            if (images.FoodBusinessId == Guid.Empty)
+                throw new InvalidOperationException("FoodBusiness id shouldn't be null or  empty");
+            var foodBusiness = await Mediator.Send(new GetFoodBusinessByIdQuery { FoodBusinessId = images.FoodBusinessId }).ConfigureAwait(false);
+            if (foodBusiness == null)
+                return BadRequest("FoodBusiness wasn't found");
             if (images.Files.Count <= 0)
-                return "Unsuccessful";
-            try
+                return BadRequest("Unsuccessful");
+            var imageModels = FileHelper.SaveImagesAsync(images);
+            var createImagesCommand = new CreateListFoodBusinessImagesCommand();
+            createImagesCommand.FoodBusinessId = foodBusiness.FoodBusinessId;
+            foreach (var imageModel in imageModels)
             {
-                await FileHelper.SaveImagesAsync(images, images.Logo).ConfigureAwait(false);
-                return $"{FileHelper.RestaurantImagesPath}{images.RestaurantId}\\";
+                createImagesCommand.ImageCommands.Add(
+                    new CreateFoodBusinessImageCommand
+                    {
+                        ImageTitle = imageModel.ImageTitle,
+                        ImageBytes = imageModel.ImageBytes,
+                        IsLogo = imageModel.IsLogo
+                    });
             }
-            catch (Exception ex)
-            {
-                return ex.ToString();
-            }
-        }
 
+            await Mediator.Send(createImagesCommand).ConfigureAwait(false);
+            return Ok("Successful");
+        }
         
+
     }
 }

@@ -20,7 +20,6 @@ namespace SmartRestaurant.Application.Common.Dtos
         public float AverageRating { get; set; }
         public bool HasCarParking { get; set; }
         public bool IsHandicapFriendly { get; set; }
-        public bool OffersTakeout { get; set; }
         public bool AcceptsCreditCards { get; set; }
         public bool AcceptTakeout { get; set; }
         public string Tags { get; set; }

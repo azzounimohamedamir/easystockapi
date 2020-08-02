@@ -12,9 +12,9 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
     public class CreateFoodBusinessTests : TestBase
     {
         [Test]
-        public async Task CreateRestaurant_ShouldSaveToDB()
+        public async Task CreateFoodBusiness_ShouldSaveToDB()
         {
-            CreateFoodBusinessCommand createRestaurantCommand = new CreateFoodBusinessCommand
+            CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 
                 AcceptsCreditCards = true,
@@ -45,16 +45,16 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 FoodBusinessCategory = FoodBusinessCategory.Restaurant
 
             };
-            var validationResult = await SendAsync(createRestaurantCommand);
+            var validationResult = await SendAsync(createFoodBusinessCommand);
 
-            var item = await FindAsync<Domain.Entities.FoodBusiness>(createRestaurantCommand.CmdId);
+            var item = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
             validationResult.Should().Be(default(ValidationResult));
             item.Should().NotBeNull();
-            item.FoodBusinessId.Should().Be(createRestaurantCommand.CmdId);
-            item.NameArabic.Should().BeEquivalentTo(createRestaurantCommand.NameArabic);
-            item.NameEnglish.Should().BeEquivalentTo(createRestaurantCommand.NameEnglish);
-            item.NameFrench.Should().BeEquivalentTo(createRestaurantCommand.NameFrench);
-            item.Address.Should().BeEquivalentTo(createRestaurantCommand.Address);
+            item.FoodBusinessId.Should().Be(createFoodBusinessCommand.CmdId);
+            item.NameArabic.Should().BeEquivalentTo(createFoodBusinessCommand.NameArabic);
+            item.NameEnglish.Should().BeEquivalentTo(createFoodBusinessCommand.NameEnglish);
+            item.NameFrench.Should().BeEquivalentTo(createFoodBusinessCommand.NameFrench);
+            item.Address.Should().BeEquivalentTo(createFoodBusinessCommand.Address);
         }
     }
 }

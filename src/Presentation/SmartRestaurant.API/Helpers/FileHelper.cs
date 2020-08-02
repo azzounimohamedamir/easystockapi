@@ -1,33 +1,34 @@
-﻿using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.IO;
 using SmartRestaurant.API.Models;
 
 namespace SmartRestaurant.API.Helpers
 {
     public static class FileHelper
     {
-	   private static readonly string RootDir = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
-
-        public static string RestaurantImagesPath =>  RootDir + "\\uploads\\restaurants\\photo\\";
-        public static string RestaurantLogoPath =>  RootDir + "\\uploads\\restaurants\\logo\\";
-
-        public static async Task SaveImagesAsync(FIleUploadAPI images, bool logo)
+	    public static IEnumerable<ImageModel> SaveImagesAsync(FIleUploadApi fileUploadApi)
         {
-            var path  = !logo?  RestaurantImagesPath:
-                RestaurantLogoPath;
-            if (!Directory.Exists($"{path}{images.RestaurantId}\\"))
-                Directory.CreateDirectory($"{path}{images.RestaurantId}\\");
-
-            foreach (var file in images.Files)
+            
+            foreach (var file in fileUploadApi.Files)
             {
-                await using (FileStream fileStream =
-                    File.Create($"{path}{images.RestaurantId}\\" + file.FileName))
-                {
-                    file.CopyTo(fileStream);
-                    fileStream.Flush();
-                }
+                var  imageModel = new ImageModel();
+                imageModel.ImageBytes = FileToByteArray(file.FileName);
+                imageModel.ImageTitle = file.FileName;
+                imageModel.IsLogo = fileUploadApi.IsLogo;
+                yield return imageModel;
             }
+            
+        }
+        private static byte[] FileToByteArray(string fileName)
+        {
+            byte[] fileData = null;
+
+            using (FileStream fs = File.OpenRead(fileName))
+            {
+                var binaryReader = new BinaryReader(fs);
+                fileData = binaryReader.ReadBytes((int)fs.Length);
+            }
+            return fileData;
         }
     }
 }

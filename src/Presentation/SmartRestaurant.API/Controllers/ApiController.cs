@@ -28,7 +28,7 @@ namespace SmartRestaurant.API.Controllers
         protected ActionResult ApiCustomResponse(ValidationResult validationResult)
         {
             if (validationResult?.Errors != null)
-                foreach (var error in validationResult?.Errors)
+                foreach (var error in validationResult.Errors)
                     _errors.Add(error.ErrorMessage);
 
             return ApiCustomResponse();

@@ -11,20 +11,20 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
     public class GetFoodBusinessByIdTests : TestBase
     {
         [Test]
-        public async Task ShouldReturnRestaurant()
+        public async Task ShouldReturnFoodBusiness()
         {
-            var restaurantId = Guid.NewGuid(); 
+            var foodBusinessId = Guid.NewGuid(); 
             await SendAsync(new CreateFoodBusinessCommand
             {
                 NameEnglish = "TobeGotByID For Test",
                 AverageRating = 12,
                 HasCarParking = true,
-                CmdId = restaurantId
+                CmdId = foodBusinessId
             });
 
             var query = new GetFoodBusinessByIdQuery
             {
-                FoodBusinessId = restaurantId
+                FoodBusinessId = foodBusinessId
             };
 
             var result = await SendAsync(query);

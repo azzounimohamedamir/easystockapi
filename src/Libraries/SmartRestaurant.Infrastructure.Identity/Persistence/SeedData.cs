@@ -34,7 +34,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                 new IdentityRole
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Name = "RestaurantAdministrator",
+                    Name = "FoodBusinessAdministrator",
                     NormalizedName = Roles.User.ToString().ToUpper(),
                     ConcurrencyStamp = Guid.NewGuid().ToString()
                 }

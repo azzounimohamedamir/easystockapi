@@ -2,13 +2,13 @@
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using Xunit;
 
-namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Restaurant
+namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusiness
 {
-    public class CreateRestaurantCommandValidatorTests
+    public class CreateFoodBusinessCommandValidatorTests
     {
         private readonly CreateFoodBusinessCommandValidator _validator;
 
-        public CreateRestaurantCommandValidatorTests()
+        public CreateFoodBusinessCommandValidatorTests()
         {
             _validator = new CreateFoodBusinessCommandValidator();
         }

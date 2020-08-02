@@ -11,7 +11,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
     public class UpdateFoodBusinessTests : TestBase
     {
         [Test]
-        public async Task ShouldUpdateRestaurant()
+        public async Task ShouldUpdateFoodBusiness()
         {
             var foodBusinessId = Guid.NewGuid();
             await SendAsync(new CreateFoodBusinessCommand
