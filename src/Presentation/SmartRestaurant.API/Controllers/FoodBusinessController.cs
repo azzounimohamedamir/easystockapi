@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SmartRestaurant.API.Helpers;
+using SmartRestaurant.API.Models;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Application.FoodBusiness.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SmartRestaurant.API.Helpers;
-using SmartRestaurant.API.Models;
-using SmartRestaurant.Application.FoodBusiness.Commands;
-using SmartRestaurant.Application.FoodBusiness.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -25,7 +25,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         public Task<List<FoodBusinessDto>> GetByFoodBusinessAdministratorId(string adminId)
         {
-            return Mediator.Send(new GetFoodBusinessListByAdmin {FoodBusinessAdministratorId = adminId });
+            return Mediator.Send(new GetFoodBusinessListByAdmin { FoodBusinessAdministratorId = adminId });
         }
         [ActionName("getById")]
         [HttpGet]
@@ -38,7 +38,7 @@ namespace SmartRestaurant.API.Controllers
         [ActionName("create")]
         public async Task<ActionResult> Create(CreateFoodBusinessCommand command)
         {
-            var validationResult =  await Mediator.Send(command).ConfigureAwait(false);
+            var validationResult = await Mediator.Send(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
 
@@ -95,7 +95,7 @@ namespace SmartRestaurant.API.Controllers
         [ActionName("getAllImagesByFoodBusinessId")]
         public async Task<IEnumerable<string>> GetAllImagesByFoodBusinessId(Guid id)
         {
-            var query = await Mediator.Send(new GetImagesByFoodBusinessIdQuery() {FoodBusinessId = id}).ConfigureAwait(false);
+            var query = await Mediator.Send(new GetImagesByFoodBusinessIdQuery() { FoodBusinessId = id }).ConfigureAwait(false);
             return query.Select(Convert.ToBase64String);
         }
     }

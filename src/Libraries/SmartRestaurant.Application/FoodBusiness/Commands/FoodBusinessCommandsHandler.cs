@@ -1,13 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
@@ -55,13 +54,13 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
 
             if (entity == null)
                 throw new NotFoundException(nameof(FoodBusiness), request.CmdId);
-      
+
             var validator = new UpdateFoodBusinessCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
             entity = _mapper.Map<Domain.Entities.FoodBusiness>(request);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-           
+
             return default;
         }
 

@@ -50,7 +50,7 @@ namespace SmartRestaurant.API
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-           
+
             app.UseStaticFiles();
 
             app.UseSwagger();

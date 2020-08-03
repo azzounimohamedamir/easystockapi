@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusiness.Queries;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
 {
@@ -14,7 +14,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
         public async Task ShouldReturnAllFoodBusinessList()
         {
             for (int i = 0; i < 5; i++)
-            { 
+            {
                 await SendAsync(new CreateFoodBusinessCommand
                 {
                     NameFrench = "tacos Dz  " + i.ToString(),

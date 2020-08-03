@@ -1,10 +1,10 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
-using MediatR;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class CreateListFoodBusinessImagesCommand :IRequest
+    public class CreateListFoodBusinessImagesCommand : IRequest
     {
         public CreateListFoodBusinessImagesCommand()
         {

@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
 
 namespace SmartRestaurant.Infrastructure.Identity.Persistence
@@ -102,6 +102,40 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98"
                 }
             );
+            modelBuilder.Entity<ApplicationUser>().HasData(
+                new ApplicationUser
+                {
+                    Id = "3cbf3570-0d44-4673-8746-29b7cf568093",
+                    UserName = "SuperAdmin@SmartRestaurant.io",
+                    Email = "SuperAdmin@SmartRestaurant.io",
+                    NormalizedUserName = "SUPERADMIN@SMARTRESTAURANT.IO",
+                    NormalizedEmail = "SUPERADMIN@SMARTRESTAURANT.IO",
+                    PasswordHash = "AQAAAAEAACcQAAAAEAzFpmzMtMiw0wHV6b0aUzFLF9Pw7B2u+DswRHttAU2nH22NHBsc/hSSvKUqmRWGZA==",
+                    EmailConfirmed = true
+                },
+                new ApplicationUser
+                {
+                    Id = "d466ef00-61f1-4e77-801a-b016f0f12323",
+                    UserName = "SupportAgent@SmartRestaurant.io",
+                    Email = "SupportAgent@SmartRestaurant.io",
+                    NormalizedUserName = "SSUPERADMIN@SMARTRESTAURANT.IO",
+                    NormalizedEmail = "SUPERADMIN@SMARTRESTAURANT.IO",
+                    PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                    EmailConfirmed = true
+                }
+             );
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>
+                {
+                    UserId = "3cbf3570-0d44-4673-8746-29b7cf568093",
+                    RoleId = "1"
+                },
+                new IdentityUserRole<string>
+                {
+                    UserId = "d466ef00-61f1-4e77-801a-b016f0f12323",
+                    RoleId = "2"
+                }
+           );
         }
     }
 }

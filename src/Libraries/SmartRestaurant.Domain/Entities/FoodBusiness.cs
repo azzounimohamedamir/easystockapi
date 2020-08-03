@@ -1,9 +1,9 @@
-﻿using System;
-using SmartRestaurant.Domain.Common;
+﻿using SmartRestaurant.Domain.Common;
 using SmartRestaurant.Domain.Entities.Globalisation;
 using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.Interfaces;
 using SmartRestaurant.Domain.ValueObjects;
+using System;
 
 namespace SmartRestaurant.Domain.Entities
 {
@@ -37,6 +37,6 @@ namespace SmartRestaurant.Domain.Entities
         public FoodBusinessState FoodBusinessState { get; set; }
         public FoodBusinessCategory FoodBusinessCategory { get; set; }
 
-   
+
     }
 }

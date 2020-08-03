@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using MediatR;
+﻿using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.FoodBusiness.Queries
 {

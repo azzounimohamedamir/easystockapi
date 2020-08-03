@@ -1,15 +1,15 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Domain.Enums;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
     public class CreateFoodBusinessCommand : SmartRestaurantCommand
     {
-       
+
         public string NameArabic { get; set; }
         public string NameFrench { get; set; }
         public string NameEnglish { get; set; }
@@ -48,15 +48,15 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             RuleFor(v => v.FoodBusinessAdministratorId).NotEmpty();
         }
 
-        
+
 
         private async Task<bool> CheckNameAsync(CreateFoodBusinessCommand createFoodBusiness, string nameEnglish, CancellationToken token)
         {
             return !string.IsNullOrEmpty(nameEnglish) && !string.IsNullOrWhiteSpace(nameEnglish) || string.IsNullOrEmpty(nameEnglish) &&
                 (!string.IsNullOrEmpty(createFoodBusiness.NameFrench) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameFrench)
-                 || !string.IsNullOrEmpty(createFoodBusiness.NameArabic ) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameArabic)
+                 || !string.IsNullOrEmpty(createFoodBusiness.NameArabic) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameArabic)
                  || !string.IsNullOrEmpty(createFoodBusiness.NameSpanish) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameSpanish)
-                 || !string.IsNullOrEmpty(createFoodBusiness.NameTurkish)&& !string.IsNullOrWhiteSpace(createFoodBusiness.NameTurkish)
+                 || !string.IsNullOrEmpty(createFoodBusiness.NameTurkish) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameTurkish)
                  || !string.IsNullOrEmpty(createFoodBusiness.NameChinese) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameChinese)
                  );
         }
