@@ -56,7 +56,7 @@ namespace SmartRestaurant.API.Controllers
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.User.ToString());
+                await _userManager.AddToRoleAsync(user, Roles.Diner.ToString());
 
                 return Ok("Ok");
             }
