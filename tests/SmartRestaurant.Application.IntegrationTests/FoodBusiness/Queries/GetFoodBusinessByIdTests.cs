@@ -20,7 +20,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
                 AverageRating = 12,
                 HasCarParking = true,
                 CmdId = foodBusinessId,
-                FoodBusinessAdministratorId = "4"
+                FoodBusinessAdministratorId = Guid.NewGuid().ToString()
             });
 
             var query = new GetFoodBusinessByIdQuery

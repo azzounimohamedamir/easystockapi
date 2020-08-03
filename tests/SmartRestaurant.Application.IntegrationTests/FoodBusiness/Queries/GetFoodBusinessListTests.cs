@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
@@ -19,7 +20,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
                     NameFrench = "tacos Dz  " + i.ToString(),
                     NameEnglish = "tacos Dz  " + i.ToString(),
                     NameArabic = "تاكوس دزاد" + i.ToString(),
-                    FoodBusinessAdministratorId = "4",
+                    FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                     AverageRating = 12,
                     HasCarParking = true
                 });

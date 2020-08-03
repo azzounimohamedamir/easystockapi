@@ -10,8 +10,8 @@ using SmartRestaurant.Infrastructure.Persistence;
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200728202243_addFoddBusinessCategory")]
-    partial class addFoddBusinessCategory
+    [Migration("20200803093930_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,6 +113,58 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.ToTable("FoodBusinesses");
                 });
 
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.FoodBusinessImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("FoodBusinessId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("ImageBytes")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsLogo")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodBusinessId");
+
+                    b.ToTable("FoodBusinessImages");
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.FoodBusinessUser", b =>
+                {
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("FoodBusinessId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ApplicationUserId", "FoodBusinessId");
+
+                    b.HasIndex("FoodBusinessId");
+
+                    b.ToTable("FoodBusinessUsers");
+                });
+
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.FoodBusiness", b =>
                 {
                     b.OwnsOne("SmartRestaurant.Domain.Entities.Globalisation.Address", "Address", b1 =>
@@ -174,6 +226,24 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("FoodBusinessId");
                         });
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.FoodBusinessImage", b =>
+                {
+                    b.HasOne("SmartRestaurant.Domain.Entities.FoodBusiness", "FoodBusiness")
+                        .WithMany()
+                        .HasForeignKey("FoodBusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.FoodBusinessUser", b =>
+                {
+                    b.HasOne("SmartRestaurant.Domain.Entities.FoodBusiness", "FoodBusiness")
+                        .WithMany()
+                        .HasForeignKey("FoodBusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

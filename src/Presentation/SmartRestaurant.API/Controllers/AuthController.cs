@@ -50,11 +50,11 @@ namespace SmartRestaurant.API.Controllers
                 FullName = model.FullName
             };
 
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.User.ToString());
+                await _userManager.AddToRoleAsync(user, Roles.Diner.ToString()).ConfigureAwait(false);
 
                 return Ok("Ok");
             }

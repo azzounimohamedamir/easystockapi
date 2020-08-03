@@ -2,6 +2,7 @@
 using SmartRestaurant.Application.Common.Dtos;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models;
@@ -54,7 +55,8 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
-        [HttpDelete("{id}")]
+        [ActionName("delete")]
+        [HttpDelete]
         public async Task<ActionResult> Delete(Guid id)
         {
             await Mediator.Send(new DeleteFoodBusinessCommand { FoodBusinessId = id }).ConfigureAwait(false);
@@ -88,7 +90,13 @@ namespace SmartRestaurant.API.Controllers
             await Mediator.Send(createImagesCommand).ConfigureAwait(false);
             return Ok("Successful");
         }
-        
 
+        [HttpGet]
+        [ActionName("getAllImagesByFoodBusinessId")]
+        public async Task<IEnumerable<string>> GetAllImagesByFoodBusinessId(Guid id)
+        {
+            var query = await Mediator.Send(new GetImagesByFoodBusinessIdQuery() {FoodBusinessId = id}).ConfigureAwait(false);
+            return query.Select(Convert.ToBase64String);
+        }
     }
 }

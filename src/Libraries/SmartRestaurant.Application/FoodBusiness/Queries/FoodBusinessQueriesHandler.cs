@@ -15,7 +15,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
     public class FoodBusinessQueriesHandler :
         IRequestHandler<GetFoodBusinessListQuery, List<FoodBusinessDto>>, 
         IRequestHandler<GetFoodBusinessByIdQuery, FoodBusinessDto>,
-        IRequestHandler<GetFoodBusinessListByAdmin, List<FoodBusinessDto>>
+        IRequestHandler<GetFoodBusinessListByAdmin, List<FoodBusinessDto>>,
+        IRequestHandler<GetImagesByFoodBusinessIdQuery, IEnumerable<Byte[]>>
 
     {
         private readonly IApplicationDbContext _context;
@@ -53,6 +54,15 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
                 .Where(x=>x.FoodBusinessAdministratorId == request.FoodBusinessAdministratorId).ToListAsync(cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
             return _mapper.Map<List<FoodBusinessDto>>(foodBusinesses);
+        }
+
+        public async Task<IEnumerable<byte[]>> Handle(GetImagesByFoodBusinessIdQuery request, CancellationToken cancellationToken)
+        {
+            if(request.FoodBusinessId == Guid.Empty)
+                throw new InvalidOperationException("FoodBusiness Id shouldn't be null or  empty");
+            return await _context.FoodBusinessImages.Where(f => f.FoodBusinessId == request.FoodBusinessId)
+                .Select(im => im.ImageBytes).ToArrayAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
+
         }
     }
 }
