@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Domain.Enums;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
 {
@@ -16,7 +16,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
         {
             CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
-                
+
                 AcceptsCreditCards = true,
                 AcceptTakeout = true,
                 Address = new Common.Dtos.ValueObjects.AddressDto

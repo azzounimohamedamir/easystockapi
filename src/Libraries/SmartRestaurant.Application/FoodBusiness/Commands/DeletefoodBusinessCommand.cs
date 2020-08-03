@@ -1,6 +1,6 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
+using System;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {

@@ -1,9 +1,9 @@
-﻿using System;
-using SmartRestaurant.Domain.Common;
+﻿using SmartRestaurant.Domain.Common;
+using System;
 
 namespace SmartRestaurant.Domain.Entities
 {
-    public class FoodBusinessImage: AuditableEntity
+    public class FoodBusinessImage : AuditableEntity
     {
         public Guid Id { get; set; }
         public FoodBusiness FoodBusiness { get; set; }

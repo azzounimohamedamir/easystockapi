@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusiness.Queries;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
 {
@@ -13,7 +13,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
         [Test]
         public async Task ShouldReturnFoodBusiness()
         {
-            var foodBusinessId = Guid.NewGuid(); 
+            var foodBusinessId = Guid.NewGuid();
             await SendAsync(new CreateFoodBusinessCommand
             {
                 NameEnglish = "TobeGotByID For Test",

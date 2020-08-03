@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
 {
@@ -23,7 +23,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
             await SendAsync(new DeleteFoodBusinessCommand
             {
                 FoodBusinessId = createCommand.CmdId
-                
+
             });
 
             var foodBusiness = await FindAsync<Domain.Entities.FoodBusiness>(createCommand.CmdId);

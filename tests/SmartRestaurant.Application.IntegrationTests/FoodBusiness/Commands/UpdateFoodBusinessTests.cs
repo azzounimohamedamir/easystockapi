@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
 {
@@ -21,7 +21,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 HasCarParking = true,
                 CmdId = foodBusinessId,
                 FoodBusinessAdministratorId = "4"
-                
+
             });
 
             var updateFoodBusinessCommand = new UpdateFoodBusinessCommand
@@ -31,8 +31,8 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
 
             };
 
-            var validationResult =  await SendAsync(updateFoodBusinessCommand);
-            
+            var validationResult = await SendAsync(updateFoodBusinessCommand);
+
             var list = await FindAsync<Domain.Entities.FoodBusiness>(foodBusinessId);
             validationResult.Should().Be(default(ValidationResult));
             list.FoodBusinessId.Should().Be(updateFoodBusinessCommand.CmdId);

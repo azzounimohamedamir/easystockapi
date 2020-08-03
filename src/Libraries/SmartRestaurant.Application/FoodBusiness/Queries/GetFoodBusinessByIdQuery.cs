@@ -1,6 +1,6 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
+using System;
 
 namespace SmartRestaurant.Application.FoodBusiness.Queries
 {

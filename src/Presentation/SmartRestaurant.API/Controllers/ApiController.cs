@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -17,7 +17,7 @@ namespace SmartRestaurant.API.Controllers
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
         protected ActionResult ApiCustomResponse()
         {
-            if ( !_errors.Any())
+            if (!_errors.Any())
                 return Ok();
             return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
@@ -33,6 +33,6 @@ namespace SmartRestaurant.API.Controllers
 
             return ApiCustomResponse();
         }
-       
+
     }
 }

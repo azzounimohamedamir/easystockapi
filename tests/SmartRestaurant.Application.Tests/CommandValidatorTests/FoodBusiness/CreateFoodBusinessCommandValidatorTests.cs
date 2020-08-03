@@ -22,7 +22,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusiness
         [Fact]
         public void Given_EmptyEnglishName_WhenOtherNameIsNot_ShouldNotBeError()
         {
-            
+
             string frenchName = "fast food";
             _validator.ShouldNotHaveValidationErrorFor(restaurant => restaurant.NameFrench, frenchName);
         }
