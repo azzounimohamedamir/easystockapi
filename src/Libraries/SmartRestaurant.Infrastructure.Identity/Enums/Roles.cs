@@ -6,13 +6,14 @@
         SupportAgent = 2,
         SalesMan = 3,
         Photograph = 4,
-        RestaurantAdmin = 5,
-        RestaurantManager = 6,
-        Chef = 7,
-        Cashier = 8,
-        Waiter = 9,
-        Diner = 10,
-        Anounymous = 11,
-        Organization = 12
+        FoodBusinessAdministrator = 5,
+        FoodBusinessManager = 6,
+        FoodBusinessOwner = 7,
+        Chef = 8,
+        Cashier = 9,
+        Waiter = 10,
+        Diner = 11,
+        Anounymous = 12,
+        Organization = 13
     }
 }

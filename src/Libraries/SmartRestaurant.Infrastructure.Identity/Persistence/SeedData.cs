@@ -39,17 +39,24 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                 },
                 new IdentityRole
                 {
-                    Id = ((long)Roles.RestaurantAdmin).ToString(),
-                    Name = Roles.RestaurantAdmin.ToString(),
-                    NormalizedName = Roles.RestaurantAdmin.ToString().ToUpper(),
+                    Id = ((long)Roles.FoodBusinessAdministrator).ToString(),
+                    Name = Roles.FoodBusinessAdministrator.ToString(),
+                    NormalizedName = Roles.FoodBusinessAdministrator.ToString().ToUpper(),
                     ConcurrencyStamp = "5719c2b8-22fd-4eee-9c21-4bfbd2ce18d2"
                 },
                 new IdentityRole
                 {
-                    Id = ((long)Roles.RestaurantManager).ToString(),
-                    Name = Roles.RestaurantManager.ToString(),
-                    NormalizedName = Roles.RestaurantManager.ToString().ToUpper(),
+                    Id = ((long)Roles.FoodBusinessManager).ToString(),
+                    Name = Roles.FoodBusinessManager.ToString(),
+                    NormalizedName = Roles.FoodBusinessManager.ToString().ToUpper(),
                     ConcurrencyStamp = "emcc7115-422c-487d-95b0-58cfa8e66a94"
+                },
+                new IdentityRole
+                {
+                    Id = ((long)Roles.FoodBusinessOwner).ToString(),
+                    Name = Roles.FoodBusinessOwner.ToString(),
+                    NormalizedName = Roles.FoodBusinessOwner.ToString().ToUpper(),
+                    ConcurrencyStamp = "emcb7115-422c-487d-95c0-58cfa8m66a94"
                 },
                 new IdentityRole
                 {
