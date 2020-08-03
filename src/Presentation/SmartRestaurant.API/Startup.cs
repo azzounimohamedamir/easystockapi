@@ -23,7 +23,7 @@ namespace SmartRestaurant.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication();
-
+            services.AddDirectoryBrowser();
             services.AddInfrastructure(Configuration);
             services.AddIdentityInfrastructure(Configuration);
 
@@ -50,7 +50,7 @@ namespace SmartRestaurant.API
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
+           
             app.UseStaticFiles();
 
             app.UseSwagger();
@@ -65,7 +65,6 @@ namespace SmartRestaurant.API
 
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -21,7 +21,7 @@ namespace SmartRestaurant.API.Helpers
                 new Claim(ClaimTypes.Name, user.UserName)
             };
 
-            var roles = await _userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
 
             foreach (var role in roles)
             {

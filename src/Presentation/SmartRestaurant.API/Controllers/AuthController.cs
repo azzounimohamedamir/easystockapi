@@ -59,7 +59,7 @@ namespace SmartRestaurant.API.Controllers
                 FullName = model.FullName
             };
 
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
 
             if (result.Succeeded)
             {

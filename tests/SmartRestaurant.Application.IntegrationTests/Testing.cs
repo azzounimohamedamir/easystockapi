@@ -64,7 +64,7 @@ public class Testing
 
         var mediator = scope.ServiceProvider.GetService<IMediator>();
 
-        return await mediator.Send(request);
+        return await mediator.Send(request).ConfigureAwait(false);
     }
 
     public static async Task ResetState()
