@@ -19,7 +19,8 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
                 NameEnglish = "TobeGotByID For Test",
                 AverageRating = 12,
                 HasCarParking = true,
-                CmdId = foodBusinessId
+                CmdId = foodBusinessId,
+                FoodBusinessAdministratorId = "4"
             });
 
             var query = new GetFoodBusinessByIdQuery

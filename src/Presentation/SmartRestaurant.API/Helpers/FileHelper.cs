@@ -11,8 +11,9 @@ namespace SmartRestaurant.API.Helpers
             
             foreach (var file in fileUploadApi.Files)
             {
-                var  imageModel = new ImageModel();
+                
                 if (file.Length <= 0) continue;
+                var imageModel = new ImageModel();
                 using (var ms = new MemoryStream())
                 {
                     file.CopyTo(ms);

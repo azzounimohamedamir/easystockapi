@@ -3,13 +3,13 @@ using FluentValidation.TestHelper;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using Xunit;
 
-namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Restaurant
+namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusiness
 {
-    public class UpdateRestaurantCommandValidatorTests
+    public class UpdateFoodBusinessCommandValidatorTests
     {
         private readonly UpdateFoodBusinessCommandValidator _validator;
 
-        public UpdateRestaurantCommandValidatorTests()
+        public UpdateFoodBusinessCommandValidatorTests()
         {
             _validator = new UpdateFoodBusinessCommandValidator();
         }
@@ -18,14 +18,14 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Restaurant
         public void Given_EmptyGuid_WhenValidating_ShouldNotHaveError()
         {
             Guid EmptyGuid = Guid.Empty;
-            _validator.ShouldNotHaveValidationErrorFor(restaurant => restaurant.CmdId, EmptyGuid);
+            _validator.ShouldNotHaveValidationErrorFor(updateFoodBusinessCommand => updateFoodBusinessCommand.CmdId, EmptyGuid);
         }
 
         [Fact]
         public void Given_EmptyName_WhenValidating_ShouldError()
         {
             string IncorrectName = string.Empty;
-            _validator.ShouldHaveValidationErrorFor(restaurant => restaurant.NameEnglish, IncorrectName);
+            _validator.ShouldHaveValidationErrorFor(updateFoodBusinessCommand => updateFoodBusinessCommand.NameEnglish, IncorrectName);
         }
     }
 }

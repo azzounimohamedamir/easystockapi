@@ -65,7 +65,7 @@ namespace SmartRestaurant.API.Controllers
         public async Task<ActionResult> UploadImages([FromForm] FIleUploadApi images)
         {
             if (images.FoodBusinessId == Guid.Empty)
-                throw new InvalidOperationException("FoodBusiness id shouldn't be null or  empty");
+                throw new InvalidOperationException("FoodBusiness id shouldn't be null or empty");
             var foodBusiness = await Mediator.Send(new GetFoodBusinessByIdQuery { FoodBusinessId = images.FoodBusinessId }).ConfigureAwait(false);
             if (foodBusiness == null)
                 return BadRequest("FoodBusiness wasn't found");

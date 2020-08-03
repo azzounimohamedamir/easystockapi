@@ -11,7 +11,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
     public class DeleteFoodBusinessTests : TestBase
     {
         [Test]
-        public async Task DeleteRestaurant_ShouldSaveToDB()
+        public async Task DeleteFoodBusinessTask()
         {
             var createCommand = new CreateFoodBusinessCommand
             {
