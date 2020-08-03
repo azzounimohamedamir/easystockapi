@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.API.Helpers;
@@ -16,12 +17,18 @@ namespace SmartRestaurant.API.Controllers
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
-        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
+        public AuthController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _configuration = configuration;
         }
 
@@ -58,10 +65,41 @@ namespace SmartRestaurant.API.Controllers
             {
                 await _userManager.AddToRoleAsync(user, Roles.Diner.ToString());
 
-                return Ok("Ok");
+                return Ok(new JsonMeesageResponse
+                {
+                    Message = "Registered"
+                });
             }
 
-            return BadRequest("Username already exists");
+            return Ok(new JsonMeesageResponse
+            {
+                Message = "RegistrationFailed"
+            });
+        }
+
+        [HttpPost("CheckIfUserExists")]
+        public async Task<IActionResult> CheckIfUserExists(CheckUserIfExistsModel model)
+        {
+            var user = await _userManager.FindByNameAsync(model.Username);
+            if (user == null)
+            {
+                return Ok(new JsonMeesageResponse
+                {
+                    Message = "UserNotFound"
+                });
+            }
+            return Ok(new JsonMeesageResponse
+            {
+                Message = "UserExists"
+            });
+        }
+
+        [Authorize]
+        [HttpGet("GetRoles")]
+        public IActionResult GetRoles()
+        {
+            var roles = _roleManager.Roles.Select(x => x.Name).ToList();
+            return Ok(roles);
         }
     }
 }
