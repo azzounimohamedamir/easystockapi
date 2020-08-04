@@ -9,10 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using SmartRestaurant.API.Helpers;
-using SmartRestaurant.API.Models;
-using SmartRestaurant.Application.FoodBusiness.Commands;
-using SmartRestaurant.Application.FoodBusiness.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
