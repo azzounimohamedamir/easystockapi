@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Application.Zones.Commands;
 
@@ -11,6 +12,7 @@ namespace SmartRestaurant.API.Controllers
     {
         [Route("{id:Guid}/zones/create")]
         [HttpPost]
+        [Authorize(Roles = "FoodBusinessManager")]
         public async Task<ActionResult> Create([FromRoute]Guid id,CreateZoneCommand command)
         {
             if(id!= command.FoodBusinessId)
