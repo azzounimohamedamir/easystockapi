@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -17,18 +18,22 @@ namespace SmartRestaurant.API.Controllers
     {
         [HttpGet]
         [ActionName("get")]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
         public Task<List<FoodBusinessDto>> Get()
         {
             return Mediator.Send(new GetFoodBusinessListQuery());
         }
         [ActionName("getByFoodBusinessAdministratorId")]
         [HttpGet]
+        [Authorize(Roles = "FoodBusinessAdministrator")]
         public Task<List<FoodBusinessDto>> GetByFoodBusinessAdministratorId(string adminId)
         {
             return Mediator.Send(new GetFoodBusinessListByAdmin { FoodBusinessAdministratorId = adminId });
         }
         [ActionName("getById")]
         [HttpGet]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
+
         public Task<FoodBusinessDto> GetById(Guid id)
         {
             return Mediator.Send(new GetFoodBusinessByIdQuery { FoodBusinessId = id });
@@ -36,6 +41,7 @@ namespace SmartRestaurant.API.Controllers
 
         [HttpPost]
         [ActionName("create")]
+        [Authorize(Roles = "FoodBusinessAdministrator")]
         public async Task<ActionResult> Create(CreateFoodBusinessCommand command)
         {
             var validationResult = await Mediator.Send(command).ConfigureAwait(false);
@@ -44,6 +50,7 @@ namespace SmartRestaurant.API.Controllers
 
         [HttpPut]
         [ActionName("update")]
+        [Authorize(Roles = "FoodBusinessAdministrator")]
         public async Task<ActionResult> Update(Guid id, UpdateFoodBusinessCommand command)
         {
             if (id != command.CmdId)
@@ -57,6 +64,7 @@ namespace SmartRestaurant.API.Controllers
 
         [ActionName("delete")]
         [HttpDelete]
+        [Authorize(Roles = "FoodBusinessAdministrator")]
         public async Task<ActionResult> Delete(Guid id)
         {
             await Mediator.Send(new DeleteFoodBusinessCommand { FoodBusinessId = id }).ConfigureAwait(false);
@@ -64,6 +72,7 @@ namespace SmartRestaurant.API.Controllers
         }
         [HttpPost]
         [ActionName("uploadImages")]
+        [Authorize(Roles = "FoodBusinessAdministrator")]
         public async Task<ActionResult> UploadImages([FromForm] FIleUploadApi images)
         {
             if (images.FoodBusinessId == Guid.Empty)
@@ -93,6 +102,8 @@ namespace SmartRestaurant.API.Controllers
 
         [HttpGet]
         [ActionName("getAllImagesByFoodBusinessId")]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
+
         public async Task<IEnumerable<string>> GetAllImagesByFoodBusinessId(Guid id)
         {
             var query = await Mediator.Send(new GetImagesByFoodBusinessIdQuery() { FoodBusinessId = id }).ConfigureAwait(false);
