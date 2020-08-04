@@ -351,3 +351,5 @@ MigrationBackup/
 .vscode/launch.json
 .vscode/tasks.json
 src/Presentation/SmartRestaurant.Web/ClientApp/.vscode/settings.json
+/src/Libraries/SmartRestaurant.Application/Zones/Commands/UpdateZoneCommand.cs
+/src/Libraries/SmartRestaurant.Application/Zones/Commands/DeleteZoneCommand.cs

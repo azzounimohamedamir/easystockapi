@@ -16,5 +16,6 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<FoodBusiness> FoodBusinesses { get; set; }
         public DbSet<FoodBusinessImage> FoodBusinessImages { get; set; }
         public DbSet<FoodBusinessUser> FoodBusinessUsers { get; set; }
+        public DbSet<Zone> Zones { get; set; }
     }
 }
