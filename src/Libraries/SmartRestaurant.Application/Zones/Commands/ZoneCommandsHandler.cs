@@ -14,7 +14,8 @@ namespace SmartRestaurant.Application.Zones.Commands
 {
     public class ZoneCommandsHandler :
         IRequestHandler<CreateZoneCommand, ValidationResult>,
-        IRequestHandler<UpdateZoneCommand, ValidationResult>
+        IRequestHandler<UpdateZoneCommand, ValidationResult>,
+        IRequestHandler<DeleteZoneCommand>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -66,6 +67,15 @@ namespace SmartRestaurant.Application.Zones.Commands
             entity.ZoneTitle = request.ZoneTitle;
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
+        }
+        public async Task<Unit> Handle(DeleteZoneCommand request, CancellationToken cancellationToken)
+        {
+            var entity = await _context.Zones.FindAsync(request.ZoneId).ConfigureAwait(false);
+            if (entity == null)
+                throw new NotFoundException(nameof(Zone), request.ZoneId);
+            _context.Zones.Remove(entity);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return Unit.Value;
         }
 
     }
