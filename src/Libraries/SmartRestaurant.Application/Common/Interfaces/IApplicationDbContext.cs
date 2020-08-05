@@ -10,6 +10,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<Domain.Entities.FoodBusiness> FoodBusinesses { get; set; }
         public DbSet<FoodBusinessImage> FoodBusinessImages { get; set; }
         public DbSet<FoodBusinessUser> FoodBusinessUsers { get; set; }
+        public DbSet<Zone> Zones { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
