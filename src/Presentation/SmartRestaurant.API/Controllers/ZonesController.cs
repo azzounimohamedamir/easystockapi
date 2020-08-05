@@ -16,11 +16,24 @@ namespace SmartRestaurant.API.Controllers
         [Route("{id:Guid}/zones/")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
+        [ActionName("")]
         public Task<IEnumerable<ZoneDto>> Get([FromRoute]Guid id)
         {
             return SendAsync(new GetZonesListQuery {FoodBusinessId = id});
         }
+        [Route("{id:Guid}/zones/{zoneId:Guid}")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager")]
+        [ActionName("")]
+        public Task<ZoneDto> GetById([FromRoute]Guid id, [FromRoute]Guid zoneId)
+        {
+            if(id == Guid.Empty)
+                throw new InvalidOperationException("Food business id shouldn't be null or empty ");
+            if (zoneId == Guid.Empty)
+                throw new InvalidOperationException("Zone id shouldn't be null or empty ");
 
+            return SendAsync(new GetZoneByIdQuery { ZoneId = zoneId });
+        }
         [Route("{id:Guid}/zones/")]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]
