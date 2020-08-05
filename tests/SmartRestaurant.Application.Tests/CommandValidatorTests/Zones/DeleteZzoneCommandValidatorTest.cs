@@ -13,7 +13,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Zones
             _validator = new DeleteZoneCommandValidator();
         }
         [Fact]
-        public void Given_EmptyFoodBusinessId_WhenValidating_ShouldError()
+        public void Given_EmptyZoneId_WhenValidating_ShouldError()
         {
             var emptyGuid = Guid.Empty;
             _validator.ShouldHaveValidationErrorFor(zone => zone.ZoneId, emptyGuid);
