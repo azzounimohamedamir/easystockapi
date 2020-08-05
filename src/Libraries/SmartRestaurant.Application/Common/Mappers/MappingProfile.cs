@@ -28,6 +28,9 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<Zone, CreateZoneCommand>()
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.ZoneId))
                 .ReverseMap();
+            CreateMap<Zone, UpdateZoneCommand>()
+                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.ZoneId))
+                .ReverseMap();
         }
     }
 }

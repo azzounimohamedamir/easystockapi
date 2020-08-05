@@ -10,14 +10,26 @@ namespace SmartRestaurant.API.Controllers
     [ApiController]
     public class ZonesController : ApiController
     {
-        [Route("{id:Guid}/zones/create")]
+        [Route("{id:Guid}/zones/")]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]
         public async Task<ActionResult> Create([FromRoute]Guid id,CreateZoneCommand command)
         {
             if(id!= command.FoodBusinessId)
                 return BadRequest();
-            var validationResult = await Mediator.Send(command).ConfigureAwait(false);
+            var validationResult = await SendAsync(command).ConfigureAwait(false);
+            return ApiCustomResponse(validationResult);
+        }
+        [Route("{id:Guid}/zones/{zoneId:Guid}")]
+        [HttpPut]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<ActionResult> Update([FromRoute]Guid id, [FromRoute]Guid zoneId, UpdateZoneCommand command)
+        {
+            if (id != command.FoodBusinessId)
+                return BadRequest();
+            if(zoneId!= command.CmdId)
+                return BadRequest();
+            var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
     }

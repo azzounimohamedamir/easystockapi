@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -11,17 +12,18 @@ namespace SmartRestaurant.API.Controllers
     [Route("api/[controller]")]
     public abstract class ApiController : ControllerBase
     {
-        private IMediator _mediator;
+        private  IMediator _mediator ;
         private readonly ICollection<string> _errors = new List<string>();
 
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+
         protected ActionResult ApiCustomResponse()
         {
             if (!_errors.Any())
                 return Ok();
             return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
-                { "ErrorMessages", _errors.ToArray() }
+                {"ErrorMessages", _errors.ToArray()}
             }));
         }
 
@@ -34,5 +36,9 @@ namespace SmartRestaurant.API.Controllers
             return ApiCustomResponse();
         }
 
+        public Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
+        {
+            return Mediator.Send(request);
+        }
     }
 }
