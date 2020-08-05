@@ -13,7 +13,8 @@ using SmartRestaurant.Domain.Entities;
 namespace SmartRestaurant.Application.Zones.Commands
 {
     public class ZoneCommandsHandler :
-        IRequestHandler<CreateZoneCommand, ValidationResult>
+        IRequestHandler<CreateZoneCommand, ValidationResult>,
+        IRequestHandler<UpdateZoneCommand, ValidationResult>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -51,6 +52,19 @@ namespace SmartRestaurant.Application.Zones.Commands
             _context.Zones.Add(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
+            return default;
+        }
+        public async Task<ValidationResult> Handle(UpdateZoneCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new UpdateZoneCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) return result;
+            var entity = await _context.Zones.FindAsync(request.CmdId).ConfigureAwait(false);
+            if (entity == null)
+                throw new NotFoundException(nameof(Zone), request.CmdId);
+            entity.FoodBusinessId = request.FoodBusinessId;
+            entity.ZoneTitle = request.ZoneTitle;
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
 

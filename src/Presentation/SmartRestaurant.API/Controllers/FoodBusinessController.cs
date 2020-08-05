@@ -17,57 +17,57 @@ namespace SmartRestaurant.API.Controllers
     public class FoodBusinessController : ApiController
     {
         [HttpGet]
-        [ActionName("get")]
         [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
+        [ActionName("")]
         public Task<List<FoodBusinessDto>> Get()
         {
-            return Mediator.Send(new GetFoodBusinessListQuery());
+            return SendAsync(new GetFoodBusinessListQuery());
         }
-        [ActionName("getByFoodBusinessAdministratorId")]
+        [ActionName("byFoodBusinessAdministratorId")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessAdministrator")]
         public Task<List<FoodBusinessDto>> GetByFoodBusinessAdministratorId(string adminId)
         {
-            return Mediator.Send(new GetFoodBusinessListByAdmin { FoodBusinessAdministratorId = adminId });
+            return SendAsync(new GetFoodBusinessListByAdmin { FoodBusinessAdministratorId = adminId });
         }
-        [ActionName("getById")]
+        [ActionName("byId")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
 
         public Task<FoodBusinessDto> GetById(Guid id)
         {
-            return Mediator.Send(new GetFoodBusinessByIdQuery { FoodBusinessId = id });
+            return SendAsync(new GetFoodBusinessByIdQuery { FoodBusinessId = id });
         }
 
         [HttpPost]
-        [ActionName("create")]
+        [ActionName("")]
         [Authorize(Roles = "FoodBusinessAdministrator")]
         public async Task<ActionResult> Create(CreateFoodBusinessCommand command)
         {
-            var validationResult = await Mediator.Send(command).ConfigureAwait(false);
+            var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
 
         [HttpPut]
-        [ActionName("update")]
+        [ActionName("")]
         [Authorize(Roles = "FoodBusinessAdministrator")]
         public async Task<ActionResult> Update(Guid id, UpdateFoodBusinessCommand command)
         {
             if (id != command.CmdId)
                 return BadRequest();
 
-            var validationResult = await Mediator.Send(command).ConfigureAwait(false);
+            var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
 
         }
 
 
-        [ActionName("delete")]
+        [ActionName("")]
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessAdministrator")]
         public async Task<ActionResult> Delete(Guid id)
         {
-            await Mediator.Send(new DeleteFoodBusinessCommand { FoodBusinessId = id }).ConfigureAwait(false);
+            await SendAsync(new DeleteFoodBusinessCommand { FoodBusinessId = id }).ConfigureAwait(false);
             return NoContent();
         }
         [HttpPost]
@@ -77,7 +77,7 @@ namespace SmartRestaurant.API.Controllers
         {
             if (images.FoodBusinessId == Guid.Empty)
                 throw new InvalidOperationException("FoodBusiness id shouldn't be null or empty");
-            var foodBusiness = await Mediator.Send(new GetFoodBusinessByIdQuery { FoodBusinessId = images.FoodBusinessId }).ConfigureAwait(false);
+            var foodBusiness = await SendAsync(new GetFoodBusinessByIdQuery { FoodBusinessId = images.FoodBusinessId }).ConfigureAwait(false);
             if (foodBusiness == null)
                 return BadRequest("FoodBusiness wasn't found");
             if (images.Files.Count <= 0)
@@ -96,17 +96,17 @@ namespace SmartRestaurant.API.Controllers
                     });
             }
 
-            await Mediator.Send(createImagesCommand).ConfigureAwait(false);
+            await SendAsync(createImagesCommand).ConfigureAwait(false);
             return Ok("Successful");
         }
 
         [HttpGet]
-        [ActionName("getAllImagesByFoodBusinessId")]
+        [ActionName("allImagesByFoodBusinessId")]
         [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
 
         public async Task<IEnumerable<string>> GetAllImagesByFoodBusinessId(Guid id)
         {
-            var query = await Mediator.Send(new GetImagesByFoodBusinessIdQuery() { FoodBusinessId = id }).ConfigureAwait(false);
+            var query = await SendAsync(new GetImagesByFoodBusinessIdQuery() { FoodBusinessId = id }).ConfigureAwait(false);
             return query.Select(Convert.ToBase64String);
         }
     }
