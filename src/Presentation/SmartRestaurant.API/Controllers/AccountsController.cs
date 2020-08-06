@@ -37,10 +37,10 @@ namespace SmartRestaurant.API.Controllers
             {
                 return Unauthorized();
             }
-            var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-            var token = await TokenGenerator.Generate(appUser, _userManager, _configuration);
-            var roles = await _userManager.GetRolesAsync(appUser);
-            return Ok(new { token, appUser.UserName, roles });
+            var user = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
+            var token = await TokenGenerator.Generate(user, _userManager, _configuration);
+            var roles = await _userManager.GetRolesAsync(user);
+            return Ok(new { token, user.UserName, roles });
         }
 
         [HttpPost("Register")]
@@ -57,17 +57,24 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
-        [HttpPost("RegisterViaSocialMedia")]
-        public async Task<IActionResult> RegisterViaSocialMedia(RegisterSocialMediaModel model)
+        [HttpPost("AuthenticateViaSocialMedia")]
+        public async Task<IActionResult> AuthenticateViaSocialMedia(AuthenticateViaSocialMediaModel model)
         {
-            var user = new ApplicationUser
+            ApplicationUser user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
             {
-                UserName = model.Email,
-                Email = model.Email,
-                FullName = model.FullName
-            };
-            var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
-            return await GrantDinerRole(user, result);
+                user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FullName = model.FullName
+                };
+                var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
+                await GrantDinerRole(user, result);
+            }
+            var token = await TokenGenerator.Generate(user, _userManager, _configuration);
+            var roles = await _userManager.GetRolesAsync(user);
+            return Ok(new { token, user.UserName, roles });
         }
 
         [HttpPost("ChangePassword")]
