@@ -23,8 +23,8 @@ namespace SmartRestaurant.Infrastructure.Identity
 
             services.AddScoped<IIdentityContext>(provider => provider.GetService<IdentityContext>());
 
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>
+                (options => options.Password.RequiredLength = 8)
                     .AddEntityFrameworkStores<IdentityContext>()
                     .AddDefaultTokenProviders();
 

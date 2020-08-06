@@ -86,8 +86,10 @@ namespace SmartRestaurant.API.Controllers
             if (images.Files.Count <= 0)
                 return BadRequest("Unsuccessful");
             var imageModels = FileHelper.SaveImagesAsync(images);
-            var createImagesCommand = new CreateListFoodBusinessImagesCommand();
-            createImagesCommand.FoodBusinessId = foodBusiness.FoodBusinessId;
+            var createImagesCommand = new CreateListFoodBusinessImagesCommand
+            {
+                FoodBusinessId = foodBusiness.FoodBusinessId
+            };
             foreach (var imageModel in imageModels)
             {
                 createImagesCommand.ImageCommands.Add(
