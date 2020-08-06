@@ -103,7 +103,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                 }
             );
             modelBuilder.Entity<ApplicationUser>().HasData(
-                new ApplicationUser
+                new ApplicationUser()
                 {
                     Id = "3cbf3570-0d44-4673-8746-29b7cf568093",
                     UserName = "SuperAdmin@SmartRestaurant.io",
@@ -113,7 +113,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     PasswordHash = "AQAAAAEAACcQAAAAEAzFpmzMtMiw0wHV6b0aUzFLF9Pw7B2u+DswRHttAU2nH22NHBsc/hSSvKUqmRWGZA==",
                     EmailConfirmed = true
                 },
-                new ApplicationUser
+                new ApplicationUser()
                 {
                     Id = "d466ef00-61f1-4e77-801a-b016f0f12323",
                     UserName = "SupportAgent@SmartRestaurant.io",

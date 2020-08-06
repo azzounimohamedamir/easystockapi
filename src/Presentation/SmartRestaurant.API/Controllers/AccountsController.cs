@@ -46,7 +46,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterModel model)
         {
-            var user = new ApplicationUser
+            var user = new ApplicationUser()
             {
                 UserName = model.Email,
                 Email = model.Email,
@@ -63,7 +63,7 @@ namespace SmartRestaurant.API.Controllers
             ApplicationUser user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                user = new ApplicationUser
+                user = new ApplicationUser()
                 {
                     UserName = model.Email,
                     Email = model.Email,
