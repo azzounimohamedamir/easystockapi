@@ -51,6 +51,19 @@ namespace SmartRestaurant.API.Controllers
             return CheckResultStatus(result);
         }
 
+        [Authorize(Roles = "SupportAgent,SuperAdmin")]
+        [HttpPost("CreateUserWithRoles")]
+        public async Task<IActionResult> CreateUserWithRoles(CreateUserWithRolesModel model)
+        {
+            ApplicationUser user = _mapper.Map<ApplicationUser>(model.User);
+            var result = await _userManager.CreateAsync(user, model.Password);
+            foreach (var role in model.Roles)
+            {
+                await _userManager.AddToRoleAsync(user, role);
+            }
+            return CheckResultStatus(result);
+        }
+
         [HttpPut]
         public async Task<IActionResult> Update(ApplicationUserModel model)
         {
