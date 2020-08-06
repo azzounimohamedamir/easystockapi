@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using SmartRestaurant.Application.Common.Commands;
+using SmartRestaurant.Application.Images.Commands;
+using SmartRestaurant.Application.Images.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -74,22 +77,22 @@ namespace SmartRestaurant.API.Controllers
         [Authorize(Roles = "FoodBusinessAdministrator")]
         public async Task<ActionResult> UploadImages([FromRoute]Guid id, [FromForm] FIleUploadApi images)
         {
-            if (images.FoodBusinessId == Guid.Empty)
+            if (images.EntityId == Guid.Empty)
                 throw new InvalidOperationException("FoodBusiness id shouldn't be null or empty");
-            if (id != images.FoodBusinessId)
+            if (id != images.EntityId)
                 return BadRequest();
-            var foodBusiness = await SendAsync(new GetFoodBusinessByIdQuery { FoodBusinessId = images.FoodBusinessId }).ConfigureAwait(false);
+            var foodBusiness = await SendAsync(new GetFoodBusinessByIdQuery { FoodBusinessId = images.EntityId }).ConfigureAwait(false);
             if (foodBusiness == null)
                 return BadRequest("FoodBusiness wasn't found");
             if (images.Files.Count <= 0)
                 return BadRequest("Unsuccessful");
             var imageModels = FileHelper.SaveImagesAsync(images);
-            var createImagesCommand = new CreateListFoodBusinessImagesCommand();
-            createImagesCommand.FoodBusinessId = foodBusiness.FoodBusinessId;
+            var createImagesCommand = new CreateListImagesCommand();
+            createImagesCommand.EntityId = foodBusiness.FoodBusinessId;
             foreach (var imageModel in imageModels)
             {
                 createImagesCommand.ImageCommands.Add(
-                    new CreateFoodBusinessImageCommand
+                    new CreateImageCommand
                     {
                         ImageTitle = imageModel.ImageTitle,
                         ImageBytes = imageModel.ImageBytes,
@@ -107,7 +110,7 @@ namespace SmartRestaurant.API.Controllers
 
         public async Task<IEnumerable<string>> GetAllImagesByFoodBusinessId([FromRoute]Guid id)
         {
-            var query = await SendAsync(new GetImagesByFoodBusinessIdQuery() { FoodBusinessId = id }).ConfigureAwait(false);
+            var query = await SendAsync(new GetImagesByEntityIdQuery { EntityId = id }).ConfigureAwait(false);
             return query.Select(Convert.ToBase64String);
         }
     }
