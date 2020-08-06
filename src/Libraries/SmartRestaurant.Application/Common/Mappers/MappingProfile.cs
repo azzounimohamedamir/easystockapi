@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Images.Commands;
+using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Entities.Globalisation;
@@ -34,6 +34,10 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.ZoneId))
                 .ReverseMap();
             CreateMap<ZoneDto, Zone>().ReverseMap();
+            CreateMap<Table, CreateTableCommand>()
+                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.TableId))
+                .ForMember(x => x.TableState, o => o.MapFrom(p =>(short) p.TableState))
+                .ReverseMap();
         }
     }
 }
