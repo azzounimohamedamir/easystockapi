@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SmartRestaurant.API.Models
+﻿namespace SmartRestaurant.API.Models
 {
     public class RegisterSocialMediaModel
     {
