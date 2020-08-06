@@ -31,7 +31,7 @@ namespace SmartRestaurant.API.Controllers
             return Ok(users);
         }
 
-        [HttpGet("GetById/{username}")]
+        [HttpGet("{username}")]
         public async Task<IActionResult> GetById(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
@@ -43,7 +43,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
-        [HttpPost("Create")]
+        [HttpPost]
         public async Task<IActionResult> Create(ApplicationUserModel model)
         {
             ApplicationUser user = _mapper.Map<ApplicationUser>(model);
@@ -51,7 +51,7 @@ namespace SmartRestaurant.API.Controllers
             return CheckResultStatus(result);
         }
 
-        [HttpPut("Update")]
+        [HttpPut]
         public async Task<IActionResult> Update(ApplicationUserModel model)
         {
             ApplicationUser user = _mapper.Map<ApplicationUser>(model);
@@ -60,7 +60,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
-        [HttpDelete("Delete")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string Id)
         {
             var user = await _userManager.FindByIdAsync(Id);
@@ -69,7 +69,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
-        [HttpPost("Deactivate")]
+        [HttpPut("Disable")]
         public async Task<IActionResult> Deactivate(string Id)
         {
             ApplicationUser user = await _userManager.FindByIdAsync(Id);
@@ -79,7 +79,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
-        [HttpPost("Activate")]
+        [HttpPut("Enable")]
         public async Task<IActionResult> Activate(string Id)
         {
             ApplicationUser user = await _userManager.FindByIdAsync(Id);

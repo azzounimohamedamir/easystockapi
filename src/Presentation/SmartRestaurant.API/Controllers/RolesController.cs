@@ -25,8 +25,16 @@ namespace SmartRestaurant.API.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
+
+        [HttpGet]
+        public IActionResult GetRoles()
+        {
+            var roles = _roleManager.Roles.Select(x => x.Name).ToList();
+            return Ok(roles);
+        }
+
         [Authorize(Roles = "SupportAgent,SuperAdmin,FoodBusinessAdministrator")]
-        [HttpPost("UpdateUserRoles")]
+        [HttpPut]
         public async Task<IActionResult> UpdateUserRoles(UpdateUserRolesModel model)
         {
             ApplicationUser user = await _userManager.FindByIdAsync(model.UserId);
@@ -42,13 +50,6 @@ namespace SmartRestaurant.API.Controllers
                 }
             }
             return Ok(HttpResponseHelper.Respond(ResponseType.OK));
-        }
-
-        [HttpGet("GetRoles")]
-        public IActionResult GetRoles()
-        {
-            var roles = _roleManager.Roles.Select(x => x.Name).ToList();
-            return Ok(roles);
         }
     }
 }
