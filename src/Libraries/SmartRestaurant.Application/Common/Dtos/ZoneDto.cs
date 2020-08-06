@@ -7,6 +7,6 @@ namespace SmartRestaurant.Application.Common.Dtos
         public Guid ZoneId { get; set; }
         public string ZoneTitle { get; set; }
         public Guid FoodBusinessId { get; set; }
-        
+
     }
 }

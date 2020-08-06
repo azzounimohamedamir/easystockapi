@@ -1,6 +1,6 @@
-﻿using System;
-using FluentValidation.TestHelper;
+﻿using FluentValidation.TestHelper;
 using SmartRestaurant.Application.Zones.Commands;
+using System;
 using Xunit;
 
 namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Zones

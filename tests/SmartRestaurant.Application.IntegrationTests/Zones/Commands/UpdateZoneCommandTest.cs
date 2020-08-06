@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Zones.Commands
 {
@@ -27,7 +27,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Commands
             {
                 FoodBusinessId = fastFood.FoodBusinessId,
                 ZoneTitle = "zone 51"
-            }; 
+            };
             await SendAsync(createZoneCommand);
             var updateZoneCommand = new UpdateZoneCommand
             {
@@ -35,7 +35,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Commands
                 FoodBusinessId = fastFood.FoodBusinessId,
                 ZoneTitle = "zone 52"
             };
-            var validationResult= await SendAsync(updateZoneCommand);
+            var validationResult = await SendAsync(updateZoneCommand);
             var item = await FindAsync<Zone>(updateZoneCommand.CmdId);
             validationResult.Should().Be(default(ValidationResult));
             fastFood.Should().NotBeNull();

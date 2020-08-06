@@ -1,17 +1,17 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Zones.Commands
 {
     using static Testing;
     [TestFixture]
-    public class CreateZoneCommandTest: TestBase
+    public class CreateZoneCommandTest : TestBase
     {
         [Test]
         public async Task CreateZone_ShouldSaved()
@@ -25,7 +25,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Commands
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
             var createZoneCommand = new CreateZoneCommand
             {
-                FoodBusinessId = fastFood.FoodBusinessId ,
+                FoodBusinessId = fastFood.FoodBusinessId,
                 ZoneTitle = "zone 51"
             };
             var validationResult = await SendAsync(createZoneCommand);

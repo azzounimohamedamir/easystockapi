@@ -4,7 +4,7 @@ using Xunit;
 
 namespace SmartRestaurant.Application.Tests.MappingTests
 {
-    public class ZoneMappingTest: IClassFixture<MappingTestsFixture>
+    public class ZoneMappingTest : IClassFixture<MappingTestsFixture>
     {
         private readonly IMapper _mapper;
 

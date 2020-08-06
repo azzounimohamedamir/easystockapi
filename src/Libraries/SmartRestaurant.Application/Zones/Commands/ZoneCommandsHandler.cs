@@ -1,14 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Zones.Commands
 {
@@ -38,8 +38,8 @@ namespace SmartRestaurant.Application.Zones.Commands
                 .Select(x => x.FoodBusinessId)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
-            if(foodBusiness == Guid.Empty)
-                throw new  NotFoundException( nameof(Domain.Entities.FoodBusiness), request.FoodBusinessId);
+            if (foodBusiness == Guid.Empty)
+                throw new NotFoundException(nameof(Domain.Entities.FoodBusiness), request.FoodBusinessId);
             var zone = await _context.Zones
                 .FirstOrDefaultAsync(
                     x => x.ZoneTitle == request.ZoneTitle && x.FoodBusinessId == request.FoodBusinessId,

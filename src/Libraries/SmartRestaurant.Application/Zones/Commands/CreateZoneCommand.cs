@@ -1,10 +1,10 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
+using System;
 
 namespace SmartRestaurant.Application.Zones.Commands
 {
-    public class CreateZoneCommand :SmartRestaurantCommand
+    public class CreateZoneCommand : SmartRestaurantCommand
     {
         public string ZoneTitle { get; set; }
         public Guid FoodBusinessId { get; set; }
