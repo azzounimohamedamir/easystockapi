@@ -10,7 +10,9 @@ using SmartRestaurant.Application.Common.Interfaces;
 
 namespace SmartRestaurant.Application.Zones.Queries
 {
-    public class ZoneQueriesHandler : IRequestHandler<GetZonesListQuery, IEnumerable<ZoneDto>>
+    public class ZoneQueriesHandler : 
+        IRequestHandler<GetZonesListQuery, IEnumerable<ZoneDto>>,
+        IRequestHandler<GetZoneByIdQuery, ZoneDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -27,6 +29,11 @@ namespace SmartRestaurant.Application.Zones.Queries
                 .ToArrayAsync(cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
             return _mapper.Map<List<ZoneDto>>(query);
+        }
+
+        public async Task<ZoneDto> Handle(GetZoneByIdQuery request, CancellationToken cancellationToken)
+        {
+            return _mapper.Map<ZoneDto>(await _context.Zones.FindAsync(request.ZoneId).ConfigureAwait(false));
         }
     }
 }
