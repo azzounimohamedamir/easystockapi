@@ -7,14 +7,15 @@ using SmartRestaurant.Domain.Entities;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using SmartRestaurant.Application.Common.Commands;
+using SmartRestaurant.Application.Images.Commands;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
     public class FoodBusinessCommandHandler :
     IRequestHandler<CreateFoodBusinessCommand, ValidationResult>,
     IRequestHandler<UpdateFoodBusinessCommand, ValidationResult>,
-    IRequestHandler<DeleteFoodBusinessCommand>,
-    IRequestHandler<CreateListFoodBusinessImagesCommand>
+    IRequestHandler<DeleteFoodBusinessCommand>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -64,16 +65,5 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             return default;
         }
 
-        public async Task<Unit> Handle(CreateListFoodBusinessImagesCommand request, CancellationToken cancellationToken)
-        {
-            foreach (var entity in request.ImageCommands.Select(createFoodBusinessImageCommand => _mapper.Map<FoodBusinessImage>(createFoodBusinessImageCommand)))
-            {
-                entity.FoodBusinessId = request.FoodBusinessId;
-                _context.FoodBusinessImages.Add(entity);
-            }
-
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            return Unit.Value;
-        }
-    }
+     }
 }

@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmartRestaurant.API.Helpers;
+using SmartRestaurant.API.Models;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Images.Commands;
+using SmartRestaurant.Application.Images.Queries;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Application.Zones.Queries;
 
@@ -68,6 +73,47 @@ namespace SmartRestaurant.API.Controllers
                 return BadRequest();
             await SendAsync(new DeleteZoneCommand {ZoneId = zoneId}).ConfigureAwait(false);
             return Ok("Successful");
+        }
+        [HttpPost]
+        [Route("{id:Guid}/zones/{zoneId:Guid}/uploadImages")]
+        [Authorize(Roles = "FoodBusinessAdministrator")]
+        public async Task<ActionResult> UploadImages([FromRoute]Guid id, [FromRoute]Guid zoneId, [FromForm] FIleUploadApi images)
+        {
+            if (images.EntityId == Guid.Empty)
+                throw new InvalidOperationException("Zone id shouldn't be null or empty");
+            if (zoneId != images.EntityId)
+                return BadRequest();
+            var zoneDto = await SendAsync(new GetZoneByIdQuery { ZoneId = images.EntityId }).ConfigureAwait(false);
+            if (zoneDto == null)
+                return BadRequest("Zone wasn't found");
+            if (images.Files.Count <= 0)
+                return BadRequest("Unsuccessful");
+            var imageModels = FileHelper.SaveImagesAsync(images);
+            var createImagesCommand = new CreateListImagesCommand();
+            createImagesCommand.EntityId = zoneDto.ZoneId;
+            foreach (var imageModel in imageModels)
+            {
+                createImagesCommand.ImageCommands.Add(
+                    new CreateImageCommand
+                    {
+                        ImageTitle = imageModel.ImageTitle,
+                        ImageBytes = imageModel.ImageBytes,
+                        IsLogo = imageModel.IsLogo
+                    });
+            }
+
+            await SendAsync(createImagesCommand).ConfigureAwait(false);
+            return Ok("Successful");
+        }
+
+        [HttpGet]
+        [Route("{id:Guid}/zones/{zoneId:Guid}/allImages")]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
+
+        public async Task<IEnumerable<string>> GetAllImagesByFoodBusinessId([FromRoute]Guid id, [FromRoute]Guid zoneId)
+        {
+            var query = await SendAsync(new GetImagesByEntityIdQuery { EntityId = zoneId }).ConfigureAwait(false);
+            return query.Select(Convert.ToBase64String);
         }
     }
 }
