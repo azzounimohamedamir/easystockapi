@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Zones.Queries
 {
-    public class ZoneQueriesHandler : 
+    public class ZoneQueriesHandler :
         IRequestHandler<GetZonesListQuery, IEnumerable<ZoneDto>>,
         IRequestHandler<GetZoneByIdQuery, ZoneDto>
     {

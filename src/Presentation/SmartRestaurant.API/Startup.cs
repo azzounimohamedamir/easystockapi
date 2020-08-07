@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,7 @@ namespace SmartRestaurant.API
 
             services.AddHttpContextAccessor();
 
+            services.AddAutoMapper(typeof(MappingProfile));
             CORSConfiguration.AddCORSConfiguation(services);
 
             services.AddSwaggerGen(c =>

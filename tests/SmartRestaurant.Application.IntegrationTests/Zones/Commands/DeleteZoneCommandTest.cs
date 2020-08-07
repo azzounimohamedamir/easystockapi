@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Zones.Commands
 {
@@ -28,7 +28,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Commands
                 ZoneTitle = "zone 51"
             };
             await SendAsync(createZoneCommand);
-            var deleteCommand  = new DeleteZoneCommand() { ZoneId = createZoneCommand.CmdId};
+            var deleteCommand = new DeleteZoneCommand() { ZoneId = createZoneCommand.CmdId };
             await SendAsync(deleteCommand);
             var zone51 = await FindAsync<Zone>(createZoneCommand.CmdId);
             zone51.Should().BeNull();

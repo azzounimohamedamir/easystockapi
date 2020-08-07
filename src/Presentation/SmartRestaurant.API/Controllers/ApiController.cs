@@ -12,7 +12,7 @@ namespace SmartRestaurant.API.Controllers
     [Route("api/[controller]")]
     public abstract class ApiController : ControllerBase
     {
-        private  IMediator _mediator ;
+        private IMediator _mediator;
         private readonly ICollection<string> _errors = new List<string>();
 
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
