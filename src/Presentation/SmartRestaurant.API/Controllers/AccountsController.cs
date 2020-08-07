@@ -56,7 +56,6 @@ namespace SmartRestaurant.API.Controllers
             return await GrantDinerRole(user, result);
         }
 
-
         [HttpPost("AuthenticateViaSocialMedia")]
         public async Task<IActionResult> AuthenticateViaSocialMedia(AuthenticateViaSocialMediaModel model)
         {
