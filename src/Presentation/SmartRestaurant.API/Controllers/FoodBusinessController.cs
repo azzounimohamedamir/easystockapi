@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Images.Commands;
 using SmartRestaurant.Application.Images.Queries;
@@ -90,9 +89,9 @@ namespace SmartRestaurant.API.Controllers
             if (images.Files.Count <= 0)
                 return BadRequest("Unsuccessful");
             var imageModels = FileHelper.SaveImagesAsync(images);
-            var createImagesCommand = new CreateListFoodBusinessImagesCommand
+            var createImagesCommand = new CreateListImagesCommand
             {
-                FoodBusinessId = foodBusiness.FoodBusinessId
+                EntityId = foodBusiness.FoodBusinessId
             };
             foreach (var imageModel in imageModels)
             {
