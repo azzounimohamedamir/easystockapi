@@ -1,6 +1,6 @@
-﻿namespace SmartRestaurant.Application.FoodBusiness.Commands
+﻿namespace SmartRestaurant.Application.Images.Commands
 {
-    public class CreateFoodBusinessImageCommand
+    public class CreateImageCommand
     {
         public byte[] ImageBytes { get; set; }
         public string ImageTitle { get; set; }

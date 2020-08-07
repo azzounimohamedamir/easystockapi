@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200806125719_genericImageTable")]
+    partial class genericImageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,43 +163,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.ToTable("FoodBusinessUsers");
                 });
 
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.Table", b =>
-                {
-                    b.Property<Guid>("TableId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TableNumber")
-                        .HasColumnType("int");
-
-                    b.Property<short>("TableState")
-                        .HasColumnType("smallint");
-
-                    b.Property<Guid>("ZoneId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("TableId");
-
-                    b.HasIndex("ZoneId");
-
-                    b.ToTable("Tables");
-                });
-
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Zone", b =>
                 {
                     b.Property<Guid>("ZoneId")
@@ -297,15 +262,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.HasOne("SmartRestaurant.Domain.Entities.FoodBusiness", "FoodBusiness")
                         .WithMany()
                         .HasForeignKey("FoodBusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.Table", b =>
-                {
-                    b.HasOne("SmartRestaurant.Domain.Entities.Zone", "Zone")
-                        .WithMany()
-                        .HasForeignKey("ZoneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
