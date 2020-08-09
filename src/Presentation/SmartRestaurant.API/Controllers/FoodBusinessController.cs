@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SmartRestaurant.Application.Common.Commands;
+using Microsoft.AspNetCore.Authorization;
 using SmartRestaurant.Application.Images.Commands;
 using SmartRestaurant.Application.Images.Queries;
 
