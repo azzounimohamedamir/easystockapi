@@ -57,7 +57,6 @@ namespace SmartRestaurant.Application.Tables.Commands
             return default;
 
         }
-
         public async Task<Unit> Handle(DeleteTableCommand request, CancellationToken cancellationToken)
         {
             var table = await _context.Tables.FindAsync(request.TableId).ConfigureAwait(false);
