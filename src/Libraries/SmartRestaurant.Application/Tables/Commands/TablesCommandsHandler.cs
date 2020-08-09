@@ -7,10 +7,13 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.Tables.Commands
 {
-    public class TablesCommandsHandler : IRequestHandler<CreateTableCommand, ValidationResult>
+    public class TablesCommandsHandler : 
+        IRequestHandler<CreateTableCommand, ValidationResult>,
+        IRequestHandler<UpdateTableCommand, ValidationResult>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -34,6 +37,21 @@ namespace SmartRestaurant.Application.Tables.Commands
             _context.Tables.Add(table);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
+        }
+
+        public async Task<ValidationResult> Handle(UpdateTableCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new UpdateTableCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) return result;
+            var table = await _context.Tables.FindAsync(request.CmdId).ConfigureAwait(false);
+            table.ZoneId = request.ZoneId;
+            table.TableNumber = request.TableNumber;
+            table.Capacity = request.Capacity;
+            table.TableState = (TableState) request.TableState;
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+
         }
     }
 }

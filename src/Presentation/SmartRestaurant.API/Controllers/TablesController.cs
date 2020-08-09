@@ -20,5 +20,15 @@ namespace SmartRestaurant.API.Controllers
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
+        [Route("{zoneId:Guid}/tables/")]
+        [HttpPut]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<ActionResult> Create([FromRoute]Guid zoneId, UpdateTableCommand command)
+        {
+            if (zoneId != command.ZoneId)
+                return BadRequest();
+            var validationResult = await SendAsync(command).ConfigureAwait(false);
+            return ApiCustomResponse(validationResult);
+        }
     }
 }
