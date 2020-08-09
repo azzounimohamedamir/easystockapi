@@ -23,7 +23,6 @@ namespace SmartRestaurant.Infrastructure.Identity
 
             services.AddScoped<IIdentityContext>(provider => provider.GetService<IdentityContext>());
 
-
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<IdentityContext>()
                     .AddDefaultTokenProviders();

@@ -1,8 +1,8 @@
 ﻿namespace SmartRestaurant.API.Models
 {
-    public class LoginModel
+    public class AuthenticateViaSocialMediaModel
     {
         public string Email { get; set; }
-        public string Password { get; set; }
+        public string FullName { get; set; }
     }
 }
