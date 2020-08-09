@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Tables.Commands;
+using SmartRestaurant.Application.Tables.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -10,6 +13,15 @@ namespace SmartRestaurant.API.Controllers
     [ApiController]
     public class TablesController : ApiController
     {
+        [Route("{zoneId:Guid}/tables/")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public  Task<IEnumerable<TableDto>> Get([FromRoute]Guid zoneId)
+        {
+            if (zoneId == Guid.Empty)
+                throw new InvalidOperationException("zone id shouldn't be null or empty");
+            return SendAsync(new GetTablesListQuery() {ZoneId = zoneId});
+        }
         [Route("{zoneId:Guid}/tables/")]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]

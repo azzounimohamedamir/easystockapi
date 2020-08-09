@@ -34,6 +34,7 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.ZoneId))
                 .ReverseMap();
             CreateMap<ZoneDto, Zone>().ReverseMap();
+            CreateMap<TableDto, Table>().ReverseMap();
             CreateMap<Table, CreateTableCommand>()
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.TableId))
                 .ForMember(x => x.TableState, o => o.MapFrom(p =>(short) p.TableState))
