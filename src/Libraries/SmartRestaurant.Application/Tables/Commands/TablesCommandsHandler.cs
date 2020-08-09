@@ -14,8 +14,7 @@ namespace SmartRestaurant.Application.Tables.Commands
 {
     public class TablesCommandsHandler : 
         IRequestHandler<CreateTableCommand, ValidationResult>,
-        IRequestHandler<UpdateTableCommand, ValidationResult>,
-        IRequestHandler<DeleteTableCommand>
+        IRequestHandler<UpdateTableCommand, ValidationResult>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -58,14 +57,6 @@ namespace SmartRestaurant.Application.Tables.Commands
 
         }
 
-        public async Task<Unit> Handle(DeleteTableCommand request, CancellationToken cancellationToken)
-        {
-            var table = await _context.Tables.FindAsync(request.TableId).ConfigureAwait(false);
-            if (table == null)
-                throw new NotFoundException(nameof(Table), request.TableId);
-            _context.Tables.Remove(table);
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            return Unit.Value;
-        }
+       
     }
 }
