@@ -22,6 +22,18 @@ namespace SmartRestaurant.API.Controllers
                 throw new InvalidOperationException("zone id shouldn't be null or empty");
             return SendAsync(new GetTablesListQuery() {ZoneId = zoneId});
         }
+        [Route("{zoneId:Guid}/tables/{tableId:guid}")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public Task<TableDto> GetById([FromRoute]Guid zoneId, [FromRoute]Guid tableId)
+        {
+            if (zoneId == Guid.Empty)
+                throw new InvalidOperationException("zone id shouldn't be null or empty");
+            if (tableId == Guid.Empty)
+                throw new InvalidOperationException("table id shouldn't be null or empty");
+
+            return SendAsync(new GetTableByIdQuery {TableId = tableId });
+        }
         [Route("{zoneId:Guid}/tables/")]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]

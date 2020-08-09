@@ -6,14 +6,16 @@ using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Tables.Queries;
 using SmartRestaurant.Application.Zones.Commands;
+using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.IntegrationTests.Tables.Queries
 {
     using static Testing;
-    public class GetTablesListTests
+
+    public class GetTableByIdTests : TestBase
     {
         [Test]
-        public async Task ShouldReturnAllTablesList()
+        public async Task ShouldReturnTable()
         {
             CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
@@ -28,23 +30,23 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Queries
                 ZoneTitle = "zone 45"
             };
             await SendAsync(createZoneCommand);
-            var rnd = new Random();
-            for (int i = 0; i < 5; i++)
+            var tabledId = Guid.NewGuid();
+            await SendAsync(new CreateTableCommand
             {
-                await SendAsync(new CreateTableCommand
-                {
-                    ZoneId = createZoneCommand.CmdId,
-                    Capacity = rnd.Next(1,5),
-                    TableNumber = i + 1,
-                    TableState =(short) rnd.Next(0,2)
+                CmdId = tabledId,
+                ZoneId = createZoneCommand.CmdId,
+                Capacity = 5,
+                TableNumber = 10,
+                TableState = 1
 
-                });
-            }
-            var query = new GetTablesListQuery {ZoneId = createZoneCommand.CmdId};
+            });
+            var query = new GetTableByIdQuery { TableId = tabledId };
 
             var result = await SendAsync(query);
-
-            result.Should().HaveCount(5);
+            result.Should().NotBeNull();
+            result.Capacity.Should().Be(5);
+            result.TableState.Should().Be(TableState.Occupied);
+            result.TableId.Should().Be(tabledId);
         }
     }
 }
