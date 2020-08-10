@@ -351,6 +351,3 @@ MigrationBackup/
 .vscode/launch.json
 .vscode/tasks.json
 src/Presentation/SmartRestaurant.Web/ClientApp/.vscode/settings.json
-
-/src/Libraries/SmartRestaurant.Application/Tables/Commands/DeleteTableCommand.cs
-/tests/SmartRestaurant.Application.IntegrationTests/Tables/Commands
