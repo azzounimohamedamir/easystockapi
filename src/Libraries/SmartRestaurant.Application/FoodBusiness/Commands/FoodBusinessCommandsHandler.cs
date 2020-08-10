@@ -3,12 +3,8 @@ using FluentValidation.Results;
 using MediatR;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Domain.Entities;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Application.Images.Commands;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
