@@ -28,7 +28,7 @@ namespace SmartRestaurant.Application.Menus.Commands
             var validator = new CreateMenuCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
-            if (request.MenuState == (short) MenuState.Enabled)
+            if (request.MenuState == (int) MenuState.Enabled)
             {
                 var menus = await _context.Menus
                     .Where(x => x.FoodBusinessId == request.FoodBusinessId && x.MenuState == MenuState.Enabled)
