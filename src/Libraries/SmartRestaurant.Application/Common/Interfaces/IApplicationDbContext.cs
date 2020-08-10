@@ -12,6 +12,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<FoodBusinessUser> FoodBusinessUsers { get; set; }
         public DbSet<Zone> Zones { get; set; }
         public DbSet<Table> Tables { get; set; }
+        public DbSet<Menu> Menus { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
