@@ -61,5 +61,5 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             return default;
         }
 
-     }
+    }
 }

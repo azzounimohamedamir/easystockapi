@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.API.Helpers;
-using SmartRestaurant.API.Models;
+using SmartRestaurant.API.Models.UserModels;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
@@ -29,7 +29,7 @@ namespace SmartRestaurant.API.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost("Login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login(LoginModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
@@ -43,7 +43,7 @@ namespace SmartRestaurant.API.Controllers
             return Ok(new { token, user.UserName, roles });
         }
 
-        [HttpPost("Register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterModel model)
         {
             var user = new ApplicationUser()
@@ -56,7 +56,7 @@ namespace SmartRestaurant.API.Controllers
             return await GrantDinerRole(user, result);
         }
 
-        [HttpPost("AuthenticateViaSocialMedia")]
+        [HttpPost("authenticateViaSocialMedia")]
         public async Task<IActionResult> AuthenticateViaSocialMedia(AuthenticateViaSocialMediaModel model)
         {
             ApplicationUser user = await _userManager.FindByEmailAsync(model.Email);
@@ -76,7 +76,7 @@ namespace SmartRestaurant.API.Controllers
             return Ok(new { token, user.UserName, roles });
         }
 
-        [HttpPost("ChangePassword")]
+        [HttpPost("changePassword")]
         public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
         {
             if (model.CurrentPassword.Equals(model.ConfirmNewPassword))
@@ -96,7 +96,7 @@ namespace SmartRestaurant.API.Controllers
             return Ok(HttpResponseHelper.Respond(ResponseType.BadRequest));
         }
 
-        [HttpPost("ForgetPassword")]
+        [HttpPost("forgetPassword")]
         public IActionResult ForgetPassword(string Email)
         {
             //Send email

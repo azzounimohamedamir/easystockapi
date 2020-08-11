@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Helpers;
-using SmartRestaurant.API.Models;
+using SmartRestaurant.API.Models.UserModels;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Entities;
 using System.Threading.Tasks;
@@ -47,16 +47,25 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> Create(ApplicationUserModel model)
         {
             ApplicationUser user = _mapper.Map<ApplicationUser>(model);
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user);
             return CheckResultStatus(result);
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
-        [HttpPost("CreateUserWithRoles")]
+        [HttpPost("createUserWithRoles")]
         public async Task<IActionResult> CreateUserWithRoles(CreateUserWithRolesModel model)
         {
+            IdentityResult result;
             ApplicationUser user = _mapper.Map<ApplicationUser>(model.User);
-            var result = await _userManager.CreateAsync(user, model.Password);
+            if (string.IsNullOrEmpty(model.Password))
+            {
+                result = await _userManager.CreateAsync(user);
+            }
+            else
+            {
+                result = await _userManager.CreateAsync(user, model.Password);
+            }
+
             foreach (var role in model.Roles)
             {
                 await _userManager.AddToRoleAsync(user, role);
@@ -82,7 +91,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
-        [HttpPut("Disable")]
+        [HttpPut("disable")]
         public async Task<IActionResult> Disable(string Id)
         {
             ApplicationUser user = await _userManager.FindByIdAsync(Id);
@@ -92,7 +101,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
-        [HttpPut("Enable")]
+        [HttpPut("enable")]
         public async Task<IActionResult> Enable(string Id)
         {
             ApplicationUser user = await _userManager.FindByIdAsync(Id);

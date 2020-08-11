@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Helpers;
-using SmartRestaurant.API.Models;
+using SmartRestaurant.API.Models.MediaModels;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusiness.Queries;
+using SmartRestaurant.Application.Images.Commands;
+using SmartRestaurant.Application.Images.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SmartRestaurant.Application.Images.Commands;
-using SmartRestaurant.Application.Images.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -76,7 +76,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpPost]
         [Route("{id:Guid}/uploadImages")]
         [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<ActionResult> UploadImages([FromRoute] Guid id, [FromForm] FIleUploadApi images)
+        public async Task<ActionResult> UploadImages([FromRoute] Guid id, [FromForm] FIleUploadModel images)
         {
             if (images.EntityId == Guid.Empty)
                 throw new InvalidOperationException("FoodBusiness id shouldn't be null or empty");

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using SmartRestaurant.API.Models;
 using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.API.Configurations

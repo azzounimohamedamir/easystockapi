@@ -1,4 +1,4 @@
-﻿using SmartRestaurant.API.Models;
+﻿using SmartRestaurant.API.Models.MediaModels;
 using System.Collections.Generic;
 using System.IO;
 
@@ -6,7 +6,7 @@ namespace SmartRestaurant.API.Helpers
 {
     public static class FileHelper
     {
-        public static IEnumerable<ImageModel> SaveImagesAsync(FIleUploadApi fileUploadApi)
+        public static IEnumerable<ImageModel> SaveImagesAsync(FIleUploadModel fileUploadApi)
         {
             foreach (var file in fileUploadApi.Files)
             {

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Tables.Queries;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Enums;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Tables.Queries
 {

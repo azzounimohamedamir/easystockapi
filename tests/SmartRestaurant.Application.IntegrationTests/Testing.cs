@@ -13,7 +13,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using SmartRestaurant.Application.IntegrationTests;
 
 [SetUpFixture]
 public class Testing
@@ -91,7 +90,7 @@ public class Testing
 
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-        return   context.Set<TEntity>().Where(predicate).ToList();
+        return context.Set<TEntity>().Where(predicate).ToList();
     }
 
     public static async Task AddAsync<TEntity>(TEntity entity)
