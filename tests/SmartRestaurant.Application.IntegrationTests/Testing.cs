@@ -9,8 +9,11 @@ using Respawn;
 using SmartRestaurant.API;
 using SmartRestaurant.Infrastructure.Persistence;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using SmartRestaurant.Application.IntegrationTests;
 
 [SetUpFixture]
 public class Testing
@@ -80,6 +83,15 @@ public class Testing
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
         return await context.FindAsync<TEntity>(id);
+    }
+
+    public static List<TEntity> Where<TEntity>(Func<TEntity, bool> predicate) where TEntity : class
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        return   context.Set<TEntity>().Where(predicate).ToList();
     }
 
     public static async Task AddAsync<TEntity>(TEntity entity)
