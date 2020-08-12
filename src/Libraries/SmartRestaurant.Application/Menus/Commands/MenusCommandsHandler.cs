@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,9 +10,6 @@ using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Menus.Commands
 {
