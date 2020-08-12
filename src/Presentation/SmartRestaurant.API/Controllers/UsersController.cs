@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,10 +8,11 @@ using SmartRestaurant.API.Models.UserModels;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Entities;
 using System.Threading.Tasks;
+using SmartRestaurant.Application.Common.Exceptions;
 
 namespace SmartRestaurant.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -42,12 +44,12 @@ namespace SmartRestaurant.API.Controllers
             return Ok(user);
         }
 
-        [Authorize(Roles = "SupportAgent,SuperAdmin")]
+        //[Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpPost]
         public async Task<IActionResult> Create(ApplicationUserModel model)
         {
-            ApplicationUser user = _mapper.Map<ApplicationUser>(model);
-            var result = await _userManager.CreateAsync(user);
+            ApplicationUser user = new ApplicationUser(model.FullName, model.Email, model.UserName);
+            var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
             return CheckResultStatus(result);
         }
 
@@ -74,10 +76,22 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(ApplicationUserModel model)
+        [Route("users/{id}")]
+        public async Task<IActionResult> Update([FromRoute] string id ,ApplicationUserModel model)
         {
-            ApplicationUser user = _mapper.Map<ApplicationUser>(model);
-            var result = await _userManager.UpdateAsync(user);
+            var user  = await _userManager.FindByIdAsync(id).ConfigureAwait(false);
+            if(user==null)
+                throw new NotFoundException(nameof(user), id);
+            user.FullName = model.FullName;
+            user.Email = model.Email;
+            user.UserName = model.UserName;
+            var result = await _userManager.UpdateAsync(user).ConfigureAwait(false);
+            if (!result.Succeeded)
+            {
+                foreach (var identityError in result.Errors)
+                    ModelState.AddModelError(null, identityError.Description);
+                return Ok(ModelState.Select(x=>x.Value.Errors));
+            }
             return CheckResultStatus(result);
         }
 
