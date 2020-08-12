@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +14,7 @@ namespace SmartRestaurant.API.Controllers
     //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : ApiController
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
@@ -36,7 +35,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet("{username}")]
         public async Task<IActionResult> GetById(string username)
         {
-            var user = await _userManager.FindByNameAsync(username);
+            var user = await _userManager.FindByNameAsync(username).ConfigureAwait(false);
             if (user == null)
             {
                 return Ok(HttpResponseHelper.Respond(ResponseType.NotFound));
@@ -86,13 +85,7 @@ namespace SmartRestaurant.API.Controllers
             user.Email = model.Email;
             user.UserName = model.UserName;
             var result = await _userManager.UpdateAsync(user).ConfigureAwait(false);
-            if (!result.Succeeded)
-            {
-                foreach (var identityError in result.Errors)
-                    ModelState.AddModelError(null, identityError.Description);
-                return Ok(ModelState.Select(x=>x.Value.Errors));
-            }
-            return CheckResultStatus(result);
+            return ApiCustomResponse(result);
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]

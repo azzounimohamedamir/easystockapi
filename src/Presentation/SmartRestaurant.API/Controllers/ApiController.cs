@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -32,6 +33,14 @@ namespace SmartRestaurant.API.Controllers
             if (validationResult?.Errors != null)
                 foreach (var error in validationResult.Errors)
                     _errors.Add(error.ErrorMessage);
+
+            return ApiCustomResponse();
+        }
+        protected ActionResult ApiCustomResponse(IdentityResult result)
+        {
+            if (!result .Succeeded)
+                foreach (var error in result.Errors)
+                    _errors.Add(error.Description);
 
             return ApiCustomResponse();
         }
