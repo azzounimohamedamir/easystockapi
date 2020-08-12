@@ -1,18 +1,18 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Tables.Commands
 {
     using static Testing;
     [TestFixture]
-    public class CreateTableTest :TestBase
+    public class CreateTableTest : TestBase
     {
         [Test]
         public async Task CreateTable_ShouldSaveToDB()
@@ -28,7 +28,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Commands
             {
                 FoodBusinessId = fastFood.FoodBusinessId,
                 ZoneTitle = "zone 45"
-            }; 
+            };
             await SendAsync(createZoneCommand);
             var zone = await FindAsync<Zone>(createZoneCommand.CmdId);
             var createTableCommand = new CreateTableCommand

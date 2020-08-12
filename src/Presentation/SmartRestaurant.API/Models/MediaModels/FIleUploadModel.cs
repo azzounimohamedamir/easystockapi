@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace SmartRestaurant.API.Models
+namespace SmartRestaurant.API.Models.MediaModels
 {
-    public class FIleUploadApi
+    public class FIleUploadModel
     {
         public List<IFormFile> Files { get; set; }
         public Guid EntityId { get; set; }

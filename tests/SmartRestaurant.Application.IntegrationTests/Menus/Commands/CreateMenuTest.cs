@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
 {
@@ -46,20 +46,20 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
                 NameEnglish = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-           
-             await SendAsync(new CreateMenuCommand
+
+            await SendAsync(new CreateMenuCommand
             {
                 Name = "test menu1",
                 MenuState = (int)MenuState.Enabled,
                 FoodBusinessId = createFoodBusinessCommand.CmdId
             });
-             await SendAsync(new CreateMenuCommand
+            await SendAsync(new CreateMenuCommand
             {
                 Name = "test menu2",
                 MenuState = (int)MenuState.Enabled,
                 FoodBusinessId = createFoodBusinessCommand.CmdId
             });
-            var items =  Where<Menu>(menu => menu.MenuState == MenuState.Enabled && menu.FoodBusinessId == createFoodBusinessCommand.CmdId);
+            var items = Where<Menu>(menu => menu.MenuState == MenuState.Enabled && menu.FoodBusinessId == createFoodBusinessCommand.CmdId);
 
             items.Count.Should().Be(1);
 

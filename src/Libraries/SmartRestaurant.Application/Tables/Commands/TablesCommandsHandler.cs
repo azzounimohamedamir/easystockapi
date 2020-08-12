@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +6,13 @@ using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Tables.Commands
 {
-    public class TablesCommandsHandler : 
+    public class TablesCommandsHandler :
         IRequestHandler<CreateTableCommand, ValidationResult>,
         IRequestHandler<UpdateTableCommand, ValidationResult>,
         IRequestHandler<DeleteTableCommand>
@@ -33,7 +33,7 @@ namespace SmartRestaurant.Application.Tables.Commands
             var table = await _context.Tables
                 .FirstOrDefaultAsync(x => x.ZoneId == request.ZoneId && x.TableNumber == request.TableNumber, cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
-            if(table!= null)
+            if (table != null)
                 throw new InvalidOperationException("There is a table with this number in the database.");
             table = _mapper.Map<Table>(request);
             _context.Tables.Add(table);
@@ -48,11 +48,11 @@ namespace SmartRestaurant.Application.Tables.Commands
             if (!result.IsValid) return result;
             var table = await _context.Tables.FindAsync(request.CmdId).ConfigureAwait(false);
             if (table == null)
-                throw new NotFoundException(nameof(Table) , request.CmdId);
+                throw new NotFoundException(nameof(Table), request.CmdId);
             table.ZoneId = request.ZoneId;
             table.TableNumber = request.TableNumber;
             table.Capacity = request.Capacity;
-            table.TableState = (TableState) request.TableState;
+            table.TableState = (TableState)request.TableState;
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
 

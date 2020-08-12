@@ -1,4 +1,4 @@
-﻿namespace SmartRestaurant.API.Models
+﻿namespace SmartRestaurant.API.Models.UserModels
 {
     public class LoginModel
     {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -10,6 +9,9 @@ using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Menus.Commands
 {
@@ -27,7 +29,7 @@ namespace SmartRestaurant.Application.Menus.Commands
             _mapper = mapper;
         }
 
-        public  async Task<ValidationResult> Handle(CreateMenuCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(CreateMenuCommand request, CancellationToken cancellationToken)
         {
             var validator = new CreateMenuCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);

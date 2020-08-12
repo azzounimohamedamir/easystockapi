@@ -1,10 +1,10 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
+using System;
 
 namespace SmartRestaurant.Application.Tables.Commands
 {
-    public class UpdateTableCommand: SmartRestaurantCommand
+    public class UpdateTableCommand : SmartRestaurantCommand
     {
         public int TableNumber { get; set; }
         public Guid ZoneId { get; set; }

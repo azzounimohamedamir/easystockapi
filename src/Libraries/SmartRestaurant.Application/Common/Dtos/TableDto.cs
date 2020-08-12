@@ -1,5 +1,5 @@
-﻿using System;
-using SmartRestaurant.Domain.Enums;
+﻿using SmartRestaurant.Domain.Enums;
+using System;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
