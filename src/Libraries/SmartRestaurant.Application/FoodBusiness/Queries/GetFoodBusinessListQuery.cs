@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
-using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.FoodBusiness.Queries
 {
-    public class GetFoodBusinessListQuery : IRequest<List<FoodBusinessDto>>
+    public class GetFoodBusinessListQuery :  IRequest<PagedListDto<FoodBusinessDto>>
     {
+        public int Page { get; set; }
+        public int PageSize { get; set; }
     }
 }

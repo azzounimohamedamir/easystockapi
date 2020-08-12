@@ -21,9 +21,9 @@ namespace SmartRestaurant.API.Controllers
     {
         [HttpGet]
         [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
-        public Task<List<FoodBusinessDto>> Get()
+        public Task<PagedListDto<FoodBusinessDto>> Get(int page, int pageSize)
         {
-            return SendAsync(new GetFoodBusinessListQuery());
+            return SendAsync(new GetFoodBusinessListQuery {Page = page, PageSize = pageSize});
         }
         [Route("{adminId}/foodBusinessAdministrator")]
         [HttpGet]

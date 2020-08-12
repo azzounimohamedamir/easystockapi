@@ -25,11 +25,11 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
                     HasCarParking = true
                 });
             }
-            var query = new GetFoodBusinessListQuery();
+            var query = new GetFoodBusinessListQuery() {Page = 1, PageSize = 5};
 
             var result = await SendAsync(query);
 
-            result.Should().HaveCount(5);
+            result.Data.Should().HaveCount(5);
         }
     }
 }

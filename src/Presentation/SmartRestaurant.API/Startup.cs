@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +30,7 @@ namespace SmartRestaurant.API
             services.AddIdentityInfrastructure(Configuration);
 
             services.AddHttpContextAccessor();
-
+            
             services.AddAutoMapper(typeof(MappingProfile));
             CORSConfiguration.AddCORSConfiguation(services);
 
