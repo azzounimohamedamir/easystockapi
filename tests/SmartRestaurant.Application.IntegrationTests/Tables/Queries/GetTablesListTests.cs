@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Tables.Queries;
 using SmartRestaurant.Application.Zones.Commands;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Tables.Queries
 {
@@ -34,13 +34,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Queries
                 await SendAsync(new CreateTableCommand
                 {
                     ZoneId = createZoneCommand.CmdId,
-                    Capacity = rnd.Next(1,5),
+                    Capacity = rnd.Next(1, 5),
                     TableNumber = i + 1,
-                    TableState =(short) rnd.Next(0,2)
+                    TableState = (short)rnd.Next(0, 2)
 
                 });
             }
-            var query = new GetTablesListQuery {ZoneId = createZoneCommand.CmdId};
+            var query = new GetTablesListQuery { ZoneId = createZoneCommand.CmdId };
 
             var result = await SendAsync(query);
 

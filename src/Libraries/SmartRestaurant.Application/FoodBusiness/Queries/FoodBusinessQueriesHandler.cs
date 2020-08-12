@@ -54,6 +54,6 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             return _mapper.Map<List<FoodBusinessDto>>(foodBusinesses);
         }
 
-       
+
     }
 }

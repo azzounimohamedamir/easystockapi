@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
@@ -8,6 +6,8 @@ using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Tables.Commands
 {
@@ -49,14 +49,14 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Commands
                 ZoneId = zone.ZoneId,
                 TableState = 1
             };
-           var  validationResult =  await SendAsync(updateTableCommand);
-           var item = await FindAsync<Table>(updateTableCommand.CmdId);
-           validationResult.Should().Be(default(ValidationResult));
-           item.Should().NotBeNull();
-           item.ZoneId.Should().Be(createZoneCommand.CmdId);
-           item.Capacity.Should().Be(10);
-           item.TableNumber.Should().Be(12);
-           item.TableState.Should().Be(TableState.Occupied);
+            var validationResult = await SendAsync(updateTableCommand);
+            var item = await FindAsync<Table>(updateTableCommand.CmdId);
+            validationResult.Should().Be(default(ValidationResult));
+            item.Should().NotBeNull();
+            item.ZoneId.Should().Be(createZoneCommand.CmdId);
+            item.Capacity.Should().Be(10);
+            item.TableNumber.Should().Be(12);
+            item.TableState.Should().Be(TableState.Occupied);
         }
     }
 }

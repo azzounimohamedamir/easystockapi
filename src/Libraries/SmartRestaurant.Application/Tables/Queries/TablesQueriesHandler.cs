@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Tables.Queries
 {
     public class TablesQueriesHandler :
         IRequestHandler<GetTablesListQuery, IEnumerable<TableDto>>,
-        IRequestHandler<GetTableByIdQuery , TableDto>
+        IRequestHandler<GetTableByIdQuery, TableDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
