@@ -2,6 +2,7 @@
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Domain.Enums;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -44,13 +45,11 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         {
             RuleFor(v => v.NameEnglish)
                 .MaximumLength(200)
-                .MustAsync(CheckNameAsync);
+                .Must(CheckName);
             RuleFor(v => v.FoodBusinessAdministratorId).NotEmpty();
         }
 
-
-
-        private async Task<bool> CheckNameAsync(CreateFoodBusinessCommand createFoodBusiness, string nameEnglish, CancellationToken token)
+        private bool CheckName(CreateFoodBusinessCommand createFoodBusiness, string nameEnglish)
         {
             return !string.IsNullOrEmpty(nameEnglish) && !string.IsNullOrWhiteSpace(nameEnglish) || string.IsNullOrEmpty(nameEnglish) &&
                 (!string.IsNullOrEmpty(createFoodBusiness.NameFrench) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameFrench)
@@ -58,7 +57,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
                  || !string.IsNullOrEmpty(createFoodBusiness.NameSpanish) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameSpanish)
                  || !string.IsNullOrEmpty(createFoodBusiness.NameTurkish) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameTurkish)
                  || !string.IsNullOrEmpty(createFoodBusiness.NameChinese) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameChinese)
-                 );
+                );
         }
     }
 }
