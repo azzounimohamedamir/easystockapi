@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -13,9 +16,16 @@ namespace SmartRestaurant.API.Controllers
     [Route("api/[controller]")]
     public abstract class ApiController : ControllerBase
     {
+        private readonly IEmailSender _emailSender;
         private IMediator _mediator;
         private readonly ICollection<string> _errors = new List<string>();
 
+        protected ApiController() {}
+
+        protected ApiController(IEmailSender emailSender)
+        {
+            _emailSender = emailSender;
+        }
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 
         protected ActionResult ApiCustomResponse()
@@ -48,6 +58,16 @@ namespace SmartRestaurant.API.Controllers
         public Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
         {
             return Mediator.Send(request);
+        }
+        protected Task SendEmailConfirmation(ApplicationUser user, string code)
+        {
+            var callbackUrl = Url.Page(
+                "api/Account/ConfirmEmail",
+                pageHandler: null,
+                values: new { userId = user.Id, code },
+                protocol: Request.Scheme);
+            return _emailSender.SendEmailAsync(user.Email, "Confirm your email",
+                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
         }
     }
 }
