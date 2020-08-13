@@ -15,7 +15,8 @@ namespace SmartRestaurant.Application.Menus.Commands
 {
     public class MenusCommandsHandler :
         IRequestHandler<CreateMenuCommand , ValidationResult>,
-        IRequestHandler<UpdateMenuCommand, ValidationResult>
+        IRequestHandler<UpdateMenuCommand, ValidationResult>,
+        IRequestHandler<DeleteMenuCommand>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -54,19 +55,29 @@ namespace SmartRestaurant.Application.Menus.Commands
             return default;
         }
 
-        private async Task UpdateMenuStateAsync(int state, Guid foodBusinessId,Guid? menuId,CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteMenuCommand request, CancellationToken cancellationToken)
         {
-            if (state != (int) MenuState.Enabled) return ;
+            var menu = await _context.Menus.FindAsync(request.MenuId).ConfigureAwait(false);
+            if (menu == null)
+                throw new NotFoundException(nameof(Menu), request.MenuId);
+            _context.Menus.Remove(menu);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return Unit.Value;
+        }
+
+        private async Task UpdateMenuStateAsync(int state, Guid foodBusinessId, Guid? menuId, CancellationToken cancellationToken)
+        {
+            if (state != (int) MenuState.Enabled) return;
             var menus = await _context.Menus
-                .Where(x => x.FoodBusinessId == foodBusinessId 
-                            && x.MenuId!= menuId 
-                            &&  x.MenuState == MenuState.Enabled)
+                .Where(x => x.FoodBusinessId == foodBusinessId
+                            && x.MenuId != menuId
+                            && x.MenuState == MenuState.Enabled)
                 .ToListAsync(cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
             if (menus.Any())
                 foreach (var menu in menus)
                     menu.MenuState = MenuState.Disabled;
-            
+
         }
     }
 }

@@ -9,11 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using SmartRestaurant.Application.Common.Extensions;
 
 namespace SmartRestaurant.Application.FoodBusiness.Queries
 {
     public class FoodBusinessQueriesHandler :
-        IRequestHandler<GetFoodBusinessListQuery, List<FoodBusinessDto>>,
+        IRequestHandler<GetFoodBusinessListQuery, PagedListDto<FoodBusinessDto>>,
         IRequestHandler<GetFoodBusinessByIdQuery, FoodBusinessDto>,
         IRequestHandler<GetFoodBusinessListByAdmin, List<FoodBusinessDto>>
     {
@@ -26,10 +27,12 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             _mapper = mapper;
         }
 
-        public async Task<List<FoodBusinessDto>> Handle(GetFoodBusinessListQuery request, CancellationToken cancellationToken)
+        public async Task<PagedListDto<FoodBusinessDto>> Handle(GetFoodBusinessListQuery request, CancellationToken cancellationToken)
         {
-            List<Domain.Entities.FoodBusiness> entities = await _context.FoodBusinesses.ToListAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
-            return _mapper.Map<List<FoodBusinessDto>>(entities);
+            var  result =  _context.FoodBusinesses.GetPaged(request.Page, request.PageSize);
+            var data = _mapper.Map<List<FoodBusinessDto>>(await result.Data.ToListAsync(cancellationToken: cancellationToken).ConfigureAwait(false));
+            var pagedResult = new PagedListDto<FoodBusinessDto>(result.CurrentPage, result.PageCount, result.PageSize, result.RowCount, data);
+            return pagedResult;
         }
 
         public async Task<FoodBusinessDto> Handle(GetFoodBusinessByIdQuery request, CancellationToken cancellationToken)
