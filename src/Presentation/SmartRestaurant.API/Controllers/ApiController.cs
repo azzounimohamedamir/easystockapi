@@ -61,13 +61,10 @@ namespace SmartRestaurant.API.Controllers
         }
         protected Task SendEmailConfirmation(ApplicationUser user, string code)
         {
-            var callbackUrl = Url.Page(
-                "api/Account/ConfirmEmail",
-                pageHandler: null,
-                values: new { userId = user.Id, code },
-                protocol: Request.Scheme);
+            var url = string.Format("{0}://{1}.{2}", Request.Scheme , Request.Host.Value, Request.PathBase );
+            var callBack = url + "/api/account/confirmEmail?userId=" +user.Id +"&token=" + code;
             return _emailSender.SendEmailAsync(user.Email, "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callBack)}'>clicking here</a>.");
         }
     }
 }
