@@ -36,7 +36,7 @@ stages:
 - stage: Build_On_Prod_Evn
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/release'))
   pool: 
-    name: prod-SmartRestaurant-pool
+    name: pre-prod-SmartRestaurant-pool
     workspace:
       clean: all
   jobs:
@@ -46,13 +46,13 @@ stages:
   dependsOn: Build_On_Prod_Evn
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/release'))
   pool: 
-    name: prod-SmartRestaurant-pool
+    name: pre-prod-SmartRestaurant-pool
     workspace:
       clean: none
   jobs:
   - template: devops/azure-deploy-template.yml
     parameters:
-      envName: SmartRestaurant-Prod-Env
+      envName: SmartRestaurant-Pre-Prod-Env
 
 - stage: Run_Tests
   dependsOn: []
