@@ -129,7 +129,7 @@ namespace SmartRestaurant.API.Controllers
         {
             var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
             if (user == null)
-                return BadRequest("Email wasn't found");
+                return BadRequest("User wasn't found");
 
             var result = await _userManager.ConfirmEmailAsync(user, token).ConfigureAwait(false);
             return Ok(result.Succeeded ? nameof(ConfirmEmail) : "Error");
