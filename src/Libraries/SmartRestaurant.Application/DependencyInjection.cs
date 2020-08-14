@@ -2,7 +2,6 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Email;
 
