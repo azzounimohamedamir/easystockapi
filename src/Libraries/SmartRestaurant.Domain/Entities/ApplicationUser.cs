@@ -9,6 +9,7 @@ namespace SmartRestaurant.Domain.Entities
             FullName = fullName;
             UserName = userName;
             Email = email;
+            IsActive = false;
         }
         public ApplicationUser()
         {

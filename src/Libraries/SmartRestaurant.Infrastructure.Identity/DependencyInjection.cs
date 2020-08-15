@@ -35,6 +35,7 @@ namespace SmartRestaurant.Infrastructure.Identity
                 opt.Password.RequireLowercase = false;
                 opt.Password.RequireUppercase = false;
                 opt.User.RequireUniqueEmail = true;
+                opt.SignIn.RequireConfirmedEmail = true;
             });
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SmartRestaurant.API.Configurations;
 using SmartRestaurant.Application;
+using SmartRestaurant.Application.Email;
 using SmartRestaurant.Infrastructure;
 using SmartRestaurant.Infrastructure.Identity;
 
@@ -30,7 +31,7 @@ namespace SmartRestaurant.API
             services.AddIdentityInfrastructure(Configuration);
 
             services.AddHttpContextAccessor();
-            
+            services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddAutoMapper(typeof(MappingProfile));
             CORSConfiguration.AddCORSConfiguation(services);
 
@@ -38,7 +39,7 @@ namespace SmartRestaurant.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Smart Restaurant api v1", Version = "v1" });
             });
-
+           
             services.AddControllersWithViews();
         }
 

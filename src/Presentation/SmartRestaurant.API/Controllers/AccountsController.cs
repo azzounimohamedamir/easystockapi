@@ -8,12 +8,13 @@ using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
 using System.Linq;
 using System.Threading.Tasks;
+using SmartRestaurant.Application.Common.Interfaces;
 
 namespace SmartRestaurant.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController : ControllerBase
+    public class AccountsController : ApiController
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -22,7 +23,7 @@ namespace SmartRestaurant.API.Controllers
         public AccountsController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IConfiguration configuration)
+            IConfiguration configuration, IEmailSender emailSender) : base(emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -53,6 +54,11 @@ namespace SmartRestaurant.API.Controllers
                 FullName = model.FullName
             };
             var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
+            if (result.Succeeded)
+            {
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
+                await SendEmailConfirmation(user, token).ConfigureAwait(false);
+            }
             return await GrantDinerRole(user, result);
         }
 
@@ -69,7 +75,12 @@ namespace SmartRestaurant.API.Controllers
                     FullName = model.FullName
                 };
                 var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
-                await GrantDinerRole(user, result);
+                await GrantDinerRole(user, result).ConfigureAwait(false);
+                if (result.Succeeded)
+                {
+                    var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
+                    await SendEmailConfirmation(user, emailToken).ConfigureAwait(false);
+                }
             }
             var token = await TokenGenerator.Generate(user, _userManager, _configuration);
             var roles = await _userManager.GetRolesAsync(user);
@@ -112,6 +123,16 @@ namespace SmartRestaurant.API.Controllers
                 return Ok(HttpResponseHelper.Respond(ResponseType.OK));
             }
             return Ok(HttpResponseHelper.Respond(ResponseType.BadRequest));
+        }
+        [HttpGet ("confirmEmail")]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
+            if (user == null)
+                return BadRequest("User wasn't found");
+
+            var result = await _userManager.ConfirmEmailAsync(user, token).ConfigureAwait(false);
+            return Ok(result.Succeeded ? nameof(ConfirmEmail) : "Error");
         }
     }
 }
