@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
+using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Images.Commands;
 using SmartRestaurant.Application.Menus.Commands;
@@ -44,6 +45,7 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.MenuId))
                 .ForMember(x => x.MenuState, o => o.MapFrom(p => (int)p.MenuState))
                 .ReverseMap();
+            
         }
     }
 }

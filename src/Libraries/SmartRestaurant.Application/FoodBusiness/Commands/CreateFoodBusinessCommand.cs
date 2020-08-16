@@ -2,9 +2,6 @@
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Domain.Enums;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
@@ -59,5 +56,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
                  || !string.IsNullOrEmpty(createFoodBusiness.NameChinese) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameChinese)
                 );
         }
+
+
+       
     }
 }

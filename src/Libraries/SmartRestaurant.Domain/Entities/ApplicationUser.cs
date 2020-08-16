@@ -2,8 +2,15 @@
 
 namespace SmartRestaurant.Domain.Entities
 {
-    public class ApplicationUser : IdentityUser
+    public sealed class ApplicationUser : IdentityUser
     {
+        public ApplicationUser(string fullName, string email, string userName)
+        {
+            FullName = fullName;
+            UserName = userName;
+            Email = email;
+            IsActive = false;
+        }
         public ApplicationUser()
         {
             IsActive = true;
