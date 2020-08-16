@@ -11,7 +11,9 @@ using SmartRestaurant.Application.Common.Interfaces;
 
 namespace SmartRestaurant.Application.Menus.Queries
 {
-    public class MenusHandlerQueries : IRequestHandler<GetMenusListQuery , PagedListDto<MenuDto>>
+    public class MenusHandlerQueries : 
+        IRequestHandler<GetMenusListQuery , PagedListDto<MenuDto>>,
+        IRequestHandler<GetMenuByIdQuery, MenuDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -30,6 +32,12 @@ namespace SmartRestaurant.Application.Menus.Queries
             var data = _mapper.Map<List<MenuDto>>(await result.Data.ToListAsync(cancellationToken: cancellationToken).ConfigureAwait(false));
             var pagedResult = new PagedListDto<MenuDto>(result.CurrentPage, result.PageCount, result.PageSize, result.RowCount, data);
             return pagedResult;
+        }
+
+        public async Task<MenuDto> Handle(GetMenuByIdQuery request, CancellationToken cancellationToken)
+        {
+            var query = await _context.Menus.FindAsync(request.MenuId).ConfigureAwait(false);
+            return _mapper.Map<MenuDto>(query);
         }
     }
 }

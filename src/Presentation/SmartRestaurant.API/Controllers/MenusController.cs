@@ -17,7 +17,20 @@ namespace SmartRestaurant.API.Controllers
         [Authorize(Roles = "FoodBusinessManager")]
         public Task<PagedListDto<MenuDto>> Get([FromRoute] Guid id, int page, int pageSize)
         {
+            if (id == Guid.Empty)
+                throw new InvalidOperationException("FoodBusiness id shouldn't be null or empty");
+
             return SendAsync(new GetMenusListQuery { FoodBusinessId = id , Page = page, PageSize = pageSize });
+        }
+        [HttpGet]
+        [Route("{id:Guid}/menus/{menuId:Guid}")]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public  Task<MenuDto> Get([FromRoute] Guid id, [FromRoute]Guid menuId)
+        {
+            if (menuId == Guid.Empty)
+                throw new InvalidOperationException("Menu id shouldn't be null or empty");
+
+            return SendAsync(new GetMenuByIdQuery { MenuId = menuId});
         }
         [Route("{id:Guid}/menus/")]
         [HttpPost]
