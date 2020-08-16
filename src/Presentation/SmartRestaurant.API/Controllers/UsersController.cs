@@ -83,7 +83,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpPut]
-        [Route("users/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> Update([FromRoute] string id, ApplicationUserModel model)
         {
             var user = await _userManager.FindByIdAsync(id).ConfigureAwait(false);
