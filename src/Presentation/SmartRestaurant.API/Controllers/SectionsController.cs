@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Sections.Commands;
+using SmartRestaurant.Application.Sections.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -10,6 +12,13 @@ namespace SmartRestaurant.API.Controllers
     [ApiController]
     public class SectionsController : ApiController
     {
+        [Route("{menuId:Guid}/sections/")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public Task<PagedListDto<SectionDto>> Get([FromRoute]Guid menuId, int page, int pageSize)
+        {
+            return SendAsync(new GetSectionsListQuery { MenuId = menuId, Page = page, PageSize = pageSize });
+        }
         [Route("{menuId:Guid}/sections/")]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]
