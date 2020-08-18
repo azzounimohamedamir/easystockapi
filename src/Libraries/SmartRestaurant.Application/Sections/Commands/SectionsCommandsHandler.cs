@@ -11,7 +11,8 @@ namespace SmartRestaurant.Application.Sections.Commands
 {
     public class SectionsCommandsHandler : 
         IRequestHandler<CreateSectionCommand, ValidationResult>,
-        IRequestHandler<UpdateSectionCommand, ValidationResult>
+        IRequestHandler<UpdateSectionCommand, ValidationResult>,
+        IRequestHandler<DeleteSectionCommand>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -45,6 +46,16 @@ namespace SmartRestaurant.Application.Sections.Commands
             section.MenuId = request.MenuId;
             if(section.RootSectionId.HasValue)
                 section.RootSectionId = request.RootSectionId;
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+        public async Task<Unit> Handle(DeleteSectionCommand request, CancellationToken cancellationToken)
+        {
+            var section = await _context.Sections.FindAsync(request.SectionId).ConfigureAwait(false);
+            if (section == null)
+                throw new NotFoundException(nameof(Section), request.SectionId);
+            _context.Sections.Remove(section);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }

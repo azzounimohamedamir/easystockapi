@@ -30,5 +30,15 @@ namespace SmartRestaurant.API.Controllers
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
+        [Route("{menuId:Guid}/sections/{sectionId:Guid}")]
+        [HttpDelete]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<ActionResult> Delete([FromRoute] Guid menuId, [FromRoute] Guid sectionId)
+        {
+            if (menuId == Guid.Empty || sectionId ==Guid.Empty)
+                return BadRequest(); 
+            await SendAsync(new DeleteSectionCommand{SectionId = sectionId}).ConfigureAwait(false);
+            return Ok("Successful");
+        }
     }
 }
