@@ -23,8 +23,4 @@
   <ItemGroup>
     <ProjectReference Include="..\SmartRestaurant.Domain\SmartRestaurant.Domain.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Menus\Queries\" />
-  </ItemGroup>
 </Project>

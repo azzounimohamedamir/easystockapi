@@ -19,5 +19,6 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Zone> Zones { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<Menu> Menus { get; set; }
+        public DbSet<Section> Sections { get; set; }
     }
 }

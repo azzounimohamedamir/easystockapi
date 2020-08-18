@@ -1,0 +1,24 @@
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SmartRestaurant.Application.Sections.Commands;
+
+namespace SmartRestaurant.API.Controllers
+{
+    [Route("api/foodbusiness/{id:Guid}/menus")]
+    [ApiController]
+    public class SectionsController : ApiController
+    {
+        [Route("{menuId:Guid}/sections/")]
+        [HttpPost]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<ActionResult> Create([FromRoute] Guid menuId, CreateSectionCommand command)
+        {
+            if (menuId != command.MenuId)
+                return BadRequest();
+            var validationResult = await SendAsync(command).ConfigureAwait(false);
+            return ApiCustomResponse(validationResult);
+        }
+    }
+}

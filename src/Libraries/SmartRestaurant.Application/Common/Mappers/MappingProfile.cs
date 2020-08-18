@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
-using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Images.Commands;
 using SmartRestaurant.Application.Menus.Commands;
+using SmartRestaurant.Application.Sections.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
@@ -45,7 +45,11 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.MenuId))
                 .ForMember(x => x.MenuState, o => o.MapFrom(p => (int)p.MenuState))
                 .ReverseMap();
-            
+            CreateMap<Menu, MenuDto>().ReverseMap();
+            CreateMap<Section, CreateSectionCommand>()
+                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.SectionId))
+                .ReverseMap();
+
         }
     }
 }
