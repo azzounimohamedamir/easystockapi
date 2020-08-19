@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Identity;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
@@ -62,9 +63,9 @@ namespace SmartRestaurant.API.Controllers
         protected Task SendEmailConfirmation(ApplicationUser user, string code)
         {
             var url = string.Format("{0}://{1}.{2}", Request.Scheme , Request.Host.Value, Request.PathBase );
-            var callBack = url + "/api/accounts/confirmEmail?userId=" +user.Id +"&token=" + code;
+            var callBack = url + "/api/accounts/confirmEmail?userId=" + user.Id +"&token=" + HttpUtility.UrlEncode(code);
             return _emailSender.SendEmailAsync(user.Email, "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callBack)}'>clicking here</a>.");
+                $"Please confirm your account by <a href='{callBack}'>clicking here</a>.");
         }
     }
 }
