@@ -136,7 +136,7 @@ namespace SmartRestaurant.API.Controllers
                 return BadRequest("User wasn't found");
 
             var result = await _userManager.ConfirmEmailAsync(user, token).ConfigureAwait(false);
-            return Ok(result.Succeeded ? nameof(ConfirmEmail) : "Error");
+            return ApiCustomResponse(result);
         }
     }
 }
