@@ -118,7 +118,7 @@ namespace SmartRestaurant.API.Controllers
         {
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.Diner.ToString());
+                await _userManager.AddToRoleAsync(user, Roles.Diner.ToString()).ConfigureAwait(false);
 
                 return Ok(HttpResponseHelper.Respond(ResponseType.OK));
             }
