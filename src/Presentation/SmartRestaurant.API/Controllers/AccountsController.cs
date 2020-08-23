@@ -7,7 +7,11 @@ using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
 using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using System.Web;
+using Microsoft.AspNetCore.WebUtilities;
 using SmartRestaurant.Application.Common.Interfaces;
 
 namespace SmartRestaurant.API.Controllers
@@ -118,7 +122,7 @@ namespace SmartRestaurant.API.Controllers
         {
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.Diner.ToString());
+                await _userManager.AddToRoleAsync(user, Roles.Diner.ToString()).ConfigureAwait(false);
 
                 return Ok(HttpResponseHelper.Respond(ResponseType.OK));
             }
@@ -132,7 +136,7 @@ namespace SmartRestaurant.API.Controllers
                 return BadRequest("User wasn't found");
 
             var result = await _userManager.ConfirmEmailAsync(user, token).ConfigureAwait(false);
-            return Ok(result.Succeeded ? nameof(ConfirmEmail) : "Error");
+            return ApiCustomResponse(result);
         }
     }
 }
