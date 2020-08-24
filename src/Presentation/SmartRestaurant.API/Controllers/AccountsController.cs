@@ -7,11 +7,7 @@ using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
 using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using System.Web;
-using Microsoft.AspNetCore.WebUtilities;
 using SmartRestaurant.Application.Common.Interfaces;
 
 namespace SmartRestaurant.API.Controllers
