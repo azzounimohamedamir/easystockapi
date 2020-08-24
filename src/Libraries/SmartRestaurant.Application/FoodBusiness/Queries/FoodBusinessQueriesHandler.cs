@@ -33,13 +33,19 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             var data = _mapper.Map<List<FoodBusinessDto>>(await result.Data.ToListAsync(cancellationToken: cancellationToken).ConfigureAwait(false));
             foreach (var foodBusinessDto in data)
             {
-                var images =await _context.FoodBusinessImages.Where(x => x.EntityId == foodBusinessDto.FoodBusinessId).Select(x=>x.ImageBytes).ToListAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
-                
-                if(images.Any())
-                    foodBusinessDto.Images.AddRange(images.Select(Convert.ToBase64String));
+                await GetFoodBusinessImagesAsync( foodBusinessDto, cancellationToken).ConfigureAwait(false);
             }
             var pagedResult = new PagedListDto<FoodBusinessDto>(result.CurrentPage, result.PageCount, result.PageSize, result.RowCount, data);
             return pagedResult;
+        }
+
+        private async Task GetFoodBusinessImagesAsync( FoodBusinessDto foodBusinessDto, CancellationToken cancellationToken)
+        {
+            var images = await _context.FoodBusinessImages.Where(x => x.EntityId == foodBusinessDto.FoodBusinessId)
+                .Select(x => x.ImageBytes).ToListAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
+
+            if (images.Any())
+                foodBusinessDto.Images.AddRange(images.Select(Convert.ToBase64String));
         }
 
         public async Task<FoodBusinessDto> Handle(GetFoodBusinessByIdQuery request, CancellationToken cancellationToken)
@@ -50,7 +56,9 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             {
                 throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
             }
-            return _mapper.Map<FoodBusinessDto>(entity);
+            var foodBusinessDto =  _mapper.Map<FoodBusinessDto>(entity);
+            await GetFoodBusinessImagesAsync(foodBusinessDto, cancellationToken).ConfigureAwait(false);
+            return foodBusinessDto;
         }
 
         public async Task<List<FoodBusinessDto>> Handle(GetFoodBusinessListByAdmin request, CancellationToken cancellationToken)
@@ -61,6 +69,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             List<Domain.Entities.FoodBusiness> foodBusinesses = await _context.FoodBusinesses
                 .Where(x => x.FoodBusinessAdministratorId == request.FoodBusinessAdministratorId).ToListAsync(cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
+           
             return _mapper.Map<List<FoodBusinessDto>>(foodBusinesses);
         }
 
