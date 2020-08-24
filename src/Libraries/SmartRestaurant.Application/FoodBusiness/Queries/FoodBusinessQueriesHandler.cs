@@ -34,7 +34,9 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             foreach (var foodBusinessDto in data)
             {
                 var images =await _context.FoodBusinessImages.Where(x => x.EntityId == foodBusinessDto.FoodBusinessId).Select(x=>x.ImageBytes).ToListAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
-                foodBusinessDto.Images.AddRange(images.Select(Convert.ToBase64String));
+                
+                if(images.Any())
+                    foodBusinessDto.Images.AddRange(images.Select(Convert.ToBase64String));
             }
             var pagedResult = new PagedListDto<FoodBusinessDto>(result.CurrentPage, result.PageCount, result.PageSize, result.RowCount, data);
             return pagedResult;
