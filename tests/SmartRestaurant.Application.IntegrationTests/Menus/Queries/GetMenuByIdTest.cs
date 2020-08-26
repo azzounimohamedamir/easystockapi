@@ -18,6 +18,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
         public async Task ShouldGetMenu_ById()
         {
             var foodBusinessId = Guid.NewGuid();
+
             CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 CmdId = foodBusinessId,

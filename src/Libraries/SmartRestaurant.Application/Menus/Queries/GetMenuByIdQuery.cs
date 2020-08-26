@@ -7,6 +7,5 @@ namespace SmartRestaurant.Application.Menus.Queries
     public class GetMenuByIdQuery  :IRequest<MenuDto>
     {
         public Guid MenuId { get; set; }
-
     }
 }

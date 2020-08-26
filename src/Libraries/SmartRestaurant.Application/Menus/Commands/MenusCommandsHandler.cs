@@ -18,6 +18,7 @@ namespace SmartRestaurant.Application.Menus.Commands
         IRequestHandler<UpdateMenuCommand, ValidationResult>,
         IRequestHandler<DeleteMenuCommand>
     {
+       
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
