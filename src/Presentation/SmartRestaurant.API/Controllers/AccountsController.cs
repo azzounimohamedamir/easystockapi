@@ -7,11 +7,7 @@ using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
 using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using System.Web;
-using Microsoft.AspNetCore.WebUtilities;
 using SmartRestaurant.Application.Common.Interfaces;
 
 namespace SmartRestaurant.API.Controllers
@@ -128,8 +124,9 @@ namespace SmartRestaurant.API.Controllers
             }
             return Ok(HttpResponseHelper.Respond(ResponseType.BadRequest));
         }
-        [HttpGet ("confirmEmail")]
-        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        [Route ("/accounts/confirmEmail/{userId}")]
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail([FromRoute]string userId, string token)
         {
             var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
             if (user == null)
