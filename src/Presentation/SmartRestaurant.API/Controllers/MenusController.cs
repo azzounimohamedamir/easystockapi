@@ -22,6 +22,7 @@ namespace SmartRestaurant.API.Controllers
 
             return SendAsync(new GetMenusListQuery { FoodBusinessId = id , Page = page, PageSize = pageSize });
         }
+        
         [HttpGet]
         [Route("{id:Guid}/menus/{menuId:Guid}")]
         [Authorize(Roles = "FoodBusinessManager")]
