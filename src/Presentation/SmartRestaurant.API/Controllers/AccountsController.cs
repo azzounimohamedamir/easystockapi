@@ -8,6 +8,7 @@ using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 using SmartRestaurant.Application.Common.Interfaces;
 
 namespace SmartRestaurant.API.Controllers
@@ -19,15 +20,17 @@ namespace SmartRestaurant.API.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
+        private readonly IMemoryCache _cache;
 
         public AccountsController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IConfiguration configuration, IEmailSender emailSender) : base(emailSender)
+            IConfiguration configuration,IMemoryCache cache, IEmailSender emailSender) : base(emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _cache = cache;
         }
 
         [HttpPost("login")]
@@ -133,6 +136,16 @@ namespace SmartRestaurant.API.Controllers
                 return BadRequest("User wasn't found");
 
             var result = await _userManager.ConfirmEmailAsync(user, token).ConfigureAwait(false);
+            if (result.Succeeded)
+            {
+                var item = _cache.Get<MemoryCachePasswordModel>(user.Email);
+                if (item != null)
+                {
+                    await SendPassword(item.Email, item.Password).ConfigureAwait(false);
+                    _cache.Remove(item);
+                }
+                
+            }
             return ApiCustomResponse(result);
         }
     }
