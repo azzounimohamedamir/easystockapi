@@ -18,8 +18,7 @@ namespace SmartRestaurant.API.Controllers
     {
         private readonly IEmailSender _emailSender;
         private IMediator _mediator;
-        private readonly ICollection<string> _errors = new List<string>();
-        protected Dictionary<string, string> UserPasswords  = new Dictionary<string, string>();
+        private readonly ICollection<string> _errors = new List<string>(); 
         protected ApiController() {}
 
         protected ApiController(IEmailSender emailSender)
