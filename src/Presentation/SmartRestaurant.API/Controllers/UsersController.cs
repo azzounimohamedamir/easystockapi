@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using SmartRestaurant.API.Models.UserModels;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Entities;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
@@ -20,12 +22,13 @@ namespace SmartRestaurant.API.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
-        
-        public UsersController(UserManager<ApplicationUser> userManager, IMapper mapper, IEmailSender emailSender) : base(emailSender)
+        private readonly IMemoryCache _cache;
+
+        public UsersController(UserManager<ApplicationUser> userManager, IMapper mapper,IMemoryCache cache, IEmailSender emailSender) : base(emailSender)
         {
             _userManager = userManager;
             _mapper = mapper;
-           
+            _cache = cache;
         }
 
         [HttpGet]
@@ -71,7 +74,14 @@ namespace SmartRestaurant.API.Controllers
             if (string.IsNullOrEmpty(model.Password))
                 result = await _userManager.CreateAsync(user).ConfigureAwait(false);
             else
+            {
                 result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
+                _cache.GetOrCreate(user.Email,  entry =>
+                {
+                    entry.SlidingExpiration = TimeSpan.FromDays(1);
+                    return new MemoryCachePasswordModel {Email = user.Email, Password = model.Password};
+                });
+            }
 
             foreach (var role in model.Roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
             if (result.Succeeded)

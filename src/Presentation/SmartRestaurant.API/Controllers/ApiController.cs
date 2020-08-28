@@ -18,8 +18,7 @@ namespace SmartRestaurant.API.Controllers
     {
         private readonly IEmailSender _emailSender;
         private IMediator _mediator;
-        private readonly ICollection<string> _errors = new List<string>();
-
+        private readonly ICollection<string> _errors = new List<string>(); 
         protected ApiController() {}
 
         protected ApiController(IEmailSender emailSender)
@@ -65,6 +64,13 @@ namespace SmartRestaurant.API.Controllers
             var callBack = url + "/Accounts/confirmEmail/" + user.Id +"?token=" + HttpUtility.UrlEncode (code);
             return _emailSender.SendEmailAsync(user.Email, "Confirm your email",
                 $"Please confirm your account by <a href='{callBack}'>clicking here</a>.");
+        }
+
+        protected Task SendPassword(string email, string password)
+        {
+            return _emailSender.SendEmailAsync(email, "Password",
+                $"Please use this Password: {password} to sign in to your account");
+            
         }
     }
 }
