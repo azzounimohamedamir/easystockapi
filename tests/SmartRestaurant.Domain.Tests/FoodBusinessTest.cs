@@ -14,9 +14,7 @@ namespace SmartRestaurant.Domain.Tests
         {
             _foodBusiness = new FoodBusiness
             {
-                NameArabic = "مطعمي",
-                NameFrench = "Mon FoodBusiness",
-                NameEnglish = "My FoodBusiness",
+                Name = "مطعمي",
                 Description = "Bienvenue chez mon FoodBusiness algerien",
                 HasCarParking = true,
                 IsHandicapFriendly = true,
@@ -32,7 +30,7 @@ namespace SmartRestaurant.Domain.Tests
         [Fact]
         public void FoodBusiness_Information_Valide_Test()
         {
-            Assert.Equal("Mon FoodBusiness", _foodBusiness.NameFrench);
+            Assert.Equal("Mon FoodBusiness", _foodBusiness.Name);
         }
 
         [Fact]

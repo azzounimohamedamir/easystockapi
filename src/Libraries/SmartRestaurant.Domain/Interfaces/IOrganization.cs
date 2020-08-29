@@ -5,9 +5,7 @@ namespace SmartRestaurant.Domain.Interfaces
 {
     public interface IOrganization
     {
-        public string NameArabic { get; set; }
-        public string NameFrench { get; set; }
-        public string NameEnglish { get; set; }
+        public string Name { get; set; }
         public int NRC { get; set; }
         public int NIF { get; set; }
         public int NIS { get; set; }

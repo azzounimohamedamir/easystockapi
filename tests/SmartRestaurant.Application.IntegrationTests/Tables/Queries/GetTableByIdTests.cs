@@ -20,7 +20,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Queries
             CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
-                NameEnglish = "fast food test"
+                Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);

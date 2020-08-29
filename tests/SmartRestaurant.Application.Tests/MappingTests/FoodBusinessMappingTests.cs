@@ -21,11 +21,11 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         {
             FoodBusinessDto foodBusinessDto = new FoodBusinessDto
             {
-                NameFrench = "Mon FoodBusiness"
+                Name = "Mon FoodBusiness"
             };
             Domain.Entities.FoodBusiness foodBusiness = _mapper.Map<Domain.Entities.FoodBusiness>(foodBusinessDto);
 
-            Assert.Equal("Mon FoodBusiness", foodBusiness.NameFrench);
+            Assert.Equal("Mon FoodBusiness", foodBusiness.Name);
         }
 
         [Fact]

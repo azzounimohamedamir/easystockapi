@@ -16,7 +16,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
             var foodBusinessId = Guid.NewGuid();
             await SendAsync(new CreateFoodBusinessCommand
             {
-                NameEnglish = "Taj mahal",
+                Name = "Taj mahal",
                 AverageRating = 12,
                 HasCarParking = true,
                 CmdId = foodBusinessId,
@@ -27,7 +27,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
             var updateFoodBusinessCommand = new UpdateFoodBusinessCommand
             {
                 CmdId = foodBusinessId,
-                NameEnglish = "Taj mahal Updated test"
+                Name = "Taj mahal Updated test"
 
             };
 

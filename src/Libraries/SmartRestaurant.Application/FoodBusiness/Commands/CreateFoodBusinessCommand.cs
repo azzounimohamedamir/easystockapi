@@ -8,13 +8,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     public class CreateFoodBusinessCommand : SmartRestaurantCommand
     {
 
-        public string NameArabic { get; set; }
-        public string NameFrench { get; set; }
-        public string NameEnglish { get; set; }
-        public string NameTurkish { get; set; }
-        public string NameChinese { get; set; }
-        public string NameRussian { get; set; }
-        public string NameSpanish { get; set; }
+        public string Name { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
         public string Description { get; set; }
@@ -40,22 +34,13 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     {
         public CreateFoodBusinessCommandValidator()
         {
-            RuleFor(v => v.NameEnglish)
-                .MaximumLength(200)
-                .Must(CheckName);
+            RuleFor(v => v.Name)
+                .MaximumLength(200).
+                NotEmpty();
             RuleFor(v => v.FoodBusinessAdministratorId).NotEmpty();
         }
 
-        private bool CheckName(CreateFoodBusinessCommand createFoodBusiness, string nameEnglish)
-        {
-            return !string.IsNullOrEmpty(nameEnglish) && !string.IsNullOrWhiteSpace(nameEnglish) || string.IsNullOrEmpty(nameEnglish) &&
-                (!string.IsNullOrEmpty(createFoodBusiness.NameFrench) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameFrench)
-                 || !string.IsNullOrEmpty(createFoodBusiness.NameArabic) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameArabic)
-                 || !string.IsNullOrEmpty(createFoodBusiness.NameSpanish) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameSpanish)
-                 || !string.IsNullOrEmpty(createFoodBusiness.NameTurkish) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameTurkish)
-                 || !string.IsNullOrEmpty(createFoodBusiness.NameChinese) && !string.IsNullOrWhiteSpace(createFoodBusiness.NameChinese)
-                );
-        }
+       
 
 
        

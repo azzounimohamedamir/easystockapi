@@ -16,7 +16,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             var foodBusinessId = Guid.NewGuid();
             await SendAsync(new CreateFoodBusinessCommand
             {
-                NameEnglish = "TobeGotByID For Test",
+                Name = "TobeGotByID For Test",
                 AverageRating = 12,
                 HasCarParking = true,
                 CmdId = foodBusinessId,
