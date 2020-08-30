@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -8,10 +10,13 @@ using SmartRestaurant.API.Models.UserModels;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Entities;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
+using UserWithRolesModel = SmartRestaurant.API.Models.UserModels.UserWithRolesModel;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -32,10 +37,18 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(int page, int pageSize)
+        public async Task<IActionResult> GetAll(int page, int pageSize)
         {
-            var users = _userManager.Users.GetPaged(page,pageSize);
-            return Ok(users);
+            var result = _userManager.Users.GetPaged(page,pageSize);
+            var userModels = new List<UserWithRolesModel>();
+            foreach (var user in result.Data)
+            {
+                var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+                userModels.Add(new UserWithRolesModel(user, roles.ToArray()));
+            }
+            var pagedResult = new PagedListDto<UserWithRolesModel>(result.CurrentPage, result.PageCount, result.PageSize, result.RowCount, userModels);
+
+            return Ok(pagedResult);
         }
 
         [HttpGet("{username}")]
