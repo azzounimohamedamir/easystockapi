@@ -10,12 +10,14 @@ using SmartRestaurant.API.Models.UserModels;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Entities;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using System.Xml.Schema;
+using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.Extensions.Caching.Memory;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.FoodBusiness.Queries;
 using UserWithRolesModel = SmartRestaurant.API.Models.UserModels.UserWithRolesModel;
 
 namespace SmartRestaurant.API.Controllers
@@ -40,14 +42,39 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> GetAll(int page, int pageSize)
         {
             var result = _userManager.Users.GetPaged(page,pageSize);
+            var pagedResult = await GetPagedListOfUsers(result).ConfigureAwait(false);
+
+            return Ok(pagedResult);
+        }
+
+        private async Task<PagedListDto<UserWithRolesModel>> GetPagedListOfUsers(PagedResultBase<ApplicationUser> result)
+        {
             var userModels = new List<UserWithRolesModel>();
             foreach (var user in result.Data)
             {
                 var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
                 userModels.Add(new UserWithRolesModel(user, roles.ToArray()));
             }
-            var pagedResult = new PagedListDto<UserWithRolesModel>(result.CurrentPage, result.PageCount, result.PageSize, result.RowCount, userModels);
 
+            var pagedResult = new PagedListDto<UserWithRolesModel>(result.CurrentPage, result.PageCount, result.PageSize,
+                result.RowCount, userModels);
+            return pagedResult;
+        }
+
+        [Route("/api/users/{foodBusinessId:Guid}")]
+        [Authorize(Roles = "FoodBusinessManager")]
+        [HttpGet]
+        public async Task<IActionResult> GetStaff([FromRoute] Guid foodBusinessId,int page, int pageSize)
+        {
+            if (foodBusinessId == Guid.Empty)
+                return BadRequest("FoodBusiness id shouldn't be null or empty");
+            var usersIds = await SendAsync(new GetUsersByFoodBusinessIdQuery
+            {
+                FoodBusinessId = foodBusinessId
+
+            }).ConfigureAwait(false);
+            var result = _userManager.Users.Where(x=> usersIds.Any(u=>x.Id== u)) .GetPaged(page, pageSize);
+            var pagedResult = await GetPagedListOfUsers(result).ConfigureAwait(false);
             return Ok(pagedResult);
         }
 
