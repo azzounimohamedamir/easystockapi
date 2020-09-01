@@ -12,15 +12,9 @@ namespace SmartRestaurant.Application.Common.Dtos
         {
             Images = new List<string>();
         }
-        [JsonProperty(PropertyName = "Id")]
+        [JsonProperty(PropertyName = "id")]
         public Guid FoodBusinessId { get; set; }
-        public string NameArabic { get; set; }
-        public string NameFrench { get; set; }
-        public string NameEnglish { get; set; }
-        public string NameTurkish { get; set; }
-        public string NameChinese { get; set; }
-        public string NameRussian { get; set; }
-        public string NameSpanish { get; set; }
+        public string Name { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
         public string Description { get; set; }

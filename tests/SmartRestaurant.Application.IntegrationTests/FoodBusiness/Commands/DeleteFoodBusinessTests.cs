@@ -15,7 +15,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
         {
             var createCommand = new CreateFoodBusinessCommand
             {
-                NameEnglish = "Taj mahal",
+                Name = "Taj mahal",
                 CmdId = Guid.NewGuid(),
                 FoodBusinessAdministratorId = "4"
             };

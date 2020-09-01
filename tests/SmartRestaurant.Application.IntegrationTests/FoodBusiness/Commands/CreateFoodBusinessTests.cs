@@ -34,9 +34,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 Description = "",
                 HasCarParking = true,
                 IsHandicapFriendly = true,
-                NameArabic = "تاج محل",
-                NameEnglish = "Taj mahal",
-                NameFrench = "Taj mahal",
+                Name = "Taj mahal",
                 OffersTakeout = true,
                 PhoneNumber = new Common.Dtos.ValueObjects.PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                 Tags = "",
@@ -51,9 +49,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
             validationResult.Should().Be(default(ValidationResult));
             item.Should().NotBeNull();
             item.FoodBusinessId.Should().Be(createFoodBusinessCommand.CmdId);
-            item.NameArabic.Should().BeEquivalentTo(createFoodBusinessCommand.NameArabic);
-            item.NameEnglish.Should().BeEquivalentTo(createFoodBusinessCommand.NameEnglish);
-            item.NameFrench.Should().BeEquivalentTo(createFoodBusinessCommand.NameFrench);
+            item.Name.Should().BeEquivalentTo(createFoodBusinessCommand.Name);
             item.Address.Should().BeEquivalentTo(createFoodBusinessCommand.Address);
         }
     }

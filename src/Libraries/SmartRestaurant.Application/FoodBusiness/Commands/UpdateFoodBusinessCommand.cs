@@ -7,13 +7,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
     public class UpdateFoodBusinessCommand : SmartRestaurantCommand
     {
-        public string NameArabic { get; set; }
-        public string NameFrench { get; set; }
-        public string NameEnglish { get; set; }
-        public string NameTurkish { get; set; }
-        public string NameChinese { get; set; }
-        public string NameRussian { get; set; }
-        public string NameSpanish { get; set; }
+        public string Name { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
         public string Description { get; set; }
@@ -41,22 +35,13 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             RuleFor(v => v.CmdId)
                 .NotNull();
 
-            RuleFor(v => v.NameEnglish)
+            RuleFor(v => v.Name)
                 .MaximumLength(200)
-                .Must(CheckName);
+                .NotEmpty();
 
         }
 
-        private bool CheckName(UpdateFoodBusinessCommand updateFoodBusinessCommand, string nameEnglish)
-        {
-            return !string.IsNullOrEmpty(nameEnglish) && !string.IsNullOrWhiteSpace(nameEnglish) || string.IsNullOrEmpty(nameEnglish) &&
-                (!string.IsNullOrEmpty(updateFoodBusinessCommand.NameFrench) && !string.IsNullOrWhiteSpace(updateFoodBusinessCommand.NameFrench)
-                 || !string.IsNullOrEmpty(updateFoodBusinessCommand.NameArabic) && !string.IsNullOrWhiteSpace(updateFoodBusinessCommand.NameArabic)
-                 || !string.IsNullOrEmpty(updateFoodBusinessCommand.NameSpanish) && !string.IsNullOrWhiteSpace(updateFoodBusinessCommand.NameSpanish)
-                 || !string.IsNullOrEmpty(updateFoodBusinessCommand.NameTurkish) && !string.IsNullOrWhiteSpace(updateFoodBusinessCommand.NameTurkish)
-                 || !string.IsNullOrEmpty(updateFoodBusinessCommand.NameChinese) && !string.IsNullOrWhiteSpace(updateFoodBusinessCommand.NameChinese)
-                );
-        }
+        
 
 
 

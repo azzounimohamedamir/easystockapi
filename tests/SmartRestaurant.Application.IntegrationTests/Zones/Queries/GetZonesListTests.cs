@@ -19,7 +19,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Queries
             CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
-                NameEnglish = "fast food test"
+                Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
             for (int i = 0; i < 5; i++)

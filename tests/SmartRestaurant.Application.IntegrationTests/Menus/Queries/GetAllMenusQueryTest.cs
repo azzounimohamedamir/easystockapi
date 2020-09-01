@@ -21,7 +21,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
             {
                 CmdId = foodBusinessId,
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
-                NameEnglish = "fast food test"
+                Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand).ConfigureAwait(false);
             for (int i = 0; i < 5; i++)

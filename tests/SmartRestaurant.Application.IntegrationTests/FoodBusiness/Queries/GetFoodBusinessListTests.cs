@@ -17,9 +17,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             {
                 await SendAsync(new CreateFoodBusinessCommand
                 {
-                    NameFrench = "tacos Dz  " + i.ToString(),
-                    NameEnglish = "tacos Dz  " + i.ToString(),
-                    NameArabic = "تاكوس دزاد" + i.ToString(),
+                    Name = "tacos Dz  " + i,
                     FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                     AverageRating = 12,
                     HasCarParking = true

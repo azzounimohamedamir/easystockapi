@@ -11,13 +11,8 @@ namespace SmartRestaurant.Domain.Entities
     {
 
         public Guid FoodBusinessId { get; set; }
-        public string NameArabic { get; set; }
-        public string NameFrench { get; set; }
-        public string NameEnglish { get; set; }
-        public string NameTurkish { get; set; }
-        public string NameChinese { get; set; }
-        public string NameRussian { get; set; }
-        public string NameSpanish { get; set; }
+
+        public string Name { get; set; }
         public int NRC { get; set; }
         public int NIF { get; set; }
         public int NIS { get; set; }
