@@ -8,6 +8,7 @@ using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.Extensions.Caching.Memory;
 using SmartRestaurant.Application.Common.Interfaces;
 
@@ -135,7 +136,7 @@ namespace SmartRestaurant.API.Controllers
             if (user == null)
                 return BadRequest("User wasn't found");
 
-            var result = await _userManager.ConfirmEmailAsync(user, token).ConfigureAwait(false);
+            var result = await _userManager.ConfirmEmailAsync(user,  token).ConfigureAwait(false);
             if (result.Succeeded)
             {
                 var item = _cache.Get<MemoryCachePasswordModel>(user.Email);
