@@ -16,7 +16,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
     public class FoodBusinessQueriesHandler :
         IRequestHandler<GetFoodBusinessListQuery, PagedListDto<FoodBusinessDto>>,
         IRequestHandler<GetFoodBusinessByIdQuery, FoodBusinessDto>,
-        IRequestHandler<GetFoodBusinessListByAdmin, List<FoodBusinessDto>>
+        IRequestHandler<GetFoodBusinessListByAdmin, List<FoodBusinessDto>>,
+        IRequestHandler<GetUsersByFoodBusinessIdQuery, string []>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -73,5 +74,10 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
                 foodBusinessDto.Images.AddRange(images.Select(Convert.ToBase64String));
         }
 
+        public Task<string[]> Handle(GetUsersByFoodBusinessIdQuery request, CancellationToken cancellationToken)
+        {
+            return _context.FoodBusinessUsers.Where(x => x.FoodBusinessId == request.FoodBusinessId)
+                .Select(x => x.ApplicationUserId).ToArrayAsync(cancellationToken: cancellationToken);
+        }
     }
 }
