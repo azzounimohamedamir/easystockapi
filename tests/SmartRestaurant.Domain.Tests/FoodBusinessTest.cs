@@ -14,7 +14,7 @@ namespace SmartRestaurant.Domain.Tests
         {
             _foodBusiness = new FoodBusiness
             {
-                Name = "مطعمي",
+                Name = "Mon FoodBusiness",
                 Description = "Bienvenue chez mon FoodBusiness algerien",
                 HasCarParking = true,
                 IsHandicapFriendly = true,
