@@ -112,20 +112,17 @@ namespace SmartRestaurant.API.Controllers
             IdentityResult result;
             ApplicationUser user = new ApplicationUser(model.User.FullName, model.User.Email, model.User.UserName);
             if (string.IsNullOrEmpty(model.Password))
-                result = await _userManager.CreateAsync(user).ConfigureAwait(false);
-            else
-            {
-                result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
-                _cache.GetOrCreate(user.Email,  entry =>
-                {
-                    entry.SlidingExpiration = TimeSpan.FromDays(1);
-                    return new MemoryCachePasswordModel {Email = user.Email, Password = model.Password};
-                });
-            }
+               model.Password=  RandomPasswordGenerator.GeneratePassword(true, true, true, true, 10);
 
+            result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
             foreach (var role in model.Roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
             if (result.Succeeded)
             {
+                _cache.GetOrCreate(user.Email, entry =>
+                {
+                    entry.SlidingExpiration = TimeSpan.FromDays(1);
+                    return new MemoryCachePasswordModel { Email = user.Email, Password = model.Password };
+                });
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
                 await SendEmailConfirmation(user, token).ConfigureAwait(false);
             }
