@@ -10,8 +10,6 @@ using SmartRestaurant.API.Models.UserModels;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Entities;
 using System.Threading.Tasks;
-using System.Xml.Schema;
-using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.Extensions.Caching.Memory;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
@@ -77,11 +75,11 @@ namespace SmartRestaurant.API.Controllers
             var pagedResult = await GetPagedListOfUsers(result).ConfigureAwait(false);
             return Ok(pagedResult);
         }
-
-        [HttpGet("{username}")]
-        public async Task<IActionResult> GetById(string username)
+        [Route("/api/users/{userId}")]
+        [HttpGet()]
+        public async Task<IActionResult> GetById([FromRoute] string userId)
         {
-            var user = await _userManager.FindByNameAsync(username).ConfigureAwait(false);
+            var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
             if (user == null)
             {
                 return Ok(HttpResponseHelper.Respond(ResponseType.NotFound));

@@ -128,7 +128,7 @@ namespace SmartRestaurant.API.Controllers
             }
             return Ok(HttpResponseHelper.Respond(ResponseType.BadRequest));
         }
-        [Route ("/api/confirmEmail/{userId}")]
+        [Route ("/api/accounts/confirmEmail/{userId}")]
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail([FromRoute]string userId, string token)
         {
