@@ -30,8 +30,8 @@
     steps:
      - checkout: none
      - task: UseDotNet@2
-        inputs:
-          version: '3.1.410'
+       inputs:
+         version: '3.1.410'
      - task: DotNetCoreCLI@2
        displayName: Install dotnet-ef
        inputs:
