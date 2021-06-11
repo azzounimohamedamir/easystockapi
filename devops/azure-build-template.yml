@@ -5,9 +5,6 @@
   jobs:
   - job: Build_the_API
     steps:
-      - task: UseDotNet@2
-        inputs:
-          version: '3.1.410'
       - script: |
          cp devops/appsettings.json ${{ parameters.WebProjectName }}
          cd ${{ parameters.WebProjectName }}
@@ -29,21 +26,6 @@
   - job: Database_Migration
     steps:
      - checkout: none
-     - task: UseDotNet@2
-       inputs:
-         version: '3.1.410'
-     - task: DotNetCoreCLI@2
-       displayName: Install dotnet-ef
-       inputs:
-        command: 'custom'
-        custom: 'tool'
-        arguments: 'install --global dotnet-ef'
-     - task: DotNetCoreCLI@2
-       displayName: Check dotnet-ef version
-       inputs:
-        command: 'custom'
-        custom: 'ef'
-        arguments: '--version'
      - script: |
          cd ${{ parameters.WebProjectName }}
          dotnet ef database update --context:ApplicationDbContext
