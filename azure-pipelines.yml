@@ -2,7 +2,7 @@ stages:
 - stage: Build_On_Test_Evn
   condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
   pool: 
-    name: test-SmartRestaurant-agent
+    name: test-SmartRestaurant-pool
     workspace:
       clean: all
   jobs:
@@ -12,7 +12,7 @@ stages:
   dependsOn: Build_On_Test_Evn
   condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
   pool: 
-    name: test-SmartRestaurant-agent
+    name: test-SmartRestaurant-pool
     workspace:
       clean: none
   jobs:
