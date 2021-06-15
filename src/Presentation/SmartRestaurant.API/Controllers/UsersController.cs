@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models.UserModels;
-using SmartRestaurant.Application.Common.Enums;
-using SmartRestaurant.Domain.Entities;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.FoodBusiness.Queries;
-using UserWithRolesModel = SmartRestaurant.API.Models.UserModels.UserWithRolesModel;
+using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -25,11 +24,12 @@ namespace SmartRestaurant.API.Controllers
     [ApiController]
     public class UsersController : ApiController
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IMapper _mapper;
         private readonly IMemoryCache _cache;
+        private readonly IMapper _mapper;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UsersController(UserManager<ApplicationUser> userManager, IMapper mapper,IMemoryCache cache, IEmailSender emailSender) : base(emailSender)
+        public UsersController(UserManager<ApplicationUser> userManager, IMapper mapper, IMemoryCache cache,
+            IEmailSender emailSender) : base(emailSender)
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -39,13 +39,14 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll(int page, int pageSize)
         {
-            var result = _userManager.Users.GetPaged(page,pageSize);
+            var result = _userManager.Users.GetPaged(page, pageSize);
             var pagedResult = await GetPagedListOfUsers(result).ConfigureAwait(false);
 
             return Ok(pagedResult);
         }
 
-        private async Task<PagedListDto<UserWithRolesModel>> GetPagedListOfUsers(PagedResultBase<ApplicationUser> result)
+        private async Task<PagedListDto<UserWithRolesModel>> GetPagedListOfUsers(
+            PagedResultBase<ApplicationUser> result)
         {
             var userModels = new List<UserWithRolesModel>();
             foreach (var user in result.Data)
@@ -54,7 +55,8 @@ namespace SmartRestaurant.API.Controllers
                 userModels.Add(new UserWithRolesModel(user, roles.ToArray()));
             }
 
-            var pagedResult = new PagedListDto<UserWithRolesModel>(result.CurrentPage, result.PageCount, result.PageSize,
+            var pagedResult = new PagedListDto<UserWithRolesModel>(result.CurrentPage, result.PageCount,
+                result.PageSize,
                 result.RowCount, userModels);
             return pagedResult;
         }
@@ -62,28 +64,25 @@ namespace SmartRestaurant.API.Controllers
         [Route("/api/users/{foodBusinessId:Guid}")]
         [Authorize(Roles = "FoodBusinessManager")]
         [HttpGet]
-        public async Task<IActionResult> GetStaff([FromRoute] Guid foodBusinessId,int page, int pageSize)
+        public async Task<IActionResult> GetStaff([FromRoute] Guid foodBusinessId, int page, int pageSize)
         {
             if (foodBusinessId == Guid.Empty)
                 return BadRequest("FoodBusiness id shouldn't be null or empty");
             var usersIds = await SendAsync(new GetUsersByFoodBusinessIdQuery
             {
                 FoodBusinessId = foodBusinessId
-
             }).ConfigureAwait(false);
-            var result = _userManager.Users.Where(x=> usersIds.Any(u=>x.Id== u)) .GetPaged(page, pageSize);
+            var result = _userManager.Users.Where(x => usersIds.Any(u => x.Id == u)).GetPaged(page, pageSize);
             var pagedResult = await GetPagedListOfUsers(result).ConfigureAwait(false);
             return Ok(pagedResult);
         }
+
         [Route("/api/users/{userId}")]
-        [HttpGet()]
+        [HttpGet]
         public async Task<IActionResult> GetById([FromRoute] string userId)
         {
             var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
-            if (user == null)
-            {
-                return Ok(HttpResponseHelper.Respond(ResponseType.NotFound));
-            }
+            if (user == null) return Ok(HttpResponseHelper.Respond(ResponseType.NotFound));
 
             return Ok(user);
         }
@@ -92,13 +91,14 @@ namespace SmartRestaurant.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ApplicationUserModel model)
         {
-            ApplicationUser user = new ApplicationUser(model.FullName, model.Email, model.UserName);
+            var user = new ApplicationUser(model.FullName, model.Email, model.UserName);
             var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (result.Succeeded)
             {
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
                 await SendEmailConfirmation(user, token).ConfigureAwait(false);
             }
+
             return CheckResultStatus(result);
         }
 
@@ -108,9 +108,9 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> CreateUserWithRoles(CreateUserWithRolesModel model)
         {
             IdentityResult result;
-            ApplicationUser user = new ApplicationUser(model.User.FullName, model.User.Email, model.User.UserName);
+            var user = new ApplicationUser(model.User.FullName, model.User.Email, model.User.UserName);
             if (string.IsNullOrEmpty(model.Password))
-               model.Password=  RandomPasswordGenerator.GeneratePassword(true, true, true, true, 10);
+                model.Password = RandomPasswordGenerator.GeneratePassword(true, true, true, true, 10);
 
             result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
             foreach (var role in model.Roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
@@ -119,11 +119,12 @@ namespace SmartRestaurant.API.Controllers
                 _cache.GetOrCreate(user.Email, entry =>
                 {
                     entry.SlidingExpiration = TimeSpan.FromDays(1);
-                    return new MemoryCachePasswordModel { Email = user.Email, Password = model.Password };
+                    return new MemoryCachePasswordModel {Email = user.Email, Password = model.Password};
                 });
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
                 await SendEmailConfirmation(user, token).ConfigureAwait(false);
             }
+
             return CheckResultStatus(result);
         }
 
@@ -154,7 +155,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpPut("disable")]
         public async Task<IActionResult> Disable(string Id)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(Id);
+            var user = await _userManager.FindByIdAsync(Id);
             user.IsActive = false;
             var result = await _userManager.UpdateAsync(user);
             return CheckResultStatus(result);
@@ -164,7 +165,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpPut("enable")]
         public async Task<IActionResult> Enable(string Id)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(Id);
+            var user = await _userManager.FindByIdAsync(Id);
             user.IsActive = true;
             var result = await _userManager.UpdateAsync(user);
             return CheckResultStatus(result);
@@ -172,16 +173,9 @@ namespace SmartRestaurant.API.Controllers
 
         private IActionResult CheckResultStatus(IdentityResult result)
         {
-            if (result.Succeeded)
-            {
-                return Ok(HttpResponseHelper.Respond(ResponseType.OK));
-            }
+            if (result.Succeeded) return Ok(HttpResponseHelper.Respond(ResponseType.OK));
 
             return Ok(HttpResponseHelper.Respond(ResponseType.InternalServerError));
         }
-
-        
-       
-
     }
 }

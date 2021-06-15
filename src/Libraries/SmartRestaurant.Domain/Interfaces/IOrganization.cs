@@ -1,5 +1,4 @@
-﻿using SmartRestaurant.Domain.Entities.Globalisation;
-using SmartRestaurant.Domain.ValueObjects;
+﻿using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Domain.Interfaces
 {

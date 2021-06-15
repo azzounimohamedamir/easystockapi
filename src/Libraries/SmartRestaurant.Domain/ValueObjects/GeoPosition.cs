@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
 using SmartRestaurant.Domain.Common;
-using System.Collections.Generic;
 
 namespace SmartRestaurant.Domain.ValueObjects
 {
-    [Owned]
     public class GeoPosition : ValueObject
     {
         public string Latitude { get; set; }

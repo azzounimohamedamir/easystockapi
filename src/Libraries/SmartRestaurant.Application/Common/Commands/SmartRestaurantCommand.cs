@@ -1,6 +1,6 @@
-﻿using FluentValidation.Results;
+﻿using System;
+using FluentValidation.Results;
 using MediatR;
-using System;
 
 namespace SmartRestaurant.Application.Common.Commands
 {
@@ -10,7 +10,7 @@ namespace SmartRestaurant.Application.Common.Commands
         {
             CmdId = Guid.NewGuid();
         }
-        public Guid CmdId { get; set; }
 
+        public Guid CmdId { get; set; }
     }
 }

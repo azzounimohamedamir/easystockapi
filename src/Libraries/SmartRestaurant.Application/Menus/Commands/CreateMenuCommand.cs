@@ -1,6 +1,6 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using System;
 
 namespace SmartRestaurant.Application.Menus.Commands
 {
@@ -17,7 +17,6 @@ namespace SmartRestaurant.Application.Menus.Commands
         {
             RuleFor(m => m.Name).NotEmpty().MaximumLength(200);
             RuleFor(m => m.FoodBusinessId).NotEmpty().Must(id => id != Guid.Empty);
-
         }
     }
 }

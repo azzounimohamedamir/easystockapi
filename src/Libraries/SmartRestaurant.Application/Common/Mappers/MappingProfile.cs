@@ -8,7 +8,6 @@ using SmartRestaurant.Application.Sections.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Entities.Globalisation;
 using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Application.Common.Mappers
@@ -39,18 +38,17 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<TableDto, Table>().ReverseMap();
             CreateMap<Table, CreateTableCommand>()
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.TableId))
-                .ForMember(x => x.TableState, o => o.MapFrom(p => (short)p.TableState))
+                .ForMember(x => x.TableState, o => o.MapFrom(p => (short) p.TableState))
                 .ReverseMap();
             CreateMap<Menu, CreateMenuCommand>()
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.MenuId))
-                .ForMember(x => x.MenuState, o => o.MapFrom(p => (int)p.MenuState))
+                .ForMember(x => x.MenuState, o => o.MapFrom(p => (int) p.MenuState))
                 .ReverseMap();
             CreateMap<Menu, MenuDto>().ReverseMap();
             CreateMap<Section, SectionDto>().ReverseMap();
             CreateMap<Section, CreateSectionCommand>()
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.SectionId))
                 .ReverseMap();
-
         }
     }
 }

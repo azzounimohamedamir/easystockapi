@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -6,9 +9,6 @@ using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Tables.Commands
 {
@@ -25,13 +25,15 @@ namespace SmartRestaurant.Application.Tables.Commands
             _context = context;
             _mapper = mapper;
         }
+
         public async Task<ValidationResult> Handle(CreateTableCommand request, CancellationToken cancellationToken)
         {
             var validator = new CreateTableCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
             var table = await _context.Tables
-                .FirstOrDefaultAsync(x => x.ZoneId == request.ZoneId && x.TableNumber == request.TableNumber, cancellationToken: cancellationToken)
+                .FirstOrDefaultAsync(x => x.ZoneId == request.ZoneId && x.TableNumber == request.TableNumber,
+                    cancellationToken)
                 .ConfigureAwait(false);
             if (table != null)
                 throw new InvalidOperationException("There is a table with this number in the database.");
@@ -39,6 +41,16 @@ namespace SmartRestaurant.Application.Tables.Commands
             _context.Tables.Add(table);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
+        }
+
+        public async Task<Unit> Handle(DeleteTableCommand request, CancellationToken cancellationToken)
+        {
+            var table = await _context.Tables.FindAsync(request.TableId).ConfigureAwait(false);
+            if (table == null)
+                throw new NotFoundException(nameof(Table), request.TableId);
+            _context.Tables.Remove(table);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return Unit.Value;
         }
 
         public async Task<ValidationResult> Handle(UpdateTableCommand request, CancellationToken cancellationToken)
@@ -52,19 +64,9 @@ namespace SmartRestaurant.Application.Tables.Commands
             table.ZoneId = request.ZoneId;
             table.TableNumber = request.TableNumber;
             table.Capacity = request.Capacity;
-            table.TableState = (TableState)request.TableState;
+            table.TableState = (TableState) request.TableState;
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
-
-        }
-        public async Task<Unit> Handle(DeleteTableCommand request, CancellationToken cancellationToken)
-        {
-            var table = await _context.Tables.FindAsync(request.TableId).ConfigureAwait(false);
-            if (table == null)
-                throw new NotFoundException(nameof(Table), request.TableId);
-            _context.Tables.Remove(table);
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            return Unit.Value;
         }
     }
 }

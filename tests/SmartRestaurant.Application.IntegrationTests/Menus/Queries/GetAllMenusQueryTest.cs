@@ -10,6 +10,7 @@ using SmartRestaurant.Domain.Enums;
 namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
 {
     using static Testing;
+
     [TestFixture]
     public class GetAllMenusQueryTest : TestBase
     {
@@ -17,24 +18,21 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
         public async Task ShouldGetAllMenus_ByFoodBusinessId()
         {
             var foodBusinessId = Guid.NewGuid();
-            CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
+            var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 CmdId = foodBusinessId,
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand).ConfigureAwait(false);
-            for (int i = 0; i < 5; i++)
-            {
+            for (var i = 0; i < 5; i++)
                 await SendAsync(new CreateMenuCommand
                 {
                     Name = "tacos Dz  " + i,
-                    MenuState =(int) MenuState.Enabled,
+                    MenuState = (int) MenuState.Enabled,
                     FoodBusinessId = foodBusinessId
-                    
                 }).ConfigureAwait(false);
-            }
-            var query = new GetMenusListQuery() {FoodBusinessId = foodBusinessId , Page = 1, PageSize = 5};
+            var query = new GetMenusListQuery {FoodBusinessId = foodBusinessId, Page = 1, PageSize = 5};
             var result = await SendAsync(query);
 
             result.Data.Should().HaveCount(5);

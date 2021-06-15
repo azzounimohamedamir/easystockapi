@@ -1,6 +1,6 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using System;
 
 namespace SmartRestaurant.Application.Zones.Commands
 {
@@ -9,6 +9,7 @@ namespace SmartRestaurant.Application.Zones.Commands
         public string ZoneTitle { get; set; }
         public Guid FoodBusinessId { get; set; }
     }
+
     public class UpdateZoneCommandValidator : AbstractValidator<UpdateZoneCommand>
     {
         public UpdateZoneCommandValidator()

@@ -15,10 +15,11 @@ namespace SmartRestaurant.API.Controllers
         [Route("{menuId:Guid}/sections/")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
-        public Task<PagedListDto<SectionDto>> Get([FromRoute]Guid menuId, int page, int pageSize)
+        public Task<PagedListDto<SectionDto>> Get([FromRoute] Guid menuId, int page, int pageSize)
         {
-            return SendAsync(new GetSectionsListQuery { MenuId = menuId, Page = page, PageSize = pageSize });
+            return SendAsync(new GetSectionsListQuery {MenuId = menuId, Page = page, PageSize = pageSize});
         }
+
         [Route("{menuId:Guid}/sections/")]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]
@@ -29,24 +30,27 @@ namespace SmartRestaurant.API.Controllers
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
+
         [Route("{menuId:Guid}/sections/{sectionId:Guid}")]
         [HttpPut]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Update([FromRoute] Guid menuId, [FromRoute] Guid sectionId, UpdateSectionCommand command)
+        public async Task<ActionResult> Update([FromRoute] Guid menuId, [FromRoute] Guid sectionId,
+            UpdateSectionCommand command)
         {
-            if (menuId != command.MenuId || sectionId!= command.CmdId)
+            if (menuId != command.MenuId || sectionId != command.CmdId)
                 return BadRequest();
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
+
         [Route("{menuId:Guid}/sections/{sectionId:Guid}")]
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessManager")]
         public async Task<ActionResult> Delete([FromRoute] Guid menuId, [FromRoute] Guid sectionId)
         {
-            if (menuId == Guid.Empty || sectionId ==Guid.Empty)
-                return BadRequest(); 
-            await SendAsync(new DeleteSectionCommand{SectionId = sectionId}).ConfigureAwait(false);
+            if (menuId == Guid.Empty || sectionId == Guid.Empty)
+                return BadRequest();
+            await SendAsync(new DeleteSectionCommand {SectionId = sectionId}).ConfigureAwait(false);
             return Ok("Successful");
         }
     }

@@ -1,8 +1,8 @@
-﻿using SmartRestaurant.Domain.Common;
+﻿using System;
+using SmartRestaurant.Domain.Common;
 using SmartRestaurant.Domain.ValueObjects;
-using System;
 
-namespace SmartRestaurant.Domain.Entities.Glabalisation
+namespace SmartRestaurant.Domain.Entities.Globalisation
 {
     public class City : AuditableEntity
     {

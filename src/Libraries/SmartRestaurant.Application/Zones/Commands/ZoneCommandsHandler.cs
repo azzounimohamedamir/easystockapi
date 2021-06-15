@@ -1,14 +1,14 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Zones.Commands
 {
@@ -36,14 +36,14 @@ namespace SmartRestaurant.Application.Zones.Commands
             var foodBusiness = await _context.FoodBusinesses
                 .Where(x => x.FoodBusinessId == request.FoodBusinessId)
                 .Select(x => x.FoodBusinessId)
-                .FirstOrDefaultAsync(cancellationToken: cancellationToken)
+                .FirstOrDefaultAsync(cancellationToken)
                 .ConfigureAwait(false);
             if (foodBusiness == Guid.Empty)
                 throw new NotFoundException(nameof(Domain.Entities.FoodBusiness), request.FoodBusinessId);
             var zone = await _context.Zones
                 .FirstOrDefaultAsync(
                     x => x.ZoneTitle == request.ZoneTitle && x.FoodBusinessId == request.FoodBusinessId,
-                    cancellationToken: cancellationToken)
+                    cancellationToken)
                 .ConfigureAwait(false);
             // check if there is no zone in db has the same name 
             if (zone != null)
@@ -55,6 +55,17 @@ namespace SmartRestaurant.Application.Zones.Commands
 
             return default;
         }
+
+        public async Task<Unit> Handle(DeleteZoneCommand request, CancellationToken cancellationToken)
+        {
+            var entity = await _context.Zones.FindAsync(request.ZoneId).ConfigureAwait(false);
+            if (entity == null)
+                throw new NotFoundException(nameof(Zone), request.ZoneId);
+            _context.Zones.Remove(entity);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return Unit.Value;
+        }
+
         public async Task<ValidationResult> Handle(UpdateZoneCommand request, CancellationToken cancellationToken)
         {
             var validator = new UpdateZoneCommandValidator();
@@ -68,15 +79,5 @@ namespace SmartRestaurant.Application.Zones.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
-        public async Task<Unit> Handle(DeleteZoneCommand request, CancellationToken cancellationToken)
-        {
-            var entity = await _context.Zones.FindAsync(request.ZoneId).ConfigureAwait(false);
-            if (entity == null)
-                throw new NotFoundException(nameof(Zone), request.ZoneId);
-            _context.Zones.Remove(entity);
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            return Unit.Value;
-        }
-
     }
 }

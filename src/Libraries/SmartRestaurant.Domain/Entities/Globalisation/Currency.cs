@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SmartRestaurant.Domain.Entities.Glabalisation
+namespace SmartRestaurant.Domain.Entities.Globalisation
 {
     public class Currency
     {

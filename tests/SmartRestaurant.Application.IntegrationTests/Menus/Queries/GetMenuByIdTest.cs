@@ -9,17 +9,17 @@ using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
 {
-    
     using static Testing;
+
     [TestFixture]
-    public class GetMenuByIdTest  : TestBase
+    public class GetMenuByIdTest : TestBase
     {
         [Test]
         public async Task ShouldGetMenu_ById()
         {
             var foodBusinessId = Guid.NewGuid();
 
-            CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
+            var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 CmdId = foodBusinessId,
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
@@ -30,12 +30,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
             await SendAsync(new CreateMenuCommand
             {
                 CmdId = cmdId,
-                Name = "tacos Dz " ,
-                MenuState = (int)MenuState.Enabled,
+                Name = "tacos Dz ",
+                MenuState = (int) MenuState.Enabled,
                 FoodBusinessId = foodBusinessId
-
             }).ConfigureAwait(false);
-            var query  =await SendAsync(new GetMenuByIdQuery() {MenuId = cmdId});
+            var query = await SendAsync(new GetMenuByIdQuery {MenuId = cmdId});
             query.Should().NotBeNull();
             query.Name.Should().Be("tacos Dz ");
         }

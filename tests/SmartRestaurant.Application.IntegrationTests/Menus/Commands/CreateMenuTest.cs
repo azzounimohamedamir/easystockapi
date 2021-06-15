@@ -1,23 +1,24 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Threading.Tasks;
+using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
-using System;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
 {
     using static Testing;
+
     [TestFixture]
     public class CreateMenuTest : TestBase
     {
         [Test]
         public async Task CreateMenu_ShouldSaveToDB()
         {
-            CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
+            var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"
@@ -28,7 +29,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
             {
                 CmdId = cmdId,
                 Name = "test menu",
-                MenuState = (int)MenuState.Enabled,
+                MenuState = (int) MenuState.Enabled,
                 FoodBusinessId = createFoodBusinessCommand.CmdId
             });
             var item = await FindAsync<Menu>(cmdId);
@@ -37,10 +38,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
             item.MenuState.Should().Be(MenuState.Enabled);
             item.Name.Should().Be("test menu");
         }
+
         [Test]
         public async Task CreateMenuWitheEnabledState_ShouldDisableOtherMenus()
         {
-            CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
+            var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"
@@ -50,19 +52,19 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
             await SendAsync(new CreateMenuCommand
             {
                 Name = "test menu1",
-                MenuState = (int)MenuState.Enabled,
+                MenuState = (int) MenuState.Enabled,
                 FoodBusinessId = createFoodBusinessCommand.CmdId
             });
             await SendAsync(new CreateMenuCommand
             {
                 Name = "test menu2",
-                MenuState = (int)MenuState.Enabled,
+                MenuState = (int) MenuState.Enabled,
                 FoodBusinessId = createFoodBusinessCommand.CmdId
             });
-            var items = Where<Menu>(menu => menu.MenuState == MenuState.Enabled && menu.FoodBusinessId == createFoodBusinessCommand.CmdId);
+            var items = Where<Menu>(menu =>
+                menu.MenuState == MenuState.Enabled && menu.FoodBusinessId == createFoodBusinessCommand.CmdId);
 
             items.Count.Should().Be(1);
-
         }
     }
 }

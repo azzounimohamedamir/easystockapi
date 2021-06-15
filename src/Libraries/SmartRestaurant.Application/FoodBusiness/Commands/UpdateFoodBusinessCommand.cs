@@ -38,13 +38,6 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             RuleFor(v => v.Name)
                 .MaximumLength(200)
                 .NotEmpty();
-
         }
-
-        
-
-
-
-
     }
 }

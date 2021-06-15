@@ -1,8 +1,8 @@
-﻿using SmartRestaurant.Domain.ValueObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using SmartRestaurant.Domain.ValueObjects;
 
-namespace SmartRestaurant.Domain.Entities.Glabalisation
+namespace SmartRestaurant.Domain.Entities.Globalisation
 {
     public class Language
     {

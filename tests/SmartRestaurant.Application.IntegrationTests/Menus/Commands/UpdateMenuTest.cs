@@ -11,13 +11,14 @@ using SmartRestaurant.Domain.Enums;
 namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
 {
     using static Testing;
+
     [TestFixture]
     public class UpdateMenuTest
     {
         [Test]
         public async Task CreateMenu_ShouldSaveToDB()
         {
-            CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
+            var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"
@@ -28,14 +29,14 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
             {
                 CmdId = cmdId,
                 Name = "test menu",
-                MenuState = (int)MenuState.Enabled,
+                MenuState = (int) MenuState.Enabled,
                 FoodBusinessId = createFoodBusinessCommand.CmdId
             });
-            var validationResult = await SendAsync(new UpdateMenuCommand()
+            var validationResult = await SendAsync(new UpdateMenuCommand
             {
                 CmdId = cmdId,
                 Name = "test menu2",
-                MenuState = (int)MenuState.Disabled,
+                MenuState = (int) MenuState.Disabled,
                 FoodBusinessId = createFoodBusinessCommand.CmdId
             });
 

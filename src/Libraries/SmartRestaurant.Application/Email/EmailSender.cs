@@ -35,7 +35,7 @@ namespace SmartRestaurant.Application.Email
             // Disable click tracking.
             // See https://sendgrid.com/docs/User_Guide/Settings/tracking.html
             msg.SetClickTracking(false, false);
-            var response =  client.SendEmailAsync(msg);
+            var response = client.SendEmailAsync(msg);
             return response;
         }
     }

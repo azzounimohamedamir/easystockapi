@@ -11,13 +11,14 @@ using SmartRestaurant.Domain.Enums;
 namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
 {
     using static Testing;
+
     [TestFixture]
     public class GetAllSectionsTest : TestBase
     {
         [Test]
         public async Task ShouldGetAllSections_ByFoodMenuId()
         {
-            CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
+            var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"
@@ -28,19 +29,16 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
             {
                 CmdId = cmdId,
                 Name = "test menu",
-                MenuState = (int)MenuState.Enabled,
+                MenuState = (int) MenuState.Enabled,
                 FoodBusinessId = createFoodBusinessCommand.CmdId
             });
-            for (int i = 0; i < 5; i++)
-            {
+            for (var i = 0; i < 5; i++)
                 await SendAsync(new CreateSectionCommand
                 {
                     Name = "section test " + i,
                     MenuId = cmdId
-
                 }).ConfigureAwait(false);
-            }
-            var query = new GetSectionsListQuery() { MenuId = cmdId, Page = 1, PageSize = 5 };
+            var query = new GetSectionsListQuery {MenuId = cmdId, Page = 1, PageSize = 5};
             var result = await SendAsync(query);
 
             result.Data.Should().HaveCount(5);

@@ -1,17 +1,17 @@
-﻿using AutoMapper;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
     public class FoodBusinessCommandHandler :
-    IRequestHandler<CreateFoodBusinessCommand, ValidationResult>,
-    IRequestHandler<UpdateFoodBusinessCommand, ValidationResult>,
-    IRequestHandler<DeleteFoodBusinessCommand>
+        IRequestHandler<CreateFoodBusinessCommand, ValidationResult>,
+        IRequestHandler<UpdateFoodBusinessCommand, ValidationResult>,
+        IRequestHandler<DeleteFoodBusinessCommand>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -22,7 +22,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             _mapper = mapper;
         }
 
-        public async Task<ValidationResult> Handle(CreateFoodBusinessCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(CreateFoodBusinessCommand request,
+            CancellationToken cancellationToken)
         {
             var validator = new CreateFoodBusinessCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
@@ -45,7 +46,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             return Unit.Value;
         }
 
-        public async Task<ValidationResult> Handle(UpdateFoodBusinessCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(UpdateFoodBusinessCommand request,
+            CancellationToken cancellationToken)
         {
             var entity = await _context.FoodBusinesses.FindAsync(request.CmdId).ConfigureAwait(false);
 
@@ -60,6 +62,5 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
 
             return default;
         }
-
     }
 }

@@ -1,29 +1,30 @@
-﻿using FluentAssertions;
+﻿using System.Threading.Tasks;
+using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
+using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Domain.Enums;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
 {
     using static Testing;
+
     [TestFixture]
     public class CreateFoodBusinessTests : TestBase
     {
         [Test]
         public async Task CreateFoodBusiness_ShouldSaveToDB()
         {
-            CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
+            var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
-
                 AcceptsCreditCards = true,
                 AcceptTakeout = true,
-                Address = new Common.Dtos.ValueObjects.AddressDto
+                Address = new AddressDto
                 {
                     City = "Algiers",
                     Country = "Algeria",
-                    GeoPosition = new Common.Dtos.ValueObjects.GeoPositionDto()
+                    GeoPosition = new GeoPositionDto
                     {
                         Latitude = "0",
                         Longitude = "0"
@@ -36,12 +37,11 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 IsHandicapFriendly = true,
                 Name = "Taj mahal",
                 OffersTakeout = true,
-                PhoneNumber = new Common.Dtos.ValueObjects.PhoneNumberDto { CountryCode = 213, Number = 670217536 },
+                PhoneNumber = new PhoneNumberDto {CountryCode = 213, Number = 670217536},
                 Tags = "",
                 Website = "",
                 FoodBusinessAdministratorId = "4",
                 FoodBusinessCategory = FoodBusinessCategory.Restaurant
-
             };
             var validationResult = await SendAsync(createFoodBusinessCommand);
 

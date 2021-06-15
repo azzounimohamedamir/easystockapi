@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Domain.Entities;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.Common.Interfaces
 {

@@ -1,23 +1,24 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Threading.Tasks;
+using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
-using System;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Tables.Commands
 {
     using static Testing;
+
     [TestFixture]
     public class CreateTableTest : TestBase
     {
         [Test]
         public async Task CreateTable_ShouldSaveToDB()
         {
-            CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
+            var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"

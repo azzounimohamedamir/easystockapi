@@ -1,10 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Images.Commands
 {
@@ -18,9 +18,11 @@ namespace SmartRestaurant.Application.Images.Commands
             _context = context;
             _mapper = mapper;
         }
+
         public async Task<Unit> Handle(CreateListImagesCommand request, CancellationToken cancellationToken)
         {
-            foreach (var entity in request.ImageCommands.Select(createFoodBusinessImageCommand => _mapper.Map<FoodBusinessImage>(createFoodBusinessImageCommand)))
+            foreach (var entity in request.ImageCommands.Select(createFoodBusinessImageCommand =>
+                _mapper.Map<FoodBusinessImage>(createFoodBusinessImageCommand)))
             {
                 entity.EntityId = request.EntityId;
                 _context.FoodBusinessImages.Add(entity);
