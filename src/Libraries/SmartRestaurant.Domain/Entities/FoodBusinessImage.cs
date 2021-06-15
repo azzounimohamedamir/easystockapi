@@ -1,5 +1,5 @@
-﻿using SmartRestaurant.Domain.Common;
-using System;
+﻿using System;
+using SmartRestaurant.Domain.Common;
 
 namespace SmartRestaurant.Domain.Entities
 {
@@ -12,4 +12,3 @@ namespace SmartRestaurant.Domain.Entities
         public bool IsLogo { get; set; }
     }
 }
-

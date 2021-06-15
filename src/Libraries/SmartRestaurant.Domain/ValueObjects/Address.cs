@@ -1,11 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
 using SmartRestaurant.Domain.Common;
-using SmartRestaurant.Domain.ValueObjects;
-using System.Collections.Generic;
 
-namespace SmartRestaurant.Domain.Entities.Globalisation
+namespace SmartRestaurant.Domain.ValueObjects
 {
-    [Owned]
     public class Address : ValueObject
     {
         public string StreetAddress { get; set; }
@@ -15,9 +12,11 @@ namespace SmartRestaurant.Domain.Entities.Globalisation
 
         protected override IEnumerable<object> GetAtomicValues()
         {
-            return new List<object>{
+            return new List<object>
+            {
                 City,
-                StreetAddress
+                StreetAddress,
+                Country
             };
         }
     }

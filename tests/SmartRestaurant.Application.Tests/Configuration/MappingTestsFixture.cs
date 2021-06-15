@@ -7,10 +7,7 @@ namespace SmartRestaurant.Application.Tests.Configuration
     {
         public MappingTestsFixture()
         {
-            ConfigurationProvider = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<MappingProfile>();
-            });
+            ConfigurationProvider = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
 
             Mapper = ConfigurationProvider.CreateMapper();
         }

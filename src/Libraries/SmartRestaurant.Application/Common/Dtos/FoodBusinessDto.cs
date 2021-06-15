@@ -1,8 +1,8 @@
-﻿using SmartRestaurant.Application.Common.Dtos.ValueObjects;
-using SmartRestaurant.Domain.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using SmartRestaurant.Application.Common.Dtos.ValueObjects;
+using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
@@ -12,8 +12,9 @@ namespace SmartRestaurant.Application.Common.Dtos
         {
             Images = new List<string>();
         }
-        [JsonProperty(PropertyName = "id")]
-        public Guid FoodBusinessId { get; set; }
+
+        [JsonProperty(PropertyName = "id")] public Guid FoodBusinessId { get; set; }
+
         public string Name { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }

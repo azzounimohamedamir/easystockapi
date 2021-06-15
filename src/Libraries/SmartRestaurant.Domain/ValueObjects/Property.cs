@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace SmartRestaurant.Domain.ValueObjects
+﻿namespace SmartRestaurant.Domain.ValueObjects
 {
-    [Owned]
     public class Property
     {
     }

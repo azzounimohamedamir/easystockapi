@@ -1,6 +1,6 @@
-﻿using SmartRestaurant.API.Models.MediaModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
+using SmartRestaurant.API.Models.MediaModels;
 
 namespace SmartRestaurant.API.Helpers
 {
@@ -21,8 +21,6 @@ namespace SmartRestaurant.API.Helpers
                     yield return imageModel;
                 }
             }
-
         }
-
     }
 }

@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Helpers;
@@ -6,9 +9,6 @@ using SmartRestaurant.API.Models.UserModels;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -17,8 +17,8 @@ namespace SmartRestaurant.API.Controllers
     [ApiController]
     public class RolesController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public RolesController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
@@ -37,18 +37,12 @@ namespace SmartRestaurant.API.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateUserRoles(UpdateUserRolesModel model)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(model.UserId);
+            var user = await _userManager.FindByIdAsync(model.UserId);
             foreach (var role in Enum.GetNames(typeof(Roles)))
-            {
                 if (model.Roles.Exists(x => x == role))
-                {
                     await _userManager.AddToRoleAsync(user, role);
-                }
                 else
-                {
                     await _userManager.RemoveFromRoleAsync(user, role);
-                }
-            }
             return Ok(HttpResponseHelper.Respond(ResponseType.OK));
         }
     }

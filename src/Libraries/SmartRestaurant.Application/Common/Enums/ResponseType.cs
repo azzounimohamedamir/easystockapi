@@ -9,6 +9,6 @@
         NotFound = 404,
         MethodNotAllowed = 405,
         PreconditionFailed = 412,
-        InternalServerError = 500,
+        InternalServerError = 500
     }
 }

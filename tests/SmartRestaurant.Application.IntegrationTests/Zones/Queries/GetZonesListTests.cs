@@ -1,10 +1,10 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Threading.Tasks;
+using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Application.Zones.Queries;
-using System;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Zones.Queries
 {
@@ -15,14 +15,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Queries
         [Test]
         public async Task ShouldReturnAllZonesList()
         {
-
-            CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
+            var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
             {
                 var name = "zone " + Guid.NewGuid();
                 await SendAsync(new CreateZoneCommand
@@ -32,7 +31,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Queries
                 });
             }
 
-            var query = new GetZonesListQuery { FoodBusinessId = createFoodBusinessCommand.CmdId };
+            var query = new GetZonesListQuery {FoodBusinessId = createFoodBusinessCommand.CmdId};
 
             var result = await SendAsync(query);
 

@@ -7,7 +7,6 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
     public class CreateFoodBusinessCommand : SmartRestaurantCommand
     {
-
         public string Name { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
@@ -35,14 +34,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public CreateFoodBusinessCommandValidator()
         {
             RuleFor(v => v.Name)
-                .MaximumLength(200).
-                NotEmpty();
+                .MaximumLength(200).NotEmpty();
             RuleFor(v => v.FoodBusinessAdministratorId).NotEmpty();
         }
-
-       
-
-
-       
     }
 }

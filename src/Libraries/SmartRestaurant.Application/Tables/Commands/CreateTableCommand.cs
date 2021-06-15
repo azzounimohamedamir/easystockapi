@@ -1,7 +1,7 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Domain.Entities;
-using System;
 
 namespace SmartRestaurant.Application.Tables.Commands
 {
@@ -25,7 +25,6 @@ namespace SmartRestaurant.Application.Tables.Commands
             RuleFor(v => v.ZoneId)
                 .NotEmpty()
                 .Must(v => v != Guid.Empty);
-
         }
     }
 }

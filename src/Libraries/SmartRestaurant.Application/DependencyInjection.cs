@@ -1,7 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Reflection;
+using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Email;
 

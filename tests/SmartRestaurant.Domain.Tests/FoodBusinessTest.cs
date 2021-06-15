@@ -1,5 +1,4 @@
 ﻿using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Entities.Globalisation;
 using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.ValueObjects;
 using Xunit;
@@ -8,7 +7,7 @@ namespace SmartRestaurant.Domain.Tests
 {
     public class FoodBusinessTest
     {
-        readonly FoodBusiness _foodBusiness;
+        private readonly FoodBusiness _foodBusiness;
 
         public FoodBusinessTest()
         {

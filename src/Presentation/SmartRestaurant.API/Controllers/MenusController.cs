@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.Application.Menus.Commands;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Application.Menus.Queries;
 
 namespace SmartRestaurant.API.Controllers
@@ -20,19 +20,20 @@ namespace SmartRestaurant.API.Controllers
             if (id == Guid.Empty)
                 throw new InvalidOperationException("FoodBusiness id shouldn't be null or empty");
 
-            return SendAsync(new GetMenusListQuery { FoodBusinessId = id , Page = page, PageSize = pageSize });
+            return SendAsync(new GetMenusListQuery {FoodBusinessId = id, Page = page, PageSize = pageSize});
         }
-        
+
         [HttpGet]
         [Route("{id:Guid}/menus/{menuId:Guid}")]
         [Authorize(Roles = "FoodBusinessManager")]
-        public  Task<MenuDto> Get([FromRoute] Guid id, [FromRoute]Guid menuId)
+        public Task<MenuDto> Get([FromRoute] Guid id, [FromRoute] Guid menuId)
         {
             if (menuId == Guid.Empty)
                 throw new InvalidOperationException("Menu id shouldn't be null or empty");
 
-            return SendAsync(new GetMenuByIdQuery { MenuId = menuId});
+            return SendAsync(new GetMenuByIdQuery {MenuId = menuId});
         }
+
         [Route("{id:Guid}/menus/")]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]
@@ -43,6 +44,7 @@ namespace SmartRestaurant.API.Controllers
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
+
         [Route("{id:Guid}/menus/{menuId:Guid}")]
         [HttpPut]
         [Authorize(Roles = "FoodBusinessManager")]
@@ -55,6 +57,7 @@ namespace SmartRestaurant.API.Controllers
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
+
         [Route("{id:Guid}/menus/{menuId:Guid}")]
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessManager")]
@@ -64,7 +67,7 @@ namespace SmartRestaurant.API.Controllers
                 return BadRequest();
             if (menuId == Guid.Empty)
                 return BadRequest();
-            await SendAsync(new DeleteMenuCommand { MenuId = menuId }).ConfigureAwait(false);
+            await SendAsync(new DeleteMenuCommand {MenuId = menuId}).ConfigureAwait(false);
             return Ok("Successful");
         }
     }

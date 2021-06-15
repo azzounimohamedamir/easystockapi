@@ -10,13 +10,14 @@ using SmartRestaurant.Domain.Enums;
 namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
 {
     using static Testing;
+
     [TestFixture]
     public class DeleteMenuTest : TestBase
     {
         [Test]
         public async Task DeleteMenu_ShouldSaveToDB()
         {
-            CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
+            var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"

@@ -11,13 +11,14 @@ using SmartRestaurant.Domain.Enums;
 namespace SmartRestaurant.Application.IntegrationTests.Sections
 {
     using static Testing;
+
     [TestFixture]
     public class DeleteSectionTest
     {
         [Test]
         public async Task DeleteSection_ShouldSaveDb()
         {
-            CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
+            var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"
@@ -28,7 +29,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections
             {
                 CmdId = cmdId,
                 Name = "test menu",
-                MenuState = (int)MenuState.Enabled,
+                MenuState = (int) MenuState.Enabled,
                 FoodBusinessId = createFoodBusinessCommand.CmdId
             });
             var sectionCmdId = Guid.NewGuid();
@@ -38,7 +39,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections
                 MenuId = cmdId,
                 Name = "section test menu"
             });
-            await SendAsync(new DeleteSectionCommand() {SectionId = sectionCmdId});
+            await SendAsync(new DeleteSectionCommand {SectionId = sectionCmdId});
             var item = await FindAsync<Section>(sectionCmdId);
             item.Should().BeNull();
         }

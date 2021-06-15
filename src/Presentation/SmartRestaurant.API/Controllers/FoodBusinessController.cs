@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models.MediaModels;
@@ -7,10 +11,6 @@ using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusiness.Queries;
 using SmartRestaurant.Application.Images.Commands;
 using SmartRestaurant.Application.Images.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -25,20 +25,21 @@ namespace SmartRestaurant.API.Controllers
         {
             return SendAsync(new GetFoodBusinessListQuery {Page = page, PageSize = pageSize});
         }
+
         [Route("{adminId}/foodBusinessAdministrator")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessAdministrator")]
         public Task<List<FoodBusinessDto>> GetByFoodBusinessAdministratorId([FromRoute] string adminId)
         {
-            return SendAsync(new GetFoodBusinessListByAdmin { FoodBusinessAdministratorId = adminId });
+            return SendAsync(new GetFoodBusinessListByAdmin {FoodBusinessAdministratorId = adminId});
         }
+
         [Route("{id:Guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
-
         public Task<FoodBusinessDto> GetById([FromRoute] Guid id)
         {
-            return SendAsync(new GetFoodBusinessByIdQuery { FoodBusinessId = id });
+            return SendAsync(new GetFoodBusinessByIdQuery {FoodBusinessId = id});
         }
 
         [HttpPost]
@@ -60,7 +61,6 @@ namespace SmartRestaurant.API.Controllers
 
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
-
         }
 
         [Authorize(Roles = "FoodBusinessAdministrator")]
@@ -69,7 +69,7 @@ namespace SmartRestaurant.API.Controllers
         [ActionName("delete")]
         public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
-            await SendAsync(new DeleteFoodBusinessCommand { FoodBusinessId = id }).ConfigureAwait(false);
+            await SendAsync(new DeleteFoodBusinessCommand {FoodBusinessId = id}).ConfigureAwait(false);
             return NoContent();
         }
 
@@ -82,7 +82,8 @@ namespace SmartRestaurant.API.Controllers
                 throw new InvalidOperationException("FoodBusiness id shouldn't be null or empty");
             if (id != images.EntityId)
                 return BadRequest();
-            var foodBusiness = await SendAsync(new GetFoodBusinessByIdQuery { FoodBusinessId = images.EntityId }).ConfigureAwait(false);
+            var foodBusiness = await SendAsync(new GetFoodBusinessByIdQuery {FoodBusinessId = images.EntityId})
+                .ConfigureAwait(false);
             if (foodBusiness == null)
                 return BadRequest("FoodBusiness wasn't found");
             if (images.Files.Count <= 0)
@@ -93,7 +94,6 @@ namespace SmartRestaurant.API.Controllers
                 EntityId = foodBusiness.FoodBusinessId
             };
             foreach (var imageModel in imageModels)
-            {
                 createImagesCommand.ImageCommands.Add(
                     new CreateImageCommand
                     {
@@ -101,7 +101,6 @@ namespace SmartRestaurant.API.Controllers
                         ImageBytes = imageModel.ImageBytes,
                         IsLogo = imageModel.IsLogo
                     });
-            }
 
             await SendAsync(createImagesCommand).ConfigureAwait(false);
             return Ok("Successful");
@@ -110,10 +109,9 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         [Route("{id:Guid}/allImages")]
         [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
-
         public async Task<IEnumerable<string>> GetAllImagesByFoodBusinessId([FromRoute] Guid id)
         {
-            var query = await SendAsync(new GetImagesByEntityIdQuery { EntityId = id }).ConfigureAwait(false);
+            var query = await SendAsync(new GetImagesByEntityIdQuery {EntityId = id}).ConfigureAwait(false);
             return query.Select(Convert.ToBase64String);
         }
     }

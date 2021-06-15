@@ -11,6 +11,7 @@ namespace SmartRestaurant.Domain.Entities
             Email = email;
             IsActive = true;
         }
+
         public ApplicationUser()
         {
             IsActive = true;

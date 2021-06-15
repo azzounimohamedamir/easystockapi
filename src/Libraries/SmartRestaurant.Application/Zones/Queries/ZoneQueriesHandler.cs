@@ -1,12 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Zones.Queries
 {
@@ -22,18 +22,19 @@ namespace SmartRestaurant.Application.Zones.Queries
             _context = context;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<ZoneDto>> Handle(GetZonesListQuery request, CancellationToken cancellationToken)
-        {
-            var query = await _context.Zones
-                .Where(x => x.FoodBusinessId == request.FoodBusinessId)
-                .ToArrayAsync(cancellationToken: cancellationToken)
-                .ConfigureAwait(false);
-            return _mapper.Map<List<ZoneDto>>(query);
-        }
 
         public async Task<ZoneDto> Handle(GetZoneByIdQuery request, CancellationToken cancellationToken)
         {
             return _mapper.Map<ZoneDto>(await _context.Zones.FindAsync(request.ZoneId).ConfigureAwait(false));
+        }
+
+        public async Task<IEnumerable<ZoneDto>> Handle(GetZonesListQuery request, CancellationToken cancellationToken)
+        {
+            var query = await _context.Zones
+                .Where(x => x.FoodBusinessId == request.FoodBusinessId)
+                .ToArrayAsync(cancellationToken)
+                .ConfigureAwait(false);
+            return _mapper.Map<List<ZoneDto>>(query);
         }
     }
 }

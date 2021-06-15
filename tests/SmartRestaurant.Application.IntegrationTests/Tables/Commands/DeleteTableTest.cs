@@ -1,22 +1,23 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Threading.Tasks;
+using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
-using System;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Tables.Commands
 {
     using static Testing;
+
     [TestFixture]
     public class DeleteTableTest : TestBase
     {
         [Test]
         public async Task DeleteTable_ShouldSaveToDB()
         {
-            CreateFoodBusinessCommand createFoodBusinessCommand = new CreateFoodBusinessCommand
+            var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"
@@ -38,11 +39,10 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Commands
                 TableState = 0
             };
             await SendAsync(createTableCommand);
-            var deleteTableCommand = new DeleteTableCommand() { TableId = createTableCommand.CmdId };
+            var deleteTableCommand = new DeleteTableCommand {TableId = createTableCommand.CmdId};
             await SendAsync(deleteTableCommand);
             var item = await FindAsync<Table>(createTableCommand.CmdId);
             item.Should().BeNull();
-
         }
     }
 }

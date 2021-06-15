@@ -1,6 +1,6 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 using MediatR;
-using System;
 
 namespace SmartRestaurant.Application.Zones.Commands
 {

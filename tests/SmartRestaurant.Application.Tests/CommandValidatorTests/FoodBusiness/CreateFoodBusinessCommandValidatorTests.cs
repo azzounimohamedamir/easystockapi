@@ -16,20 +16,21 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusiness
         [Fact]
         public void Given_EmptyName_WhenValidating_ShouldError()
         {
-            string IncorrectName = string.Empty;
+            var IncorrectName = string.Empty;
             _validator.ShouldHaveValidationErrorFor(foodBusiness => foodBusiness.Name, IncorrectName);
         }
+
         [Fact]
         public void Given_EmptyEnglishName_WhenOtherNameIsNot_ShouldNotBeError()
         {
-
-            string frenchName = "fast food";
+            var frenchName = "fast food";
             _validator.ShouldNotHaveValidationErrorFor(foodBusiness => foodBusiness.Name, frenchName);
         }
+
         [Fact]
         public void Given_EmptyFoodBusinessAdmin_WhenValidating_ShouldError()
         {
-            string adminId = string.Empty;
+            var adminId = string.Empty;
             _validator.ShouldHaveValidationErrorFor(foodBusiness => foodBusiness.FoodBusinessAdministratorId, adminId);
         }
     }

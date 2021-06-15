@@ -1,8 +1,8 @@
-﻿using SmartRestaurant.Domain.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using SmartRestaurant.Domain.Common;
 
-namespace SmartRestaurant.Domain.Entities.Glabalisation
+namespace SmartRestaurant.Domain.Entities.Globalisation
 {
     public class Country : AuditableEntity
     {

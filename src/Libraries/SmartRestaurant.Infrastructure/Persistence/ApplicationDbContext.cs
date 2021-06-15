@@ -6,11 +6,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
 {
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            modelBuilder.Entity<FoodBusinessUser>()
-                .HasKey(o => new { o.ApplicationUserId, o.FoodBusinessId });
         }
 
         public DbSet<FoodBusiness> FoodBusinesses { get; set; }
@@ -20,5 +17,11 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Table> Tables { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Section> Sections { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<FoodBusinessUser>()
+                .HasKey(o => new {o.ApplicationUserId, o.FoodBusinessId});
+        }
     }
 }

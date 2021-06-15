@@ -7,7 +7,9 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
 {
     public class IdentityContext : IdentityDbContext, IIdentityContext
     {
-        public IdentityContext(DbContextOptions<IdentityContext> options) : base(options) { }
+        public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
+        {
+        }
 
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
 

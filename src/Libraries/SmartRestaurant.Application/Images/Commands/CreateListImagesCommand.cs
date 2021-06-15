@@ -1,6 +1,6 @@
-﻿using MediatR;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using MediatR;
 
 namespace SmartRestaurant.Application.Images.Commands
 {
@@ -10,6 +10,7 @@ namespace SmartRestaurant.Application.Images.Commands
         {
             ImageCommands = new List<CreateImageCommand>();
         }
+
         public Guid EntityId { get; set; }
         public List<CreateImageCommand> ImageCommands { get; set; }
     }

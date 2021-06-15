@@ -9,7 +9,7 @@ using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.Sections.Commands
 {
-    public class SectionsCommandsHandler : 
+    public class SectionsCommandsHandler :
         IRequestHandler<CreateSectionCommand, ValidationResult>,
         IRequestHandler<UpdateSectionCommand, ValidationResult>,
         IRequestHandler<DeleteSectionCommand>
@@ -28,8 +28,18 @@ namespace SmartRestaurant.Application.Sections.Commands
             var validator = new CreateSectionCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
-             var section = _mapper.Map<Section>(request);
+            var section = _mapper.Map<Section>(request);
             _context.Sections.Add(section);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+        public async Task<Unit> Handle(DeleteSectionCommand request, CancellationToken cancellationToken)
+        {
+            var section = await _context.Sections.FindAsync(request.SectionId).ConfigureAwait(false);
+            if (section == null)
+                throw new NotFoundException(nameof(Section), request.SectionId);
+            _context.Sections.Remove(section);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
@@ -44,18 +54,8 @@ namespace SmartRestaurant.Application.Sections.Commands
                 throw new NotFoundException(nameof(Section), request.CmdId);
             section.Name = request.Name;
             section.MenuId = request.MenuId;
-            if(section.RootSectionId.HasValue)
+            if (section.RootSectionId.HasValue)
                 section.RootSectionId = request.RootSectionId;
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            return default;
-        }
-
-        public async Task<Unit> Handle(DeleteSectionCommand request, CancellationToken cancellationToken)
-        {
-            var section = await _context.Sections.FindAsync(request.SectionId).ConfigureAwait(false);
-            if (section == null)
-                throw new NotFoundException(nameof(Section), request.SectionId);
-            _context.Sections.Remove(section);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
