@@ -119,8 +119,8 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     Id = "d466ef00-61f1-4e77-801a-b016f0f12323",
                     UserName = "SupportAgent@SmartRestaurant.io",
                     Email = "SupportAgent@SmartRestaurant.io",
-                    NormalizedUserName = "SSUPERADMIN@SMARTRESTAURANT.IO",
-                    NormalizedEmail = "SUPERADMIN@SMARTRESTAURANT.IO",
+                    NormalizedUserName = "SUPPORTAGENT@SMARTRESTAURANT.IO",
+                    NormalizedEmail = "SUPPORTAGENT@SMARTRESTAURANT.IO",
                     PasswordHash =
                         "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                     EmailConfirmed = true

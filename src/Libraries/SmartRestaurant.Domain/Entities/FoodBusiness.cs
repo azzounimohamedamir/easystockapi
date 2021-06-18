@@ -1,12 +1,11 @@
 ﻿using System;
 using SmartRestaurant.Domain.Common;
 using SmartRestaurant.Domain.Enums;
-using SmartRestaurant.Domain.Interfaces;
 using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Domain.Entities
 {
-    public class FoodBusiness : AuditableEntity, IOrganization
+    public class FoodBusiness : AuditableEntity
     {
         public Guid FoodBusinessId { get; set; }
         public string Description { get; set; }

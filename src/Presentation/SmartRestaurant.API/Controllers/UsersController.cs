@@ -45,6 +45,13 @@ namespace SmartRestaurant.API.Controllers
             return Ok(pagedResult);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllByRole(string role, int page, int pageSize)
+        {
+            var result = await _userManager.GetUsersInRoleAsync(role).ConfigureAwait(false);
+            return Ok(result);
+        }
+
         private async Task<PagedListDto<UserWithRolesModel>> GetPagedListOfUsers(
             PagedResultBase<ApplicationUser> result)
         {
@@ -107,23 +114,20 @@ namespace SmartRestaurant.API.Controllers
         [HttpPost("createUserWithRoles")]
         public async Task<IActionResult> CreateUserWithRoles(CreateUserWithRolesModel model)
         {
-            IdentityResult result;
             var user = new ApplicationUser(model.User.FullName, model.User.Email, model.User.UserName);
             if (string.IsNullOrEmpty(model.Password))
                 model.Password = RandomPasswordGenerator.GeneratePassword(true, true, true, true, 10);
 
-            result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
+            var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
             foreach (var role in model.Roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
-            if (result.Succeeded)
+            if (!result.Succeeded) return CheckResultStatus(result);
+            _cache.GetOrCreate(user.Email, entry =>
             {
-                _cache.GetOrCreate(user.Email, entry =>
-                {
-                    entry.SlidingExpiration = TimeSpan.FromDays(1);
-                    return new MemoryCachePasswordModel {Email = user.Email, Password = model.Password};
-                });
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-                await SendEmailConfirmation(user, token).ConfigureAwait(false);
-            }
+                entry.SlidingExpiration = TimeSpan.FromDays(1);
+                return new MemoryCachePasswordModel {Email = user.Email, Password = model.Password};
+            });
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
+            await SendEmailConfirmation(user, token).ConfigureAwait(false);
 
             return CheckResultStatus(result);
         }
@@ -153,9 +157,9 @@ namespace SmartRestaurant.API.Controllers
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpPut("disable")]
-        public async Task<IActionResult> Disable(string Id)
+        public async Task<IActionResult> Disable(string id)
         {
-            var user = await _userManager.FindByIdAsync(Id);
+            var user = await _userManager.FindByIdAsync(id);
             user.IsActive = false;
             var result = await _userManager.UpdateAsync(user);
             return CheckResultStatus(result);
@@ -163,9 +167,9 @@ namespace SmartRestaurant.API.Controllers
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpPut("enable")]
-        public async Task<IActionResult> Enable(string Id)
+        public async Task<IActionResult> Enable(string id)
         {
-            var user = await _userManager.FindByIdAsync(Id);
+            var user = await _userManager.FindByIdAsync(id);
             user.IsActive = true;
             var result = await _userManager.UpdateAsync(user);
             return CheckResultStatus(result);
