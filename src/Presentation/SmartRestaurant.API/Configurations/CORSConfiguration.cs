@@ -15,7 +15,6 @@ namespace SmartRestaurant.API.Configurations
                     builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
             });
 
-/*
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowOrigin", builder =>
@@ -23,15 +22,12 @@ namespace SmartRestaurant.API.Configurations
                     builder.WithOrigins("http://smartrestaurant.io", "https://smartrestaurant.io")
                         .AllowAnyMethod().AllowAnyHeader().AllowCredentials();
                 });
-            });*/
+            });
         }
 
         public static void UseCORS(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-                app.UseCors("AllowAll");
-            else
-                app.UseCors("AllowOrigin");
+            app.UseCors(env.IsDevelopment() ? "AllowAll" : "AllowOrigin");
         }
     }
 }

@@ -27,13 +27,13 @@ namespace SmartRestaurant.Domain.Tests
         }
 
         [Fact]
-        public void FoodBusiness_Information_Valide_Test()
+        public void FoodBusiness_Information_Valid_Test()
         {
             Assert.Equal("Mon FoodBusiness", _foodBusiness.Name);
         }
 
         [Fact]
-        public void FoodBusiness_Address_Valide_Test()
+        public void FoodBusiness_Address_Valid_Test()
         {
             _foodBusiness.Address = new Address
             {
@@ -46,7 +46,7 @@ namespace SmartRestaurant.Domain.Tests
         }
 
         [Fact]
-        public void FoodBusiness_MapMarker_Valide_Test()
+        public void FoodBusiness_MapMarker_Valid_Test()
         {
             _foodBusiness.Address = new Address
             {
@@ -64,7 +64,7 @@ namespace SmartRestaurant.Domain.Tests
         }
 
         [Fact]
-        public void FoodBusiness_PhoneNumber_Valide_Test()
+        public void FoodBusiness_PhoneNumber_Valid_Test()
         {
             _foodBusiness.PhoneNumber = new PhoneNumber
             {
@@ -76,7 +76,7 @@ namespace SmartRestaurant.Domain.Tests
         }
 
         [Fact]
-        public void FoodBusiness_State_Valide_Test()
+        public void FoodBusiness_State_Valid_Test()
         {
             _foodBusiness.FoodBusinessState = FoodBusinessState.Active;
 
