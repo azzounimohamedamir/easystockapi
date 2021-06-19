@@ -54,14 +54,14 @@ namespace SmartRestaurant.API
                 app.UseHsts();
             }
 
+            CORSConfiguration.UseCORS(app, env);
+            
             app.UseStaticFiles();
 
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Smart Restaurant api v1"); });
 
             app.UseRouting();
-
-            CORSConfiguration.UseCORS(app, env);
 
             app.UseAuthentication();
             app.UseAuthorization();
