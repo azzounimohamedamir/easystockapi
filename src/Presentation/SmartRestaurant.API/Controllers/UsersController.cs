@@ -45,11 +45,22 @@ namespace SmartRestaurant.API.Controllers
             return Ok(pagedResult);
         }
 
+        [Route("role/{role}")]
         [HttpGet]
-        public async Task<IActionResult> GetAllByRole(string role, int page, int pageSize)
+        public async Task<IActionResult> GetAllByRole([FromRoute] string role, int page, int pageSize)
         {
             var result = await _userManager.GetUsersInRoleAsync(role).ConfigureAwait(false);
             return Ok(result);
+        }
+        
+        [Route("{userId}")]
+        [HttpGet]
+        public async Task<IActionResult> GetById([FromRoute] string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
+            if (user == null) return Ok(HttpResponseHelper.Respond(ResponseType.NotFound));
+
+            return Ok(user);
         }
 
         private async Task<PagedListDto<UserWithRolesModel>> GetPagedListOfUsers(
@@ -83,16 +94,7 @@ namespace SmartRestaurant.API.Controllers
             var pagedResult = await GetPagedListOfUsers(result).ConfigureAwait(false);
             return Ok(pagedResult);
         }
-
-        [Route("/api/users/{userId}")]
-        [HttpGet]
-        public async Task<IActionResult> GetById([FromRoute] string userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
-            if (user == null) return Ok(HttpResponseHelper.Respond(ResponseType.NotFound));
-
-            return Ok(user);
-        }
+        
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpPost]

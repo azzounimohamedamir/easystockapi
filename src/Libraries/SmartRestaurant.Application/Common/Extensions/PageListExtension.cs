@@ -17,10 +17,12 @@ namespace SmartRestaurant.Application.Common.Extensions
         public static PagedResultBase<T> GetPaged<T>(this IQueryable<T> query,
             int page, int pageSize) where T : class
         {
-            var result = new PagedResultBase<T>();
-            result.CurrentPage = page;
-            result.PageSize = pageSize;
-            result.RowCount = query.Count();
+            var result = new PagedResultBase<T>
+            {
+                CurrentPage = page,
+                PageSize = pageSize,
+                RowCount = query.Count()
+            };
 
             var pageCount = (double) result.RowCount / pageSize;
             result.PageCount = (int) Math.Ceiling(pageCount);
