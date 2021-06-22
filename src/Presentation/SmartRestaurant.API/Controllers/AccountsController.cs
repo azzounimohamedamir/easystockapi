@@ -13,7 +13,7 @@ using SmartRestaurant.Infrastructure.Identity.Enums;
 
 namespace SmartRestaurant.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/accounts")]
     [ApiController]
     public class AccountsController : ApiController
     {

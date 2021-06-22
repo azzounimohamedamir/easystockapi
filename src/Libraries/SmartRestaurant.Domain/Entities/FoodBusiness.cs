@@ -27,5 +27,6 @@ namespace SmartRestaurant.Domain.Entities
         public Address Address { get; set; }
         public PhoneNumber PhoneNumber { get; set; }
         public string Website { get; set; }
+        public bool OffersTakeout { get; set; }
     }
 }

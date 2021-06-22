@@ -22,6 +22,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
         {
             modelBuilder.Entity<FoodBusinessUser>()
                 .HasKey(o => new {o.ApplicationUserId, o.FoodBusinessId});
+
+            modelBuilder.Seed();
         }
     }
 }

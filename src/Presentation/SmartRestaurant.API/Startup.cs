@@ -39,7 +39,10 @@ namespace SmartRestaurant.API
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Smart Restaurant api v1", Version = "v1"});
             });
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -55,7 +58,7 @@ namespace SmartRestaurant.API
             }
 
             CORSConfiguration.UseCORS(app, env);
-            
+
             app.UseStaticFiles();
 
             app.UseSwagger();

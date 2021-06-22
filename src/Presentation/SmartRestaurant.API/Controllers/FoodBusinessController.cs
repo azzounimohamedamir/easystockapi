@@ -28,7 +28,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{adminId}/foodBusinessAdministrator")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessAdministrator")]
+        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent")]
         public Task<List<FoodBusinessDto>> GetByFoodBusinessAdministratorId([FromRoute] string adminId)
         {
             return SendAsync(new GetFoodBusinessListByAdmin {FoodBusinessAdministratorId = adminId});
@@ -63,10 +63,10 @@ namespace SmartRestaurant.API.Controllers
             return ApiCustomResponse(validationResult);
         }
 
-        [Authorize(Roles = "FoodBusinessAdministrator")]
+
         [HttpDelete]
         [Route("{id:Guid}")]
-        [ActionName("delete")]
+        [Authorize(Roles = "FoodBusinessAdministrator")]
         public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
             await SendAsync(new DeleteFoodBusinessCommand {FoodBusinessId = id}).ConfigureAwait(false);

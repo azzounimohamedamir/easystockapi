@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Identity.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    partial class IdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20210619145044_AddWaiter")]
+    partial class AddWaiter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -309,11 +311,6 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             UserId = "d466ef00-61f1-4e77-801a-b516f0f12323",
                             RoleId = "10"
-                        },
-                        new
-                        {
-                            UserId = "3cbf3570-4444-4444-8746-29b7cf568093",
-                            RoleId = "5"
                         });
                 });
 
@@ -353,7 +350,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "3cbf3570-0d44-4673-8746-29b7cf568093",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "41722eae-b08f-4f60-bc82-f3fe140268c6",
+                            ConcurrencyStamp = "2d47a201-b677-4ba9-86b4-9c18e86026c7",
                             Email = "SuperAdmin@SmartRestaurant.io",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -361,7 +358,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "SUPERADMIN@SMARTRESTAURANT.IO",
                             PasswordHash = "AQAAAAEAACcQAAAAEAzFpmzMtMiw0wHV6b0aUzFLF9Pw7B2u+DswRHttAU2nH22NHBsc/hSSvKUqmRWGZA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e94ef1cd-2e57-418b-86d0-9163dacf6b34",
+                            SecurityStamp = "d570b997-1f97-452a-843d-d43b3976162e",
                             TwoFactorEnabled = false,
                             UserName = "SuperAdmin@SmartRestaurant.io",
                             IsActive = true
@@ -370,7 +367,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "d466ef00-61f1-4e77-801a-b016f0f12323",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "896ab300-ccca-43a0-8960-449329729fbf",
+                            ConcurrencyStamp = "7143d3b1-eb96-4034-9e83-b48899077450",
                             Email = "SupportAgent@SmartRestaurant.io",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -378,7 +375,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "SUPPORTAGENT@SMARTRESTAURANT.IO",
                             PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e6338d6f-b4a5-4d5e-ab42-4a8077be0a01",
+                            SecurityStamp = "9e91619a-de13-42a6-9a35-1102a8a7bd13",
                             TwoFactorEnabled = false,
                             UserName = "SupportAgent@SmartRestaurant.io",
                             IsActive = true
@@ -387,7 +384,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "d466ef00-61f1-4e77-801a-b516f0f12323",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c780c49b-50f3-425e-9406-5ff90bd56c5a",
+                            ConcurrencyStamp = "ffd02f8a-3d30-4e4b-ace8-28b7a0c97585",
                             Email = "Waiter@SmartRestaurant.io",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -395,26 +392,9 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "WAITER@SMARTRESTAURANT.IO",
                             PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5d7b0fa7-cecf-454b-a240-de304ce30fe7",
+                            SecurityStamp = "803ba7a6-860f-445a-9a34-5a0597d911bf",
                             TwoFactorEnabled = false,
                             UserName = "Waiter@SmartRestaurant.io",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = "3cbf3570-4444-4444-8746-29b7cf568093",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "0a44e6c3-e664-489d-82d9-c029aee81075",
-                            Email = "FoodAdmin@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "FOODADMIN@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "FOODADMIN@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "b3bd4440-0ba6-44be-91da-f369b88355b3",
-                            TwoFactorEnabled = false,
-                            UserName = "FoodAdmin@SmartRestaurant.io",
                             IsActive = true
                         });
                 });

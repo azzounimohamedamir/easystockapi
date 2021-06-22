@@ -124,6 +124,28 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     PasswordHash =
                         "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                     EmailConfirmed = true
+                },
+                new ApplicationUser
+                {
+                    Id = "d466ef00-61f1-4e77-801a-b516f0f12323",
+                    UserName = "Waiter@SmartRestaurant.io",
+                    Email = "Waiter@SmartRestaurant.io",
+                    NormalizedUserName = "WAITER@SMARTRESTAURANT.IO",
+                    NormalizedEmail = "WAITER@SMARTRESTAURANT.IO",
+                    PasswordHash =
+                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                    EmailConfirmed = true
+                },
+                new ApplicationUser
+                {
+                    Id = "3cbf3570-4444-4444-8746-29b7cf568093",
+                    UserName = "FoodAdmin@SmartRestaurant.io",
+                    Email = "FoodAdmin@SmartRestaurant.io",
+                    NormalizedUserName = "FOODADMIN@SMARTRESTAURANT.IO",
+                    NormalizedEmail = "FOODADMIN@SMARTRESTAURANT.IO",
+                    PasswordHash =
+                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                    EmailConfirmed = true
                 }
             );
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(
@@ -136,6 +158,16 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                 {
                     UserId = "d466ef00-61f1-4e77-801a-b016f0f12323",
                     RoleId = "2"
+                },
+                new IdentityUserRole<string>
+                {
+                    UserId = "d466ef00-61f1-4e77-801a-b516f0f12323",
+                    RoleId = "10"
+                },
+                new IdentityUserRole<string>
+                {
+                    UserId = "3cbf3570-4444-4444-8746-29b7cf568093",
+                    RoleId = "5"
                 }
             );
         }
