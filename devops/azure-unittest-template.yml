@@ -8,7 +8,16 @@ jobs:
       displayName: 'start mssqllocaldb'
       inputs:
         targetType: 'inline'
-        script: 'sqllocaldb start mssqllocaldb'
+        script: |
+           sqllocaldb start mssqllocaldb
+           sqllocaldb info  mssqllocaldb
+
+    - task: DotNetCoreCLI@2
+      displayName: Install EF Tool
+      inputs:
+        command: custom
+        custom: 'tool '
+        arguments: install dotnet-ef
     - task: UseDotNet@2
       inputs:
         version: '3.1.x'
@@ -28,6 +37,19 @@ jobs:
             !**/*Application.IntegrationTests/*.csproj
         arguments: '--configuration ${{ parameters.buildConfiguration }}'
       displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
+    
+    - task: DotNetCoreCLI@2
+      displayName: Database Migrations ApplicationDbContext
+      inputs:
+        command: custom
+        custom: 'ef '
+        arguments: dotnet ef database update --context:ApplicationDbContext
+    - task: DotNetCoreCLI@2
+      displayName: Database Migrations IdentityContext
+      inputs:
+        command: custom
+        custom: 'ef '
+        arguments: dotnet ef database update --context:IdentityContext
 
     - task: DotNetCoreCLI@2
       inputs:
