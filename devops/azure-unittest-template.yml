@@ -43,13 +43,13 @@ jobs:
       inputs:
         command: custom
         custom: 'ef '
-        arguments: dotnet ef database update --context:ApplicationDbContext --project $(Build.SourcesDirectory)/src/Presentation/SmartRestaurant.API/
+        arguments: database update --context:ApplicationDbContext --project $(Build.SourcesDirectory)/src/Presentation/SmartRestaurant.API/
     - task: DotNetCoreCLI@2
       displayName: Database Migrations IdentityContext
       inputs:
         command: custom
         custom: 'ef '
-        arguments: dotnet ef database update --context:IdentityContext --project $(Build.SourcesDirectory)/src/Presentation/SmartRestaurant.API/
+        arguments: database update --context:IdentityContext --project $(Build.SourcesDirectory)/src/Presentation/SmartRestaurant.API/
 
     - task: DotNetCoreCLI@2
       inputs:
