@@ -11,6 +11,14 @@ jobs:
         script: |
            sqllocaldb start mssqllocaldb
            sqllocaldb info  mssqllocaldb
+           Import-Module -Name "SqlServer"
+           $sql = "
+           CREATE DATABASE SmartRestaurant
+           GO
+           CREATE DATABASE SmartRestaurantIdentity
+           GO 
+           "
+           Invoke-SqlCmd -ServerInstance "(localdb)\MSSQLLocalDB" -database master -Query $sql
 
     - task: DotNetCoreCLI@2
       displayName: Install EF Tool
