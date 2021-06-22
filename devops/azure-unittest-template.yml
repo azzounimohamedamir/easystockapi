@@ -4,6 +4,11 @@ parameters:
 jobs:
   - job: Tests_on_Wind
     steps:
+    - task: PowerShell@2
+      displayName: 'start mssqllocaldb'
+      inputs:
+        targetType: 'inline'
+        script: 'sqllocaldb start mssqllocaldb'
     - task: UseDotNet@2
       inputs:
         version: '3.1.x'
