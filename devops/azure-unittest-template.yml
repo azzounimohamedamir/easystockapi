@@ -13,9 +13,9 @@ jobs:
            sqllocaldb info  mssqllocaldb
            Import-Module -Name "SqlServer"
            $sql = "
-           CREATE DATABASE SmartRestaurant
+           CREATE DATABASE SmartRestaurantTestDb
            GO
-           CREATE DATABASE SmartRestaurantIdentity
+           CREATE DATABASE SmartRestaurantIdentityTestDb
            GO 
            "
            Invoke-SqlCmd -ServerInstance "(localdb)\MSSQLLocalDB" -database master -Query $sql
@@ -36,29 +36,29 @@ jobs:
         command: 'restore'
         projects: '**/*Tests/*.csproj'
       displayName: 'dotnet restore ${{ parameters.buildConfiguration }}'
-
-    - task: DotNetCoreCLI@2
-      inputs:
-        command: 'build'
-        projects: |
-            **/*Tests/*.csproj
-            !**/*Application.IntegrationTests/*.csproj
-        arguments: '--configuration ${{ parameters.buildConfiguration }}'
-      displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
     
     - task: DotNetCoreCLI@2
       displayName: Database Migrations ApplicationDbContext
       inputs:
         command: custom
         custom: 'ef '
-        arguments: database update --context:ApplicationDbContext --project $(Build.SourcesDirectory)/src/Presentation/SmartRestaurant.API/
+        arguments: database update --context:ApplicationDbContext --project $(Build.SourcesDirectory)/tests/SmartRestaurant.Application.IntegrationTests/
     - task: DotNetCoreCLI@2
       displayName: Database Migrations IdentityContext
       inputs:
         command: custom
         custom: 'ef '
-        arguments: database update --context:IdentityContext --project $(Build.SourcesDirectory)/src/Presentation/SmartRestaurant.API/
+        arguments: database update --context:IdentityContext --project $(Build.SourcesDirectory)/tests/SmartRestaurant.Application.IntegrationTests/
 
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: |
+            **/*Tests/*.csproj
+#            !**/*Application.IntegrationTests/*.csproj
+        arguments: '--configuration ${{ parameters.buildConfiguration }}'
+      displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
+    
     - task: DotNetCoreCLI@2
       inputs:
         command: test
