@@ -43,7 +43,6 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpPost]
-        [ActionName("")]
         [Authorize(Roles = "FoodBusinessAdministrator")]
         public async Task<ActionResult> Create(CreateFoodBusinessCommand command)
         {

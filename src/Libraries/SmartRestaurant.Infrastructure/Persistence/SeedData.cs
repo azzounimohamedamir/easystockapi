@@ -12,7 +12,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
             modelBuilder.Entity<FoodBusiness>().HasData(
                 new FoodBusiness
                 {
-                    FoodBusinessId = Guid.Parse("q"),
+                    FoodBusinessId = Guid.Parse("3cbf3570-4444-4673-8746-29b7cf568093"),
                     Name = "Taj mahal",
                     AcceptsCreditCards = true,
                     AcceptTakeout = true,

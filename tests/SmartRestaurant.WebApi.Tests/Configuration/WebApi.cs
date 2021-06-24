@@ -24,7 +24,7 @@ namespace SmartRestaurant.WebApi.Tests.Configuration
 
         public async Task Sign(string email, string password)
         {
-            var response = await Post<AuthResponse>("/Accounts/login", new
+            var response = await Post<AuthResponse>("/accounts/login", new
             {
                 email, password
             });

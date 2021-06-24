@@ -44,21 +44,6 @@ namespace SmartRestaurant.WebApi.Tests.Controllers.FoodBusiness
         }
 
         [Fact]
-        public async void GetFoodBusinessByAdministratorId_WhenIdDoesntExist_ShouldReturnNull()
-        {
-            var api = new Configuration.WebApi();
-
-            await api.Sign("SupportAgent@SmartRestaurant.io", "Supportagent123@");
-
-            var response =
-                await api.Get<FoodBusinessModel>(
-                    "/foodbusiness/4303e8d2-3d76-4621-9380-7f973ab3e205/foodBusinessAdministrator");
-
-            Assert.Null(response.Content);
-            Assert.Equal(200, response.StatusCode);
-        }
-
-        [Fact]
         public async void GetFoodBusinessByAdministratorId_AuthenticatedAndAuthorized_ShouldReturnOK()
         {
             var api = new Configuration.WebApi();

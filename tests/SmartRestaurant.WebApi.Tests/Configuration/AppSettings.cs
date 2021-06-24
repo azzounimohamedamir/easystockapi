@@ -9,7 +9,7 @@ namespace SmartRestaurant.WebApi.Tests.Configuration
 
         public static string GetApiEndpoint()
         {
-            return IsWebsiteLive(LocalApiEndpoint) ? LocalApiEndpoint : RemoteApiEndpoint;
+            return IsWebsiteLive(LocalApiEndpoint + "/healthcheck") ? LocalApiEndpoint : RemoteApiEndpoint;
         }
 
         private static bool IsWebsiteLive(string url)

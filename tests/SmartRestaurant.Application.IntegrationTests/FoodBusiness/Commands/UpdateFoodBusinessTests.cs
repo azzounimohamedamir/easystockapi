@@ -24,17 +24,22 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 FoodBusinessAdministratorId = "4"
             });
 
-            var updateFoodBusinessCommand = new UpdateFoodBusinessCommand
+            await Task.Delay(0).ContinueWith(async t =>
             {
-                CmdId = foodBusinessId,
-                Name = "Taj mahal Updated test"
-            };
+                var updateFoodBusinessCommand = new UpdateFoodBusinessCommand
+                {
+                    CmdId = foodBusinessId,
+                    Name = "Taj mahal Updated test"
+                };
 
-            var validationResult = await SendAsync(updateFoodBusinessCommand);
+                var validationResult = await SendAsync(updateFoodBusinessCommand);
 
-            var list = await FindAsync<Domain.Entities.FoodBusiness>(foodBusinessId);
-            validationResult.Should().Be(default(ValidationResult));
-            list.FoodBusinessId.Should().Be(updateFoodBusinessCommand.CmdId);
+                var list = await FindAsync<Domain.Entities.FoodBusiness>(foodBusinessId);
+                validationResult.Should().Be(default(ValidationResult));
+
+
+                list.FoodBusinessId.Should().Be(updateFoodBusinessCommand.CmdId);
+            });
         }
     }
 }
