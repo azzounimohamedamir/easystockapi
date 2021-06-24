@@ -55,7 +55,7 @@ jobs:
         command: 'build'
         projects: |
             **/*Tests/*.csproj
-            !**/*Application.IntegrationTests/*.csproj
+#            !**/*Application.IntegrationTests/*.csproj
         arguments: '--configuration ${{ parameters.buildConfiguration }}'
       displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
     
