@@ -17,6 +17,9 @@ namespace SmartRestaurant.Application.Common.Extensions
         public static PagedResultBase<T> GetPaged<T>(this IQueryable<T> query,
             int page, int pageSize) where T : class
         {
+            page = HandleNegativeValues(page, 1);
+            pageSize = HandleNegativeValues(pageSize, 10);
+
             var result = new PagedResultBase<T>
             {
                 CurrentPage = page,
@@ -29,6 +32,13 @@ namespace SmartRestaurant.Application.Common.Extensions
             var skip = (page - 1) * pageSize;
             result.Data = query.Skip(skip).Take(pageSize);
             return result;
+        }
+
+        private static int HandleNegativeValues(int page, int defaultValue)
+        {
+            if (page < 1) page = defaultValue;
+
+            return page;
         }
     }
 }

@@ -20,23 +20,22 @@ using SmartRestaurant.Domain.Entities;
 namespace SmartRestaurant.API.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UsersController : ApiController
     {
-        private readonly IMemoryCache _cache;
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UsersController(UserManager<ApplicationUser> userManager, IMapper mapper, IMemoryCache cache,
-            IEmailSender emailSender) : base(emailSender)
+        public UsersController(UserManager<ApplicationUser> userManager, IMapper mapper, IEmailSender emailSender) :
+            base(emailSender)
         {
             _userManager = userManager;
             _mapper = mapper;
-            _cache = cache;
         }
 
         [HttpGet]
+        [Authorize(Roles = "SupportAgent")]
         public async Task<IActionResult> GetAll(int page, int pageSize)
         {
             var result = _userManager.Users.GetPaged(page, pageSize);
@@ -52,15 +51,13 @@ namespace SmartRestaurant.API.Controllers
             var result = await _userManager.GetUsersInRoleAsync(role).ConfigureAwait(false);
             return Ok(result);
         }
-        
+
         [Route("{userId}")]
         [HttpGet]
         public async Task<IActionResult> GetById([FromRoute] string userId)
         {
             var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
-            if (user == null) return Ok(HttpResponseHelper.Respond(ResponseType.NotFound));
-
-            return Ok(user);
+            return user == null ? Ok(HttpResponseHelper.Respond(ResponseType.NotFound)) : Ok(user);
         }
 
         private async Task<PagedListDto<UserWithRolesModel>> GetPagedListOfUsers(
@@ -94,42 +91,19 @@ namespace SmartRestaurant.API.Controllers
             var pagedResult = await GetPagedListOfUsers(result).ConfigureAwait(false);
             return Ok(pagedResult);
         }
-        
+
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpPost]
-        public async Task<IActionResult> Create(ApplicationUserModel model)
-        {
-            var user = new ApplicationUser(model.FullName, model.Email, model.UserName);
-            var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
-            if (result.Succeeded)
-            {
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-                await SendEmailConfirmation(user, token).ConfigureAwait(false);
-            }
-
-            return CheckResultStatus(result);
-        }
-
-
-        [Authorize(Roles = "SupportAgent,SuperAdmin")]
-        [HttpPost("createUserWithRoles")]
-        public async Task<IActionResult> CreateUserWithRoles(CreateUserWithRolesModel model)
+        public async Task<IActionResult> Create(CreateUserWithRolesModel model)
         {
             var user = new ApplicationUser(model.User.FullName, model.User.Email, model.User.UserName);
-            if (string.IsNullOrEmpty(model.Password))
-                model.Password = RandomPasswordGenerator.GeneratePassword(true, true, true, true, 10);
-
-            var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
-            foreach (var role in model.Roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
+            var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (!result.Succeeded) return CheckResultStatus(result);
-            _cache.GetOrCreate(user.Email, entry =>
-            {
-                entry.SlidingExpiration = TimeSpan.FromDays(1);
-                return new MemoryCachePasswordModel {Email = user.Email, Password = model.Password};
-            });
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
             await SendEmailConfirmation(user, token).ConfigureAwait(false);
+            if (model.Password.Length <= 0) return CheckResultStatus(result);
+            foreach (var role in model.Roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
 
             return CheckResultStatus(result);
         }
@@ -179,9 +153,9 @@ namespace SmartRestaurant.API.Controllers
 
         private IActionResult CheckResultStatus(IdentityResult result)
         {
-            if (result.Succeeded) return Ok(HttpResponseHelper.Respond(ResponseType.OK));
-
-            return Ok(HttpResponseHelper.Respond(ResponseType.InternalServerError));
+            return Ok(result.Succeeded
+                ? HttpResponseHelper.Respond(ResponseType.OK)
+                : HttpResponseHelper.Respond(ResponseType.InternalServerError));
         }
     }
 }

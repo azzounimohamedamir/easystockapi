@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
@@ -43,6 +44,8 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 FoodBusinessAdministratorId = "4",
                 FoodBusinessCategory = FoodBusinessCategory.Restaurant
             };
+            
+            
             var validationResult = await SendAsync(createFoodBusinessCommand);
 
             var item = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);

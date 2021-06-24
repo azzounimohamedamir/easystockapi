@@ -4,6 +4,28 @@ parameters:
 jobs:
   - job: Tests_on_Wind
     steps:
+    - task: PowerShell@2
+      displayName: 'start mssqllocaldb'
+      inputs:
+        targetType: 'inline'
+        script: |
+           sqllocaldb start mssqllocaldb
+           sqllocaldb info  mssqllocaldb
+           Import-Module -Name "SqlServer"
+           $sql = "
+           CREATE DATABASE SmartRestaurant
+           GO
+           CREATE DATABASE SmartRestaurantIdentity
+           GO 
+           "
+           Invoke-SqlCmd -ServerInstance "(localdb)\MSSQLLocalDB" -database master -Query $sql
+
+    - task: DotNetCoreCLI@2
+      displayName: Install EF Tool
+      inputs:
+        command: custom
+        custom: 'tool '
+        arguments: install --global dotnet-ef
     - task: UseDotNet@2
       inputs:
         version: '3.1.x'
@@ -16,20 +38,33 @@ jobs:
       displayName: 'dotnet restore ${{ parameters.buildConfiguration }}'
 
     - task: DotNetCoreCLI@2
+      displayName: Database Migrations ApplicationDbContext
+      inputs:
+        command: custom
+        custom: 'ef '
+        arguments: database update --context:ApplicationDbContext --project $(Build.SourcesDirectory)/src/Presentation/SmartRestaurant.API/
+    - task: DotNetCoreCLI@2
+      displayName: Database Migrations IdentityContext
+      inputs:
+        command: custom
+        custom: 'ef '
+        arguments: database update --context:IdentityContext --project $(Build.SourcesDirectory)/src/Presentation/SmartRestaurant.API/
+
+    - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
         projects: |
             **/*Tests/*.csproj
-            !**/*Application.IntegrationTests/*.csproj
+#            !**/*Application.IntegrationTests/*.csproj
         arguments: '--configuration ${{ parameters.buildConfiguration }}'
       displayName: 'dotnet build ${{ parameters.buildConfiguration }}'
-
+    
     - task: DotNetCoreCLI@2
       inputs:
         command: test
         projects: |
            **/*Tests/*.csproj
-           !**/*Application.IntegrationTests/*.csproj
+#           !**/*Application.IntegrationTests/*.csproj
         arguments: '--configuration ${{ parameters.buildConfiguration }} --collect "XPlat Code Coverage"'
       displayName: 'dotnet tests ${{ parameters.buildConfiguration }}'
 
