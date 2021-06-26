@@ -1,58 +1,37 @@
-using System.Collections.Generic;
-using SmartRestaurant.WebApi.Tests.Controllers.FoodBusiness.ViewModels;
+using SmartRestaurant.WebApi.Tests.Common;
 using Xunit;
 
 namespace SmartRestaurant.WebApi.Tests.Controllers.FoodBusiness
 {
-    public class GetFoodBusinessByAdministratorId
+    public class GetFoodBusinessByAdministratorId : ProtectedController
     {
-        [Fact]
-        public async void GetFoodBusinessByAdministratorId_WhenNotAuthenticated_ShouldReturnPermissionException()
+        public GetFoodBusinessByAdministratorId() : base(
+            "/foodbusiness/3cbf3570-4444-4444-8746-29b7cf568093/foodBusinessAdministrator")
         {
-            var api = new Configuration.WebApi();
+        }
 
-            var response = await api.Get<FoodBusinessModel>("/foodbusiness/123/foodBusinessAdministrator");
+        [Fact]
+        public async void GuestTryAccess_ShouldReturnNotAuthenticatedStatus()
+        {
+            var response = await GetAsGuest();
 
             Assert.Null(response.Content);
             Assert.Equal(401, response.StatusCode);
         }
 
         [Fact]
-        public async void GetFoodBusinessByAdministratorId_WhenNotAuthorized_ShouldReturnPermissionException()
+        public async void WaiterTryAccess_ShouldReturnNotAuthorizedStatus()
         {
-            var api = new Configuration.WebApi();
-
-            await api.Sign("Waiter@SmartRestaurant.io", "Supportagent123@");
-
-            var response = await api.Get<FoodBusinessModel>("/foodbusiness/123/foodBusinessAdministrator");
+            var response = await GetAsWaiter();
 
             Assert.Null(response.Content);
             Assert.Equal(403, response.StatusCode);
         }
 
         [Fact]
-        public async void GetFoodBusinessByAdministratorId_WrongPageQueryParameter_ShouldReturnNoData()
+        public async void SupportAgentTryAccess_ShouldReturnOK()
         {
-            var api = new Configuration.WebApi();
-
-            await api.Sign("SupportAgent@SmartRestaurant.io", "Supportagent123@");
-
-            var response = await api.Get<FoodBusinessModel>("/foodbusiness/123/foodBusinessAdministrator");
-
-            Assert.Null(response.Content);
-            Assert.Equal(200, response.StatusCode);
-        }
-
-        [Fact]
-        public async void GetFoodBusinessByAdministratorId_AuthenticatedAndAuthorized_ShouldReturnOK()
-        {
-            var api = new Configuration.WebApi();
-
-            await api.Sign("SupportAgent@SmartRestaurant.io", "Supportagent123@");
-
-            var response =
-                await api.Get<List<FoodBusinessModel>>(
-                    "/foodbusiness/3cbf3570-4444-4444-8746-29b7cf568093/foodBusinessAdministrator");
+            var response = await GetAsSupportAgent();
 
             Assert.NotNull(response.Content);
             Assert.Equal(200, response.StatusCode);

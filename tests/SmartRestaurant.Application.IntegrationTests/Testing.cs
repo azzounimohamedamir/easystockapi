@@ -58,7 +58,7 @@ namespace SmartRestaurant.Application.IntegrationTests
             using var scope = _scopeFactory.CreateScope();
 
             var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-            
+
             context.Database.Migrate();
         }
 
@@ -112,7 +112,7 @@ namespace SmartRestaurant.Application.IntegrationTests
             using var scope = _scopeFactory.CreateScope();
 
             var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-            
+
             return context;
         }
 

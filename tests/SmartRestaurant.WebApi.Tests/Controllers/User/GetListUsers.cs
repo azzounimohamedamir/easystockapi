@@ -1,60 +1,39 @@
 using SmartRestaurant.WebApi.Tests.Common;
-using SmartRestaurant.WebApi.Tests.Controllers.User.ViewModels;
 using Xunit;
 
 namespace SmartRestaurant.WebApi.Tests.Controllers.User
 {
-    public class GetListUsers
+    public class GetListUsers : ProtectedController
     {
-        [Fact]
-        public async void GetListUsers_WhenNotAuthenticated_ShouldReturnPermissionException()
+        public GetListUsers() : base("/users")
         {
-            var api = new Configuration.WebApi();
+        }
 
-            var response = await api.Get<DataList<UserModel>>("/Users");
+        [Fact]
+        public async void GuestTryAccess_ShouldReturnNotAuthenticatedStatus()
+        {
+            var response = await GetAsGuest();
 
             Assert.Null(response.Content);
             Assert.Equal(401, response.StatusCode);
         }
 
         [Fact]
-        public async void GetListUsers_WhenNotAuthorized_ShouldReturnPermissionException()
+        public async void WaiterTryAccess_ShouldReturnNotAuthorizedStatus()
         {
-            var api = new Configuration.WebApi();
-
-            await api.Sign("Waiter@SmartRestaurant.io", "Supportagent123@");
-
-            var response = await api.Get<DataList<UserModel>>("/Users");
+            var response = await GetAsWaiter();
 
             Assert.Null(response.Content);
             Assert.Equal(403, response.StatusCode);
         }
 
         [Fact]
-        public async void GetListUsers_WrongPageQueryParameter_ShouldReturnNoData()
+        public async void SupportAgentTryAccess_ShouldReturnOK()
         {
-            var api = new Configuration.WebApi();
-
-            await api.Sign("SupportAgent@SmartRestaurant.io", "Supportagent123@");
-
-            var response = await api.Get<DataList<UserModel>>("/Users?page=tests");
-
-            Assert.Null(response.Content);
-            Assert.Equal(400, response.StatusCode);
-        }
-
-        [Fact]
-        public async void GetListUsers_AuthenticatedAndAuthorized_ShouldReturnOK()
-        {
-            var api = new Configuration.WebApi();
-
-            await api.Sign("SupportAgent@SmartRestaurant.io", "Supportagent123@");
-
-            var response = await api.Get<DataList<UserModel>>("/Users");
+            var response = await GetAsSupportAgent();
 
             Assert.NotNull(response.Content);
             Assert.Equal(200, response.StatusCode);
-            Assert.True(response.Content.Data.Count >= 1);
         }
     }
 }
