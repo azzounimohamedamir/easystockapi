@@ -10,27 +10,27 @@ namespace SmartRestaurant.WebApi.Tests.Controllers.FoodBusiness
         }
 
         [Fact]
-        public async void GuestTryAccess_ShouldReturnNotAuthenticatedStatus()
+        public void GuestTryAccess_ShouldReturnNotAuthenticatedStatus()
         {
-            var response = await GetAsGuest();
+            var response = GetAsGuest();
 
             Assert.Null(response.Content);
             Assert.Equal(401, response.StatusCode);
         }
 
         [Fact]
-        public async void WaiterTryAccess_ShouldReturnNotAuthorizedStatus()
+        public void WaiterTryAccess_ShouldReturnNotAuthorizedStatus()
         {
-            var response = await GetAsWaiter();
+            var response = GetAsWaiter();
 
             Assert.Null(response.Content);
             Assert.Equal(403, response.StatusCode);
         }
 
         [Fact]
-        public async void SupportAgentTryAccess_ShouldReturnOK()
+        public void SupportAgentTryAccess_ShouldReturnOK()
         {
-            var response = await GetAsSupportAgent();
+            var response = GetAsSupportAgent();
 
             Assert.NotNull(response.Content);
             Assert.Equal(200, response.StatusCode);

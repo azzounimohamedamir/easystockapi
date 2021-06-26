@@ -1,4 +1,4 @@
-namespace SmartRestaurant.WebApi.Tests.Common
+namespace SmartRestaurant.WebApi.Tests.ViewModels
 {
     public class ApiResult<T> where T : class
     {

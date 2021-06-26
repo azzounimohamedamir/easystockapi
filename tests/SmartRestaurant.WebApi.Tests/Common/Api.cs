@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using SmartRestaurant.WebApi.Tests.Configuration;
+using SmartRestaurant.WebApi.Tests.ViewModels;
 
 namespace SmartRestaurant.WebApi.Tests.Common
 {

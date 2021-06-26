@@ -1,32 +1,34 @@
-using System.Threading.Tasks;
+using SmartRestaurant.WebApi.Tests.ViewModels;
 
 namespace SmartRestaurant.WebApi.Tests.Common
 {
     public class ProtectedController
     {
-        private readonly Api _api;
+        private readonly string _endpoint;
 
         protected ProtectedController(string endpoint)
         {
-            _api = new Api(endpoint);
+            _endpoint = endpoint;
         }
 
-        protected async Task<ApiResult<object>> GetAsGuest()
+        protected ApiResult<object> GetAsGuest()
         {
-            _api.RemoveAccessToken();
-            return await _api.Get<object>();
+            var api = new Api(_endpoint);
+            return api.Get<object>().Result;
         }
 
-        protected async Task<ApiResult<object>> GetAsWaiter()
+        protected ApiResult<object> GetAsWaiter()
         {
-            await _api.Sign("Waiter@SmartRestaurant.io", "Supportagent123@");
-            return await _api.Get<object>();
+            var api = new Api(_endpoint);
+            api.Sign("Waiter@SmartRestaurant.io", "Supportagent123@").ConfigureAwait(false);
+            return api.Get<object>().Result;
         }
 
-        protected async Task<ApiResult<object>> GetAsSupportAgent()
+        protected ApiResult<object> GetAsSupportAgent()
         {
-            await _api.Sign("SupportAgent@SmartRestaurant.io", "Supportagent123@");
-            return await _api.Get<object>();
+            var api = new Api(_endpoint);
+            api.Sign("SupportAgent@SmartRestaurant.io", "Supportagent123@").ConfigureAwait(false);
+            return api.Get<object>().Result;
         }
     }
 }

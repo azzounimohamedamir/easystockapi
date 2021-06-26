@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SmartRestaurant.WebApi.Tests.Common
+namespace SmartRestaurant.WebApi.Tests.ViewModels
 {
     public class AuthResponse
     {
