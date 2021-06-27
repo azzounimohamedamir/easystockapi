@@ -44,6 +44,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [Route("role/{role}")]
+        [Authorize(Roles = "SuperAdmin,SupportAgent")]
         [HttpGet]
         public async Task<IActionResult> GetAllByRole([FromRoute] string role, int page, int pageSize)
         {
@@ -52,6 +53,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [Route("{userId}")]
+        [Authorize(Roles = "SuperAdmin,SupportAgent")]
         [HttpGet]
         public async Task<IActionResult> GetById([FromRoute] string userId)
         {
@@ -76,7 +78,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [Route("/api/users/{foodBusinessId:Guid}")]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "SuperAdmin,FoodBusinessManager")]
         [HttpGet]
         public async Task<IActionResult> GetStaff([FromRoute] Guid foodBusinessId, int page, int pageSize)
         {
@@ -94,9 +96,9 @@ namespace SmartRestaurant.API.Controllers
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateUserWithRolesModel model)
+        public async Task<IActionResult> Create(ApplicationUserModel model)
         {
-            var user = new ApplicationUser(model.User.FullName, model.User.Email, model.User.UserName);
+            var user = new ApplicationUser(model.FullName, model.Email, model.UserName);
             var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (!result.Succeeded) return CheckResultStatus(result);
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
@@ -106,9 +108,10 @@ namespace SmartRestaurant.API.Controllers
 
             return CheckResultStatus(result);
         }
-
-        [HttpPut]
+        
         [Route("{id}")]
+        [Authorize(Roles = "SuperAdmin,SupportAgent")]
+        [HttpPut]
         public async Task<IActionResult> Update([FromRoute] string id, ApplicationUserModel model)
         {
             var user = await _userManager.FindByIdAsync(id).ConfigureAwait(false);

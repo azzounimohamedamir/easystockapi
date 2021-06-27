@@ -62,7 +62,6 @@ namespace SmartRestaurant.API.Controllers
             return ApiCustomResponse(validationResult);
         }
 
-
         [HttpDelete]
         [Route("{id:Guid}")]
         [Authorize(Roles = "FoodBusinessAdministrator")]

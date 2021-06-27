@@ -107,15 +107,6 @@ namespace SmartRestaurant.Application.IntegrationTests
             await context.SaveChangesAsync();
         }
 
-        public static async Task<ApplicationDbContext> GetContext()
-        {
-            using var scope = _scopeFactory.CreateScope();
-
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-
-            return context;
-        }
-
         [OneTimeTearDown]
         public void RunAfterAnyTests()
         {
