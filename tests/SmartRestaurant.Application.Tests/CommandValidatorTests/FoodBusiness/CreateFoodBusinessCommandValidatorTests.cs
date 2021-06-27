@@ -16,8 +16,8 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusiness
         [Fact]
         public void Given_EmptyName_WhenValidating_ShouldError()
         {
-            var IncorrectName = string.Empty;
-            _validator.ShouldHaveValidationErrorFor(foodBusiness => foodBusiness.Name, IncorrectName);
+            var incorrectName = string.Empty;
+            _validator.ShouldHaveValidationErrorFor(foodBusiness => foodBusiness.Name, incorrectName);
         }
 
         [Fact]
