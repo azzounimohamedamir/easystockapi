@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Collections.Generic;
+using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Domain.Enums;
@@ -18,7 +19,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public bool OffersTakeout { get; set; }
         public bool AcceptsCreditCards { get; set; }
         public bool AcceptTakeout { get; set; }
-        public string Tags { get; set; }
+        public List<string> Tags { get; set; }
         public string Website { get; set; }
         public string FoodBusinessAdministratorId { get; set; }
         public int NRC { get; set; }

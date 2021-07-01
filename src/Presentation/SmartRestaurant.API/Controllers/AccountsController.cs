@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -33,6 +34,7 @@ namespace SmartRestaurant.API.Controllers
             _cache = cache;
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginModel model)
         {
@@ -44,6 +46,7 @@ namespace SmartRestaurant.API.Controllers
             return Ok(new {token, user.UserName, roles});
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterModel model)
         {
