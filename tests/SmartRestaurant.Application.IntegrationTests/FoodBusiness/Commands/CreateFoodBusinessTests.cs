@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
@@ -38,7 +39,11 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 Name = "Taj mahal",
                 OffersTakeout = true,
                 PhoneNumber = new PhoneNumberDto {CountryCode = 213, Number = 670217536},
-                Tags = "",
+                Tags = new List<string>
+                {
+                    "",
+                    ""
+                },
                 Website = "",
                 FoodBusinessAdministratorId = "4",
                 FoodBusinessCategory = FoodBusinessCategory.Restaurant

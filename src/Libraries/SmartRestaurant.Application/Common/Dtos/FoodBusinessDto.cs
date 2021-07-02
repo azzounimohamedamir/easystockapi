@@ -24,7 +24,7 @@ namespace SmartRestaurant.Application.Common.Dtos
         public bool IsHandicapFriendly { get; set; }
         public bool AcceptsCreditCards { get; set; }
         public bool AcceptTakeout { get; set; }
-        public string Tags { get; set; }
+        public List<string> Tags { get; set; }
         public string Website { get; set; }
         public FoodBusinessState FoodBusinessState { get; set; }
         public List<string> Images { get; set; }

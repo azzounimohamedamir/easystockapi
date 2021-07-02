@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,14 +22,12 @@ namespace SmartRestaurant.API.Controllers
     [ApiController]
     public class UsersController : ApiController
     {
-        private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
-
-        public UsersController(UserManager<ApplicationUser> userManager, IMapper mapper, IEmailSender emailSender) :
+        
+        public UsersController(UserManager<ApplicationUser> userManager, IEmailSender emailSender) :
             base(emailSender)
         {
             _userManager = userManager;
-            _mapper = mapper;
         }
 
         [HttpGet]
