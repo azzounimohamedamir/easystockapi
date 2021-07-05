@@ -39,8 +39,7 @@ namespace SmartRestaurant.API.Controllers
         [Authorize(Roles = "FoodBusinessManager")]
         public async Task<ActionResult> Create([FromRoute] Guid id, CreateMenuCommand command)
         {
-            if (id != command.FoodBusinessId)
-                return BadRequest();
+            command.FoodBusinessId = id;
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
