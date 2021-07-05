@@ -146,6 +146,18 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     PasswordHash =
                         "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                     EmailConfirmed = true
+                },
+                new ApplicationUser
+                {
+                    Id = "a1997466-cedc-4850-b18d-0ac4f4102cff",
+                    UserName = "FoodBusinessManager@SmartRestaurant.io",
+                    Email = "FoodBusinessManager@SmartRestaurant.io",
+                    NormalizedUserName = "FOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                    NormalizedEmail = "FOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                    // Real password is "FoodBusinessManager123@"
+                    PasswordHash =
+                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                    EmailConfirmed = true
                 }
             );
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(
@@ -168,7 +180,12 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                 {
                     UserId = "3cbf3570-4444-4444-8746-29b7cf568093",
                     RoleId = "5"
-                }
+                },
+                 new IdentityUserRole<string>
+                 {
+                     UserId = "a1997466-cedc-4850-b18d-0ac4f4102cff",
+                     RoleId = "6"
+                 }
             );
         }
     }
