@@ -44,6 +44,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmartRestaurant.Application.Tests\SmartRestaurant.Application.Tests.csproj" />
-    <ProjectReference Include="..\SmartRestaurant.Domain.Tests\SmartRestaurant.Domain.Tests.csproj" />
   </ItemGroup>
 </Project>
