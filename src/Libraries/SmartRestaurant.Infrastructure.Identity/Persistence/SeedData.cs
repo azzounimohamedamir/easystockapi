@@ -181,11 +181,11 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     UserId = "3cbf3570-4444-4444-8746-29b7cf568093",
                     RoleId = "5"
                 },
-                 new IdentityUserRole<string>
-                 {
-                     UserId = "a1997466-cedc-4850-b18d-0ac4f4102cff",
-                     RoleId = "6"
-                 }
+                new IdentityUserRole<string>
+                {
+                    UserId = "a1997466-cedc-4850-b18d-0ac4f4102cff",
+                    RoleId = "6"
+                }
             );
         }
     }

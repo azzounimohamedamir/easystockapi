@@ -23,7 +23,7 @@ namespace SmartRestaurant.API.Controllers
     public class UsersController : ApiController
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        
+
         public UsersController(UserManager<ApplicationUser> userManager, IEmailSender emailSender) :
             base(emailSender)
         {
@@ -95,6 +95,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ApplicationUserModel model)
         {
+            if (SuperAdminCheck(model.Roles)) return BadRequest(); 
             var user = new ApplicationUser(model.FullName, model.Email, model.UserName);
             var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (!result.Succeeded) return CheckResultStatus(result);
@@ -105,12 +106,13 @@ namespace SmartRestaurant.API.Controllers
 
             return CheckResultStatus(result);
         }
-        
+
         [Route("{id}")]
         [Authorize(Roles = "SuperAdmin,SupportAgent")]
         [HttpPut]
         public async Task<IActionResult> Update([FromRoute] string id, ApplicationUserModel model)
         {
+            if (SuperAdminCheck(model.Roles)) return BadRequest();
             var user = await _userManager.FindByIdAsync(id).ConfigureAwait(false);
             if (user == null)
                 throw new NotFoundException(nameof(user), id);
@@ -126,6 +128,8 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
+            var roles = await _userManager.GetRolesAsync(user);
+            if (SuperAdminCheck(roles)) return BadRequest();
             var result = await _userManager.DeleteAsync(user);
             return CheckResultStatus(result);
         }
@@ -148,6 +152,11 @@ namespace SmartRestaurant.API.Controllers
             user.IsActive = true;
             var result = await _userManager.UpdateAsync(user);
             return CheckResultStatus(result);
+        }
+        
+        private static bool SuperAdminCheck(IEnumerable<string> roles)
+        {
+            return roles.Contains("SuperAdmin", StringComparer.OrdinalIgnoreCase);
         }
 
         private IActionResult CheckResultStatus(IdentityResult result)
