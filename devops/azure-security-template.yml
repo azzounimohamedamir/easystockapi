@@ -1,16 +1,6 @@
-#jobs:
-#  - job: 42crunch
-#    steps:
-#    - task: APIContractSecurityAudit@2
-#      inputs:
-#        apiToken: '$(42C_API_TOKEN)'
-#      displayName: 42crunch API Security Scanning
-  parameters:
-    WebProjectName: 'src/Presentation/SmartRestaurant.API/'
-    TestProjectFolder: 'tests'
-  
+
   jobs:
-  - job: 42crunch-Scan
+  - job: Crunch-Scan
     steps:
       - task: APIContractSecurityAudit@2
         inputs:
