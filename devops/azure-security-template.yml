@@ -10,7 +10,7 @@
     TestProjectFolder: 'tests'
   
   jobs:
-  - job: Build_the_API
+  - job: 42crunch-Scan
     steps:
       - task: APIContractSecurityAudit@2
         inputs:
