@@ -8,12 +8,12 @@ using SmartRestaurant.Application.Menus.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
-    [Route("api/foodbusiness")]
+    [Route("api/menus")]
     [ApiController]
     public class MenusController : ApiController
     {
+        [Route("foodbusiness/{id:Guid}")]
         [HttpGet]
-        [Route("{id:Guid}/menus/")]
         [Authorize(Roles = "FoodBusinessManager")]
         public Task<PagedListDto<MenuDto>> Get([FromRoute] Guid id, int page, int pageSize)
         {
@@ -24,49 +24,37 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpGet]
-        [Route("{id:Guid}/menus/{menuId:Guid}")]
+        [Route("{id:Guid}")]
         [Authorize(Roles = "FoodBusinessManager")]
-        public Task<MenuDto> Get([FromRoute] Guid id, [FromRoute] Guid menuId)
+        public Task<MenuDto> Get([FromRoute] Guid id)
         {
-            if (menuId == Guid.Empty)
-                throw new InvalidOperationException("Menu id shouldn't be null or empty");
-
-            return SendAsync(new GetMenuByIdQuery {MenuId = menuId});
+            return SendAsync(new GetMenuByIdQuery {MenuId = id});
         }
 
-        [Route("{id:Guid}/menus/")]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Create([FromRoute] Guid id, CreateMenuCommand command)
+        public async Task<ActionResult> Create(CreateMenuCommand command)
         {
-            command.FoodBusinessId = id;
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
 
-        [Route("{id:Guid}/menus/{menuId:Guid}")]
         [HttpPut]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Update([FromRoute] Guid id, [FromRoute] Guid menuId, UpdateMenuCommand command)
+        public async Task<ActionResult> Update(UpdateMenuCommand command)
         {
-            if (id != command.FoodBusinessId)
-                return BadRequest();
-            if (menuId != command.CmdId)
-                return BadRequest();
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
 
-        [Route("{id:Guid}/menus/{menuId:Guid}")]
+        [Route("{id:Guid}")]
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Delete([FromRoute] Guid id, [FromRoute] Guid menuId)
+        public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
             if (id == Guid.Empty)
                 return BadRequest();
-            if (menuId == Guid.Empty)
-                return BadRequest();
-            await SendAsync(new DeleteMenuCommand {MenuId = menuId}).ConfigureAwait(false);
+            await SendAsync(new DeleteMenuCommand {MenuId = id}).ConfigureAwait(false);
             return Ok("Successful");
         }
     }

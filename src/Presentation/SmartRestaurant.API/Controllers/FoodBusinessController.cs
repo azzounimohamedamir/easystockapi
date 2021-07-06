@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models.MediaModels;
-using SmartRestaurant.API.Models.UserModels;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusiness.Queries;

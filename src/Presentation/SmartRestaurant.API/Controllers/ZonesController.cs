@@ -14,80 +14,63 @@ using SmartRestaurant.Application.Zones.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
-    [Route("api/foodbusiness")]
+    [Route("api/zones")]
     [ApiController]
     public class ZonesController : ApiController
     {
-        [Route("{id:Guid}/zones/")]
+        [Route("foodbusiness/{id:Guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
-        [ActionName("")]
         public Task<IEnumerable<ZoneDto>> Get([FromRoute] Guid id)
         {
             return SendAsync(new GetZonesListQuery {FoodBusinessId = id});
         }
 
-        [Route("{id:Guid}/zones/{zoneId:Guid}")]
+        [Route("{id:Guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
-        [ActionName("")]
-        public Task<ZoneDto> GetById([FromRoute] Guid id, [FromRoute] Guid zoneId)
+        public Task<ZoneDto> GetById([FromRoute] Guid id)
         {
             if (id == Guid.Empty)
-                throw new InvalidOperationException("Food business id shouldn't be null or empty ");
-            if (zoneId == Guid.Empty)
                 throw new InvalidOperationException("Zone id shouldn't be null or empty ");
 
-            return SendAsync(new GetZoneByIdQuery {ZoneId = zoneId});
+            return SendAsync(new GetZoneByIdQuery {ZoneId = id});
         }
 
-        [Route("{id:Guid}/zones/")]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Create([FromRoute] Guid id, CreateZoneCommand command)
+        public async Task<ActionResult> Create(CreateZoneCommand command)
         {
-            if (id != command.FoodBusinessId)
-                return BadRequest();
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
 
-        [Route("{id:Guid}/zones/{zoneId:Guid}")]
         [HttpPut]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Update([FromRoute] Guid id, [FromRoute] Guid zoneId, UpdateZoneCommand command)
+        public async Task<ActionResult> Update(UpdateZoneCommand command)
         {
-            if (id != command.FoodBusinessId)
-                return BadRequest();
-            if (zoneId != command.CmdId)
-                return BadRequest();
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
 
-        [Route("{id:Guid}/zones/{zoneId:Guid}")]
+        [Route("{id:Guid}")]
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Delete([FromRoute] Guid id, [FromRoute] Guid zoneId)
+        public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
             if (id == Guid.Empty)
                 return BadRequest();
-            if (zoneId == Guid.Empty)
-                return BadRequest();
-            await SendAsync(new DeleteZoneCommand {ZoneId = zoneId}).ConfigureAwait(false);
+            await SendAsync(new DeleteZoneCommand {ZoneId = id}).ConfigureAwait(false);
             return Ok("Successful");
         }
 
         [HttpPost]
-        [Route("{id:Guid}/zones/{zoneId:Guid}/uploadImages")]
+        [Route("{id:Guid}/uploadImages")]
         [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<ActionResult> UploadImages([FromRoute] Guid id, [FromRoute] Guid zoneId,
-            [FromForm] FIleUploadModel images)
+        public async Task<ActionResult> UploadImages([FromRoute] Guid id, [FromForm] FIleUploadModel images)
         {
             if (images.EntityId == Guid.Empty)
                 throw new InvalidOperationException("Zone id shouldn't be null or empty");
-            if (zoneId != images.EntityId)
-                return BadRequest();
             var zoneDto = await SendAsync(new GetZoneByIdQuery {ZoneId = images.EntityId}).ConfigureAwait(false);
             if (zoneDto == null)
                 return BadRequest("Zone wasn't found");
@@ -110,12 +93,11 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpGet]
-        [Route("{id:Guid}/zones/{zoneId:Guid}/allImages")]
+        [Route("{id:Guid}/allImages")]
         [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
-        public async Task<IEnumerable<string>> GetAllImagesByFoodBusinessId([FromRoute] Guid id,
-            [FromRoute] Guid zoneId)
+        public async Task<IEnumerable<string>> GetAllImagesByFoodBusinessId([FromRoute] Guid id)
         {
-            var query = await SendAsync(new GetImagesByEntityIdQuery {EntityId = zoneId}).ConfigureAwait(false);
+            var query = await SendAsync(new GetImagesByEntityIdQuery {EntityId = id}).ConfigureAwait(false);
             return query.Select(Convert.ToBase64String);
         }
     }

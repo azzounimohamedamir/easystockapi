@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Reservations.Commands;
 
 namespace SmartRestaurant.API.Controllers
@@ -11,8 +10,6 @@ namespace SmartRestaurant.API.Controllers
     [ApiController]
     public class ReservationsController : ApiController
     {
-
-        
         [Route("{id:Guid}/reservations/")]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]
@@ -22,6 +19,6 @@ namespace SmartRestaurant.API.Controllers
                 return BadRequest();
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
-        }       
+        }
     }
 }

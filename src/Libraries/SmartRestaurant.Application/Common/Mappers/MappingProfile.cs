@@ -4,10 +4,10 @@ using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Images.Commands;
 using SmartRestaurant.Application.Menus.Commands;
+using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Sections.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Zones.Commands;
-using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.ValueObjects;
 
@@ -51,8 +51,8 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.SectionId))
                 .ReverseMap();
             CreateMap<CreateReservationCommand, Reservation>()
-                 .ForMember(x => x.ReservationId, o => o.MapFrom(p => p.CmdId))
-                 .ReverseMap();
+                .ForMember(x => x.ReservationId, o => o.MapFrom(p => p.CmdId))
+                .ReverseMap();
         }
     }
 }

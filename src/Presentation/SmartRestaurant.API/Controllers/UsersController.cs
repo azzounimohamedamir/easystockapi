@@ -95,7 +95,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ApplicationUserModel model)
         {
-            if (SuperAdminCheck(model.Roles)) return BadRequest(); 
+            if (SuperAdminCheck(model.Roles)) return BadRequest();
             var user = new ApplicationUser(model.FullName, model.Email, model.UserName);
             var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
             if (!result.Succeeded) return CheckResultStatus(result);
@@ -153,7 +153,7 @@ namespace SmartRestaurant.API.Controllers
             var result = await _userManager.UpdateAsync(user);
             return CheckResultStatus(result);
         }
-        
+
         private static bool SuperAdminCheck(IEnumerable<string> roles)
         {
             return roles.Contains("SuperAdmin", StringComparer.OrdinalIgnoreCase);

@@ -11,7 +11,7 @@ namespace SmartRestaurant.API.Controllers
     [ApiController]
     public class FoodBusinessStaffController : ApiController
     {
-        [Route("{userId:Guid}/foodbusinessstaff/{foodBusinessId:Guid}/role/{role}")]
+        [Route("{userId:Guid}/foodbusiness/{foodBusinessId:Guid}/role/{role}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessAdministrator")]
         public async Task<ActionResult> AddOrUpdateEmployeeRoleInOrganization([FromRoute] Guid foodBusinessId,
@@ -22,7 +22,7 @@ namespace SmartRestaurant.API.Controllers
             return ApiCustomResponse(validationResult);
         }
 
-        [Route("{userId:Guid}/foodbusinessstaff/{foodBusinessId:Guid}")]
+        [Route("{userId:Guid}/foodbusiness/{foodBusinessId:Guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessAdministrator")]
         public async Task<ActionResult> RemoveStaffFromInOrganization([FromRoute] Guid foodBusinessId,
