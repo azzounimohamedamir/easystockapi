@@ -1,8 +1,9 @@
-﻿using AutoMapper;
-using SmartRestaurant.Application.Tests.Configuration;
-using Xunit;
+﻿using System;
+using AutoMapper;
 using SmartRestaurant.Application.Reservations.Commands;
-using System;
+using SmartRestaurant.Application.Tests.Configuration;
+using SmartRestaurant.Domain.Entities;
+using Xunit;
 
 namespace SmartRestaurant.Application.Tests.MappingTests
 {
@@ -24,15 +25,14 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 ClientName = "Aissa",
                 NumberOfDiners = 3,
                 ReservationDate = DateTime.Now.AddDays(1),
-                FoodBusinessId = Guid.NewGuid(),
-                
+                FoodBusinessId = Guid.NewGuid()
             };
 
-            var reservation = _mapper.Map<Domain.Entities.Reservation>(createReservationCommand);
+            var reservation = _mapper.Map<Reservation>(createReservationCommand);
             Assert.Equal(reservation.ClientName, createReservationCommand.ClientName);
             Assert.Equal(reservation.NumberOfDiners, createReservationCommand.NumberOfDiners);
             Assert.Equal(reservation.ReservationDate, createReservationCommand.ReservationDate);
-            Assert.Equal(reservation.FoodBusinessId, createReservationCommand.FoodBusinessId);           
+            Assert.Equal(reservation.FoodBusinessId, createReservationCommand.FoodBusinessId);
         }
     }
 }

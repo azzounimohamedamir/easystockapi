@@ -8,49 +8,42 @@ using SmartRestaurant.Application.Sections.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
-    [Route("api/foodbusiness/{id:Guid}/menus")]
+    [Route("api/sections")]
     [ApiController]
     public class SectionsController : ApiController
     {
-        [Route("{menuId:Guid}/sections/")]
+        [Route("menu/{id:Guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
-        public Task<PagedListDto<SectionDto>> Get([FromRoute] Guid menuId, int page, int pageSize)
+        public Task<PagedListDto<SectionDto>> Get([FromRoute] Guid id, int page, int pageSize)
         {
-            return SendAsync(new GetSectionsListQuery {MenuId = menuId, Page = page, PageSize = pageSize});
+            return SendAsync(new GetSectionsListQuery {MenuId = id, Page = page, PageSize = pageSize});
         }
 
-        [Route("{menuId:Guid}/sections/")]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Create([FromRoute] Guid menuId, CreateSectionCommand command)
+        public async Task<ActionResult> Create(CreateSectionCommand command)
         {
-            if (menuId != command.MenuId)
-                return BadRequest();
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
 
-        [Route("{menuId:Guid}/sections/{sectionId:Guid}")]
         [HttpPut]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Update([FromRoute] Guid menuId, [FromRoute] Guid sectionId,
-            UpdateSectionCommand command)
+        public async Task<ActionResult> Update(UpdateSectionCommand command)
         {
-            if (menuId != command.MenuId || sectionId != command.CmdId)
-                return BadRequest();
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
 
-        [Route("{menuId:Guid}/sections/{sectionId:Guid}")]
+        [Route("{id:Guid}")]
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Delete([FromRoute] Guid menuId, [FromRoute] Guid sectionId)
+        public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
-            if (menuId == Guid.Empty || sectionId == Guid.Empty)
+            if (id == Guid.Empty)
                 return BadRequest();
-            await SendAsync(new DeleteSectionCommand {SectionId = sectionId}).ConfigureAwait(false);
+            await SendAsync(new DeleteSectionCommand {SectionId = id}).ConfigureAwait(false);
             return Ok("Successful");
         }
     }

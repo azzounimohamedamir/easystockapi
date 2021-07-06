@@ -15,11 +15,10 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
         }
 
         /**
-         ********************************************
+         * *******************************************
          * Reservation.ClientName validation tests
-         ********************************************
-         **/
-
+         * *******************************************
+         */
         [Fact]
         public void Given_ClientName_WhenValidating_ShouldBeValidated()
         {
@@ -30,8 +29,9 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
         [Fact]
         public void Given_ClientNameExeedsMaximumLength_WhenValidating_ShouldError()
         {
-            var entryNotRespectingMaxLength = "hUzzub8gB6NYKpvNvwOJ5fJQZcSaa34oOV4xmDpYKIQO4qukyPgFaWjZbzW3fwBHX53D60zCRLmluTqc1dSlHZeRZkuXQlhotluEPNni2zEhb93PvNjcu788iQRGR9aAPtFN4bICsbRGfv6l8dQQe23gAoP2WNjN87B5BXoV4MwrSAqPvJy6BEXBhq32DxxWw5NgVhotc";
-            _validator.ShouldHaveValidationErrorFor(R => R.ClientName, entryNotRespectingMaxLength);                    
+            var entryNotRespectingMaxLength =
+                "hUzzub8gB6NYKpvNvwOJ5fJQZcSaa34oOV4xmDpYKIQO4qukyPgFaWjZbzW3fwBHX53D60zCRLmluTqc1dSlHZeRZkuXQlhotluEPNni2zEhb93PvNjcu788iQRGR9aAPtFN4bICsbRGfv6l8dQQe23gAoP2WNjN87B5BXoV4MwrSAqPvJy6BEXBhq32DxxWw5NgVhotc";
+            _validator.ShouldHaveValidationErrorFor(R => R.ClientName, entryNotRespectingMaxLength);
         }
 
         [Fact]
@@ -42,10 +42,10 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
         }
 
         /**
-        ********************************************
-        * Reservation.NumberOfDiners validation tests
-        ********************************************
-        **/
+         * *******************************************
+         * Reservation.NumberOfDiners validation tests
+         * *******************************************
+         */
         [Fact]
         public void Given_NumberOfDiners_WhenValidating_ShouldBeValidated()
         {
@@ -68,30 +68,29 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
         }
 
         /**
-        *********************************************
-        * Reservation.ReservationDate validation tests
-        *********************************************
-        **/
+         * ********************************************
+         * Reservation.ReservationDate validation tests
+         * ********************************************
+         */
         [Fact]
         public void Given_ReservationDate_WhenValidating_ShouldBeValidated()
         {
-            DateTime validEntry = DateTime.Now.AddDays(1);
+            var validEntry = DateTime.Now.AddDays(1);
             _validator.ShouldNotHaveValidationErrorFor(reservation => reservation.ReservationDate, validEntry);
         }
 
         [Fact]
         public void Given_ReservationDateIsPastDate_WhenValidating_ShouldError()
         {
-            DateTime pastDate = DateTime.Now.AddDays(-1);
+            var pastDate = DateTime.Now.AddDays(-1);
             _validator.ShouldHaveValidationErrorFor(reservation => reservation.ReservationDate, pastDate);
         }
 
         /**
-        *********************************************
-        * Reservation.foodBusiness validation tests
-        *********************************************
-        **/
-
+         * ********************************************
+         * Reservation.foodBusiness validation tests
+         * ********************************************
+         */
         [Fact]
         public void Given_EmptyFoodBusiness_WhenValidating_ShouldError()
         {
