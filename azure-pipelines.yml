@@ -51,11 +51,11 @@ stages:
   - template: devops/azure-unittest-template.yml
 
 
-- stage: Run_Security_Tests
-  dependsOn: []
-  pool: 
-    vmImage: 'windows-2019'
-    workspace:
-      clean: all
-  jobs:
-  - template: devops/azure-security-template.yml
+#- stage: Run_Security_Tests
+#  dependsOn: []
+#  pool: 
+#    vmImage: 'windows-2019'
+#    workspace:
+#      clean: all
+#  jobs:
+#  - template: devops/azure-security-template.yml
