@@ -1,4 +1,7 @@
-- task: APIContractSecurityAudit@2
-  inputs:
-    apiToken: '$(42C_API_TOKEN)'
-  displayName: 42crunch API Security Scanning
+jobs:
+  - job: 42crunch
+    steps:
+    - task: APIContractSecurityAudit@2
+      inputs:
+        apiToken: '$(42C_API_TOKEN)'
+      displayName: 42crunch API Security Scanning
