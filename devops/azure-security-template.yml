@@ -1,6 +1,6 @@
 
   jobs:
-  - job: Crunch-Scan
+  - job: Crunch_Scan
     steps:
       - task: APIContractSecurityAudit@2
         inputs:
