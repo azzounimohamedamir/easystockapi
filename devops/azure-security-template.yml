@@ -1,7 +1,20 @@
-jobs:
-  - job: 42crunch
+#jobs:
+#  - job: 42crunch
+#    steps:
+#    - task: APIContractSecurityAudit@2
+#      inputs:
+#        apiToken: '$(42C_API_TOKEN)'
+#      displayName: 42crunch API Security Scanning
+  parameters:
+    WebProjectName: 'src/Presentation/SmartRestaurant.API/'
+    TestProjectFolder: 'tests'
+  
+  jobs:
+  - job: Build_the_API
     steps:
-    - task: APIContractSecurityAudit@2
-      inputs:
-        apiToken: '$(42C_API_TOKEN)'
-      displayName: 42crunch API Security Scanning
+      - script: |
+         cp devops/appsettings.json ${{ parameters.WebProjectName }}
+         cd ${{ parameters.WebProjectName }}
+         dotnet clean SmartRestaurant.API.csproj
+         dotnet restore SmartRestaurant.API.csproj
+        displayName: Restore Common Packages
