@@ -8,6 +8,7 @@
 #        displayName: Crunch API Security Scanning
 
   - job: Snyk_Scan
+    dependsOn: []
     steps:
       - task: SnykSecurityScan@0
         inputs:
