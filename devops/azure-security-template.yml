@@ -1,3 +1,5 @@
+  variables:
+    buildConfiguration: 'Release'
 
   jobs:
 #  - job: Crunch_Scan
@@ -10,11 +12,27 @@
    - job: Snyk_Scan
      dependsOn: []
      steps:
+      - task: UseDotNet@2
+        inputs:
+          version: '3.1.x'
+        displayName: 'Use dotnet core 3.1.x'
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'restore'
+          projects: '**/*.csproj'
+        displayName: 'Restore Nuget Packages'
+ 
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'build'
+          projects: '**/*.csproj'
+          arguments: '--no-restore'
+        displayName: 'Build projects'
       - task: SnykSecurityScan@0
         inputs:
           serviceConnectionEndpoint: 'Snyk_connect'
           testType: 'app'
-          targetFile: 'SmartRestaurant.sln'
+#          targetFile: 'SmartRestaurant.sln'
           monitorOnBuild: false
           failOnIssues: false
         displayName: Snyk Sourrce Code Security Scanning
