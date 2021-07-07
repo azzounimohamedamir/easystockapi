@@ -33,5 +33,5 @@
      steps:
       - task: APIContractSecurityAudit@2
         inputs:
-          apiToken: '$(42C_API_TOKEN)'
+          apiToken: '$(42C_TOKEN)'
         displayName: Crunch API Security Scanning
