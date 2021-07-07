@@ -14,7 +14,8 @@
         inputs:
           serviceConnectionEndpoint: 'Snyk_connect'
           testType: 'app'
-          monitorOnBuild: true
+          targetFile: 'SmartRestaurant.sln'
+          monitorOnBuild: false
           failOnIssues: false
           projectName: 'Smart Restaurant'
           organization: 'g22rie'
