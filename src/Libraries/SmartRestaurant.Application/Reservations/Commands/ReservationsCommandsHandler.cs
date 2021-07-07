@@ -42,9 +42,9 @@ namespace SmartRestaurant.Application.Reservations.Commands
             if (!result.IsValid) return result;
 
             //Check the existance of the reservation command to be deleted
-            var reservation = await _context.Reservations.FindAsync(request.ReservationId).ConfigureAwait(false);
+            var reservation = await _context.Reservations.FindAsync(request.CmdId).ConfigureAwait(false);
             if (reservation == null)
-                throw new NotFoundException(nameof(Reservation), request.ReservationId);
+                throw new NotFoundException(nameof(Reservation), request.CmdId);
 
             //Update resarvations command 
             _mapper.Map(request, reservation);

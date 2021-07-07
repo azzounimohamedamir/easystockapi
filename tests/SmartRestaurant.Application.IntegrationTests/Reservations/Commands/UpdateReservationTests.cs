@@ -47,13 +47,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
                 ClientName = "bilal",
                 NumberOfDiners = 5,
                 ReservationDate = DateTime.Now.AddDays(5),
-                ReservationId = reservation.ReservationId               
+                CmdId = reservation.ReservationId               
             };
             var validationResult = await SendAsync(updateReservationCommand);
-            var updatedReservation = await FindAsync<Reservation>(updateReservationCommand.ReservationId);
+            var updatedReservation = await FindAsync<Reservation>(updateReservationCommand.CmdId);
             validationResult.Should().Be(default(ValidationResult));
             updatedReservation.Should().NotBeNull();
-            updatedReservation.ReservationId.Should().Be(updateReservationCommand.ReservationId);
+            updatedReservation.ReservationId.Should().Be(updateReservationCommand.CmdId);
             updatedReservation.ClientName.Should().BeEquivalentTo(updateReservationCommand.ClientName);
             updatedReservation.NumberOfDiners.Should().Be(updateReservationCommand.NumberOfDiners);
             updatedReservation.ReservationDate.Should().Be(updateReservationCommand.ReservationDate);

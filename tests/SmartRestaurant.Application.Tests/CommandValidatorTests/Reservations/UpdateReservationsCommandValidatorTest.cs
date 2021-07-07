@@ -101,7 +101,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
         public void Given_EmptyReservationId_WhenValidating_ShouldGetAnError()
         {
             var empty = Guid.Empty;
-            _validator.ShouldHaveValidationErrorFor(reservation => reservation.ReservationId, empty);
+            _validator.ShouldHaveValidationErrorFor(reservation => reservation.CmdId, empty);
         }
     }
 }

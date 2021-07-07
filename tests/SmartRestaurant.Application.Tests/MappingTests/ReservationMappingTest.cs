@@ -53,7 +53,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 ClientName = "Aissa",
                 NumberOfDiners = 3,
                 ReservationDate = DateTime.Now.AddDays(2),
-                ReservationId = reservationId
+                CmdId = reservationId
             };        
 
             var foodBusinessId = reservation.FoodBusinessId;
@@ -62,7 +62,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(reservation.ClientName, updateReservationCommand.ClientName);
             Assert.Equal(reservation.NumberOfDiners, updateReservationCommand.NumberOfDiners);
             Assert.Equal(reservation.ReservationDate, updateReservationCommand.ReservationDate);
-            Assert.Equal(reservation.ReservationId, updateReservationCommand.ReservationId);
+            Assert.Equal(reservation.ReservationId, updateReservationCommand.CmdId);
             Assert.Equal(reservation.FoodBusinessId, foodBusinessId);
         }
     }
