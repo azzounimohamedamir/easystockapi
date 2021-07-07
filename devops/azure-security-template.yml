@@ -17,6 +17,4 @@
           targetFile: 'SmartRestaurant.sln'
           monitorOnBuild: false
           failOnIssues: false
-          projectName: 'Smart Restaurant'
-          organization: 'g22rie'
         displayName: Snyk Sourrce Code Security Scanning
