@@ -28,10 +28,10 @@
           failOnIssues: false
         displayName: Snyk Sourrce Code Security Scanning
 
-   - job: Crunch_Scan
-     dependsOn: []
-     steps:
-      - task: APIContractSecurityAudit@2
-        inputs:
-          apiToken: '$(42C_TOKEN)'
-        displayName: Crunch API Security Scanning
+#   - job: Crunch_Scan
+#     dependsOn: []
+#     steps:
+#      - task: APIContractSecurityAudit@2
+#        inputs:
+#          apiToken: '$(42C_TOKEN)'
+#        displayName: Crunch API Security Scanning
