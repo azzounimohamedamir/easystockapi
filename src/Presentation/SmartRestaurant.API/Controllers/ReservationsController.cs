@@ -20,5 +20,14 @@ namespace SmartRestaurant.API.Controllers
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
+
+        [Route("reservations")]
+        [HttpPut]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<ActionResult> Update(UpdateReservationCommand command)
+        {
+            var validationResult = await SendAsync(command).ConfigureAwait(false);
+            return ApiCustomResponse(validationResult, NoContent());
+        }
     }
 }
