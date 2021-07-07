@@ -12,10 +12,10 @@
      steps:
       - task: SnykSecurityScan@0
         inputs:
-         serviceConnectionEndpoint: 'Snyk_connect'
-         testType: 'app'
-         monitorOnBuild: true
-         failOnIssues: false
-         projectName: 'Smart Restaurant'
-         organization: 'g22rie'
-      displayName: Snyk Sourrce Code Security Scanning
+          serviceConnectionEndpoint: 'Snyk_connect'
+          testType: 'app'
+          monitorOnBuild: true
+          failOnIssues: false
+          projectName: 'Smart Restaurant'
+          organization: 'g22rie'
+        displayName: Snyk Sourrce Code Security Scanning
