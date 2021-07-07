@@ -23,10 +23,7 @@
       - task: DotNetCoreCLI@2
         inputs:
           command: 'build'
-          projects: |
-             '**/*.csproj'
-             !**/*Tests/*.csproj
-             !**/*Android/*.csproj
+          projects: 'src/Presentation/SmartRestaurant.API//*.csproj'
           arguments: '--configuration Release --no-restore'
         displayName: 'Build projects'
       - task: SnykSecurityScan@0
