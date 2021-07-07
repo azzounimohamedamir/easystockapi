@@ -23,7 +23,7 @@
       - task: DotNetCoreCLI@2
         inputs:
           command: 'build'
-          projects: 'src/Presentation/SmartRestaurant.API//*.csproj'
+          projects: 'src/Presentation/SmartRestaurant.API/*.csproj'
           arguments: '--configuration Release --no-restore'
         displayName: 'Build projects'
       - task: SnykSecurityScan@0
