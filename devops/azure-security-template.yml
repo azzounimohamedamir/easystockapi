@@ -7,9 +7,9 @@
 #          apiToken: '$(42C_API_TOKEN)'
 #        displayName: Crunch API Security Scanning
 
-  - job: Snyk_Scan
-    dependsOn: []
-    steps:
+   - job: Snyk_Scan
+     dependsOn: []
+     steps:
       - task: SnykSecurityScan@0
         inputs:
          serviceConnectionEndpoint: 'Snyk_connect'
