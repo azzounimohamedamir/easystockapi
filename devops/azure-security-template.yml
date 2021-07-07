@@ -1,8 +1,20 @@
 
   jobs:
-  - job: Crunch_Scan
+#  - job: Crunch_Scan
+#    steps:
+#      - task: APIContractSecurityAudit@2
+#        inputs:
+#          apiToken: '$(42C_API_TOKEN)'
+#        displayName: Crunch API Security Scanning
+
+  - job: Snyk_Scan
     steps:
-      - task: APIContractSecurityAudit@2
+      - task: SnykSecurityScan@0
         inputs:
-          apiToken: '$(42C_API_TOKEN)'
-        displayName: Crunch API Security Scanning
+         serviceConnectionEndpoint: 'Snyk_connect'
+         testType: 'app'
+         monitorOnBuild: true
+         failOnIssues: false
+         projectName: 'Smart Restaurant'
+         organization: 'g22rie'
+      displayName: Snyk Sourrce Code Security Scanning
