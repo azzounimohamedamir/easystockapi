@@ -30,7 +30,7 @@
         inputs:
           serviceConnectionEndpoint: 'Snyk_connect'
           testType: 'app'
-#          targetFile: 'SmartRestaurant.sln'
+          targetFile: 'SmartRestaurant.sln'
           monitorOnBuild: false
           failOnIssues: false
         displayName: Snyk Sourrce Code Security Scanning
