@@ -1,5 +1,3 @@
-  variables:
-    buildConfiguration: 'Release'
 
   jobs:
 #  - job: Crunch_Scan
