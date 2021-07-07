@@ -23,8 +23,11 @@
       - task: DotNetCoreCLI@2
         inputs:
           command: 'build'
-          projects: '**/*.csproj'
-          arguments: '--no-restore'
+          projects: |
+             '**/*.csproj'
+             !**/*Tests/*.csproj
+             !**/*Android/*.csproj
+          arguments: '--configuration Release --no-restore'
         displayName: 'Build projects'
       - task: SnykSecurityScan@0
         inputs:
