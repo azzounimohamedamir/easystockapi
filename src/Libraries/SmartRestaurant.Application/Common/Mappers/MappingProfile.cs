@@ -6,6 +6,7 @@ using SmartRestaurant.Application.Images.Commands;
 using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Sections.Commands;
+using SmartRestaurant.Application.SubSections.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
@@ -28,7 +29,6 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<PhoneNumber, PhoneNumberDto>().ReverseMap();
             CreateMap<CreateImageCommand, FoodBusinessImage>().ReverseMap();
-
             CreateMap<Zone, CreateZoneCommand>()
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.ZoneId))
                 .ReverseMap();
@@ -47,6 +47,9 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ReverseMap();
             CreateMap<Menu, MenuDto>().ReverseMap();
             CreateMap<Section, SectionDto>().ReverseMap();
+            CreateMap<SubSection, CreateSubSectionCommand>()
+                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.SubSectionId))
+                .ReverseMap();
             CreateMap<Section, CreateSectionCommand>()
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.SectionId))
                 .ReverseMap();

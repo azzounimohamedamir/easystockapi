@@ -2,10 +2,10 @@
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
-    public class SectionDto
+    public class SubSectionDto
     {
-        public Guid SectionId { get; set; }
+        public Guid SubSectionId { get; set; }
         public string Name { get; set; }
-        public Guid MenuId { get; set; }
+        public Guid SectionId { get; set; }
     }
 }
