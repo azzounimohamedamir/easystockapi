@@ -17,6 +17,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Table> Tables { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Section> Sections { get; set; }
+        public DbSet<SubSection> SubSections { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
