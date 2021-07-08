@@ -11,7 +11,8 @@ namespace SmartRestaurant.Application.Reservations.Commands
 {
     public class ReservationsCommandsHandler :
         IRequestHandler<CreateReservationCommand, ValidationResult>,
-        IRequestHandler<UpdateReservationCommand, ValidationResult>
+        IRequestHandler<UpdateReservationCommand, ValidationResult>,
+         IRequestHandler<DeleteReservationCommand>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -50,6 +51,16 @@ namespace SmartRestaurant.Application.Reservations.Commands
             _mapper.Map(request, reservation);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
+        }
+
+        public async Task<Unit> Handle(DeleteReservationCommand request, CancellationToken cancellationToken)
+        {
+            var reservation = await _context.Reservations.FindAsync(request.ReservationId).ConfigureAwait(false);
+            if (reservation == null)
+                throw new NotFoundException(nameof(Reservation), request.ReservationId);
+            _context.Reservations.Remove(reservation);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return Unit.Value;
         }
     }
 }
