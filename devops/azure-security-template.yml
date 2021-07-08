@@ -1,0 +1,37 @@
+
+  jobs:
+   - job: Snyk_Scan
+     dependsOn: []
+     steps:
+      - task: UseDotNet@2
+        inputs:
+          version: '3.1.x'
+        displayName: 'Use dotnet core 3.1.x'
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'restore'
+          projects: '**/*.csproj'
+        displayName: 'Restore Nuget Packages'
+ 
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'build'
+          projects: 'SmartRestaurant.sln'
+          arguments: '--configuration Release --no-restore'
+        displayName: 'Build projects'
+      - task: SnykSecurityScan@0
+        inputs:
+          serviceConnectionEndpoint: 'Snyk_connect'
+          testType: 'app'
+          targetFile: 'SmartRestaurant.sln'
+          monitorOnBuild: false
+          failOnIssues: false
+        displayName: Snyk Sourrce Code Security Scanning
+
+#   - job: Crunch_Scan
+#     dependsOn: []
+#     steps:
+#      - task: APIContractSecurityAudit@2
+#        inputs:
+#          apiToken: '$(42C_TOKEN)'
+#        displayName: Crunch API Security Scanning
