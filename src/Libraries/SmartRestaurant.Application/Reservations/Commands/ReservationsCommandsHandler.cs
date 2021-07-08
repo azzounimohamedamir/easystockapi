@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
-using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Exceptions;
+using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.Reservations.Commands
@@ -34,7 +34,8 @@ namespace SmartRestaurant.Application.Reservations.Commands
             return default;
         }
 
-        public async Task<ValidationResult> Handle(UpdateReservationCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(UpdateReservationCommand request,
+            CancellationToken cancellationToken)
         {
             //Validate reservation command data
             var validator = new UpdateReservationCommandValidator();

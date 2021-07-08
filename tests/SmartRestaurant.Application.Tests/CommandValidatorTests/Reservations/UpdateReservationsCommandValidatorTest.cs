@@ -44,9 +44,10 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
         [Fact]
         public void Given_ClientNameIsEmpty_WhenValidating_ShouldGetAnError()
         {
-            string empty = string.Empty;
+            var empty = string.Empty;
             _validator.ShouldHaveValidationErrorFor(R => R.ClientName, empty);
         }
+
         /**
          * *******************************************
          * Reservation.NumberOfDiners validation tests
