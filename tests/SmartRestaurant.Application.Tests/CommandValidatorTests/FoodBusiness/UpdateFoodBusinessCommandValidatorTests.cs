@@ -17,17 +17,16 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusiness
         [Fact]
         public void Given_EmptyGuid_WhenValidating_ShouldNotHaveError()
         {
-            var EmptyGuid = Guid.Empty;
-            _validator.ShouldNotHaveValidationErrorFor(updateFoodBusinessCommand => updateFoodBusinessCommand.CmdId,
-                EmptyGuid);
+            var emptyGuid = Guid.Empty;
+            _validator.ShouldHaveValidationErrorFor(updateFoodBusinessCommand => updateFoodBusinessCommand.CmdId, emptyGuid);
         }
 
         [Fact]
         public void Given_EmptyName_WhenValidating_ShouldError()
         {
-            var IncorrectName = string.Empty;
+            var incorrectName = string.Empty;
             _validator.ShouldHaveValidationErrorFor(updateFoodBusinessCommand => updateFoodBusinessCommand.Name,
-                IncorrectName);
+                incorrectName);
         }
     }
 }
