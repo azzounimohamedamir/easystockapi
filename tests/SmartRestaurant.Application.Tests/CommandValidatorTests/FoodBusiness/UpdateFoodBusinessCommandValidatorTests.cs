@@ -15,7 +15,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusiness
         }
 
         [Fact]
-        public void Given_EmptyGuid_WhenValidating_ShouldNotHaveError()
+        public void Given_EmptyGuid_WhenValidating_ShouldError()
         {
             var emptyGuid = Guid.Empty;
             _validator.ShouldHaveValidationErrorFor(updateFoodBusinessCommand => updateFoodBusinessCommand.CmdId, emptyGuid);
