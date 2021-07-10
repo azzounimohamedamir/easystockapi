@@ -36,18 +36,19 @@ namespace SmartRestaurant.Application.Reservations.Commands
 
         public async Task<ValidationResult> Handle(UpdateReservationCommand request, CancellationToken cancellationToken)
         {
-            //Validate reservation command data
             var validator = new UpdateReservationCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
 
-            //Check the existance of the reservation command to be deleted
             var reservation = await _context.Reservations.FindAsync(request.CmdId).ConfigureAwait(false);
             if (reservation == null)
                 throw new NotFoundException(nameof(Reservation), request.CmdId);
 
-            //Update resarvations command 
-            _mapper.Map(request, reservation);
+            reservation.ClientName = request.ClientName;
+            reservation.ReservationDate = request.ReservationDate;
+            reservation.NumberOfDiners = request.NumberOfDiners;
+            
+            _context.Reservations.Update(reservation);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
