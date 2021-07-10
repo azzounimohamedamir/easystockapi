@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
-using Microsoft.AspNetCore.Http;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -44,9 +43,9 @@ namespace SmartRestaurant.API.Controllers
 
         protected ActionResult ApiCustomResponse(ValidationResult validationResult)
         {
-            if (validationResult?.Errors != null)
-                foreach (var error in validationResult.Errors)
-                    _errors.Add(error.ErrorMessage);
+            if (validationResult?.Errors == null) return ApiCustomResponse();
+            foreach (var error in validationResult.Errors)
+                _errors.Add(error.ErrorMessage);
 
             return ApiCustomResponse();
         }
@@ -55,32 +54,22 @@ namespace SmartRestaurant.API.Controllers
             , ActionResult actionResult)
         {
             if (validationResult?.Errors != null)
-            {
                 foreach (var error in validationResult.Errors)
-                {
                     _errors.Add(error.ErrorMessage);
-                }
-                                    
-            }
-                
-            if (!_errors.Any())
+
+            if (!_errors.Any()) return actionResult;
+
+            return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
-                return actionResult;
-            }
-            else
-            {
-                return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
-                {
-                    {"ErrorMessages", _errors.ToArray()}
-                }));
-            }       
+                {"ErrorMessages", _errors.ToArray()}
+            }));
         }
 
         protected ActionResult ApiCustomResponse(IdentityResult result)
         {
-            if (!result.Succeeded)
-                foreach (var error in result.Errors)
-                    _errors.Add(error.Description);
+            if (result.Succeeded) return ApiCustomResponse();
+            foreach (var error in result.Errors)
+                _errors.Add(error.Description);
 
             return ApiCustomResponse();
         }
@@ -92,7 +81,7 @@ namespace SmartRestaurant.API.Controllers
 
         protected Task SendEmailConfirmation(ApplicationUser user, string code)
         {
-            var url = string.Format("{0}://{1}.{2}", Request.Scheme, Request.Host.Value, Request.PathBase);
+            var url = $"{Request.Scheme}://{Request.Host.Value}.{Request.PathBase}";
             var callBack = url + "/account/confirmEmail/" + user.Id + "?token=" + HttpUtility.UrlEncode(code);
             return _emailSender.SendEmailAsync(user.Email, "Confirm your email",
                 $"Please confirm your account by <a href='{callBack}'>clicking here</a>.");
