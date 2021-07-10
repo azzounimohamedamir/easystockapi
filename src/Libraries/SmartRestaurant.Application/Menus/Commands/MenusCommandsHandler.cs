@@ -16,7 +16,7 @@ namespace SmartRestaurant.Application.Menus.Commands
     public class MenusCommandsHandler :
         IRequestHandler<CreateMenuCommand, ValidationResult>,
         IRequestHandler<UpdateMenuCommand, ValidationResult>,
-        IRequestHandler<DeleteMenuCommand>
+        IRequestHandler<DeleteMenuCommand, ValidationResult>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -40,14 +40,18 @@ namespace SmartRestaurant.Application.Menus.Commands
             return default;
         }
 
-        public async Task<Unit> Handle(DeleteMenuCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(DeleteMenuCommand request, CancellationToken cancellationToken)
         {
-            var menu = await _context.Menus.FindAsync(request.MenuId).ConfigureAwait(false);
+            var validator = new DeleteMenuCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) return result;
+
+            var menu = await _context.Menus.FindAsync(request.CmdId).ConfigureAwait(false);
             if (menu == null)
-                throw new NotFoundException(nameof(Menu), request.MenuId);
+                throw new NotFoundException(nameof(Menu), request.CmdId);
             _context.Menus.Remove(menu);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            return Unit.Value;
+            return default;
         }
 
         public async Task<ValidationResult> Handle(UpdateMenuCommand request, CancellationToken cancellationToken)

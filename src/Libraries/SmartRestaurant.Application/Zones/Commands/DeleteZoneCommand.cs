@@ -1,19 +1,18 @@
 ﻿using System;
 using FluentValidation;
-using MediatR;
+using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.Zones.Commands
 {
-    public class DeleteZoneCommand : IRequest
+    public class DeleteZoneCommand : SmartRestaurantCommand
     {
-        public Guid ZoneId { get; set; }
     }
 
     public class DeleteZoneCommandValidator : AbstractValidator<DeleteZoneCommand>
     {
         public DeleteZoneCommandValidator()
         {
-            RuleFor(v => v.ZoneId).Must(val => val != Guid.Empty);
+            RuleFor(v => v.CmdId).NotEmpty().NotNull().NotEqual(Guid.Empty);
         }
     }
 }

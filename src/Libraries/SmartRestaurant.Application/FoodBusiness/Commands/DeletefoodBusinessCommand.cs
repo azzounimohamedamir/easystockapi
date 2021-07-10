@@ -1,21 +1,18 @@
 ﻿using System;
 using FluentValidation;
-using MediatR;
+using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class DeleteFoodBusinessCommand : IRequest
+    public class DeleteFoodBusinessCommand : SmartRestaurantCommand
     {
-        public Guid FoodBusinessId { get; set; }
     }
 
     public class DeleteFoodBusinessCommandValidator : AbstractValidator<DeleteFoodBusinessCommand>
     {
         public DeleteFoodBusinessCommandValidator()
         {
-            RuleFor(v => v.FoodBusinessId)
-                .NotNull()
-                .NotEmpty();
+            RuleFor(v => v.CmdId).NotEmpty().NotNull().NotEqual(Guid.Empty);
         }
     }
 }

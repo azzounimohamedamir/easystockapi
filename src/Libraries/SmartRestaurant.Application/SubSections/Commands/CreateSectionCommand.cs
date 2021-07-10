@@ -15,7 +15,7 @@ namespace SmartRestaurant.Application.SubSections.Commands
         public CreateSubSectionCommandValidator()
         {
             RuleFor(m => m.Name).NotEmpty().MaximumLength(200);
-            RuleFor(m => m.SectionId).NotEmpty().Must(id => id != Guid.Empty);
+            RuleFor(m => m.SectionId).NotEmpty().NotEqual(Guid.Empty);
         }
     }
 }

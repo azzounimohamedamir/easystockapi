@@ -14,10 +14,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     {
         public RemoveStaffFromInOrganizationCommandValidator()
         {
-            RuleFor(v => v.UserId)
-                .NotEmpty().NotEqual(new Guid());
-            RuleFor(v => v.FoodBusinessId)
-                .NotEmpty().NotEqual(new Guid());
+            RuleFor(v => v.UserId).NotEmpty().NotEqual(Guid.Empty);
+            RuleFor(v => v.FoodBusinessId).NotEmpty().NotEqual(Guid.Empty);
         }
     }
 }

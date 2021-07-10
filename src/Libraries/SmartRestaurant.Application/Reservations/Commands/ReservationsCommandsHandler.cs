@@ -49,7 +49,7 @@ namespace SmartRestaurant.Application.Reservations.Commands
             reservation.ClientName = request.ClientName;
             reservation.ReservationDate = request.ReservationDate;
             reservation.NumberOfDiners = request.NumberOfDiners;
-            
+
             _context.Reservations.Update(reservation);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;

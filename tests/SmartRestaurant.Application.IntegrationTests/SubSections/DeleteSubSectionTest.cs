@@ -47,7 +47,7 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections
                 SectionId = sectionCmdId,
                 Name = "section test menu"
             });
-            await SendAsync(new DeleteSubSectionCommand {SubSectionId = subSectionCmdId});
+            await SendAsync(new DeleteSubSectionCommand {CmdId = subSectionCmdId});
             var item = await FindAsync<SubSection>(subSectionCmdId);
             item.Should().BeNull();
         }

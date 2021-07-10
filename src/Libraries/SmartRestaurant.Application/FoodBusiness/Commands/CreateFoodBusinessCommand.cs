@@ -34,8 +34,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     {
         public CreateFoodBusinessCommandValidator()
         {
-            RuleFor(v => v.Name)
-                .MaximumLength(200).NotEmpty();
+            RuleFor(v => v.Name).MaximumLength(200).NotEmpty();
             RuleFor(v => v.FoodBusinessAdministratorId).NotEmpty();
         }
     }
