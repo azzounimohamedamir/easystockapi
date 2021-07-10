@@ -31,7 +31,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
                 MenuState = (int) MenuState.Enabled,
                 FoodBusinessId = createFoodBusinessCommand.CmdId
             });
-            await SendAsync(new DeleteMenuCommand {MenuId = cmdId});
+            await SendAsync(new DeleteMenuCommand {CmdId = cmdId});
             var item = await FindAsync<Menu>(cmdId);
             item.Should().BeNull();
         }

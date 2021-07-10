@@ -39,7 +39,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Commands
                 TableState = 0
             };
             await SendAsync(createTableCommand);
-            var deleteTableCommand = new DeleteTableCommand {TableId = createTableCommand.CmdId};
+            var deleteTableCommand = new DeleteTableCommand {CmdId = createTableCommand.CmdId};
             await SendAsync(deleteTableCommand);
             var item = await FindAsync<Table>(createTableCommand.CmdId);
             item.Should().BeNull();

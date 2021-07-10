@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
-using Microsoft.AspNetCore.Http;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -55,25 +54,15 @@ namespace SmartRestaurant.API.Controllers
             , ActionResult actionResult)
         {
             if (validationResult?.Errors != null)
-            {
                 foreach (var error in validationResult.Errors)
-                {
                     _errors.Add(error.ErrorMessage);
-                }
-                                    
-            }
-                
+
             if (!_errors.Any())
-            {
                 return actionResult;
-            }
-            else
+            return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
-                return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
-                {
-                    {"ErrorMessages", _errors.ToArray()}
-                }));
-            }       
+                {"ErrorMessages", _errors.ToArray()}
+            }));
         }
 
         protected ActionResult ApiCustomResponse(IdentityResult result)

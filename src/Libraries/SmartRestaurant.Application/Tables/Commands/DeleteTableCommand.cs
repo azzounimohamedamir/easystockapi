@@ -1,10 +1,18 @@
 ﻿using System;
-using MediatR;
+using FluentValidation;
+using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.Tables.Commands
 {
-    public class DeleteTableCommand : IRequest
+    public class DeleteTableCommand : SmartRestaurantCommand
     {
-        public Guid TableId { get; set; }
+    }
+
+    public class DeleteTableCommandValidator : AbstractValidator<DeleteTableCommand>
+    {
+        public DeleteTableCommandValidator()
+        {
+            RuleFor(v => v.CmdId).NotEmpty().NotNull().NotEqual(Guid.Empty);
+        }
     }
 }

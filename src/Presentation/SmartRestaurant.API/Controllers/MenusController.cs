@@ -54,7 +54,7 @@ namespace SmartRestaurant.API.Controllers
         {
             if (id == Guid.Empty)
                 return BadRequest();
-            await SendAsync(new DeleteMenuCommand {MenuId = id}).ConfigureAwait(false);
+            await SendAsync(new DeleteMenuCommand {CmdId = id}).ConfigureAwait(false);
             return Ok("Successful");
         }
     }

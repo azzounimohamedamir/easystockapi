@@ -54,7 +54,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 NumberOfDiners = 3,
                 ReservationDate = DateTime.Now.AddDays(2),
                 CmdId = reservationId
-            };        
+            };
 
             var foodBusinessId = reservation.FoodBusinessId;
 
