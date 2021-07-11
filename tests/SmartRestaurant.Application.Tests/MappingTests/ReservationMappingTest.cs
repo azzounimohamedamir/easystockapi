@@ -10,10 +10,12 @@ namespace SmartRestaurant.Application.Tests.MappingTests
     public class ReservationMappingTest : IClassFixture<MappingTestsFixture>
     {
         private readonly IMapper _mapper;
+        private readonly CreateReservationCommandValidator _createReservationValidator;
 
         public ReservationMappingTest(MappingTestsFixture fixture)
         {
             _mapper = fixture.Mapper;
+            _createReservationValidator = new CreateReservationCommandValidator();
         }
 
 
@@ -22,17 +24,27 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         {
             var createReservationCommand = new CreateReservationCommand
             {
-                ClientName = "Aissa",
+                ReservationName = "Aissa",
                 NumberOfDiners = 3,
                 ReservationDate = DateTime.Now.AddDays(1),
-                FoodBusinessId = Guid.NewGuid()
+                FoodBusinessId = Guid.NewGuid(),
+                CreatedBy = Guid.NewGuid().ToString()
             };
 
+            var validationResult = _createReservationValidator.Validate(createReservationCommand);
+            Assert.True(validationResult.IsValid);
+
             var reservation = _mapper.Map<Reservation>(createReservationCommand);
-            Assert.Equal(reservation.ClientName, createReservationCommand.ClientName);
+            Assert.Equal(reservation.ReservationId, createReservationCommand.CmdId);
+            Assert.Equal(reservation.ReservationName, createReservationCommand.ReservationName);
             Assert.Equal(reservation.NumberOfDiners, createReservationCommand.NumberOfDiners);
             Assert.Equal(reservation.ReservationDate, createReservationCommand.ReservationDate);
             Assert.Equal(reservation.FoodBusinessId, createReservationCommand.FoodBusinessId);
+            Assert.Equal(reservation.CreatedBy, createReservationCommand.CreatedBy);
+            Assert.Equal(reservation.CreatedAt, createReservationCommand.CreatedAt);
+            Assert.Null(reservation.LastModifiedBy);
+            Assert.Equal(default(DateTime), reservation.LastModifiedAt);
+
         }
 
         [Fact]
@@ -41,29 +53,40 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             var reservationId = Guid.NewGuid();
             var reservation = new Reservation
             {
-                ClientName = "bilal",
+                ReservationName = "bilal",
                 NumberOfDiners = 7,
                 ReservationDate = DateTime.Now.AddDays(1),
                 FoodBusinessId = Guid.NewGuid(),
-                ReservationId = reservationId
+                ReservationId = reservationId,
+                CreatedBy = Guid.NewGuid().ToString(),
+                CreatedAt = DateTime.Now
             };
 
             var updateReservationCommand = new UpdateReservationCommand
             {
-                ClientName = "Aissa",
+                ReservationName = "Aissa",
                 NumberOfDiners = 3,
                 ReservationDate = DateTime.Now.AddDays(2),
-                CmdId = reservationId
-            };
+                CmdId = reservationId,
+                LastModifiedBy = Guid.NewGuid().ToString()
+
+
+            };        
 
             var foodBusinessId = reservation.FoodBusinessId;
+            var createdBy = reservation.CreatedBy;
+            var createdAt = reservation.CreatedAt;
 
             _mapper.Map(updateReservationCommand, reservation);
-            Assert.Equal(reservation.ClientName, updateReservationCommand.ClientName);
+            Assert.Equal(reservation.ReservationName, updateReservationCommand.ReservationName);
             Assert.Equal(reservation.NumberOfDiners, updateReservationCommand.NumberOfDiners);
             Assert.Equal(reservation.ReservationDate, updateReservationCommand.ReservationDate);
             Assert.Equal(reservation.ReservationId, updateReservationCommand.CmdId);
             Assert.Equal(reservation.FoodBusinessId, foodBusinessId);
+            Assert.Equal(reservation.CreatedBy, createdBy);
+            Assert.Equal(reservation.CreatedAt, createdAt);
+            Assert.Equal(reservation.LastModifiedBy, updateReservationCommand.LastModifiedBy);
+            Assert.Equal(reservation.LastModifiedAt, updateReservationCommand.LastModifiedAt);
         }
     }
 }

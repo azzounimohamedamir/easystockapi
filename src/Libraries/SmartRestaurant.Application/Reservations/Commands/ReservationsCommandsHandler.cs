@@ -46,10 +46,7 @@ namespace SmartRestaurant.Application.Reservations.Commands
             if (reservation == null)
                 throw new NotFoundException(nameof(Reservation), request.CmdId);
 
-            reservation.ClientName = request.ClientName;
-            reservation.ReservationDate = request.ReservationDate;
-            reservation.NumberOfDiners = request.NumberOfDiners;
-            
+            _mapper.Map(request, reservation);
             _context.Reservations.Update(reservation);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;

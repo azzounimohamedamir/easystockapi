@@ -16,14 +16,14 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
 
         /**
          * *******************************************
-         * Reservation.ClientName validation tests
+         * Reservation.ReservationName validation tests
          * *******************************************
          */
         [Fact]
         public void Given_ClientName_WhenValidating_ShouldBeValidated()
         {
             var validEntry = "Aissa";
-            _validator.ShouldNotHaveValidationErrorFor(R => R.ClientName, validEntry);
+            _validator.ShouldNotHaveValidationErrorFor(R => R.ReservationName, validEntry);
         }
 
         [Fact]
@@ -31,23 +31,22 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
         {
             var entryNotRespectingMaxLength =
                 "hUzzub8gB6NYKpvNvwOJ5fJQZcSaa34oOV4xmDpYKIQO4qukyPgFaWjZbzW3fwBHX53D60zCRLmluTqc1dSlHZeRZkuXQlhotluEPNni2zEhb93PvNjcu788iQRGR9aAPtFN4bICsbRGfv6l8dQQe23gAoP2WNjN87B5BXoV4MwrSAqPvJy6BEXBhq32DxxWw5NgVhotc";
-            _validator.ShouldHaveValidationErrorFor(R => R.ClientName, entryNotRespectingMaxLength);
+            _validator.ShouldHaveValidationErrorFor(R => R.ReservationName, entryNotRespectingMaxLength);
         }
 
         [Fact]
         public void Given_ClientNameLessThanMinimumLength_WhenValidating_ShouldGetAnError()
         {
             var entryNotRespectingMinLength = "jAFT";
-            _validator.ShouldHaveValidationErrorFor(R => R.ClientName, entryNotRespectingMinLength);
+            _validator.ShouldHaveValidationErrorFor(R => R.ReservationName, entryNotRespectingMinLength);
         }
 
         [Fact]
-        public void Given_ClientNameIsEmpty_WhenValidating_ShouldGetAnError()
+        public void Given_ReservationNameIsEmpty_WhenValidating_ShouldGetAnError()
         {
             var empty = string.Empty;
-            _validator.ShouldHaveValidationErrorFor(R => R.ClientName, empty);
+            _validator.ShouldHaveValidationErrorFor(R => R.ReservationName, empty);
         }
-
         /**
          * *******************************************
          * Reservation.NumberOfDiners validation tests
@@ -103,6 +102,18 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
         {
             var empty = Guid.Empty;
             _validator.ShouldHaveValidationErrorFor(reservation => reservation.CmdId, empty);
+        }
+
+        /**
+       * ********************************************
+       * Reservation.CreatedBy validation tests
+       * ********************************************
+       */
+        [Fact]
+        public void Given_EmptyLastModifiedBy_WhenValidating_ShouldError()
+        {
+            var empty = string.Empty;
+            _validator.ShouldHaveValidationErrorFor(reservation => reservation.LastModifiedBy, empty);
         }
     }
 }

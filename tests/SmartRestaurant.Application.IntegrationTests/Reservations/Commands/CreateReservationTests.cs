@@ -28,20 +28,25 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
 
             var createReservationCommand = new CreateReservationCommand
             {
-                ClientName = "Aissa",
+                ReservationName = "Aissa",
                 NumberOfDiners = 3,
                 ReservationDate = DateTime.Now.AddDays(1),
-                FoodBusinessId = fastFood.FoodBusinessId
+                FoodBusinessId = fastFood.FoodBusinessId,
+                CreatedBy = Guid.NewGuid().ToString()
             };
             var validationResult = await SendAsync(createReservationCommand);
-            var item = await FindAsync<Reservation>(createReservationCommand.CmdId);
+            var createdReservation = await FindAsync<Reservation>(createReservationCommand.CmdId);
             validationResult.Should().Be(default(ValidationResult));
-            item.Should().NotBeNull();
-            item.ReservationId.Should().Be(createReservationCommand.CmdId);
-            item.ClientName.Should().BeEquivalentTo(createReservationCommand.ClientName);
-            item.NumberOfDiners.Should().Be(createReservationCommand.NumberOfDiners);
-            item.ReservationDate.Should().Be(createReservationCommand.ReservationDate);
-            item.FoodBusinessId.Should().Be(createReservationCommand.FoodBusinessId);
+            createdReservation.Should().NotBeNull();
+            createdReservation.ReservationId.Should().Be(createReservationCommand.CmdId);
+            createdReservation.ReservationName.Should().BeEquivalentTo(createReservationCommand.ReservationName);
+            createdReservation.NumberOfDiners.Should().Be(createReservationCommand.NumberOfDiners);
+            createdReservation.ReservationDate.Should().Be(createReservationCommand.ReservationDate);
+            createdReservation.FoodBusinessId.Should().Be(createReservationCommand.FoodBusinessId);
+            createdReservation.CreatedBy.Should().Be(createReservationCommand.CreatedBy);
+            createdReservation.CreatedAt.Should().Be(createReservationCommand.CreatedAt);
+            createdReservation.LastModifiedBy.Should().BeNull();
+            createdReservation.LastModifiedAt.Should().Be(default(DateTime));
         }
     }
 }
