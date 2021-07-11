@@ -14,11 +14,6 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
             _validator = new UpdateReservationCommandValidator();
         }
 
-        /**
-         * *******************************************
-         * Reservation.ReservationName validation tests
-         * *******************************************
-         */
         [Fact]
         public void Given_ClientName_WhenValidating_ShouldBeValidated()
         {
@@ -72,12 +67,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
             var ExeedsMaximum = 1001;
             _validator.ShouldHaveValidationErrorFor(reservation => reservation.NumberOfDiners, ExeedsMaximum);
         }
-
-        /**
-         * ********************************************
-         * Reservation.ReservationDate validation tests
-         * ********************************************
-         */
+        
         [Fact]
         public void Given_ReservationDate_WhenValidating_ShouldBeValidated()
         {
@@ -91,29 +81,12 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
             var pastDate = DateTime.Now.AddDays(-1);
             _validator.ShouldHaveValidationErrorFor(reservation => reservation.ReservationDate, pastDate);
         }
-
-        /**
-         * ********************************************
-         * Reservation.CmdId validation tests
-         * ********************************************
-         */
+        
         [Fact]
         public void Given_EmptyReservationId_WhenValidating_ShouldGetAnError()
         {
             var empty = Guid.Empty;
             _validator.ShouldHaveValidationErrorFor(reservation => reservation.CmdId, empty);
-        }
-
-        /**
-       * ********************************************
-       * Reservation.CreatedBy validation tests
-       * ********************************************
-       */
-        [Fact]
-        public void Given_EmptyLastModifiedBy_WhenValidating_ShouldError()
-        {
-            var empty = string.Empty;
-            _validator.ShouldHaveValidationErrorFor(reservation => reservation.LastModifiedBy, empty);
         }
     }
 }
