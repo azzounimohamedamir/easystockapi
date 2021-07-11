@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.Tables.Commands
 {
@@ -62,7 +61,7 @@ namespace SmartRestaurant.Application.Tables.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
             var table = await _context.Tables.AsNoTracking()
-                .FirstOrDefaultAsync(t => t.TableId == request.CmdId, cancellationToken: cancellationToken)
+                .FirstOrDefaultAsync(t => t.TableId == request.CmdId, cancellationToken)
                 .ConfigureAwait(false);
             if (table == null)
                 throw new NotFoundException(nameof(Table), request.CmdId);

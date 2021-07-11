@@ -54,7 +54,7 @@ namespace SmartRestaurant.Application.Sections.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
             var section = await _context.Sections.AsNoTracking()
-                .FirstOrDefaultAsync(s => s.SectionId == request.CmdId, cancellationToken: cancellationToken)
+                .FirstOrDefaultAsync(s => s.SectionId == request.CmdId, cancellationToken)
                 .ConfigureAwait(false);
             if (section == null)
                 throw new NotFoundException(nameof(Section), request.CmdId);

@@ -10,12 +10,12 @@ namespace SmartRestaurant.Application.Reservations.Commands
         {
             LastModifiedAt = DateTime.Now;
         }
+
         public string ReservationName { get; set; }
         public int NumberOfDiners { get; set; }
         public DateTime ReservationDate { get; set; }
         public string LastModifiedBy { get; set; }
         public DateTime LastModifiedAt { get; }
-
     }
 
     public class UpdateReservationCommandValidator : AbstractValidator<UpdateReservationCommand>

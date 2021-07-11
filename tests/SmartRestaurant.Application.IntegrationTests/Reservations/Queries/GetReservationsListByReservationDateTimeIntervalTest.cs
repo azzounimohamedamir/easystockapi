@@ -3,11 +3,8 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
-using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
-using SmartRestaurant.Application.Sections.Commands;
 using SmartRestaurant.Application.Sections.Queries;
-using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
 {
@@ -29,10 +26,9 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
 
             //Create Reservations
-            DateTime dateTimeNow = DateTime.Now;
-            for (int i = 1; i <= 5; i++)
+            var dateTimeNow = DateTime.Now;
+            for (var i = 1; i <= 5; i++)
             {
-                
                 var createReservationCommand = new CreateReservationCommand
                 {
                     ReservationName = $"Aissa_{i}",
@@ -51,7 +47,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
                 TimeIntervalEnd = dateTimeNow.AddHours(5),
                 Page = 0,
                 PageSize = 5
-            };            
+            };
             var result = await SendAsync(query);
             result.Data.Should().HaveCount(0);
 

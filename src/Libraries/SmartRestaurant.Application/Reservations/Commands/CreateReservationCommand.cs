@@ -10,6 +10,7 @@ namespace SmartRestaurant.Application.Reservations.Commands
         {
             CreatedAt = DateTime.Now;
         }
+
         public string ReservationName { get; set; }
         public int NumberOfDiners { get; set; }
         public DateTime ReservationDate { get; set; }

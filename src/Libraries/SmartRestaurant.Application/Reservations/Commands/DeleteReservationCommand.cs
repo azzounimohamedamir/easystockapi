@@ -1,20 +1,18 @@
-﻿using FluentValidation;
-using MediatR;
-using System;
+﻿using System;
+using FluentValidation;
+using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.Reservations.Commands
 {
-    public class DeleteReservationCommand :IRequest
+    public class DeleteReservationCommand : SmartRestaurantCommand
     {
-        public Guid ReservationId { get; set; }
     }
 
     public class DeleteReservationCommandValidator : AbstractValidator<DeleteReservationCommand>
     {
         public DeleteReservationCommandValidator()
         {
-            RuleFor(v => v.ReservationId)
-               .NotEmpty();
+            RuleFor(m => m.CmdId).NotNull().NotEmpty().NotEqual(Guid.Empty);
         }
     }
 }
