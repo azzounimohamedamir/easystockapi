@@ -61,7 +61,9 @@ namespace SmartRestaurant.Application.Tables.Commands
             var validator = new UpdateTableCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
-            var table = await _context.Tables.FindAsync(request.CmdId).ConfigureAwait(false);
+            var table = await _context.Tables.AsNoTracking()
+                .FirstOrDefaultAsync(t => t.TableId == request.CmdId, cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
             if (table == null)
                 throw new NotFoundException(nameof(Table), request.CmdId);
             var entity = _mapper.Map<Table>(request);

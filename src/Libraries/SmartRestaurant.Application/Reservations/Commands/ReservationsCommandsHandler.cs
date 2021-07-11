@@ -1,8 +1,10 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
@@ -12,7 +14,7 @@ namespace SmartRestaurant.Application.Reservations.Commands
     public class ReservationsCommandsHandler :
         IRequestHandler<CreateReservationCommand, ValidationResult>,
         IRequestHandler<UpdateReservationCommand, ValidationResult>,
-         IRequestHandler<DeleteReservationCommand>
+        IRequestHandler<DeleteReservationCommand>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -41,12 +43,18 @@ namespace SmartRestaurant.Application.Reservations.Commands
             var validator = new UpdateReservationCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
-            var reservation = await _context.Reservations.FindAsync(request.CmdId).ConfigureAwait(false);
+            var reservation = await _context.Reservations.AsNoTracking()
+                .FirstOrDefaultAsync(r => r.ReservationId == request.CmdId, cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
             if (reservation == null)
                 throw new NotFoundException(nameof(Reservation), request.CmdId);
             var entity = _mapper.Map<Reservation>(request);
+            entity.FoodBusinessId = reservation.FoodBusinessId;
+            entity.CreatedBy = reservation.CreatedBy;
+            entity.CreatedAt = reservation.CreatedAt;
             _context.Reservations.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
             return default;
         }
 

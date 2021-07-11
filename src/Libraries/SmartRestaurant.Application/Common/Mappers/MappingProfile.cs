@@ -41,7 +41,15 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.TableId))
                 .ForMember(x => x.TableState, o => o.MapFrom(p => (short) p.TableState))
                 .ReverseMap();
+            CreateMap<Table, UpdateTableCommand>()
+                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.TableId))
+                .ForMember(x => x.TableState, o => o.MapFrom(p => (short) p.TableState))
+                .ReverseMap();
             CreateMap<Menu, CreateMenuCommand>()
+                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.MenuId))
+                .ForMember(x => x.MenuState, o => o.MapFrom(p => (int) p.MenuState))
+                .ReverseMap();
+            CreateMap<Menu, UpdateMenuCommand>()
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.MenuId))
                 .ForMember(x => x.MenuState, o => o.MapFrom(p => (int) p.MenuState))
                 .ReverseMap();
@@ -53,13 +61,18 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<Section, CreateSectionCommand>()
                 .ForMember(x => x.CmdId, o => o.MapFrom(p => p.SectionId))
                 .ReverseMap();
+            CreateMap<Section, UpdateSectionCommand>()
+                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.SectionId))
+                .ReverseMap();
             CreateMap<CreateReservationCommand, Reservation>()
                 .ForMember(x => x.ReservationId, o => o.MapFrom(p => p.CmdId))
                 .ReverseMap();
 
             CreateMap<UpdateReservationCommand, Reservation>(MemberList.Destination)
-                .ForMember(x => x.ReservationId, o => o.Ignore())
-                .ForMember(x => x.FoodBusinessId, o => o.Ignore())
+                .ForMember(x => x.ReservationId, o => o.MapFrom(p => p.CmdId))
+                .ReverseMap();
+            CreateMap<UpdateSubSectionCommand, SubSection>()
+                .ForMember(x => x.SubSectionId, o => o.MapFrom(p => p.CmdId))
                 .ReverseMap();
 
             CreateMap<Reservation, ReservationDto>()

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
@@ -52,11 +53,13 @@ namespace SmartRestaurant.Application.SubSections.Commands
             var validator = new UpdateSubSectionCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
-            var subSection = await _context.SubSections.FindAsync(request.CmdId).ConfigureAwait(false);
+            var subSection = await _context.SubSections.AsNoTracking()
+                .FirstOrDefaultAsync(s => s.SubSectionId == request.CmdId, cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
             if (subSection == null)
                 throw new NotFoundException(nameof(subSection), request.CmdId);
-            var entity = _mapper.Map<SubSection>(request);
-            _context.SubSections.Update(entity);
+            subSection = _mapper.Map<SubSection>(request);
+            _context.SubSections.Update(subSection);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }

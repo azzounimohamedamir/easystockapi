@@ -59,7 +59,9 @@ namespace SmartRestaurant.Application.Menus.Commands
             var validator = new UpdateMenuCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
-            var menu = await _context.Menus.FindAsync(request.CmdId).ConfigureAwait(false);
+            var menu = await _context.Menus.AsNoTracking()
+                .FirstOrDefaultAsync(m => m.MenuId == request.CmdId, cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
             if (menu == null)
                 throw new NotFoundException(nameof(Menu), request.CmdId);
             await UpdateMenuStateAsync(request.MenuState, request.FoodBusinessId, request.CmdId, cancellationToken)
