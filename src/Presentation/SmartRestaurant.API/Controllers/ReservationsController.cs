@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Reservations.Commands;
+using SmartRestaurant.Application.Sections.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -39,6 +41,23 @@ namespace SmartRestaurant.API.Controllers
                 return BadRequest();
             await SendAsync(new DeleteReservationCommand { ReservationId = id }).ConfigureAwait(false);
             return Ok("Successful");
+        }
+
+        [Route("{id:Guid}/reservations/")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public Task<PagedListDto<ReservationDto>> GetListByReservationDateTimeInterval([FromRoute] Guid id,
+          DateTime timeIntervalStart, DateTime timeIntervalEnd, int page, int pageSize)
+        {
+            var query = new GetReservationsListByReservationDateTimeIntervalQuery
+            {
+                FoodBusinessId = id,
+                TimeIntervalStart = timeIntervalStart,
+                TimeIntervalEnd = timeIntervalEnd,
+                Page = page,
+                PageSize = pageSize
+            };
+            return SendAsync(query);
         }
     }
 }

@@ -116,6 +116,17 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                 },
                 new ApplicationUser
                 {
+                    Id = "44bf3570-0d44-4673-8746-29b7cf568088",
+                    UserName = "mcdonald@SmartRestaurant.io",
+                    Email = "MCDONALD@SmartRestaurant.io",
+                    NormalizedUserName = "MCDONALD@SMARTRESTAURANT.IO",
+                    NormalizedEmail = "MCDONALD@SMARTRESTAURANT.IO",
+                    PasswordHash =
+                        "AQAAAAEAACcQAAAAEAzFpmzMtMiw0wHV6b0aUzFLF9Pw7B2u+DswRHttAU2nH22NHBsc/hSSvKUqmRWGZA==",
+                    EmailConfirmed = true
+                },
+                new ApplicationUser
+                {
                     Id = "d466ef00-61f1-4e77-801a-b016f0f12323",
                     UserName = "SupportAgent@SmartRestaurant.io",
                     Email = "SupportAgent@SmartRestaurant.io",
