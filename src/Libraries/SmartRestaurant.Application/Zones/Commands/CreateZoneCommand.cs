@@ -14,10 +14,8 @@ namespace SmartRestaurant.Application.Zones.Commands
     {
         public CreateZoneCommandValidator()
         {
-            RuleFor(v => v.ZoneTitle)
-                .MaximumLength(200)
-                .NotEmpty();
-            RuleFor(v => v.FoodBusinessId).NotEmpty();
+            RuleFor(v => v.ZoneTitle).MaximumLength(200).NotEmpty();
+            RuleFor(v => v.FoodBusinessId).NotNull().NotEmpty().NotEqual(Guid.Empty);
         }
     }
 }

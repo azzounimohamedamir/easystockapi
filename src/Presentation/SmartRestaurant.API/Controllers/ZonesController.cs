@@ -60,7 +60,7 @@ namespace SmartRestaurant.API.Controllers
         {
             if (id == Guid.Empty)
                 return BadRequest();
-            await SendAsync(new DeleteZoneCommand {ZoneId = id}).ConfigureAwait(false);
+            await SendAsync(new DeleteZoneCommand {CmdId = id}).ConfigureAwait(false);
             return Ok("Successful");
         }
 

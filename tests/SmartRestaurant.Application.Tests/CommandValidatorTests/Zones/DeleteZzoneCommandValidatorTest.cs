@@ -5,11 +5,11 @@ using Xunit;
 
 namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Zones
 {
-    public class DeleteZzoneCommandValidatorTest
+    public class DeleteZoneCommandValidatorTest
     {
         private readonly DeleteZoneCommandValidator _validator;
 
-        public DeleteZzoneCommandValidatorTest()
+        public DeleteZoneCommandValidatorTest()
         {
             _validator = new DeleteZoneCommandValidator();
         }
@@ -18,7 +18,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Zones
         public void Given_EmptyZoneId_WhenValidating_ShouldError()
         {
             var emptyGuid = Guid.Empty;
-            _validator.ShouldHaveValidationErrorFor(zone => zone.ZoneId, emptyGuid);
+            _validator.ShouldHaveValidationErrorFor(zone => zone.CmdId, emptyGuid);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace SmartRestaurant.Application.SubSections.Commands
     public class SubSectionsCommandsHandler :
         IRequestHandler<CreateSubSectionCommand, ValidationResult>,
         IRequestHandler<UpdateSubSectionCommand, ValidationResult>,
-        IRequestHandler<DeleteSubSectionCommand>
+        IRequestHandler<DeleteSubSectionCommand, ValidationResult>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -34,11 +34,14 @@ namespace SmartRestaurant.Application.SubSections.Commands
             return default;
         }
 
-        public async Task<Unit> Handle(DeleteSubSectionCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(DeleteSubSectionCommand request, CancellationToken cancellationToken)
         {
-            var subSection = await _context.SubSections.FindAsync(request.SubSectionId).ConfigureAwait(false);
+            var validator = new DeleteSubSectionCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) return result;
+            var subSection = await _context.SubSections.FindAsync(request.CmdId).ConfigureAwait(false);
             if (subSection == null)
-                throw new NotFoundException(nameof(subSection), request.SubSectionId);
+                throw new NotFoundException(nameof(subSection), request.CmdId);
             _context.SubSections.Remove(subSection);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
@@ -52,8 +55,8 @@ namespace SmartRestaurant.Application.SubSections.Commands
             var subSection = await _context.SubSections.FindAsync(request.CmdId).ConfigureAwait(false);
             if (subSection == null)
                 throw new NotFoundException(nameof(subSection), request.CmdId);
-            subSection.Name = request.Name;
-            subSection.SectionId = request.SectionId;
+            var entity = _mapper.Map<SubSection>(request);
+            _context.SubSections.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }

@@ -12,7 +12,7 @@ namespace SmartRestaurant.Application.Sections.Commands
     public class SectionsCommandsHandler :
         IRequestHandler<CreateSectionCommand, ValidationResult>,
         IRequestHandler<UpdateSectionCommand, ValidationResult>,
-        IRequestHandler<DeleteSectionCommand>
+        IRequestHandler<DeleteSectionCommand, ValidationResult>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -34,11 +34,14 @@ namespace SmartRestaurant.Application.Sections.Commands
             return default;
         }
 
-        public async Task<Unit> Handle(DeleteSectionCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(DeleteSectionCommand request, CancellationToken cancellationToken)
         {
-            var section = await _context.Sections.FindAsync(request.SectionId).ConfigureAwait(false);
+            var validator = new DeleteSectionCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) return result;
+            var section = await _context.Sections.FindAsync(request.CmdId).ConfigureAwait(false);
             if (section == null)
-                throw new NotFoundException(nameof(Section), request.SectionId);
+                throw new NotFoundException(nameof(Section), request.CmdId);
             _context.Sections.Remove(section);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
@@ -52,8 +55,8 @@ namespace SmartRestaurant.Application.Sections.Commands
             var section = await _context.Sections.FindAsync(request.CmdId).ConfigureAwait(false);
             if (section == null)
                 throw new NotFoundException(nameof(Section), request.CmdId);
-            section.Name = request.Name;
-            section.MenuId = request.MenuId;
+            var entity = _mapper.Map<Section>(request);
+            _context.Sections.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
