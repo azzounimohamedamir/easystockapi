@@ -61,6 +61,9 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.ReservationId, o => o.Ignore())
                 .ForMember(x => x.FoodBusinessId, o => o.Ignore())
                 .ReverseMap();
+
+            CreateMap<Reservation, ReservationDto>()
+            .ReverseMap();
         }
     }
 }
