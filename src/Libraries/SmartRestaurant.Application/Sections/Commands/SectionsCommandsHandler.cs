@@ -55,8 +55,8 @@ namespace SmartRestaurant.Application.Sections.Commands
             var section = await _context.Sections.FindAsync(request.CmdId).ConfigureAwait(false);
             if (section == null)
                 throw new NotFoundException(nameof(Section), request.CmdId);
-            section.Name = request.Name;
-            section.MenuId = request.MenuId;
+            var entity = _mapper.Map<Section>(request);
+            _context.Sections.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }

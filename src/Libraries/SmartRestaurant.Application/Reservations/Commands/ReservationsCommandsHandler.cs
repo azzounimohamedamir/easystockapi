@@ -41,16 +41,11 @@ namespace SmartRestaurant.Application.Reservations.Commands
             var validator = new UpdateReservationCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
-
             var reservation = await _context.Reservations.FindAsync(request.CmdId).ConfigureAwait(false);
             if (reservation == null)
                 throw new NotFoundException(nameof(Reservation), request.CmdId);
-
-            reservation.ClientName = request.ClientName;
-            reservation.ReservationDate = request.ReservationDate;
-            reservation.NumberOfDiners = request.NumberOfDiners;
-
-            _context.Reservations.Update(reservation);
+            var entity = _mapper.Map<Reservation>(request);
+            _context.Reservations.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }

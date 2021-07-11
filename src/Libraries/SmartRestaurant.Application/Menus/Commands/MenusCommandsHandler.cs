@@ -64,9 +64,8 @@ namespace SmartRestaurant.Application.Menus.Commands
                 throw new NotFoundException(nameof(Menu), request.CmdId);
             await UpdateMenuStateAsync(request.MenuState, request.FoodBusinessId, request.CmdId, cancellationToken)
                 .ConfigureAwait(false);
-            menu.MenuState = (MenuState) request.MenuState;
-            menu.Name = request.Name;
-            menu.FoodBusinessId = menu.FoodBusinessId;
+            var entity = _mapper.Map<Menu>(request);
+            _context.Menus.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }

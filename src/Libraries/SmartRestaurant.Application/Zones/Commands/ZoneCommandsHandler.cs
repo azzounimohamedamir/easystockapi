@@ -73,11 +73,11 @@ namespace SmartRestaurant.Application.Zones.Commands
             var validator = new UpdateZoneCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
-            var entity = await _context.Zones.FindAsync(request.CmdId).ConfigureAwait(false);
-            if (entity == null)
+            var zone = await _context.Zones.FindAsync(request.CmdId).ConfigureAwait(false);
+            if (zone == null)
                 throw new NotFoundException(nameof(Zone), request.CmdId);
-            entity.FoodBusinessId = request.FoodBusinessId;
-            entity.ZoneTitle = request.ZoneTitle;
+            var entity = _mapper.Map<Zone>(request);
+            _context.Zones.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }

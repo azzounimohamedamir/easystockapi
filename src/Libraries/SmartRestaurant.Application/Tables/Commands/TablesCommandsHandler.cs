@@ -64,10 +64,8 @@ namespace SmartRestaurant.Application.Tables.Commands
             var table = await _context.Tables.FindAsync(request.CmdId).ConfigureAwait(false);
             if (table == null)
                 throw new NotFoundException(nameof(Table), request.CmdId);
-            table.ZoneId = request.ZoneId;
-            table.TableNumber = request.TableNumber;
-            table.Capacity = request.Capacity;
-            table.TableState = (TableState) request.TableState;
+            var entity = _mapper.Map<Table>(request);
+            _context.Tables.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
