@@ -16,7 +16,7 @@ namespace SmartRestaurant.Application.Menus.Commands
     public class MenusCommandsHandler :
         IRequestHandler<CreateMenuCommand, ValidationResult>,
         IRequestHandler<UpdateMenuCommand, ValidationResult>,
-        IRequestHandler<DeleteMenuCommand>
+        IRequestHandler<DeleteMenuCommand, ValidationResult>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -40,14 +40,18 @@ namespace SmartRestaurant.Application.Menus.Commands
             return default;
         }
 
-        public async Task<Unit> Handle(DeleteMenuCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(DeleteMenuCommand request, CancellationToken cancellationToken)
         {
-            var menu = await _context.Menus.FindAsync(request.MenuId).ConfigureAwait(false);
+            var validator = new DeleteMenuCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) return result;
+
+            var menu = await _context.Menus.FindAsync(request.CmdId).ConfigureAwait(false);
             if (menu == null)
-                throw new NotFoundException(nameof(Menu), request.MenuId);
+                throw new NotFoundException(nameof(Menu), request.CmdId);
             _context.Menus.Remove(menu);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            return Unit.Value;
+            return default;
         }
 
         public async Task<ValidationResult> Handle(UpdateMenuCommand request, CancellationToken cancellationToken)
@@ -55,14 +59,15 @@ namespace SmartRestaurant.Application.Menus.Commands
             var validator = new UpdateMenuCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
-            var menu = await _context.Menus.FindAsync(request.CmdId).ConfigureAwait(false);
+            var menu = await _context.Menus.AsNoTracking()
+                .FirstOrDefaultAsync(m => m.MenuId == request.CmdId, cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
             if (menu == null)
                 throw new NotFoundException(nameof(Menu), request.CmdId);
             await UpdateMenuStateAsync(request.MenuState, request.FoodBusinessId, request.CmdId, cancellationToken)
                 .ConfigureAwait(false);
-            menu.MenuState = (MenuState) request.MenuState;
-            menu.Name = request.Name;
-            menu.FoodBusinessId = menu.FoodBusinessId;
+            var entity = _mapper.Map<Menu>(request);
+            _context.Menus.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }

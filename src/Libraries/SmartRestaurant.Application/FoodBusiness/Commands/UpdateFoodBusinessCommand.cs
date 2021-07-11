@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
@@ -33,12 +34,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     {
         public UpdateFoodBusinessCommandValidator()
         {
-            RuleFor(v => v.CmdId)
-                .NotNull();
-
-            RuleFor(v => v.Name)
-                .MaximumLength(200)
-                .NotEmpty();
+            RuleFor(v => v.CmdId).NotEmpty().NotNull().NotEqual(Guid.Empty);
+            RuleFor(v => v.Name).MaximumLength(200).NotEmpty();
         }
     }
 }

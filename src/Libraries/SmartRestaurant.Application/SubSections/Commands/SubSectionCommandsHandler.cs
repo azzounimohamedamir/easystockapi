@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
@@ -12,7 +13,7 @@ namespace SmartRestaurant.Application.SubSections.Commands
     public class SubSectionsCommandsHandler :
         IRequestHandler<CreateSubSectionCommand, ValidationResult>,
         IRequestHandler<UpdateSubSectionCommand, ValidationResult>,
-        IRequestHandler<DeleteSubSectionCommand>
+        IRequestHandler<DeleteSubSectionCommand, ValidationResult>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -34,11 +35,14 @@ namespace SmartRestaurant.Application.SubSections.Commands
             return default;
         }
 
-        public async Task<Unit> Handle(DeleteSubSectionCommand request, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(DeleteSubSectionCommand request, CancellationToken cancellationToken)
         {
-            var subSection = await _context.SubSections.FindAsync(request.SubSectionId).ConfigureAwait(false);
+            var validator = new DeleteSubSectionCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) return result;
+            var subSection = await _context.SubSections.FindAsync(request.CmdId).ConfigureAwait(false);
             if (subSection == null)
-                throw new NotFoundException(nameof(subSection), request.SubSectionId);
+                throw new NotFoundException(nameof(subSection), request.CmdId);
             _context.SubSections.Remove(subSection);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
@@ -49,11 +53,13 @@ namespace SmartRestaurant.Application.SubSections.Commands
             var validator = new UpdateSubSectionCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
-            var subSection = await _context.SubSections.FindAsync(request.CmdId).ConfigureAwait(false);
+            var subSection = await _context.SubSections.AsNoTracking()
+                .FirstOrDefaultAsync(s => s.SubSectionId == request.CmdId, cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
             if (subSection == null)
                 throw new NotFoundException(nameof(subSection), request.CmdId);
-            subSection.Name = request.Name;
-            subSection.SectionId = request.SectionId;
+            subSection = _mapper.Map<SubSection>(request);
+            _context.SubSections.Update(subSection);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }

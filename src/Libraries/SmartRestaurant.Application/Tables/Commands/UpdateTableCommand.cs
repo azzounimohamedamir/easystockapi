@@ -16,13 +16,10 @@ namespace SmartRestaurant.Application.Tables.Commands
     {
         public UpdateTableCommandValidator()
         {
-            RuleFor(v => v.TableNumber)
-                .GreaterThan(0);
-            RuleFor(v => v.Capacity)
-                .GreaterThan(0);
-            RuleFor(v => v.ZoneId)
-                .NotEmpty()
-                .Must(v => v != Guid.Empty);
+            RuleFor(v => v.TableNumber).GreaterThan(0);
+            RuleFor(v => v.Capacity).GreaterThan(0);
+            RuleFor(v => v.ZoneId).NotNull().NotEmpty().NotEqual(Guid.Empty);
+            RuleFor(m => m.CmdId).NotNull().NotEmpty().NotEqual(Guid.Empty);
         }
     }
 }

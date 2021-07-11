@@ -8,7 +8,6 @@ namespace SmartRestaurant.Application.Sections.Commands
     {
         public string Name { get; set; }
         public Guid MenuId { get; set; }
-        public Guid? RootSectionId { get; set; }
     }
 
     public class CreateSectionCommandValidator : AbstractValidator<CreateSectionCommand>
@@ -16,7 +15,7 @@ namespace SmartRestaurant.Application.Sections.Commands
         public CreateSectionCommandValidator()
         {
             RuleFor(m => m.Name).NotEmpty().MaximumLength(200);
-            RuleFor(m => m.MenuId).NotEmpty().Must(id => id != Guid.Empty);
+            RuleFor(m => m.MenuId).NotEmpty().NotEqual(Guid.Empty);
         }
     }
 }
