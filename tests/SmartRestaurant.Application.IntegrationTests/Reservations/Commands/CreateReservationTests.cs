@@ -46,7 +46,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
             createdReservation.CreatedBy.Should().Be(createReservationCommand.CreatedBy);
             createdReservation.CreatedAt.Should().Be(createReservationCommand.CreatedAt);
             createdReservation.LastModifiedBy.Should().BeNull();
-            createdReservation.LastModifiedAt.Should().Be(default(DateTime));
+            createdReservation.LastModifiedAt.Should().Be(default);
         }
     }
 }

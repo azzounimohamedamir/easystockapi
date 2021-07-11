@@ -74,7 +74,7 @@ namespace SmartRestaurant.Application.Zones.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
             var zone = await _context.Zones.AsNoTracking()
-                .FirstOrDefaultAsync(z => z.ZoneId == request.CmdId, cancellationToken: cancellationToken)
+                .FirstOrDefaultAsync(z => z.ZoneId == request.CmdId, cancellationToken)
                 .ConfigureAwait(false);
             if (zone == null)
                 throw new NotFoundException(nameof(Zone), request.CmdId);

@@ -76,7 +76,7 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ReverseMap();
 
             CreateMap<Reservation, ReservationDto>()
-            .ReverseMap();
+                .ReverseMap();
         }
     }
 }

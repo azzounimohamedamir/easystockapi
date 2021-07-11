@@ -60,7 +60,7 @@ namespace SmartRestaurant.Application.Menus.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
             var menu = await _context.Menus.AsNoTracking()
-                .FirstOrDefaultAsync(m => m.MenuId == request.CmdId, cancellationToken: cancellationToken)
+                .FirstOrDefaultAsync(m => m.MenuId == request.CmdId, cancellationToken)
                 .ConfigureAwait(false);
             if (menu == null)
                 throw new NotFoundException(nameof(Menu), request.CmdId);

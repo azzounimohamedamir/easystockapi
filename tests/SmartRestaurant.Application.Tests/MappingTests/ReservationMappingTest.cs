@@ -9,8 +9,8 @@ namespace SmartRestaurant.Application.Tests.MappingTests
 {
     public class ReservationMappingTest : IClassFixture<MappingTestsFixture>
     {
-        private readonly IMapper _mapper;
         private readonly CreateReservationCommandValidator _createReservationValidator;
+        private readonly IMapper _mapper;
 
         public ReservationMappingTest(MappingTestsFixture fixture)
         {
@@ -43,8 +43,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(reservation.CreatedBy, createReservationCommand.CreatedBy);
             Assert.Equal(reservation.CreatedAt, createReservationCommand.CreatedAt);
             Assert.Null(reservation.LastModifiedBy);
-            Assert.Equal(default(DateTime), reservation.LastModifiedAt);
-
+            Assert.Equal(default, reservation.LastModifiedAt);
         }
 
         [Fact]
@@ -69,9 +68,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 ReservationDate = DateTime.Now.AddDays(2),
                 CmdId = reservationId,
                 LastModifiedBy = Guid.NewGuid().ToString()
-
-
-            };        
+            };
 
             var foodBusinessId = reservation.FoodBusinessId;
             var createdBy = reservation.CreatedBy;

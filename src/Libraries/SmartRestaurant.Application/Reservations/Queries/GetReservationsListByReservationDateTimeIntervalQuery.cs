@@ -1,5 +1,4 @@
 ﻿using System;
-using FluentValidation;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Interfaces;
 

@@ -23,16 +23,17 @@ namespace SmartRestaurant.Application.Sections.Queries
             _mapper = mapper;
         }
 
-        public async Task<PagedListDto<ReservationDto>> Handle(GetReservationsListByReservationDateTimeIntervalQuery request,
+        public async Task<PagedListDto<ReservationDto>> Handle(
+            GetReservationsListByReservationDateTimeIntervalQuery request,
             CancellationToken cancellationToken)
         {
-            var query = 
+            var query =
                 _context.Reservations
-                .Where(reservation => reservation.FoodBusinessId == request.FoodBusinessId 
-                    && reservation.ReservationDate  >= request.TimeIntervalStart 
-                    && reservation.ReservationDate <= request.TimeIntervalEnd)
-                .OrderBy(reservation => reservation.ReservationDate)
-                .GetPaged(request.Page, request.PageSize);
+                    .Where(reservation => reservation.FoodBusinessId == request.FoodBusinessId
+                                          && reservation.ReservationDate >= request.TimeIntervalStart
+                                          && reservation.ReservationDate <= request.TimeIntervalEnd)
+                    .OrderBy(reservation => reservation.ReservationDate)
+                    .GetPaged(request.Page, request.PageSize);
 
             var data = _mapper.Map<List<ReservationDto>>(await query.Data.ToListAsync(cancellationToken)
                 .ConfigureAwait(false));

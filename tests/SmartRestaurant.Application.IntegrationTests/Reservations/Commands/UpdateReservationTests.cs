@@ -14,8 +14,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
     [TestFixture]
     public class UpdateReservationTests : TestBase
     {
-
-
         [Test]
         public async Task UpdatedReservation_ShouldBeSavedToDB()
         {
@@ -26,7 +24,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
             };
             await SendAsync(createFoodBusinessCommand);
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
-            
+
             var createReservationCommand = new CreateReservationCommand
             {
                 ReservationName = "Aissa",
@@ -45,7 +43,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
                 NumberOfDiners = 5,
                 ReservationDate = DateTime.Now.AddDays(5),
                 CmdId = reservation.ReservationId,
-                LastModifiedBy = Guid.NewGuid().ToString(),
+                LastModifiedBy = Guid.NewGuid().ToString()
             };
             var validationResult = await SendAsync(updateReservationCommand);
             var updatedReservation = await FindAsync<Reservation>(updateReservationCommand.CmdId);

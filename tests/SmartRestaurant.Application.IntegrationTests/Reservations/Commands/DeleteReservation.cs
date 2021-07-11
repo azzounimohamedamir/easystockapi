@@ -9,10 +9,10 @@ using SmartRestaurant.Domain.Entities;
 namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
 {
     using static Testing;
+
     [TestFixture]
     public class DeleteReservation : TestBase
     {
-       
         [Test]
         public async Task DeleteReservation_ShouldBeRemovedFromDB()
         {
@@ -27,17 +27,17 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
             var createReservationCommand = new CreateReservationCommand
             {
                 ReservationName = "Salim",
-                NumberOfDiners=9,
-                ReservationDate=DateTime.Now.AddDays(1),
+                NumberOfDiners = 9,
+                ReservationDate = DateTime.Now.AddDays(1),
                 FoodBusinessId = fastFood.FoodBusinessId,
                 CreatedBy = Guid.NewGuid().ToString()
             };
             await SendAsync(createReservationCommand);
-            var reservation = await FindAsync<Domain.Entities.Reservation>(createReservationCommand.CmdId);
+            var reservation = await FindAsync<Reservation>(createReservationCommand.CmdId);
 
             await SendAsync(new DeleteReservationCommand
             {
-                ReservationId = createReservationCommand.CmdId
+                CmdId = createReservationCommand.CmdId
             });
             var item = await FindAsync<Reservation>(reservation.ReservationId);
             item.Should().BeNull();

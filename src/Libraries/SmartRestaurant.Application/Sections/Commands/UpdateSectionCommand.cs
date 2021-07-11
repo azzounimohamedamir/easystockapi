@@ -15,7 +15,7 @@ namespace SmartRestaurant.Application.Sections.Commands
         public UpdateSectionCommandValidator()
         {
             RuleFor(m => m.Name).NotEmpty().MaximumLength(200);
-            RuleFor(m => m.MenuId).NotEmpty().NotEqual(Guid.Empty);
+            RuleFor(m => m.MenuId).NotNull().NotEmpty().NotEqual(Guid.Empty);
         }
     }
 }

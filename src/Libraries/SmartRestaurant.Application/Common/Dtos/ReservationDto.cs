@@ -1,5 +1,4 @@
-﻿using SmartRestaurant.Domain.Common;
-using System;
+﻿using System;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
