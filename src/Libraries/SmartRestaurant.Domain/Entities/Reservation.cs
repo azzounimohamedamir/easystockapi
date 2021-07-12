@@ -11,5 +11,6 @@ namespace SmartRestaurant.Domain.Entities
         public DateTime ReservationDate { get; set; }
         public Guid FoodBusinessId { get; set; }
         public FoodBusiness FoodBusiness { get; set; }
+        public string CreatorType { get; set; }
     }
 }
