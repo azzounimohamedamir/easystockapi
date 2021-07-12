@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Tests.Configuration;
 using SmartRestaurant.Domain.Entities;
@@ -84,6 +85,58 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(reservation.CreatedAt, createdAt);
             Assert.Equal(reservation.LastModifiedBy, updateReservationCommand.LastModifiedBy);
             Assert.Equal(reservation.LastModifiedAt, updateReservationCommand.LastModifiedAt);
+        }
+
+        [Fact]
+        public void Map_Reservation_To_ReservationDto_Valide_Test()
+        {
+            var reservation = new Reservation
+            {
+                ReservationId = Guid.NewGuid(),
+                ReservationName = "Aissa",
+                NumberOfDiners = 7,
+                ReservationDate = DateTime.Now.AddDays(1),
+                FoodBusinessId = Guid.NewGuid(),
+                CreatedBy = Guid.NewGuid().ToString(),
+                CreatedAt = DateTime.Now
+            };
+
+            var reservationDto = _mapper.Map<ReservationDto>(reservation);
+            Assert.Equal(reservation.ReservationId, reservationDto.ReservationId);
+            Assert.Equal(reservation.ReservationName, reservationDto.ReservationName);
+            Assert.Equal(reservation.NumberOfDiners, reservationDto.NumberOfDiners);
+            Assert.Equal(reservation.ReservationDate, reservationDto.ReservationDate);
+        }
+
+        [Fact]
+        public void Map_Reservation_To_ReservationClientDto_Valide_Test()
+        {
+            var foodBusinessId = Guid.NewGuid();
+            var reservation = new Reservation
+            {
+                ReservationId = Guid.NewGuid(),
+                ReservationName = "Aissa",
+                NumberOfDiners = 7,
+                ReservationDate = DateTime.Now.AddDays(1),
+                FoodBusinessId = foodBusinessId,
+                FoodBusiness = new Domain.Entities.FoodBusiness
+                {
+                    FoodBusinessId = foodBusinessId,
+                    FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
+                    Name = "fast food test"
+                },
+                CreatedBy = Guid.NewGuid().ToString(),
+                CreatedAt = DateTime.Now
+            };
+
+            var reservationClientDto = _mapper.Map<ReservationClientDto>(reservation);
+
+            Assert.Equal(reservation.ReservationId, reservationClientDto.ReservationId);
+            Assert.Equal(reservation.ReservationName, reservationClientDto.ReservationName);
+            Assert.Equal(reservation.NumberOfDiners, reservationClientDto.NumberOfDiners);
+            Assert.Equal(reservation.ReservationDate, reservationClientDto.ReservationDate);
+            Assert.Equal(reservation.FoodBusinessId, reservationClientDto.FoodBusinessId);
+            Assert.Equal(reservation.FoodBusiness.Name, reservationClientDto.FoodBusinessName);
         }
     }
 }
