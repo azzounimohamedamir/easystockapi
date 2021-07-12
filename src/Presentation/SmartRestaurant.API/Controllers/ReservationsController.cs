@@ -59,5 +59,19 @@ namespace SmartRestaurant.API.Controllers
             };
             return SendAsync(query);
         }
+
+        [Route("reservations/client/{id:Guid}/history")]
+        [HttpGet]
+        [Authorize(Roles = "Diner")]
+        public Task<PagedListDto<ReservationClientDto>> GetClientReservationsHistory([FromRoute] Guid id, int page, int pageSize)
+        {
+            var query = new GetClientReservationsHistoryQuery
+            {
+                CreatedBy = id.ToString(),
+                Page = page,
+                PageSize = pageSize
+            };
+            return SendAsync(query);
+        }
     }
 }
