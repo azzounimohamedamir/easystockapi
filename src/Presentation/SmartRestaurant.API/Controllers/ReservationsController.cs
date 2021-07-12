@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Reservations.Commands;
+using SmartRestaurant.Application.Reservations.Queries;
 using SmartRestaurant.Application.Sections.Queries;
 
 namespace SmartRestaurant.API.Controllers
@@ -58,6 +59,14 @@ namespace SmartRestaurant.API.Controllers
                 PageSize = pageSize
             };
             return SendAsync(query);
+        }
+
+        [Route("reservations/{id:Guid}/")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public Task<ReservationDto> Get([FromRoute] Guid id)
+        {
+            return SendAsync(new GetReservationByIdQuery { ReservationId = id });
         }
     }
 }

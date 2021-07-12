@@ -8,11 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Reservations.Queries;
 
 namespace SmartRestaurant.Application.Sections.Queries
 {
     public class ReservationsQueriesHandler :
-        IRequestHandler<GetReservationsListByReservationDateTimeIntervalQuery, PagedListDto<ReservationDto>>
+        IRequestHandler<GetReservationsListByReservationDateTimeIntervalQuery, PagedListDto<ReservationDto>>,
+         IRequestHandler<GetReservationByIdQuery, ReservationDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -40,6 +42,12 @@ namespace SmartRestaurant.Application.Sections.Queries
             var pagedResult = new PagedListDto<ReservationDto>(query.CurrentPage, query.PageCount, query.PageSize,
                 query.RowCount, data);
             return pagedResult;
+        }
+
+        public async Task<ReservationDto> Handle(GetReservationByIdQuery request, CancellationToken cancellationToken)
+        {
+            var query = await _context.Reservations.FindAsync(request.ReservationId).ConfigureAwait(false);
+            return _mapper.Map<ReservationDto>(query);
         }
     }
 }
