@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Reservations.Commands;
-using SmartRestaurant.Application.Sections.Queries;
+using SmartRestaurant.Application.Reservations.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
