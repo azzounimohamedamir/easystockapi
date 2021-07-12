@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Reservations.Commands;
-using SmartRestaurant.Application.Sections.Queries;
+using SmartRestaurant.Application.Reservations.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -54,6 +54,20 @@ namespace SmartRestaurant.API.Controllers
                 FoodBusinessId = id,
                 TimeIntervalStart = timeIntervalStart,
                 TimeIntervalEnd = timeIntervalEnd,
+                Page = page,
+                PageSize = pageSize
+            };
+            return SendAsync(query);
+        }
+
+        [Route("reservations/client/{id:Guid}/history")]
+        [HttpGet]
+        [Authorize(Roles = "Diner")]
+        public Task<PagedListDto<ReservationClientDto>> GetClientReservationsHistory([FromRoute] Guid id, int page, int pageSize)
+        {
+            var query = new GetClientReservationsHistoryQuery
+            {
+                CreatedBy = id.ToString(),
                 Page = page,
                 PageSize = pageSize
             };

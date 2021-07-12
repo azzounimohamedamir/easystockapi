@@ -2,7 +2,7 @@
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Interfaces;
 
-namespace SmartRestaurant.Application.Sections.Queries
+namespace SmartRestaurant.Application.Reservations.Queries
 {
     public class GetReservationsListByReservationDateTimeIntervalQuery : IPagedListQuery<ReservationDto>
     {

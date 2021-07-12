@@ -4,9 +4,9 @@ using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
-using SmartRestaurant.Application.Sections.Queries;
+using SmartRestaurant.Application.Reservations.Queries;
 
-namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
+namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 {
     using static Testing;
 
