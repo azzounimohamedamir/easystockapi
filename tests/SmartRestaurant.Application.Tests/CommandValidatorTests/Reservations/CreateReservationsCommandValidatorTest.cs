@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentValidation.TestHelper;
+using SmartRestaurant.Application.Common.Constants;
 using SmartRestaurant.Application.Reservations.Commands;
 using Xunit;
 
@@ -90,6 +91,27 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
         {
             var empty = string.Empty;
             _validator.ShouldHaveValidationErrorFor(reservation => reservation.CreatedBy, empty);
+        }
+
+        [Fact]
+        public void Given_CreatorType_WhenValidating_ShouldBeValidated_01()
+        {
+            var validEntry = ReservationsConstants.CreatorType.FoodBusinessManager;
+            _validator.ShouldNotHaveValidationErrorFor(reservation => reservation.CreatorType, validEntry);
+        }
+
+        [Fact]
+        public void Given_CreatorType_WhenValidating_ShouldBeValidated_02()
+        {
+            var validEntry = ReservationsConstants.CreatorType.Diner;
+            _validator.ShouldNotHaveValidationErrorFor(reservation => reservation.CreatorType, validEntry);
+        }
+
+        [Fact]
+        public void Given_CreatorType_WhenValidating_ShouldError()
+        {
+            var empty = "InvalideCreator";
+            _validator.ShouldHaveValidationErrorFor(reservation => reservation.CreatorType, empty);
         }
     }
 }

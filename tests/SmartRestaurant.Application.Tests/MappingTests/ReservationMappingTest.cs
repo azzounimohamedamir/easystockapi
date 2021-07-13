@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using SmartRestaurant.Application.Common.Constants;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Tests.Configuration;
@@ -29,7 +30,8 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 NumberOfDiners = 3,
                 ReservationDate = DateTime.Now.AddDays(1),
                 FoodBusinessId = Guid.NewGuid(),
-                CreatedBy = Guid.NewGuid().ToString()
+                CreatedBy = Guid.NewGuid().ToString(),
+                CreatorType = ReservationsConstants.CreatorType.FoodBusinessManager
             };
 
             var validationResult = _createReservationValidator.Validate(createReservationCommand);
@@ -43,6 +45,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(reservation.FoodBusinessId, createReservationCommand.FoodBusinessId);
             Assert.Equal(reservation.CreatedBy, createReservationCommand.CreatedBy);
             Assert.Equal(reservation.CreatedAt, createReservationCommand.CreatedAt);
+            Assert.Equal(reservation.CreatorType, createReservationCommand.CreatorType);
             Assert.Null(reservation.LastModifiedBy);
             Assert.Equal(default, reservation.LastModifiedAt);
         }
@@ -59,7 +62,8 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 FoodBusinessId = Guid.NewGuid(),
                 ReservationId = reservationId,
                 CreatedBy = Guid.NewGuid().ToString(),
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.Now,
+                CreatorType = ReservationsConstants.CreatorType.FoodBusinessManager
             };
 
             var updateReservationCommand = new UpdateReservationCommand
@@ -74,6 +78,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             var foodBusinessId = reservation.FoodBusinessId;
             var createdBy = reservation.CreatedBy;
             var createdAt = reservation.CreatedAt;
+            var creatorType = reservation.CreatorType;
 
             _mapper.Map(updateReservationCommand, reservation);
             Assert.Equal(reservation.ReservationName, updateReservationCommand.ReservationName);
@@ -83,6 +88,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(reservation.FoodBusinessId, foodBusinessId);
             Assert.Equal(reservation.CreatedBy, createdBy);
             Assert.Equal(reservation.CreatedAt, createdAt);
+            Assert.Equal(reservation.CreatorType, creatorType);
             Assert.Equal(reservation.LastModifiedBy, updateReservationCommand.LastModifiedBy);
             Assert.Equal(reservation.LastModifiedAt, updateReservationCommand.LastModifiedAt);
         }
@@ -98,7 +104,8 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 ReservationDate = DateTime.Now.AddDays(1),
                 FoodBusinessId = Guid.NewGuid(),
                 CreatedBy = Guid.NewGuid().ToString(),
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.Now,
+                CreatorType = ReservationsConstants.CreatorType.FoodBusinessManager
             };
 
             var reservationDto = _mapper.Map<ReservationDto>(reservation);
@@ -126,7 +133,8 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                     Name = "fast food test"
                 },
                 CreatedBy = Guid.NewGuid().ToString(),
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.Now,
+                CreatorType = ReservationsConstants.CreatorType.FoodBusinessManager
             };
 
             var reservationClientDto = _mapper.Map<ReservationClientDto>(reservation);
