@@ -16,7 +16,7 @@ namespace SmartRestaurant.Application.Reservations.Queries
     public class ReservationsQueriesHandler :
         IRequestHandler<GetReservationsListByReservationDateTimeIntervalQuery, PagedListDto<ReservationDto>>,
         IRequestHandler<GetClientReservationsHistoryQuery, PagedListDto<ReservationClientDto>>,
-         IRequestHandler<GetReservationByIdQuery, ReservationDto>
+         IRequestHandler<GetReservationByIdQuery, ReservationDto>,
         IRequestHandler<GetClientNonExpiredReservationsQuery, PagedListDto<ReservationClientDto>>
     {
         private readonly IApplicationDbContext _context;
