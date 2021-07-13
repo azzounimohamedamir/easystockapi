@@ -73,13 +73,27 @@ namespace SmartRestaurant.API.Controllers
             };
             return SendAsync(query);
         }
-        
+
         [Route("reservations/{id:Guid}/")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
         public Task<ReservationDto> Get([FromRoute] Guid id)
         {
             return SendAsync(new GetReservationByIdQuery { ReservationId = id });
+        }
+
+        [Route("reservations/client/{id:Guid}")]
+        [HttpGet]
+        [Authorize(Roles = "Diner")]
+        public Task<PagedListDto<ReservationClientDto>> GetClientNonExpiredReservations([FromRoute] Guid id, int page, int pageSize)
+        {
+            var query = new GetClientNonExpiredReservationsQuery
+            {
+                CreatedBy = id.ToString(),
+                Page = page,
+                PageSize = pageSize
+            };
+            return SendAsync(query);
         }
     }
 }
