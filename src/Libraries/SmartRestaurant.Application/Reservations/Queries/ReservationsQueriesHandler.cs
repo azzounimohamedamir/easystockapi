@@ -17,6 +17,7 @@ namespace SmartRestaurant.Application.Reservations.Queries
         IRequestHandler<GetReservationsListByReservationDateTimeIntervalQuery, PagedListDto<ReservationDto>>,
         IRequestHandler<GetClientReservationsHistoryQuery, PagedListDto<ReservationClientDto>>,
          IRequestHandler<GetReservationByIdQuery, ReservationDto>
+        IRequestHandler<GetClientNonExpiredReservationsQuery, PagedListDto<ReservationClientDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -71,5 +72,24 @@ namespace SmartRestaurant.Application.Reservations.Queries
             var query = await _context.Reservations.FindAsync(request.ReservationId).ConfigureAwait(false);
             return _mapper.Map<ReservationDto>(query);
         }
+        
+        public async Task<PagedListDto<ReservationClientDto>> Handle(GetClientNonExpiredReservationsQuery request,
+          CancellationToken cancellationToken)
+        {
+            var query =
+                _context.Reservations
+                .Where(reservation => reservation.CreatedBy == request.CreatedBy
+                    && reservation.ReservationDate >= DateTime.Now)
+                .OrderBy(reservation => reservation.ReservationDate)
+                .Include(reservation => reservation.FoodBusiness)
+                .GetPaged(request.Page, request.PageSize);
+
+            var data = _mapper.Map<List<ReservationClientDto>>(await query.Data.ToListAsync(cancellationToken)
+                .ConfigureAwait(false));
+
+            var pagedResult = new PagedListDto<ReservationClientDto>(query.CurrentPage, query.PageCount, query.PageSize,
+                query.RowCount, data);
+            return pagedResult;
+        }        
     }
 }
