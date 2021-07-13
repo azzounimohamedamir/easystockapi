@@ -9,12 +9,14 @@ using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Reservations.Queries;
 
 namespace SmartRestaurant.Application.Reservations.Queries
 {
     public class ReservationsQueriesHandler :
         IRequestHandler<GetReservationsListByReservationDateTimeIntervalQuery, PagedListDto<ReservationDto>>,
-        IRequestHandler<GetClientReservationsHistoryQuery, PagedListDto<ReservationClientDto>>
+        IRequestHandler<GetClientReservationsHistoryQuery, PagedListDto<ReservationClientDto>>,
+         IRequestHandler<GetReservationByIdQuery, ReservationDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -51,7 +53,7 @@ namespace SmartRestaurant.Application.Reservations.Queries
             var query =
                 _context.Reservations
                 .Where(reservation => reservation.CreatedBy == request.CreatedBy
-                    && reservation.ReservationDate <= DateTime.Now )
+                    && reservation.ReservationDate <= DateTime.Now)
                 .OrderBy(reservation => reservation.ReservationDate)
                 .Include(reservation => reservation.FoodBusiness)
                 .GetPaged(request.Page, request.PageSize);
@@ -62,6 +64,12 @@ namespace SmartRestaurant.Application.Reservations.Queries
             var pagedResult = new PagedListDto<ReservationClientDto>(query.CurrentPage, query.PageCount, query.PageSize,
                 query.RowCount, data);
             return pagedResult;
+        }
+
+        public async Task<ReservationDto> Handle(GetReservationByIdQuery request, CancellationToken cancellationToken)
+        {
+            var query = await _context.Reservations.FindAsync(request.ReservationId).ConfigureAwait(false);
+            return _mapper.Map<ReservationDto>(query);
         }
     }
 }
