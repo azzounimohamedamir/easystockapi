@@ -31,7 +31,6 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "SupportAgent")]
         public async Task<IActionResult> GetAll(int page, int pageSize)
         {
             var result = _userManager.Users.GetPaged(page, pageSize);
