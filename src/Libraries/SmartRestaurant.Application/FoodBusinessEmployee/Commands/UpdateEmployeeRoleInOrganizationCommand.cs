@@ -2,9 +2,9 @@ using System;
 using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 
-namespace SmartRestaurant.Application.FoodBusiness.Commands
+namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {
-    public class AddOrUpdateEmployeeRoleInOrganizationCommand : SmartRestaurantCommand
+    public class UpdateEmployeeRoleInOrganizationCommand : SmartRestaurantCommand
     {
         public Guid UserId { get; set; }
         public Guid FoodBusinessId { get; set; }
@@ -12,10 +12,9 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     }
 
     public class
-        AddOrUpdateEmployeeRoleInOrganizationCommandValidator : AbstractValidator<
-            AddOrUpdateEmployeeRoleInOrganizationCommand>
+        UpdateEmployeeRoleInOrganizationCommandValidator : AbstractValidator<UpdateEmployeeRoleInOrganizationCommand>
     {
-        public AddOrUpdateEmployeeRoleInOrganizationCommandValidator()
+        public UpdateEmployeeRoleInOrganizationCommandValidator()
         {
             RuleFor(v => v.UserId).NotEmpty().NotEqual(Guid.Empty);
             RuleFor(v => v.FoodBusinessId).NotEmpty().NotEqual(Guid.Empty);

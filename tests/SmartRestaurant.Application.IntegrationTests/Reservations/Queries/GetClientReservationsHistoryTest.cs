@@ -17,8 +17,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
         {
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness();
 
-            string client_01_UserId = Guid.NewGuid().ToString();
-            string client_02_UserId = Guid.NewGuid().ToString();
+            var client_01_UserId = Guid.NewGuid().ToString();
+            var client_02_UserId = Guid.NewGuid().ToString();
 
             await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Aissa", client_01_UserId);
             await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Aissa", client_01_UserId);

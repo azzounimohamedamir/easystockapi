@@ -1,8 +1,6 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Reservations.Queries
 {

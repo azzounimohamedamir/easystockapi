@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 
-
 namespace SmartRestaurant.Application.IntegrationTests.TestTools
 {
     using static Testing;
+
     public class FoodBusinessTestTools
     {
         public static async Task<Domain.Entities.FoodBusiness> CreateFoodBusiness()

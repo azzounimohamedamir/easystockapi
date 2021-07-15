@@ -17,7 +17,6 @@ using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.API.Controllers
 {
-    [Authorize]
     [Route("api/users")]
     [ApiController]
     public class UsersController : ApiController
@@ -30,6 +29,7 @@ namespace SmartRestaurant.API.Controllers
             _userManager = userManager;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll(int page, int pageSize)
         {

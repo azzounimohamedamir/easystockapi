@@ -63,7 +63,8 @@ namespace SmartRestaurant.API.Controllers
         [Route("reservations/client/{id:Guid}/history")]
         [HttpGet]
         [Authorize(Roles = "Diner")]
-        public Task<PagedListDto<ReservationClientDto>> GetClientReservationsHistory([FromRoute] Guid id, int page, int pageSize)
+        public Task<PagedListDto<ReservationClientDto>> GetClientReservationsHistory([FromRoute] Guid id, int page,
+            int pageSize)
         {
             var query = new GetClientReservationsHistoryQuery
             {
@@ -79,13 +80,14 @@ namespace SmartRestaurant.API.Controllers
         [Authorize(Roles = "FoodBusinessManager")]
         public Task<ReservationDto> Get([FromRoute] Guid id)
         {
-            return SendAsync(new GetReservationByIdQuery { ReservationId = id });
+            return SendAsync(new GetReservationByIdQuery {ReservationId = id});
         }
 
         [Route("reservations/client/{id:Guid}")]
         [HttpGet]
         [Authorize(Roles = "Diner")]
-        public Task<PagedListDto<ReservationClientDto>> GetClientNonExpiredReservations([FromRoute] Guid id, int page, int pageSize)
+        public Task<PagedListDto<ReservationClientDto>> GetClientNonExpiredReservations([FromRoute] Guid id, int page,
+            int pageSize)
         {
             var query = new GetClientNonExpiredReservationsQuery
             {

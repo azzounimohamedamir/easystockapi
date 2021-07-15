@@ -42,7 +42,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
             var empty = string.Empty;
             _validator.ShouldHaveValidationErrorFor(R => R.ReservationName, empty);
         }
-        
+
         [Fact]
         public void Given_NumberOfDiners_WhenValidating_ShouldBeValidated()
         {
