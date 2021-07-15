@@ -29,7 +29,7 @@ namespace SmartRestaurant.API.Controllers
             _userManager = userManager;
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "SuperAdmin,SupportAgent")]
         [HttpGet]
         public async Task<IActionResult> GetAll(int page, int pageSize)
         {
