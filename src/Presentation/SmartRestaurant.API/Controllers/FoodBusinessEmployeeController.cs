@@ -29,7 +29,7 @@ namespace SmartRestaurant.API.Controllers
 
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<ActionResult> RemoveStaffFromOrganization(RemoveStaffFromOrganizationCommand command)
+        public async Task<ActionResult> RemoveStaffFromOrganization(RemoveEmployeeFromOrganizationCommand command)
         {
             var validationResult = await SendAsync(command);
             return ApiCustomResponse(validationResult);
