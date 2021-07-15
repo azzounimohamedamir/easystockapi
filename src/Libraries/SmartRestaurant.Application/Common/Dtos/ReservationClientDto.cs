@@ -9,7 +9,6 @@ namespace SmartRestaurant.Application.Common.Dtos
         public int NumberOfDiners { get; set; }
         public DateTime ReservationDate { get; set; }
         public Guid FoodBusinessId { get; set; }
-        public string FoodBusinessName { get; set; } 
-
+        public string FoodBusinessName { get; set; }
     }
 }

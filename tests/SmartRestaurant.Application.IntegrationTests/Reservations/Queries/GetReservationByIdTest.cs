@@ -1,17 +1,13 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Threading.Tasks;
+using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Reservations.Queries;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 {
-
-
     using static Testing;
 
     [TestFixture]
@@ -20,7 +16,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
         [Test]
         public async Task ShouldGetReservation_ById()
         {
-
             var foodBusinessId = Guid.NewGuid();
             var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
@@ -30,7 +25,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
             };
             await SendAsync(createFoodBusinessCommand);
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
-          
+
 
             var createReservationCommand = new CreateReservationCommand
             {
@@ -42,12 +37,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
                 CreatedBy = Guid.NewGuid().ToString()
             };
             await SendAsync(createReservationCommand);
-           
-            var query = new GetReservationByIdQuery { ReservationId= createReservationCommand.CmdId };
+
+            var query = new GetReservationByIdQuery {ReservationId = createReservationCommand.CmdId};
             var result = await SendAsync(query);
             result.Should().NotBeNull();
             result.ReservationName.Should().Be("Reservation Test");
         }
     }
 }
-

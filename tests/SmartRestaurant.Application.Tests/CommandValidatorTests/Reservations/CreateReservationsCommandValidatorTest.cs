@@ -13,7 +13,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
         {
             _validator = new CreateReservationCommandValidator();
         }
-        
+
         [Fact]
         public void Given_ClientName_WhenValidating_ShouldBeValidated()
         {
@@ -42,7 +42,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
             var empty = string.Empty;
             _validator.ShouldHaveValidationErrorFor(R => R.ReservationName, empty);
         }
-        
+
         [Fact]
         public void Given_NumberOfDiners_WhenValidating_ShouldBeValidated()
         {
@@ -63,7 +63,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
             var ExeedsMaximum = 1001;
             _validator.ShouldHaveValidationErrorFor(reservation => reservation.NumberOfDiners, ExeedsMaximum);
         }
-        
+
         [Fact]
         public void Given_ReservationDate_WhenValidating_ShouldBeValidated()
         {
@@ -77,14 +77,14 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Reservations
             var pastDate = DateTime.Now.AddDays(-1);
             _validator.ShouldHaveValidationErrorFor(reservation => reservation.ReservationDate, pastDate);
         }
-        
+
         [Fact]
         public void Given_EmptyFoodBusiness_WhenValidating_ShouldError()
         {
             var empty = Guid.Empty;
             _validator.ShouldHaveValidationErrorFor(reservation => reservation.FoodBusinessId, empty);
         }
-        
+
         [Fact]
         public void Given_EmptyCreatedBy_WhenValidating_ShouldError()
         {

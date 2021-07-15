@@ -5,12 +5,14 @@ using SmartRestaurant.Application.Reservations.Commands;
 namespace SmartRestaurant.Application.IntegrationTests.TestTools
 {
     using static Testing;
+
     public class ReservationsTestTools
     {
-        public static async Task Create_5_NonExpiredReservations(Domain.Entities.FoodBusiness fastFood, string reservationName, string client_UserId)
+        public static async Task Create_5_NonExpiredReservations(Domain.Entities.FoodBusiness fastFood,
+            string reservationName, string client_UserId)
         {
-            DateTime dateTimeNow = DateTime.Now;
-            for (int i = 1; i <= 5; i++)
+            var dateTimeNow = DateTime.Now;
+            for (var i = 1; i <= 5; i++)
             {
                 var createReservationCommand = new CreateReservationCommand
                 {
@@ -24,11 +26,12 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             }
         }
 
-        public static async Task Create_3_ExpiredReservations(Domain.Entities.FoodBusiness fastFood, string reservationName, string client_UserId)
+        public static async Task Create_3_ExpiredReservations(Domain.Entities.FoodBusiness fastFood,
+            string reservationName, string client_UserId)
         {
-            DateTime dateTimeNow = DateTime.Now;
+            var dateTimeNow = DateTime.Now;
 
-            for (int i = 1; i <= 3; i++)
+            for (var i = 1; i <= 3; i++)
             {
                 var createReservationCommand = new CreateReservationCommand
                 {
@@ -40,6 +43,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 };
                 await SendAsync(createReservationCommand);
             }
+
             await Task.Delay(3500);
         }
     }
