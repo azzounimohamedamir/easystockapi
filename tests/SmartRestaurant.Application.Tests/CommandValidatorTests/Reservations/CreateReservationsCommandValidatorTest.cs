@@ -1,6 +1,5 @@
 ﻿using System;
 using FluentValidation.TestHelper;
-using SmartRestaurant.Application.Common.Constants;
 using SmartRestaurant.Application.Reservations.Commands;
 using Xunit;
 

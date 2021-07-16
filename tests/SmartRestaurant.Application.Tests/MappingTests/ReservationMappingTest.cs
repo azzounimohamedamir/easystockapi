@@ -1,6 +1,5 @@
 ﻿using System;
 using AutoMapper;
-using SmartRestaurant.Application.Common.Constants;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Tests.Configuration;
