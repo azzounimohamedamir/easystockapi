@@ -29,17 +29,12 @@ namespace SmartRestaurant.Application.Reservations.Queries
 
         public async Task<PagedListDto<ReservationClientDto>> Handle(GetClientNonExpiredReservationsQuery request,
             CancellationToken cancellationToken)
-        {      
-            var foodBusinessUsers = _context.FoodBusinessUsers
-               .Where(foodBusinessUser => foodBusinessUser.FoodBusinessId == request.FoodBusinessId)
-               .Select(foodBusinessUser => foodBusinessUser.ApplicationUserId)
-               .Distinct()
-               .ToList();
-
+        {
             var query =
                 _context.Reservations
-                    .Where(reservation => reservation.CreatedBy == request.CreatedBy
-                                          && reservation.ReservationDate >= DateTime.Now)
+                    .Where(reservation => reservation.FoodBusinessId == request.FoodBusinessId
+                        && reservation.ReservationDate >= request.TimeIntervalStart
+                        && reservation.ReservationDate <= request.TimeIntervalEnd)
                     .OrderBy(reservation => reservation.ReservationDate)
                     .Include(reservation => reservation.FoodBusiness)
                     .GetPaged(request.Page, request.PageSize);

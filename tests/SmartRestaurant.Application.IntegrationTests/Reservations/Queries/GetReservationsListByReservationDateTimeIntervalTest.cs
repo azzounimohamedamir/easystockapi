@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartRestaurant.Application.Common.Constants;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Reservations.Queries;
@@ -18,16 +17,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
         public async Task ShouldGetReservationsList_ByReservationDateTimeInterval()
         {
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness();
-
-            string client_01_UserId = Guid.NewGuid().ToString();
-            string client_02_UserId = Guid.NewGuid().ToString();
             string FoodBusinessManager_UserId = Guid.NewGuid().ToString();
 
-            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Aissa", client_01_UserId);
-            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Aissa", client_01_UserId);
-
-            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Bilel", client_02_UserId);
-            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Bilel", client_02_UserId);
 
             var dateTimeNow = DateTime.Now;
             await Create_5_Reservations(fastFood, FoodBusinessManager_UserId, dateTimeNow);
