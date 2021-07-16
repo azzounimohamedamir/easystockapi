@@ -2,7 +2,8 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Application.Common.Constants;
+using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Reservations.Queries;
 
@@ -16,29 +17,20 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
         [Test]
         public async Task ShouldGetReservationsList_ByReservationDateTimeInterval()
         {
-            //Create a FoodBusiness
-            var createFoodBusinessCommand = new CreateFoodBusinessCommand
-            {
-                FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
-                Name = "fast food test"
-            };
-            await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness();
 
-            //Create Reservations
+            string client_01_UserId = Guid.NewGuid().ToString();
+            string client_02_UserId = Guid.NewGuid().ToString();
+            string FoodBusinessManager_UserId = Guid.NewGuid().ToString();
+
+            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Aissa", client_01_UserId, ReservationsConstants.CreatorType.Diner);
+            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Aissa", client_01_UserId, ReservationsConstants.CreatorType.Diner);
+
+            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Bilel", client_02_UserId, ReservationsConstants.CreatorType.Diner);
+            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Bilel", client_02_UserId, ReservationsConstants.CreatorType.Diner);
+
             var dateTimeNow = DateTime.Now;
-            for (var i = 1; i <= 5; i++)
-            {
-                var createReservationCommand = new CreateReservationCommand
-                {
-                    ReservationName = $"Aissa_{i}",
-                    NumberOfDiners = 3 + i,
-                    ReservationDate = dateTimeNow.AddHours(i),
-                    FoodBusinessId = fastFood.FoodBusinessId,
-                    CreatedBy = Guid.NewGuid().ToString()
-                };
-                await SendAsync(createReservationCommand);
-            }
+            await Create_5_Reservations(fastFood, FoodBusinessManager_UserId, dateTimeNow);
 
             var query = new GetReservationsListByReservationDateTimeIntervalQuery
             {
@@ -110,6 +102,23 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
             };
             var result_04 = await SendAsync(query_04);
             result_04.Data.Should().HaveCount(0);
+        }
+
+        private static async Task Create_5_Reservations(Domain.Entities.FoodBusiness fastFood, string FoodBusinessManager_UserId, DateTime dateTimeNow)
+        {
+            for (var i = 1; i <= 5; i++)
+            {
+                var createReservationCommand = new CreateReservationCommand
+                {
+                    ReservationName = $"Aissa_{i}",
+                    NumberOfDiners = 3 + i,
+                    ReservationDate = dateTimeNow.AddHours(i),
+                    FoodBusinessId = fastFood.FoodBusinessId,
+                    CreatedBy = FoodBusinessManager_UserId,
+                    CreatorType = ReservationsConstants.CreatorType.FoodBusinessManager
+                };
+                await SendAsync(createReservationCommand);
+            }
         }
     }
 }

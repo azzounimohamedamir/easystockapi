@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
+using SmartRestaurant.Application.Common.Constants;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Reservations.Queries;
 

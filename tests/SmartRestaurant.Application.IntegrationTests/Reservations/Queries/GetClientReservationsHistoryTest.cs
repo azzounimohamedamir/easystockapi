@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
+using SmartRestaurant.Application.Common.Constants;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Reservations.Queries;
 
@@ -20,11 +21,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
             var client_01_UserId = Guid.NewGuid().ToString();
             var client_02_UserId = Guid.NewGuid().ToString();
 
-            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Aissa", client_01_UserId);
-            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Aissa", client_01_UserId);
+            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Aissa", client_01_UserId, ReservationsConstants.CreatorType.Diner);
+            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Aissa", client_01_UserId, ReservationsConstants.CreatorType.Diner);
 
-            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Bilel", client_02_UserId);
-            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Bilel", client_02_UserId);
+            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Bilel", client_02_UserId, ReservationsConstants.CreatorType.Diner);
+            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Bilel", client_02_UserId, ReservationsConstants.CreatorType.Diner);
 
             var client_01_query_00 = new GetClientReservationsHistoryQuery
             {
