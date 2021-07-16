@@ -21,8 +21,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            #region Create a FoodBusiness
-
+            #region Create a FoodBusinesses 
             modelBuilder.Entity<FoodBusiness>().HasData(
 
                 #region Create a FoodBusiness for TajMhal restaurant
@@ -69,6 +68,46 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             );
 
+            #endregion
+
+
+            #region Assigning Employees userId with FoodBusinessId (restaurant). 
+            modelBuilder.Entity<FoodBusinessUser>().HasData(
+
+                #region Assigning account with Id = [TajMhal_FoodBusinessAdministrator_UserId] to TajMhal restaurant.
+                new FoodBusinessUser
+                {
+                    ApplicationUserId = TajMhal_FoodBusinessAdministrator_UserId,
+                    FoodBusinessId = Guid.Parse(TajMhal_FoodBusinessId),
+                },
+                #endregion
+
+                #region Assigning account with Id = [TajMhal_FoodBusinessManager_UserId] to TajMhal restaurant.
+                new FoodBusinessUser
+                {
+                    ApplicationUserId = TajMhal_FoodBusinessManager_UserId,
+                    FoodBusinessId = Guid.Parse(TajMhal_FoodBusinessId),
+                },
+                #endregion
+
+                #region Assigning account with Id = [Mcdonald_FoodBusinessAdministrator_UserId] to Mcdonald restaurant.
+                new FoodBusinessUser
+                {
+                    ApplicationUserId = Mcdonald_FoodBusinessAdministrator_UserId,
+                    FoodBusinessId = Guid.Parse(Mcdonald_FoodBusinessId),
+                },
+                #endregion
+
+                #region Assigning account with Id = [Mcdonald_FoodBusinessManager_UserId] to Mcdonald restaurant.
+                new FoodBusinessUser
+                {
+                    ApplicationUserId = Mcdonald_FoodBusinessManager_UserId,
+                    FoodBusinessId = Guid.Parse(Mcdonald_FoodBusinessId),
+                }
+                #endregion
+
+
+            );
             #endregion
 
 
