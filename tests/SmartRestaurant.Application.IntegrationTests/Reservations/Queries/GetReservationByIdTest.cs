@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartRestaurant.Application.Common.Constants;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Reservations.Queries;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 {
@@ -28,17 +29,15 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var createReservationCommand = new CreateReservationCommand
             {
-                CmdId = Guid.NewGuid(),
                 ReservationName = "Reservation Test",
                 NumberOfDiners = 3,
                 ReservationDate = DateTime.Now.AddDays(1),
                 FoodBusinessId = fastFood.FoodBusinessId,
-                CreatedBy = Guid.NewGuid().ToString(),
-                CreatorType = ReservationsConstants.CreatorType.FoodBusinessManager
+                CreatedBy = Guid.NewGuid().ToString()
             };
-            await SendAsync(createReservationCommand);
-
-            var query = new GetReservationByIdQuery {ReservationId = createReservationCommand.CmdId};
+            var vv = await SendAsync(createReservationCommand);
+           
+            var query = new GetReservationByIdQuery { ReservationId= createReservationCommand.CmdId };
             var result = await SendAsync(query);
             result.Should().NotBeNull();
             result.ReservationName.Should().Be("Reservation Test");

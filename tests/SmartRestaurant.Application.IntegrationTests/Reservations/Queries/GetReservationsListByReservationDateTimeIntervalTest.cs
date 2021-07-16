@@ -23,11 +23,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
             string client_02_UserId = Guid.NewGuid().ToString();
             string FoodBusinessManager_UserId = Guid.NewGuid().ToString();
 
-            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Aissa", client_01_UserId, ReservationsConstants.CreatorType.Diner);
-            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Aissa", client_01_UserId, ReservationsConstants.CreatorType.Diner);
+            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Aissa", client_01_UserId);
+            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Aissa", client_01_UserId);
 
-            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Bilel", client_02_UserId, ReservationsConstants.CreatorType.Diner);
-            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Bilel", client_02_UserId, ReservationsConstants.CreatorType.Diner);
+            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Bilel", client_02_UserId);
+            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Bilel", client_02_UserId);
 
             var dateTimeNow = DateTime.Now;
             await Create_5_Reservations(fastFood, FoodBusinessManager_UserId, dateTimeNow);
@@ -114,8 +114,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
                     NumberOfDiners = 3 + i,
                     ReservationDate = dateTimeNow.AddHours(i),
                     FoodBusinessId = fastFood.FoodBusinessId,
-                    CreatedBy = FoodBusinessManager_UserId,
-                    CreatorType = ReservationsConstants.CreatorType.FoodBusinessManager
+                    CreatedBy = FoodBusinessManager_UserId               
                 };
                 await SendAsync(createReservationCommand);
             }

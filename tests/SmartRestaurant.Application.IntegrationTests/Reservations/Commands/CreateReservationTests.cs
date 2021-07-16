@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
-using SmartRestaurant.Application.Common.Constants;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Domain.Entities;
@@ -33,8 +32,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
                 NumberOfDiners = 3,
                 ReservationDate = DateTime.Now.AddDays(1),
                 FoodBusinessId = fastFood.FoodBusinessId,
-                CreatedBy = Guid.NewGuid().ToString(),
-                CreatorType = ReservationsConstants.CreatorType.FoodBusinessManager
+                CreatedBy = Guid.NewGuid().ToString()
             };
             var validationResult = await SendAsync(createReservationCommand);
             var createdReservation = await FindAsync<Reservation>(createReservationCommand.CmdId);
@@ -47,7 +45,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
             createdReservation.FoodBusinessId.Should().Be(createReservationCommand.FoodBusinessId);
             createdReservation.CreatedBy.Should().Be(createReservationCommand.CreatedBy);
             createdReservation.CreatedAt.Should().Be(createReservationCommand.CreatedAt);
-            createdReservation.CreatorType.Should().Be(createReservationCommand.CreatorType);
             createdReservation.LastModifiedBy.Should().BeNull();
             createdReservation.LastModifiedAt.Should().Be(default);
         }

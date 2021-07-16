@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartRestaurant.Application.Common.Constants;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Reservations.Queries;
 
@@ -21,15 +20,15 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
             var client_01_UserId = Guid.NewGuid().ToString();
             var client_02_UserId = Guid.NewGuid().ToString();
 
-            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Aissa", client_01_UserId, ReservationsConstants.CreatorType.Diner);
-            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Aissa", client_01_UserId, ReservationsConstants.CreatorType.Diner);
+            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Aissa", client_01_UserId);
+            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Aissa", client_01_UserId);
 
-            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Bilel", client_02_UserId, ReservationsConstants.CreatorType.Diner);
-            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Bilel", client_02_UserId, ReservationsConstants.CreatorType.Diner);
+            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Bilel", client_02_UserId);
+            await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Bilel", client_02_UserId);
 
             var client_01_query_00 = new GetClientReservationsHistoryQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 1,
                 PageSize = 5
             };
@@ -39,7 +38,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_01 = new GetClientReservationsHistoryQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 2,
                 PageSize = 5
             };
@@ -49,7 +48,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_02 = new GetClientReservationsHistoryQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 1,
                 PageSize = 2
             };
@@ -59,7 +58,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_03 = new GetClientReservationsHistoryQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 2,
                 PageSize = 2
             };
@@ -69,7 +68,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_04 = new GetClientReservationsHistoryQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 3,
                 PageSize = 2
             };

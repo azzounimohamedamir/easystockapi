@@ -1,8 +1,6 @@
 ﻿using System;
 using FluentValidation;
-using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Application.Common.Constants;
 
 namespace SmartRestaurant.Application.Reservations.Commands
 {
@@ -19,8 +17,6 @@ namespace SmartRestaurant.Application.Reservations.Commands
         public Guid FoodBusinessId { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedAt { get; }
-        [JsonIgnore]
-        public string CreatorType { get; set; }       
     }
 
     public class CreateReservationCommandValidator : AbstractValidator<CreateReservationCommand>
@@ -32,7 +28,6 @@ namespace SmartRestaurant.Application.Reservations.Commands
             RuleFor(reservation => reservation.ReservationDate).GreaterThan(date => DateTime.Now);
             RuleFor(reservation => reservation.FoodBusinessId).NotEmpty();
             RuleFor(reservation => reservation.CreatedBy).NotEmpty();
-            RuleFor(reservation => reservation.CreatorType).Matches(ReservationsConstants.Regexs.CreatorType);
         }
     }
 }

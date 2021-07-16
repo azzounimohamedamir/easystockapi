@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Common.Constants;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
@@ -30,7 +29,13 @@ namespace SmartRestaurant.Application.Reservations.Queries
 
         public async Task<PagedListDto<ReservationClientDto>> Handle(GetClientNonExpiredReservationsQuery request,
             CancellationToken cancellationToken)
-        {
+        {      
+            var foodBusinessUsers = _context.FoodBusinessUsers
+               .Where(foodBusinessUser => foodBusinessUser.FoodBusinessId == request.FoodBusinessId)
+               .Select(foodBusinessUser => foodBusinessUser.ApplicationUserId)
+               .Distinct()
+               .ToList();
+
             var query =
                 _context.Reservations
                     .Where(reservation => reservation.CreatedBy == request.CreatedBy
@@ -52,7 +57,7 @@ namespace SmartRestaurant.Application.Reservations.Queries
         {
             var query =
                 _context.Reservations
-                    .Where(reservation => reservation.CreatedBy == request.CreatedBy
+                    .Where(reservation => reservation.CreatedBy == request.UserId
                                           && reservation.ReservationDate <= DateTime.Now)
                     .OrderBy(reservation => reservation.ReservationDate)
                     .Include(reservation => reservation.FoodBusiness)
@@ -78,11 +83,11 @@ namespace SmartRestaurant.Application.Reservations.Queries
         {
             var query =
                 _context.Reservations
-                    .Where(reservation => reservation.FoodBusinessId == request.FoodBusinessId
-                                          && reservation.ReservationDate >= request.TimeIntervalStart
-                                          && reservation.ReservationDate <= request.TimeIntervalEnd)
-                    .OrderBy(reservation => reservation.ReservationDate)
-                    .GetPaged(request.Page, request.PageSize);
+                .Where(reservation => reservation.CreatedBy == request.UserId
+                    && reservation.ReservationDate >= DateTime.Now)
+                .OrderBy(reservation => reservation.ReservationDate)
+                .Include(reservation => reservation.FoodBusiness)
+                .GetPaged(request.Page, request.PageSize);
 
             var data = _mapper.Map<List<ReservationDto>>(await query.Data.ToListAsync(cancellationToken)
                 .ConfigureAwait(false));

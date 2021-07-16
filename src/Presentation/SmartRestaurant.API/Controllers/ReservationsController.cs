@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.API.Helpers;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Reservations.Queries;
@@ -20,7 +19,6 @@ namespace SmartRestaurant.API.Controllers
         {
             if (id != command.FoodBusinessId)
                 return BadRequest();
-            command.CreatorType = TokenUtils.FindClaim(HttpContext, TokenUtils.Claim_Role);
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
@@ -70,7 +68,7 @@ namespace SmartRestaurant.API.Controllers
         {
             var query = new GetClientReservationsHistoryQuery
             {
-                CreatedBy = id.ToString(),
+                UserId = id.ToString(),
                 Page = page,
                 PageSize = pageSize
             };
@@ -93,7 +91,7 @@ namespace SmartRestaurant.API.Controllers
         {
             var query = new GetClientNonExpiredReservationsQuery
             {
-                CreatedBy = id.ToString(),
+                UserId = id.ToString(),
                 Page = page,
                 PageSize = pageSize
             };
