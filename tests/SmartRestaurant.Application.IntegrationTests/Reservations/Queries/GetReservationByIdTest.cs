@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
+using SmartRestaurant.Application.Common.Constants;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Reservations.Queries;
@@ -16,10 +17,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
         [Test]
         public async Task ShouldGetReservation_ById()
         {
-            var foodBusinessId = Guid.NewGuid();
             var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
-                CmdId = foodBusinessId,
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"
             };
@@ -33,8 +32,9 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
                 ReservationName = "Reservation Test",
                 NumberOfDiners = 3,
                 ReservationDate = DateTime.Now.AddDays(1),
-                FoodBusinessId = foodBusinessId,
-                CreatedBy = Guid.NewGuid().ToString()
+                FoodBusinessId = fastFood.FoodBusinessId,
+                CreatedBy = Guid.NewGuid().ToString(),
+                CreatorType = ReservationsConstants.CreatorType.FoodBusinessManager
             };
             await SendAsync(createReservationCommand);
 
