@@ -8,50 +8,55 @@ using SmartRestaurant.Application.Reservations.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
-    [Route("api/foodbusiness")]
+    [Route("api/reservations")]
     [ApiController]
     public class ReservationsController : ApiController
     {
-        [Route("{id:Guid}/reservations/")]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager,Diner")]
-        public async Task<ActionResult> Create([FromRoute] Guid id, CreateReservationCommand command)
-        {
-            if (id != command.FoodBusinessId)
-                return BadRequest();
-            var validationResult = await SendAsync(command).ConfigureAwait(false);
-            return ApiCustomResponse(validationResult);
-        }
-
-        [Route("reservations")]
-        [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager,Diner")]
-        public async Task<ActionResult> Update(UpdateReservationCommand command)
+        public async Task<ActionResult> Create(CreateReservationCommand command)
         {
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult, NoContent());
         }
 
-        [Route("{id:Guid}/reservations/")]
+        [Route("{id:Guid}")]
+        [HttpPut]
+        [Authorize(Roles = "FoodBusinessManager,Diner")]
+        public async Task<ActionResult> Update([FromRoute] Guid id, UpdateReservationCommand command)
+        {
+            if (id != command.CmdId)
+                return BadRequest();
+
+            var validationResult = await SendAsync(command).ConfigureAwait(false);
+            return ApiCustomResponse(validationResult, NoContent());
+        }
+
+        [Route("{id:Guid}")]
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessManager,Diner")]
         public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
-            if (id == Guid.Empty)
-                return BadRequest();
-            await SendAsync(new DeleteReservationCommand {CmdId = id}).ConfigureAwait(false);
-            return Ok("Successful");
+            var validationResult = await SendAsync(new DeleteReservationCommand {CmdId = id}).ConfigureAwait(false);
+            return ApiCustomResponse(validationResult, NoContent());
         }
 
-        [Route("{id:Guid}/reservations/")]
+        [Route("{id:Guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
-        public Task<PagedListDto<ReservationDto>> GetListByReservationDateTimeInterval([FromRoute] Guid id,
+        public Task<ReservationDto> Get([FromRoute] Guid id)
+        {
+            return SendAsync(new GetReservationByIdQuery { ReservationId = id });
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public Task<PagedListDto<ReservationDto>> GetListByReservationDateTimeInterval(Guid foodBusinessId,
             DateTime timeIntervalStart, DateTime timeIntervalEnd, int page, int pageSize)
         {
             var query = new GetReservationsListByReservationDateTimeIntervalQuery
             {
-                FoodBusinessId = id,
+                FoodBusinessId = foodBusinessId,
                 TimeIntervalStart = timeIntervalStart,
                 TimeIntervalEnd = timeIntervalEnd,
                 Page = page,
@@ -60,38 +65,28 @@ namespace SmartRestaurant.API.Controllers
             return SendAsync(query);
         }
 
-        [Route("reservations/client/{id:Guid}/history")]
+        [Route("diners/reservationsDate/expired")]
         [HttpGet]
         [Authorize(Roles = "Diner")]
-        public Task<PagedListDto<ReservationClientDto>> GetClientReservationsHistory([FromRoute] Guid id, int page,
-            int pageSize)
+        public Task<PagedListDto<ReservationClientDto>> GetClientReservationsHistory(Guid dinerUserId, int page, int pageSize)
         {
             var query = new GetClientReservationsHistoryQuery
             {
-                UserId = id.ToString(),
+                UserId = dinerUserId.ToString(),
                 Page = page,
                 PageSize = pageSize
             };
             return SendAsync(query);
-        }
+        }      
 
-        [Route("reservations/{id:Guid}/")]
-        [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager")]
-        public Task<ReservationDto> Get([FromRoute] Guid id)
-        {
-            return SendAsync(new GetReservationByIdQuery {ReservationId = id});
-        }
-
-        [Route("reservations/client/{id:Guid}")]
+        [Route("diners/reservationsDate/notExpired")]
         [HttpGet]
         [Authorize(Roles = "Diner")]
-        public Task<PagedListDto<ReservationClientDto>> GetClientNonExpiredReservations([FromRoute] Guid id, int page,
-            int pageSize)
+        public Task<PagedListDto<ReservationClientDto>> GetClientNonExpiredReservations(Guid dinerUserId, int page, int pageSize)
         {
             var query = new GetClientNonExpiredReservationsQuery
             {
-                UserId = id.ToString(),
+                UserId = dinerUserId.ToString(),
                 Page = page,
                 PageSize = pageSize
             };
