@@ -35,7 +35,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
                 FoodBusinessId = fastFood.FoodBusinessId,
                 CreatedBy = Guid.NewGuid().ToString()
             };
-            var vv = await SendAsync(createReservationCommand);
+            await SendAsync(createReservationCommand);
            
             var query = new GetReservationByIdQuery { ReservationId= createReservationCommand.CmdId };
             var result = await SendAsync(query);

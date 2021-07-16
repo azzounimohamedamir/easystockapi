@@ -115,6 +115,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<Reservation>().HasData(
 
+            
             #region Create reservations for user Diner_01
                new Reservation
                {
@@ -207,7 +208,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     CreatedBy = SeedData.Diner_UserId_01,
                     CreatedAt = DateTime.Now.AddMonths(4)
                 },
-
+            #endregion
+            
+           
             #region Create reservations for user Diner_02
                new Reservation
                {
@@ -300,7 +303,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     CreatedBy = SeedData.Diner_UserId_02,
                     CreatedAt = DateTime.Now.AddMonths(3)
                 },
-
+            #endregion
+            
+                
             #region Create reservations for user TajMhal_FoodBusinessManager
                new Reservation
                {
@@ -393,7 +398,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
                     CreatedAt = DateTime.Now.AddMonths(2)
                 },
-
+            #endregion
+           
+                
             #region Create reservations for user Mcdonald_FoodBusinessManager
                new Reservation
                {

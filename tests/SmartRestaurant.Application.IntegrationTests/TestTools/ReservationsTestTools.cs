@@ -20,7 +20,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                     NumberOfDiners = 3 + i,
                     ReservationDate = dateTimeNow.AddHours(i),
                     FoodBusinessId = fastFood.FoodBusinessId,
-                    CreatedBy = createdBy
+                    CreatedBy = client_UserId
                 };
                 await SendAsync(createReservationCommand);
             }
@@ -39,7 +39,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                     NumberOfDiners = 1 + i,
                     ReservationDate = dateTimeNow.AddMilliseconds(i * 500),
                     FoodBusinessId = fastFood.FoodBusinessId,
-                    CreatedBy = createdBy
+                    CreatedBy = client_UserId
                 };
                 await SendAsync(createReservationCommand);
             }
