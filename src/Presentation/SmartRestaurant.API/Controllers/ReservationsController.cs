@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmartRestaurant.API.Helpers;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Reservations.Queries;
@@ -14,18 +15,19 @@ namespace SmartRestaurant.API.Controllers
     {
         [Route("{id:Guid}/reservations/")]
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,Diner")]
         public async Task<ActionResult> Create([FromRoute] Guid id, CreateReservationCommand command)
         {
             if (id != command.FoodBusinessId)
                 return BadRequest();
+            command.CreatorType = TokenUtils.FindClaim(HttpContext, TokenUtils.Claim_Role);
             var validationResult = await SendAsync(command).ConfigureAwait(false);
             return ApiCustomResponse(validationResult);
         }
 
         [Route("reservations")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,Diner")]
         public async Task<ActionResult> Update(UpdateReservationCommand command)
         {
             var validationResult = await SendAsync(command).ConfigureAwait(false);
@@ -34,7 +36,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{id:Guid}/reservations/")]
         [HttpDelete]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,Diner")]
         public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
             if (id == Guid.Empty)

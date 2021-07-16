@@ -4,6 +4,7 @@ using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Common.Constants;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
@@ -27,6 +28,7 @@ namespace SmartRestaurant.Application.Reservations.Commands
         public async Task<ValidationResult> Handle(CreateReservationCommand request,
             CancellationToken cancellationToken)
         {
+            request.CreatorType = TreatSpecialCaseWhere_CreatorType_HasMultipleValues(request.CreatorType);
             var validator = new CreateReservationCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) return result;
@@ -35,7 +37,7 @@ namespace SmartRestaurant.Application.Reservations.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
-
+       
         public async Task<ValidationResult> Handle(DeleteReservationCommand request,
             CancellationToken cancellationToken)
         {
@@ -69,6 +71,23 @@ namespace SmartRestaurant.Application.Reservations.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
             return default;
+        }
+
+        private static string TreatSpecialCaseWhere_CreatorType_HasMultipleValues(string CreatorType)
+        {
+            string creatorType = CreatorType.ToUpper();
+            if (creatorType.Contains(ReservationsConstants.CreatorType.Diner.ToUpper()))
+            {
+                return ReservationsConstants.CreatorType.Diner;
+            }
+            else if (creatorType.Contains(ReservationsConstants.CreatorType.FoodBusinessManager.ToUpper()))
+            {
+                return ReservationsConstants.CreatorType.FoodBusinessManager;
+            }
+            else
+            {
+                return CreatorType;
+            }
         }
     }
 }
