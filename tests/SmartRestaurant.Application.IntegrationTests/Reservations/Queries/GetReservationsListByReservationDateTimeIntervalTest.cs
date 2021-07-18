@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Reservations.Queries;
 
@@ -16,29 +16,12 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
         [Test]
         public async Task ShouldGetReservationsList_ByReservationDateTimeInterval()
         {
-            //Create a FoodBusiness
-            var createFoodBusinessCommand = new CreateFoodBusinessCommand
-            {
-                FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
-                Name = "fast food test"
-            };
-            await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness();
+            string FoodBusinessManager_UserId = Guid.NewGuid().ToString();
 
-            //Create Reservations
+
             var dateTimeNow = DateTime.Now;
-            for (var i = 1; i <= 5; i++)
-            {
-                var createReservationCommand = new CreateReservationCommand
-                {
-                    ReservationName = $"Aissa_{i}",
-                    NumberOfDiners = 3 + i,
-                    ReservationDate = dateTimeNow.AddHours(i),
-                    FoodBusinessId = fastFood.FoodBusinessId,
-                    CreatedBy = Guid.NewGuid().ToString()
-                };
-                await SendAsync(createReservationCommand);
-            }
+            await Create_5_Reservations(fastFood, FoodBusinessManager_UserId, dateTimeNow);
 
             var query = new GetReservationsListByReservationDateTimeIntervalQuery
             {
@@ -110,6 +93,22 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
             };
             var result_04 = await SendAsync(query_04);
             result_04.Data.Should().HaveCount(0);
+        }
+
+        private static async Task Create_5_Reservations(Domain.Entities.FoodBusiness fastFood, string FoodBusinessManager_UserId, DateTime dateTimeNow)
+        {
+            for (var i = 1; i <= 5; i++)
+            {
+                var createReservationCommand = new CreateReservationCommand
+                {
+                    ReservationName = $"Aissa_{i}",
+                    NumberOfDiners = 3 + i,
+                    ReservationDate = dateTimeNow.AddHours(i),
+                    FoodBusinessId = fastFood.FoodBusinessId,
+                    CreatedBy = FoodBusinessManager_UserId               
+                };
+                await SendAsync(createReservationCommand);
+            }
         }
     }
 }

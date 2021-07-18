@@ -20,15 +20,15 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
             var client_01_UserId = Guid.NewGuid().ToString();
             var client_02_UserId = Guid.NewGuid().ToString();
 
-            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Aissa", client_01_UserId);
+            await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood,"Aissa", client_01_UserId);
             await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Aissa", client_01_UserId);
 
             await ReservationsTestTools.Create_5_NonExpiredReservations(fastFood, "Bilel", client_02_UserId);
             await ReservationsTestTools.Create_3_ExpiredReservations(fastFood, "Bilel", client_02_UserId);
-
+         
             var client_01_query_00 = new GetClientNonExpiredReservationsQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 1,
                 PageSize = 5
             };
@@ -38,7 +38,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_01 = new GetClientNonExpiredReservationsQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 2,
                 PageSize = 5
             };
@@ -48,7 +48,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_02 = new GetClientNonExpiredReservationsQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 1,
                 PageSize = 2
             };
@@ -58,7 +58,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_03 = new GetClientNonExpiredReservationsQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 2,
                 PageSize = 2
             };
@@ -68,7 +68,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_04 = new GetClientNonExpiredReservationsQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 3,
                 PageSize = 2
             };
@@ -78,7 +78,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_05 = new GetClientNonExpiredReservationsQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 4,
                 PageSize = 2
             };

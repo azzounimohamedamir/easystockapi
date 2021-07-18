@@ -28,7 +28,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_00 = new GetClientReservationsHistoryQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 1,
                 PageSize = 5
             };
@@ -38,7 +38,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_01 = new GetClientReservationsHistoryQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 2,
                 PageSize = 5
             };
@@ -48,7 +48,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_02 = new GetClientReservationsHistoryQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 1,
                 PageSize = 2
             };
@@ -58,7 +58,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_03 = new GetClientReservationsHistoryQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 2,
                 PageSize = 2
             };
@@ -68,7 +68,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 
             var client_01_query_04 = new GetClientReservationsHistoryQuery
             {
-                CreatedBy = client_01_UserId,
+                UserId = client_01_UserId,
                 Page = 3,
                 PageSize = 2
             };

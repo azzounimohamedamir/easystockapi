@@ -35,7 +35,7 @@ namespace SmartRestaurant.Application.Reservations.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
-
+       
         public async Task<ValidationResult> Handle(DeleteReservationCommand request,
             CancellationToken cancellationToken)
         {
