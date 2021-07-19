@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Infrastructure.Identity.Persistence;
+using SmartRestaurant.Infrastructure.Identity.Services;
 
 namespace SmartRestaurant.Infrastructure.Identity
 {
@@ -18,6 +19,8 @@ namespace SmartRestaurant.Infrastructure.Identity
         public static IServiceCollection AddIdentityInfrastructure(this IServiceCollection services,
             IConfiguration configuration)
         {
+            services.AddHttpContextAccessor();
+            services.AddScoped<IUserService, UserService>();
             services.AddDbContext<IdentityContext>(options =>
                 options.UseSqlServer(
                     configuration.GetConnectionString("IdentityConnection"),
