@@ -47,10 +47,7 @@ namespace SmartRestaurant.Application.IntegrationTests
             claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, _authenticatedUserId));
             var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
 
-            var httpContext = new DefaultHttpContext();
-            httpContext.Request.Method = "GET";
-            httpContext.Request.Path = new PathString("/Test");
-            httpContext.User = (ClaimsPrincipal)(IPrincipal)claimsPrincipal;
+            var httpContext = new DefaultHttpContext { User = claimsPrincipal };
 
             services.AddSingleton(Mock.Of<IWebHostEnvironment>(w =>
                 w.EnvironmentName == "Development" &&
