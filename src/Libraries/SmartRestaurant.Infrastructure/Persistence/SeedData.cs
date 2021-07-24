@@ -19,6 +19,29 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public const string Diner_UserId_01 = "5a84cd00-59f0-4b22-bfce-07c080829118";
         public const string Diner_UserId_02 = "6b14cd00-59f0-4422-bfce-07c080829987";
 
+        public const string TajMhal_VipZone_Id = "32bccd11-59fd-3304-bfaa-07c08082abc0";
+        public const string TajMhal_FamilyZone_Id = "32bccd11-59fd-3304-bfaa-07c08082abc1";
+        public const string TajMhal_NormalZone_Id = "32bccd11-59fd-3304-bfaa-07c08082abc2";
+        public const string TajMhal_OutdoorZone_Id = "32bccd11-59fd-3304-bfaa-07c08082abc3";
+        public const string Mcdonald_NormalZone_Id = "32bccd11-59fd-33ff-bfaa-07c08082aba1";
+        public const string Mcdonald_OutdoorZone_Id = "32bccd11-59fd-33ff-bfaa-07c08082aba2";
+
+        public const string TajMhal_VipZone_TableId = "44aecd78-59bb-7504-bfff-07c07129ab00";
+        public const string TajMhal_FamilyZone_TableId = "44aecd78-59bb-7504-bfff-07c07129ab01";
+        public const string TajMhal_NormalZone_TableId = "44aecd78-59bb-7504-bfff-07c07129ab02";
+        public const string TajMhal_OutdoorZone_TableId = "44aecd78-59bb-7504-bfff-07c07129ab03";
+        public const string Mcdonald_NormalZone_TableId = "44aecd78-59bb-7504-bfff-07c07129aba2";
+        public const string Mcdonald_OutdoorZone_TableId = "44aecd78-59bb-7504-bfff-07c07129aba3";
+
+        public const string TajMhal_DishesMenu_Id = "ccaecd78-ccbb-ee04-56ff-88887129aaba";
+        public const string TajMhal_PizzaMenu_Id = "ccaecd78-ccbb-ee04-56ff-88887129aabb";
+        public const string TajMhal_SandwichesMenu_Id = "ccaecd78-ccbb-ee04-56ff-88887129aabc";
+        public const string TajMhal_BeverageMenu_Id = "ccaecd78-ccbb-ee04-56ff-88887129aabd";
+        public const string TajMhal_DessertMenu_Id = "ccaecd78-ccbb-ee04-56ff-88887129aabe";
+        public const string Mcdonald_SandwichesMenu_Id = "ccaecd78-ccbb-ee04-56ff-88887129aa00";
+        public const string Mcdonald_BeverageMenu_Id = "ccaecd78-ccbb-ee04-56ff-88887129aa01";
+        public const string Mcdonald_DessertMenu_Id = "ccaecd78-ccbb-ee04-56ff-88887129aa02";
+
         public static void Seed(this ModelBuilder modelBuilder)
         {
             #region Create a FoodBusinesses 
@@ -493,11 +516,210 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     CreatedBy = SeedData.Mcdonald_FoodBusinessManager_UserId,
                     CreatedAt = DateTime.Now.AddMonths(2)
                 }
-
                 #endregion
+            );
+            #endregion
 
+            #region Create zones
+            modelBuilder.Entity<Zone>().HasData(
+
+            #region Create zones for TajMhal_FoodBusiness
+               new Zone
+               {
+                   FoodBusinessId = Guid.Parse(SeedData.TajMhal_FoodBusinessId),
+                   ZoneTitle = "TajMhal VIP Zone",
+                   CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
+                   CreatedAt = DateTime.Now,
+                   ZoneId = Guid.Parse(TajMhal_VipZone_Id)
+               },
+                new Zone
+                {
+                    FoodBusinessId = Guid.Parse(SeedData.TajMhal_FoodBusinessId),
+                    ZoneTitle = "TajMhal FAMILY Zone",
+                    CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
+                    CreatedAt = DateTime.Now,
+                    ZoneId = Guid.Parse(TajMhal_FamilyZone_Id)
+                },
+                new Zone
+                {
+                    FoodBusinessId = Guid.Parse(SeedData.TajMhal_FoodBusinessId),
+                    ZoneTitle = "TajMhal NORMAL Zone",
+                    CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
+                    CreatedAt = DateTime.Now,
+                    ZoneId = Guid.Parse(TajMhal_NormalZone_Id)
+                },
+                 new Zone
+                 {
+                     FoodBusinessId = Guid.Parse(SeedData.TajMhal_FoodBusinessId),
+                     ZoneTitle = "TajMhal OUTDOOR Zone",
+                     CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
+                     CreatedAt = DateTime.Now,
+                     ZoneId = Guid.Parse(TajMhal_OutdoorZone_Id)
+                 },
+            #endregion
+
+            #region Create zones for Mcdonald_FoodBusiness
+                new Zone
+                {
+                    FoodBusinessId = Guid.Parse(SeedData.Mcdonald_FoodBusinessId),
+                    ZoneTitle = "Mcdonald NORMAL Zone",
+                    CreatedBy = SeedData.Mcdonald_FoodBusinessManager_UserId,
+                    CreatedAt = DateTime.Now,
+                    ZoneId = Guid.Parse(Mcdonald_NormalZone_Id)
+                },
+                 new Zone
+                 {
+                     FoodBusinessId = Guid.Parse(SeedData.Mcdonald_FoodBusinessId),
+                     ZoneTitle = "Mcdonald OUTDOOR Zone",
+                     CreatedBy = SeedData.Mcdonald_FoodBusinessManager_UserId,
+                     CreatedAt = DateTime.Now,
+                     ZoneId = Guid.Parse(Mcdonald_OutdoorZone_Id)
+                 }
+            #endregion
+            );
+            #endregion
+
+            #region Create tables
+            modelBuilder.Entity<Table>().HasData(
+
+            #region Create tables for TajMhal_FoodBusiness
+               new Table
+               {
+                   ZoneId = Guid.Parse(TajMhal_VipZone_Id),
+                   TableNumber = 4,
+                   Capacity = 4,                   
+                   CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
+                   CreatedAt = DateTime.Now,
+                   TableId = Guid.Parse(TajMhal_VipZone_TableId)                                      
+               },
+               new Table
+               {
+
+                   ZoneId = Guid.Parse(TajMhal_FamilyZone_Id),
+                   TableNumber = 5,
+                   Capacity = 6,
+                   CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
+                   CreatedAt = DateTime.Now,
+                   TableId = Guid.Parse(TajMhal_FamilyZone_TableId)
+               },
+                new Table
+                {
+                    ZoneId = Guid.Parse(TajMhal_NormalZone_Id),
+                    TableNumber = 10,
+                    Capacity = 4,
+                    CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
+                    CreatedAt = DateTime.Now,
+                    TableId = Guid.Parse(TajMhal_NormalZone_TableId)
+                },
+                 new Table
+                 {
+                     ZoneId = Guid.Parse(TajMhal_OutdoorZone_Id),
+                     TableNumber = 7,
+                     Capacity = 3,
+                     CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
+                     CreatedAt = DateTime.Now,
+                     TableId = Guid.Parse(TajMhal_OutdoorZone_TableId)
+                 },
+
+            #endregion
+
+            #region Create tables for Mcdonald_FoodBusiness
+                new Table
+                {
+                    ZoneId = Guid.Parse(Mcdonald_NormalZone_Id),
+                    TableNumber = 7,
+                    Capacity = 5,
+                    CreatedBy = SeedData.Mcdonald_FoodBusinessManager_UserId,
+                    CreatedAt = DateTime.Now,
+                    TableId = Guid.Parse(Mcdonald_NormalZone_TableId)
+                },
+                 new Table
+                 {
+                     ZoneId = Guid.Parse(Mcdonald_OutdoorZone_Id),
+                     TableNumber = 3,
+                     Capacity = 3,
+                     CreatedBy = SeedData.Mcdonald_FoodBusinessManager_UserId,
+                     CreatedAt = DateTime.Now,
+                     TableId = Guid.Parse(Mcdonald_OutdoorZone_TableId)
+                 }
+            #endregion
             );
 
+            #endregion
+            
+            #region Create menus
+            modelBuilder.Entity<Menu>().HasData(
+
+            #region Create menus for TajMhal_FoodBusiness
+               new Menu
+               {
+                   FoodBusinessId = Guid.Parse(SeedData.TajMhal_FoodBusinessId),
+                   Name = "TajMhal Dishes Menu",
+                   CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
+                   CreatedAt = DateTime.Now,
+                   MenuId = Guid.Parse(TajMhal_DishesMenu_Id)
+               },
+                 new Menu
+                 {
+                     FoodBusinessId = Guid.Parse(SeedData.TajMhal_FoodBusinessId),
+                     Name = "TajMhal Pizza Menu",
+                     CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
+                     CreatedAt = DateTime.Now,
+                     MenuId = Guid.Parse(TajMhal_PizzaMenu_Id)
+                 },
+                 new Menu
+                 {
+                     FoodBusinessId = Guid.Parse(SeedData.TajMhal_FoodBusinessId),
+                     Name = "TajMhal Sandwiches Menu",
+                     CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
+                     CreatedAt = DateTime.Now,
+                     MenuId = Guid.Parse(TajMhal_SandwichesMenu_Id)
+                 },
+                 new Menu
+                 {
+                     FoodBusinessId = Guid.Parse(SeedData.TajMhal_FoodBusinessId),
+                     Name = "TajMhal Beverage  Menu",
+                     CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
+                     CreatedAt = DateTime.Now,
+                     MenuId = Guid.Parse(TajMhal_BeverageMenu_Id)
+                 },
+                  new Menu
+                  {
+                      FoodBusinessId = Guid.Parse(SeedData.TajMhal_FoodBusinessId),
+                      Name = "TajMhal Dessert Menu",
+                      CreatedBy = SeedData.TajMhal_FoodBusinessManager_UserId,
+                      CreatedAt = DateTime.Now,
+                      MenuId = Guid.Parse(TajMhal_DessertMenu_Id)
+                  },
+            #endregion
+
+            #region Create menus for Mcdonald_FoodBusiness
+                 new Menu
+                 {
+                     FoodBusinessId = Guid.Parse(SeedData.Mcdonald_FoodBusinessId),
+                     Name = "Mcdonald Sandwiches Menu",
+                     CreatedBy = SeedData.Mcdonald_FoodBusinessManager_UserId,
+                     CreatedAt = DateTime.Now,
+                     MenuId = Guid.Parse(Mcdonald_SandwichesMenu_Id)
+                 },
+                 new Menu
+                 {
+                     FoodBusinessId = Guid.Parse(SeedData.Mcdonald_FoodBusinessId),
+                     Name = "Mcdonald Beverage  Menu",
+                     CreatedBy = SeedData.Mcdonald_FoodBusinessManager_UserId,
+                     CreatedAt = DateTime.Now,
+                     MenuId = Guid.Parse(Mcdonald_BeverageMenu_Id)
+                 },
+                  new Menu
+                  {
+                      FoodBusinessId = Guid.Parse(SeedData.Mcdonald_FoodBusinessId),
+                      Name = "Mcdonald Dessert Menu",
+                      CreatedBy = SeedData.Mcdonald_FoodBusinessManager_UserId,
+                      CreatedAt = DateTime.Now,
+                      MenuId = Guid.Parse(Mcdonald_DessertMenu_Id)
+                  }
+            #endregion
+            );
             #endregion
         }
     }
