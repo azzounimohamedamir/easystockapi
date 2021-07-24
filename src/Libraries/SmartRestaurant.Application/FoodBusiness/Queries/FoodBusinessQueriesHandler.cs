@@ -17,17 +17,17 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
         IRequestHandler<GetFoodBusinessListQuery, PagedListDto<FoodBusinessDto>>,
         IRequestHandler<GetFoodBusinessByIdQuery, FoodBusinessDto>,
         IRequestHandler<GetFoodBusinessListByAdmin, List<FoodBusinessDto>>,
-        IRequestHandler<GetUsersByFoodBusinessIdQuery, string[]>
+        IRequestHandler<GetUsersByFoodBusinessIdQuery, string[]>,
+        IRequestHandler<GetAllFoodBusinessByFoodBusinessManagerQuery, List<FoodBusinessDto>>
     {
         private readonly IApplicationDbContext _applicationDbContext;
-        private readonly IIdentityContext _identityContext;
+        private readonly IUserService _iuserService;
         private readonly IMapper _mapper;
 
-        public FoodBusinessQueriesHandler(IApplicationDbContext applicationDbContext, IMapper mapper,
-            IIdentityContext identityContext)
+        public FoodBusinessQueriesHandler(IApplicationDbContext applicationDbContext, IMapper mapper, IUserService iuserService)
         {
             _applicationDbContext = applicationDbContext;
-            _identityContext = identityContext;
+            _iuserService = iuserService;
             _mapper = mapper;
         }
 
@@ -70,6 +70,29 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             var pagedResult = new PagedListDto<FoodBusinessDto>(result.CurrentPage, result.PageCount, result.PageSize,
                 result.RowCount, data);
             return pagedResult;
+        }
+
+        public async Task<List<FoodBusinessDto>> Handle(GetAllFoodBusinessByFoodBusinessManagerQuery request,
+           CancellationToken cancellationToken)
+        {
+            var foodBusinessManagerUserId = _iuserService.GetUserId();
+
+            if (foodBusinessManagerUserId == string.Empty || string.IsNullOrWhiteSpace(foodBusinessManagerUserId))
+                throw new InvalidOperationException("FoodBusinessManager UserId shouldn't be null or  empty");
+
+
+            var listOfFoodBusinessIds = _applicationDbContext.FoodBusinessUsers
+              .Where(foodBusinessUser => foodBusinessUser.ApplicationUserId == foodBusinessManagerUserId)
+              .Select(foodBusinessUser => foodBusinessUser.FoodBusinessId)
+              .Distinct()
+              .ToList();
+
+            var foodBusinesses = await _applicationDbContext.FoodBusinesses
+                .Where(foodBusiness => listOfFoodBusinessIds.Contains(foodBusiness.FoodBusinessId))
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            return _mapper.Map<List<FoodBusinessDto>>(foodBusinesses);
         }
 
         public Task<string[]> Handle(GetUsersByFoodBusinessIdQuery request, CancellationToken cancellationToken)

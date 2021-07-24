@@ -34,6 +34,14 @@ namespace SmartRestaurant.API.Controllers
             return SendAsync(new GetFoodBusinessListByAdmin {FoodBusinessAdministratorId = adminId});
         }
 
+        [Route("byFoodBusinessManager")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public Task<List<FoodBusinessDto>> GetAllFoodBusinessByFoodBusinessManager()
+        {
+            return SendAsync(new GetAllFoodBusinessByFoodBusinessManagerQuery {});
+        }
+
         [Route("{id:Guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]

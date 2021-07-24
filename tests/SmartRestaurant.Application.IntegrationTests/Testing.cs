@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +15,8 @@ using Moq;
 using NUnit.Framework;
 using Respawn;
 using SmartRestaurant.API;
+using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Infrastructure.Identity.Services;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Application.IntegrationTests
@@ -22,7 +27,7 @@ namespace SmartRestaurant.Application.IntegrationTests
         private static IConfigurationRoot _configuration;
         private static IServiceScopeFactory _scopeFactory;
         private static Checkpoint _checkpoint;
-
+        public static string _authenticatedUserId = "3cbf3570-4444-4444-8746-29b7cf568898";
         [OneTimeSetUp]
         public void RunBeforeAnyTests()
         {
@@ -37,11 +42,23 @@ namespace SmartRestaurant.Application.IntegrationTests
 
             var services = new ServiceCollection();
 
+            var claimsIdentity = new ClaimsIdentity();
+            claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, "test user name"));
+            claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, _authenticatedUserId));
+            var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
+
+            var httpContext = new DefaultHttpContext { User = claimsPrincipal };
+
             services.AddSingleton(Mock.Of<IWebHostEnvironment>(w =>
                 w.EnvironmentName == "Development" &&
                 w.ApplicationName == "SmartRestaurant.API"));
             services.AddLogging();
             startup.ConfigureServices(services);
+            services.AddHttpContextAccessor();
+            services.AddScoped<IUserService, UserService>();           
+            services.AddSingleton(Mock.Of<IHttpContextAccessor>(o =>          
+               o.HttpContext.User == httpContext.User
+                ));
 
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
