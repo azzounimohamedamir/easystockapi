@@ -133,7 +133,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
-        [HttpPut("disable")]
+        [HttpPatch("disable")]
         public async Task<IActionResult> Disable(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -143,7 +143,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
-        [HttpPut("enable")]
+        [HttpPatch("enable")]
         public async Task<IActionResult> Enable(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
