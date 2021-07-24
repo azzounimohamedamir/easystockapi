@@ -56,7 +56,7 @@ namespace SmartRestaurant.API.Controllers
                 Email = model.Email,
                 FullName = model.FullName
             };
-            var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
+            var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
