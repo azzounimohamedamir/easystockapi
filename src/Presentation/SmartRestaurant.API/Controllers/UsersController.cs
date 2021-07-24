@@ -44,7 +44,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllByRole([FromRoute] string role, int page, int pageSize)
         {
-            var result = await _userManager.GetUsersInRoleAsync(role).ConfigureAwait(false);
+            var result = await _userManager.GetUsersInRoleAsync(role);
             return Ok(result);
         }
 
@@ -83,7 +83,7 @@ namespace SmartRestaurant.API.Controllers
             var usersIds = await SendAsync(new GetUsersByFoodBusinessIdQuery
             {
                 FoodBusinessId = foodBusinessId
-            }).ConfigureAwait(false);
+            });
             var result = _userManager.Users.Where(x => usersIds.Any(u => x.Id == u)).GetPaged(page, pageSize);
             var pagedResult = await GetPagedListOfUsers(result).ConfigureAwait(false);
             return Ok(pagedResult);
@@ -96,11 +96,10 @@ namespace SmartRestaurant.API.Controllers
         {
             if (SuperAdminCheck(model.Roles)) return BadRequest();
             var user = new ApplicationUser(model.FullName, model.Email, model.UserName);
-            var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
+            var result = await _userManager.CreateAsync(user,model.Password);
             if (!result.Succeeded) return CheckResultStatus(result);
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-            await SendEmailConfirmation(user, token).ConfigureAwait(false);
-            if (model.Password.Length <= 0) return CheckResultStatus(result);
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            await SendEmailConfirmation(user, token);
             foreach (var role in model.Roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
 
             return CheckResultStatus(result);
@@ -112,13 +111,13 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> Update([FromRoute] string id, ApplicationUserModel model)
         {
             if (SuperAdminCheck(model.Roles)) return BadRequest();
-            var user = await _userManager.FindByIdAsync(id).ConfigureAwait(false);
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
                 throw new NotFoundException(nameof(user), id);
             user.FullName = model.FullName;
             user.Email = model.Email;
             user.UserName = model.UserName;
-            var result = await _userManager.UpdateAsync(user).ConfigureAwait(false);
+            var result = await _userManager.UpdateAsync(user);
             return ApiCustomResponse(result);
         }
 
