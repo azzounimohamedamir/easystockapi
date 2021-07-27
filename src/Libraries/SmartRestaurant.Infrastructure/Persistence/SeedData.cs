@@ -107,7 +107,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     AcceptsCreditCards = true,
                     AcceptTakeout = true,
                     AverageRating = 5,
-                    Description = "ETuoYeSMdsYsupqqbdspYNEeZvsaIsUcIOEsVmPkJxRZFkFOKzUkGffAsUBXyINUfhhIBOiIfNAntdhbXHbtaOUlStFPadgVvCRTToTMcvFAHcdYyGHCdDIPWTtDBaIqYgwVcSKNAXHnVCxpNBEfRufEWfggeTKcIqqdfGZPAqocMYxnHNCLtDAqqVTNYRLbwaYqvcvIiSvlKBTMlxAxHmudilIqOmGMkxDhvLTPsYPdCByZEuFfvGxQpuvoeDsAaEQQjgKsCnAnhrsqNPzSuqbvZjqMfyaaEGCqcXrvEKFXnmAmEnNuGHJtWypGwSiJDmPqBDWYauSzbxbSRUbCMwhBXiYAvQCTdtiBoVkRAXpHYTFEBYFpDTVlVzafiNugGYFyiIvYhhgyzjMihfVEqkOWlRLGYAUnsXWOjbKyczKOQfhXaqziTcxxMFCMWfVzToPdKGSKZzCzXeisjsHKGUgtwjBACUhPDjcnwmbmOodlJqfyYLsa",
+                    Description = "ETuoYe SMdsYsup qqbdspY NEeZvsaI sUcIOE sVmPkJx RZFk FOKzUkG ffAsUB XyINU fhhIB OiIfN Antdhb XHbtaO UlStFP adgVv CRTToT Mcv FAHcd YyGH. CdDIPW TtDBaI qYg wVcSK NAXHnVC xpNBE fRufEW fggeTKc Iqq dfGZPAqoc MYxnH NCLtDA qqV TNYR LbwaYqv cvIiSvl KBTMl xAxHmu dilIqO mGM kxDhvLT PsYPdCB yZE uFfvGxQp uvoeDsAaE QQjgKs CnAnhrs qNPzSuq bvZjqMfy aaEGCqc XrvE KFXnmA mEnN uGHJt WypGwSiJDmP qBDWYau SzbxbSRUb CMwhBXiYA vQCTdtiB oVkRA XpHYTFE BYFpDTVlV zafiNugG YFyiIvYhhgyzj MihfVEqk OWlRLG YAUn sXWO jbKyczKOQfhXa qziTc xxMFCM WfVzT oPdKGSK Zz CzXeis.",
                     HasCarParking = false,
                     IsHandicapFriendly = false,
                     OffersTakeout = true,
