@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models.MediaModels;
-using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Images.Commands;
 using SmartRestaurant.Application.Images.Queries;
 using SmartRestaurant.Application.Zones.Commands;
@@ -21,36 +20,31 @@ namespace SmartRestaurant.API.Controllers
         [Route("foodbusiness/{id:Guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
-        public Task<IEnumerable<ZoneDto>> Get([FromRoute] Guid id)
+        public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            return SendAsync(new GetZonesListQuery {FoodBusinessId = id});
+            return await SendWithErrorsHandlingAsync(new GetZonesListQuery {FoodBusinessId = id});
         }
 
         [Route("{id:Guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
-        public Task<ZoneDto> GetById([FromRoute] Guid id)
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            if (id == Guid.Empty)
-                throw new InvalidOperationException("Zone id shouldn't be null or empty ");
-
-            return SendAsync(new GetZoneByIdQuery {ZoneId = id});
+            return await SendWithErrorsHandlingAsync(new GetZoneByIdQuery {ZoneId = id});
         }
 
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Create(CreateZoneCommand command)
+        public async Task<IActionResult> Create(CreateZoneCommand command)
         {
-            var validationResult = await SendAsync(command).ConfigureAwait(false);
-            return ApiCustomResponse(validationResult);
+            return await SendWithErrorsHandlingAsync(command);
         }
 
         [HttpPut]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Update(UpdateZoneCommand command)
+        public async Task<IActionResult> Update(UpdateZoneCommand command)
         {
-            var validationResult = await SendAsync(command).ConfigureAwait(false);
-            return ApiCustomResponse(validationResult);
+            return await SendWithErrorsHandlingAsync(command);
         }
 
         [Route("{id:Guid}")]
@@ -58,10 +52,7 @@ namespace SmartRestaurant.API.Controllers
         [Authorize(Roles = "FoodBusinessManager")]
         public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
-            if (id == Guid.Empty)
-                return BadRequest();
-            await SendAsync(new DeleteZoneCommand {CmdId = id}).ConfigureAwait(false);
-            return Ok("Successful");
+            return (ActionResult) await SendWithErrorsHandlingAsync(new DeleteZoneCommand {CmdId = id});
         }
 
         [HttpPost]

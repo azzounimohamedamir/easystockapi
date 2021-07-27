@@ -24,11 +24,35 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
         private readonly IUserService _iuserService;
         private readonly IMapper _mapper;
 
-        public FoodBusinessQueriesHandler(IApplicationDbContext applicationDbContext, IMapper mapper, IUserService iuserService)
+        public FoodBusinessQueriesHandler(IApplicationDbContext applicationDbContext, IMapper mapper,
+            IUserService iuserService)
         {
             _applicationDbContext = applicationDbContext;
             _iuserService = iuserService;
             _mapper = mapper;
+        }
+
+        public async Task<List<FoodBusinessDto>> Handle(GetAllFoodBusinessByFoodBusinessManagerQuery request,
+            CancellationToken cancellationToken)
+        {
+            var foodBusinessManagerUserId = _iuserService.GetUserId();
+
+            if (foodBusinessManagerUserId == string.Empty || string.IsNullOrWhiteSpace(foodBusinessManagerUserId))
+                throw new InvalidOperationException("FoodBusinessManager UserId shouldn't be null or  empty");
+
+
+            var listOfFoodBusinessIds = _applicationDbContext.FoodBusinessUsers
+                .Where(foodBusinessUser => foodBusinessUser.ApplicationUserId == foodBusinessManagerUserId)
+                .Select(foodBusinessUser => foodBusinessUser.FoodBusinessId)
+                .Distinct()
+                .ToList();
+
+            var foodBusinesses = await _applicationDbContext.FoodBusinesses
+                .Where(foodBusiness => listOfFoodBusinessIds.Contains(foodBusiness.FoodBusinessId))
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            return _mapper.Map<List<FoodBusinessDto>>(foodBusinesses);
         }
 
 
@@ -65,35 +89,13 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             var result = _applicationDbContext.FoodBusinesses.GetPaged(request.Page, request.PageSize);
             var data = _mapper.Map<List<FoodBusinessDto>>(await result.Data.ToListAsync(cancellationToken)
                 .ConfigureAwait(false));
+
             foreach (var foodBusinessDto in data)
                 await GetFoodBusinessImagesAsync(foodBusinessDto, cancellationToken).ConfigureAwait(false);
 
             var pagedResult = new PagedListDto<FoodBusinessDto>(result.CurrentPage, result.PageCount, result.PageSize,
                 result.RowCount, data);
             return pagedResult;
-        }
-
-        public async Task<List<FoodBusinessDto>> Handle(GetAllFoodBusinessByFoodBusinessManagerQuery request,
-           CancellationToken cancellationToken)
-        {
-            var foodBusinessManagerUserId = _iuserService.GetUserId();
-
-            if (foodBusinessManagerUserId == string.Empty || string.IsNullOrWhiteSpace(foodBusinessManagerUserId))
-                throw new InvalidOperationException("FoodBusinessManager UserId shouldn't be null or  empty");
-
-
-            var listOfFoodBusinessIds = _applicationDbContext.FoodBusinessUsers
-              .Where(foodBusinessUser => foodBusinessUser.ApplicationUserId == foodBusinessManagerUserId)
-              .Select(foodBusinessUser => foodBusinessUser.FoodBusinessId)
-              .Distinct()
-              .ToList();
-
-            var foodBusinesses = await _applicationDbContext.FoodBusinesses
-                .Where(foodBusiness => listOfFoodBusinessIds.Contains(foodBusiness.FoodBusinessId))
-                .ToListAsync(cancellationToken)
-                .ConfigureAwait(false);
-
-            return _mapper.Map<List<FoodBusinessDto>>(foodBusinesses);
         }
 
         public Task<string[]> Handle(GetUsersByFoodBusinessIdQuery request, CancellationToken cancellationToken)

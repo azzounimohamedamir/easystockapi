@@ -17,7 +17,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
         public async Task ShouldGetReservationsList_ByReservationDateTimeInterval()
         {
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness();
-            string FoodBusinessManager_UserId = Guid.NewGuid().ToString();
+            var FoodBusinessManager_UserId = Guid.NewGuid().ToString();
 
 
             var dateTimeNow = DateTime.Now;
@@ -95,7 +95,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
             result_04.Data.Should().HaveCount(0);
         }
 
-        private static async Task Create_5_Reservations(Domain.Entities.FoodBusiness fastFood, string FoodBusinessManager_UserId, DateTime dateTimeNow)
+        private static async Task Create_5_Reservations(Domain.Entities.FoodBusiness fastFood,
+            string FoodBusinessManager_UserId, DateTime dateTimeNow)
         {
             for (var i = 1; i <= 5; i++)
             {
@@ -105,7 +106,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
                     NumberOfDiners = 3 + i,
                     ReservationDate = dateTimeNow.AddHours(i),
                     FoodBusinessId = fastFood.FoodBusinessId,
-                    CreatedBy = FoodBusinessManager_UserId               
+                    CreatedBy = FoodBusinessManager_UserId
                 };
                 await SendAsync(createReservationCommand);
             }

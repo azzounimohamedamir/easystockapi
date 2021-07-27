@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models.MediaModels;
-using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusiness.Queries;
 using SmartRestaurant.Application.Images.Commands;
@@ -21,62 +20,55 @@ namespace SmartRestaurant.API.Controllers
     {
         [HttpGet]
         [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
-        public Task<PagedListDto<FoodBusinessDto>> Get(int page, int pageSize)
+        public Task<IActionResult> Get(int page, int pageSize)
         {
-            return SendAsync(new GetFoodBusinessListQuery {Page = page, PageSize = pageSize});
+            return SendWithErrorsHandlingAsync(new GetFoodBusinessListQuery {Page = page, PageSize = pageSize});
         }
 
         [Route("{adminId}/foodBusinessAdministrator")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent")]
-        public Task<List<FoodBusinessDto>> GetByFoodBusinessAdministratorId([FromRoute] string adminId)
+        public Task<IActionResult> GetByFoodBusinessAdministratorId([FromRoute] string adminId)
         {
-            return SendAsync(new GetFoodBusinessListByAdmin {FoodBusinessAdministratorId = adminId});
+            return SendWithErrorsHandlingAsync(new GetFoodBusinessListByAdmin {FoodBusinessAdministratorId = adminId});
         }
 
         [Route("byFoodBusinessManager")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
-        public Task<List<FoodBusinessDto>> GetAllFoodBusinessByFoodBusinessManager()
+        public Task<IActionResult> GetAllFoodBusinessByFoodBusinessManager()
         {
-            return SendAsync(new GetAllFoodBusinessByFoodBusinessManagerQuery {});
+            return SendWithErrorsHandlingAsync(new GetAllFoodBusinessByFoodBusinessManagerQuery());
         }
 
         [Route("{id:Guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
-        public Task<FoodBusinessDto> GetById([FromRoute] Guid id)
+        public Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            return SendAsync(new GetFoodBusinessByIdQuery {FoodBusinessId = id});
+            return SendWithErrorsHandlingAsync(new GetFoodBusinessByIdQuery {FoodBusinessId = id});
         }
 
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<ActionResult> Create(CreateFoodBusinessCommand command)
+        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent")]
+        public async Task<IActionResult> Create(CreateFoodBusinessCommand command)
         {
-            var validationResult = await SendAsync(command).ConfigureAwait(false);
-            return ApiCustomResponse(validationResult);
+            return await SendWithErrorsHandlingAsync(command);
         }
 
         [HttpPut]
-        [Route("{id:Guid}")]
-        [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<ActionResult> Update([FromRoute] Guid id, UpdateFoodBusinessCommand command)
+        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent")]
+        public async Task<IActionResult> Update(UpdateFoodBusinessCommand command)
         {
-            if (id != command.CmdId)
-                return BadRequest();
-
-            var validationResult = await SendAsync(command).ConfigureAwait(false);
-            return ApiCustomResponse(validationResult);
+            return await SendWithErrorsHandlingAsync(command);
         }
 
         [HttpDelete]
         [Route("{id:Guid}")]
-        [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<ActionResult> Delete([FromRoute] Guid id)
+        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            await SendAsync(new DeleteFoodBusinessCommand {CmdId = id}).ConfigureAwait(false);
-            return NoContent();
+            return await SendWithErrorsHandlingAsync(new DeleteFoodBusinessCommand {CmdId = id});
         }
 
         [HttpPost]
@@ -88,8 +80,7 @@ namespace SmartRestaurant.API.Controllers
                 throw new InvalidOperationException("FoodBusiness id shouldn't be null or empty");
             if (id != images.EntityId)
                 return BadRequest();
-            var foodBusiness = await SendAsync(new GetFoodBusinessByIdQuery {FoodBusinessId = images.EntityId})
-                .ConfigureAwait(false);
+            var foodBusiness = await SendAsync(new GetFoodBusinessByIdQuery {FoodBusinessId = images.EntityId});
             if (foodBusiness == null)
                 return BadRequest("FoodBusiness wasn't found");
             if (images.Files.Count <= 0)

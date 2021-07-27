@@ -5,8 +5,6 @@ using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Reservations.Queries;
-using System;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
 {
@@ -36,8 +34,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
                 CreatedBy = Guid.NewGuid().ToString()
             };
             await SendAsync(createReservationCommand);
-           
-            var query = new GetReservationByIdQuery { ReservationId= createReservationCommand.CmdId };
+
+            var query = new GetReservationByIdQuery {ReservationId = createReservationCommand.CmdId};
             var result = await SendAsync(query);
             result.Should().NotBeNull();
             result.ReservationName.Should().Be("Reservation Test");
