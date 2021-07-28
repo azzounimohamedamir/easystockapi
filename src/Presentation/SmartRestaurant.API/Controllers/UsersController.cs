@@ -96,7 +96,7 @@ namespace SmartRestaurant.API.Controllers
         {
             if (SuperAdminCheck(model.Roles)) return BadRequest();
             var user = new ApplicationUser(model.FullName, model.Email, model.UserName);
-            var result = await _userManager.CreateAsync(user,model.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded) return CheckResultStatus(result);
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             await SendEmailConfirmation(user, token);
@@ -118,7 +118,7 @@ namespace SmartRestaurant.API.Controllers
             user.Email = model.Email;
             user.UserName = model.UserName;
             var result = await _userManager.UpdateAsync(user);
-            return ApiCustomResponse(result);
+            return SendWithIdentityErrorsHandlingAsync(result);
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]

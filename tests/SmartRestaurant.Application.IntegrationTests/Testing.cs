@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +27,7 @@ namespace SmartRestaurant.Application.IntegrationTests
         private static IServiceScopeFactory _scopeFactory;
         private static Checkpoint _checkpoint;
         public static string _authenticatedUserId = "3cbf3570-4444-4444-8746-29b7cf568898";
+
         [OneTimeSetUp]
         public void RunBeforeAnyTests()
         {
@@ -45,9 +45,9 @@ namespace SmartRestaurant.Application.IntegrationTests
             var claimsIdentity = new ClaimsIdentity();
             claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, "test user name"));
             claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, _authenticatedUserId));
-            var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
+            var claimsPrincipal = new ClaimsPrincipal(new[] {claimsIdentity});
 
-            var httpContext = new DefaultHttpContext { User = claimsPrincipal };
+            var httpContext = new DefaultHttpContext {User = claimsPrincipal};
 
             services.AddSingleton(Mock.Of<IWebHostEnvironment>(w =>
                 w.EnvironmentName == "Development" &&
@@ -55,10 +55,10 @@ namespace SmartRestaurant.Application.IntegrationTests
             services.AddLogging();
             startup.ConfigureServices(services);
             services.AddHttpContextAccessor();
-            services.AddScoped<IUserService, UserService>();           
-            services.AddSingleton(Mock.Of<IHttpContextAccessor>(o =>          
-               o.HttpContext.User == httpContext.User
-                ));
+            services.AddScoped<IUserService, UserService>();
+            services.AddSingleton(Mock.Of<IHttpContextAccessor>(o =>
+                o.HttpContext.User == httpContext.User
+            ));
 
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 

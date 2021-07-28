@@ -10,7 +10,6 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
 {
     using static Testing;
 
-    
 
     public class GetAllFoodBusinessByFoodBusinessManagerTests : TestBase
     {
@@ -48,7 +47,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             var tacosDz3FoodBusinessId = tacosDz3.CmdId;
             await SendAsync(tacosDz3);
 
-            var BigMamaFoodBusinessAdministratorId= Guid.NewGuid().ToString();
+            var BigMamaFoodBusinessAdministratorId = Guid.NewGuid().ToString();
             var bigMama = new CreateFoodBusinessCommand
             {
                 Name = "bigMama Dz",
@@ -64,14 +63,14 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             var assignAissaFoodBusinessManagerToTacosDz1 = new FoodBusinessUser
             {
                 ApplicationUserId = aissaFoodBusinessManager,
-                FoodBusinessId = tacosDz1FoodBusinessId,
+                FoodBusinessId = tacosDz1FoodBusinessId
             };
             await AddAsync(assignAissaFoodBusinessManagerToTacosDz1);
 
             var assignAissaFoodBusinessManagerToTacosDz2 = new FoodBusinessUser
             {
                 ApplicationUserId = aissaFoodBusinessManager,
-                FoodBusinessId = tacosDz2FoodBusinessId,
+                FoodBusinessId = tacosDz2FoodBusinessId
             };
             await AddAsync(assignAissaFoodBusinessManagerToTacosDz2);
 
@@ -79,7 +78,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             var assignKarimFoodBusinessManagerToTacosDz3 = new FoodBusinessUser
             {
                 ApplicationUserId = karimFoodBusinessManager,
-                FoodBusinessId = tacosDz3FoodBusinessId,
+                FoodBusinessId = tacosDz3FoodBusinessId
             };
             await AddAsync(assignKarimFoodBusinessManagerToTacosDz3);
 
@@ -88,13 +87,12 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             var assignAhmedFoodBusinessManagerToBigMama = new FoodBusinessUser
             {
                 ApplicationUserId = ahmedFoodBusinessManager,
-                FoodBusinessId = bigMamaFoodBusinessId,
+                FoodBusinessId = bigMamaFoodBusinessId
             };
             await AddAsync(assignAhmedFoodBusinessManagerToBigMama);
 
 
-
-            var result = await SendAsync(new GetAllFoodBusinessByFoodBusinessManagerQuery { });
+            var result = await SendAsync(new GetAllFoodBusinessByFoodBusinessManagerQuery());
 
             result.Should().HaveCount(2);
         }

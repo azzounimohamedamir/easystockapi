@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using FluentValidation.Results;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
 
@@ -17,7 +18,6 @@ namespace SmartRestaurant.API.Controllers
     public abstract class ApiController : ControllerBase
     {
         private readonly IEmailSender _emailSender;
-        private readonly ICollection<string> _errors = new List<string>();
         private IMediator _mediator;
 
         protected ApiController()
@@ -31,52 +31,51 @@ namespace SmartRestaurant.API.Controllers
 
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 
-        protected ActionResult ApiCustomResponse()
-        {
-            if (!_errors.Any())
-                return Ok();
-            return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
-            {
-                {"ErrorMessages", _errors.ToArray()}
-            }));
-        }
-
-        protected ActionResult ApiCustomResponse(ValidationResult validationResult)
-        {
-            if (validationResult?.Errors == null) return ApiCustomResponse();
-            foreach (var error in validationResult.Errors)
-                _errors.Add(error.ErrorMessage);
-
-            return ApiCustomResponse();
-        }
-
-        protected ActionResult ApiCustomResponse(ValidationResult validationResult
-            , ActionResult actionResult)
-        {
-            if (validationResult?.Errors != null)
-                foreach (var error in validationResult.Errors)
-                    _errors.Add(error.ErrorMessage);
-
-            if (!_errors.Any()) return actionResult;
-
-            return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
-            {
-                {"ErrorMessages", _errors.ToArray()}
-            }));
-        }
-
-        protected ActionResult ApiCustomResponse(IdentityResult result)
-        {
-            if (result.Succeeded) return ApiCustomResponse();
-            foreach (var error in result.Errors)
-                _errors.Add(error.Description);
-
-            return ApiCustomResponse();
-        }
 
         public Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
         {
             return Mediator.Send(request);
+        }
+
+        public async Task<IActionResult> SendWithErrorsHandlingAsync<TRequest>(IRequest<TRequest> request)
+        {
+            try
+            {
+                var result = await Mediator.Send(request);
+                if (result.GetType() != typeof(ValidationResult)) return Ok(result);
+                var errors = ExtractValidationErrors(result);
+                return BadRequest(new Dictionary<string, string[]>
+                {
+                    {"ErrorMessages", errors.ToArray()}
+                });
+            }
+            catch (Exception exception)
+            {
+                if (exception.GetType().IsSubclassOf(typeof(BaseException)))
+                    if (exception is BaseException result)
+                        return StatusCode(result.StatusCode, result.Message);
+
+                return StatusCode(500);
+            }
+        }
+
+        public IActionResult SendWithIdentityErrorsHandlingAsync<TRequest>(TRequest result)
+        {
+            var errors = new List<string>();
+            var validationFailures = (result as ValidationResult)?.Errors;
+            if (validationFailures != null) errors.AddRange(validationFailures.Select(error => error.ErrorMessage));
+            return BadRequest(new Dictionary<string, string[]>
+            {
+                {"ErrorMessages", errors.ToArray()}
+            });
+        }
+
+        private static List<string> ExtractValidationErrors<TRequest>(TRequest result)
+        {
+            var errors = new List<string>();
+            var validationFailures = (result as ValidationResult)?.Errors;
+            if (validationFailures != null) errors.AddRange(validationFailures.Select(error => error.ErrorMessage));
+            return errors;
         }
 
         protected Task SendEmailConfirmation(ApplicationUser user, string code)

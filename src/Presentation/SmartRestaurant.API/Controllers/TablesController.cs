@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Tables.Queries;
 
@@ -16,49 +14,39 @@ namespace SmartRestaurant.API.Controllers
         [Route("zone/{zoneId:Guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
-        public Task<IEnumerable<TableDto>> Get([FromRoute] Guid zoneId)
+        public async Task<IActionResult> Get([FromRoute] Guid zoneId)
         {
-            if (zoneId == Guid.Empty)
-                throw new InvalidOperationException("zone id shouldn't be null or empty");
-            return SendAsync(new GetTablesListQuery {ZoneId = zoneId});
+            return await SendWithErrorsHandlingAsync(new GetTablesListQuery {ZoneId = zoneId});
         }
 
         [Route("{id:guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
-        public Task<TableDto> GetById([FromRoute] Guid id)
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            if (id == Guid.Empty)
-                throw new InvalidOperationException("table id shouldn't be null or empty");
-
-            return SendAsync(new GetTableByIdQuery {TableId = id});
+            return await SendWithErrorsHandlingAsync(new GetTableByIdQuery {TableId = id});
         }
 
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Create(CreateTableCommand command)
+        public async Task<IActionResult> Create(CreateTableCommand command)
         {
-            var validationResult = await SendAsync(command).ConfigureAwait(false);
-            return ApiCustomResponse(validationResult);
+            return await SendWithErrorsHandlingAsync(command);
         }
 
         [HttpPut]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Update(UpdateTableCommand command)
+        public async Task<IActionResult> Update(UpdateTableCommand command)
         {
-            var validationResult = await SendAsync(command).ConfigureAwait(false);
-            return ApiCustomResponse(validationResult);
+            return await SendWithErrorsHandlingAsync(command);
         }
 
         [Route("{id:guid}")]
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Delete([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            if (id == Guid.Empty)
-                return BadRequest();
-            await SendAsync(new DeleteTableCommand {CmdId = id}).ConfigureAwait(false);
-            return Ok("Successful");
+            return await SendWithErrorsHandlingAsync(new DeleteTableCommand {CmdId = id});
         }
     }
 }

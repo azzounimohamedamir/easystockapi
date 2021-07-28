@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.SubSections.Commands;
 using SmartRestaurant.Application.SubSections.Queries;
 
@@ -15,36 +14,32 @@ namespace SmartRestaurant.API.Controllers
         [Route("section/{id:Guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
-        public Task<PagedListDto<SubSectionDto>> Get([FromRoute] Guid id, int page, int pageSize)
+        public async Task<IActionResult> Get([FromRoute] Guid id, int page, int pageSize)
         {
-            return SendAsync(new GetSubSectionsListQuery {SectionId = id, Page = page, PageSize = pageSize});
+            return await SendWithErrorsHandlingAsync(new GetSubSectionsListQuery
+                {SectionId = id, Page = page, PageSize = pageSize});
         }
 
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Create(CreateSubSectionCommand command)
+        public async Task<IActionResult> Create(CreateSubSectionCommand command)
         {
-            var validationResult = await SendAsync(command).ConfigureAwait(false);
-            return ApiCustomResponse(validationResult);
+            return await SendWithErrorsHandlingAsync(command);
         }
 
         [HttpPut]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Update(UpdateSubSectionCommand command)
+        public async Task<IActionResult> Update(UpdateSubSectionCommand command)
         {
-            var validationResult = await SendAsync(command).ConfigureAwait(false);
-            return ApiCustomResponse(validationResult);
+            return await SendWithErrorsHandlingAsync(command);
         }
 
         [Route("{id:Guid}")]
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessManager")]
-        public async Task<ActionResult> Delete([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            if (id == Guid.Empty)
-                return BadRequest();
-            await SendAsync(new DeleteSubSectionCommand {CmdId = id}).ConfigureAwait(false);
-            return Ok("Successful");
+            return await SendWithErrorsHandlingAsync(new DeleteSubSectionCommand {CmdId = id});
         }
     }
 }

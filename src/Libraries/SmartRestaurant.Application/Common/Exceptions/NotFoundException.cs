@@ -1,25 +1,13 @@
-﻿using System;
-
-namespace SmartRestaurant.Application.Common.Exceptions
+﻿namespace SmartRestaurant.Application.Common.Exceptions
 {
-    public class NotFoundException : Exception
+    public class NotFoundException : BaseException
     {
-        public NotFoundException()
-        {
-        }
-
-        public NotFoundException(string message)
-            : base(message)
-        {
-        }
-
-        public NotFoundException(string message, Exception innerException)
-            : base(message, innerException)
+        public NotFoundException() : base(404)
         {
         }
 
         public NotFoundException(string name, object key)
-            : base($"Entity \"{name}\" ({key}) was not found.")
+            : base(404, $"Entity \"{name}\" ({key}) was not found.")
         {
         }
     }

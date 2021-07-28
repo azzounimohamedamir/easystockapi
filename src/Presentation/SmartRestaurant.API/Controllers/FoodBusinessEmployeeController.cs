@@ -12,27 +12,24 @@ namespace SmartRestaurant.API.Controllers
     {
         [HttpPost]
         [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<ActionResult> AddEmployeeInOrganization(AddEmployeeInOrganizationCommand command)
+        public async Task<IActionResult> AddEmployeeInOrganization(AddEmployeeInOrganizationCommand command)
         {
-            var validationResult = await SendAsync(command);
-            return ApiCustomResponse(validationResult);
+            return await SendWithErrorsHandlingAsync(command);
         }
 
         [HttpPut]
         [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<ActionResult> UpdateEmployeeRoleInOrganization(
+        public async Task<IActionResult> UpdateEmployeeRoleInOrganization(
             UpdateEmployeeRoleInOrganizationCommand command)
         {
-            var validationResult = await SendAsync(command);
-            return ApiCustomResponse(validationResult);
+            return await SendWithErrorsHandlingAsync(command);
         }
 
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<ActionResult> RemoveStaffFromOrganization(RemoveEmployeeFromOrganizationCommand command)
+        public async Task<IActionResult> RemoveEmployeeFromOrganization(RemoveEmployeeFromOrganizationCommand command)
         {
-            var validationResult = await SendAsync(command);
-            return ApiCustomResponse(validationResult);
+            return await SendWithErrorsHandlingAsync(command);
         }
     }
 }

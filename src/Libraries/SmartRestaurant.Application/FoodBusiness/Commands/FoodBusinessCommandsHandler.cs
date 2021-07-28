@@ -35,7 +35,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             if (!result.IsValid) return result;
             var entity = _mapper.Map<Domain.Entities.FoodBusiness>(request);
             _context.FoodBusinesses.Add(entity);
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            await _context.SaveChangesAsync(cancellationToken);
             return default;
         }
 
@@ -52,7 +52,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
                 throw new NotFoundException(nameof(FoodBusiness), request.CmdId);
 
             _context.FoodBusinesses.Remove(entity);
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            await _context.SaveChangesAsync(cancellationToken);
+
             return default;
         }
 

@@ -145,7 +145,7 @@ namespace SmartRestaurant.API.Controllers
                 }
             }
 
-            return ApiCustomResponse(result);
+            return SendWithIdentityErrorsHandlingAsync(result);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Services
         {
             User = httpContextAccessor.HttpContext.User;
         }
+
         private ClaimsPrincipal User { get; }
 
         public string GetUserId()
