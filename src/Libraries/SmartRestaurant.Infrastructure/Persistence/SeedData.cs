@@ -9,12 +9,15 @@ namespace SmartRestaurant.Infrastructure.Persistence
     {
         public const string TajMhal_FoodBusinessId = "3cbf3570-4444-4673-8746-29b7cf568093";
         public const string Mcdonald_FoodBusinessId = "66bf3570-440d-4673-8746-29b7cf568099";
+        public const string BigMama_FoodBusinessId = "88bc7853-220f-9173-3246-afb7cf595022";
 
         public const string TajMhal_FoodBusinessAdministrator_UserId = "3cbf3570-4444-4444-8746-29b7cf568093";
         public const string Mcdonald_FoodBusinessAdministrator_UserId = "44bf3570-0d44-4673-8746-29b7cf568088";
+        public const string BigMama_FoodBusinessAdministrator_UserId = "08a1a626-7f8e-4b51-84fc-fc51b6302cca";
 
         public const string TajMhal_FoodBusinessManager_UserId = "a1997466-cedc-4850-b18d-0ac4f4102cff";
         public const string Mcdonald_FoodBusinessManager_UserId = "b2207466-ceda-4b50-b18d-0ac4f4102caa";
+        public const string BigMama_SalimFoodBusinessManager_UserId = "64fed988-6f68-49dc-ad54-0da50ec02319";
 
         public const string Diner_UserId_01 = "5a84cd00-59f0-4b22-bfce-07c080829118";
         public const string Diner_UserId_02 = "6b14cd00-59f0-4422-bfce-07c080829987";
@@ -25,6 +28,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public const string TajMhal_OutdoorZone_Id = "32bccd11-59fd-3304-bfaa-07c08082abc3";
         public const string Mcdonald_NormalZone_Id = "32bccd11-59fd-33ff-bfaa-07c08082aba1";
         public const string Mcdonald_OutdoorZone_Id = "32bccd11-59fd-33ff-bfaa-07c08082aba2";
+        public const string BigMama_SharedZone_Id = "f60d55e2-4e54-4896-9632-98d36d7680c3";
 
         public const string TajMhal_VipZone_TableId = "44aecd78-59bb-7504-bfff-07c07129ab00";
         public const string TajMhal_FamilyZone_TableId = "44aecd78-59bb-7504-bfff-07c07129ab01";
@@ -32,6 +36,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public const string TajMhal_OutdoorZone_TableId = "44aecd78-59bb-7504-bfff-07c07129ab03";
         public const string Mcdonald_NormalZone_TableId = "44aecd78-59bb-7504-bfff-07c07129aba2";
         public const string Mcdonald_OutdoorZone_TableId = "44aecd78-59bb-7504-bfff-07c07129aba3";
+        public const string BigMama_SharedZone_TableId = "b006e2c5-5b8e-4584-8021-3cecd76c9ca6";
 
         public const string TajMhal_DishesMenu_Id = "ccaecd78-ccbb-ee04-56ff-88887129aaba";
         public const string TajMhal_PizzaMenu_Id = "ccaecd78-ccbb-ee04-56ff-88887129aabb";
@@ -41,7 +46,10 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public const string Mcdonald_SandwichesMenu_Id = "ccaecd78-ccbb-ee04-56ff-88887129aa00";
         public const string Mcdonald_BeverageMenu_Id = "ccaecd78-ccbb-ee04-56ff-88887129aa01";
         public const string Mcdonald_DessertMenu_Id = "ccaecd78-ccbb-ee04-56ff-88887129aa02";
-
+        public const string BigMama_SandwichesMenu_Id = "e2289d77-b8e1-4476-bf66-e64f1a23d752";
+        public const string BigMama_BeverageMenu_Id = "8f8c0139-1f90-40f3-ab88-5db2de45ff2e";
+        public const string BigMama_DessertMenu_Id = "45051fc7-6983-44a5-9c12-66116c4533bf";
+        
         public static void Seed(this ModelBuilder modelBuilder)
         {
             #region Create a FoodBusinesses
@@ -57,12 +65,12 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     AcceptsCreditCards = true,
                     AcceptTakeout = true,
                     AverageRating = 4,
-                    Description = "",
+                    Description = "Envie de découvrir la cuisine indienne, le restaurant Taj Mahal vous invite à le faire et voyager à travers les odeurs des épices orientales qui se dégagent de ses mets à spécialités indiennes.",
                     HasCarParking = true,
-                    IsHandicapFriendly = true,
+                    IsHandicapFriendly = false,
                     OffersTakeout = true,
                     Tags = "",
-                    Website = "",
+                    Website = "https://restoalgerie.com/restaurant/taj-mahal-restaurant-indien/",
                     FoodBusinessAdministratorId = TajMhal_FoodBusinessAdministrator_UserId,
                     FoodBusinessCategory = FoodBusinessCategory.Restaurant
                 },
@@ -85,6 +93,27 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     Tags = "",
                     Website = "",
                     FoodBusinessAdministratorId = Mcdonald_FoodBusinessAdministrator_UserId,
+                    FoodBusinessCategory = FoodBusinessCategory.Restaurant
+                },
+
+            #endregion
+
+                #region Create a FoodBusiness for BigMama restaurant
+
+                new FoodBusiness
+                {
+                    FoodBusinessId = Guid.Parse(BigMama_FoodBusinessId),
+                    Name = "BigMama",
+                    AcceptsCreditCards = true,
+                    AcceptTakeout = true,
+                    AverageRating = 5,
+                    Description = "ETuoYeSMdsYsupqqbdspYNEeZvsaIsUcIOEsVmPkJxRZFkFOKzUkGffAsUBXyINUfhhIBOiIfNAntdhbXHbtaOUlStFPadgVvCRTToTMcvFAHcdYyGHCdDIPWTtDBaIqYgwVcSKNAXHnVCxpNBEfRufEWfggeTKcIqqdfGZPAqocMYxnHNCLtDAqqVTNYRLbwaYqvcvIiSvlKBTMlxAxHmudilIqOmGMkxDhvLTPsYPdCByZEuFfvGxQpuvoeDsAaEQQjgKsCnAnhrsqNPzSuqbvZjqMfyaaEGCqcXrvEKFXnmAmEnNuGHJtWypGwSiJDmPqBDWYauSzbxbSRUbCMwhBXiYAvQCTdtiBoVkRAXpHYTFEBYFpDTVlVzafiNugGYFyiIvYhhgyzjMihfVEqkOWlRLGYAUnsXWOjbKyczKOQfhXaqziTcxxMFCMWfVzToPdKGSKZzCzXeisjsHKGUgtwjBACUhPDjcnwmbmOodlJqfyYLsa",
+                    HasCarParking = false,
+                    IsHandicapFriendly = false,
+                    OffersTakeout = true,
+                    Tags = "",
+                    Website = "https://bigmama.com",
+                    FoodBusinessAdministratorId = BigMama_FoodBusinessAdministrator_UserId,
                     FoodBusinessCategory = FoodBusinessCategory.Restaurant
                 }
 
@@ -134,7 +163,23 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 new FoodBusinessUser
                 {
                     ApplicationUserId = Mcdonald_FoodBusinessManager_UserId,
-                    FoodBusinessId = Guid.Parse(Mcdonald_FoodBusinessId)
+                    FoodBusinessId = Guid.Parse(Mcdonald_FoodBusinessId),
+                },
+                #endregion
+
+                #region Assigning account with Id = [BigMama_FoodBusinessAdministrator_UserId] to Mcdonald restaurant.
+                new FoodBusinessUser
+                {
+                    ApplicationUserId = BigMama_FoodBusinessAdministrator_UserId,
+                    FoodBusinessId = Guid.Parse(BigMama_FoodBusinessId),
+                },
+                #endregion
+
+                #region Assigning account with Id = [BigMama_SalimFoodBusinessManager_UserId] to Mcdonald restaurant.
+                new FoodBusinessUser
+                {
+                    ApplicationUserId = BigMama_SalimFoodBusinessManager_UserId,
+                    FoodBusinessId = Guid.Parse(BigMama_FoodBusinessId),
                 }
 
                 #endregion
@@ -535,7 +580,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
             );
 
             #endregion
-
+            
             #region Create zones
 
             modelBuilder.Entity<Zone>().HasData(
@@ -587,21 +632,32 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     CreatedAt = DateTime.Now,
                     ZoneId = Guid.Parse(Mcdonald_NormalZone_Id)
                 },
-                new Zone
-                {
-                    FoodBusinessId = Guid.Parse(Mcdonald_FoodBusinessId),
-                    ZoneTitle = "Mcdonald OUTDOOR Zone",
-                    CreatedBy = Mcdonald_FoodBusinessManager_UserId,
-                    CreatedAt = DateTime.Now,
-                    ZoneId = Guid.Parse(Mcdonald_OutdoorZone_Id)
-                }
-
-                #endregion
-
-            );
-
+                 new Zone
+                 {
+                     FoodBusinessId = Guid.Parse(Mcdonald_FoodBusinessId),
+                     ZoneTitle = "Mcdonald OUTDOOR Zone",
+                     CreatedBy = Mcdonald_FoodBusinessManager_UserId,
+                     CreatedAt = DateTime.Now,
+                     ZoneId = Guid.Parse(Mcdonald_OutdoorZone_Id)
+                 },
             #endregion
 
+            #region Create zones for BigMama_FoodBusiness
+                new Zone
+                {
+                    FoodBusinessId = Guid.Parse(SeedData.BigMama_FoodBusinessId),
+                    ZoneTitle = "BigMama SHARED Zone",
+                    CreatedBy = SeedData.BigMama_SalimFoodBusinessManager_UserId,
+                    CreatedAt = DateTime.Now,
+                    ZoneId = Guid.Parse(BigMama_SharedZone_Id)
+                }
+
+                 #endregion
+
+                 );
+
+            #endregion
+            
             #region Create tables
 
             modelBuilder.Entity<Table>().HasData(
@@ -658,22 +714,34 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     CreatedAt = DateTime.Now,
                     TableId = Guid.Parse(Mcdonald_NormalZone_TableId)
                 },
-                new Table
-                {
-                    ZoneId = Guid.Parse(Mcdonald_OutdoorZone_Id),
-                    TableNumber = 3,
-                    Capacity = 3,
-                    CreatedBy = Mcdonald_FoodBusinessManager_UserId,
-                    CreatedAt = DateTime.Now,
-                    TableId = Guid.Parse(Mcdonald_OutdoorZone_TableId)
-                }
+                 new Table
+                 {
+                     ZoneId = Guid.Parse(Mcdonald_OutdoorZone_Id),
+                     TableNumber = 3,
+                     Capacity = 3,
+                     CreatedBy = Mcdonald_FoodBusinessManager_UserId,
+                     CreatedAt = DateTime.Now,
+                     TableId = Guid.Parse(Mcdonald_OutdoorZone_TableId)
+                 },
+            #endregion
 
-                #endregion
+            #region Create tables for BigMama_FoodBusiness       
+            new Table
+            {
+                ZoneId = Guid.Parse(BigMama_SharedZone_Id),
+                TableNumber = 8,
+                Capacity = 6,
+                CreatedBy = SeedData.BigMama_SalimFoodBusinessManager_UserId,
+                CreatedAt = DateTime.Now,
+                TableId = Guid.Parse(BigMama_SharedZone_TableId)
+            }
+
+            #endregion
 
             );
 
             #endregion
-
+                        
             #region Create menus
 
             modelBuilder.Entity<Menu>().HasData(
@@ -748,13 +816,39 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     CreatedBy = Mcdonald_FoodBusinessManager_UserId,
                     CreatedAt = DateTime.Now,
                     MenuId = Guid.Parse(Mcdonald_DessertMenu_Id)
-                }
+                },
 
                 #endregion
 
-            );
+            #region Create menus for BigMama_FoodBusiness
+            new Menu
+            {
+                FoodBusinessId = Guid.Parse(SeedData.BigMama_FoodBusinessId),
+                Name = "Mcdonald Sandwiches Menu",
+                CreatedBy = SeedData.BigMama_SalimFoodBusinessManager_UserId,
+                CreatedAt = DateTime.Now,
+                MenuId = Guid.Parse(BigMama_SandwichesMenu_Id)
+            },
+            new Menu
+            {
+                FoodBusinessId = Guid.Parse(SeedData.BigMama_FoodBusinessId),
+                Name = "Mcdonald Beverage  Menu",
+                CreatedBy = SeedData.BigMama_SalimFoodBusinessManager_UserId,
+                CreatedAt = DateTime.Now,
+                MenuId = Guid.Parse(BigMama_BeverageMenu_Id)
+            },
+            new Menu
+            {
+                FoodBusinessId = Guid.Parse(SeedData.BigMama_FoodBusinessId),
+                Name = "Mcdonald Dessert Menu",
+                CreatedBy = SeedData.BigMama_SalimFoodBusinessManager_UserId,
+                CreatedAt = DateTime.Now,
+                MenuId = Guid.Parse(BigMama_DessertMenu_Id)
+            }
+            #endregion
+             );
 
             #endregion
         }
     }
-}
+} 

@@ -9,9 +9,11 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
     {
         public const string TajMhal_FoodBusinessAdministrator_UserId = "3cbf3570-4444-4444-8746-29b7cf568093";
         public const string Mcdonald_FoodBusinessAdministrator_UserId = "44bf3570-0d44-4673-8746-29b7cf568088";
+        public const string BigMama_FoodBusinessAdministrator_UserId = "08a1a626-7f8e-4b51-84fc-fc51b6302cca";
 
         public const string TajMhal_FoodBusinessManager_UserId = "a1997466-cedc-4850-b18d-0ac4f4102cff";
         public const string Mcdonald_FoodBusinessManager_UserId = "b2207466-ceda-4b50-b18d-0ac4f4102caa";
+        public const string BigMama_SalimFoodBusinessManager_UserId = "64fed988-6f68-49dc-ad54-0da50ec02319";
 
         public const string Diner_UserId_01 = "5a84cd00-59f0-4b22-bfce-07c080829118";
         public const string Diner_UserId_02 = "6b14cd00-59f0-4422-bfce-07c080829987";
@@ -154,7 +156,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     EmailConfirmed = true
                 },
 
-                #region Create FoodBusinessAdministrator users
+            #region Create FoodBusinessAdministrator users
 
                 new ApplicationUser
                 {
@@ -180,10 +182,22 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                         "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                     EmailConfirmed = true
                 },
+                new ApplicationUser
+                {
+                    Id = BigMama_FoodBusinessAdministrator_UserId,
+                    UserName = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io",
+                    Email = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io",
+                    NormalizedUserName = "BIGMAMAFOODBUSINESSADMINISTRATOR@SMARTRESTAURANT.IO",
+                    NormalizedEmail = "BIGMAMAFOODBUSINESSADMINISTRATOR@SMARTRESTAURANT.IO",
+                    // Real password is "Supportagent123@"
+                    PasswordHash =
+                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                    EmailConfirmed = true
+                },
 
-                #endregion
+            #endregion
 
-                #region Create FoodBusinessManager users
+            #region Create FoodBusinessManager users
 
                 new ApplicationUser
                 {
@@ -209,10 +223,21 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                         "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
                     EmailConfirmed = true
                 },
+                new ApplicationUser
+                {
+                    Id = BigMama_SalimFoodBusinessManager_UserId,
+                    UserName = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io",
+                    Email = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io",
+                    NormalizedUserName = "BIGMAMASALIMFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                    NormalizedEmail = "BIGMAMASALIMFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                    // Real password is "Salim123@"
+                    PasswordHash =
+                        "AQAAAAEAACcQAAAAEO+ouwzSOa+AsCNZrVEhO6Su9q/fX/Q9c9havEvhs5QtXWA6tRdfmqOlemUQphqDnA==",
+                    EmailConfirmed = true
+                },
+            #endregion
 
-                #endregion
-
-                #region Create Diner users
+            #region Create Diner users
 
                 new ApplicationUser
                 {
@@ -277,8 +302,13 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     UserId = Mcdonald_FoodBusinessAdministrator_UserId,
                     RoleId = "5"
                 },
+                new IdentityUserRole<string>
+                {
+                    UserId = BigMama_FoodBusinessAdministrator_UserId,
+                    RoleId = "5"
+                },
 
-                #endregion
+            #endregion
 
                 #region Assign the role FoodBusinessManager to users accounts
 
@@ -292,10 +322,15 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     UserId = Mcdonald_FoodBusinessManager_UserId,
                     RoleId = "6"
                 },
+                new IdentityUserRole<string>
+                {
+                    UserId = BigMama_SalimFoodBusinessManager_UserId,
+                    RoleId = "6"
+                },
 
-                #endregion
+            #endregion
 
-                #region Assign the role Diner to users accounts
+            #region Assign the role Diner to users accounts
 
                 new IdentityUserRole<string>
                 {
