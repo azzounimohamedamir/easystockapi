@@ -824,7 +824,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
             new Menu
             {
                 FoodBusinessId = Guid.Parse(SeedData.BigMama_FoodBusinessId),
-                Name = "Mcdonald Sandwiches Menu",
+                Name = "BigMama Sandwiches Menu",
                 CreatedBy = SeedData.BigMama_SalimFoodBusinessManager_UserId,
                 CreatedAt = DateTime.Now,
                 MenuId = Guid.Parse(BigMama_SandwichesMenu_Id)
@@ -832,7 +832,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
             new Menu
             {
                 FoodBusinessId = Guid.Parse(SeedData.BigMama_FoodBusinessId),
-                Name = "Mcdonald Beverage  Menu",
+                Name = "BigMama Beverage  Menu",
                 CreatedBy = SeedData.BigMama_SalimFoodBusinessManager_UserId,
                 CreatedAt = DateTime.Now,
                 MenuId = Guid.Parse(BigMama_BeverageMenu_Id)
@@ -840,7 +840,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
             new Menu
             {
                 FoodBusinessId = Guid.Parse(SeedData.BigMama_FoodBusinessId),
-                Name = "Mcdonald Dessert Menu",
+                Name = "BigMama Dessert Menu",
                 CreatedBy = SeedData.BigMama_SalimFoodBusinessManager_UserId,
                 CreatedAt = DateTime.Now,
                 MenuId = Guid.Parse(BigMama_DessertMenu_Id)
