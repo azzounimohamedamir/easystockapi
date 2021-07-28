@@ -67,7 +67,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             await GetCountOfZonesTablesAndMenus(foodBusinessDto, cancellationToken).ConfigureAwait(false);
             return foodBusinessDto;
         }
-       
+
         public async Task<List<FoodBusinessDto>> Handle(GetFoodBusinessListByAdmin request,
             CancellationToken cancellationToken)
         {
@@ -115,7 +115,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
                 foodBusinessDto.Images.AddRange(images.Select(Convert.ToBase64String));
         }
 
-        private async Task GetCountOfZonesTablesAndMenus(FoodBusinessDto foodBusinessDto, CancellationToken cancellationToken)
+        private async Task GetCountOfZonesTablesAndMenus(FoodBusinessDto foodBusinessDto,
+            CancellationToken cancellationToken)
         {
             var zonesIds = await _applicationDbContext.Zones
                 .Where(zone => zone.FoodBusinessId == foodBusinessDto.FoodBusinessId)
@@ -130,9 +131,9 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
                 .ConfigureAwait(false);
 
             var menusCount = await _applicationDbContext.Menus
-               .Where(menu => menu.FoodBusinessId == foodBusinessDto.FoodBusinessId)
-               .CountAsync(cancellationToken)
-               .ConfigureAwait(false);
+                .Where(menu => menu.FoodBusinessId == foodBusinessDto.FoodBusinessId)
+                .CountAsync(cancellationToken)
+                .ConfigureAwait(false);
 
             foodBusinessDto.zonesCount = zonesIds.Count;
             foodBusinessDto.tablesCount = tablesCount;

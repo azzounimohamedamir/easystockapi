@@ -54,7 +54,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             _context.FoodBusinesses.Remove(entity);
             await _context.SaveChangesAsync(cancellationToken);
 
-            throw new NoContentException();
+            return default;
         }
 
         public async Task<ValidationResult> Handle(UpdateFoodBusinessCommand request,
