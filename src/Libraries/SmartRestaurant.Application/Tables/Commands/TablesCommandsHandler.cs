@@ -7,14 +7,15 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.Tables.Commands
 {
     public class TablesCommandsHandler :
-        IRequestHandler<CreateTableCommand, ValidationResult>,
-        IRequestHandler<UpdateTableCommand, ValidationResult>,
-        IRequestHandler<DeleteTableCommand, ValidationResult>
+        IRequestHandler<CreateTableCommand, Created>,
+        IRequestHandler<UpdateTableCommand, NoContent>,
+        IRequestHandler<DeleteTableCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -25,11 +26,11 @@ namespace SmartRestaurant.Application.Tables.Commands
             _mapper = mapper;
         }
 
-        public async Task<ValidationResult> Handle(CreateTableCommand request, CancellationToken cancellationToken)
+        public async Task<Created> Handle(CreateTableCommand request, CancellationToken cancellationToken)
         {
             var validator = new CreateTableCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) return result;
+            if (!result.IsValid) throw new ValidationException(result); 
             var table = await _context.Tables
                 .FirstOrDefaultAsync(x => x.ZoneId == request.ZoneId && x.TableNumber == request.TableNumber,
                     cancellationToken)
@@ -42,29 +43,29 @@ namespace SmartRestaurant.Application.Tables.Commands
             return default;
         }
 
-        public async Task<ValidationResult> Handle(DeleteTableCommand request, CancellationToken cancellationToken)
+        public async Task<NoContent> Handle(DeleteTableCommand request, CancellationToken cancellationToken)
         {
             var validator = new DeleteTableCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) return result;
-            var table = await _context.Tables.FindAsync(request.CmdId).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result); 
+            var table = await _context.Tables.FindAsync(request.Id).ConfigureAwait(false);
             if (table == null)
-                throw new NotFoundException(nameof(Table), request.CmdId);
+                throw new NotFoundException(nameof(Table), request.Id);
             _context.Tables.Remove(table);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
 
-        public async Task<ValidationResult> Handle(UpdateTableCommand request, CancellationToken cancellationToken)
+        public async Task<NoContent> Handle(UpdateTableCommand request, CancellationToken cancellationToken)
         {
             var validator = new UpdateTableCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) return result;
+            if (!result.IsValid) throw new ValidationException(result); 
             var table = await _context.Tables.AsNoTracking()
-                .FirstOrDefaultAsync(t => t.TableId == request.CmdId, cancellationToken)
+                .FirstOrDefaultAsync(t => t.TableId == request.Id, cancellationToken)
                 .ConfigureAwait(false);
             if (table == null)
-                throw new NotFoundException(nameof(Table), request.CmdId);
+                throw new NotFoundException(nameof(Table), request.Id);
             var entity = _mapper.Map<Table>(request);
             _context.Tables.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

@@ -21,7 +21,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
 
             var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
-                CmdId = foodBusinessId,
+                Id = foodBusinessId,
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"
             };
@@ -29,7 +29,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
             var cmdId = Guid.NewGuid();
             await SendAsync(new CreateMenuCommand
             {
-                CmdId = cmdId,
+                Id = cmdId,
                 Name = "tacos Dz ",
                 MenuState = (int) MenuState.Enabled,
                 FoodBusinessId = foodBusinessId

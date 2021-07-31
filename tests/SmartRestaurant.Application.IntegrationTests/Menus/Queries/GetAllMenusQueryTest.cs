@@ -20,7 +20,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
             var foodBusinessId = Guid.NewGuid();
             var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
-                CmdId = foodBusinessId,
+                Id = foodBusinessId,
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"
             };

@@ -65,7 +65,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             {
                 FoodBusinessId = foodBusinessId,
                 ZoneTitle = "VIP Zone",
-                CmdId = zoneId
+                Id = zoneId
             });
         }
 
@@ -76,7 +76,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
                 Name = "TobeGotByID For Test",
                 AverageRating = 12,
                 HasCarParking = true,
-                CmdId = foodBusinessId,
+                Id = foodBusinessId,
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString()
             });
         }

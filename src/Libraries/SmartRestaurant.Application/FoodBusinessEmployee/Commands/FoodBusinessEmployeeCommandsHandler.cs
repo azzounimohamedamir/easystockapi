@@ -7,33 +7,31 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {
     public class FoodBusinessEmployeeCommandsHandler :
-        IRequestHandler<AddEmployeeInOrganizationCommand, ValidationResult>,
-        IRequestHandler<UpdateEmployeeRoleInOrganizationCommand, ValidationResult>,
-        IRequestHandler<RemoveEmployeeFromOrganizationCommand, ValidationResult>
+        IRequestHandler<AddEmployeeInOrganizationCommand, Ok>,
+        IRequestHandler<UpdateEmployeeRoleInOrganizationCommand, Ok>,
+        IRequestHandler<RemoveEmployeeFromOrganizationCommand, Ok>
     {
         private readonly IApplicationDbContext _context;
-        private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public FoodBusinessEmployeeCommandsHandler(IApplicationDbContext context, IMapper mapper,
-            UserManager<ApplicationUser> userManager)
+        public FoodBusinessEmployeeCommandsHandler(IApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
-            _mapper = mapper;
             _userManager = userManager;
         }
 
-        public async Task<ValidationResult> Handle(AddEmployeeInOrganizationCommand request,
+        public async Task<Ok> Handle(AddEmployeeInOrganizationCommand request,
             CancellationToken cancellationToken)
         {
             var validator = new AddEmployeeInOrganizationCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) return result;
+            if (!result.IsValid) throw new ValidationException(result); 
 
             var foodBusinessUser = _context.FoodBusinessUsers.First(b =>
                 b.FoodBusinessId == request.FoodBusinessId && b.ApplicationUserId == request.UserId.ToString());
@@ -59,12 +57,12 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             return default;
         }
 
-        public async Task<ValidationResult> Handle(RemoveEmployeeFromOrganizationCommand request,
+        public async Task<Ok> Handle(RemoveEmployeeFromOrganizationCommand request,
             CancellationToken cancellationToken)
         {
             var validator = new RemoveEmployeeFromInOrganizationCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) return result;
+            if (!result.IsValid) throw new ValidationException(result); 
 
             var foodBusiness = _context.FoodBusinessUsers.First(b =>
                 b.FoodBusinessId == request.FoodBusinessId && b.ApplicationUserId == request.UserId.ToString());
@@ -75,12 +73,12 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             return default;
         }
 
-        public async Task<ValidationResult> Handle(UpdateEmployeeRoleInOrganizationCommand request,
+        public async Task<Ok> Handle(UpdateEmployeeRoleInOrganizationCommand request,
             CancellationToken cancellationToken)
         {
             var validator = new UpdateEmployeeRoleInOrganizationCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) return result;
+            if (!result.IsValid) throw new ValidationException(result); 
 
             var foodBusinessUser = _context.FoodBusinessUsers.First(b =>
                 b.FoodBusinessId == request.FoodBusinessId && b.ApplicationUserId == request.UserId.ToString());

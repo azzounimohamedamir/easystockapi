@@ -1,11 +1,14 @@
 ﻿using System;
 using FluentValidation;
-using SmartRestaurant.Application.Common.Commands;
+using MediatR;
+using SmartRestaurant.Application.Common.WebResults;
+
 
 namespace SmartRestaurant.Application.Zones.Commands
 {
-    public class UpdateZoneCommand : SmartRestaurantCommand
+    public class UpdateZoneCommand : IRequest<NoContent>
     {
+        public Guid Id { get; set; }
         public string ZoneTitle { get; set; }
         public Guid FoodBusinessId { get; set; }
     }
@@ -16,7 +19,7 @@ namespace SmartRestaurant.Application.Zones.Commands
         {
             RuleFor(v => v.ZoneTitle).MaximumLength(200).NotEmpty();
             RuleFor(v => v.FoodBusinessId).NotNull().NotEmpty().NotEqual(Guid.Empty);
-            RuleFor(m => m.CmdId).NotNull().NotEmpty().NotEqual(Guid.Empty);
+            RuleFor(m => m.Id).NotNull().NotEmpty().NotEqual(Guid.Empty);
         }
     }
 }

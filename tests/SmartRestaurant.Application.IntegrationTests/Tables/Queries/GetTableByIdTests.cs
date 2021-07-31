@@ -23,7 +23,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Queries
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
+            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
             var createZoneCommand = new CreateZoneCommand
             {
                 FoodBusinessId = fastFood.FoodBusinessId,
@@ -33,8 +33,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Queries
             var tabledId = Guid.NewGuid();
             await SendAsync(new CreateTableCommand
             {
-                CmdId = tabledId,
-                ZoneId = createZoneCommand.CmdId,
+                Id = tabledId,
+                ZoneId = createZoneCommand.Id,
                 Capacity = 5,
                 TableNumber = 10,
                 TableState = 1

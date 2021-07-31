@@ -1,18 +1,21 @@
 ﻿using System;
 using FluentValidation;
-using SmartRestaurant.Application.Common.Commands;
+using MediatR;
+using SmartRestaurant.Application.Common.WebResults;
+
 
 namespace SmartRestaurant.Application.Menus.Commands
 {
-    public class DeleteMenuCommand : SmartRestaurantCommand
+    public class DeleteMenuCommand : IRequest<NoContent>
     {
+        public Guid Id { get; set; }
     }
 
     public class DeleteMenuCommandValidator : AbstractValidator<DeleteMenuCommand>
     {
         public DeleteMenuCommandValidator()
         {
-            RuleFor(v => v.CmdId).NotEmpty().NotNull().NotEqual(Guid.Empty);
+            RuleFor(v => v.Id).NotEmpty().NotNull().NotEqual(Guid.Empty);
         }
     }
 }

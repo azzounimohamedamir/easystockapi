@@ -1,12 +1,14 @@
 ﻿using System;
 using FluentValidation;
-using SmartRestaurant.Application.Common.Commands;
+using MediatR;
+using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.Tables.Commands
 {
-    public class CreateTableCommand : SmartRestaurantCommand
+    public class CreateTableCommand : IRequest<Created>
     {
+        public Guid Id { get; set; }
         public int TableNumber { get; set; }
         public Guid ZoneId { get; set; }
         public Zone Zone { get; set; }

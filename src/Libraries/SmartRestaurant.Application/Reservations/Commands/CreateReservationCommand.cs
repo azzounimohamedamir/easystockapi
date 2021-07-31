@@ -1,16 +1,19 @@
 ﻿using System;
 using FluentValidation;
-using SmartRestaurant.Application.Common.Commands;
+using MediatR;
+using SmartRestaurant.Application.Common.WebResults;
+
 
 namespace SmartRestaurant.Application.Reservations.Commands
 {
-    public class CreateReservationCommand : SmartRestaurantCommand
+    public class CreateReservationCommand : IRequest<Created>
     {
         public CreateReservationCommand()
         {
             CreatedAt = DateTime.Now;
         }
-
+        
+        public Guid Id { get; set; }
         public string ReservationName { get; set; }
         public int NumberOfDiners { get; set; }
         public DateTime ReservationDate { get; set; }

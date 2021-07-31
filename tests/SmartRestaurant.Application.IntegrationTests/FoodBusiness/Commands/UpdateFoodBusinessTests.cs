@@ -20,7 +20,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 Name = "Taj mahal",
                 AverageRating = 12,
                 HasCarParking = true,
-                CmdId = foodBusinessId,
+                Id = foodBusinessId,
                 FoodBusinessAdministratorId = "4"
             });
 
@@ -28,7 +28,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
             {
                 var updateFoodBusinessCommand = new UpdateFoodBusinessCommand
                 {
-                    CmdId = foodBusinessId,
+                    Id = foodBusinessId,
                     Name = "Taj mahal Updated test"
                 };
 
@@ -38,7 +38,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 validationResult.Should().Be(default(ValidationResult));
 
 
-                list.FoodBusinessId.Should().Be(updateFoodBusinessCommand.CmdId);
+                list.FoodBusinessId.Should().Be(updateFoodBusinessCommand.Id);
             });
         }
     }

@@ -23,7 +23,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Commands
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
+            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
             var createZoneCommand = new CreateZoneCommand
             {
                 FoodBusinessId = fastFood.FoodBusinessId,
@@ -31,12 +31,12 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Commands
             };
             var validationResult = await SendAsync(createZoneCommand);
 
-            var item = await FindAsync<Zone>(createZoneCommand.CmdId);
+            var item = await FindAsync<Zone>(createZoneCommand.Id);
             validationResult.Should().Be(default(ValidationResult));
             fastFood.Should().NotBeNull();
             item.Should().NotBeNull();
             item.FoodBusinessId.Should().Be(fastFood.FoodBusinessId);
-            item.ZoneId.Should().Be(createZoneCommand.CmdId);
+            item.ZoneId.Should().Be(createZoneCommand.Id);
             item.ZoneTitle.Should().Be(createZoneCommand.ZoneTitle);
         }
     }

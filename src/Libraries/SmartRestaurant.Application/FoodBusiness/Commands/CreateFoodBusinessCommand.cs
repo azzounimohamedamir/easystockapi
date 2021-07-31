@@ -1,13 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluentValidation;
-using SmartRestaurant.Application.Common.Commands;
+using MediatR;
+using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
+using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class CreateFoodBusinessCommand : SmartRestaurantCommand
+    public class CreateFoodBusinessCommand : IRequest<Created>
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }

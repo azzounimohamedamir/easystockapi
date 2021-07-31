@@ -26,12 +26,12 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
             var cmdId = Guid.NewGuid();
             await SendAsync(new CreateMenuCommand
             {
-                CmdId = cmdId,
+                Id = cmdId,
                 Name = "test menu1",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = createFoodBusinessCommand.CmdId
+                FoodBusinessId = createFoodBusinessCommand.Id
             });
-            await SendAsync(new DeleteMenuCommand {CmdId = cmdId});
+            await SendAsync(new DeleteMenuCommand {Id = cmdId});
             var item = await FindAsync<Menu>(cmdId);
             item.Should().BeNull();
         }

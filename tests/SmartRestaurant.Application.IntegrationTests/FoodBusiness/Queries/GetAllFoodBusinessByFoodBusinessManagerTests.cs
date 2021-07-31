@@ -24,7 +24,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
                 AverageRating = 12,
                 HasCarParking = true
             };
-            var tacosDz1FoodBusinessId = tacosDz1.CmdId;
+            var tacosDz1FoodBusinessId = tacosDz1.Id;
             await SendAsync(tacosDz1);
 
             var tacosDz2 = new CreateFoodBusinessCommand
@@ -34,7 +34,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
                 AverageRating = 10,
                 HasCarParking = false
             };
-            var tacosDz2FoodBusinessId = tacosDz2.CmdId;
+            var tacosDz2FoodBusinessId = tacosDz2.Id;
             await SendAsync(tacosDz2);
 
             var tacosDz3 = new CreateFoodBusinessCommand
@@ -44,7 +44,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
                 AverageRating = 10,
                 HasCarParking = false
             };
-            var tacosDz3FoodBusinessId = tacosDz3.CmdId;
+            var tacosDz3FoodBusinessId = tacosDz3.Id;
             await SendAsync(tacosDz3);
 
             var BigMamaFoodBusinessAdministratorId = Guid.NewGuid().ToString();
@@ -55,7 +55,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
                 AverageRating = 10,
                 HasCarParking = false
             };
-            var bigMamaFoodBusinessId = bigMama.CmdId;
+            var bigMamaFoodBusinessId = bigMama.Id;
             await SendAsync(bigMama);
 
 

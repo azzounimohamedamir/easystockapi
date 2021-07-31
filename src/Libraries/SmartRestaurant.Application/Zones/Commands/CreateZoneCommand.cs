@@ -1,11 +1,14 @@
 ﻿using System;
 using FluentValidation;
-using SmartRestaurant.Application.Common.Commands;
+using MediatR;
+using SmartRestaurant.Application.Common.WebResults;
+
 
 namespace SmartRestaurant.Application.Zones.Commands
 {
-    public class CreateZoneCommand : SmartRestaurantCommand
+    public class CreateZoneCommand : IRequest<Created>
     {
+        public Guid Id { get; set; }
         public string ZoneTitle { get; set; }
         public Guid FoodBusinessId { get; set; }
     }

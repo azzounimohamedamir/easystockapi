@@ -28,26 +28,26 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections
             var menuCmdId = Guid.NewGuid();
             await SendAsync(new CreateMenuCommand
             {
-                CmdId = menuCmdId,
+                Id = menuCmdId,
                 Name = "test menu",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = createFoodBusinessCommand.CmdId
+                FoodBusinessId = createFoodBusinessCommand.Id
             });
             var sectionCmdId = Guid.NewGuid();
             await SendAsync(new CreateSectionCommand
             {
-                CmdId = sectionCmdId,
+                Id = sectionCmdId,
                 MenuId = menuCmdId,
                 Name = "section test menu"
             });
             var subSectionCmdId = Guid.NewGuid();
             await SendAsync(new CreateSubSectionCommand
             {
-                CmdId = subSectionCmdId,
+                Id = subSectionCmdId,
                 SectionId = sectionCmdId,
                 Name = "section test menu"
             });
-            await SendAsync(new DeleteSubSectionCommand {CmdId = subSectionCmdId});
+            await SendAsync(new DeleteSubSectionCommand {Id = subSectionCmdId});
             var item = await FindAsync<SubSection>(subSectionCmdId);
             item.Should().BeNull();
         }

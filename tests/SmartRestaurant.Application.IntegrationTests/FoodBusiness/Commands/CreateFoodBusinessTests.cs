@@ -52,10 +52,10 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
 
             var validationResult = await SendAsync(createFoodBusinessCommand);
 
-            var item = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
+            var item = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
             validationResult.Should().Be(default(ValidationResult));
             item.Should().NotBeNull();
-            item.FoodBusinessId.Should().Be(createFoodBusinessCommand.CmdId);
+            item.FoodBusinessId.Should().Be(createFoodBusinessCommand.Id);
             item.Name.Should().BeEquivalentTo(createFoodBusinessCommand.Name);
             item.Address.Should().BeEquivalentTo(createFoodBusinessCommand.Address);
         }

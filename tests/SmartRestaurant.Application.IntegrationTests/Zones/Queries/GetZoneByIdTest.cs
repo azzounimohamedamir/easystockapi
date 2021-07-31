@@ -25,9 +25,9 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Queries
             var zoneId = Guid.NewGuid();
             await SendAsync(new CreateZoneCommand
             {
-                FoodBusinessId = createFoodBusinessCommand.CmdId,
+                FoodBusinessId = createFoodBusinessCommand.Id,
                 ZoneTitle = name,
-                CmdId = zoneId
+                Id = zoneId
             });
             var item = await SendAsync(new GetZoneByIdQuery {ZoneId = zoneId});
             item.Should().NotBeNull();

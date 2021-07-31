@@ -27,10 +27,10 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
             var cmdId = Guid.NewGuid();
             await SendAsync(new CreateMenuCommand
             {
-                CmdId = cmdId,
+                Id = cmdId,
                 Name = "test menu",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = createFoodBusinessCommand.CmdId
+                FoodBusinessId = createFoodBusinessCommand.Id
             });
             for (var i = 0; i < 5; i++)
                 await SendAsync(new CreateSectionCommand

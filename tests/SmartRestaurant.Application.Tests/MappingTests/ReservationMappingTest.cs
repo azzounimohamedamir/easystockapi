@@ -36,7 +36,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.True(validationResult.IsValid);
 
             var reservation = _mapper.Map<Reservation>(createReservationCommand);
-            Assert.Equal(reservation.ReservationId, createReservationCommand.CmdId);
+            Assert.Equal(reservation.ReservationId, createReservationCommand.Id);
             Assert.Equal(reservation.ReservationName, createReservationCommand.ReservationName);
             Assert.Equal(reservation.NumberOfDiners, createReservationCommand.NumberOfDiners);
             Assert.Equal(reservation.ReservationDate, createReservationCommand.ReservationDate);
@@ -67,7 +67,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 ReservationName = "Aissa",
                 NumberOfDiners = 3,
                 ReservationDate = DateTime.Now.AddDays(2),
-                CmdId = reservationId,
+                Id = reservationId,
                 LastModifiedBy = Guid.NewGuid().ToString()
             };
 
@@ -79,7 +79,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(reservation.ReservationName, updateReservationCommand.ReservationName);
             Assert.Equal(reservation.NumberOfDiners, updateReservationCommand.NumberOfDiners);
             Assert.Equal(reservation.ReservationDate, updateReservationCommand.ReservationDate);
-            Assert.Equal(reservation.ReservationId, updateReservationCommand.CmdId);
+            Assert.Equal(reservation.ReservationId, updateReservationCommand.Id);
             Assert.Equal(reservation.FoodBusinessId, foodBusinessId);
             Assert.Equal(reservation.CreatedBy, createdBy);
             Assert.Equal(reservation.CreatedAt, createdAt);

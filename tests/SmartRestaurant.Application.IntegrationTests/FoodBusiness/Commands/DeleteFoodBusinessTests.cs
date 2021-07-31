@@ -17,17 +17,17 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
             var createCommand = new CreateFoodBusinessCommand
             {
                 Name = "Taj mahal",
-                CmdId = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 FoodBusinessAdministratorId = "4"
             };
             await SendAsync(createCommand);
 
             await SendAsync(new DeleteFoodBusinessCommand
             {
-                CmdId = createCommand.CmdId
+                Id = createCommand.Id
             });
 
-            var foodBusiness = await FindAsync<Domain.Entities.FoodBusiness>(createCommand.CmdId);
+            var foodBusiness = await FindAsync<Domain.Entities.FoodBusiness>(createCommand.Id);
             foodBusiness.Should().BeNull();
         }
     }

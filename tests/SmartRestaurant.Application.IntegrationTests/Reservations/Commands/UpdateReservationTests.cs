@@ -23,7 +23,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
+            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
 
             var createReservationCommand = new CreateReservationCommand
             {
@@ -34,7 +34,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
                 CreatedBy = Guid.NewGuid().ToString()
             };
             await SendAsync(createReservationCommand);
-            var reservation = await FindAsync<Reservation>(createReservationCommand.CmdId);
+            var reservation = await FindAsync<Reservation>(createReservationCommand.Id);
 
 
             var updateReservationCommand = new UpdateReservationCommand
@@ -42,14 +42,14 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
                 ReservationName = "bilal",
                 NumberOfDiners = 5,
                 ReservationDate = DateTime.Now.AddDays(5),
-                CmdId = reservation.ReservationId,
+                Id = reservation.ReservationId,
                 LastModifiedBy = Guid.NewGuid().ToString()
             };
             var validationResult = await SendAsync(updateReservationCommand);
-            var updatedReservation = await FindAsync<Reservation>(updateReservationCommand.CmdId);
+            var updatedReservation = await FindAsync<Reservation>(updateReservationCommand.Id);
             validationResult.Should().Be(default(ValidationResult));
             updatedReservation.Should().NotBeNull();
-            updatedReservation.ReservationId.Should().Be(updateReservationCommand.CmdId);
+            updatedReservation.ReservationId.Should().Be(updateReservationCommand.Id);
             updatedReservation.ReservationName.Should().BeEquivalentTo(updateReservationCommand.ReservationName);
             updatedReservation.NumberOfDiners.Should().Be(updateReservationCommand.NumberOfDiners);
             updatedReservation.ReservationDate.Should().Be(updateReservationCommand.ReservationDate);

@@ -27,10 +27,10 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
             var cmdId = Guid.NewGuid();
             var validationResult = await SendAsync(new CreateMenuCommand
             {
-                CmdId = cmdId,
+                Id = cmdId,
                 Name = "test menu",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = createFoodBusinessCommand.CmdId
+                FoodBusinessId = createFoodBusinessCommand.Id
             });
             var item = await FindAsync<Menu>(cmdId);
             validationResult.Should().Be(default(ValidationResult));
@@ -53,16 +53,16 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
             {
                 Name = "test menu1",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = createFoodBusinessCommand.CmdId
+                FoodBusinessId = createFoodBusinessCommand.Id
             });
             await SendAsync(new CreateMenuCommand
             {
                 Name = "test menu2",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = createFoodBusinessCommand.CmdId
+                FoodBusinessId = createFoodBusinessCommand.Id
             });
             var items = Where<Menu>(menu =>
-                menu.MenuState == MenuState.Enabled && menu.FoodBusinessId == createFoodBusinessCommand.CmdId);
+                menu.MenuState == MenuState.Enabled && menu.FoodBusinessId == createFoodBusinessCommand.Id);
 
             items.Count.Should().Be(1);
         }
