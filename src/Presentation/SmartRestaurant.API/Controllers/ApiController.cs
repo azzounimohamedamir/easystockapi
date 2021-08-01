@@ -42,6 +42,7 @@ namespace SmartRestaurant.API.Controllers
             try
             {
                 var result = await Mediator.Send(request);
+                if (result == null) return Ok();
                 if (result.GetType() != typeof(ValidationResult)) return Ok(result);
                 var errors = ExtractValidationErrors(result);
                 return BadRequest(new Dictionary<string, string[]>
@@ -55,7 +56,7 @@ namespace SmartRestaurant.API.Controllers
                     if (exception is BaseException result)
                         return StatusCode(result.StatusCode, result.Message);
 
-                return StatusCode(500);
+                return StatusCode(500, exception.Message);
             }
         }
 
