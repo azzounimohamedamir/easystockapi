@@ -21,21 +21,21 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
         IRequestHandler<GetAllFoodBusinessByFoodBusinessManagerQuery, List<FoodBusinessDto>>
     {
         private readonly IApplicationDbContext _applicationDbContext;
-        private readonly IUserService _iuserService;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
         public FoodBusinessQueriesHandler(IApplicationDbContext applicationDbContext, IMapper mapper,
-            IUserService iuserService)
+            IUserService userService)
         {
             _applicationDbContext = applicationDbContext;
-            _iuserService = iuserService;
+            _userService = userService;
             _mapper = mapper;
         }
 
         public async Task<List<FoodBusinessDto>> Handle(GetAllFoodBusinessByFoodBusinessManagerQuery request,
             CancellationToken cancellationToken)
         {
-            var foodBusinessManagerUserId = _iuserService.GetUserId();
+            var foodBusinessManagerUserId = _userService.GetUserId();
 
             if (foodBusinessManagerUserId == string.Empty || string.IsNullOrWhiteSpace(foodBusinessManagerUserId))
                 throw new InvalidOperationException("FoodBusinessManager UserId shouldn't be null or  empty");
@@ -107,12 +107,14 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
         private async Task GetFoodBusinessImagesAsync(FoodBusinessDto foodBusinessDto,
             CancellationToken cancellationToken)
         {
+            /*
             var images = await _applicationDbContext.FoodBusinessImages
                 .Where(x => x.EntityId == foodBusinessDto.FoodBusinessId)
-                .Select(x => x.ImageBytes).ToListAsync(cancellationToken).ConfigureAwait(false);
+                .Select(x => x.ImageBytes).ToListAsync(cancellationToken);
 
             if (images.Any())
                 foodBusinessDto.Images.AddRange(images.Select(Convert.ToBase64String));
+                */
         }
 
         private async Task GetCountOfZonesTablesAndMenus(FoodBusinessDto foodBusinessDto,
