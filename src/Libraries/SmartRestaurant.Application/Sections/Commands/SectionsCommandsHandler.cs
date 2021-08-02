@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
@@ -29,7 +28,7 @@ namespace SmartRestaurant.Application.Sections.Commands
         {
             var validator = new CreateSectionCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var section = _mapper.Map<Section>(request);
             _context.Sections.Add(section);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -40,7 +39,7 @@ namespace SmartRestaurant.Application.Sections.Commands
         {
             var validator = new DeleteSectionCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var section = await _context.Sections.FindAsync(request.Id).ConfigureAwait(false);
             if (section == null)
                 throw new NotFoundException(nameof(Section), request.Id);
@@ -53,7 +52,7 @@ namespace SmartRestaurant.Application.Sections.Commands
         {
             var validator = new UpdateSectionCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var section = await _context.Sections.AsNoTracking()
                 .FirstOrDefaultAsync(s => s.SectionId == request.Id, cancellationToken)
                 .ConfigureAwait(false);

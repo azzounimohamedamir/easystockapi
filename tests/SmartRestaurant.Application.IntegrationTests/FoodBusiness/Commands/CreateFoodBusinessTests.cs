@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.FoodBusiness.Commands;
@@ -50,10 +49,10 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
             };
 
 
-            var validationResult = await SendAsync(createFoodBusinessCommand);
+            await SendAsync(createFoodBusinessCommand);
 
             var item = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
-            validationResult.Should().Be(default(ValidationResult));
+
             item.Should().NotBeNull();
             item.FoodBusinessId.Should().Be(createFoodBusinessCommand.Id);
             item.Name.Should().BeEquivalentTo(createFoodBusinessCommand.Name);

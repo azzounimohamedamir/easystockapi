@@ -1,14 +1,11 @@
 ﻿using System;
 using FluentValidation;
-using MediatR;
-using SmartRestaurant.Application.Common.WebResults;
-
+using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.Sections.Commands
 {
-    public class CreateSectionCommand : IRequest<Created>
+    public class CreateSectionCommand : CreateCommand
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public Guid MenuId { get; set; }
     }

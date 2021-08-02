@@ -3,7 +3,6 @@ using FluentValidation;
 using MediatR;
 using SmartRestaurant.Application.Common.WebResults;
 
-
 namespace SmartRestaurant.Application.Sections.Commands
 {
     public class DeleteSectionCommand : IRequest<NoContent>

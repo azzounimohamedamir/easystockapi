@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
@@ -32,7 +31,7 @@ namespace SmartRestaurant.Application.Menus.Commands
         {
             var validator = new CreateMenuCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             await UpdateMenuStateAsync(request.MenuState, request.FoodBusinessId, request.Id, cancellationToken)
                 .ConfigureAwait(false);
             var menu = _mapper.Map<Menu>(request);
@@ -45,7 +44,7 @@ namespace SmartRestaurant.Application.Menus.Commands
         {
             var validator = new DeleteMenuCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
 
             var menu = await _context.Menus.FindAsync(request.Id).ConfigureAwait(false);
             if (menu == null)
@@ -59,7 +58,7 @@ namespace SmartRestaurant.Application.Menus.Commands
         {
             var validator = new UpdateMenuCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var menu = await _context.Menus.AsNoTracking()
                 .FirstOrDefaultAsync(m => m.MenuId == request.Id, cancellationToken)
                 .ConfigureAwait(false);

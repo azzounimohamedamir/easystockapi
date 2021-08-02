@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
-using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 
@@ -14,28 +12,27 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
         [Test]
         public async Task ShouldUpdateFoodBusiness()
         {
-            var foodBusinessId = Guid.NewGuid();
-            await SendAsync(new CreateFoodBusinessCommand
+            var foodBusinessCommand = new CreateFoodBusinessCommand
             {
                 Name = "Taj mahal",
                 AverageRating = 12,
                 HasCarParking = true,
-                Id = foodBusinessId,
                 FoodBusinessAdministratorId = "4"
-            });
+            };
+
+            await SendAsync(foodBusinessCommand);
 
             await Task.Delay(0).ContinueWith(async t =>
             {
                 var updateFoodBusinessCommand = new UpdateFoodBusinessCommand
                 {
-                    Id = foodBusinessId,
+                    Id = foodBusinessCommand.Id,
                     Name = "Taj mahal Updated test"
                 };
 
-                var validationResult = await SendAsync(updateFoodBusinessCommand);
+                await SendAsync(updateFoodBusinessCommand);
 
-                var list = await FindAsync<Domain.Entities.FoodBusiness>(foodBusinessId);
-                validationResult.Should().Be(default(ValidationResult));
+                var list = await FindAsync<Domain.Entities.FoodBusiness>(foodBusinessCommand.Id);
 
 
                 list.FoodBusinessId.Should().Be(updateFoodBusinessCommand.Id);

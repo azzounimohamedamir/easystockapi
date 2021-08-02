@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
@@ -31,7 +30,7 @@ namespace SmartRestaurant.Application.Zones.Commands
         {
             var validator = new CreateZoneCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             //check if foodbusiness id exist in  db
             var foodBusiness = await _context.FoodBusinesses
                 .Where(x => x.FoodBusinessId == request.FoodBusinessId)
@@ -60,7 +59,7 @@ namespace SmartRestaurant.Application.Zones.Commands
         {
             var validator = new DeleteZoneCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var entity = await _context.Zones.FindAsync(request.Id).ConfigureAwait(false);
             if (entity == null)
                 throw new NotFoundException(nameof(Zone), request.Id);
@@ -73,7 +72,7 @@ namespace SmartRestaurant.Application.Zones.Commands
         {
             var validator = new UpdateZoneCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var zone = await _context.Zones.AsNoTracking()
                 .FirstOrDefaultAsync(z => z.ZoneId == request.Id, cancellationToken)
                 .ConfigureAwait(false);

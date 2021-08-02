@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
@@ -45,9 +44,9 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
                 Id = reservation.ReservationId,
                 LastModifiedBy = Guid.NewGuid().ToString()
             };
-            var validationResult = await SendAsync(updateReservationCommand);
+            await SendAsync(updateReservationCommand);
             var updatedReservation = await FindAsync<Reservation>(updateReservationCommand.Id);
-            validationResult.Should().Be(default(ValidationResult));
+
             updatedReservation.Should().NotBeNull();
             updatedReservation.ReservationId.Should().Be(updateReservationCommand.Id);
             updatedReservation.ReservationName.Should().BeEquivalentTo(updateReservationCommand.ReservationName);

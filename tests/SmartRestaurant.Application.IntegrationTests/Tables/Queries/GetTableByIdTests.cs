@@ -30,22 +30,21 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Queries
                 ZoneTitle = "zone 45"
             };
             await SendAsync(createZoneCommand);
-            var tabledId = Guid.NewGuid();
-            await SendAsync(new CreateTableCommand
+            var createTableCommand = new CreateTableCommand
             {
-                Id = tabledId,
                 ZoneId = createZoneCommand.Id,
                 Capacity = 5,
                 TableNumber = 10,
                 TableState = 1
-            });
-            var query = new GetTableByIdQuery {TableId = tabledId};
+            };
+            await SendAsync(createTableCommand);
+            var query = new GetTableByIdQuery {TableId = createTableCommand.Id};
 
             var result = await SendAsync(query);
             result.Should().NotBeNull();
             result.Capacity.Should().Be(5);
             result.TableState.Should().Be(TableState.Occupied);
-            result.TableId.Should().Be(tabledId);
+            result.TableId.Should().Be(createTableCommand.Id);
         }
     }
 }

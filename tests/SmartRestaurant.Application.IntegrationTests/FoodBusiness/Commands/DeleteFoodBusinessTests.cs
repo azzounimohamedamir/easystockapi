@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
@@ -17,7 +16,6 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
             var createCommand = new CreateFoodBusinessCommand
             {
                 Name = "Taj mahal",
-                Id = Guid.NewGuid(),
                 FoodBusinessAdministratorId = "4"
             };
             await SendAsync(createCommand);

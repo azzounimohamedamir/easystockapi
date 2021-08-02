@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
@@ -30,7 +29,7 @@ namespace SmartRestaurant.Application.Reservations.Commands
         {
             var validator = new CreateReservationCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var reservation = _mapper.Map<Reservation>(request);
             _context.Reservations.Add(reservation);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -42,7 +41,7 @@ namespace SmartRestaurant.Application.Reservations.Commands
         {
             var validator = new DeleteReservationCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var reservation = await _context.Reservations.FindAsync(request.Id).ConfigureAwait(false);
             if (reservation == null)
                 throw new NotFoundException(nameof(Reservation), request.Id);
@@ -56,7 +55,7 @@ namespace SmartRestaurant.Application.Reservations.Commands
         {
             var validator = new UpdateReservationCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var reservation = await _context.Reservations.AsNoTracking()
                 .FirstOrDefaultAsync(r => r.ReservationId == request.Id, cancellationToken)
                 .ConfigureAwait(false);

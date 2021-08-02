@@ -24,21 +24,20 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var cmdId = Guid.NewGuid();
-            await SendAsync(new CreateMenuCommand
+            var createMenuCommand = new CreateMenuCommand
             {
-                Id = cmdId,
                 Name = "test menu",
                 MenuState = (int) MenuState.Enabled,
                 FoodBusinessId = createFoodBusinessCommand.Id
-            });
+            };
+            await SendAsync(createMenuCommand);
             for (var i = 0; i < 5; i++)
                 await SendAsync(new CreateSectionCommand
                 {
                     Name = "section test " + i,
-                    MenuId = cmdId
+                    MenuId = createMenuCommand.Id
                 }).ConfigureAwait(false);
-            var query = new GetSectionsListQuery {MenuId = cmdId, Page = 1, PageSize = 5};
+            var query = new GetSectionsListQuery {MenuId = createMenuCommand.Id, Page = 1, PageSize = 5};
             var result = await SendAsync(query);
 
             result.Data.Should().HaveCount(5);

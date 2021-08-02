@@ -1,8 +1,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using SmartRestaurant.Application.Common.Exceptions;
@@ -20,7 +18,8 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         private readonly IApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public FoodBusinessEmployeeCommandsHandler(IApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public FoodBusinessEmployeeCommandsHandler(IApplicationDbContext context,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -31,7 +30,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         {
             var validator = new AddEmployeeInOrganizationCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
 
             var foodBusinessUser = _context.FoodBusinessUsers.First(b =>
                 b.FoodBusinessId == request.FoodBusinessId && b.ApplicationUserId == request.UserId.ToString());
@@ -62,7 +61,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         {
             var validator = new RemoveEmployeeFromInOrganizationCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
 
             var foodBusiness = _context.FoodBusinessUsers.First(b =>
                 b.FoodBusinessId == request.FoodBusinessId && b.ApplicationUserId == request.UserId.ToString());
@@ -78,7 +77,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         {
             var validator = new UpdateEmployeeRoleInOrganizationCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
 
             var foodBusinessUser = _context.FoodBusinessUsers.First(b =>
                 b.FoodBusinessId == request.FoodBusinessId && b.ApplicationUserId == request.UserId.ToString());

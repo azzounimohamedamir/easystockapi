@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using SmartRestaurant.Application.Common.Exceptions;
@@ -33,7 +32,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         {
             var validator = new CreateFoodBusinessCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var entity = _mapper.Map<Domain.Entities.FoodBusiness>(request);
             _context.FoodBusinesses.Add(entity);
             await _context.SaveChangesAsync(cancellationToken);
@@ -45,7 +44,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         {
             var validator = new DeleteFoodBusinessCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
 
             var entity = await _context.FoodBusinesses.FindAsync(request.Id).ConfigureAwait(false);
 
@@ -68,7 +67,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
 
             var validator = new UpdateFoodBusinessCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             entity = _mapper.Map<Domain.Entities.FoodBusiness>(request);
             _context.FoodBusinesses.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

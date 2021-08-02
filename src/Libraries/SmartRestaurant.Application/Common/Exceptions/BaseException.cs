@@ -11,7 +11,7 @@ namespace SmartRestaurant.Application.Common.Exceptions
             StatusCode = statusCode;
             Errors = new List<string>();
         }
-        
+
         public int StatusCode { get; set; }
         public List<string> Errors { get; set; }
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Tables.Commands;
@@ -39,9 +38,9 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Commands
                 ZoneId = zone.ZoneId,
                 TableState = 0
             };
-            var validationResult = await SendAsync(createTableCommand);
+            await SendAsync(createTableCommand);
             var item = await FindAsync<Table>(createTableCommand.Id);
-            validationResult.Should().Be(default(ValidationResult));
+
             item.Should().NotBeNull();
             item.ZoneId.Should().Be(createZoneCommand.Id);
             item.Capacity.Should().Be(4);

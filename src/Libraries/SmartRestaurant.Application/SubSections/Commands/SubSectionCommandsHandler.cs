@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
@@ -29,7 +28,7 @@ namespace SmartRestaurant.Application.SubSections.Commands
         {
             var validator = new CreateSubSectionCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var subSection = _mapper.Map<SubSection>(request);
             _context.SubSections.Add(subSection);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -40,7 +39,7 @@ namespace SmartRestaurant.Application.SubSections.Commands
         {
             var validator = new DeleteSubSectionCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var subSection = await _context.SubSections.FindAsync(request.Id).ConfigureAwait(false);
             if (subSection == null)
                 throw new NotFoundException(nameof(subSection), request.Id);
@@ -53,7 +52,7 @@ namespace SmartRestaurant.Application.SubSections.Commands
         {
             var validator = new UpdateSubSectionCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var subSection = await _context.SubSections.AsNoTracking()
                 .FirstOrDefaultAsync(s => s.SubSectionId == request.Id, cancellationToken)
                 .ConfigureAwait(false);

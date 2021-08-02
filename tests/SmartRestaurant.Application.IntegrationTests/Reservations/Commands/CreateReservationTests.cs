@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
@@ -34,9 +33,9 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
                 FoodBusinessId = fastFood.FoodBusinessId,
                 CreatedBy = Guid.NewGuid().ToString()
             };
-            var validationResult = await SendAsync(createReservationCommand);
+            await SendAsync(createReservationCommand);
             var createdReservation = await FindAsync<Reservation>(createReservationCommand.Id);
-            validationResult.Should().Be(default(ValidationResult));
+
             createdReservation.Should().NotBeNull();
             createdReservation.ReservationId.Should().Be(createReservationCommand.Id);
             createdReservation.ReservationName.Should().BeEquivalentTo(createReservationCommand.ReservationName);

@@ -1,14 +1,11 @@
 ﻿using System;
 using FluentValidation;
-using MediatR;
-using SmartRestaurant.Application.Common.WebResults;
-
+using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.Menus.Commands
 {
-    public class UpdateMenuCommand : IRequest<NoContent>
+    public class UpdateMenuCommand : UpdateCommand
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public int MenuState { get; set; }
         public Guid FoodBusinessId { get; set; }

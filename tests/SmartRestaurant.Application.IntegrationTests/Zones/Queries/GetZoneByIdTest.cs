@@ -22,14 +22,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Queries
             };
             await SendAsync(createFoodBusinessCommand);
             var name = "zone " + Guid.NewGuid();
-            var zoneId = Guid.NewGuid();
-            await SendAsync(new CreateZoneCommand
+            var createZoneCommand = new CreateZoneCommand
             {
                 FoodBusinessId = createFoodBusinessCommand.Id,
-                ZoneTitle = name,
-                Id = zoneId
-            });
-            var item = await SendAsync(new GetZoneByIdQuery {ZoneId = zoneId});
+                ZoneTitle = name
+            };
+            await SendAsync(createZoneCommand);
+            var item = await SendAsync(new GetZoneByIdQuery {ZoneId = createZoneCommand.Id});
             item.Should().NotBeNull();
             item.ZoneTitle.Should().Be(name);
         }

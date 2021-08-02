@@ -51,8 +51,7 @@ namespace SmartRestaurant.API.Controllers
                     if (exception is BaseException result)
                         return StatusCode(result.StatusCode, new
                         {
-                            Message = result.Message,
-                            Errors = result.Errors
+                            result.Message, result.Errors
                         });
 
                 return StatusCode(500, exception.Message);
@@ -69,7 +68,7 @@ namespace SmartRestaurant.API.Controllers
                 {"ErrorMessages", errors.ToArray()}
             });
         }
-        
+
         protected Task SendEmailConfirmation(ApplicationUser user, string code)
         {
             var url = $"{Request.Scheme}://{Request.Host.Value}.{Request.PathBase}";

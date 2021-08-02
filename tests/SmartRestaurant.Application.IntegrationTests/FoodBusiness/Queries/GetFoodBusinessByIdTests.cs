@@ -17,19 +17,31 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
         [Test]
         public async Task ShouldReturnFoodBusiness()
         {
-            var foodBusinessId = Guid.NewGuid();
-            await CreateFoodBusiness(foodBusinessId);
+            var createFoodBusinessCommand = new CreateFoodBusinessCommand
+            {
+                Name = "TobeGotByID For Test",
+                AverageRating = 12,
+                HasCarParking = true,
+                FoodBusinessAdministratorId = Guid.NewGuid().ToString()
+            };
 
-            var zoneId = Guid.NewGuid();
-            await CreateZone(foodBusinessId, zoneId);
+            await SendAsync(createFoodBusinessCommand);
 
-            await CreateTables(zoneId);
+            var createZoneCommand = new CreateZoneCommand
+            {
+                FoodBusinessId = createFoodBusinessCommand.Id,
+                ZoneTitle = "VIP Zone"
+            };
 
-            await CreateMenu(foodBusinessId);
+            await SendAsync(createZoneCommand);
+
+            await CreateTables(createZoneCommand.Id);
+
+            await CreateMenu(createFoodBusinessCommand.Id);
 
             var query = new GetFoodBusinessByIdQuery
             {
-                FoodBusinessId = foodBusinessId
+                FoodBusinessId = createFoodBusinessCommand.Id
             };
 
             var result = await SendAsync(query);
@@ -56,28 +68,6 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
                 ZoneId = zoneId,
                 TableNumber = 3,
                 Capacity = 4
-            });
-        }
-
-        private static async Task CreateZone(Guid foodBusinessId, Guid zoneId)
-        {
-            await SendAsync(new CreateZoneCommand
-            {
-                FoodBusinessId = foodBusinessId,
-                ZoneTitle = "VIP Zone",
-                Id = zoneId
-            });
-        }
-
-        private static async Task CreateFoodBusiness(Guid foodBusinessId)
-        {
-            await SendAsync(new CreateFoodBusinessCommand
-            {
-                Name = "TobeGotByID For Test",
-                AverageRating = 12,
-                HasCarParking = true,
-                Id = foodBusinessId,
-                FoodBusinessAdministratorId = Guid.NewGuid().ToString()
             });
         }
     }

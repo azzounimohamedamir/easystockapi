@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using FluentValidation.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
@@ -30,7 +29,7 @@ namespace SmartRestaurant.Application.Tables.Commands
         {
             var validator = new CreateTableCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var table = await _context.Tables
                 .FirstOrDefaultAsync(x => x.ZoneId == request.ZoneId && x.TableNumber == request.TableNumber,
                     cancellationToken)
@@ -47,7 +46,7 @@ namespace SmartRestaurant.Application.Tables.Commands
         {
             var validator = new DeleteTableCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var table = await _context.Tables.FindAsync(request.Id).ConfigureAwait(false);
             if (table == null)
                 throw new NotFoundException(nameof(Table), request.Id);
@@ -60,7 +59,7 @@ namespace SmartRestaurant.Application.Tables.Commands
         {
             var validator = new UpdateTableCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result); 
+            if (!result.IsValid) throw new ValidationException(result);
             var table = await _context.Tables.AsNoTracking()
                 .FirstOrDefaultAsync(t => t.TableId == request.Id, cancellationToken)
                 .ConfigureAwait(false);
