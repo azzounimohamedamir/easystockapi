@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
+using SmartRestaurant.Application.DeviceID.Commands;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Images.Commands;
 using SmartRestaurant.Application.Menus.Commands;
@@ -79,6 +80,9 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ReverseMap();
             CreateMap<Reservation, ReservationClientDto>()
                 .ForMember(x => x.FoodBusinessName, o => o.MapFrom(p => p.FoodBusiness.Name));
+            CreateMap<CreateDeviceIDCommand,Domain.Entities.DeviceID > ()
+               .ForMember(x => x.DeviceIDId, o => o.MapFrom(p => p.CmdId));
+
         }
     }
 }
