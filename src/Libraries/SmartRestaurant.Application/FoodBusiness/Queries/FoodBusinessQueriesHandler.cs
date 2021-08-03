@@ -21,8 +21,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
         IRequestHandler<GetAllFoodBusinessByFoodBusinessManagerQuery, List<FoodBusinessDto>>
     {
         private readonly IApplicationDbContext _applicationDbContext;
-        private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
         public FoodBusinessQueriesHandler(IApplicationDbContext applicationDbContext, IMapper mapper,
             IUserService userService)

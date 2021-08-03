@@ -156,7 +156,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     EmailConfirmed = true
                 },
 
-            #region Create FoodBusinessAdministrator users
+                #region Create FoodBusinessAdministrator users
 
                 new ApplicationUser
                 {
@@ -195,9 +195,9 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     EmailConfirmed = true
                 },
 
-            #endregion
+                #endregion
 
-            #region Create FoodBusinessManager users
+                #region Create FoodBusinessManager users
 
                 new ApplicationUser
                 {
@@ -235,9 +235,10 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                         "AQAAAAEAACcQAAAAEO+ouwzSOa+AsCNZrVEhO6Su9q/fX/Q9c9havEvhs5QtXWA6tRdfmqOlemUQphqDnA==",
                     EmailConfirmed = true
                 },
-            #endregion
 
-            #region Create Diner users
+                #endregion
+
+                #region Create Diner users
 
                 new ApplicationUser
                 {
@@ -308,7 +309,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     RoleId = "5"
                 },
 
-            #endregion
+                #endregion
 
                 #region Assign the role FoodBusinessManager to users accounts
 
@@ -328,9 +329,9 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     RoleId = "6"
                 },
 
-            #endregion
+                #endregion
 
-            #region Assign the role Diner to users accounts
+                #region Assign the role Diner to users accounts
 
                 new IdentityUserRole<string>
                 {

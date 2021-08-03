@@ -1,13 +1,11 @@
 ﻿using System;
 using FluentValidation;
-using MediatR;
-using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.Sections.Commands
 {
-    public class DeleteSectionCommand : IRequest<NoContent>
+    public class DeleteSectionCommand : DeleteCommand
     {
-        public Guid Id { get; set; }
     }
 
     public class DeleteSectionCommandValidator : AbstractValidator<DeleteSectionCommand>

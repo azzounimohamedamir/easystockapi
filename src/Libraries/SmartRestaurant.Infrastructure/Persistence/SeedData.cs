@@ -49,7 +49,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public const string BigMama_SandwichesMenu_Id = "e2289d77-b8e1-4476-bf66-e64f1a23d752";
         public const string BigMama_BeverageMenu_Id = "8f8c0139-1f90-40f3-ab88-5db2de45ff2e";
         public const string BigMama_DessertMenu_Id = "45051fc7-6983-44a5-9c12-66116c4533bf";
-        
+
         public static void Seed(this ModelBuilder modelBuilder)
         {
             #region Create a FoodBusinesses
@@ -65,7 +65,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     AcceptsCreditCards = true,
                     AcceptTakeout = true,
                     AverageRating = 4,
-                    Description = "Envie de découvrir la cuisine indienne, le restaurant Taj Mahal vous invite à le faire et voyager à travers les odeurs des épices orientales qui se dégagent de ses mets à spécialités indiennes.",
+                    Description =
+                        "Envie de découvrir la cuisine indienne, le restaurant Taj Mahal vous invite à le faire et voyager à travers les odeurs des épices orientales qui se dégagent de ses mets à spécialités indiennes.",
                     HasCarParking = true,
                     IsHandicapFriendly = false,
                     OffersTakeout = true,
@@ -96,7 +97,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     FoodBusinessCategory = FoodBusinessCategory.Restaurant
                 },
 
-            #endregion
+                #endregion
 
                 #region Create a FoodBusiness for BigMama restaurant
 
@@ -107,7 +108,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     AcceptsCreditCards = true,
                     AcceptTakeout = true,
                     AverageRating = 5,
-                    Description = "ETuoYe SMdsYsup qqbdspY NEeZvsaI sUcIOE sVmPkJx RZFk FOKzUkG ffAsUB XyINU fhhIB OiIfN Antdhb XHbtaO UlStFP adgVv CRTToT Mcv FAHcd YyGH. CdDIPW TtDBaI qYg wVcSK NAXHnVC xpNBE fRufEW fggeTKc Iqq dfGZPAqoc MYxnH NCLtDA qqV TNYR LbwaYqv cvIiSvl KBTMl xAxHmu dilIqO mGM kxDhvLT PsYPdCB yZE uFfvGxQp uvoeDsAaE QQjgKs CnAnhrs qNPzSuq bvZjqMfy aaEGCqc XrvE KFXnmA mEnN uGHJt WypGwSiJDmP qBDWYau SzbxbSRUb CMwhBXiYA vQCTdtiB oVkRA XpHYTFE BYFpDTVlV zafiNugG YFyiIvYhhgyzj MihfVEqk OWlRLG YAUn sXWO jbKyczKOQfhXa qziTc xxMFCM WfVzT oPdKGSK Zz CzXeis.",
+                    Description =
+                        "ETuoYe SMdsYsup qqbdspY NEeZvsaI sUcIOE sVmPkJx RZFk FOKzUkG ffAsUB XyINU fhhIB OiIfN Antdhb XHbtaO UlStFP adgVv CRTToT Mcv FAHcd YyGH. CdDIPW TtDBaI qYg wVcSK NAXHnVC xpNBE fRufEW fggeTKc Iqq dfGZPAqoc MYxnH NCLtDA qqV TNYR LbwaYqv cvIiSvl KBTMl xAxHmu dilIqO mGM kxDhvLT PsYPdCB yZE uFfvGxQp uvoeDsAaE QQjgKs CnAnhrs qNPzSuq bvZjqMfy aaEGCqc XrvE KFXnmA mEnN uGHJt WypGwSiJDmP qBDWYau SzbxbSRUb CMwhBXiYA vQCTdtiB oVkRA XpHYTFE BYFpDTVlV zafiNugG YFyiIvYhhgyzj MihfVEqk OWlRLG YAUn sXWO jbKyczKOQfhXa qziTc xxMFCM WfVzT oPdKGSK Zz CzXeis.",
                     HasCarParking = false,
                     IsHandicapFriendly = false,
                     OffersTakeout = true,
@@ -163,23 +165,27 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 new FoodBusinessUser
                 {
                     ApplicationUserId = Mcdonald_FoodBusinessManager_UserId,
-                    FoodBusinessId = Guid.Parse(Mcdonald_FoodBusinessId),
+                    FoodBusinessId = Guid.Parse(Mcdonald_FoodBusinessId)
                 },
+
                 #endregion
 
                 #region Assigning account with Id = [BigMama_FoodBusinessAdministrator_UserId] to Mcdonald restaurant.
+
                 new FoodBusinessUser
                 {
                     ApplicationUserId = BigMama_FoodBusinessAdministrator_UserId,
-                    FoodBusinessId = Guid.Parse(BigMama_FoodBusinessId),
+                    FoodBusinessId = Guid.Parse(BigMama_FoodBusinessId)
                 },
+
                 #endregion
 
                 #region Assigning account with Id = [BigMama_SalimFoodBusinessManager_UserId] to Mcdonald restaurant.
+
                 new FoodBusinessUser
                 {
                     ApplicationUserId = BigMama_SalimFoodBusinessManager_UserId,
-                    FoodBusinessId = Guid.Parse(BigMama_FoodBusinessId),
+                    FoodBusinessId = Guid.Parse(BigMama_FoodBusinessId)
                 }
 
                 #endregion
@@ -580,7 +586,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
             );
 
             #endregion
-            
+
             #region Create zones
 
             modelBuilder.Entity<Zone>().HasData(
@@ -632,32 +638,34 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     CreatedAt = DateTime.Now,
                     ZoneId = Guid.Parse(Mcdonald_NormalZone_Id)
                 },
-                 new Zone
-                 {
-                     FoodBusinessId = Guid.Parse(Mcdonald_FoodBusinessId),
-                     ZoneTitle = "Mcdonald OUTDOOR Zone",
-                     CreatedBy = Mcdonald_FoodBusinessManager_UserId,
-                     CreatedAt = DateTime.Now,
-                     ZoneId = Guid.Parse(Mcdonald_OutdoorZone_Id)
-                 },
-            #endregion
-
-            #region Create zones for BigMama_FoodBusiness
                 new Zone
                 {
-                    FoodBusinessId = Guid.Parse(SeedData.BigMama_FoodBusinessId),
+                    FoodBusinessId = Guid.Parse(Mcdonald_FoodBusinessId),
+                    ZoneTitle = "Mcdonald OUTDOOR Zone",
+                    CreatedBy = Mcdonald_FoodBusinessManager_UserId,
+                    CreatedAt = DateTime.Now,
+                    ZoneId = Guid.Parse(Mcdonald_OutdoorZone_Id)
+                },
+
+                #endregion
+
+                #region Create zones for BigMama_FoodBusiness
+
+                new Zone
+                {
+                    FoodBusinessId = Guid.Parse(BigMama_FoodBusinessId),
                     ZoneTitle = "BigMama SHARED Zone",
-                    CreatedBy = SeedData.BigMama_SalimFoodBusinessManager_UserId,
+                    CreatedBy = BigMama_SalimFoodBusinessManager_UserId,
                     CreatedAt = DateTime.Now,
                     ZoneId = Guid.Parse(BigMama_SharedZone_Id)
                 }
 
-                 #endregion
+                #endregion
 
-                 );
+            );
 
             #endregion
-            
+
             #region Create tables
 
             modelBuilder.Entity<Table>().HasData(
@@ -714,34 +722,36 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     CreatedAt = DateTime.Now,
                     TableId = Guid.Parse(Mcdonald_NormalZone_TableId)
                 },
-                 new Table
-                 {
-                     ZoneId = Guid.Parse(Mcdonald_OutdoorZone_Id),
-                     TableNumber = 3,
-                     Capacity = 3,
-                     CreatedBy = Mcdonald_FoodBusinessManager_UserId,
-                     CreatedAt = DateTime.Now,
-                     TableId = Guid.Parse(Mcdonald_OutdoorZone_TableId)
-                 },
-            #endregion
+                new Table
+                {
+                    ZoneId = Guid.Parse(Mcdonald_OutdoorZone_Id),
+                    TableNumber = 3,
+                    Capacity = 3,
+                    CreatedBy = Mcdonald_FoodBusinessManager_UserId,
+                    CreatedAt = DateTime.Now,
+                    TableId = Guid.Parse(Mcdonald_OutdoorZone_TableId)
+                },
 
-            #region Create tables for BigMama_FoodBusiness       
-            new Table
-            {
-                ZoneId = Guid.Parse(BigMama_SharedZone_Id),
-                TableNumber = 8,
-                Capacity = 6,
-                CreatedBy = SeedData.BigMama_SalimFoodBusinessManager_UserId,
-                CreatedAt = DateTime.Now,
-                TableId = Guid.Parse(BigMama_SharedZone_TableId)
-            }
+                #endregion
 
-            #endregion
+                #region Create tables for BigMama_FoodBusiness
+
+                new Table
+                {
+                    ZoneId = Guid.Parse(BigMama_SharedZone_Id),
+                    TableNumber = 8,
+                    Capacity = 6,
+                    CreatedBy = BigMama_SalimFoodBusinessManager_UserId,
+                    CreatedAt = DateTime.Now,
+                    TableId = Guid.Parse(BigMama_SharedZone_TableId)
+                }
+
+                #endregion
 
             );
 
             #endregion
-                        
+
             #region Create menus
 
             modelBuilder.Entity<Menu>().HasData(
@@ -820,35 +830,38 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
                 #endregion
 
-            #region Create menus for BigMama_FoodBusiness
-            new Menu
-            {
-                FoodBusinessId = Guid.Parse(SeedData.BigMama_FoodBusinessId),
-                Name = "BigMama Sandwiches Menu",
-                CreatedBy = SeedData.BigMama_SalimFoodBusinessManager_UserId,
-                CreatedAt = DateTime.Now,
-                MenuId = Guid.Parse(BigMama_SandwichesMenu_Id)
-            },
-            new Menu
-            {
-                FoodBusinessId = Guid.Parse(SeedData.BigMama_FoodBusinessId),
-                Name = "BigMama Beverage  Menu",
-                CreatedBy = SeedData.BigMama_SalimFoodBusinessManager_UserId,
-                CreatedAt = DateTime.Now,
-                MenuId = Guid.Parse(BigMama_BeverageMenu_Id)
-            },
-            new Menu
-            {
-                FoodBusinessId = Guid.Parse(SeedData.BigMama_FoodBusinessId),
-                Name = "BigMama Dessert Menu",
-                CreatedBy = SeedData.BigMama_SalimFoodBusinessManager_UserId,
-                CreatedAt = DateTime.Now,
-                MenuId = Guid.Parse(BigMama_DessertMenu_Id)
-            }
-            #endregion
-             );
+                #region Create menus for BigMama_FoodBusiness
+
+                new Menu
+                {
+                    FoodBusinessId = Guid.Parse(BigMama_FoodBusinessId),
+                    Name = "BigMama Sandwiches Menu",
+                    CreatedBy = BigMama_SalimFoodBusinessManager_UserId,
+                    CreatedAt = DateTime.Now,
+                    MenuId = Guid.Parse(BigMama_SandwichesMenu_Id)
+                },
+                new Menu
+                {
+                    FoodBusinessId = Guid.Parse(BigMama_FoodBusinessId),
+                    Name = "BigMama Beverage  Menu",
+                    CreatedBy = BigMama_SalimFoodBusinessManager_UserId,
+                    CreatedAt = DateTime.Now,
+                    MenuId = Guid.Parse(BigMama_BeverageMenu_Id)
+                },
+                new Menu
+                {
+                    FoodBusinessId = Guid.Parse(BigMama_FoodBusinessId),
+                    Name = "BigMama Dessert Menu",
+                    CreatedBy = BigMama_SalimFoodBusinessManager_UserId,
+                    CreatedAt = DateTime.Now,
+                    MenuId = Guid.Parse(BigMama_DessertMenu_Id)
+                }
+
+                #endregion
+
+            );
 
             #endregion
         }
     }
-} 
+}

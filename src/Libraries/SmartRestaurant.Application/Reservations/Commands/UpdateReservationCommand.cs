@@ -1,11 +1,10 @@
 ﻿using System;
 using FluentValidation;
-using MediatR;
-using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.Reservations.Commands
 {
-    public class UpdateReservationCommand : IRequest<NoContent>
+    public class UpdateReservationCommand : UpdateCommand
     {
         public UpdateReservationCommand()
         {

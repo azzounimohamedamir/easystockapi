@@ -4,7 +4,7 @@ using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class DeleteFoodBusinessCommand : UpdateCommand
+    public class DeleteFoodBusinessCommand : DeleteCommand
     {
     }
 

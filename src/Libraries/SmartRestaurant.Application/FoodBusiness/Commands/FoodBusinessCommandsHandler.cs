@@ -2,12 +2,9 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Domain.Entities;
-
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
     public class FoodBusinessCommandHandler :
@@ -17,14 +14,11 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public FoodBusinessCommandHandler(IApplicationDbContext context, IMapper mapper,
-            UserManager<ApplicationUser> userManager)
+        public FoodBusinessCommandHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _userManager = userManager;
         }
 
         public async Task<Created> Handle(CreateFoodBusinessCommand request,

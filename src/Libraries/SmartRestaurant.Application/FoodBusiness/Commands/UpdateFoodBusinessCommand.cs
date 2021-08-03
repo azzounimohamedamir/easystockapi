@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentValidation;
-using MediatR;
+using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
-using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class UpdateFoodBusinessCommand : IRequest<NoContent>
+    public class UpdateFoodBusinessCommand : UpdateCommand
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
