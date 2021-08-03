@@ -8,8 +8,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-        }
 
+        }
         public DbSet<FoodBusiness> FoodBusinesses { get; set; }
         public DbSet<FoodBusinessImage> FoodBusinessImages { get; set; }
         public DbSet<FoodBusinessUser> FoodBusinessUsers { get; set; }
@@ -19,6 +19,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Section> Sections { get; set; }
         public DbSet<SubSection> SubSections { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<DeviceID> DevicesID { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
