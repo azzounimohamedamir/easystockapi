@@ -23,29 +23,28 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Queries
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
+            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
             var createZoneCommand = new CreateZoneCommand
             {
                 FoodBusinessId = fastFood.FoodBusinessId,
                 ZoneTitle = "zone 45"
             };
             await SendAsync(createZoneCommand);
-            var tabledId = Guid.NewGuid();
-            await SendAsync(new CreateTableCommand
+            var createTableCommand = new CreateTableCommand
             {
-                CmdId = tabledId,
-                ZoneId = createZoneCommand.CmdId,
+                ZoneId = createZoneCommand.Id,
                 Capacity = 5,
                 TableNumber = 10,
                 TableState = 1
-            });
-            var query = new GetTableByIdQuery {TableId = tabledId};
+            };
+            await SendAsync(createTableCommand);
+            var query = new GetTableByIdQuery {TableId = createTableCommand.Id};
 
             var result = await SendAsync(query);
             result.Should().NotBeNull();
             result.Capacity.Should().Be(5);
             result.TableState.Should().Be(TableState.Occupied);
-            result.TableId.Should().Be(tabledId);
+            result.TableId.Should().Be(createTableCommand.Id);
         }
     }
 }

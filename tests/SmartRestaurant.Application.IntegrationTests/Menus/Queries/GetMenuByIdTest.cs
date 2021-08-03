@@ -17,24 +17,20 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
         [Test]
         public async Task ShouldGetMenu_ById()
         {
-            var foodBusinessId = Guid.NewGuid();
-
             var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
-                CmdId = foodBusinessId,
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var cmdId = Guid.NewGuid();
-            await SendAsync(new CreateMenuCommand
+            var createMenuCommand = new CreateMenuCommand
             {
-                CmdId = cmdId,
                 Name = "tacos Dz ",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = foodBusinessId
-            }).ConfigureAwait(false);
-            var query = await SendAsync(new GetMenuByIdQuery {MenuId = cmdId});
+                FoodBusinessId = createFoodBusinessCommand.Id
+            };
+            await SendAsync(createMenuCommand);
+            var query = await SendAsync(new GetMenuByIdQuery {MenuId = createMenuCommand.Id});
             query.Should().NotBeNull();
             query.Name.Should().Be("tacos Dz ");
         }

@@ -5,7 +5,7 @@ using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.Tables.Commands
 {
-    public class CreateTableCommand : SmartRestaurantCommand
+    public class CreateTableCommand : CreateCommand
     {
         public int TableNumber { get; set; }
         public Guid ZoneId { get; set; }

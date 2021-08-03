@@ -4,7 +4,7 @@ using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.Sections.Commands
 {
-    public class CreateSectionCommand : SmartRestaurantCommand
+    public class CreateSectionCommand : CreateCommand
     {
         public string Name { get; set; }
         public Guid MenuId { get; set; }

@@ -4,7 +4,7 @@ using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.Reservations.Commands
 {
-    public class CreateReservationCommand : SmartRestaurantCommand
+    public class CreateReservationCommand : CreateCommand
     {
         public CreateReservationCommand()
         {

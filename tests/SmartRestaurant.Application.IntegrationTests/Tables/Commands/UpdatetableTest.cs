@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Tables.Commands;
@@ -25,14 +24,14 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Commands
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand).ConfigureAwait(false);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
+            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
             var createZoneCommand = new CreateZoneCommand
             {
                 FoodBusinessId = fastFood.FoodBusinessId,
                 ZoneTitle = "zone 45"
             };
             await SendAsync(createZoneCommand).ConfigureAwait(false);
-            var zone = await FindAsync<Zone>(createZoneCommand.CmdId);
+            var zone = await FindAsync<Zone>(createZoneCommand.Id);
             var createTableCommand = new CreateTableCommand
             {
                 Capacity = 4,
@@ -44,17 +43,17 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Commands
             await SendAsync(createTableCommand);
             var updateTableCommand = new UpdateTableCommand
             {
-                CmdId = createTableCommand.CmdId,
+                Id = createTableCommand.Id,
                 Capacity = 10,
                 TableNumber = 12,
                 ZoneId = zone.ZoneId,
                 TableState = 1
             };
-            var validationResult = await SendAsync(updateTableCommand);
-            var item = await FindAsync<Table>(updateTableCommand.CmdId);
-            validationResult.Should().Be(default(ValidationResult));
+            await SendAsync(updateTableCommand);
+            var item = await FindAsync<Table>(updateTableCommand.Id);
+
             item.Should().NotBeNull();
-            item.ZoneId.Should().Be(createZoneCommand.CmdId);
+            item.ZoneId.Should().Be(createZoneCommand.Id);
             item.Capacity.Should().Be(10);
             item.TableNumber.Should().Be(12);
             item.TableState.Should().Be(TableState.Occupied);

@@ -6,7 +6,7 @@ using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class CreateFoodBusinessCommand : SmartRestaurantCommand
+    public class CreateFoodBusinessCommand : CreateCommand
     {
         public string Name { get; set; }
         public AddressDto Address { get; set; }

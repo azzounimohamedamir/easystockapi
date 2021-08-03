@@ -68,7 +68,7 @@ namespace SmartRestaurant.API.Controllers
         [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            return await SendWithErrorsHandlingAsync(new DeleteFoodBusinessCommand {CmdId = id});
+            return await SendWithErrorsHandlingAsync(new DeleteFoodBusinessCommand {Id = id});
         }
 
         [HttpPost]

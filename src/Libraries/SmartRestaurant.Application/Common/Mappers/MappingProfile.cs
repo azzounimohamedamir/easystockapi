@@ -20,59 +20,59 @@ namespace SmartRestaurant.Application.Common.Mappers
         {
             CreateMap<Domain.Entities.FoodBusiness, FoodBusinessDto>().ReverseMap();
             CreateMap<Domain.Entities.FoodBusiness, CreateFoodBusinessCommand>()
-                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.FoodBusinessId))
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.FoodBusinessId))
                 .ReverseMap();
             CreateMap<Domain.Entities.FoodBusiness, UpdateFoodBusinessCommand>()
-                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.FoodBusinessId))
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.FoodBusinessId))
                 .ReverseMap();
             CreateMap<GeoPosition, GeoPositionDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<PhoneNumber, PhoneNumberDto>().ReverseMap();
             CreateMap<CreateImageCommand, FoodBusinessImage>().ReverseMap();
             CreateMap<Zone, CreateZoneCommand>()
-                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.ZoneId))
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.ZoneId))
                 .ReverseMap();
             CreateMap<Zone, UpdateZoneCommand>()
-                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.ZoneId))
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.ZoneId))
                 .ReverseMap();
             CreateMap<ZoneDto, Zone>().ReverseMap();
             CreateMap<TableDto, Table>().ReverseMap();
             CreateMap<Table, CreateTableCommand>()
-                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.TableId))
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.TableId))
                 .ForMember(x => x.TableState, o => o.MapFrom(p => (short) p.TableState))
                 .ReverseMap();
             CreateMap<Table, UpdateTableCommand>()
-                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.TableId))
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.TableId))
                 .ForMember(x => x.TableState, o => o.MapFrom(p => (short) p.TableState))
                 .ReverseMap();
             CreateMap<Menu, CreateMenuCommand>()
-                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.MenuId))
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.MenuId))
                 .ForMember(x => x.MenuState, o => o.MapFrom(p => (int) p.MenuState))
                 .ReverseMap();
             CreateMap<Menu, UpdateMenuCommand>()
-                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.MenuId))
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.MenuId))
                 .ForMember(x => x.MenuState, o => o.MapFrom(p => (int) p.MenuState))
                 .ReverseMap();
             CreateMap<Menu, MenuDto>().ReverseMap();
             CreateMap<Section, SectionDto>().ReverseMap();
             CreateMap<SubSection, CreateSubSectionCommand>()
-                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.SubSectionId))
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.SubSectionId))
                 .ReverseMap();
             CreateMap<Section, CreateSectionCommand>()
-                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.SectionId))
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.SectionId))
                 .ReverseMap();
             CreateMap<Section, UpdateSectionCommand>()
-                .ForMember(x => x.CmdId, o => o.MapFrom(p => p.SectionId))
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.SectionId))
                 .ReverseMap();
             CreateMap<CreateReservationCommand, Reservation>()
-                .ForMember(x => x.ReservationId, o => o.MapFrom(p => p.CmdId))
+                .ForMember(x => x.ReservationId, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
 
             CreateMap<UpdateReservationCommand, Reservation>(MemberList.Destination)
-                .ForMember(x => x.ReservationId, o => o.MapFrom(p => p.CmdId))
+                .ForMember(x => x.ReservationId, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
             CreateMap<UpdateSubSectionCommand, SubSection>()
-                .ForMember(x => x.SubSectionId, o => o.MapFrom(p => p.CmdId))
+                .ForMember(x => x.SubSectionId, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
 
             CreateMap<Reservation, ReservationDto>()

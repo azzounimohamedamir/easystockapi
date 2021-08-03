@@ -1,18 +1,20 @@
 ﻿using System;
 using FluentValidation;
-using SmartRestaurant.Application.Common.Commands;
+using MediatR;
+using SmartRestaurant.Application.Common.WebResults;
 
 namespace SmartRestaurant.Application.SubSections.Commands
 {
-    public class DeleteSubSectionCommand : SmartRestaurantCommand
+    public class DeleteSubSectionCommand : IRequest<NoContent>
     {
+        public Guid Id { get; set; }
     }
 
     public class DeleteSubSectionCommandValidator : AbstractValidator<DeleteSubSectionCommand>
     {
         public DeleteSubSectionCommandValidator()
         {
-            RuleFor(v => v.CmdId).NotEmpty().NotNull().NotEqual(Guid.Empty);
+            RuleFor(v => v.Id).NotEmpty().NotNull().NotEqual(Guid.Empty);
         }
     }
 }

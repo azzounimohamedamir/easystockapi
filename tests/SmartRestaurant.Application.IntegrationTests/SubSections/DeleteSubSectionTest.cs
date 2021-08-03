@@ -25,30 +25,27 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var menuCmdId = Guid.NewGuid();
-            await SendAsync(new CreateMenuCommand
+            var createMenuCommand = new CreateMenuCommand
             {
-                CmdId = menuCmdId,
                 Name = "test menu",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = createFoodBusinessCommand.CmdId
-            });
-            var sectionCmdId = Guid.NewGuid();
-            await SendAsync(new CreateSectionCommand
+                FoodBusinessId = createFoodBusinessCommand.Id
+            };
+            await SendAsync(createMenuCommand);
+            var createSectionCommand = new CreateSectionCommand
             {
-                CmdId = sectionCmdId,
-                MenuId = menuCmdId,
+                MenuId = createMenuCommand.Id,
                 Name = "section test menu"
-            });
-            var subSectionCmdId = Guid.NewGuid();
-            await SendAsync(new CreateSubSectionCommand
+            };
+            await SendAsync(createSectionCommand);
+            var createSubSectionCommand = new CreateSubSectionCommand
             {
-                CmdId = subSectionCmdId,
-                SectionId = sectionCmdId,
+                SectionId = createSectionCommand.Id,
                 Name = "section test menu"
-            });
-            await SendAsync(new DeleteSubSectionCommand {CmdId = subSectionCmdId});
-            var item = await FindAsync<SubSection>(subSectionCmdId);
+            };
+            await SendAsync(createSubSectionCommand);
+            await SendAsync(new DeleteSubSectionCommand {Id = createSubSectionCommand.Id});
+            var item = await FindAsync<SubSection>(createSubSectionCommand.Id);
             item.Should().BeNull();
         }
     }

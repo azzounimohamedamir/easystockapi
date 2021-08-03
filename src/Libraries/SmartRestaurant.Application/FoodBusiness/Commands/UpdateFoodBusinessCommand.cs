@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentValidation;
-using SmartRestaurant.Application.Common.Commands;
+using MediatR;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
+using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class UpdateFoodBusinessCommand : SmartRestaurantCommand
+    public class UpdateFoodBusinessCommand : IRequest<NoContent>
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
@@ -34,7 +36,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     {
         public UpdateFoodBusinessCommandValidator()
         {
-            RuleFor(v => v.CmdId).NotEmpty().NotNull().NotEqual(Guid.Empty);
+            RuleFor(v => v.Id).NotEmpty().NotNull().NotEqual(Guid.Empty);
             RuleFor(v => v.Name).MaximumLength(200).NotEmpty();
         }
     }

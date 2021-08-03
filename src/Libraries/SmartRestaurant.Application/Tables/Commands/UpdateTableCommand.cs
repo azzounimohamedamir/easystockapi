@@ -1,11 +1,13 @@
 ﻿using System;
 using FluentValidation;
-using SmartRestaurant.Application.Common.Commands;
+using MediatR;
+using SmartRestaurant.Application.Common.WebResults;
 
 namespace SmartRestaurant.Application.Tables.Commands
 {
-    public class UpdateTableCommand : SmartRestaurantCommand
+    public class UpdateTableCommand : IRequest<NoContent>
     {
+        public Guid Id { get; set; }
         public int TableNumber { get; set; }
         public Guid ZoneId { get; set; }
         public int Capacity { get; set; }
@@ -19,7 +21,7 @@ namespace SmartRestaurant.Application.Tables.Commands
             RuleFor(v => v.TableNumber).GreaterThan(0);
             RuleFor(v => v.Capacity).GreaterThan(0);
             RuleFor(v => v.ZoneId).NotNull().NotEmpty().NotEqual(Guid.Empty);
-            RuleFor(m => m.CmdId).NotNull().NotEmpty().NotEqual(Guid.Empty);
+            RuleFor(m => m.Id).NotNull().NotEmpty().NotEqual(Guid.Empty);
         }
     }
 }
