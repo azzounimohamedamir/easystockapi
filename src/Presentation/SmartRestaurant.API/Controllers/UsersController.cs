@@ -45,6 +45,7 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> GetAllByRole([FromRoute] string role, int page, int pageSize)
         {
             var result = await _userManager.GetUsersInRoleAsync(role);
+            result.AsQueryable().GetPaged(page, pageSize);
             return Ok(result);
         }
 
