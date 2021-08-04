@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models.UserModels;
 using SmartRestaurant.Application.Common.Dtos;
@@ -14,6 +15,7 @@ using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.FoodBusiness.Queries;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Identity.Entities;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -21,12 +23,15 @@ namespace SmartRestaurant.API.Controllers
     [ApiController]
     public class UsersController : ApiController
     {
+        private readonly IIdentityContext _identityContext;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UsersController(UserManager<ApplicationUser> userManager, IEmailSender emailSender) :
+        public UsersController(UserManager<ApplicationUser> userManager, IEmailSender emailSender,
+            IIdentityContext identityContext) :
             base(emailSender)
         {
             _userManager = userManager;
+            _identityContext = identityContext;
         }
 
         [Authorize(Roles = "SuperAdmin,SupportAgent")]
@@ -42,10 +47,11 @@ namespace SmartRestaurant.API.Controllers
         [Route("role/{role}")]
         [Authorize(Roles = "SuperAdmin,SupportAgent")]
         [HttpGet]
-        public async Task<IActionResult> GetAllByRole([FromRoute] string role, int page, int pageSize)
+        public IActionResult GetAllByRole([FromRoute] string role, int page, int pageSize)
         {
-            var result = await _userManager.GetUsersInRoleAsync(role);
-            result.AsQueryable().GetPaged(page, pageSize);
+            var result = _identityContext.UserRoles.Include(u => u.Role)
+                .Where(u => u.Role.Name == role).Select(u => u.User).GetPaged(page, pageSize);
+
             return Ok(result);
         }
 

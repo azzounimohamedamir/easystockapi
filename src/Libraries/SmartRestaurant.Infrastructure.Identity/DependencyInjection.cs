@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Infrastructure.Identity.Persistence;
 using SmartRestaurant.Infrastructure.Identity.Services;
 
@@ -28,7 +29,7 @@ namespace SmartRestaurant.Infrastructure.Identity
 
             services.AddScoped<IIdentityContext>(provider => provider.GetService<IdentityContext>());
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
 

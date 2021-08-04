@@ -19,7 +19,115 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<string>");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -139,31 +247,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -175,15 +259,17 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -231,68 +317,203 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
 
                     b.ToTable("AspNetUsers");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+                    b.HasData(
+                        new
+                        {
+                            Id = "3cbf3570-0d44-4673-8746-29b7cf568093",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e08e4ce3-5b3f-4d4f-893a-7da74be189e7",
+                            Email = "SuperAdmin@SmartRestaurant.io",
+                            EmailConfirmed = true,
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SUPERADMIN@SMARTRESTAURANT.IO",
+                            NormalizedUserName = "SUPERADMIN@SMARTRESTAURANT.IO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAzFpmzMtMiw0wHV6b0aUzFLF9Pw7B2u+DswRHttAU2nH22NHBsc/hSSvKUqmRWGZA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "cb5c24aa-a7c7-4930-a078-a948b39e61c7",
+                            TwoFactorEnabled = false,
+                            UserName = "SuperAdmin@SmartRestaurant.io"
+                        },
+                        new
+                        {
+                            Id = "d466ef00-61f1-4e77-801a-b016f0f12323",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4b2bc124-4828-4a08-adb9-e4320006932d",
+                            Email = "SupportAgent@SmartRestaurant.io",
+                            EmailConfirmed = true,
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SUPPORTAGENT@SMARTRESTAURANT.IO",
+                            NormalizedUserName = "SUPPORTAGENT@SMARTRESTAURANT.IO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "151e477f-dcc5-4715-878f-b719fc9164ac",
+                            TwoFactorEnabled = false,
+                            UserName = "SupportAgent@SmartRestaurant.io"
+                        },
+                        new
+                        {
+                            Id = "d466ef00-61f1-4e77-801a-b516f0f12323",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2952a61a-70fc-484f-b2be-a24274bbf5c6",
+                            Email = "Waiter@SmartRestaurant.io",
+                            EmailConfirmed = true,
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "WAITER@SMARTRESTAURANT.IO",
+                            NormalizedUserName = "WAITER@SMARTRESTAURANT.IO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6dee18ea-5a5d-41ce-a8f5-1cddc0d0d0dd",
+                            TwoFactorEnabled = false,
+                            UserName = "Waiter@SmartRestaurant.io"
+                        },
+                        new
+                        {
+                            Id = "3cbf3570-4444-4444-8746-29b7cf568093",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b41297e9-2a83-44fb-af44-15cae286b9bc",
+                            Email = "FoodAdmin@SmartRestaurant.io",
+                            EmailConfirmed = true,
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "FOODADMIN@SMARTRESTAURANT.IO",
+                            NormalizedUserName = "FOODADMIN@SMARTRESTAURANT.IO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "03c16f2c-ed94-4fe0-96c5-e44a99d09aad",
+                            TwoFactorEnabled = false,
+                            UserName = "FoodAdmin@SmartRestaurant.io"
+                        },
+                        new
+                        {
+                            Id = "44bf3570-0d44-4673-8746-29b7cf568088",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b91a6d3c-4281-48ff-8411-0c94343f094a",
+                            Email = "McdonaldFoodAdmin@SmartRestaurant.io",
+                            EmailConfirmed = true,
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MCDONALDFOODADMIN@SMARTRESTAURANT.IO",
+                            NormalizedUserName = "MCDONALDFOODADMIN@SMARTRESTAURANT.IO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b1c2f7ac-3d0d-4c02-86fe-8db2565d2354",
+                            TwoFactorEnabled = false,
+                            UserName = "McdonaldFoodAdmin@SmartRestaurant.io"
+                        },
+                        new
+                        {
+                            Id = "08a1a626-7f8e-4b51-84fc-fc51b6302cca",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "fbf229c8-fbae-4a38-9486-a850df86ca9e",
+                            Email = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io",
+                            EmailConfirmed = true,
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "BIGMAMAFOODBUSINESSADMINISTRATOR@SMARTRESTAURANT.IO",
+                            NormalizedUserName = "BIGMAMAFOODBUSINESSADMINISTRATOR@SMARTRESTAURANT.IO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4baf185a-acd6-4c94-80ab-63af3420ce2b",
+                            TwoFactorEnabled = false,
+                            UserName = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io"
+                        },
+                        new
+                        {
+                            Id = "a1997466-cedc-4850-b18d-0ac4f4102cff",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "69aa72f2-c6bd-4777-af87-426933638cca",
+                            Email = "TajMhalFoodBusinessManager@SmartRestaurant.io",
+                            EmailConfirmed = true,
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "TAJMHALFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                            NormalizedUserName = "TAJMHALFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "ec4721b7-45af-4ec6-829b-15910907d324",
+                            TwoFactorEnabled = false,
+                            UserName = "TajMhalFoodBusinessManager@SmartRestaurant.io"
+                        },
+                        new
+                        {
+                            Id = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "87a5a27f-d52e-47b5-984f-202182587fb5",
+                            Email = "McdonaldFoodBusinessManager@SmartRestaurant.io",
+                            EmailConfirmed = true,
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MCDONALDFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                            NormalizedUserName = "MCDONALDFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4f62afd9-d1c4-4ca4-bb5b-504fb0589399",
+                            TwoFactorEnabled = false,
+                            UserName = "McdonaldFoodBusinessManager@SmartRestaurant.io"
+                        },
+                        new
+                        {
+                            Id = "64fed988-6f68-49dc-ad54-0da50ec02319",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a7009b9e-5c5d-48e7-b0b0-481db69e2626",
+                            Email = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io",
+                            EmailConfirmed = true,
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "BIGMAMASALIMFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                            NormalizedUserName = "BIGMAMASALIMFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO+ouwzSOa+AsCNZrVEhO6Su9q/fX/Q9c9havEvhs5QtXWA6tRdfmqOlemUQphqDnA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "481d54ee-f947-44c6-9078-f2230169c0dd",
+                            TwoFactorEnabled = false,
+                            UserName = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io"
+                        },
+                        new
+                        {
+                            Id = "5a84cd00-59f0-4b22-bfce-07c080829118",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c9d487a0-2139-4ca2-8447-0e8120b0f8fe",
+                            Email = "Diner_01@SmartRestaurant.io",
+                            EmailConfirmed = true,
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DINER_01@SMARTRESTAURANT.IO",
+                            NormalizedUserName = "DINER_01@SMARTRESTAURANT.IO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJFZbbuBIpvoyXKwrceuNsU4cXZ18LLAl8g7s48Pye4EAEXwA2hswtnLMhMS9Q7Cjw ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "61cbdddc-b087-49e0-9dc8-f13db2d54cf5",
+                            TwoFactorEnabled = false,
+                            UserName = "Diner_01@SmartRestaurant.io"
+                        },
+                        new
+                        {
+                            Id = "6b14cd00-59f0-4422-bfce-07c080829987",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "99ddbf04-fb2d-453b-ac2c-cc7e2009956b",
+                            Email = "Diner_02@SmartRestaurant.io",
+                            EmailConfirmed = true,
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DINER_02@SMARTRESTAURANT.IO",
+                            NormalizedUserName = "DINER_02@SMARTRESTAURANT.IO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJFZbbuBIpvoyXKwrceuNsU4cXZ18LLAl8g7s48Pye4EAEXwA2hswtnLMhMS9Q7Cjw ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a74adb75-1110-4812-b41a-bebf2a0fc4c3",
+                            TwoFactorEnabled = false,
+                            UserName = "Diner_02@SmartRestaurant.io"
+                        });
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.ApplicationUserRole", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogins");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "RoleId");
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<string>");
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
+                    b.HasDiscriminator().HasValue("ApplicationUserRole");
 
                     b.HasData(
                         new
@@ -352,230 +573,9 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "3cbf3570-0d44-4673-8746-29b7cf568093",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "5fe38b9a-2635-4322-b170-5f41d6dce3d4",
-                            Email = "SuperAdmin@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SUPERADMIN@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "SUPERADMIN@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAzFpmzMtMiw0wHV6b0aUzFLF9Pw7B2u+DswRHttAU2nH22NHBsc/hSSvKUqmRWGZA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "07d00732-f743-477f-98fb-b07261e02bc6",
-                            TwoFactorEnabled = false,
-                            UserName = "SuperAdmin@SmartRestaurant.io",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = "d466ef00-61f1-4e77-801a-b016f0f12323",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "0bfc1dd8-b960-452f-8649-75b45a3ae7df",
-                            Email = "SupportAgent@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SUPPORTAGENT@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "SUPPORTAGENT@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1d64c3c8-efe1-4bdd-9869-805e07674541",
-                            TwoFactorEnabled = false,
-                            UserName = "SupportAgent@SmartRestaurant.io",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = "d466ef00-61f1-4e77-801a-b516f0f12323",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "76f56d63-0b03-421d-8c06-4ae52f04d613",
-                            Email = "Waiter@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "WAITER@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "WAITER@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "40d5f5cf-22da-4301-a099-0afee9f9b77b",
-                            TwoFactorEnabled = false,
-                            UserName = "Waiter@SmartRestaurant.io",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = "3cbf3570-4444-4444-8746-29b7cf568093",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "147a2dfc-8890-410d-b86a-34457c5e76c5",
-                            Email = "FoodAdmin@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "FOODADMIN@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "FOODADMIN@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "912dc807-aaa5-41af-9846-ce5fe87a4535",
-                            TwoFactorEnabled = false,
-                            UserName = "FoodAdmin@SmartRestaurant.io",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = "44bf3570-0d44-4673-8746-29b7cf568088",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "2f83de45-c2cb-400f-ad33-06a8117d8fdd",
-                            Email = "McdonaldFoodAdmin@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MCDONALDFOODADMIN@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "MCDONALDFOODADMIN@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "cb709c37-ef28-444a-951d-7495b0f744cf",
-                            TwoFactorEnabled = false,
-                            UserName = "McdonaldFoodAdmin@SmartRestaurant.io",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = "08a1a626-7f8e-4b51-84fc-fc51b6302cca",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "5883927f-4009-495a-8020-78d89fb7d2b2",
-                            Email = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "BIGMAMAFOODBUSINESSADMINISTRATOR@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "BIGMAMAFOODBUSINESSADMINISTRATOR@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7115447b-45bb-4152-84aa-a352f312b4bb",
-                            TwoFactorEnabled = false,
-                            UserName = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = "a1997466-cedc-4850-b18d-0ac4f4102cff",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7c2463f9-e552-435c-92a5-9c292fa74e4a",
-                            Email = "TajMhalFoodBusinessManager@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "TAJMHALFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "TAJMHALFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "106a6802-1b87-4206-9c6a-5b1fb3d9afc0",
-                            TwoFactorEnabled = false,
-                            UserName = "TajMhalFoodBusinessManager@SmartRestaurant.io",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "6193201d-8830-4ab1-b731-101e01287a59",
-                            Email = "McdonaldFoodBusinessManager@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MCDONALDFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "MCDONALDFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "737da9d0-1b56-4bf7-bdc1-6a1c976af297",
-                            TwoFactorEnabled = false,
-                            UserName = "McdonaldFoodBusinessManager@SmartRestaurant.io",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = "64fed988-6f68-49dc-ad54-0da50ec02319",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "86264eaa-71b6-4452-9f65-64addd94a0a7",
-                            Email = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "BIGMAMASALIMFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "BIGMAMASALIMFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO+ouwzSOa+AsCNZrVEhO6Su9q/fX/Q9c9havEvhs5QtXWA6tRdfmqOlemUQphqDnA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "d8fd5f65-d048-47ac-96df-b69b6e89f8be",
-                            TwoFactorEnabled = false,
-                            UserName = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = "5a84cd00-59f0-4b22-bfce-07c080829118",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "93e10f04-f018-419b-a6ab-88a01d0d2c3e",
-                            Email = "Diner_01@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "DINER_01@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "DINER_01@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJFZbbuBIpvoyXKwrceuNsU4cXZ18LLAl8g7s48Pye4EAEXwA2hswtnLMhMS9Q7Cjw ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "0eba14d6-1e07-4509-b338-7b0652de3f0e",
-                            TwoFactorEnabled = false,
-                            UserName = "Diner_01@SmartRestaurant.io",
-                            IsActive = true
-                        },
-                        new
-                        {
-                            Id = "6b14cd00-59f0-4422-bfce-07c080829987",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "56bac56e-3277-4387-abd5-36342abb66a0",
-                            Email = "Diner_02@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "DINER_02@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "DINER_02@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJFZbbuBIpvoyXKwrceuNsU4cXZ18LLAl8g7s48Pye4EAEXwA2hswtnLMhMS9Q7Cjw ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "f9be25ee-9a71-49b9-86c7-dd7624cca872",
-                            TwoFactorEnabled = false,
-                            UserName = "Diner_02@SmartRestaurant.io",
-                            IsActive = true
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("SmartRestaurant.Domain.Entities.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -584,7 +584,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SmartRestaurant.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -593,22 +593,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SmartRestaurant.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -617,8 +602,23 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SmartRestaurant.Domain.Entities.ApplicationUser", null)
                         .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.ApplicationUserRole", b =>
+                {
+                    b.HasOne("SmartRestaurant.Domain.Entities.ApplicationRole", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartRestaurant.Domain.Entities.ApplicationUser", "User")
+                        .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

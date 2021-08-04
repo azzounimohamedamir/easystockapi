@@ -2,20 +2,39 @@
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Identity.Entities;
 
 namespace SmartRestaurant.Infrastructure.Identity.Persistence
 {
-    public class IdentityContext : IdentityDbContext, IIdentityContext
+    public class IdentityContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>, IIdentityContext
     {
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {
         }
 
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<ApplicationUserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(e => e.UserRoles)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<ApplicationUserRole>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.UserRoles)
+                .HasForeignKey(e => e.UserId);
+
+            builder.Entity<ApplicationUserRole>()
+                .HasOne(e => e.Role)
+                .WithMany(e => e.UserRoles)
+                .HasForeignKey(e => e.RoleId);
 
             builder.Seed();
         }

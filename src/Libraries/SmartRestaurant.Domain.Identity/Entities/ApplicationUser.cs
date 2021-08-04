@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
-namespace SmartRestaurant.Domain.Entities
+namespace SmartRestaurant.Domain.Identity.Entities
 {
     public sealed class ApplicationUser : IdentityUser
     {
@@ -19,5 +20,7 @@ namespace SmartRestaurant.Domain.Entities
 
         public string FullName { get; set; }
         public bool IsActive { get; set; }
+
+        public ICollection<ApplicationUserRole> UserRoles { get; } = new List<ApplicationUserRole>();
     }
 }
