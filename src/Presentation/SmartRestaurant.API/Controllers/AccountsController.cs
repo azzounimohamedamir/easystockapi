@@ -42,6 +42,7 @@ namespace SmartRestaurant.API.Controllers
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
             if (!result.Succeeded) return Unauthorized();
             var user = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
+            if (!user.IsActive) return Unauthorized();
             var token = await TokenGenerator.Generate(user, _userManager, _configuration);
             var roles = await _userManager.GetRolesAsync(user);
             return Ok(new {token, user.UserName, roles});
