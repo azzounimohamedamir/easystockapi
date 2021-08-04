@@ -38,6 +38,7 @@ namespace SmartRestaurant.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Smart Restaurant api v1", Version = "v1"});
             });
+            services.AddSwaggerGenNewtonsoftSupport();
 
             services.AddControllersWithViews().AddJsonOptions(options =>
             {

@@ -7,7 +7,7 @@ using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class UpdateFoodBusinessCommand : SmartRestaurantCommand
+    public class UpdateFoodBusinessCommand : UpdateCommand
     {
         public string Name { get; set; }
         public AddressDto Address { get; set; }
@@ -34,7 +34,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     {
         public UpdateFoodBusinessCommandValidator()
         {
-            RuleFor(v => v.CmdId).NotEmpty().NotNull().NotEqual(Guid.Empty);
+            RuleFor(v => v.Id).NotEmpty().NotNull().NotEqual(Guid.Empty);
             RuleFor(v => v.Name).MaximumLength(200).NotEmpty();
         }
     }

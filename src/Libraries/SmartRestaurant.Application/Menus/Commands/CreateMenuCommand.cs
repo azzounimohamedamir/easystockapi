@@ -4,7 +4,7 @@ using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.Menus.Commands
 {
-    public class CreateMenuCommand : SmartRestaurantCommand
+    public class CreateMenuCommand : CreateCommand
     {
         public string Name { get; set; }
         public int MenuState { get; set; }

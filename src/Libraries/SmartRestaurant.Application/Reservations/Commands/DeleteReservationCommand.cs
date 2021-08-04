@@ -4,7 +4,7 @@ using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.Reservations.Commands
 {
-    public class DeleteReservationCommand : SmartRestaurantCommand
+    public class DeleteReservationCommand : DeleteCommand
     {
     }
 
@@ -12,7 +12,7 @@ namespace SmartRestaurant.Application.Reservations.Commands
     {
         public DeleteReservationCommandValidator()
         {
-            RuleFor(m => m.CmdId).NotNull().NotEmpty().NotEqual(Guid.Empty);
+            RuleFor(m => m.Id).NotNull().NotEmpty().NotEqual(Guid.Empty);
         }
     }
 }

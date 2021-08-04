@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartRestaurant.Application\SmartRestaurant.Application.csproj" />
+    <ProjectReference Include="..\SmartRestaurant.Domain.Identity\SmartRestaurant.Domain.Identity.csproj" />
     <ProjectReference Include="..\SmartRestaurant.Domain\SmartRestaurant.Domain.csproj" />
   </ItemGroup>
 

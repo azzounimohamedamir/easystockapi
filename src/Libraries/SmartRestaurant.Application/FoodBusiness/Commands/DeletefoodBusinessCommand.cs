@@ -4,7 +4,7 @@ using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class DeleteFoodBusinessCommand : SmartRestaurantCommand
+    public class DeleteFoodBusinessCommand : DeleteCommand
     {
     }
 
@@ -12,7 +12,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     {
         public DeleteFoodBusinessCommandValidator()
         {
-            RuleFor(v => v.CmdId).NotEmpty().NotNull().NotEqual(Guid.Empty);
+            RuleFor(v => v.Id).NotEmpty().NotNull().NotEqual(Guid.Empty);
         }
     }
 }

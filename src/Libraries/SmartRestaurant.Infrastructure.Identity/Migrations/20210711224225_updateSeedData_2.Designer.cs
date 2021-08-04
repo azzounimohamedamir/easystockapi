@@ -463,7 +463,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         },
                         new
                         {
-                            Id = "a1997466-cedc-4850-b18d-0ac4f4102cff",
+                            Id = "a1997466-cedc-4850-b18d-0ac4f4102cfl",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "f977933c-4505-42dc-b960-3a158321ed50",
                             Email = "TajMhalFoodBusinessManager@SmartRestaurant.io",

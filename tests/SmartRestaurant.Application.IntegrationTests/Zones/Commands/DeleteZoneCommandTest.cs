@@ -22,16 +22,16 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Commands
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
+            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
             var createZoneCommand = new CreateZoneCommand
             {
                 FoodBusinessId = fastFood.FoodBusinessId,
                 ZoneTitle = "zone 51"
             };
             await SendAsync(createZoneCommand);
-            var deleteCommand = new DeleteZoneCommand {CmdId = createZoneCommand.CmdId};
+            var deleteCommand = new DeleteZoneCommand {Id = createZoneCommand.Id};
             await SendAsync(deleteCommand);
-            var zone51 = await FindAsync<Zone>(createZoneCommand.CmdId);
+            var zone51 = await FindAsync<Zone>(createZoneCommand.Id);
             zone51.Should().BeNull();
         }
     }

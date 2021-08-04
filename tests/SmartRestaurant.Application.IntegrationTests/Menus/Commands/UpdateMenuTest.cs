@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Menus.Commands;
@@ -24,24 +23,23 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var cmdId = Guid.NewGuid();
-            await SendAsync(new CreateMenuCommand
+            var createMenuCommand = new CreateMenuCommand
             {
-                CmdId = cmdId,
                 Name = "test menu",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = createFoodBusinessCommand.CmdId
-            });
-            var validationResult = await SendAsync(new UpdateMenuCommand
+                FoodBusinessId = createFoodBusinessCommand.Id
+            };
+            await SendAsync(createMenuCommand);
+            await SendAsync(new UpdateMenuCommand
             {
-                CmdId = cmdId,
+                Id = createMenuCommand.Id,
                 Name = "test menu2",
                 MenuState = (int) MenuState.Disabled,
-                FoodBusinessId = createFoodBusinessCommand.CmdId
+                FoodBusinessId = createFoodBusinessCommand.Id
             });
 
-            var item = await FindAsync<Menu>(cmdId);
-            validationResult.Should().Be(default(ValidationResult));
+            var item = await FindAsync<Menu>(createMenuCommand.Id);
+
             item.Should().NotBeNull();
             item.MenuState.Should().Be(MenuState.Disabled);
             item.Name.Should().Be("test menu2");

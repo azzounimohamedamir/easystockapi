@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Menus.Commands;
@@ -26,33 +25,30 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var menuCmdId = Guid.NewGuid();
-            await SendAsync(new CreateMenuCommand
+            var createMenuCommand = new CreateMenuCommand
             {
-                CmdId = menuCmdId,
                 Name = "test menu",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = createFoodBusinessCommand.CmdId
-            });
-            var sectionCmdId = Guid.NewGuid();
-            await SendAsync(new CreateSectionCommand
+                FoodBusinessId = createFoodBusinessCommand.Id
+            };
+            await SendAsync(createMenuCommand);
+            var createSectionCommand = new CreateSectionCommand
             {
-                CmdId = sectionCmdId,
-                MenuId = menuCmdId,
+                MenuId = createMenuCommand.Id,
                 Name = "section test menu"
-            });
-            var subSectionCmdId = Guid.NewGuid();
-            var validationResult = await SendAsync(new CreateSubSectionCommand
+            };
+            await SendAsync(createSectionCommand);
+            var createSubSectionCommand = new CreateSubSectionCommand
             {
-                CmdId = subSectionCmdId,
-                SectionId = sectionCmdId,
+                SectionId = createSectionCommand.Id,
                 Name = "subsection test menu"
-            });
-            var item = await FindAsync<SubSection>(subSectionCmdId);
-            validationResult.Should().Be(default(ValidationResult));
+            };
+            await SendAsync(createSubSectionCommand);
+            var item = await FindAsync<SubSection>(createSubSectionCommand.Id);
+
             item.Should().NotBeNull();
             item.Name.Should().Be("subsection test menu");
-            item.SectionId.Should().Be(sectionCmdId);
+            item.SectionId.Should().Be(createSectionCommand.Id);
         }
     }
 }

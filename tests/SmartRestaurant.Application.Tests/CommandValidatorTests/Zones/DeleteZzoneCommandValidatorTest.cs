@@ -18,7 +18,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Zones
         public void Given_EmptyZoneId_WhenValidating_ShouldError()
         {
             var emptyGuid = Guid.Empty;
-            _validator.ShouldHaveValidationErrorFor(zone => zone.CmdId, emptyGuid);
+            _validator.ShouldHaveValidationErrorFor(zone => zone.Id, emptyGuid);
         }
     }
 }

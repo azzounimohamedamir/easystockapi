@@ -4,7 +4,7 @@ using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.Zones.Commands
 {
-    public class DeleteZoneCommand : SmartRestaurantCommand
+    public class DeleteZoneCommand : DeleteCommand
     {
     }
 
@@ -12,7 +12,7 @@ namespace SmartRestaurant.Application.Zones.Commands
     {
         public DeleteZoneCommandValidator()
         {
-            RuleFor(v => v.CmdId).NotEmpty().NotNull().NotEqual(Guid.Empty);
+            RuleFor(v => v.Id).NotEmpty().NotNull().NotEqual(Guid.Empty);
         }
     }
 }

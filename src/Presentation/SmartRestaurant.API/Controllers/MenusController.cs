@@ -47,7 +47,7 @@ namespace SmartRestaurant.API.Controllers
         [Authorize(Roles = "FoodBusinessManager")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            return await SendWithErrorsHandlingAsync(new DeleteMenuCommand {CmdId = id});
+            return await SendWithErrorsHandlingAsync(new DeleteMenuCommand {Id = id});
         }
     }
 }

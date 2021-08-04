@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
@@ -23,7 +22,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
+            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
 
 
             var createReservationCommand = new CreateReservationCommand
@@ -34,11 +33,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Commands
                 FoodBusinessId = fastFood.FoodBusinessId,
                 CreatedBy = Guid.NewGuid().ToString()
             };
-            var validationResult = await SendAsync(createReservationCommand);
-            var createdReservation = await FindAsync<Reservation>(createReservationCommand.CmdId);
-            validationResult.Should().Be(default(ValidationResult));
+            await SendAsync(createReservationCommand);
+            var createdReservation = await FindAsync<Reservation>(createReservationCommand.Id);
+
             createdReservation.Should().NotBeNull();
-            createdReservation.ReservationId.Should().Be(createReservationCommand.CmdId);
+            createdReservation.ReservationId.Should().Be(createReservationCommand.Id);
             createdReservation.ReservationName.Should().BeEquivalentTo(createReservationCommand.ReservationName);
             createdReservation.NumberOfDiners.Should().Be(createReservationCommand.NumberOfDiners);
             createdReservation.ReservationDate.Should().Be(createReservationCommand.ReservationDate);

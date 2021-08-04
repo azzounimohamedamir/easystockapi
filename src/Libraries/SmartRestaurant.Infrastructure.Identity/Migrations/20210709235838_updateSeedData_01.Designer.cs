@@ -443,7 +443,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         },
                         new
                         {
-                            Id = "a1997466-cedc-4850-b18d-0ac4f4102cff",
+                            Id = "a1997466-cedc-4850-b18d-0ac4f4102cft",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "f1346762-e3ba-4606-b5d0-0b1deb3e048a",
                             Email = "FoodBusinessManager@SmartRestaurant.io",

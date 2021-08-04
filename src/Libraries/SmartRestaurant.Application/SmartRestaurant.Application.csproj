@@ -3,24 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Suppliers\**" />
-    <EmbeddedResource Remove="Suppliers\**" />
-    <None Remove="Suppliers\**" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="FluentValidation" Version="8.6.2" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="SendGrid" Version="9.24.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartRestaurant.Domain.Identity\SmartRestaurant.Domain.Identity.csproj" />
     <ProjectReference Include="..\SmartRestaurant.Domain\SmartRestaurant.Domain.csproj" />
   </ItemGroup>
 </Project>

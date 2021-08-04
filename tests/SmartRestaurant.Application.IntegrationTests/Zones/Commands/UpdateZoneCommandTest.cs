@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Zones.Commands;
@@ -23,7 +22,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Commands
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
+            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
             var createZoneCommand = new CreateZoneCommand
             {
                 FoodBusinessId = fastFood.FoodBusinessId,
@@ -32,17 +31,17 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Commands
             await SendAsync(createZoneCommand);
             var updateZoneCommand = new UpdateZoneCommand
             {
-                CmdId = createZoneCommand.CmdId,
+                Id = createZoneCommand.Id,
                 FoodBusinessId = fastFood.FoodBusinessId,
                 ZoneTitle = "zone 52"
             };
-            var validationResult = await SendAsync(updateZoneCommand);
-            var item = await FindAsync<Zone>(updateZoneCommand.CmdId);
-            validationResult.Should().Be(default(ValidationResult));
+            await SendAsync(updateZoneCommand);
+            var item = await FindAsync<Zone>(updateZoneCommand.Id);
+
             fastFood.Should().NotBeNull();
             item.Should().NotBeNull();
             item.FoodBusinessId.Should().Be(fastFood.FoodBusinessId);
-            item.ZoneId.Should().Be(updateZoneCommand.CmdId);
+            item.ZoneId.Should().Be(updateZoneCommand.Id);
             item.ZoneTitle.Should().Be(updateZoneCommand.ZoneTitle);
         }
     }

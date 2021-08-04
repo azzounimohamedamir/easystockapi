@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Menus.Commands;
@@ -25,26 +24,24 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var cmdId = Guid.NewGuid();
-            await SendAsync(new CreateMenuCommand
+            var createMenuCommand = new CreateMenuCommand
             {
-                CmdId = cmdId,
                 Name = "test menu",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = createFoodBusinessCommand.CmdId
-            });
-            var sectionCmdId = Guid.NewGuid();
-            var validationResult = await SendAsync(new CreateSectionCommand
+                FoodBusinessId = createFoodBusinessCommand.Id
+            };
+            await SendAsync(createMenuCommand);
+            var createSectionCommand = new CreateSectionCommand
             {
-                CmdId = sectionCmdId,
-                MenuId = cmdId,
+                MenuId = createMenuCommand.Id,
                 Name = "section test menu"
-            });
-            var item = await FindAsync<Section>(sectionCmdId);
-            validationResult.Should().Be(default(ValidationResult));
+            };
+            await SendAsync(createSectionCommand);
+            var item = await FindAsync<Section>(createSectionCommand.Id);
+
             item.Should().NotBeNull();
             item.Name.Should().Be("section test menu");
-            item.MenuId.Should().Be(cmdId);
+            item.MenuId.Should().Be(createMenuCommand.Id);
         }
     }
 }

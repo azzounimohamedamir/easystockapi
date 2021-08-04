@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Identity.Entities;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -42,19 +43,17 @@ namespace SmartRestaurant.API.Controllers
             try
             {
                 var result = await Mediator.Send(request);
-                if (result == null) return Ok();
-                if (result.GetType() != typeof(ValidationResult)) return Ok(result);
-                var errors = ExtractValidationErrors(result);
-                return BadRequest(new Dictionary<string, string[]>
-                {
-                    {"ErrorMessages", errors.ToArray()}
-                });
+                if (result == null) return NoContent();
+                return Ok(result);
             }
             catch (Exception exception)
             {
                 if (exception.GetType().IsSubclassOf(typeof(BaseException)))
                     if (exception is BaseException result)
-                        return StatusCode(result.StatusCode, result.Message);
+                        return StatusCode(result.StatusCode, new
+                        {
+                            result.Message, result.Errors
+                        });
 
                 return StatusCode(500, exception.Message);
             }
@@ -69,14 +68,6 @@ namespace SmartRestaurant.API.Controllers
             {
                 {"ErrorMessages", errors.ToArray()}
             });
-        }
-
-        private static List<string> ExtractValidationErrors<TRequest>(TRequest result)
-        {
-            var errors = new List<string>();
-            var validationFailures = (result as ValidationResult)?.Errors;
-            if (validationFailures != null) errors.AddRange(validationFailures.Select(error => error.ErrorMessage));
-            return errors;
         }
 
         protected Task SendEmailConfirmation(ApplicationUser user, string code)

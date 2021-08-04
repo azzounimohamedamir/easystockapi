@@ -22,7 +22,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
+            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
 
 
             var createReservationCommand = new CreateReservationCommand
@@ -35,7 +35,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
             };
             await SendAsync(createReservationCommand);
 
-            var query = new GetReservationByIdQuery {ReservationId = createReservationCommand.CmdId};
+            var query = new GetReservationByIdQuery {ReservationId = createReservationCommand.Id};
             var result = await SendAsync(query);
             result.Should().NotBeNull();
             result.ReservationName.Should().Be("Reservation Test");

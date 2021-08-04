@@ -4,7 +4,7 @@ using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.Tables.Commands
 {
-    public class UpdateTableCommand : SmartRestaurantCommand
+    public class UpdateTableCommand : UpdateCommand
     {
         public int TableNumber { get; set; }
         public Guid ZoneId { get; set; }
@@ -19,7 +19,7 @@ namespace SmartRestaurant.Application.Tables.Commands
             RuleFor(v => v.TableNumber).GreaterThan(0);
             RuleFor(v => v.Capacity).GreaterThan(0);
             RuleFor(v => v.ZoneId).NotNull().NotEmpty().NotEqual(Guid.Empty);
-            RuleFor(m => m.CmdId).NotNull().NotEmpty().NotEqual(Guid.Empty);
+            RuleFor(m => m.Id).NotNull().NotEmpty().NotEqual(Guid.Empty);
         }
     }
 }

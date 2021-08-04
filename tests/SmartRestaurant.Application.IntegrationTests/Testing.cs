@@ -103,6 +103,16 @@ namespace SmartRestaurant.Application.IntegrationTests
             return await context.FindAsync<TEntity>(id);
         }
 
+        public static async Task<List<TEntity>> GetAll<TEntity>()
+            where TEntity : class
+        {
+            using var scope = _scopeFactory.CreateScope();
+
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+            return await context.Set<TEntity>().ToListAsync();
+        }
+
         public static List<TEntity> Where<TEntity>(Func<TEntity, bool> predicate) where TEntity : class
         {
             using var scope = _scopeFactory.CreateScope();

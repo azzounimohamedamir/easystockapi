@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
 
 namespace SmartRestaurant.Infrastructure.Identity.Persistence
@@ -22,92 +22,92 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
         {
             #region Create application Roles
 
-            modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole
+            modelBuilder.Entity<ApplicationRole>().HasData(
+                new ApplicationRole
                 {
                     Id = ((long) Roles.SuperAdmin).ToString(),
                     Name = Roles.SuperAdmin.ToString(),
                     NormalizedName = Roles.SuperAdmin.ToString().ToUpper(),
                     ConcurrencyStamp = "88f0dec2-5364-4881-4817-1f2a135a8641"
                 },
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = ((long) Roles.SupportAgent).ToString(),
                     Name = Roles.SupportAgent.ToString(),
                     NormalizedName = Roles.SupportAgent.ToString().ToUpper(),
                     ConcurrencyStamp = "emec7115-422c-487d-65b0-58cfa8e66a94"
                 },
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = ((long) Roles.SalesMan).ToString(),
                     Name = Roles.SalesMan.ToString(),
                     NormalizedName = Roles.SalesMan.ToString().ToUpper(),
                     ConcurrencyStamp = "emrc7115-422c-487d-75b0-58cfa8e66a94"
                 },
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = ((long) Roles.Photograph).ToString(),
                     Name = Roles.Photograph.ToString(),
                     NormalizedName = Roles.Photograph.ToString().ToUpper(),
                     ConcurrencyStamp = "emtc7115-422c-487d-85b0-58cfa8e66a94"
                 },
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = ((long) Roles.FoodBusinessAdministrator).ToString(),
                     Name = Roles.FoodBusinessAdministrator.ToString(),
                     NormalizedName = Roles.FoodBusinessAdministrator.ToString().ToUpper(),
                     ConcurrencyStamp = "5719c2b8-22fd-4eee-9c21-4bfbd2ce18d2"
                 },
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = ((long) Roles.FoodBusinessManager).ToString(),
                     Name = Roles.FoodBusinessManager.ToString(),
                     NormalizedName = Roles.FoodBusinessManager.ToString().ToUpper(),
                     ConcurrencyStamp = "emcc7115-422c-487d-95b0-58cfa8e66a94"
                 },
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = ((long) Roles.FoodBusinessOwner).ToString(),
                     Name = Roles.FoodBusinessOwner.ToString(),
                     NormalizedName = Roles.FoodBusinessOwner.ToString().ToUpper(),
                     ConcurrencyStamp = "emcb7115-422c-487d-95c0-58cfa8m66a94"
                 },
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = ((long) Roles.Cashier).ToString(),
                     Name = Roles.Cashier.ToString(),
                     NormalizedName = Roles.Cashier.ToString().ToUpper(),
                     ConcurrencyStamp = "encc7115-422c-487d-95b0-58cfa8e66a95"
                 },
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = ((long) Roles.Chef).ToString(),
                     Name = Roles.Chef.ToString(),
                     NormalizedName = Roles.Chef.ToString().ToUpper(),
                     ConcurrencyStamp = "elcc7115-422c-487d-95b0-58cfa8e66a96"
                 },
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = ((long) Roles.Waiter).ToString(),
                     Name = Roles.Waiter.ToString(),
                     NormalizedName = Roles.Waiter.ToString().ToUpper(),
                     ConcurrencyStamp = "ekcc7115-422c-487d-95b0-58cfa8e66a97"
                 },
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = ((long) Roles.Diner).ToString(),
                     Name = Roles.Diner.ToString(),
                     NormalizedName = Roles.Diner.ToString().ToUpper(),
                     ConcurrencyStamp = "edcc7115-422c-487d-95b0-58cfa8e66a98"
                 },
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = ((long) Roles.Anounymous).ToString(),
                     Name = Roles.Anounymous.ToString(),
                     NormalizedName = Roles.Anounymous.ToString().ToUpper(),
                     ConcurrencyStamp = "educ7115-422c-487d-25b0-58cfa8e66a98"
                 },
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = ((long) Roles.Organization).ToString(),
                     Name = Roles.Organization.ToString(),
@@ -156,7 +156,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     EmailConfirmed = true
                 },
 
-            #region Create FoodBusinessAdministrator users
+                #region Create FoodBusinessAdministrator users
 
                 new ApplicationUser
                 {
@@ -195,9 +195,9 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     EmailConfirmed = true
                 },
 
-            #endregion
+                #endregion
 
-            #region Create FoodBusinessManager users
+                #region Create FoodBusinessManager users
 
                 new ApplicationUser
                 {
@@ -235,9 +235,10 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                         "AQAAAAEAACcQAAAAEO+ouwzSOa+AsCNZrVEhO6Su9q/fX/Q9c9havEvhs5QtXWA6tRdfmqOlemUQphqDnA==",
                     EmailConfirmed = true
                 },
-            #endregion
 
-            #region Create Diner users
+                #endregion
+
+                #region Create Diner users
 
                 new ApplicationUser
                 {
@@ -273,18 +274,18 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
 
             #region Set Users Roles
 
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
-                new IdentityUserRole<string>
+            modelBuilder.Entity<ApplicationUserRole>().HasData(
+                new ApplicationUserRole
                 {
                     UserId = "3cbf3570-0d44-4673-8746-29b7cf568093",
                     RoleId = "1"
                 },
-                new IdentityUserRole<string>
+                new ApplicationUserRole
                 {
                     UserId = "d466ef00-61f1-4e77-801a-b016f0f12323",
                     RoleId = "2"
                 },
-                new IdentityUserRole<string>
+                new ApplicationUserRole
                 {
                     UserId = "d466ef00-61f1-4e77-801a-b516f0f12323",
                     RoleId = "10"
@@ -292,53 +293,53 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
 
                 #region Assign the role FoodBusinessAdministrator to users accounts
 
-                new IdentityUserRole<string>
+                new ApplicationUserRole
                 {
                     UserId = TajMhal_FoodBusinessAdministrator_UserId,
                     RoleId = "5"
                 },
-                new IdentityUserRole<string>
+                new ApplicationUserRole
                 {
                     UserId = Mcdonald_FoodBusinessAdministrator_UserId,
                     RoleId = "5"
                 },
-                new IdentityUserRole<string>
+                new ApplicationUserRole
                 {
                     UserId = BigMama_FoodBusinessAdministrator_UserId,
                     RoleId = "5"
                 },
 
-            #endregion
+                #endregion
 
                 #region Assign the role FoodBusinessManager to users accounts
 
-                new IdentityUserRole<string>
+                new ApplicationUserRole
                 {
                     UserId = TajMhal_FoodBusinessManager_UserId,
                     RoleId = "6"
                 },
-                new IdentityUserRole<string>
+                new ApplicationUserRole
                 {
                     UserId = Mcdonald_FoodBusinessManager_UserId,
                     RoleId = "6"
                 },
-                new IdentityUserRole<string>
+                new ApplicationUserRole
                 {
                     UserId = BigMama_SalimFoodBusinessManager_UserId,
                     RoleId = "6"
                 },
 
-            #endregion
+                #endregion
 
-            #region Assign the role Diner to users accounts
+                #region Assign the role Diner to users accounts
 
-                new IdentityUserRole<string>
+                new ApplicationUserRole
                 {
                     UserId = Diner_UserId_01,
                     RoleId = "11"
                 }
                 ,
-                new IdentityUserRole<string>
+                new ApplicationUserRole
                 {
                     UserId = Diner_UserId_02,
                     RoleId = "11"
