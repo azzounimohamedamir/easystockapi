@@ -13,6 +13,7 @@ using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.ValueObjects;
 
+
 namespace SmartRestaurant.Application.Common.Mappers
 {
     public class MappingProfile : Profile
@@ -80,8 +81,11 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ReverseMap();
             CreateMap<Reservation, ReservationClientDto>()
                 .ForMember(x => x.FoodBusinessName, o => o.MapFrom(p => p.FoodBusiness.Name));
-            CreateMap<CreateDeviceIDCommand,Domain.Entities.DeviceID > ()
-               .ForMember(x => x.DeviceIDId, o => o.MapFrom(p => p.CmdId));
+            CreateMap<CreateDeviceIDCommand,LinkedDevice > ()
+               .ForMember(x => x.LinkedDeviceId, o => o.MapFrom(p => p.CmdId));
+            CreateMap<LinkedDevice, DeviceIDDto>()
+                .ForMember(x => (string)x.IdentifierDevice, o => o.MapFrom(p => (string)p.IdentifierDevice)).ReverseMap();
+               
 
         }
     }

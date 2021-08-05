@@ -5,9 +5,9 @@ using System.Text;
 
 namespace SmartRestaurant.Domain.Entities
 {
-    public class DeviceID : AuditableEntity
+    public class LinkedDevice : AuditableEntity
     {
-        public Guid DeviceIDId { get; set; }
+        public Guid LinkedDeviceId { get; set; }
         public string IdentifierDevice { get; set; }
         public Guid FoodBusinessId { get; set; }
         public FoodBusiness FoodBusiness { get; set; }
