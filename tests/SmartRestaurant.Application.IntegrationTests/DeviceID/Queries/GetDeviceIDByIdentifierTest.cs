@@ -1,21 +1,23 @@
 ﻿using FluentAssertions;
-using FluentValidation.Results;
 using NUnit.Framework;
 using SmartRestaurant.Application.DeviceID.Commands;
 using SmartRestaurant.Application.DeviceID.Queries;
 using SmartRestaurant.Application.FoodBusiness.Commands;
-using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Application.Reservations.Queries;
 using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartRestaurant.Application.IntegrationTests.DeviceID.Commands
+namespace SmartRestaurant.Application.IntegrationTests.DeviceID.Queries
 {
     using static Testing;
+
     [TestFixture]
-    public class CreateDeviceIDTest
+    public class GetDeviceIDByIdentifierTest : TestBase
     {
         [Test]
-        public async Task CreateDeviceID_ShouldSaveToDB()
+        public async Task ShouldGetReservation_ById()
         {
             var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
@@ -28,15 +30,15 @@ namespace SmartRestaurant.Application.IntegrationTests.DeviceID.Commands
             var createDeviceIDCommand = new CreateDeviceIDCommand
             {
                 FoodBusinessId = fastFood.FoodBusinessId,
-                IdentifierDevice= "5SD-65F5-F5S-DF65SF-5SF6"
+                IdentifierDevice = "6FGD-FFFD-6FS4DF-5S4F-6S4F"
             };
             var validationResult = await SendAsync(createDeviceIDCommand);
-            var item = await FindAsync<LinkedDevice>(createDeviceIDCommand.CmdId);
+            var item = await FindAsync<Domain.Entities.LinkedDevice>(createDeviceIDCommand.CmdId);
 
             var query = new GetDeviceIDByIdQuery { IdentifierDevice = createDeviceIDCommand.IdentifierDevice};
             var result = await SendAsync(query);
             result.Should().NotBeNull();
-            result.IdentifierDevice.Should().Be("5SD-65F5-F5S-DF65SF-5SF6");
+            result.IdentifierDevice.Should().Be("6FGD-FFFD-6FS4DF-5S4F-6S4F");
         }
     }
 }

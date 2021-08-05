@@ -19,7 +19,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Section> Sections { get; set; }
         public DbSet<SubSection> SubSections { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<DeviceID> DevicesID { get; set; }
+        public DbSet<LinkedDevice> LinkedDevices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
