@@ -82,7 +82,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<Reservation, ReservationClientDto>()
                 .ForMember(x => x.FoodBusinessName, o => o.MapFrom(p => p.FoodBusiness.Name));
             CreateMap<CreateDeviceIDCommand,LinkedDevice > ()
-               .ForMember(x => x.LinkedDeviceId, o => o.MapFrom(p => p.CmdId));
+               .ForMember(x => x.LinkedDeviceId, o => o.MapFrom(p => p.Id));
             CreateMap<LinkedDevice, DeviceIDDto>()
                 .ForMember(x => (string)x.IdentifierDevice, o => o.MapFrom(p => (string)p.IdentifierDevice)).ReverseMap();
                

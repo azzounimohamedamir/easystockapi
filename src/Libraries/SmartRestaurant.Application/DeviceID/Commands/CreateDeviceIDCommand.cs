@@ -5,7 +5,7 @@ using FluentValidation;
 
 namespace SmartRestaurant.Application.DeviceID.Commands
 {
-   public class CreateDeviceIDCommand : SmartRestaurantCommand
+   public class CreateDeviceIDCommand : CreateCommand
     {
         public string IdentifierDevice { get; set; }
         public Guid FoodBusinessId { get; set; }

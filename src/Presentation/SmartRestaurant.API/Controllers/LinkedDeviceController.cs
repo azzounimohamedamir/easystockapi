@@ -18,10 +18,10 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(command);
         }
 
-        
+        [Route("{DeviceID}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager,Diner")]
-        public Task<IActionResult> Get(string DeviceID)
+        public Task<IActionResult> Get([FromRoute]string DeviceID)
         {
             return SendWithErrorsHandlingAsync(new GetDeviceIDByIdQuery { IdentifierDevice = DeviceID });
         }

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Domain.Entities;
 using System;
 using System.Linq;
 using System.Threading;
@@ -21,6 +23,7 @@ namespace SmartRestaurant.Application.DeviceID.Queries
         public async Task<DeviceIDDto> Handle(GetDeviceIDByIdQuery request, CancellationToken cancellationToken)
         {
            var query = _context.LinkedDevices.FirstOrDefault(d => d.IdentifierDevice == request.IdentifierDevice);
+            if (query==null) throw new NotFoundException(nameof(LinkedDevice), request.IdentifierDevice);
             return _mapper.Map<DeviceIDDto>(query);
         }
     }

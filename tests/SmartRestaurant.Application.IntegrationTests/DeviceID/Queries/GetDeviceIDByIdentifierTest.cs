@@ -25,7 +25,7 @@ namespace SmartRestaurant.Application.IntegrationTests.DeviceID.Queries
                 Name = "fast food test"
             };
             await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.CmdId);
+            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
 
             var createDeviceIDCommand = new CreateDeviceIDCommand
             {
@@ -33,7 +33,7 @@ namespace SmartRestaurant.Application.IntegrationTests.DeviceID.Queries
                 IdentifierDevice = "6FGD-FFFD-6FS4DF-5S4F-6S4F"
             };
             var validationResult = await SendAsync(createDeviceIDCommand);
-            var item = await FindAsync<Domain.Entities.LinkedDevice>(createDeviceIDCommand.CmdId);
+            var item = await FindAsync<Domain.Entities.LinkedDevice>(createDeviceIDCommand.Id);
 
             var query = new GetDeviceIDByIdQuery { IdentifierDevice = createDeviceIDCommand.IdentifierDevice};
             var result = await SendAsync(query);
