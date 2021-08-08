@@ -61,7 +61,10 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> GetById([FromRoute] string userId)
         {
             var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
-            return user == null ? Ok(HttpResponseHelper.Respond(ResponseType.NotFound)) : Ok(user);
+            if (user == null)
+                throw new NotFoundException(nameof(user), userId);
+            var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+            return Ok(new UserWithRolesModel(user, (roles == null) ? new string[0] : roles.ToArray()));
         }
 
         private async Task<PagedListDto<UserWithRolesModel>> GetPagedListOfUsers(
