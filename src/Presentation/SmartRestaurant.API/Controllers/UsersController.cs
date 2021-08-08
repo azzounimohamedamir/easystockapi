@@ -120,7 +120,6 @@ namespace SmartRestaurant.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromRoute] string id, ApplicationUserModel model)
         {
-            if (SuperAdminCheck(model.Roles)) return BadRequest();
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
                 throw new NotFoundException(nameof(user), id);
@@ -128,7 +127,7 @@ namespace SmartRestaurant.API.Controllers
             user.Email = model.Email;
             user.UserName = model.UserName;
             var result = await _userManager.UpdateAsync(user);
-            return SendWithIdentityErrorsHandlingAsync(result);
+            return CheckResultStatus(result);
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
