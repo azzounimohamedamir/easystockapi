@@ -80,7 +80,7 @@ namespace SmartRestaurant.API.Controllers
             return pagedResult;
         }
 
-        [Route("/api/users/{foodBusinessId:Guid}")]
+        [Route("{foodBusinessId:Guid}/staff")]
         [Authorize(Roles = "SuperAdmin,FoodBusinessManager")]
         [HttpGet]
         public async Task<IActionResult> GetStaff([FromRoute] Guid foodBusinessId, int page, int pageSize)
