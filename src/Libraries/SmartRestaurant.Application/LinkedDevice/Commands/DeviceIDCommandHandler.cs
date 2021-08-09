@@ -11,10 +11,10 @@ using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Application.Common.WebResults;
 
-namespace SmartRestaurant.Application.DeviceID.Commands
+namespace SmartRestaurant.Application.LinkedDevice.Commands
 {
     public class DeviceIDCommandHandler :
-        IRequestHandler<CreateDeviceIDCommand, Created>
+        IRequestHandler<CreateLinkedDeviceCommand, Created>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -40,18 +40,18 @@ namespace SmartRestaurant.Application.DeviceID.Commands
         //    return default;
         //}
 
-      public  async Task<Created> Handle(CreateDeviceIDCommand request, CancellationToken cancellationToken)
+      public  async Task<Created> Handle(CreateLinkedDeviceCommand request, CancellationToken cancellationToken)
         {
 
             var userID = _userService.GetUserId();
             if (userID == null)
-            throw new NotFoundException(nameof(DeviceID), request.Id);
+            throw new NotFoundException(nameof(LinkedDevice), request.Id);
 
-            var validator = new CreateDeviceIDCommandValidator();
+            var validator = new CreateLinkedDeviceCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var deviceId = _mapper.Map<LinkedDevice>(request);
+            var deviceId = _mapper.Map<Domain.Entities.LinkedDevice>(request);
             _context.LinkedDevices.Add(deviceId);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;

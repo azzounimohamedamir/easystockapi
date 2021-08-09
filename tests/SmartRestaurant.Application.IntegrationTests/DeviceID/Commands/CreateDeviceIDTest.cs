@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
-using SmartRestaurant.Application.DeviceID.Commands;
-using SmartRestaurant.Application.DeviceID.Queries;
+using SmartRestaurant.Application.LinkedDevice.Commands;
+using SmartRestaurant.Application.LinkedDevice.Queries;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Domain.Entities;
 using System;
@@ -25,13 +25,13 @@ namespace SmartRestaurant.Application.IntegrationTests.DeviceID.Commands
             await SendAsync(createFoodBusinessCommand);
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id   );
 
-            var createDeviceIDCommand = new CreateDeviceIDCommand
+            var createDeviceIDCommand = new CreateLinkedDeviceCommand
             {
                 FoodBusinessId = fastFood.FoodBusinessId,
                 IdentifierDevice= "5SD-65F5-F5S-DF65SF-5SF6"
             };
             var validationResult = await SendAsync(createDeviceIDCommand);
-            var item = await FindAsync<LinkedDevice>(createDeviceIDCommand.Id);
+            var item = await FindAsync<Domain.Entities.LinkedDevice>(createDeviceIDCommand.Id);
 
             var query = new GetDeviceIDByIdQuery { IdentifierDevice = createDeviceIDCommand.IdentifierDevice};
             var result = await SendAsync(query);

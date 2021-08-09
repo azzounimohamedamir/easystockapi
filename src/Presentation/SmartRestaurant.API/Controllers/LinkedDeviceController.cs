@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.Application.DeviceID.Commands;
-using SmartRestaurant.Application.DeviceID.Queries;
+using SmartRestaurant.Application.LinkedDevice.Commands;
+using SmartRestaurant.Application.LinkedDevice.Queries;
 using System;
 using System.Threading.Tasks;
 
@@ -13,7 +13,7 @@ namespace SmartRestaurant.API.Controllers
     {
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager,Diner")]
-        public async Task<IActionResult> Create(CreateDeviceIDCommand command)
+        public async Task<IActionResult> Create(CreateLinkedDeviceCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }

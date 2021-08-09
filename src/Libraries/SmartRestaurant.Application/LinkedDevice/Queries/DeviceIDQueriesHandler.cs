@@ -9,9 +9,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SmartRestaurant.Application.DeviceID.Queries
+namespace SmartRestaurant.Application.LinkedDevice.Queries
 {
-    public class DeviceIDQueriesHandler : IRequestHandler<GetDeviceIDByIdQuery, DeviceIDDto>
+    public class DeviceIDQueriesHandler : IRequestHandler<GetDeviceIDByIdQuery, LinkedDeviceDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -20,11 +20,11 @@ namespace SmartRestaurant.Application.DeviceID.Queries
             _context = context;
             _mapper = mapper;
         }
-        public async Task<DeviceIDDto> Handle(GetDeviceIDByIdQuery request, CancellationToken cancellationToken)
+        public async Task<LinkedDeviceDto> Handle(GetDeviceIDByIdQuery request, CancellationToken cancellationToken)
         {
            var query = _context.LinkedDevices.FirstOrDefault(d => d.IdentifierDevice == request.IdentifierDevice);
-            if (query==null) throw new NotFoundException(nameof(LinkedDevice), request.IdentifierDevice);
-            return _mapper.Map<DeviceIDDto>(query);
+            if (query==null) throw new NotFoundException(nameof(Domain.Entities.LinkedDevice), request.IdentifierDevice);
+            return _mapper.Map<LinkedDeviceDto>(query);
         }
     }
 }

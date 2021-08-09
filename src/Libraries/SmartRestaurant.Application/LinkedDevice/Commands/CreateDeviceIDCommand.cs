@@ -3,17 +3,17 @@ using System;
 using FluentValidation;
 
 
-namespace SmartRestaurant.Application.DeviceID.Commands
+namespace SmartRestaurant.Application.LinkedDevice.Commands
 {
-   public class CreateDeviceIDCommand : CreateCommand
+   public class CreateLinkedDeviceCommand : CreateCommand
     {
         public string IdentifierDevice { get; set; }
         public Guid FoodBusinessId { get; set; }
     }
 
-    public class CreateDeviceIDCommandValidator : AbstractValidator<CreateDeviceIDCommand>
+    public class CreateLinkedDeviceCommandValidator : AbstractValidator<CreateLinkedDeviceCommand>
     {
-        public CreateDeviceIDCommandValidator()
+        public CreateLinkedDeviceCommandValidator()
         {
             RuleFor(v => v.IdentifierDevice).NotNull().NotEmpty();
             RuleFor(v => v.FoodBusinessId).NotNull().NotEmpty().NotEqual(Guid.Empty);

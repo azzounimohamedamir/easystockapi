@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartRestaurant.Application.DeviceID.Queries
+namespace SmartRestaurant.Application.LinkedDevice.Queries
 {
-    public class GetDeviceIDByIdQuery : IRequest<DeviceIDDto>
+    public class GetDeviceIDByIdQuery : IRequest<LinkedDeviceDto>
     {
         public string IdentifierDevice { get; set; }
     }

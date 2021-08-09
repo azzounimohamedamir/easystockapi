@@ -1,5 +1,5 @@
 ﻿using FluentValidation.TestHelper;
-using SmartRestaurant.Application.DeviceID.Commands;
+using SmartRestaurant.Application.LinkedDevice.Commands;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,11 +9,11 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.DeviceID
 {
     public class CreateDeviceIDCommandValidatorTests
     {
-        private readonly CreateDeviceIDCommandValidator _validator;
+        private readonly CreateLinkedDeviceCommandValidator _validator;
 
         public CreateDeviceIDCommandValidatorTests()
         {
-            _validator = new CreateDeviceIDCommandValidator();
+            _validator = new CreateLinkedDeviceCommandValidator();
         }
 
         [Fact]

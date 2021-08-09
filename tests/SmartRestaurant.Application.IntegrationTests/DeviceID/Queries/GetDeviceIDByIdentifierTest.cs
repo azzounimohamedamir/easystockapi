@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using SmartRestaurant.Application.DeviceID.Commands;
-using SmartRestaurant.Application.DeviceID.Queries;
+using SmartRestaurant.Application.LinkedDevice.Commands;
+using SmartRestaurant.Application.LinkedDevice.Queries;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.Reservations.Queries;
 using System;
@@ -27,7 +27,7 @@ namespace SmartRestaurant.Application.IntegrationTests.DeviceID.Queries
             await SendAsync(createFoodBusinessCommand);
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
 
-            var createDeviceIDCommand = new CreateDeviceIDCommand
+            var createDeviceIDCommand = new CreateLinkedDeviceCommand
             {
                 FoodBusinessId = fastFood.FoodBusinessId,
                 IdentifierDevice = "6FGD-FFFD-6FS4DF-5S4F-6S4F"
