@@ -61,7 +61,10 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> GetById([FromRoute] string userId)
         {
             var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
-            return user == null ? Ok(HttpResponseHelper.Respond(ResponseType.NotFound)) : Ok(user);
+            if (user == null)
+                throw new NotFoundException(nameof(user), userId);
+            var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+            return Ok(new UserWithRolesModel(user, (roles == null) ? new string[0] : roles.ToArray()));
         }
 
         private async Task<PagedListDto<UserWithRolesModel>> GetPagedListOfUsers(
@@ -80,7 +83,7 @@ namespace SmartRestaurant.API.Controllers
             return pagedResult;
         }
 
-        [Route("/api/users/{foodBusinessId:Guid}")]
+        [Route("{foodBusinessId:Guid}/staff")]
         [Authorize(Roles = "SuperAdmin,FoodBusinessManager")]
         [HttpGet]
         public async Task<IActionResult> GetStaff([FromRoute] Guid foodBusinessId, int page, int pageSize)
@@ -117,7 +120,6 @@ namespace SmartRestaurant.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromRoute] string id, ApplicationUserModel model)
         {
-            if (SuperAdminCheck(model.Roles)) return BadRequest();
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
                 throw new NotFoundException(nameof(user), id);
@@ -125,7 +127,7 @@ namespace SmartRestaurant.API.Controllers
             user.Email = model.Email;
             user.UserName = model.UserName;
             var result = await _userManager.UpdateAsync(user);
-            return SendWithIdentityErrorsHandlingAsync(result);
+            return CheckResultStatus(result);
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
