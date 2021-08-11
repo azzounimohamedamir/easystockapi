@@ -13,14 +13,14 @@ using SmartRestaurant.Application.Common.WebResults;
 
 namespace SmartRestaurant.Application.LinkedDevice.Commands
 {
-    public class DeviceIDCommandHandler :
+    public class LinkedDeviceCommandHandler :
         IRequestHandler<CreateLinkedDeviceCommand, Created>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
 
-        public DeviceIDCommandHandler(IApplicationDbContext context, IMapper mapper, IUserService userService)
+        public LinkedDeviceCommandHandler(IApplicationDbContext context, IMapper mapper, IUserService userService)
         {
             _mapper = mapper;
             _context = context;

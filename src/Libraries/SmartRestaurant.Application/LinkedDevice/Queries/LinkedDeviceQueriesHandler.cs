@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.LinkedDevice.Queries
 {
-    public class DeviceIDQueriesHandler : IRequestHandler<GetLinkedDeviceByIdQuery, LinkedDeviceDto>
+    public class LinkedDeviceQueriesHandler : IRequestHandler<GetLinkedDeviceByIdQuery, LinkedDeviceDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
-        public DeviceIDQueriesHandler(IApplicationDbContext context, IMapper mapper)
+        public LinkedDeviceQueriesHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
