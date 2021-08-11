@@ -13,8 +13,7 @@ using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.FoodBusiness.Queries;
-using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Application.Users.Queries;
 using SmartRestaurant.Domain.Identity.Entities;
 
 namespace SmartRestaurant.API.Controllers
@@ -83,20 +82,17 @@ namespace SmartRestaurant.API.Controllers
             return pagedResult;
         }
 
-        [Route("{foodBusinessId:Guid}/staff")]
-        [Authorize(Roles = "SuperAdmin,FoodBusinessManager")]
+        [Route("foodBusiness/staff")]
+        [Authorize(Roles = "FoodBusinessAdministrator, FoodBusinessManager")]
         [HttpGet]
-        public async Task<IActionResult> GetStaff([FromRoute] Guid foodBusinessId, int page, int pageSize)
+        public async Task<IActionResult> GetStaff(string foodBusinessId, int page, int pageSize)
         {
-            if (foodBusinessId == Guid.Empty)
-                return BadRequest("FoodBusiness id shouldn't be null or empty");
-            var usersIds = await SendAsync(new GetUsersByFoodBusinessIdQuery
-            {
-                FoodBusinessId = foodBusinessId
-            });
-            var result = _userManager.Users.Where(x => usersIds.Any(u => x.Id == u)).GetPaged(page, pageSize);
-            var pagedResult = await GetPagedListOfUsers(result).ConfigureAwait(false);
-            return Ok(pagedResult);
+            var query = new GetFoodBusinessEmployeesQuery {
+                FoodBusinessId = foodBusinessId,
+                Page = page,
+                PageSize = pageSize
+            };
+            return await SendWithErrorsHandlingAsync(query);
         }
 
 
