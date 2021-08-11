@@ -5,11 +5,11 @@ using Xunit;
 
 namespace SmartRestaurant.Application.Tests.CommandValidatorTests.DeviceID
 {
-    public class CreateDeviceIDCommandValidatorTests
+    public class CreateLinkedDeviceCommandValidatorTests
     {
         private readonly CreateLinkedDeviceCommandValidator _validator;
 
-        public CreateDeviceIDCommandValidatorTests()
+        public CreateLinkedDeviceCommandValidatorTests()
         {
             _validator = new CreateLinkedDeviceCommandValidator();
         }

@@ -14,7 +14,7 @@ namespace SmartRestaurant.Application.IntegrationTests.DeviceID.Queries
     using static Testing;
 
     [TestFixture]
-    public class GetDeviceIDByIdentifierTest : TestBase
+    public class GetLinkedDeviceByIdentifierTest : TestBase
     {
         [Test]
         public async Task ShouldGetReservation_ById()
