@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.LinkedDevice.Queries
 {
-    public class DeviceIDQueriesHandler : IRequestHandler<GetDeviceIDByIdQuery, LinkedDeviceDto>
+    public class DeviceIDQueriesHandler : IRequestHandler<GetLinkedDeviceByIdQuery, LinkedDeviceDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -20,7 +20,7 @@ namespace SmartRestaurant.Application.LinkedDevice.Queries
             _context = context;
             _mapper = mapper;
         }
-        public async Task<LinkedDeviceDto> Handle(GetDeviceIDByIdQuery request, CancellationToken cancellationToken)
+        public async Task<LinkedDeviceDto> Handle(GetLinkedDeviceByIdQuery request, CancellationToken cancellationToken)
         {
            var query = _context.LinkedDevices.FirstOrDefault(d => d.IdentifierDevice == request.IdentifierDevice);
             if (query==null) throw new NotFoundException(nameof(Domain.Entities.LinkedDevice), request.IdentifierDevice);

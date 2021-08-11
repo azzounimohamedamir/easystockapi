@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SmartRestaurant.Application.LinkedDevice.Queries
 {
-    public class GetDeviceIDByIdQuery : IRequest<LinkedDeviceDto>
+    public class GetLinkedDeviceByIdQuery : IRequest<LinkedDeviceDto>
     {
         public string IdentifierDevice { get; set; }
     }

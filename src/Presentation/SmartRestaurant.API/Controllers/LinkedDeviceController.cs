@@ -23,7 +23,7 @@ namespace SmartRestaurant.API.Controllers
         [Authorize(Roles = "FoodBusinessManager,Diner")]
         public Task<IActionResult> Get([FromRoute]string DeviceID)
         {
-            return SendWithErrorsHandlingAsync(new GetDeviceIDByIdQuery { IdentifierDevice = DeviceID });
+            return SendWithErrorsHandlingAsync(new GetLinkedDeviceByIdQuery { IdentifierDevice = DeviceID });
         }
     }
 }

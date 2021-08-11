@@ -1,8 +1,6 @@
 ﻿using FluentValidation.TestHelper;
 using SmartRestaurant.Application.LinkedDevice.Commands;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace SmartRestaurant.Application.Tests.CommandValidatorTests.DeviceID
