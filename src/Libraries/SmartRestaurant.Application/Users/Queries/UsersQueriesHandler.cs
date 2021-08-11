@@ -7,13 +7,13 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Common.constants;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Users.Queries;
 using SmartRestaurant.Domain.Identity.Entities;
+using SmartRestaurant.Domain.Identity.Enums;
 
 namespace SmartRestaurant.Application.Reservations.Queries
 {
@@ -47,7 +47,7 @@ namespace SmartRestaurant.Application.Reservations.Queries
             if(roles == null)
                 throw new InvalidOperationException("User role shouldn't be null or  empty");
 
-            var foodBusinesses = await _context.FoodBusinesses.FindAsync(request.FoodBusinessId).ConfigureAwait(false);
+            var foodBusinesses = await _context.FoodBusinesses.FindAsync(Guid.Parse(request.FoodBusinessId)).ConfigureAwait(false);
             if (foodBusinesses == null) 
                 throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
 
@@ -56,16 +56,16 @@ namespace SmartRestaurant.Application.Reservations.Queries
             .Select(foodBusinessUsers => foodBusinessUsers.ApplicationUserId).ToList();
 
             PagedResultBase<ApplicationUser> pagedUsersList = null;
-            if (roles.Contains(Roles.FoodBusinessAdministrator))
+            if (roles.Contains(Roles.FoodBusinessAdministrator.ToString()))
             {
                 pagedUsersList = _identityContext.UserRoles.Include(u => u.Role)
-                .Where(u => u.Role.Name == Roles.FoodBusinessManager && usersIdsList.Contains(u.User.Id))
+                .Where(u => u.Role.Name == Roles.FoodBusinessManager.ToString() && usersIdsList.Contains(u.User.Id))
                 .Select(u => u.User)
                 .GetPaged(request.Page, request.PageSize);
             }
-            else if (roles.Contains(Roles.FoodBusinessManager))
+            else if (roles.Contains(Roles.FoodBusinessManager.ToString()))
             {
-                var employeesRoles = new List<string> { Roles.Cashier, Roles.Waiter, Roles.Chef };
+                var employeesRoles = new List<string> { Roles.Cashier.ToString(), Roles.Waiter.ToString(), Roles.Chef.ToString() };
                 pagedUsersList = _identityContext.UserRoles.Include(u => u.Role)
                .Where(u => employeesRoles.Contains(u.Role.Name) && usersIdsList.Contains(u.User.Id))
                .Select(u => u.User)

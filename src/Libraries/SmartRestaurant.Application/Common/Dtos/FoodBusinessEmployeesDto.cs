@@ -13,7 +13,5 @@ namespace SmartRestaurant.Application.Common.Dtos
         public List<string> Roles { get; set; }
         public string PhoneNumber { get; set; }
         public bool isActive { get; set; }
-        public Guid FoodBusinessId { get; set; }
-        public Guid FoodBusinessName { get; set; }
     }
 }
