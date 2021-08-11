@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
-    [Route("api/DeviceID")]
+    [Route("api/LinkedDevice")]
     [ApiController]
     public class LinkedDeviceController : ApiController
     {
@@ -18,12 +18,12 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(command);
         }
 
-        [Route("{DeviceID}")]
+        [Route("{IdentifierDevice}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager,Diner")]
-        public Task<IActionResult> Get([FromRoute]string DeviceID)
+        public Task<IActionResult> Get([FromRoute]string IdentifierDevice)
         {
-            return SendWithErrorsHandlingAsync(new GetLinkedDeviceByIdQuery { IdentifierDevice = DeviceID });
+            return SendWithErrorsHandlingAsync(new GetLinkedDeviceByIdQuery { IdentifierDevice = IdentifierDevice });
         }
     }
 }
