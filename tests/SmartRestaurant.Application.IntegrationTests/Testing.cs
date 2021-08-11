@@ -15,6 +15,8 @@ using NUnit.Framework;
 using Respawn;
 using SmartRestaurant.API;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Domain.Identity.Enums;
+using SmartRestaurant.Infrastructure.Identity.Persistence;
 using SmartRestaurant.Infrastructure.Identity.Services;
 using SmartRestaurant.Infrastructure.Persistence;
 
@@ -27,9 +29,11 @@ namespace SmartRestaurant.Application.IntegrationTests
         private static IServiceScopeFactory _scopeFactory;
         private static Checkpoint _checkpoint;
         public static string _authenticatedUserId = "3cbf3570-4444-4444-8746-29b7cf568898";
+        public static string _defaultRole = Roles.FoodBusinessAdministrator.ToString();
+        private static Checkpoint _checkpointIdentity;
 
-        [OneTimeSetUp]
-        public void RunBeforeAnyTests()
+        [OneTimeSetUp] 
+         public void RunBeforeAnyTests()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -45,6 +49,7 @@ namespace SmartRestaurant.Application.IntegrationTests
             var claimsIdentity = new ClaimsIdentity();
             claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, "test user name"));
             claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, _authenticatedUserId));
+            claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, _defaultRole));
             var claimsPrincipal = new ClaimsPrincipal(new[] {claimsIdentity});
 
             var httpContext = new DefaultHttpContext {User = claimsPrincipal};
@@ -53,12 +58,12 @@ namespace SmartRestaurant.Application.IntegrationTests
                 w.EnvironmentName == "Development" &&
                 w.ApplicationName == "SmartRestaurant.API"));
             services.AddLogging();
-            startup.ConfigureServices(services);
             services.AddHttpContextAccessor();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton(Mock.Of<IHttpContextAccessor>(o =>
                 o.HttpContext.User == httpContext.User
-            ));
+            ));     
+            startup.ConfigureServices(services);
 
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
@@ -67,16 +72,22 @@ namespace SmartRestaurant.Application.IntegrationTests
                 TablesToIgnore = new[] {"__EFMigrationsHistory"}
             };
 
+            _checkpointIdentity = new Checkpoint
+            {
+                TablesToIgnore = new[] { "__EFMigrationsHistory" }
+            };
             EnsureDatabase();
         }
 
         private static void EnsureDatabase()
         {
             using var scope = _scopeFactory.CreateScope();
-
             var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-
             context.Database.Migrate();
+
+            using var scopeIdentity = _scopeFactory.CreateScope();
+            var identityContext = scopeIdentity.ServiceProvider.GetService<IdentityContext>();
+            identityContext.Database.Migrate();
         }
 
         public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
@@ -91,6 +102,7 @@ namespace SmartRestaurant.Application.IntegrationTests
         public static async Task ResetState()
         {
             await _checkpoint.Reset(_configuration.GetConnectionString("DefaultConnection"));
+            await _checkpointIdentity.Reset(_configuration.GetConnectionString("IdentityConnection"));
         }
 
         public static async Task<TEntity> FindAsync<TEntity>(Guid id)
@@ -128,6 +140,18 @@ namespace SmartRestaurant.Application.IntegrationTests
             using var scope = _scopeFactory.CreateScope();
 
             var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+            context.Add(entity);
+
+            await context.SaveChangesAsync();
+        }
+
+        public static async Task AddIdentityAsync<TEntity>(TEntity entity)
+           where TEntity : class
+        {
+            using var scope = _scopeFactory.CreateScope();
+
+            var context = scope.ServiceProvider.GetService<IdentityContext>();
 
             context.Add(entity);
 
