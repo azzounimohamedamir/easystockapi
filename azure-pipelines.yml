@@ -1,6 +1,6 @@
 variables:
   - name: protectedBranches
-    value:
+    value: |
       - 'refs/heads/release'
       - 'refs/heads/develop'
       - 'refs/heads/master'
