@@ -1,5 +1,5 @@
 parameters:
-  protectedBranches:
+  protectedBranches: |
     - refs/heads/release
     - refs/heads/develop
     - refs/heads/master
