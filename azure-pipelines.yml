@@ -1,8 +1,9 @@
 parameters:
-  protectedBranches: 
-    - 'refs/heads/release'
-    - 'refs/heads/develop'
-    - 'refs/heads/master'
+  - name: protectedBranches
+    values:
+      - 'refs/heads/release'
+      - 'refs/heads/develop'
+      - 'refs/heads/master'
 
 stages:
 - stage: Just_Build
