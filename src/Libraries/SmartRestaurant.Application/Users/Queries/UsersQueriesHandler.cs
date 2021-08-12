@@ -18,7 +18,7 @@ using SmartRestaurant.Domain.Identity.Enums;
 namespace SmartRestaurant.Application.Reservations.Queries
 {
     public class UsersQueriesHandler :
-        IRequestHandler<GetFoodBusinessEmployeesQuery, PagedListDto<FoodBusinessEmployees>>
+        IRequestHandler<GetFoodBusinessEmployeesQuery, PagedListDto<FoodBusinessEmployeesDtos>>
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IIdentityContext _identityContext;
@@ -36,7 +36,7 @@ namespace SmartRestaurant.Application.Reservations.Queries
             _mapper = mapper;
         }
 
-        public async Task<PagedListDto<FoodBusinessEmployees>> Handle(GetFoodBusinessEmployeesQuery request, CancellationToken cancellationToken)
+        public async Task<PagedListDto<FoodBusinessEmployeesDtos>> Handle(GetFoodBusinessEmployeesQuery request, CancellationToken cancellationToken)
         {
             var validator = new GetFoodBusinessEmployeesValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
@@ -72,7 +72,7 @@ namespace SmartRestaurant.Application.Reservations.Queries
                .GetPaged(request.Page, request.PageSize);
             }
 
-            var data = _mapper.Map<List<FoodBusinessEmployees>>(await pagedUsersList.Data.ToListAsync(cancellationToken)
+            var data = _mapper.Map<List<FoodBusinessEmployeesDtos>>(await pagedUsersList.Data.ToListAsync(cancellationToken)
                 .ConfigureAwait(false));
 
             foreach (var user in pagedUsersList.Data)
@@ -82,7 +82,7 @@ namespace SmartRestaurant.Application.Reservations.Queries
                 foodBusinessEmployees.Roles = (List<string>) userRoles;
             }
 
-            var pagedFoodBusinessEmployees = new PagedListDto<FoodBusinessEmployees>(pagedUsersList.CurrentPage, 
+            var pagedFoodBusinessEmployees = new PagedListDto<FoodBusinessEmployeesDtos>(pagedUsersList.CurrentPage, 
                 pagedUsersList.PageCount, pagedUsersList.PageSize, pagedUsersList.RowCount, data);
             return pagedFoodBusinessEmployees;
         }

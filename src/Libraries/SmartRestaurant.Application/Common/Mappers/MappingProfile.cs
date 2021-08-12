@@ -85,7 +85,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<Domain.Entities.LinkedDevice,LinkedDeviceDto>()
                 .ForMember(x => (string)x.IdentifierDevice, o => o.MapFrom(p => (string)p.IdentifierDevice)).ReverseMap();
                
-            CreateMap<ApplicationUser, FoodBusinessEmployees>()
+            CreateMap<ApplicationUser, FoodBusinessEmployeesDtos>()
                .ReverseMap();
         }
     }

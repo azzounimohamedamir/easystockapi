@@ -5,7 +5,7 @@ using System;
 
 namespace SmartRestaurant.Application.Users.Queries
 {
-    public class GetFoodBusinessEmployeesQuery : IPagedListQuery<FoodBusinessEmployees>
+    public class GetFoodBusinessEmployeesQuery : IPagedListQuery<FoodBusinessEmployeesDtos>
     {
         public string FoodBusinessId { get; set; }
         public int Page { get; set; }

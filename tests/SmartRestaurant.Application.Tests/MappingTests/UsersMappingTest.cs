@@ -31,14 +31,14 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                  IsActive = true
     };
 
-            var foodBusinessEmployeesDto = _mapper.Map<FoodBusinessEmployees>(user);
+            var foodBusinessEmployeesDto = _mapper.Map<FoodBusinessEmployeesDtos>(user);
 
             Assert.Equal(foodBusinessEmployeesDto.Id, user.Id);
             Assert.Equal(foodBusinessEmployeesDto.Email, user.Email);
             Assert.Equal(foodBusinessEmployeesDto.FullName, user.FullName);
             Assert.Equal(foodBusinessEmployeesDto.UserName, user.UserName);
             Assert.Equal(foodBusinessEmployeesDto.PhoneNumber, user.PhoneNumber);
-            Assert.Equal(foodBusinessEmployeesDto.isActive, user.IsActive);
+            Assert.Equal(foodBusinessEmployeesDto.IsActive, user.IsActive);
         }
     }
 }

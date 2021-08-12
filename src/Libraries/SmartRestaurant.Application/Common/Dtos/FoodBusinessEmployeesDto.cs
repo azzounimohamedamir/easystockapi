@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
-    public class FoodBusinessEmployees
+    public class FoodBusinessEmployeesDtos
     {
 
         public string Id { get; set; }
@@ -12,6 +11,6 @@ namespace SmartRestaurant.Application.Common.Dtos
         public string UserName { get; set; }
         public List<string> Roles { get; set; }
         public string PhoneNumber { get; set; }
-        public bool isActive { get; set; }
+        public bool IsActive { get; set; }
     }
 }

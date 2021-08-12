@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using NUnit.Framework;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Users.Queries;
@@ -43,7 +36,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Users.Queries
             };
             var result = await SendAsync(query);
             result.Data.Should().HaveCount(1);
-            result.Data[0].Id.Should().Be(foodBusinessManager.Id);            
+            result.Data[0].Id.Should().Be(foodBusinessManager.Id);
+            result.Data[0].Roles.Should().NotBeNull();
         }
 
         private static async Task AssignRolesToFoodBusinessAdministrator(ApplicationUser user)
