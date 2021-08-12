@@ -1,5 +1,6 @@
 parameters:
   - name: protectedBranches
+    default: 'refs/heads/develop'
     values:
       - 'refs/heads/release'
       - 'refs/heads/develop'
