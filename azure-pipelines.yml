@@ -6,7 +6,7 @@ variables:
 
 stages:
 - stage: Just_Build
-  condition: and(succeeded(), not(containsvalue(${{ variables.protectedBranches }}, variables['Build.SourceBranch'])))
+  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/develop'))
   pool: 
     name: test-SmartRestaurant-pool
     workspace:
