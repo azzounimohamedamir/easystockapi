@@ -16,6 +16,8 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<Section> Sections { get; set; }
         public DbSet<SubSection> SubSections { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Domain.Entities.LinkedDevice> LinkedDevices { get; set; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
