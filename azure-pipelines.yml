@@ -1,6 +1,5 @@
-parameters:
+variables:
   - name: protectedBranches
-    default: 'refs/heads/develop'
     values:
       - 'refs/heads/release'
       - 'refs/heads/develop'
@@ -8,7 +7,7 @@ parameters:
 
 stages:
 - stage: Just_Build
-  condition: and(succeeded(), not(containsvalue(${{ parameters.protectedBranches }}, variables['Build.SourceBranch'])))
+  condition: and(succeeded(), not(containsvalue(${{ variables.protectedBranches }}, variables['Build.SourceBranch'])))
   pool: 
     name: test-SmartRestaurant-pool
     workspace:
