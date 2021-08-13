@@ -95,6 +95,18 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(query);
         }
 
+        [Route("organization/foodBusinessManagers")]
+        [Authorize(Roles = "FoodBusinessAdministrator")]
+        [HttpGet]
+        public async Task<IActionResult> GetFoodBusinessManagersWithinOrganization(int page, int pageSize)
+        {
+            var query = new GetFoodBusinessManagersWithinOrganizationQuery
+            {
+                Page = page,
+                PageSize = pageSize
+            };
+            return await SendWithErrorsHandlingAsync(query);
+        }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpPost]
