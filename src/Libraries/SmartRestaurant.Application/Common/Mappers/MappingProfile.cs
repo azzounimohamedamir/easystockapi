@@ -11,6 +11,7 @@ using SmartRestaurant.Application.SubSections.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Application.Common.Mappers
@@ -84,7 +85,8 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<Domain.Entities.LinkedDevice,LinkedDeviceDto>()
                 .ForMember(x => (string)x.IdentifierDevice, o => o.MapFrom(p => (string)p.IdentifierDevice)).ReverseMap();
                
-
+            CreateMap<ApplicationUser, FoodBusinessEmployeesDtos>()
+               .ReverseMap();
         }
     }
 }
