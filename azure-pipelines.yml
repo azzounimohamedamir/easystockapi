@@ -1,6 +1,21 @@
+variables:
+  - name: protectedBranches
+    value: refs/heads/develop
+#      - 'refs/heads/release'
+#      - 'refs/heads/master'
+
 stages:
+- stage: Just_Build
+  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  pool: 
+    name: test-SmartRestaurant-pool
+    workspace:
+      clean: all
+  jobs:
+  - template: devops/azure-build-template.yml
+
 - stage: Build_On_Test_Evn
-  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
   pool: 
     name: test-SmartRestaurant-pool
     workspace:
@@ -10,7 +25,7 @@ stages:
 
 - stage: Deploy_To_Test_Env
   dependsOn: Build_On_Test_Evn
-  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/release'))
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
   pool: 
     name: test-SmartRestaurant-pool
     workspace:
