@@ -11,7 +11,6 @@ namespace SmartRestaurant.Application.Reservations.Commands
             LastModifiedAt = DateTime.Now;
         }
 
-        public Guid Id { get; set; }
         public string ReservationName { get; set; }
         public int NumberOfDiners { get; set; }
         public DateTime ReservationDate { get; set; }
