@@ -1,4 +1,6 @@
 using AutoMapper;
+using FluentValidation.AspNetCore;
+using MicroElements.Swashbuckle.FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,8 +10,15 @@ using Microsoft.OpenApi.Models;
 using SmartRestaurant.API.Configurations;
 using SmartRestaurant.Application;
 using SmartRestaurant.Application.Email;
+using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Infrastructure;
 using SmartRestaurant.Infrastructure.Identity;
+using Swashbuckle.AspNetCore.Filters;
+using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerUI;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace SmartRestaurant.API
 {
@@ -21,7 +30,7 @@ namespace SmartRestaurant.API
         }
 
         public IConfiguration Configuration { get; }
-
+      
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication();
@@ -36,14 +45,50 @@ namespace SmartRestaurant.API
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Smart Restaurant api v1", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Smart Restaurant api v1", Version = "v1"});              
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+                c.EnableAnnotations();
+
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "Standard Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {{ new OpenApiSecurityScheme {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }});
+                c.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
+              
+
+                c.ExampleFilters();
+                c.OperationFilter<AddResponseHeadersFilter>();
+
+
+                c.AddFluentValidationRules();
             });
             services.AddSwaggerGenNewtonsoftSupport();
+            services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
 
-            services.AddControllersWithViews().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-            });
+            services.AddControllersWithViews()
+             .AddFluentValidation(c => {
+                 c.RegisterValidatorsFromAssemblyContaining<CreateReservationCommand>();
+                 c.ValidatorFactoryType = typeof(HttpContextServiceProviderValidatorFactory);
+             })
+             .AddJsonOptions(options => {
+                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+             });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -63,7 +108,11 @@ namespace SmartRestaurant.API
             app.UseStaticFiles();
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Smart Restaurant api v1"); });
+            app.UseSwaggerUI(c => { 
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Smart Restaurant api v1");
+                c.DisplayRequestDuration();
+                c.DocExpansion(DocExpansion.None);
+            });
 
             app.UseRouting();
 
