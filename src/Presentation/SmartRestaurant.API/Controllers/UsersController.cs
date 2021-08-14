@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models.UserModels;
+using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Exceptions;
@@ -15,11 +16,13 @@ using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Users.Queries;
 using SmartRestaurant.Domain.Identity.Entities;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SmartRestaurant.API.Controllers
 {
     [Route("api/users")]
     [ApiController]
+    [SwaggerTag("List of actions that can be applied on Application users.")]
     public class UsersController : ApiController
     {
         private readonly IIdentityContext _identityContext;
@@ -82,6 +85,23 @@ namespace SmartRestaurant.API.Controllers
             return pagedResult;
         }
 
+        /// <summary> This endpoint is used to get the staff list in a particular FoodBusiness </summary>
+        /// <remarks>
+        /// This endpoint will return different results based on the role of the logged in user:
+        /// <br></br>
+        /// 1- if the logged in user is a <b>FoodBusinessAdministrator</b>; the endpoint will return the list of users with role = <b>FoodBusinessManagers</b> in the the selected <b>FoodBusiness</b>. 
+        /// <br></br>
+        /// 2- if the logged in user is a <b>FoodBusinessManager</b>; the endpoint will return the list of users with roles = <b>Chef - Cashier - Waiter</b>  in the the selected <b>FoodBusiness</b>. 
+        /// </remarks>
+        /// <param name="foodBusinessId">Id of foodBusiness which we want to get its staff list.</param>
+        /// <param name="page">The start position of read pointer in a request results</param>
+        /// <param name="pageSize">The max number of Reservations that should be returned</param>
+        /// <response code="400">The parameters sent to the backend-server in order to get the list of staff are invalid.</response>
+        /// <response code="200">The list of staff has been successfully fetched.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(PagedListDto<FoodBusinessEmployeesDtos>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("foodBusiness/staff")]
         [Authorize(Roles = "FoodBusinessAdministrator, FoodBusinessManager")]
         [HttpGet]
@@ -95,6 +115,20 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(query);
         }
 
+        /// <summary> This endpoint is used to get the list of FoodBusinessManagers in a particular Organization </summary>
+        /// <remarks>
+        /// This endpoint will return the list of FoodBusinessManagers in a particular Organization based on FoodBusinessAdministratorId. 
+        /// <br></br>
+        /// No need to provide application with FoodBusinessAdministratorId
+        /// </remarks>
+        /// <param name="page">The start position of read pointer in a request results</param>
+        /// <param name="pageSize">The max number of Reservations that should be returned</param>
+        /// <response code="400">The parameters sent to the backend-server in order to get the list of FoodBusinessManagers are invalid.</response>
+        /// <response code="200">The the list of FoodBusinessManagers has been successfully fetched.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(PagedListDto<FoodBusinessEmployeesDtos>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("organization/foodBusinessManagers")]
         [Authorize(Roles = "FoodBusinessAdministrator")]
         [HttpGet]
