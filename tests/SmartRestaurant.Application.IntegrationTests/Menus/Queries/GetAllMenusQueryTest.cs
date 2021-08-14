@@ -34,7 +34,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
                 {FoodBusinessId = createFoodBusinessCommand.Id, Page = 1, PageSize = 5};
             var result = await SendAsync(query);
 
-            result.Data.Should().HaveCount(5);
+            result.Should().HaveCount(5);
         }
     }
 }
