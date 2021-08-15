@@ -14,7 +14,9 @@ using SmartRestaurant.Application.Common.WebResults;
 namespace SmartRestaurant.Application.LinkedDevice.Commands
 {
     public class LinkedDeviceCommandHandler :
-        IRequestHandler<CreateLinkedDeviceCommand, Created>
+        IRequestHandler<CreateLinkedDeviceCommand, Created>,
+         IRequestHandler<UpdateLinkedDeviceCommand, NoContent>,
+        IRequestHandler<DeleteLinkedDeviceCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -27,12 +29,11 @@ namespace SmartRestaurant.Application.LinkedDevice.Commands
             _userService = userService;
         }
 
-      public  async Task<Created> Handle(CreateLinkedDeviceCommand request, CancellationToken cancellationToken)
+        public async Task<Created> Handle(CreateLinkedDeviceCommand request, CancellationToken cancellationToken)
         {
-
             var userID = _userService.GetUserId();
             if (userID == null)
-            throw new NotFoundException(nameof(LinkedDevice), request.Id);
+                throw new NotFoundException(nameof(LinkedDevice), request.Id);
 
             var validator = new CreateLinkedDeviceCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
@@ -43,5 +44,28 @@ namespace SmartRestaurant.Application.LinkedDevice.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
+
+        public async Task<NoContent> Handle(UpdateLinkedDeviceCommand request, CancellationToken cancellationToken)
+        {
+            var foodBusinessManagerId = _userService.GetUserId();
+            if (foodBusinessManagerId == string.Empty || string.IsNullOrWhiteSpace(foodBusinessManagerId))
+                throw new InvalidOperationException("FoodBusinessManager Id shouldn't be null or  empty");
+
+            var validator = new UpdateLinkedDeviceommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var linkedDevice = await _context.LinkedDevices.AsNoTracking()
+                .FirstOrDefaultAsync(t => t.IdentifierDevice == request.IdentifierDevice, cancellationToken)
+                .ConfigureAwait(false);
+            if (linkedDevice == null)
+                throw new NotFoundException(nameof(Domain.Entities.LinkedDevice), request.Id);
+            _mapper.Map(request, linkedDevice);
+            _context.LinkedDevices.Update(linkedDevice);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+        
     }
 }
