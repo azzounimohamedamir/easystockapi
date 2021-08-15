@@ -15,8 +15,8 @@ namespace SmartRestaurant.Application.LinkedDevice.Commands
 {
     public class LinkedDeviceCommandHandler :
         IRequestHandler<CreateLinkedDeviceCommand, Created>,
-         IRequestHandler<UpdateLinkedDeviceCommand, NoContent>,
-        IRequestHandler<DeleteLinkedDeviceCommand, NoContent>
+         IRequestHandler<UpdateLinkedDeviceCommand, NoContent>
+        
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
