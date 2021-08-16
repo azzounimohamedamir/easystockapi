@@ -13,6 +13,7 @@ using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.ValueObjects;
+using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -87,6 +88,9 @@ namespace SmartRestaurant.Application.Common.Mappers
                
             CreateMap<ApplicationUser, FoodBusinessEmployeesDtos>()
                .ReverseMap();
+
+            CreateMap<InviteUserToJoinOrganizationCommand, ApplicationUser>()
+                 .ForMember(x => x.UserName, o => o.MapFrom(p => p.Email));
         }
     }
 }
