@@ -46,7 +46,4 @@
   <ItemGroup>
     <ProjectReference Include="..\SmartRestaurant.Application.Tests\SmartRestaurant.Application.Tests.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
-  </ItemGroup>
 </Project>

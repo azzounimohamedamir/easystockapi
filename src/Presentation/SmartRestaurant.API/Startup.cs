@@ -84,7 +84,6 @@ namespace SmartRestaurant.API
 
             services.AddControllersWithViews()
              .AddFluentValidation(c => {
-                 //c.RegisterValidatorsFromAssemblyContaining<CreateReservationCommand>();
                  c.ValidatorFactoryType = typeof(HttpContextServiceProviderValidatorFactory);
              })
              .AddJsonOptions(options => {
