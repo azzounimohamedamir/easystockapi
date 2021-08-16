@@ -3,7 +3,6 @@ using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
 using SmartRestaurant.Domain.Identity.Enums;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusinessEmployee

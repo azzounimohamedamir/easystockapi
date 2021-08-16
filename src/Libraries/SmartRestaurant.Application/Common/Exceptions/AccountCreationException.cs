@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 
 namespace SmartRestaurant.Application.Common.Exceptions

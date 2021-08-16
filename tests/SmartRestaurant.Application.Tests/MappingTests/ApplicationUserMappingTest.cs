@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
-using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
-using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Tests.Configuration;
-using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
 using Xunit;

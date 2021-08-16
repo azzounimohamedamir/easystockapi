@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using netDumbster.smtp;
+﻿using netDumbster.smtp;
 using NUnit.Framework;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
@@ -9,8 +8,6 @@ using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers
