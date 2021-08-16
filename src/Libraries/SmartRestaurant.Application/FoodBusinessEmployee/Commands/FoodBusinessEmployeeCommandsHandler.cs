@@ -110,7 +110,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         #region InviteUserToJoinOrganizationHandler
         public async Task<Created> Handle(InviteUserToJoinOrganizationCommand request, CancellationToken cancellationToken)
         {            
-            await Checks.CheckQuery_ThrowExceptionIfQueryIsInvalid
+            await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid
                 <InviteUserToJoinOrganizationCommandValidator, InviteUserToJoinOrganizationCommand>
                 (request, cancellationToken).ConfigureAwait(false);
 

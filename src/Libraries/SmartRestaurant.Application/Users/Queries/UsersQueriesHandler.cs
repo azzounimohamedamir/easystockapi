@@ -92,9 +92,9 @@ namespace SmartRestaurant.Application.Reservations.Queries
 
         public async Task<PagedListDto<FoodBusinessEmployeesDtos>> Handle(GetFoodBusinessManagersWithinOrganizationQuery request, CancellationToken cancellationToken)
         {
-            await Checks.CheckQuery_ThrowExceptionIfQueryIsInvalid<GetFoodBusinessManagersWithinOrganizationValidator, GetFoodBusinessManagersWithinOrganizationQuery>(request, cancellationToken).ConfigureAwait(false);
-            string foodBusinessAdministratorId = Checks.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
-            await Checks.CheckUserExistence_ThrowExceptionIfUserNotFound(_identityContext, foodBusinessAdministratorId).ConfigureAwait(false);
+            await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid<GetFoodBusinessManagersWithinOrganizationValidator, GetFoodBusinessManagersWithinOrganizationQuery>(request, cancellationToken).ConfigureAwait(false);
+            string foodBusinessAdministratorId = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
+            await ChecksHelper.CheckUserExistence_ThrowExceptionIfUserNotFound(_identityContext, foodBusinessAdministratorId).ConfigureAwait(false);
 
             var listOfUsersIds = GetUsersIdsByFoodBusinessAdministratorId(foodBusinessAdministratorId);
             var pagedUsersList = GetPagedUsersByRolesAndUsersIds(Roles.FoodBusinessManager.ToString(), listOfUsersIds, request.Page, request.PageSize);
