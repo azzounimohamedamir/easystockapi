@@ -7,18 +7,27 @@ namespace SmartRestaurant.Application.Common.Tools
 {
     public class ValidatorHelper
     {
-        public static bool ValidateGuid(string input)
+        public static bool ValidateGuid(string guid)
         {
-            return Guid.TryParse(input, out var newGuid);
+            if (guid == null)
+                return false;
+
+            return Guid.TryParse(guid, out var newGuid);
         }
 
         public static bool ValidateEmail(string email)
         {
+            if (email == null)
+                return false;
+
             return new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$").Match(email).Success;
         }
 
         public static bool ValidateAllRoles(string role)
         {
+            if (role == null)
+                return false;
+
             var regex =
             $"^(?:{Domain.Identity.Enums.Roles.SuperAdmin.ToString()}" +
             $"|{Domain.Identity.Enums.Roles.SupportAgent.ToString()}" +
@@ -38,6 +47,9 @@ namespace SmartRestaurant.Application.Common.Tools
 
         public static bool ValidateRoleForOraganizationStaff(string role)
         {
+            if (role == null)
+                return false;
+
             var regex =
             $"^(?:{Domain.Identity.Enums.Roles.FoodBusinessManager.ToString()}" +
             $"|{Domain.Identity.Enums.Roles.Chef.ToString()}" +
