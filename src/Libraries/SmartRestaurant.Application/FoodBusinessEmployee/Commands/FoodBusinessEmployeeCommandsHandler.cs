@@ -159,16 +159,16 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         private async Task SendConfirmationEmail(ApplicationUser user)
         {
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            string confirmationLink = ConfirmationInvitationWebPage(token);
+            string confirmationLink = ConfirmationInvitationWebPage(token, user.Id);
             new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, "Invitation to join organization", confirmationLink);           
         }
 
-        private string ConfirmationInvitationWebPage(string token)
+        private string ConfirmationInvitationWebPage(string token, string id)
         {
-            var frontendConfirmationPage = "https://test.smartrestaurant.io/main/food-business-employees/confirm";
+            var linkToAcceptInvitationWebPage = $"https://test.smartrestaurant.io/main/food-business-employees/{id}/confirm";
             var welcome = "<h1 align=\"center\" style=\"font-size: 48px; font-weight: 400; margin: 2; \">Welcome!</h1>";
             var message = "<p>We're excited to have you get started. First, you need to complete your subscription. Just press the button below.</p>";
-            var button = $"<div style=\"text-align:center;\"><a href='{frontendConfirmationPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFA73B; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFA73B; display: inline-block;\" target=\"_blank\">Click here</a></div>";
+            var button = $"<div style=\"text-align:center;\"><a href='{linkToAcceptInvitationWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFA73B; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFA73B; display: inline-block;\" target=\"_blank\">Click here</a></div>";
             var confirmationLink = $"<div style=\"width:500px;text-align:center;\">{welcome}<br></br>{message}<br></br>{button}.<br></br><p><b>Token</b>: {token}</p></div>";
             return confirmationLink;
         }
