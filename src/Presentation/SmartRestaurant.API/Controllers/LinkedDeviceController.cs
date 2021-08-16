@@ -25,5 +25,15 @@ namespace SmartRestaurant.API.Controllers
         {
             return SendWithErrorsHandlingAsync(new GetLinkedDeviceByIdQuery { IdentifierDevice = IdentifierDevice });
         }
+
+        [Route("{IdentifierDevice}")]
+        [HttpPut]
+        [Authorize(Roles = "FoodBusinessManager,Diner")]
+        public async Task<IActionResult> Update(UpdateLinkedDeviceCommand command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+       
     }
 }
