@@ -38,5 +38,10 @@ namespace SmartRestaurant.Application.Email
             var response = client.SendEmailAsync(msg);
             return response;
         }
+
+        public void SendEmail(string email, string subject, string message)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
