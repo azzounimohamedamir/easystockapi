@@ -62,7 +62,7 @@ namespace SmartRestaurant.Application.IntegrationTests
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton(Mock.Of<IHttpContextAccessor>(o =>
                 o.HttpContext.User == httpContext.User
-            ));     
+            ));
             startup.ConfigureServices(services);
 
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
@@ -156,6 +156,16 @@ namespace SmartRestaurant.Application.IntegrationTests
             context.Add(entity);
 
             await context.SaveChangesAsync();
+        }
+
+        public static async Task<TEntity> FindIdentityAsync<TEntity>(object[] id)
+           where TEntity : class
+        {
+            using var scope = _scopeFactory.CreateScope();
+
+            var context = scope.ServiceProvider.GetService<IdentityContext>();
+
+            return await context.FindAsync<TEntity>(id);
         }
 
         [OneTimeTearDown]

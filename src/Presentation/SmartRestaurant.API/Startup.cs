@@ -9,8 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SmartRestaurant.API.Configurations;
 using SmartRestaurant.Application;
+using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Email;
-using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Infrastructure;
 using SmartRestaurant.Infrastructure.Identity;
 using Swashbuckle.AspNetCore.Filters;
@@ -41,6 +41,7 @@ namespace SmartRestaurant.API
             services.AddHttpContextAccessor();
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddAutoMapper(typeof(MappingProfile));
+            services.Configure<SmtpConfig>(Configuration.GetSection("Smtp"));
             CORSConfiguration.AddCORSConfiguation(services);
 
             services.AddSwaggerGen(c =>
@@ -83,7 +84,6 @@ namespace SmartRestaurant.API
 
             services.AddControllersWithViews()
              .AddFluentValidation(c => {
-                 c.RegisterValidatorsFromAssemblyContaining<CreateReservationCommand>();
                  c.ValidatorFactoryType = typeof(HttpContextServiceProviderValidatorFactory);
              })
              .AddJsonOptions(options => {
