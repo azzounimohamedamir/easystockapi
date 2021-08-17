@@ -5,7 +5,7 @@ using SmartRestaurant.Application.Common.Dtos;
 
 namespace SmartRestaurant.Application.Menus.Queries
 {
-    public class GetMenusListQuery : IRequest<List<MenuDto>>
+    public class GetMenusListQuery : IRequest<PagedListDto<MenuDto>>
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
