@@ -21,7 +21,8 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         IRequestHandler<AddEmployeeInOrganizationCommand, Ok>,
         IRequestHandler<UpdateEmployeeRoleInOrganizationCommand, Ok>,
         IRequestHandler<RemoveEmployeeFromOrganizationCommand, Ok>,
-        IRequestHandler<InviteUserToJoinOrganizationCommand, Created>
+        IRequestHandler<InviteUserToJoinOrganizationCommand, Created>,
+         IRequestHandler<UserAcceptsInvitationToJoinOrganizationCommand, NoContent>
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IApplicationDbContext _context;
@@ -126,6 +127,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                     var randomPassword = Guid.NewGuid().ToString();
+                    newUser.EmailConfirmed = true;
                     var userCreationResult = await _userManager.CreateAsync(newUser, randomPassword);
                     if (!userCreationResult.Succeeded)
                         throw new AccountCreationException(userCreationResult.Errors);
@@ -158,9 +160,9 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 
         private async Task SendConfirmationEmail(ApplicationUser user)
         {
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             string confirmationLink = ConfirmationInvitationWebPage(token, user.Id);
-            new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, "Invitation to join organization", confirmationLink);           
+            new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, "Invitation to join organization", confirmationLink);
         }
 
         private string ConfirmationInvitationWebPage(string token, string id)
@@ -171,6 +173,38 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             var button = $"<div style=\"text-align:center;\"><a href='{linkToAcceptInvitationWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFA73B; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFA73B; display: inline-block;\" target=\"_blank\">Click here</a></div>";
             var confirmationLink = $"<div style=\"width:500px;text-align:center;\">{welcome}<br></br>{message}<br></br>{button}.<br></br><p><b>Token</b>: {token}</p></div>";
             return confirmationLink;
+        }
+        #endregion
+
+        #region UserAcceptsInvitationToJoinOrganizationHandler
+        public async Task<NoContent> Handle(UserAcceptsInvitationToJoinOrganizationCommand request, CancellationToken cancellationToken)
+        {
+            await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid
+              <UserAcceptsInvitationToJoinOrganizationValidator, UserAcceptsInvitationToJoinOrganizationCommand>
+              (request, cancellationToken).ConfigureAwait(false);
+
+            var user = await _userManager.FindByIdAsync(request.Id).ConfigureAwait(false);
+            if (user == null)
+                throw new NotFoundException(nameof(ApplicationUser), request.Id);
+
+            if (!user.Email.Equals(request.Email, StringComparison.OrdinalIgnoreCase))
+                throw new NotFoundException(nameof(ApplicationUser), request.Email);
+      
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {   
+                _mapper.Map(request, user);
+
+                var userUpdateResult = await _userManager.UpdateAsync(user);
+                if (!userUpdateResult.Succeeded)
+                    throw new UserManagerException(userUpdateResult.Errors);
+
+               var passwordResetResult = await _userManager.ResetPasswordAsync(user, request.Token, request.Password);
+                if (!passwordResetResult.Succeeded)
+                    throw new UserManagerException(passwordResetResult.Errors);
+
+                transaction.Complete();
+            }
+            return default;
         }
         #endregion
     }

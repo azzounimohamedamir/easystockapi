@@ -21,6 +21,14 @@ namespace SmartRestaurant.Application.Common.Tools
             return new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$").Match(email).Success;
         }
 
+        public static bool ValidatePassword(string password)
+        {
+            if (password == null)
+                return false;
+
+            return (password.Length >= 6);
+        }
+
         public static bool ValidateAllRoles(string role)
         {
             if (role == null)
