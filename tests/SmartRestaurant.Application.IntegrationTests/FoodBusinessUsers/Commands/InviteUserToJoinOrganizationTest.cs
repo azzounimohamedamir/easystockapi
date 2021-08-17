@@ -52,13 +52,14 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers
                 Roles = new List<string> { Roles.FoodBusinessManager.ToString() },
             };
 
-            var c =await SendAsync(inviteUserToJoinOrganization);
+            var invitationResult = await SendAsync(inviteUserToJoinOrganization);
+            Assert.Null(invitationResult);
 
             var user = await FindIdentityAsync<ApplicationUser>(new[] { inviteUserToJoinOrganization.Id.ToString() }).ConfigureAwait(false);
             Assert.AreEqual(user.Id, inviteUserToJoinOrganization.Id.ToString());
             Assert.AreEqual(user.Email, inviteUserToJoinOrganization.Email);
             Assert.AreEqual(user.UserName, inviteUserToJoinOrganization.Email);
-            Assert.IsFalse(user.EmailConfirmed);
+            Assert.IsTrue(user.EmailConfirmed);
             Assert.IsTrue(user.IsActive);
 
             //TODO find solution to check user roles
