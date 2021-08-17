@@ -97,6 +97,9 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<InviteUserToJoinOrganizationCommand, ApplicationUser>()
                  .ForMember(x => x.UserName, o => o.MapFrom(p => p.Email));
+
+            CreateMap<UserAcceptsInvitationToJoinOrganizationCommand, ApplicationUser>()
+               .ForMember(x => x.Email, o => o.Ignore());
         }
     }
 }
