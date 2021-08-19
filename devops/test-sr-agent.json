@@ -1,0 +1,18 @@
+{
+  "JwtKey": "myrandomsigningkeyforgeneratingtokens",
+  "JwtIssuer": "http://127.0.0.1:5000",
+  "JwtExpireDays": 1,
+  "SendGridUser": "Smart restaurant",
+  "SendGridKey": "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",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=default_db;User ID=SA;Password=Azerty123;Trusted_Connection=false;MultipleActiveResultSets=true",
+    "IdentityConnection": "Server=localhost;Database=identity_db;User ID=SA;Password=Azerty123;Trusted_Connection=false;MultipleActiveResultSets=true"
+  },
+  "DefaultCulture": "fr-FR",
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
