@@ -75,7 +75,7 @@ stages:
   jobs:
   - template: devops/azure-deploy-template.yml
     parameters:
-      envName: SmartRestaurant-Pre-Prod-Env
+      envName: SmartRestaurant-Prod-Env
 
 - stage: Run_Tests
   dependsOn: []
