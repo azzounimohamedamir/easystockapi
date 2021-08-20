@@ -6,14 +6,14 @@
   - job: Build_the_API
     steps:
       - script: |
-         cp devops/appsettings.json ${{ parameters.WebProjectName }}
+         cp devops/$(Agent.Name).json ${{ parameters.WebProjectName }}/appsettings.json
          cd ${{ parameters.WebProjectName }}
          dotnet clean SmartRestaurant.API.csproj
          dotnet restore SmartRestaurant.API.csproj
         displayName: Restore Common Packages
       - script: |
-         cp devops/appsettings.json src/Libraries/SmartRestaurant.Application/
-         cp devops/appsettings.json src/Libraries/SmartRestaurant.Infrastructure/
+         cp devops/$(Agent.Name).json src/Libraries/SmartRestaurant.Application/appsettings.json
+         cp devops/$(Agent.Name).json src/Libraries/SmartRestaurant.Infrastructure/appsettings.json
          cd "src/Libraries/SmartRestaurant.Application/"
          dotnet add package DataTables.AspNetCore.Mvc
         displayName: Add AspNetCore.Mvc Packages

@@ -5,14 +5,35 @@ variables:
 #      - 'refs/heads/master'
 
 stages:
-- stage: Just_Build
+#- stage: Just_Build
+#  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/develop'))
+#  pool: 
+#    name: test-SmartRestaurant-pool
+#    workspace:
+#      clean: all
+#  jobs:
+#  - template: devops/azure-build-template.yml
+- stage: Build_On_Dev_Evn
   condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/develop'))
   pool: 
-    name: test-SmartRestaurant-pool
+    name: features-SmartRestaurant-pool
     workspace:
       clean: all
   jobs:
   - template: devops/azure-build-template.yml
+
+- stage: Deploy_To_Dev_Env
+  dependsOn: Build_On_Dev_Evn
+  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  pool: 
+    name: features-SmartRestaurant-pool
+    workspace:
+      clean: none
+  jobs:
+  - template: devops/azure-deploy-template.yml
+    parameters:
+      envName: SmartRestaurant-Dev-Env
+
 
 - stage: Build_On_Test_Evn
   condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
@@ -54,7 +75,7 @@ stages:
   jobs:
   - template: devops/azure-deploy-template.yml
     parameters:
-      envName: SmartRestaurant-Pre-Prod-Env
+      envName: SmartRestaurant-Prod-Env
 
 - stage: Run_Tests
   dependsOn: []
