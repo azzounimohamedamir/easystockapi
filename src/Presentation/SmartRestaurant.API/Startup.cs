@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SmartRestaurant.API.Configurations;
 using SmartRestaurant.Application;
+using SmartRestaurant.Application.Common.Configuration;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Email;
 using SmartRestaurant.Infrastructure;
@@ -42,6 +43,8 @@ namespace SmartRestaurant.API
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddAutoMapper(typeof(MappingProfile));
             services.Configure<SmtpConfig>(Configuration.GetSection("Smtp"));
+            services.Configure<WebPortal>(Configuration.GetSection("WebPortal"));
+            services.Configure<EmailTemplates>(Configuration.GetSection("EmailTemplates"));
             CORSConfiguration.AddCORSConfiguation(services);
 
             services.AddSwaggerGen(c =>

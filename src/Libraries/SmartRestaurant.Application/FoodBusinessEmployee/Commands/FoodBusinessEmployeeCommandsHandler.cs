@@ -8,6 +8,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using SmartRestaurant.Application.Common.Configuration;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
@@ -27,14 +28,19 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IApplicationDbContext _context;
         private readonly IOptions<SmtpConfig> _smtpConfig;
+        private readonly IOptions<WebPortal> _webPortal;
+        private readonly IOptions<EmailTemplates> _emailTemplates;        
         private readonly IMapper _mapper;
         public FoodBusinessEmployeeCommandsHandler(IApplicationDbContext context,
-            UserManager<ApplicationUser> userManager, IMapper mapper, IOptions<SmtpConfig> smtpConfig)
+            UserManager<ApplicationUser> userManager, IMapper mapper, IOptions<SmtpConfig> smtpConfig, 
+            IOptions<WebPortal> webPortal, IOptions<EmailTemplates> emailTemplates)
         {
             _context = context;
             _userManager = userManager;
             _mapper = mapper;
             _smtpConfig = smtpConfig;
+            _webPortal = webPortal;
+            _emailTemplates = emailTemplates;
         }
 
         public async Task<Ok> Handle(AddEmployeeInOrganizationCommand request,
@@ -161,19 +167,13 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         private async Task SendConfirmationEmail(ApplicationUser user)
         {
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            string confirmationLink = ConfirmationInvitationWebPage(token, user.Id);
-            new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, "Invitation to join organization", confirmationLink);
-        }
-
-        private string ConfirmationInvitationWebPage(string token, string id)
-        {
-            var linkToAcceptInvitationWebPage = $"https://test.smartrestaurant.io/main/food-business-employees/{id}/confirm";
-            var welcome = "<h1 align=\"center\" style=\"font-size: 48px; font-weight: 400; margin: 2; \">Welcome!</h1>";
-            var message = "<p>We're excited to have you get started. First, you need to complete your subscription. Just press the button below.</p>";
-            var button = $"<div style=\"text-align:center;\"><a href='{linkToAcceptInvitationWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFA73B; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFA73B; display: inline-block;\" target=\"_blank\">Click here</a></div>";
-            var confirmationLink = $"<div style=\"width:500px;text-align:center;\">{welcome}<br></br>{message}<br></br>{button}.<br></br><p><b>Token</b>: {token}</p></div>";
-            return confirmationLink;
-        }
+            var linkToAcceptInvitationWebPage = $"{_webPortal.Value.host}{_webPortal.Value.pathToEmployeeAcceptInvitation.Replace("{id}", user.Id)}";
+            var invitationToJoinOrganization = _emailTemplates.Value.InvitationToJoinOrganization;
+            var template = invitationToJoinOrganization.Template
+                .Replace("{linkToAcceptInvitationWebPage}", linkToAcceptInvitationWebPage)
+                .Replace("{token}", token);
+            new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, invitationToJoinOrganization.Subject, template);
+        }      
         #endregion
 
         #region UserAcceptsInvitationToJoinOrganizationHandler
