@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,10 +30,27 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(command);
         }
 
+
+        /// <summary> This endpoint is used to remove staff frome organization</summary>
+        /// <remarks>
+        /// This endpoint is used to remove staff frome organization. 
+        /// </remarks>
+        /// <param name="id">id of the employee</param>
+        /// <param name="foodBusinessesIds">foodBusinessesIds is the list of [foodBusinesses] ids where employee should be removed  from.</param>
+        /// <response code="400">The parameters sent to the backend-server in order to remove employee from organization are invalid.</response>
+        /// <response code="200">The employee has been successfully removed from organization..</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}")]
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<IActionResult> RemoveEmployeeFromOrganization(RemoveEmployeeFromOrganizationCommand command)
+        public async Task<IActionResult> RemoveEmployeeFromOrganization([FromRoute] string id, [FromQuery] List<string> foodBusinessesIds)
         {
+            var command = new RemoveEmployeeFromOrganizationCommand {
+                UserId = id,
+                FoodBusinessesIds = foodBusinessesIds
+            };
             return await SendWithErrorsHandlingAsync(command);
         }
 

@@ -4,7 +4,7 @@ using SmartRestaurant.Application.Common.Interfaces;
 
 namespace SmartRestaurant.Application.Users.Queries 
 {
-    public class GetFoodBusinessManagersWithinOrganizationQuery : IPagedListQuery<FoodBusinessEmployeesDtos> 
+    public class GetFoodBusinessManagersWithinOrganizationQuery : IPagedListQuery<FoodBusinessManagersDto> 
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
