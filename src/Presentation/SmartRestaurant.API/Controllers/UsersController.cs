@@ -127,7 +127,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="200">The the list of FoodBusinessManagers has been successfully fetched.</response>
         /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
         /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
-        [ProducesResponseType(typeof(PagedListDto<FoodBusinessEmployeesDtos>), 200)]
+        [ProducesResponseType(typeof(PagedListDto<FoodBusinessManagersDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("organization/foodBusinessManagers")]
         [Authorize(Roles = "FoodBusinessAdministrator")]
