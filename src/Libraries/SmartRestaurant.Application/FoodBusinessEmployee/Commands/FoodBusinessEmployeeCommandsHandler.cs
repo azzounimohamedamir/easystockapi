@@ -81,12 +81,20 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var foodBusiness = _context.FoodBusinessUsers.First(b =>
-                b.FoodBusinessId == request.FoodBusinessId && b.ApplicationUserId == request.UserId.ToString());
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                foreach (var foodBusinessId in request.FoodBusinessesIds)
+                {
+                    var foodBusinessUser = _context.FoodBusinessUsers.First(b =>
+                    b.FoodBusinessId == Guid.Parse(foodBusinessId) && b.ApplicationUserId == request.UserId);
+                    if (foodBusinessUser == null)
+                        throw new NotFoundException(nameof(foodBusinessUser), foodBusinessId);
 
-            _context.FoodBusinessUsers.Remove(foodBusiness);
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
+                    _context.FoodBusinessUsers.Remove(foodBusinessUser);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                }
+                transaction.Complete();
+            }
             return default;
         }
 
