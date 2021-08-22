@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
 

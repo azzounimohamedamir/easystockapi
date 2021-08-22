@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 
 namespace SmartRestaurant.Infrastructure.Identity.Persistence
 {
-    public class IdentityContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>, IIdentityContext
+    public class IdentityContext :
+        IdentityDbContext<ApplicationUser, ApplicationRole, string, IdentityUserClaim<string>, ApplicationUserRole,
+            IdentityUserLogin<string>, IdentityRoleClaim<string>, IdentityUserToken<string>>, IIdentityContext
     {
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {
