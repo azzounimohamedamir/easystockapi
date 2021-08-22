@@ -10,6 +10,7 @@ using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Common.Tools;
 
 namespace SmartRestaurant.Application.FoodBusiness.Queries
 {
@@ -23,13 +24,15 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
         private readonly IApplicationDbContext _applicationDbContext;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
+        private readonly IIdentityContext _identityContext;
 
         public FoodBusinessQueriesHandler(IApplicationDbContext applicationDbContext, IMapper mapper,
-            IUserService userService)
+            IUserService userService, IIdentityContext identityContext)
         {
             _applicationDbContext = applicationDbContext;
             _userService = userService;
             _mapper = mapper;
+            _identityContext = identityContext;
         }
 
         public async Task<List<FoodBusinessDto>> Handle(GetAllFoodBusinessByFoodBusinessManagerQuery request,
@@ -71,12 +74,11 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
         public async Task<List<FoodBusinessDto>> Handle(GetFoodBusinessListByAdmin request,
             CancellationToken cancellationToken)
         {
-            if (request.FoodBusinessAdministratorId == string.Empty ||
-                string.IsNullOrWhiteSpace(request.FoodBusinessAdministratorId))
-                throw new InvalidOperationException("FoodBusinessAdministratorId shouldn't be null or  empty");
+            string foodBusinessAdministratorId = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
+            await ChecksHelper.CheckUserExistence_ThrowExceptionIfUserNotFound(_identityContext, foodBusinessAdministratorId).ConfigureAwait(false);
 
             var foodBusinesses = await _applicationDbContext.FoodBusinesses
-                .Where(x => x.FoodBusinessAdministratorId == request.FoodBusinessAdministratorId)
+                .Where(x => x.FoodBusinessAdministratorId == foodBusinessAdministratorId)
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false);
 
