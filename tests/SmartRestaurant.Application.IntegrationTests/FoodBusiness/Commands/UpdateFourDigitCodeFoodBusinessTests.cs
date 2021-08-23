@@ -25,19 +25,17 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
             };
 
             await SendAsync(foodBusinessCommand);
-
             await Task.Delay(0).ContinueWith(async t =>
             {
                 var updateFourDigitCodeCommand = new UpdateFourDigitCodeCommand
                 {
                     Id = foodBusinessCommand.Id,
-                    FourDigitCode = "0000"
+                    FourDigitCode = 0000
                 };
 
                 await SendAsync(updateFourDigitCodeCommand);
 
                 var item = await FindAsync<Domain.Entities.FoodBusiness>(foodBusinessCommand.Id);
-                item.FourDigitCode.Should().NotBeNull();
                 item.FourDigitCode.Equals("0000");
                 item.FoodBusinessId.Should().Be(updateFourDigitCodeCommand.Id);
             });

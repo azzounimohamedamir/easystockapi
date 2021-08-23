@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
@@ -75,22 +76,19 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
 
         public async Task<NoContent> Handle(UpdateFourDigitCodeCommand request, CancellationToken cancellationToken)
         {
-            var foodBusinessManagerId = _userService.GetUserId();
-            if (foodBusinessManagerId == string.Empty || string.IsNullOrWhiteSpace(foodBusinessManagerId))
-                throw new InvalidOperationException("FoodBusinessManager Id shouldn't be null or  empty");
-
             var entity = await _context.FoodBusinesses.FindAsync(request.Id).ConfigureAwait(false);
+
             if (entity == null)
                 throw new NotFoundException(nameof(FoodBusiness), request.Id);
+
             var validator = new UpdateFourDigitCodeCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
             entity = _mapper.Map<Domain.Entities.FoodBusiness>(request);
+            entity.FourDigitCode = request.FourDigitCode;
             _context.FoodBusinesses.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
-
-       
     }
 }

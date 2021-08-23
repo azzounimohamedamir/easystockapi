@@ -124,7 +124,7 @@ namespace SmartRestaurant.API.Controllers
 
 
         [HttpPatch]
-        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager")]
+        [Authorize(Roles ="FoodBusinessManager")]
         public async Task<IActionResult> UpdateFourDigitCode(UpdateFourDigitCodeCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
