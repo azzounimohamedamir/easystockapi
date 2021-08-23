@@ -121,5 +121,25 @@ namespace SmartRestaurant.API.Controllers
             var query = await SendAsync(new GetImagesByEntityIdQuery {EntityId = id}).ConfigureAwait(false);
             return query.Select(Convert.ToBase64String);
         }
+
+
+        [HttpPatch]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager")]
+        public async Task<IActionResult> UpdateFourDigitCode(UpdateFourDigitCodeCommand command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+
+        [Route("{IdentifierDevice}")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager")]
+        public async Task<IActionResult> GetFourDigitCode(GetFourDigitCodeFoodBusinessByIdQuery command)
+        {
+            return await SendWithErrorsHandlingAsync(new GetFourDigitCodeFoodBusinessByIdQuery { FoodBusinessId = command.FoodBusinessId });
+        }
+
+
+
     }
 }
