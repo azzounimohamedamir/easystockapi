@@ -80,11 +80,10 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
 
             if (entity == null)
                 throw new NotFoundException(nameof(FoodBusiness), request.Id);
-
             var validator = new UpdateFourDigitCodeCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-            entity = _mapper.Map<Domain.Entities.FoodBusiness>(request);
+             _mapper.Map(request, entity);
             entity.FourDigitCode = request.FourDigitCode;
             _context.FoodBusinesses.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
