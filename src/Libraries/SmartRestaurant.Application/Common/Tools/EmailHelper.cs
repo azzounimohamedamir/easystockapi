@@ -1,5 +1,7 @@
-﻿using SmartRestaurant.Application.Common.Interfaces;
-using System.Net.Mail;
+﻿using MailKit.Net.Smtp;
+using MimeKit;
+using MimeKit.Text;
+using SmartRestaurant.Application.Common.Interfaces;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Common.Tools
@@ -20,22 +22,20 @@ namespace SmartRestaurant.Application.Common.Tools
             _smtpConfig = smtpConfig;
         }
         public void SendEmail(string userEmail, string subject, string emailContent)
-        {          
-            using (var mailMessage = new  MailMessage())
-            using (var client = new  SmtpClient())
-            {  
-                mailMessage.From = new MailAddress(_smtpConfig.Email);
-                mailMessage.To.Add(new MailAddress(userEmail));
-                mailMessage.Subject = subject;
-                mailMessage.IsBodyHtml = true;
-                mailMessage.Body = emailContent;
+        {
+            var message = new MimeMessage();
+            message.To.Add(new MailboxAddress("", userEmail));
+            message.From.Add(new MailboxAddress("", _smtpConfig.Email));
+            message.Subject = subject;
+            message.Body = new TextPart(TextFormat.Html) { Text = emailContent };
 
-                client.Credentials = new System.Net.NetworkCredential(_smtpConfig.Email, _smtpConfig.Pass);
-                client.Host = _smtpConfig.Server;
-                client.Port = _smtpConfig.Port;
-                client.EnableSsl = false;
-                client.Send(mailMessage);
-            }        
+            using (var emailClient = new SmtpClient())
+            {
+                emailClient.Connect(_smtpConfig.Server, _smtpConfig.Port, false);
+                emailClient.Authenticate(_smtpConfig.Email, _smtpConfig.Pass);
+                emailClient.Send(message);
+                emailClient.Disconnect(true);
+            }      
         }
 
         public Task SendEmailAsync(string email, string subject, string message)
