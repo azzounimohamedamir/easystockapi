@@ -33,6 +33,7 @@ namespace SmartRestaurant.Application.Common.Tools
                 client.Credentials = new System.Net.NetworkCredential(_smtpConfig.Email, _smtpConfig.Pass);
                 client.Host = _smtpConfig.Server;
                 client.Port = _smtpConfig.Port;
+                client.EnableSsl = false;
                 client.Send(mailMessage);
             }        
         }
