@@ -25,14 +25,24 @@ namespace SmartRestaurant.API.Controllers
             return SendWithErrorsHandlingAsync(new GetFoodBusinessListQuery {Page = page, PageSize = pageSize});
         }
 
-        [Route("{adminId}/foodBusinessAdministrator")]
+        /// <summary> This endpoint is used to get list of FoodBusinesses by FoodBusinessAdministrator </summary>
+        /// <remarks> This endpoint is used to get list of FoodBusinesses by FoodBusinessAdministrator </remarks>
+        /// <response code="200">The list of FoodBusinesses has been successfully fetched.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [Route("byFoodBusinessAdministrator")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent")]
-        public Task<IActionResult> GetByFoodBusinessAdministratorId([FromRoute] string adminId)
+        [Authorize(Roles = "FoodBusinessAdministrator")]
+        public Task<IActionResult> GetByFoodBusinessAdministratorId()
         {
-            return SendWithErrorsHandlingAsync(new GetFoodBusinessListByAdmin {FoodBusinessAdministratorId = adminId});
+            return SendWithErrorsHandlingAsync(new GetFoodBusinessListByAdmin());
         }
 
+        /// <summary> This endpoint is used to get list of FoodBusinesses by FoodBusinessManager </summary>
+        /// <remarks> This endpoint is used to get list of FoodBusinesses by FoodBusinessManager </remarks>
+        /// <response code="200">The list of FoodBusinesses has been successfully fetched.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [Route("byFoodBusinessManager")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
