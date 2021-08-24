@@ -212,6 +212,7 @@ namespace SmartRestaurant.API.Controllers
                 throw new NotFoundException(nameof(user), id);
             user.FullName = model.FullName;
             user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
             var result = await _userManager.UpdateAsync(user);
             return CheckResultStatus(result);
         }
