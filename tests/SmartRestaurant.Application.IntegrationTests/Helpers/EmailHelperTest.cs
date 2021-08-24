@@ -7,15 +7,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Helpers
     [TestFixture]
     public class EmailHelperTest
     {
-        private SimpleSmtpServer smtpServer;
-        private SmtpConfig smtpConfig = new SmtpConfig
-        {
-            Email = "no-reply@fakesmtp.com",
-            Pass = "",
-            Server = "localhost",
-            Port = 789
-        };
-
         [SetUp]
         public void Setup()
         {
@@ -29,9 +20,19 @@ namespace SmartRestaurant.Application.IntegrationTests.Helpers
             smtpServer.Dispose();
         }
 
+        private SimpleSmtpServer smtpServer;
+
+        private readonly SmtpConfig smtpConfig = new SmtpConfig
+        {
+            Email = "no-reply@fakesmtp.com",
+            Pass = "",
+            Server = "localhost",
+            Port = 789
+        };
+
         [Test]
         public void SendEmail()
-        {        
+        {
             //var userEmail = "user@gmail.com";
             //var emailSubject = "Email test";
             //var emailContent = "<h1> Email content </h1>";

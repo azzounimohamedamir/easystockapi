@@ -1,7 +1,7 @@
-﻿using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.Common.Interfaces;
+﻿using System;
 using FluentValidation;
-using System;
+using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Interfaces;
 
 namespace SmartRestaurant.Application.Users.Queries
 {
@@ -15,18 +15,15 @@ namespace SmartRestaurant.Application.Users.Queries
 
     public class GetFoodBusinessEmployeesValidator : AbstractValidator<GetFoodBusinessEmployeesQuery>
     {
-
-        private bool ValidateGuid(string input)
-        {
-            return Guid.TryParse(input, out var newGuid);
-        }
-
         public GetFoodBusinessEmployeesValidator()
         {
             RuleFor(v => v.FoodBusinessId).NotEmpty().NotEqual(Guid.Empty.ToString()).Must(ValidateGuid);
             RuleFor(v => v.PageSize).LessThanOrEqualTo(100);
+        }
 
-
+        private bool ValidateGuid(string input)
+        {
+            return Guid.TryParse(input, out var newGuid);
         }
     }
 }

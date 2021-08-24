@@ -1,11 +1,9 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Threading.Tasks;
+using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.LinkedDevice.Commands;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.LinkedDevice.Commands
 {
@@ -17,7 +15,6 @@ namespace SmartRestaurant.Application.IntegrationTests.LinkedDevice.Commands
         [Test]
         public async Task UpdatedReservation_ShouldBeSavedToDB()
         {
-
             var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
@@ -42,10 +39,10 @@ namespace SmartRestaurant.Application.IntegrationTests.LinkedDevice.Commands
             await SendAsync(createLinkDeviceIDCommand);
             var linkDevice = await FindAsync<Domain.Entities.LinkedDevice>(createLinkDeviceIDCommand.Id);
 
-            Guid cmdId =  Guid.NewGuid();
+            var cmdId = Guid.NewGuid();
             var updateLinkedDeviceCommand = new UpdateLinkedDeviceCommand
             {
-                Id=linkDevice.LinkedDeviceId,
+                Id = linkDevice.LinkedDeviceId,
                 FoodBusinessId = fastFoodSecond.FoodBusinessId,
                 IdentifierDevice = "5SD-65F5-F5S-DF65SF-5SF6"
             };

@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Application.LinkedDevice.Commands;
 using SmartRestaurant.Application.LinkedDevice.Queries;
-using System;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -21,9 +20,9 @@ namespace SmartRestaurant.API.Controllers
         [Route("{IdentifierDevice}")]
         [HttpGet]
         [AllowAnonymous]
-        public Task<IActionResult> Get([FromRoute]string IdentifierDevice)
+        public Task<IActionResult> Get([FromRoute] string IdentifierDevice)
         {
-            return SendWithErrorsHandlingAsync(new GetLinkedDeviceByIdQuery { IdentifierDevice = IdentifierDevice });
+            return SendWithErrorsHandlingAsync(new GetLinkedDeviceByIdQuery {IdentifierDevice = IdentifierDevice});
         }
 
         [Route("{IdentifierDevice}")]
@@ -33,7 +32,5 @@ namespace SmartRestaurant.API.Controllers
         {
             return await SendWithErrorsHandlingAsync(command);
         }
-
-       
     }
 }

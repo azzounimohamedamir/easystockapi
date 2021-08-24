@@ -1,11 +1,10 @@
-﻿using SmartRestaurant.Application.Common.Commands;
-using System;
+﻿using System;
 using FluentValidation;
-
+using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.LinkedDevice.Commands
 {
-   public class CreateLinkedDeviceCommand : CreateCommand
+    public class CreateLinkedDeviceCommand : CreateCommand
     {
         public string IdentifierDevice { get; set; }
         public Guid FoodBusinessId { get; set; }

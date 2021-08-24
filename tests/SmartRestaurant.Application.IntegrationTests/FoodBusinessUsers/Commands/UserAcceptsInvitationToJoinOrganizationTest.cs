@@ -1,32 +1,18 @@
-﻿using HtmlAgilityPack;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using HtmlAgilityPack;
 using netDumbster.smtp;
 using NUnit.Framework;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
-using SmartRestaurant.Application.IntegrationTests.TestTools;
-using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers
 {
-    using static Testing;
-
     [TestFixture]
     public class UserAcceptsInvitationToJoinOrganizationTest : TestBase
     {
-        private SimpleSmtpServer smtpServer;
-        private HtmlDocument doc = new HtmlDocument();
-
-        private SmtpConfig smtpConfig = new SmtpConfig
-        {
-            Email = "no-reply@fakesmtp.com",
-            Pass = "",
-            Server = "localhost",
-            Port = 789
-        };
         [SetUp]
         public void Setup()
         {
@@ -39,6 +25,17 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers
             smtpServer.Stop();
             smtpServer.Dispose();
         }
+
+        private SimpleSmtpServer smtpServer;
+        private readonly HtmlDocument doc = new HtmlDocument();
+
+        private readonly SmtpConfig smtpConfig = new SmtpConfig
+        {
+            Email = "no-reply@fakesmtp.com",
+            Pass = "",
+            Server = "localhost",
+            Port = 789
+        };
 
         [Test]
         public async Task ShouldUpdateUserInfoAndResetPassword()
@@ -89,36 +86,34 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers
             };
         }
 
-        private InviteUserToJoinOrganizationCommand CreateInvitationCommand(Domain.Entities.FoodBusiness fastFood_01, Domain.Entities.FoodBusiness fastFood_02)
+        private InviteUserToJoinOrganizationCommand CreateInvitationCommand(Domain.Entities.FoodBusiness fastFood_01,
+            Domain.Entities.FoodBusiness fastFood_02)
         {
             return new InviteUserToJoinOrganizationCommand
             {
                 Email = "aissa@gmail.com",
-                FoodBusinessesIds = new List<string> { fastFood_01.FoodBusinessId.ToString(), fastFood_02.FoodBusinessId.ToString() },
-                Roles = new List<string> { Roles.FoodBusinessManager.ToString() },
+                FoodBusinessesIds = new List<string>
+                    {fastFood_01.FoodBusinessId.ToString(), fastFood_02.FoodBusinessId.ToString()},
+                Roles = new List<string> {Roles.FoodBusinessManager.ToString()}
             };
         }
 
         private string ExtractTokenFromHtmlPage(string htmlContent)
         {
             doc.LoadHtml(htmlContent);
-            List<string> html = new List<string>();
-            foreach (HtmlNode node in doc.DocumentNode.SelectNodes("//text()"))
-            {
-                html.Add(node.InnerText);
-            }
+            var html = new List<string>();
+            foreach (var node in doc.DocumentNode.SelectNodes("//text()")) html.Add(node.InnerText);
             return html[5].Substring(2);
         }
 
         private string ExtractUserIdFromHtmlPage(string htmlContent)
         {
             doc.LoadHtml(htmlContent);
-            List<string> html = new List<string>();
-            foreach (HtmlNode node in doc.DocumentNode.SelectNodes("//a[@href]"))
-            {
-                html.Add(node.Attributes["href"].Value);
-            }
-           return Regex.Match(html[0], @"(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}").Value;
+            var html = new List<string>();
+            foreach (var node in doc.DocumentNode.SelectNodes("//a[@href]")) html.Add(node.Attributes["href"].Value);
+            return Regex.Match(html[0],
+                    @"(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}")
+                .Value;
         }
     }
 }

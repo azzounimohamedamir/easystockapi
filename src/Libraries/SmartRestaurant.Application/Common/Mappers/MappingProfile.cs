@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
-using SmartRestaurant.Application.LinkedDevice.Commands;
 using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
 using SmartRestaurant.Application.Images.Commands;
+using SmartRestaurant.Application.LinkedDevice.Commands;
 using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Sections.Commands;
@@ -13,9 +15,6 @@ using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.ValueObjects;
-using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
-using System.Collections.Generic;
-using SmartRestaurant.Application.FoodBusiness.Queries;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -83,33 +82,31 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ReverseMap();
             CreateMap<Reservation, ReservationClientDto>()
                 .ForMember(x => x.FoodBusinessName, o => o.MapFrom(p => p.FoodBusiness.Name));
-            CreateMap<CreateLinkedDeviceCommand, Domain.Entities.LinkedDevice> ()
-               .ForMember(x => x.LinkedDeviceId, o => o.MapFrom(p => p.Id));
-            CreateMap<Domain.Entities.LinkedDevice,LinkedDeviceDto>()
-                .ForMember(x => (string)x.IdentifierDevice, o => o.MapFrom(p => (string)p.IdentifierDevice)).ReverseMap();
+            CreateMap<CreateLinkedDeviceCommand, Domain.Entities.LinkedDevice>()
+                .ForMember(x => x.LinkedDeviceId, o => o.MapFrom(p => p.Id));
+            CreateMap<Domain.Entities.LinkedDevice, LinkedDeviceDto>()
+                .ForMember(x => x.IdentifierDevice, o => o.MapFrom(p => p.IdentifierDevice)).ReverseMap();
 
             CreateMap<UpdateLinkedDeviceCommand, Domain.Entities.LinkedDevice>()
                 .ReverseMap();
-             
+
             CreateMap<ApplicationUser, FoodBusinessEmployeesDtos>()
-               .ReverseMap();
+                .ReverseMap();
 
             CreateMap<InviteUserToJoinOrganizationCommand, ApplicationUser>()
-                 .ForMember(x => x.UserName, o => o.MapFrom(p => p.Email));
+                .ForMember(x => x.UserName, o => o.MapFrom(p => p.Email));
 
             CreateMap<UserAcceptsInvitationToJoinOrganizationCommand, ApplicationUser>()
-               .ForMember(x => x.Email, o => o.Ignore());
+                .ForMember(x => x.Email, o => o.Ignore());
 
             CreateMap<ApplicationUser, FoodBusinessManagersDto>()
-            .ForMember(x => x.FoodBusinesses, o => o.MapFrom(p => new List<Domain.Entities.FoodBusiness>()))
-            .ReverseMap();
-            CreateMap<UpdateFourDigitCodeCommand, Domain.Entities.FoodBusiness>().
-                ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id)).ReverseMap();
+                .ForMember(x => x.FoodBusinesses, o => o.MapFrom(p => new List<Domain.Entities.FoodBusiness>()))
+                .ReverseMap();
+            CreateMap<UpdateFourDigitCodeCommand, Domain.Entities.FoodBusiness>()
+                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id)).ReverseMap();
 
             CreateMap<Domain.Entities.FoodBusiness, FoodBusinessDto>()
                 .ReverseMap();
-
-
         }
     }
 }

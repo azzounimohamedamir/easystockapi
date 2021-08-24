@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -20,6 +21,11 @@ namespace SmartRestaurant.Application.Email
             return Execute(Options.SendGridKey, subject, message, email);
         }
 
+        public void SendEmail(string email, string subject, string message)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task Execute(string apiKey, string subject, string message, string email)
         {
             var client = new SendGridClient(apiKey);
@@ -37,11 +43,6 @@ namespace SmartRestaurant.Application.Email
             msg.SetClickTracking(false, false);
             var response = client.SendEmailAsync(msg);
             return response;
-        }
-
-        public void SendEmail(string email, string subject, string message)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

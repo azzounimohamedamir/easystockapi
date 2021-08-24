@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
+using FluentAssertions.Common;
 using NUnit.Framework;
-using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.FoodBusiness.Commands;
-using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
 {
@@ -36,7 +34,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 await SendAsync(updateFourDigitCodeCommand);
 
                 var item = await FindAsync<Domain.Entities.FoodBusiness>(foodBusinessCommand.Id);
-                item.FourDigitCode.Equals("0000");
+                item.FourDigitCode.IsSameOrEqualTo(0000);
                 item.FoodBusinessId.Should().Be(updateFourDigitCodeCommand.Id);
             });
         }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
@@ -18,13 +16,11 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
-        private readonly IUserService _userService;
 
-        public FoodBusinessCommandHandler(IApplicationDbContext context, IMapper mapper, IUserService userService)
+        public FoodBusinessCommandHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _userService = userService;
         }
 
         public async Task<Created> Handle(CreateFoodBusinessCommand request,
@@ -83,7 +79,6 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             var validator = new UpdateFourDigitCodeCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-             _mapper.Map(request, entity);
             entity.FourDigitCode = request.FourDigitCode;
             _context.FoodBusinesses.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

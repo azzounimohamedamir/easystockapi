@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using MicroElements.Swashbuckle.FluentValidation;
@@ -17,9 +20,6 @@ using SmartRestaurant.Infrastructure.Identity;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using System;
-using System.IO;
-using System.Reflection;
 
 namespace SmartRestaurant.API
 {
@@ -31,7 +31,7 @@ namespace SmartRestaurant.API
         }
 
         public IConfiguration Configuration { get; }
-      
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication();
@@ -49,7 +49,7 @@ namespace SmartRestaurant.API
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Smart Restaurant api v1", Version = "v1"});              
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Smart Restaurant api v1", Version = "v1"});
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
@@ -64,7 +64,11 @@ namespace SmartRestaurant.API
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer"
                 });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement {{ new OpenApiSecurityScheme {
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
@@ -72,9 +76,10 @@ namespace SmartRestaurant.API
                             }
                         },
                         Array.Empty<string>()
-                    }});
+                    }
+                });
                 c.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
-              
+
 
                 c.ExampleFilters();
                 c.OperationFilter<AddResponseHeadersFilter>();
@@ -86,12 +91,11 @@ namespace SmartRestaurant.API
             services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
 
             services.AddControllersWithViews()
-             .AddFluentValidation(c => {
-                 c.ValidatorFactoryType = typeof(HttpContextServiceProviderValidatorFactory);
-             })
-             .AddJsonOptions(options => {
-                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-             });
+                .AddFluentValidation(c =>
+                {
+                    c.ValidatorFactoryType = typeof(HttpContextServiceProviderValidatorFactory);
+                })
+                .AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNameCaseInsensitive = true; });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -111,7 +115,8 @@ namespace SmartRestaurant.API
             app.UseStaticFiles();
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => { 
+            app.UseSwaggerUI(c =>
+            {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Smart Restaurant api v1");
                 c.DisplayRequestDuration();
                 c.DocExpansion(DocExpansion.None);

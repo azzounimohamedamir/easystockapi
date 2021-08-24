@@ -1,13 +1,12 @@
-﻿using FluentValidation.TestHelper;
+﻿using System;
+using FluentValidation.TestHelper;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
-using System;
 using Xunit;
 
 namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusinessEmployee
 {
     public class UserAcceptsInvitationToJoinOrganizationValidatorTests
     {
-
         private readonly UserAcceptsInvitationToJoinOrganizationValidator _validator;
 
         public UserAcceptsInvitationToJoinOrganizationValidatorTests()
@@ -70,12 +69,12 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusinessEm
         {
             var invalidGuid = "3cbf3570-4444-4673-8746-2";
             _validator.ShouldHaveValidationErrorFor(x => x.Id, invalidGuid);
-        } 
+        }
 
         [Fact]
         public void Given_FoodBusinessIsValid_WhenValidating_ShouldBeValidated()
         {
-            var validEntry = "acbf657b-3398-7a73-8746-77b7cf596315" ;
+            var validEntry = "acbf657b-3398-7a73-8746-77b7cf596315";
             _validator.ShouldNotHaveValidationErrorFor(x => x.Id, validEntry);
         }
 
@@ -106,7 +105,6 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusinessEm
             var validEntry = "dgh54$a9A";
             _validator.ShouldNotHaveValidationErrorFor(x => x.Password, validEntry);
         }
-
 
 
         [Fact]
@@ -151,6 +149,5 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusinessEm
             var empty = "";
             _validator.ShouldHaveValidationErrorFor(x => x.Token, empty);
         }
-
     }
 }

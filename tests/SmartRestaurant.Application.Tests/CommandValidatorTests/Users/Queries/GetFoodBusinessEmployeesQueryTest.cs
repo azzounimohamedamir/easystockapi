@@ -16,7 +16,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Users.Queries
         [Fact]
         public void Given_FoodBusinessIdIsEmpty_WhenValidating_ShouldError()
         {
-            var empty = "" ;
+            var empty = "";
             _validator.ShouldHaveValidationErrorFor(query => query.FoodBusinessId, empty);
         }
 

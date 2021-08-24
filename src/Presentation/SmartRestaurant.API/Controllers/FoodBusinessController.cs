@@ -25,11 +25,6 @@ namespace SmartRestaurant.API.Controllers
             return SendWithErrorsHandlingAsync(new GetFoodBusinessListQuery {Page = page, PageSize = pageSize});
         }
 
-        /// <summary> This endpoint is used to get list of FoodBusinesses by FoodBusinessAdministrator </summary>
-        /// <remarks> This endpoint is used to get list of FoodBusinesses by FoodBusinessAdministrator </remarks>
-        /// <response code="200">The list of FoodBusinesses has been successfully fetched.</response>
-        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
-        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [Route("byFoodBusinessAdministrator")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessAdministrator")]
@@ -38,11 +33,6 @@ namespace SmartRestaurant.API.Controllers
             return SendWithErrorsHandlingAsync(new GetFoodBusinessListByAdmin());
         }
 
-        /// <summary> This endpoint is used to get list of FoodBusinesses by FoodBusinessManager </summary>
-        /// <remarks> This endpoint is used to get list of FoodBusinesses by FoodBusinessManager </remarks>
-        /// <response code="200">The list of FoodBusinesses has been successfully fetched.</response>
-        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
-        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [Route("byFoodBusinessManager")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
@@ -122,24 +112,18 @@ namespace SmartRestaurant.API.Controllers
             return query.Select(Convert.ToBase64String);
         }
 
-
-        [HttpPatch]
-        [Authorize(Roles ="FoodBusinessManager")]
+        [HttpPatch("updateFourDigitCode")]
+        [Authorize(Roles = "FoodBusinessManager")]
         public async Task<IActionResult> UpdateFourDigitCode(UpdateFourDigitCodeCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }
 
-
-        [Route("{IdentifierDevice}")]
-        [HttpGet]
+        [HttpGet("getFourDigitCode")]
         [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager")]
         public async Task<IActionResult> GetFourDigitCode(GetFourDigitCodeFoodBusinessByIdQuery command)
         {
-            return await SendWithErrorsHandlingAsync(new GetFourDigitCodeFoodBusinessByIdQuery { FoodBusinessId = command.FoodBusinessId });
+            return await SendWithErrorsHandlingAsync(command);
         }
-
-
-
     }
 }
