@@ -1,30 +1,13 @@
-﻿using netDumbster.smtp;
+﻿using System.Threading.Tasks;
+using netDumbster.smtp;
 using NUnit.Framework;
 using SmartRestaurant.Application.Common.Tools;
-using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
-using SmartRestaurant.Application.IntegrationTests.TestTools;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Identity.Entities;
-using SmartRestaurant.Domain.Identity.Enums;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers
 {
-    using static Testing;
-
     [TestFixture]
     public class InviteUserToJoinOrganizationTest : TestBase
     {
-        private SimpleSmtpServer smtpServer;
-        private SmtpConfig smtpConfig = new SmtpConfig
-        {
-            Email = "no-reply@fakesmtp.com",
-            Pass = "",
-            Server = "localhost",
-            Port = 789
-        };
         [SetUp]
         public void Setup()
         {
@@ -37,6 +20,16 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers
             smtpServer.Stop();
             smtpServer.Dispose();
         }
+
+        private SimpleSmtpServer smtpServer;
+
+        private readonly SmtpConfig smtpConfig = new SmtpConfig
+        {
+            Email = "no-reply@fakesmtp.com",
+            Pass = "",
+            Server = "localhost",
+            Port = 789
+        };
 
         [Test]
         public async Task ShouldCreateUserAndSendInvitation()

@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.FoodBusiness.Commands;
-using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
 {

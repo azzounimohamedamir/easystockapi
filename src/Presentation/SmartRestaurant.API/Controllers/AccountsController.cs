@@ -9,7 +9,6 @@ using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models.UserModels;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
 

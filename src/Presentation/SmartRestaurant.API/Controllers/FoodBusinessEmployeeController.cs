@@ -32,21 +32,35 @@ namespace SmartRestaurant.API.Controllers
 
         /// <summary> This endpoint is used to remove staff frome organization</summary>
         /// <remarks>
-        /// This endpoint is used to remove staff frome organization. 
+        ///     This endpoint is used to remove staff frome organization.
         /// </remarks>
         /// <param name="id">id of the employee</param>
-        /// <param name="foodBusinessesIds">foodBusinessesIds is the list of [foodBusinesses] ids where employee should be removed  from.</param>
-        /// <response code="400">The parameters sent to the backend-server in order to remove employee from organization are invalid.</response>
+        /// <param name="foodBusinessesIds">
+        ///     foodBusinessesIds is the list of [foodBusinesses] ids where employee should be removed
+        ///     from.
+        /// </param>
+        /// <response code="400">
+        ///     The parameters sent to the backend-server in order to remove employee from organization are
+        ///     invalid.
+        /// </response>
         /// <response code="200">The employee has been successfully removed from organization..</response>
-        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
-        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<IActionResult> RemoveEmployeeFromOrganization([FromRoute] string id, [FromQuery] List<string> foodBusinessesIds)
+        public async Task<IActionResult> RemoveEmployeeFromOrganization([FromRoute] string id,
+            [FromQuery] List<string> foodBusinessesIds)
         {
-            var command = new RemoveEmployeeFromOrganizationCommand {
+            var command = new RemoveEmployeeFromOrganizationCommand
+            {
                 UserId = id,
                 FoodBusinessesIds = foodBusinessesIds
             };
@@ -56,15 +70,21 @@ namespace SmartRestaurant.API.Controllers
 
         /// <summary> This endpoint is used to invite staff to join an organization </summary>
         /// <remarks>
-        /// This endpoint can invite the following staff to  join an organization:
-        /// <br></br>
-        /// <b>FoodBusinessManager</b>, <b>Chef</b>, <b>Cashier</b>, <b>Waiter</b>.
+        ///     This endpoint can invite the following staff to  join an organization:
+        ///     <br></br>
+        ///     <b>FoodBusinessManager</b>, <b>Chef</b>, <b>Cashier</b>, <b>Waiter</b>.
         /// </remarks>
         /// <param name="command">This is the Json object used to invite staff</param>
         /// <response code="204">The invitation has been successfully sent.</response>
         /// <response code="400">The payload data sent to the backend-server in order to invite staff, are invalid.</response>
-        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
-        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("invite")]
         [HttpPost]
@@ -76,9 +96,10 @@ namespace SmartRestaurant.API.Controllers
 
         /// <summary> This endpoint is used by staff to accept joining to an organization </summary>
         /// <remarks>
-        /// This endpoint is used by the new <b>staff</b> to join the organisation that invited them.
-        /// <br></br>
-        /// The new <b>staff</b> will have to the fill their personal information and password to complete the process of joining the organisation.
+        ///     This endpoint is used by the new <b>staff</b> to join the organisation that invited them.
+        ///     <br></br>
+        ///     The new <b>staff</b> will have to the fill their personal information and password to complete the process of
+        ///     joining the organisation.
         /// </remarks>
         /// <param name="id">This is the user Id of the new employee</param>
         /// <param name="command">This is the Json object used to complete employee subscription</param>
@@ -88,7 +109,8 @@ namespace SmartRestaurant.API.Controllers
         [Route("{id}/accept-invitation")]
         [HttpPut]
         [AllowAnonymous]
-        public async Task<IActionResult> UserAcceptsInvitationToJoinOrganization([FromRoute] string id, UserAcceptsInvitationToJoinOrganizationCommand command)
+        public async Task<IActionResult> UserAcceptsInvitationToJoinOrganization([FromRoute] string id,
+            UserAcceptsInvitationToJoinOrganizationCommand command)
         {
             command.Id = id;
             return await SendWithErrorsHandlingAsync(command);

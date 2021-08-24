@@ -32,8 +32,8 @@ namespace SmartRestaurant.Application.IntegrationTests
         public static string _defaultRole = Roles.FoodBusinessAdministrator.ToString();
         private static Checkpoint _checkpointIdentity;
 
-        [OneTimeSetUp] 
-         public void RunBeforeAnyTests()
+        [OneTimeSetUp]
+        public void RunBeforeAnyTests()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -74,7 +74,7 @@ namespace SmartRestaurant.Application.IntegrationTests
 
             _checkpointIdentity = new Checkpoint
             {
-                TablesToIgnore = new[] { "__EFMigrationsHistory" }
+                TablesToIgnore = new[] {"__EFMigrationsHistory"}
             };
             EnsureDatabase();
         }
@@ -147,7 +147,7 @@ namespace SmartRestaurant.Application.IntegrationTests
         }
 
         public static async Task AddIdentityAsync<TEntity>(TEntity entity)
-           where TEntity : class
+            where TEntity : class
         {
             using var scope = _scopeFactory.CreateScope();
 
@@ -159,7 +159,7 @@ namespace SmartRestaurant.Application.IntegrationTests
         }
 
         public static async Task<TEntity> FindIdentityAsync<TEntity>(object[] id)
-           where TEntity : class
+            where TEntity : class
         {
             using var scope = _scopeFactory.CreateScope();
 

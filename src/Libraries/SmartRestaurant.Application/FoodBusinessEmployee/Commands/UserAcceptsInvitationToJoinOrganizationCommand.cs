@@ -1,16 +1,16 @@
+using System;
 using FluentValidation;
 using MediatR;
 using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
-using System;
 
 namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {
     public class UserAcceptsInvitationToJoinOrganizationCommand : IRequest<NoContent>
-    {   
-        [JsonIgnore]
-        public string Id { get; set; }
+    {
+        [JsonIgnore] public string Id { get; set; }
+
         public string Email { get; set; }
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
@@ -18,12 +18,14 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         public string Token { get; set; }
     }
 
-    public class UserAcceptsInvitationToJoinOrganizationValidator : AbstractValidator<UserAcceptsInvitationToJoinOrganizationCommand>
-    {      
+    public class
+        UserAcceptsInvitationToJoinOrganizationValidator : AbstractValidator<
+            UserAcceptsInvitationToJoinOrganizationCommand>
+    {
         public UserAcceptsInvitationToJoinOrganizationValidator()
         {
             RuleFor(invitedUser => invitedUser.Id).NotEmpty().NotEqual(Guid.Empty.ToString())
-                .Must(ValidatorHelper.ValidateGuid).WithMessage($"'User Id' must be a valid GUID"); 
+                .Must(ValidatorHelper.ValidateGuid).WithMessage("'User Id' must be a valid GUID");
 
             RuleFor(invitedUser => invitedUser.Email).NotEmpty().Must(ValidatorHelper.ValidateEmail)
                 .WithMessage("'Email' is invalide");

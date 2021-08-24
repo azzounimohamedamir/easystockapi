@@ -7,7 +7,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
     using static Testing;
 
     public class FoodBusinessTestTools
-    {      
+    {
         public static async Task<Domain.Entities.FoodBusiness> CreateFoodBusiness()
         {
             var createFoodBusinessCommand = new CreateFoodBusinessCommand

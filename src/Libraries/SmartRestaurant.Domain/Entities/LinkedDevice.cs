@@ -1,7 +1,5 @@
-﻿using SmartRestaurant.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using SmartRestaurant.Domain.Common;
 
 namespace SmartRestaurant.Domain.Entities
 {

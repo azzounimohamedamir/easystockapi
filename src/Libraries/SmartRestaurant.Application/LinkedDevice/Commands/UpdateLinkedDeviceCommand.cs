@@ -1,11 +1,10 @@
-﻿using SmartRestaurant.Application.Common.Commands;
-using System;
+﻿using System;
 using FluentValidation;
-
+using SmartRestaurant.Application.Common.Commands;
 
 namespace SmartRestaurant.Application.LinkedDevice.Commands
 {
-   public class UpdateLinkedDeviceCommand : UpdateCommand
+    public class UpdateLinkedDeviceCommand : UpdateCommand
     {
         public string IdentifierDevice { get; set; }
         public Guid FoodBusinessId { get; set; }
@@ -19,7 +18,4 @@ namespace SmartRestaurant.Application.LinkedDevice.Commands
             RuleFor(v => v.FoodBusinessId).NotNull().NotEmpty().NotEqual(Guid.Empty);
         }
     }
-
 }
-
-

@@ -4,6 +4,5 @@ namespace SmartRestaurant.Application.Common.Interfaces
     {
         public string GetUserId();
         public string GetRoles();
-
     }
 }

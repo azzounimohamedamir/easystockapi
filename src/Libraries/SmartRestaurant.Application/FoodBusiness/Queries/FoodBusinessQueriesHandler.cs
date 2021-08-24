@@ -23,9 +23,9 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
         IRequestHandler<GetAllFoodBusinessByFoodBusinessManagerQuery, List<FoodBusinessDto>>
     {
         private readonly IApplicationDbContext _applicationDbContext;
+        private readonly IIdentityContext _identityContext;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        private readonly IIdentityContext _identityContext;
 
         public FoodBusinessQueriesHandler(IApplicationDbContext applicationDbContext, IMapper mapper,
             IUserService userService, IIdentityContext identityContext)
@@ -74,8 +74,11 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
         public async Task<List<FoodBusinessDto>> Handle(GetFoodBusinessListByAdmin request,
             CancellationToken cancellationToken)
         {
-            string foodBusinessAdministratorId = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
-            await ChecksHelper.CheckUserExistence_ThrowExceptionIfUserNotFound(_identityContext, foodBusinessAdministratorId).ConfigureAwait(false);
+            var foodBusinessAdministratorId =
+                ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
+            await ChecksHelper
+                .CheckUserExistence_ThrowExceptionIfUserNotFound(_identityContext, foodBusinessAdministratorId)
+                .ConfigureAwait(false);
 
             var foodBusinesses = await _applicationDbContext.FoodBusinesses
                 .Where(x => x.FoodBusinessAdministratorId == foodBusinessAdministratorId)
@@ -98,6 +101,14 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             var pagedResult = new PagedListDto<FoodBusinessDto>(result.CurrentPage, result.PageCount, result.PageSize,
                 result.RowCount, data);
             return pagedResult;
+        }
+
+        async Task<FoodBusinessDto> IRequestHandler<GetFourDigitCodeFoodBusinessByIdQuery, FoodBusinessDto>.Handle(
+            GetFourDigitCodeFoodBusinessByIdQuery request, CancellationToken cancellationToken)
+        {
+            var query = await _applicationDbContext.FoodBusinesses.FindAsync(request.FoodBusinessId)
+                .ConfigureAwait(false);
+            return _mapper.Map<FoodBusinessDto>(query);
         }
 
         public Task<string[]> Handle(GetUsersByFoodBusinessIdQuery request, CancellationToken cancellationToken)
@@ -142,12 +153,6 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             foodBusinessDto.zonesCount = zonesIds.Count;
             foodBusinessDto.tablesCount = tablesCount;
             foodBusinessDto.menusCount = menusCount;
-        }
-
-      async  Task<FoodBusinessDto> IRequestHandler<GetFourDigitCodeFoodBusinessByIdQuery, FoodBusinessDto>.Handle(GetFourDigitCodeFoodBusinessByIdQuery request, CancellationToken cancellationToken)
-        {
-            var query = await _applicationDbContext.FoodBusinesses.FindAsync(request.FoodBusinessId).ConfigureAwait(false);
-            return _mapper.Map<FoodBusinessDto>(query);
         }
     }
 }

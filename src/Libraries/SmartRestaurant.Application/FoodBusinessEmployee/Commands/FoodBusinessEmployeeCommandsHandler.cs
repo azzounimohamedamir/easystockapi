@@ -23,16 +23,17 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         IRequestHandler<UpdateEmployeeRoleInOrganizationCommand, Ok>,
         IRequestHandler<RemoveEmployeeFromOrganizationCommand, Ok>,
         IRequestHandler<InviteUserToJoinOrganizationCommand, Created>,
-         IRequestHandler<UserAcceptsInvitationToJoinOrganizationCommand, NoContent>
+        IRequestHandler<UserAcceptsInvitationToJoinOrganizationCommand, NoContent>
     {
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IApplicationDbContext _context;
-        private readonly IOptions<SmtpConfig> _smtpConfig;
-        private readonly IOptions<WebPortal> _webPortal;
-        private readonly IOptions<EmailTemplates> _emailTemplates;        
+        private readonly IOptions<EmailTemplates> _emailTemplates;
         private readonly IMapper _mapper;
+        private readonly IOptions<SmtpConfig> _smtpConfig;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IOptions<WebPortal> _webPortal;
+
         public FoodBusinessEmployeeCommandsHandler(IApplicationDbContext context,
-            UserManager<ApplicationUser> userManager, IMapper mapper, IOptions<SmtpConfig> smtpConfig, 
+            UserManager<ApplicationUser> userManager, IMapper mapper, IOptions<SmtpConfig> smtpConfig,
             IOptions<WebPortal> webPortal, IOptions<EmailTemplates> emailTemplates)
         {
             _context = context;
@@ -86,15 +87,17 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
                 foreach (var foodBusinessId in request.FoodBusinessesIds)
                 {
                     var foodBusinessUser = _context.FoodBusinessUsers.First(b =>
-                    b.FoodBusinessId == Guid.Parse(foodBusinessId) && b.ApplicationUserId == request.UserId);
+                        b.FoodBusinessId == Guid.Parse(foodBusinessId) && b.ApplicationUserId == request.UserId);
                     if (foodBusinessUser == null)
                         throw new NotFoundException(nameof(foodBusinessUser), foodBusinessId);
 
                     _context.FoodBusinessUsers.Remove(foodBusinessUser);
                     await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
                 }
+
                 transaction.Complete();
             }
+
             return default;
         }
 
@@ -122,50 +125,88 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             return default;
         }
 
+        #region UserAcceptsInvitationToJoinOrganizationHandler
+
+        public async Task<NoContent> Handle(UserAcceptsInvitationToJoinOrganizationCommand request,
+            CancellationToken cancellationToken)
+        {
+            await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid
+                <UserAcceptsInvitationToJoinOrganizationValidator, UserAcceptsInvitationToJoinOrganizationCommand>
+                (request, cancellationToken).ConfigureAwait(false);
+
+            var user = await _userManager.FindByIdAsync(request.Id).ConfigureAwait(false);
+            if (user == null)
+                throw new NotFoundException(nameof(ApplicationUser), request.Id);
+
+            if (!user.Email.Equals(request.Email, StringComparison.OrdinalIgnoreCase))
+                throw new NotFoundException(nameof(ApplicationUser), request.Email);
+
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                _mapper.Map(request, user);
+
+                var userUpdateResult = await _userManager.UpdateAsync(user);
+                if (!userUpdateResult.Succeeded)
+                    throw new UserManagerException(userUpdateResult.Errors);
+
+                var passwordResetResult = await _userManager.ResetPasswordAsync(user, request.Token, request.Password);
+                if (!passwordResetResult.Succeeded)
+                    throw new UserManagerException(passwordResetResult.Errors);
+
+                transaction.Complete();
+            }
+
+            return default;
+        }
+
+        #endregion
+
         #region InviteUserToJoinOrganizationHandler
-        public async Task<Created> Handle(InviteUserToJoinOrganizationCommand request, CancellationToken cancellationToken)
-        {            
+
+        public async Task<Created> Handle(InviteUserToJoinOrganizationCommand request,
+            CancellationToken cancellationToken)
+        {
             await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid
                 <InviteUserToJoinOrganizationCommandValidator, InviteUserToJoinOrganizationCommand>
                 (request, cancellationToken).ConfigureAwait(false);
 
             var newUser = _mapper.Map<ApplicationUser>(request);
             await CreateUserAndAssignRolesToHim(request, newUser).ConfigureAwait(false);
-            await AssignUserToFoodBusinesses(request.FoodBusinessesIds, newUser.Id, cancellationToken).ConfigureAwait(false);
+            await AssignUserToFoodBusinesses(request.FoodBusinessesIds, newUser.Id, cancellationToken)
+                .ConfigureAwait(false);
             await SendConfirmationEmail(newUser);
             return default;
         }
 
-        private async Task CreateUserAndAssignRolesToHim(InviteUserToJoinOrganizationCommand request, ApplicationUser newUser)
+        private async Task CreateUserAndAssignRolesToHim(InviteUserToJoinOrganizationCommand request,
+            ApplicationUser newUser)
         {
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                    var randomPassword = Guid.NewGuid().ToString();
-                    newUser.EmailConfirmed = true;
-                    var userCreationResult = await _userManager.CreateAsync(newUser, randomPassword);
-                    if (!userCreationResult.Succeeded)
-                        throw new AccountCreationException(userCreationResult.Errors);
-                    await GrantRoles(request.Roles, newUser).ConfigureAwait(false);
-                    transaction.Complete();
+                var randomPassword = Guid.NewGuid().ToString();
+                newUser.EmailConfirmed = true;
+                var userCreationResult = await _userManager.CreateAsync(newUser, randomPassword);
+                if (!userCreationResult.Succeeded)
+                    throw new AccountCreationException(userCreationResult.Errors);
+                await GrantRoles(request.Roles, newUser).ConfigureAwait(false);
+                transaction.Complete();
             }
         }
 
         private async Task GrantRoles(List<string> roles, ApplicationUser user)
         {
-            foreach (var role in roles)
-            {
-                 await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
-            }
+            foreach (var role in roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
         }
 
-        private async Task AssignUserToFoodBusinesses(List<string> listOfFoodBusinessesIds, string userId, CancellationToken cancellationToken)
+        private async Task AssignUserToFoodBusinesses(List<string> listOfFoodBusinessesIds, string userId,
+            CancellationToken cancellationToken)
         {
             foreach (var foodBusinessId in listOfFoodBusinessesIds)
             {
                 var foodBusinessUser = new FoodBusinessUser
                 {
                     ApplicationUserId = userId,
-                    FoodBusinessId = Guid.Parse(foodBusinessId),
+                    FoodBusinessId = Guid.Parse(foodBusinessId)
                 };
                 await _context.FoodBusinessUsers.AddAsync(foodBusinessUser).ConfigureAwait(false);
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -175,45 +216,15 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         private async Task SendConfirmationEmail(ApplicationUser user)
         {
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var linkToAcceptInvitationWebPage = $"{_webPortal.Value.host}{_webPortal.Value.pathToEmployeeAcceptInvitation.Replace("{id}", user.Id)}";
+            var linkToAcceptInvitationWebPage =
+                $"{_webPortal.Value.host}{_webPortal.Value.pathToEmployeeAcceptInvitation.Replace("{id}", user.Id)}";
             var invitationToJoinOrganization = _emailTemplates.Value.InvitationToJoinOrganization;
             var template = invitationToJoinOrganization.Template
                 .Replace("{linkToAcceptInvitationWebPage}", linkToAcceptInvitationWebPage)
                 .Replace("{token}", token);
             new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, invitationToJoinOrganization.Subject, template);
-        }      
-        #endregion
-
-        #region UserAcceptsInvitationToJoinOrganizationHandler
-        public async Task<NoContent> Handle(UserAcceptsInvitationToJoinOrganizationCommand request, CancellationToken cancellationToken)
-        {
-            await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid
-              <UserAcceptsInvitationToJoinOrganizationValidator, UserAcceptsInvitationToJoinOrganizationCommand>
-              (request, cancellationToken).ConfigureAwait(false);
-
-            var user = await _userManager.FindByIdAsync(request.Id).ConfigureAwait(false);
-            if (user == null)
-                throw new NotFoundException(nameof(ApplicationUser), request.Id);
-
-            if (!user.Email.Equals(request.Email, StringComparison.OrdinalIgnoreCase))
-                throw new NotFoundException(nameof(ApplicationUser), request.Email);
-      
-            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {   
-                _mapper.Map(request, user);
-
-                var userUpdateResult = await _userManager.UpdateAsync(user);
-                if (!userUpdateResult.Succeeded)
-                    throw new UserManagerException(userUpdateResult.Errors);
-
-               var passwordResetResult = await _userManager.ResetPasswordAsync(user, request.Token, request.Password);
-                if (!passwordResetResult.Succeeded)
-                    throw new UserManagerException(passwordResetResult.Errors);
-
-                transaction.Complete();
-            }
-            return default;
         }
+
         #endregion
     }
 }

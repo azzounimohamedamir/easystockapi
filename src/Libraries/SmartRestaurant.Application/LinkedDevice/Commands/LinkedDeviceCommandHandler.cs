@@ -1,21 +1,18 @@
-﻿using AutoMapper;
-using MediatR;
-using SmartRestaurant.Application.Common.Interfaces;
-using FluentValidation.Results;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System;
 using SmartRestaurant.Application.Common.Exceptions;
-using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
 
 namespace SmartRestaurant.Application.LinkedDevice.Commands
 {
     public class LinkedDeviceCommandHandler :
         IRequestHandler<CreateLinkedDeviceCommand, Created>,
-         IRequestHandler<UpdateLinkedDeviceCommand, NoContent>
+        IRequestHandler<UpdateLinkedDeviceCommand, NoContent>
 
     {
         private readonly IApplicationDbContext _context;
@@ -39,8 +36,8 @@ namespace SmartRestaurant.Application.LinkedDevice.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
             var LinkedDevice = await _context.LinkedDevices.AsNoTracking()
-              .FirstOrDefaultAsync(t => t.IdentifierDevice == request.IdentifierDevice, cancellationToken)
-              .ConfigureAwait(false);
+                .FirstOrDefaultAsync(t => t.IdentifierDevice == request.IdentifierDevice, cancellationToken)
+                .ConfigureAwait(false);
             if (LinkedDevice != null)
             {
                 LinkedDevice.FoodBusinessId = request.FoodBusinessId;
@@ -50,8 +47,8 @@ namespace SmartRestaurant.Application.LinkedDevice.Commands
             else
             {
                 var foodBusiness = await _context.LinkedDevices.AsNoTracking()
-                             .FirstOrDefaultAsync(t => t.FoodBusinessId == request.FoodBusinessId, cancellationToken)
-                             .ConfigureAwait(false);
+                    .FirstOrDefaultAsync(t => t.FoodBusinessId == request.FoodBusinessId, cancellationToken)
+                    .ConfigureAwait(false);
                 if (foodBusiness != null)
                 {
                     foodBusiness.IdentifierDevice = request.IdentifierDevice;
@@ -65,6 +62,7 @@ namespace SmartRestaurant.Application.LinkedDevice.Commands
                     await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
                 }
             }
+
             return default;
         }
 
@@ -88,7 +86,5 @@ namespace SmartRestaurant.Application.LinkedDevice.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
-
-
     }
 }

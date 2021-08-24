@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using SmartRestaurant.Domain.Identity.Enums;
 
 namespace SmartRestaurant.Application.Common.Tools
 {
@@ -26,7 +27,7 @@ namespace SmartRestaurant.Application.Common.Tools
             if (password == null)
                 return false;
 
-            return (password.Length >= 6);
+            return password.Length >= 6;
         }
 
         public static bool ValidateAllRoles(string role)
@@ -35,19 +36,19 @@ namespace SmartRestaurant.Application.Common.Tools
                 return false;
 
             var regex =
-            $"^(?:{Domain.Identity.Enums.Roles.SuperAdmin.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.SupportAgent.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.SalesMan.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.Photograph.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.FoodBusinessAdministrator.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.FoodBusinessManager.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.FoodBusinessOwner.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.Chef.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.Cashier.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.Waiter.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.Diner.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.Anounymous.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.Organization.ToString()})$";
+                $"^(?:{Roles.SuperAdmin.ToString()}" +
+                $"|{Roles.SupportAgent.ToString()}" +
+                $"|{Roles.SalesMan.ToString()}" +
+                $"|{Roles.Photograph.ToString()}" +
+                $"|{Roles.FoodBusinessAdministrator.ToString()}" +
+                $"|{Roles.FoodBusinessManager.ToString()}" +
+                $"|{Roles.FoodBusinessOwner.ToString()}" +
+                $"|{Roles.Chef.ToString()}" +
+                $"|{Roles.Cashier.ToString()}" +
+                $"|{Roles.Waiter.ToString()}" +
+                $"|{Roles.Diner.ToString()}" +
+                $"|{Roles.Anounymous.ToString()}" +
+                $"|{Roles.Organization.ToString()})$";
             return new Regex(regex).Match(role).Success;
         }
 
@@ -57,10 +58,10 @@ namespace SmartRestaurant.Application.Common.Tools
                 return false;
 
             var regex =
-            $"^(?:{Domain.Identity.Enums.Roles.FoodBusinessManager.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.Chef.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.Cashier.ToString()}" +
-            $"|{Domain.Identity.Enums.Roles.Waiter.ToString()})$";
+                $"^(?:{Roles.FoodBusinessManager.ToString()}" +
+                $"|{Roles.Chef.ToString()}" +
+                $"|{Roles.Cashier.ToString()}" +
+                $"|{Roles.Waiter.ToString()})$";
             return new Regex(regex).Match(role).Success;
         }
     }

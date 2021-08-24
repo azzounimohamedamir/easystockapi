@@ -23,17 +23,16 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         {
             var InviteUserToJoinOrganizationCommand = new InviteUserToJoinOrganizationCommand
             {
-                Email = "aissa@gmail.com",              
-                FoodBusinessesIds = new List<string> { Guid.NewGuid().ToString() },
-                Roles = new List<string> { Roles.FoodBusinessManager.ToString() }
-        };
+                Email = "aissa@gmail.com",
+                FoodBusinessesIds = new List<string> {Guid.NewGuid().ToString()},
+                Roles = new List<string> {Roles.FoodBusinessManager.ToString()}
+            };
 
             var user = _mapper.Map<ApplicationUser>(InviteUserToJoinOrganizationCommand);
 
             Assert.Equal(user.Id, InviteUserToJoinOrganizationCommand.Id.ToString());
             Assert.Equal(user.Email, InviteUserToJoinOrganizationCommand.Email);
             Assert.Equal(user.UserName, InviteUserToJoinOrganizationCommand.Email);
-  
         }
 
         [Fact]
@@ -46,17 +45,17 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 FullName = "aissa",
                 Password = "12345678",
                 PhoneNumber = "+213778865789",
-                Token = "CfDJ8BbYahOBwZlPqI/uQG3GnBrBsMyh3XmO1w4S0IberdjdDVsS9QXG1po9B/EJ7DKdW0C4U5/TpYOUmQiG77LmRicQXpJbc9953+pDDzzvYgYqXICUn8bild8ZhCWWVojXgaMCZl1FWOiRaqMgH/1lhwq0tZag93GQtITWCmVUNQW9h2/AhqMn4ArEp3RGov0Ja/th7ZAeIgNKgTUQHdn499VbFQJ+SXEGG1uYjkOPRx63"
+                Token =
+                    "CfDJ8BbYahOBwZlPqI/uQG3GnBrBsMyh3XmO1w4S0IberdjdDVsS9QXG1po9B/EJ7DKdW0C4U5/TpYOUmQiG77LmRicQXpJbc9953+pDDzzvYgYqXICUn8bild8ZhCWWVojXgaMCZl1FWOiRaqMgH/1lhwq0tZag93GQtITWCmVUNQW9h2/AhqMn4ArEp3RGov0Ja/th7ZAeIgNKgTUQHdn499VbFQJ+SXEGG1uYjkOPRx63"
             };
 
             var user = _mapper.Map<ApplicationUser>(userAcceptsInvitationToJoinOrganizationCommand);
 
-            Assert.Null(user.Email);            
+            Assert.Null(user.Email);
             Assert.Null(user.UserName);
-            Assert.Equal(user.Id, userAcceptsInvitationToJoinOrganizationCommand.Id);         
+            Assert.Equal(user.Id, userAcceptsInvitationToJoinOrganizationCommand.Id);
             Assert.Equal(user.FullName, userAcceptsInvitationToJoinOrganizationCommand.FullName);
             Assert.Equal(user.PhoneNumber, userAcceptsInvitationToJoinOrganizationCommand.PhoneNumber);
-
         }
     }
 }

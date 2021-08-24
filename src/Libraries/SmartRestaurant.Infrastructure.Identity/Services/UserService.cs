@@ -12,7 +12,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Services
         }
 
         private ClaimsPrincipal User { get; }
-    
+
         public string GetUserId()
         {
             return User.FindFirst(ClaimTypes.NameIdentifier).Value;

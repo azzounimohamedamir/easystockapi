@@ -19,16 +19,23 @@ namespace SmartRestaurant.API.Controllers
     {
         /// <summary> This endpoint is used to creates a new Reservation </summary>
         /// <remarks>
-        /// 1- This endpoint allows <b>customer</b> to create a new reservation.
-        /// <br></br>
-        /// 2- This endpoint allows <b>foodBusinessManager</b> to create a reservation for a customer based on his request.
+        ///     1- This endpoint allows <b>customer</b> to create a new reservation.
+        ///     <br></br>
+        ///     2- This endpoint allows <b>foodBusinessManager</b> to create a reservation for a customer based on his request.
         /// </remarks>
         /// <param name="command">This is Json object user create a new reservation</param>
         /// <response code="204">The Reservation has been successfully created.</response>
         /// <response code="400">The payload data sent to the backend-server in order to create a new reservation is invalid.</response>
-        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
-        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
-        [SwaggerRequestExample(typeof(CreateReservationCommandForSwaggerExamples), typeof(CreateReservationCommandExamples))]
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
+        [SwaggerRequestExample(typeof(CreateReservationCommandForSwaggerExamples),
+            typeof(CreateReservationCommandExamples))]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager,Diner")]
@@ -39,15 +46,21 @@ namespace SmartRestaurant.API.Controllers
 
         /// <summary> This endpoint is used to update a Reservation </summary>
         /// <remarks>
-        /// 1- This endpoint allows <b>customer</b> to update reservation created by him. 
-        /// <br></br>
-        /// 2- This endpoint allows <b>foodBusinessManager</b> to update customer reservation.
+        ///     1- This endpoint allows <b>customer</b> to update reservation created by him.
+        ///     <br></br>
+        ///     2- This endpoint allows <b>foodBusinessManager</b> to update customer reservation.
         /// </remarks>
         /// <param name="command">This is Json object user update reservation</param>
         /// <response code="204">The Reservation has been successfully updated.</response>
         /// <response code="400">The payload data sent to the backend-server in order to update a reservation is invalid.</response>
-        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
-        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPut]
         [Authorize(Roles = "FoodBusinessManager,Diner")]
@@ -58,15 +71,21 @@ namespace SmartRestaurant.API.Controllers
 
         /// <summary> This endpoint is used to delete a Reservation </summary>
         /// <remarks>
-        /// 1- This endpoint allows <b>customer</b> to delete reservation created by him. 
-        /// <br></br>
-        /// 2- This endpoint allows <b>foodBusinessManager</b> to delete reservation.
+        ///     1- This endpoint allows <b>customer</b> to delete reservation created by him.
+        ///     <br></br>
+        ///     2- This endpoint allows <b>foodBusinessManager</b> to delete reservation.
         /// </remarks>
         /// <param name="id">id of reservation that would be deleted</param>
         /// <response code="204">The Reservation has been successfully deleted.</response>
         /// <response code="400">The Reservation-Id sent to the backend-server in order to deleted reservation is invalid.</response>
-        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
-        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id:Guid}")]
         [HttpDelete]
@@ -81,8 +100,14 @@ namespace SmartRestaurant.API.Controllers
         /// <param name="id">id of reservation that would be fetched.</param>
         /// <response code="200">The Reservation details has been successfully fetched.</response>
         /// <response code="400">The Reservation-Id sent to the backend-server in order to fetch reservation details is invalid.</response>
-        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
-        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
         [ProducesResponseType(typeof(ReservationDto), 200)]
         [Route("{id:Guid}")]
         [HttpGet]
@@ -93,15 +118,24 @@ namespace SmartRestaurant.API.Controllers
         }
 
         /// <summary> This endpoint is used to get a Reservations list By ReservationDateTimeInterval and FoodBusinessId </summary>
-        /// <remarks> This endpoint allows <b>foodBusinessManager</b> to get a list of Reservations that have been booked at a particular <b>FoodBusiness</b> and the results will be filtred based on <b>ReservationDateTimeInterval</b>. </remarks>
+        /// <remarks>
+        ///     This endpoint allows <b>foodBusinessManager</b> to get a list of Reservations that have been booked at a
+        ///     particular <b>FoodBusiness</b> and the results will be filtred based on <b>ReservationDateTimeInterval</b>.
+        /// </remarks>
         /// <param name="foodBusinessId">Id of foodBusiness which we want to get its reservations list.</param>
         /// <param name="timeIntervalStart"></param>
         /// <param name="timeIntervalEnd"></param>
         /// <param name="page">The start position of read pointer in a request results</param>
         /// <param name="pageSize">The max number of Reservations that should be returned</param>
         /// <response code="200">The list of FoodBusiness Reservations has been successfully fetched.</response>
-        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
-        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
         [ProducesResponseType(typeof(PagedListDto<ReservationDto>), 200)]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
@@ -124,8 +158,14 @@ namespace SmartRestaurant.API.Controllers
         /// <param name="page">The start position of read pointer in a request results</param>
         /// <param name="pageSize">The max number of Reservations that should be returned</param>
         /// <response code="200">The list of expired Reservations has been successfully fetched.</response>
-        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
-        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
         [ProducesResponseType(typeof(PagedListDto<ReservationClientDto>), 200)]
         [Route("diners/reservationsDate/expired")]
         [HttpGet]
@@ -146,8 +186,14 @@ namespace SmartRestaurant.API.Controllers
         /// <param name="page">The start position of read pointer in a request results</param>
         /// <param name="pageSize">The max number of Reservations that should be returned</param>
         /// <response code="200">The list of non expired Reservations has been successfully fetched.</response>
-        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
-        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
         [ProducesResponseType(typeof(PagedListDto<ReservationClientDto>), 200)]
         [Route("diners/reservationsDate/notExpired")]
         [HttpGet]

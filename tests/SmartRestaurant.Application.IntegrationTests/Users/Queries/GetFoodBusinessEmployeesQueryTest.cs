@@ -44,7 +44,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Users.Queries
         {
             var userRoles = new ApplicationUserRole
             {
-                RoleId = ((int)Roles.FoodBusinessAdministrator).ToString(),
+                RoleId = ((int) Roles.FoodBusinessAdministrator).ToString(),
                 UserId = user.Id
             };
             await AddIdentityAsync(userRoles);
@@ -54,30 +54,32 @@ namespace SmartRestaurant.Application.IntegrationTests.Users.Queries
         {
             var userRoles = new ApplicationUserRole
             {
-                RoleId = ((int)Roles.FoodBusinessManager).ToString(),
+                RoleId = ((int) Roles.FoodBusinessManager).ToString(),
                 UserId = user.Id
             };
             await AddIdentityAsync(userRoles);
         }
 
-        private static async Task AssignFoodBusinessManagerToOrganisation(ApplicationUser user, Domain.Entities.FoodBusiness foodBusiness)
+        private static async Task AssignFoodBusinessManagerToOrganisation(ApplicationUser user,
+            Domain.Entities.FoodBusiness foodBusiness)
         {
             var foodBusinessUser = new FoodBusinessUser
             {
-               ApplicationUserId = user.Id,             
-               FoodBusinessId = foodBusiness.FoodBusinessId
+                ApplicationUserId = user.Id,
+                FoodBusinessId = foodBusiness.FoodBusinessId
             };
             await AddAsync(foodBusinessUser);
         }
 
         private static async Task<ApplicationUser> CreateFoodBusinessAdministratorUser()
         {
-            var user = new ApplicationUser("FoodBusinessAdministrator", "FoodBusinessAdministrator@bv.com", "FoodBusinessAdministrator@bv.com")
+            var user = new ApplicationUser("FoodBusinessAdministrator", "FoodBusinessAdministrator@bv.com",
+                "FoodBusinessAdministrator@bv.com")
             {
                 IsActive = true,
                 EmailConfirmed = true,
-                PasswordHash =  // Real password is "Supportagent123@"
-                                    "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                PasswordHash = // Real password is "Supportagent123@"
+                    "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw=="
             };
             await AddIdentityAsync(user);
             return user;
@@ -85,12 +87,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Users.Queries
 
         private static async Task<ApplicationUser> CreateFoodBusinessManagerUser()
         {
-            var user = new ApplicationUser("FoodBusinessManager", "FoodBusinessManager@bv.com", "FoodBusinessManager@bv.com")
+            var user = new ApplicationUser("FoodBusinessManager", "FoodBusinessManager@bv.com",
+                "FoodBusinessManager@bv.com")
             {
                 IsActive = true,
                 EmailConfirmed = true,
-                PasswordHash =  // Real password is "Supportagent123@"
-                                    "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                PasswordHash = // Real password is "Supportagent123@"
+                    "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw=="
             };
             await AddIdentityAsync(user);
             return user;

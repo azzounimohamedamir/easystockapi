@@ -21,6 +21,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
             return fastFood;
         }
+
         public static async Task CreateRoles()
         {
             await CreateSuperAdminRole();
@@ -42,9 +43,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             var roles = new ApplicationRole
             {
-                Id = ((int)Roles.SuperAdmin).ToString(),
+                Id = ((int) Roles.SuperAdmin).ToString(),
                 Name = Roles.SuperAdmin.ToString(),
-                NormalizedName = Roles.SuperAdmin.ToString().ToUpper(),
+                NormalizedName = Roles.SuperAdmin.ToString().ToUpper()
             };
             await AddIdentityAsync(roles);
         }
@@ -53,9 +54,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             var roles = new ApplicationRole
             {
-                Id = ((int)Roles.SupportAgent).ToString(),
+                Id = ((int) Roles.SupportAgent).ToString(),
                 Name = Roles.SupportAgent.ToString(),
-                NormalizedName = Roles.SupportAgent.ToString().ToUpper(),
+                NormalizedName = Roles.SupportAgent.ToString().ToUpper()
             };
             await AddIdentityAsync(roles);
         }
@@ -64,9 +65,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             var roles = new ApplicationRole
             {
-                Id = ((int)Roles.SalesMan).ToString(),
+                Id = ((int) Roles.SalesMan).ToString(),
                 Name = Roles.SalesMan.ToString(),
-                NormalizedName = Roles.SalesMan.ToString().ToUpper(),
+                NormalizedName = Roles.SalesMan.ToString().ToUpper()
             };
             await AddIdentityAsync(roles);
         }
@@ -75,9 +76,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             var roles = new ApplicationRole
             {
-                Id = ((int)Roles.Photograph).ToString(),
+                Id = ((int) Roles.Photograph).ToString(),
                 Name = Roles.Photograph.ToString(),
-                NormalizedName = Roles.Photograph.ToString().ToUpper(),
+                NormalizedName = Roles.Photograph.ToString().ToUpper()
             };
             await AddIdentityAsync(roles);
         }
@@ -86,9 +87,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             var roles = new ApplicationRole
             {
-                Id = ((int)Roles.FoodBusinessAdministrator).ToString(),
+                Id = ((int) Roles.FoodBusinessAdministrator).ToString(),
                 Name = Roles.FoodBusinessAdministrator.ToString(),
-                NormalizedName = Roles.FoodBusinessAdministrator.ToString().ToUpper(),
+                NormalizedName = Roles.FoodBusinessAdministrator.ToString().ToUpper()
             };
             await AddIdentityAsync(roles);
         }
@@ -97,9 +98,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             var roles = new ApplicationRole
             {
-                Id = ((int)Roles.FoodBusinessManager).ToString(),
+                Id = ((int) Roles.FoodBusinessManager).ToString(),
                 Name = Roles.FoodBusinessManager.ToString(),
-                NormalizedName = Roles.FoodBusinessManager.ToString().ToUpper(),
+                NormalizedName = Roles.FoodBusinessManager.ToString().ToUpper()
             };
             await AddIdentityAsync(roles);
         }
@@ -108,9 +109,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             var roles = new ApplicationRole
             {
-                Id = ((int)Roles.FoodBusinessOwner).ToString(),
+                Id = ((int) Roles.FoodBusinessOwner).ToString(),
                 Name = Roles.FoodBusinessOwner.ToString(),
-                NormalizedName = Roles.FoodBusinessOwner.ToString().ToUpper(),
+                NormalizedName = Roles.FoodBusinessOwner.ToString().ToUpper()
             };
             await AddIdentityAsync(roles);
         }
@@ -119,9 +120,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             var roles = new ApplicationRole
             {
-                Id = ((int)Roles.Chef).ToString(),
+                Id = ((int) Roles.Chef).ToString(),
                 Name = Roles.Chef.ToString(),
-                NormalizedName = Roles.Chef.ToString().ToUpper(),
+                NormalizedName = Roles.Chef.ToString().ToUpper()
             };
             await AddIdentityAsync(roles);
         }
@@ -130,9 +131,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             var roles = new ApplicationRole
             {
-                Id = ((int)Roles.Cashier).ToString(),
+                Id = ((int) Roles.Cashier).ToString(),
                 Name = Roles.Cashier.ToString(),
-                NormalizedName = Roles.Cashier.ToString().ToUpper(),
+                NormalizedName = Roles.Cashier.ToString().ToUpper()
             };
             await AddIdentityAsync(roles);
         }
@@ -141,9 +142,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             var roles = new ApplicationRole
             {
-                Id = ((int)Roles.Waiter).ToString(),
+                Id = ((int) Roles.Waiter).ToString(),
                 Name = Roles.Waiter.ToString(),
-                NormalizedName = Roles.Waiter.ToString().ToUpper(),
+                NormalizedName = Roles.Waiter.ToString().ToUpper()
             };
             await AddIdentityAsync(roles);
         }
@@ -152,9 +153,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             var roles = new ApplicationRole
             {
-                Id = ((int)Roles.Diner).ToString(),
+                Id = ((int) Roles.Diner).ToString(),
                 Name = Roles.Diner.ToString(),
-                NormalizedName = Roles.Diner.ToString().ToUpper(),
+                NormalizedName = Roles.Diner.ToString().ToUpper()
             };
             await AddIdentityAsync(roles);
         }
@@ -163,9 +164,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             var roles = new ApplicationRole
             {
-                Id = ((int)Roles.Anounymous).ToString(),
+                Id = ((int) Roles.Anounymous).ToString(),
                 Name = Roles.Anounymous.ToString(),
-                NormalizedName = Roles.Anounymous.ToString().ToUpper(),
+                NormalizedName = Roles.Anounymous.ToString().ToUpper()
             };
             await AddIdentityAsync(roles);
         }
@@ -174,13 +175,11 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             var roles = new ApplicationRole
             {
-                Id = ((int)Roles.Organization).ToString(),
+                Id = ((int) Roles.Organization).ToString(),
                 Name = Roles.Organization.ToString(),
-                NormalizedName = Roles.Organization.ToString().ToUpper(),
+                NormalizedName = Roles.Organization.ToString().ToUpper()
             };
             await AddIdentityAsync(roles);
         }
-
-       
     }
 }
