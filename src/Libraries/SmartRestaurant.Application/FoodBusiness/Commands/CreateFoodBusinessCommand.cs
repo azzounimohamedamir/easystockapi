@@ -27,6 +27,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public int NIS { get; set; }
         public string Email { get; set; }
         public FoodBusinessCategory FoodBusinessCategory { get; set; }
+        public int FourDigitCode { get; set; }
     }
 
 

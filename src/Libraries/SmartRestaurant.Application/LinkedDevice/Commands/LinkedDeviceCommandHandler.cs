@@ -16,7 +16,7 @@ namespace SmartRestaurant.Application.LinkedDevice.Commands
     public class LinkedDeviceCommandHandler :
         IRequestHandler<CreateLinkedDeviceCommand, Created>,
          IRequestHandler<UpdateLinkedDeviceCommand, NoContent>
-        
+
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -33,15 +33,38 @@ namespace SmartRestaurant.Application.LinkedDevice.Commands
         {
             var userID = _userService.GetUserId();
             if (userID == null)
-                throw new NotFoundException(nameof(LinkedDevice), request.Id);
+                throw new NotFoundException(nameof(Domain.Entities.LinkedDevice), request.Id);
 
             var validator = new CreateLinkedDeviceCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-
-            var deviceId = _mapper.Map<Domain.Entities.LinkedDevice>(request);
-            _context.LinkedDevices.Add(deviceId);
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            var LinkedDevice = await _context.LinkedDevices.AsNoTracking()
+              .FirstOrDefaultAsync(t => t.IdentifierDevice == request.IdentifierDevice, cancellationToken)
+              .ConfigureAwait(false);
+            if (LinkedDevice != null)
+            {
+                LinkedDevice.FoodBusinessId = request.FoodBusinessId;
+                _context.LinkedDevices.Update(LinkedDevice);
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            }
+            else
+            {
+                var foodBusiness = await _context.LinkedDevices.AsNoTracking()
+                             .FirstOrDefaultAsync(t => t.FoodBusinessId == request.FoodBusinessId, cancellationToken)
+                             .ConfigureAwait(false);
+                if (foodBusiness != null)
+                {
+                    foodBusiness.IdentifierDevice = request.IdentifierDevice;
+                    _context.LinkedDevices.Update(foodBusiness);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                }
+                else
+                {
+                    var deviceId = _mapper.Map<Domain.Entities.LinkedDevice>(request);
+                    _context.LinkedDevices.Add(deviceId);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                }
+            }
             return default;
         }
 
@@ -66,6 +89,6 @@ namespace SmartRestaurant.Application.LinkedDevice.Commands
             return default;
         }
 
-        
+
     }
 }

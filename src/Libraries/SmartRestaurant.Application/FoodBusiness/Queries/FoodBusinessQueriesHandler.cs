@@ -17,6 +17,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
     public class FoodBusinessQueriesHandler :
         IRequestHandler<GetFoodBusinessListQuery, PagedListDto<FoodBusinessDto>>,
         IRequestHandler<GetFoodBusinessByIdQuery, FoodBusinessDto>,
+        IRequestHandler<GetFourDigitCodeFoodBusinessByIdQuery, FoodBusinessDto>,
         IRequestHandler<GetFoodBusinessListByAdmin, List<FoodBusinessDto>>,
         IRequestHandler<GetUsersByFoodBusinessIdQuery, string[]>,
         IRequestHandler<GetAllFoodBusinessByFoodBusinessManagerQuery, List<FoodBusinessDto>>
@@ -63,7 +64,6 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
         {
             var entity = await _applicationDbContext.FoodBusinesses.FindAsync(request.FoodBusinessId)
                 .ConfigureAwait(false);
-
             if (entity == null) throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
             var foodBusinessDto = _mapper.Map<FoodBusinessDto>(entity);
             await GetFoodBusinessImagesAsync(foodBusinessDto, cancellationToken).ConfigureAwait(false);
@@ -142,6 +142,12 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             foodBusinessDto.zonesCount = zonesIds.Count;
             foodBusinessDto.tablesCount = tablesCount;
             foodBusinessDto.menusCount = menusCount;
+        }
+
+      async  Task<FoodBusinessDto> IRequestHandler<GetFourDigitCodeFoodBusinessByIdQuery, FoodBusinessDto>.Handle(GetFourDigitCodeFoodBusinessByIdQuery request, CancellationToken cancellationToken)
+        {
+            var query = await _applicationDbContext.FoodBusinesses.FindAsync(request.FoodBusinessId).ConfigureAwait(false);
+            return _mapper.Map<FoodBusinessDto>(query);
         }
     }
 }

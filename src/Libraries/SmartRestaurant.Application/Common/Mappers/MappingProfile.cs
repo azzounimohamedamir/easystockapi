@@ -15,6 +15,7 @@ using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.ValueObjects;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
 using System.Collections.Generic;
+using SmartRestaurant.Application.FoodBusiness.Queries;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -102,6 +103,13 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<ApplicationUser, FoodBusinessManagersDto>()
             .ForMember(x => x.FoodBusinesses, o => o.MapFrom(p => new List<Domain.Entities.FoodBusiness>()))
             .ReverseMap();
+            CreateMap<UpdateFourDigitCodeCommand, Domain.Entities.FoodBusiness>().
+                ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id)).ReverseMap();
+
+            CreateMap<Domain.Entities.FoodBusiness, FoodBusinessDto>()
+                .ReverseMap();
+
+
         }
     }
 }

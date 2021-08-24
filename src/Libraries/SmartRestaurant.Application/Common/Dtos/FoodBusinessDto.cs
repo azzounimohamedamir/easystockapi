@@ -31,5 +31,7 @@ namespace SmartRestaurant.Application.Common.Dtos
         public int zonesCount { get; set; }
         public int tablesCount { get; set; }
         public int menusCount { get; set; }
+        public int FourDigitCode { get; set; }
+
     }
 }

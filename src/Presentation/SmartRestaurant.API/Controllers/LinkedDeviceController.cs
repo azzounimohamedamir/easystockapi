@@ -12,7 +12,7 @@ namespace SmartRestaurant.API.Controllers
     public class LinkedDeviceController : ApiController
     {
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessManager,Diner")]
+        [Authorize(Roles = "FoodBusinessManager")]
         public async Task<IActionResult> Create(CreateLinkedDeviceCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -20,7 +20,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{IdentifierDevice}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,Diner")]
+        [AllowAnonymous]
         public Task<IActionResult> Get([FromRoute]string IdentifierDevice)
         {
             return SendWithErrorsHandlingAsync(new GetLinkedDeviceByIdQuery { IdentifierDevice = IdentifierDevice });
@@ -28,7 +28,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{IdentifierDevice}")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager,Diner")]
+        [Authorize(Roles = "FoodBusinessManager")]
         public async Task<IActionResult> Update(UpdateLinkedDeviceCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
