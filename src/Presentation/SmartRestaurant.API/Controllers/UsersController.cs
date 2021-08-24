@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -147,14 +148,57 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> Create(ApplicationUserModel model)
         {
             if (SuperAdminCheck(model.Roles)) return BadRequest();
-            var user = new ApplicationUser(model.FullName, model.Email, model.UserName);
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded) return CheckResultStatus(result);
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            await SendEmailConfirmation(user, token);
-            foreach (var role in model.Roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
+            var user = new ApplicationUser(model.FullName, model.Email, model.Email);
+            user.EmailConfirmed = true;
+            try
+            {
+                using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                        await CreateUser(model, user).ConfigureAwait(false);
+                        await AssignRolesToUser(model, user).ConfigureAwait(false);
+                        transaction.Complete();                                
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetType().IsSubclassOf(typeof(BaseException)))
+                    if (ex is BaseException result)
+                        return StatusCode(result.StatusCode, new
+                        {
+                            result.Message,
+                            result.Errors
+                        });
+                if (ex .GetType() == typeof(InvalidOperationException))
+                        return StatusCode(400, new
+                        {
+                            Message = "Errors related to user manager",
+                            Errors = new List<string> { ex.Message }
+                        });
 
-            return CheckResultStatus(result);
+                return StatusCode(500, new
+                {
+                    Message = "Internal Server Error",
+                    Errors = new List<string> { ex.Message}
+                });
+            }
+            return Ok();
+        }
+
+        private async Task AssignRolesToUser(ApplicationUserModel model, ApplicationUser user)
+        {
+                foreach (var role in model.Roles)
+                {
+                    var AddRolesToUserResult = await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
+                    if (!AddRolesToUserResult.Succeeded)
+                        throw new UserManagerException(AddRolesToUserResult.Errors);
+                }   
+        }
+
+        private async Task CreateUser(ApplicationUserModel model, ApplicationUser user)
+        {
+            var userCreationResult = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
+            if (!userCreationResult.Succeeded)
+                throw new UserManagerException(userCreationResult.Errors);
         }
 
         [Route("{id}")]
@@ -167,7 +211,6 @@ namespace SmartRestaurant.API.Controllers
                 throw new NotFoundException(nameof(user), id);
             user.FullName = model.FullName;
             user.Email = model.Email;
-            user.UserName = model.UserName;
             var result = await _userManager.UpdateAsync(user);
             return CheckResultStatus(result);
         }
