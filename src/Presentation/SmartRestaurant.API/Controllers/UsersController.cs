@@ -150,6 +150,7 @@ namespace SmartRestaurant.API.Controllers
             if (SuperAdminCheck(model.Roles)) return BadRequest();
             var user = new ApplicationUser(model.FullName, model.Email, model.Email);
             user.EmailConfirmed = true;
+            user.PhoneNumber = model.PhoneNumber;
             try
             {
                 using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
