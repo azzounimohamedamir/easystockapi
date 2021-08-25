@@ -12,11 +12,10 @@ using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
-using SmartRestaurant.Application.Users.Queries;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
 
-namespace SmartRestaurant.Application.Reservations.Queries
+namespace SmartRestaurant.Application.Users.Queries
 {
     public class UsersQueriesHandler :
         IRequestHandler<GetFoodBusinessEmployeesQuery, PagedListDto<FoodBusinessEmployeesDtos>>,

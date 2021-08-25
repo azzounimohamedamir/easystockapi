@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using SmartRestaurant.Infrastructure.Persistence;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace SmartRestaurant.API.Swagger.Examples.Reservations
+namespace SmartRestaurant.API.Swagger.Examples.Reservation
 {
     public class CreateReservationCommandForSwaggerExamples
     {

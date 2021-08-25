@@ -3,7 +3,7 @@ using netDumbster.smtp;
 using NUnit.Framework;
 using SmartRestaurant.Application.Common.Tools;
 
-namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers
+namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers.Commands
 {
     [TestFixture]
     public class InviteUserToJoinOrganizationTest : TestBase

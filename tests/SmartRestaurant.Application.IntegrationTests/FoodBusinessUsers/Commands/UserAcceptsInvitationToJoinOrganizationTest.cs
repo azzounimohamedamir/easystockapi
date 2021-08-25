@@ -8,7 +8,7 @@ using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
 using SmartRestaurant.Domain.Identity.Enums;
 
-namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers
+namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers.Commands
 {
     [TestFixture]
     public class UserAcceptsInvitationToJoinOrganizationTest : TestBase
