@@ -21,11 +21,35 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(command);
         }
 
+        /// <summary> This endpoint is used to update employee  role of a FoodBusiness</summary>
+        /// <remarks>
+        ///     This endpoint can be used to update role only for the employees listed bellow:
+        ///     <br></br>
+        ///     <b>Chef</b>, <b>Cashier</b>, <b>Waiter</b>.
+        /// </remarks>
+        /// <param name="id">id of the employee </param>
+        /// <param name="command">This is the Json object used to update employee role</param>
+        /// <response code="204">The employee role has been successfully updated</response>
+        /// <response code="400">
+        ///     The parameters sent to the backend-server in order to update employee role are
+        ///     invalid.
+        /// </response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<IActionResult> UpdateEmployeeRoleInOrganization(
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<IActionResult> UpdateEmployeeRoleInOrganization([FromRoute] string id,
             UpdateEmployeeRoleInOrganizationCommand command)
         {
+            command.UserId = id;
             return await SendWithErrorsHandlingAsync(command);
         }
 
@@ -43,7 +67,7 @@ namespace SmartRestaurant.API.Controllers
         ///     The parameters sent to the backend-server in order to remove employee from organization are
         ///     invalid.
         /// </response>
-        /// <response code="200">The employee has been successfully removed from organization..</response>
+        /// <response code="204">The employee has been successfully removed from organization..</response>
         /// <response code="401">
         ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
         ///     or authentication token is invalid or expired.
