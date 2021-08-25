@@ -3,7 +3,7 @@ using FluentValidation.TestHelper;
 using SmartRestaurant.Application.LinkedDevice.Commands;
 using Xunit;
 
-namespace SmartRestaurant.Application.Tests.CommandValidatorTests.DeviceID
+namespace SmartRestaurant.Application.Tests.CommandValidatorTests.LinkedDevice
 {
     public class CreateLinkedDeviceCommandValidatorTests
     {

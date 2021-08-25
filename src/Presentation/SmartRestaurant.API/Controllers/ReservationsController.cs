@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.API.Swagger.Examples.Reservations;
+using SmartRestaurant.API.Swagger.Examples.Reservation;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Reservations.Commands;

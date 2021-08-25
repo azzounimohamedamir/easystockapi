@@ -6,7 +6,7 @@ using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.LinkedDevice.Commands;
 using SmartRestaurant.Application.LinkedDevice.Queries;
 
-namespace SmartRestaurant.Application.IntegrationTests.DeviceID.Queries
+namespace SmartRestaurant.Application.IntegrationTests.LinkedDevice.Queries
 {
     using static Testing;
 
