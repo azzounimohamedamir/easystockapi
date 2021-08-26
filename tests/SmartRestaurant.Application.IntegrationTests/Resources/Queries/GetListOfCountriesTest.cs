@@ -1,8 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.Resources.Queries;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Resources.Queries
