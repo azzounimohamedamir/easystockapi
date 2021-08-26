@@ -104,24 +104,32 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         public async Task<Ok> Handle(UpdateEmployeeRoleInOrganizationCommand request,
             CancellationToken cancellationToken)
         {
-            var validator = new UpdateEmployeeRoleInOrganizationCommandValidator();
-            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result);
 
-            var foodBusinessUser = _context.FoodBusinessUsers.First(b =>
-                b.FoodBusinessId == request.FoodBusinessId && b.ApplicationUserId == request.UserId.ToString());
+            await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid
+               <UpdateEmployeeRoleInOrganizationCommandValidator, UpdateEmployeeRoleInOrganizationCommand>
+               (request, cancellationToken).ConfigureAwait(false);
 
-            if (foodBusinessUser == null) throw new NotFoundException(nameof(foodBusinessUser), request.FoodBusinessId);
+           var foodBusinessUser = _context.FoodBusinessUsers.First(b =>
+                b.FoodBusinessId == Guid.Parse(request.FoodBusinessId) && b.ApplicationUserId == request.UserId);
+            if (foodBusinessUser == null) 
+                throw new NotFoundException(nameof(foodBusinessUser), request.FoodBusinessId);
 
             var user = _userManager.Users.First(u => u.Id == foodBusinessUser.ApplicationUserId);
-            if (user == null) throw new NotFoundException(nameof(user), request.UserId);
+            if (user == null) 
+                throw new NotFoundException(nameof(user), request.UserId);
 
-            await _userManager.RemoveFromRoleAsync(user, request.Role);
-            await _userManager.AddToRoleAsync(user, request.Role);
-            _context.FoodBusinessUsers.Update(foodBusinessUser);
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+               var removeRoleResult = await _userManager.RemoveFromRoleAsync(user, request.OldRole);
+                if (!removeRoleResult.Succeeded)
+                    throw new UserManagerException(removeRoleResult.Errors);
 
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                var addRoleResult = await _userManager.AddToRoleAsync(user, request.NewRole);
+                if (!addRoleResult.Succeeded)
+                    throw new UserManagerException(addRoleResult.Errors);
 
+                transaction.Complete();
+            }
             return default;
         }
 

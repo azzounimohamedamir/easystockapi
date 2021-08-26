@@ -19,6 +19,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public const string Mcdonald_FoodBusinessManager_UserId = "b2207466-ceda-4b50-b18d-0ac4f4102caa";
         public const string BigMama_SalimFoodBusinessManager_UserId = "64fed988-6f68-49dc-ad54-0da50ec02319";
 
+        public const string TajMhal_Waiter_UserId = "d466ef00-61f1-4e77-801a-b516f0f12323";
+
         public const string Diner_UserId_01 = "5a84cd00-59f0-4b22-bfce-07c080829118";
         public const string Diner_UserId_02 = "6b14cd00-59f0-4422-bfce-07c080829987";
 
@@ -130,17 +132,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<FoodBusinessUser>().HasData(
 
-                #region Assigning account with Id = [TajMhal_FoodBusinessAdministrator_UserId] to TajMhal restaurant.
 
-                new FoodBusinessUser
-                {
-                    ApplicationUserId = TajMhal_FoodBusinessAdministrator_UserId,
-                    FoodBusinessId = Guid.Parse(TajMhal_FoodBusinessId)
-                },
-
-                #endregion
-
-                #region Assigning account with Id = [TajMhal_FoodBusinessManager_UserId] to TajMhal restaurant.
+            #region Assigning account with Id = [TajMhal_FoodBusinessManager_UserId] to TajMhal restaurant.
 
                 new FoodBusinessUser
                 {
@@ -148,19 +141,19 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     FoodBusinessId = Guid.Parse(TajMhal_FoodBusinessId)
                 },
 
-                #endregion
+            #endregion
 
-                #region Assigning account with Id = [Mcdonald_FoodBusinessAdministrator_UserId] to Mcdonald restaurant.
+            #region Assigning account with Id = [TajMhal_Waiter_UserId] to TajMhal restaurant.
 
                 new FoodBusinessUser
                 {
-                    ApplicationUserId = Mcdonald_FoodBusinessAdministrator_UserId,
-                    FoodBusinessId = Guid.Parse(Mcdonald_FoodBusinessId)
+                    ApplicationUserId = TajMhal_Waiter_UserId,
+                    FoodBusinessId = Guid.Parse(TajMhal_FoodBusinessId)
                 },
 
-                #endregion
+            #endregion
 
-                #region Assigning account with Id = [Mcdonald_FoodBusinessManager_UserId] to Mcdonald restaurant.
+            #region Assigning account with Id = [Mcdonald_FoodBusinessManager_UserId] to Mcdonald restaurant.
 
                 new FoodBusinessUser
                 {
@@ -168,19 +161,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     FoodBusinessId = Guid.Parse(Mcdonald_FoodBusinessId)
                 },
 
-                #endregion
+            #endregion
 
-                #region Assigning account with Id = [BigMama_FoodBusinessAdministrator_UserId] to Mcdonald restaurant.
-
-                new FoodBusinessUser
-                {
-                    ApplicationUserId = BigMama_FoodBusinessAdministrator_UserId,
-                    FoodBusinessId = Guid.Parse(BigMama_FoodBusinessId)
-                },
-
-                #endregion
-
-                #region Assigning account with Id = [BigMama_SalimFoodBusinessManager_UserId] to Mcdonald restaurant.
+            #region Assigning account with Id = [BigMama_SalimFoodBusinessManager_UserId] to BigMama restaurant.
 
                 new FoodBusinessUser
                 {

@@ -64,5 +64,17 @@ namespace SmartRestaurant.Application.Common.Tools
                 $"|{Roles.Waiter.ToString()})$";
             return new Regex(regex).Match(role).Success;
         }
+
+        public static bool ValidateRoleForFoodBusinessStaff(string role)
+        {
+            if (role == null)
+                return false;
+
+            var regex =
+                $"^(?:{Roles.Chef.ToString()}" +
+                $"|{Roles.Cashier.ToString()}" +
+                $"|{Roles.Waiter.ToString()})$";
+            return new Regex(regex).Match(role).Success;
+        }
     }
 }
