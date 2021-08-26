@@ -17,7 +17,7 @@ namespace SmartRestaurant.API.Controllers
         /// <summary> GetListOfCountries() </summary>
         /// <remarks> This endpoint allows any user to get a list of countries </remarks>
         /// <response code="200">The list of countries has been successfully fetched.</response>
-        [ProducesResponseType(typeof(List<Countries>), 200)]
+        [ProducesResponseType(typeof(List<Country>), 200)]
         [Route("countries")]
         [HttpGet]
         [AllowAnonymous]
