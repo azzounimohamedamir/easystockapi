@@ -225,11 +225,10 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         {
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var linkToAcceptInvitationWebPage =
-                $"{_webPortal.Value.host}{_webPortal.Value.pathToEmployeeAcceptInvitation.Replace("{id}", user.Id)}";
+                $"{_webPortal.Value.host}{_webPortal.Value.pathToEmployeeAcceptInvitation.Replace("{id}", user.Id).Replace("{token}", token)}";
             var invitationToJoinOrganization = _emailTemplates.Value.InvitationToJoinOrganization;
             var template = invitationToJoinOrganization.Template
-                .Replace("{linkToAcceptInvitationWebPage}", linkToAcceptInvitationWebPage)
-                .Replace("{token}", token);
+                .Replace("{linkToAcceptInvitationWebPage}", linkToAcceptInvitationWebPage);
             new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, invitationToJoinOrganization.Subject, template);
         }
 
