@@ -55,31 +55,6 @@ namespace SmartRestaurant.API.Controllers
             return (ActionResult) await SendWithErrorsHandlingAsync(new DeleteZoneCommand {Id = id});
         }
 
-        [HttpPost]
-        [Route("{id:Guid}/uploadImages")]
-        [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<IActionResult> UploadImages([FromRoute] Guid id, [FromForm] FIleUploadModel images)
-        {
-            if (images.EntityId == Guid.Empty)
-                throw new InvalidOperationException("Zone id shouldn't be null or empty");
-            var zoneDto = await SendAsync(new GetZoneByIdQuery {ZoneId = images.EntityId}).ConfigureAwait(false);
-            if (zoneDto == null)
-                return BadRequest("Zone wasn't found");
-            if (images.Files.Count <= 0)
-                return BadRequest("Unsuccessful");
-            var imageModels = FileHelper.SaveImagesAsync(images);
-            var createImagesCommand = new CreateListImagesCommand {EntityId = zoneDto.ZoneId};
-            foreach (var imageModel in imageModels)
-                createImagesCommand.ImageCommands.Add(
-                    new CreateImageCommand
-                    {
-                        ImageTitle = imageModel.ImageTitle,
-                        ImageBytes = imageModel.ImageBytes,
-                        IsLogo = imageModel.IsLogo
-                    });
-
-            return await SendWithErrorsHandlingAsync(createImagesCommand);
-        }
 
         [HttpGet]
         [Route("{id:Guid}/allImages")]

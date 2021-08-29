@@ -70,38 +70,7 @@ namespace SmartRestaurant.API.Controllers
         {
             return await SendWithErrorsHandlingAsync(new DeleteFoodBusinessCommand {Id = id});
         }
-
-        [HttpPost]
-        [Route("{id:Guid}/uploadImages")]
-        [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<ActionResult> UploadImages([FromRoute] Guid id, [FromForm] FIleUploadModel images)
-        {
-            if (images.EntityId == Guid.Empty)
-                throw new InvalidOperationException("FoodBusiness id shouldn't be null or empty");
-            if (id != images.EntityId)
-                return BadRequest();
-            var foodBusiness = await SendAsync(new GetFoodBusinessByIdQuery {FoodBusinessId = images.EntityId});
-            if (foodBusiness == null)
-                return BadRequest("FoodBusiness wasn't found");
-            if (images.Files.Count <= 0)
-                return BadRequest("Unsuccessful");
-            var imageModels = FileHelper.SaveImagesAsync(images);
-            var createImagesCommand = new CreateListImagesCommand
-            {
-                EntityId = foodBusiness.FoodBusinessId
-            };
-            foreach (var imageModel in imageModels)
-                createImagesCommand.ImageCommands.Add(
-                    new CreateImageCommand
-                    {
-                        ImageTitle = imageModel.ImageTitle,
-                        ImageBytes = imageModel.ImageBytes,
-                        IsLogo = imageModel.IsLogo
-                    });
-
-            await SendAsync(createImagesCommand).ConfigureAwait(false);
-            return Ok("Successful");
-        }
+      
 
         [HttpGet]
         [Route("{id:Guid}/allImages")]

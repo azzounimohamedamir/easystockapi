@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Identity.Enums;
 
 namespace SmartRestaurant.Application.Common.Tools
@@ -74,6 +75,20 @@ namespace SmartRestaurant.Application.Common.Tools
                 $"^(?:{Roles.Chef.ToString()}" +
                 $"|{Roles.Cashier.ToString()}" +
                 $"|{Roles.Waiter.ToString()})$";
+            return new Regex(regex).Match(role).Success;
+        }
+
+        public static bool ValidateEntityNameForUploadImages(string role)
+        {
+            if (role == null)
+                return false;
+
+            var regex =
+                $"^(?:{UploadImagesEntities.FoodBusiness}" +
+                $"|{UploadImagesEntities.Zone}" +
+                $"|{UploadImagesEntities.Table}" +
+                $"|{UploadImagesEntities.Menu}" +
+                $"|{UploadImagesEntities.SubSection})$";
             return new Regex(regex).Match(role).Success;
         }
     }
