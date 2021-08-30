@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using FluentValidation;
-using MediatR;
 using Microsoft.AspNetCore.Http;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Enums;
@@ -13,7 +11,7 @@ namespace SmartRestaurant.Application.Images.Commands
     {
         public string EntityId { get; set; }
         public string EntityName { get; set; }
-        public IFormFile logo { get; set; }
+        public IFormFile Logo { get; set; }
     }
 
 
@@ -34,7 +32,7 @@ namespace SmartRestaurant.Application.Images.Commands
             RuleFor(v => v.EntityName).NotEmpty().Must(ValidatorHelper.ValidateEntityNameForUploadImages)
                     .WithMessage($"'EntityName' must be have of these values : {uploadImagesEntities}");
 
-            RuleFor(v => v.logo).NotEmpty();
+            RuleFor(v => v.Logo).NotEmpty();
         }
     }
 }

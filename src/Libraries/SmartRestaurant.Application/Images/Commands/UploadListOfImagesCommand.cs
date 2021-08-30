@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Tools;
+using SmartRestaurant.Application.Common.WebResults;
 
 namespace SmartRestaurant.Application.Images.Commands
 {
-    public class UploadListOfImagesCommand : CreateCommand
+    public class UploadListOfImagesCommand : IRequest<Created>
     {
         public string EntityId { get; set; }
         public string EntityName { get; set; }

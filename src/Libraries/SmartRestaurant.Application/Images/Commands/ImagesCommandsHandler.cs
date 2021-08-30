@@ -2,7 +2,6 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using MediatR;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Exceptions;
@@ -19,12 +18,10 @@ namespace SmartRestaurant.Application.Images.Commands
 
     {
         private readonly IApplicationDbContext _context;
-        private readonly IMapper _mapper;
 
-        public ImagesCommandsHandler(IApplicationDbContext context, IMapper mapper)
+        public ImagesCommandsHandler(IApplicationDbContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         #region Upload list of images
@@ -55,6 +52,7 @@ namespace SmartRestaurant.Application.Images.Commands
                     image.CopyTo(ms);
                     var foodBusinessImage = new FoodBusinessImage
                     {
+                        Id = Guid.NewGuid(),
                         EntityId = Guid.Parse(request.EntityId),
                         ImageBytes = ms.ToArray(),
                         ImageTitle = image.FileName,
@@ -64,6 +62,43 @@ namespace SmartRestaurant.Application.Images.Commands
                 }
             }
         }
+        #endregion    
+        #endregion
+
+        #region Upload logo
+        #region Handler
+        public async Task<Created> Handle(UploadLogoCommand request, CancellationToken cancellationToken)
+        {
+            await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid<UploadLogoCommandValidator,
+                    UploadLogoCommand>(request, cancellationToken).ConfigureAwait(false);
+
+            await CheckEntityExistence_ThrowExceptionOnNotFound(request.EntityId, request.EntityName).ConfigureAwait(false);
+
+            AddLogoToFoodBusinessImages(request);
+
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+        #endregion
+
+        #region Add logo to FoodBusinessImages
+        private void AddLogoToFoodBusinessImages(UploadLogoCommand request)
+        {            
+                using (var ms = new MemoryStream())
+                {
+                    request.Logo.CopyTo(ms);
+                    var foodBusinessImage = new FoodBusinessImage
+                    {
+                        Id = request.Id,
+                        EntityId = Guid.Parse(request.EntityId),
+                        ImageBytes = ms.ToArray(),
+                        ImageTitle = request.Logo.FileName,
+                        IsLogo = true
+                    };
+                    _context.FoodBusinessImages.Add(foodBusinessImage);
+                }
+        }
+        #endregion
         #endregion
 
         #region Check entity existence
@@ -104,43 +139,6 @@ namespace SmartRestaurant.Application.Images.Commands
                 default:
                     throw new NotFoundException(entityName, entityId);
             }
-        }
-        #endregion
-
-        #endregion
-
-
-
-        #region Handler
-        public async Task<Created> Handle(UploadLogoCommand request, CancellationToken cancellationToken)
-        {
-            await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid<UploadLogoCommandValidator,
-                    UploadLogoCommand>(request, cancellationToken).ConfigureAwait(false);
-
-            await CheckEntityExistence_ThrowExceptionOnNotFound(request.EntityId, request.EntityName).ConfigureAwait(false);
-
-            AddLogoToFoodBusinessImages(request);
-
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            return default;
-        }
-        #endregion
-
-        #region Add logo to FoodBusinessImages
-        private void AddLogoToFoodBusinessImages(UploadLogoCommand request)
-        {            
-                using (var ms = new MemoryStream())
-                {
-                    request.logo.CopyTo(ms);
-                    var foodBusinessImage = new FoodBusinessImage
-                    {
-                        EntityId = Guid.Parse(request.EntityId),
-                        ImageBytes = ms.ToArray(),
-                        ImageTitle = request.logo.FileName,
-                        IsLogo = true
-                    };
-                    _context.FoodBusinessImages.Add(foodBusinessImage);
-                }
         }
         #endregion
     }

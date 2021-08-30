@@ -92,7 +92,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="200">
         ///     The list of images has been successfully fetched.
         ///     <br></br>
-        ///     <b>images will be the form of Base64String</b>
+        ///     <b>images will be in the form of Base64String</b>
         /// </response>
         /// <response code="400">The parameters sent to the backend-server in order to fetch the list of images are invalid.</response>
         /// <response code="401">
