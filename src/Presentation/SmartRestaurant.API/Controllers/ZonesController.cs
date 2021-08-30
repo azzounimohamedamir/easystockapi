@@ -1,13 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.API.Helpers;
-using SmartRestaurant.API.Models.MediaModels;
-using SmartRestaurant.Application.Images.Commands;
-using SmartRestaurant.Application.Images.Queries;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Application.Zones.Queries;
 
@@ -53,16 +47,6 @@ namespace SmartRestaurant.API.Controllers
         public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
             return (ActionResult) await SendWithErrorsHandlingAsync(new DeleteZoneCommand {Id = id});
-        }
-
-
-        [HttpGet]
-        [Route("{id:Guid}/allImages")]
-        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
-        public async Task<IEnumerable<string>> GetAllImagesByFoodBusinessId([FromRoute] Guid id)
-        {
-            var query = await SendAsync(new GetImagesByEntityIdQuery {EntityId = id}).ConfigureAwait(false);
-            return query.Select(Convert.ToBase64String);
         }
     }
 }
