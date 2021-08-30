@@ -35,8 +35,7 @@ namespace SmartRestaurant.Application.Images.Commands
                     .WithMessage($"'EntityName' must be have of these values : {uploadImagesEntities}");
 
             RuleFor(v => v.Images).NotEmpty();
-            RuleForEach(invitation => invitation.Images)
-               .ChildRules(image => image.RuleFor(x => x).NotEmpty());
+            RuleForEach(v => v.Images).ChildRules(image => image.RuleFor(x => x).NotEmpty());
         }
     }
 }
