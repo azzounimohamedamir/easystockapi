@@ -8,6 +8,27 @@
     "DefaultConnection": "Server=10.209.99.155;Database=default_features;User ID=SA;Password=Azerty123;Trusted_Connection=false;MultipleActiveResultSets=true",
     "IdentityConnection": "Server=10.209.99.155;Database=identity_features;User ID=SA;Password=Azerty123;Trusted_Connection=false;MultipleActiveResultSets=true"
   },
+  "Smtp": {
+    "Server": "pro2.mail.ovh.net",
+    "Email": "no-reply@smartrestaurant.io",
+    "Pass": "PlT20.1L!Dr",
+    "Port": "587"
+  },
+  "WebPortal": {
+    "host": "https://test.smartrestaurant.io",
+    "pathToEmployeeAcceptInvitation": "/account/{id}/accept-invitation?token={token}"
+  },
+  "EmailTemplates": {
+    "InvitationToJoinOrganization": {
+      "Subject": "Invitation to join organization",
+      "Body": {
+        "Welcome": "<h1 align=\"center\" style=\"font-size: 48px; font-weight: 400; margin: 2; \">Welcome!</h1>",
+        "Message": "<p>We're excited to have you get started. First, you need to complete your subscription. Just press the button below.</p>",
+        "Button": "<div style=\"text-align:center;\"><a href='{linkToAcceptInvitationWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">Click Here To Complete Subscription</a></div>",
+        "Content": "<div style=\"width:500px;text-align:center;\">{welcome}<br></br>{message}<br></br>{button}"
+      }
+    }
+  },
   "DefaultCulture": "fr-FR",
   "Logging": {
     "LogLevel": {
