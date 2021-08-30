@@ -14,7 +14,9 @@ using SmartRestaurant.Domain.Entities;
 namespace SmartRestaurant.Application.Images.Commands
 {
     public class ImagesCommandsHandler :
-       IRequestHandler<UploadListOfImagesCommand, Created>
+       IRequestHandler<UploadListOfImagesCommand, Created>,
+       IRequestHandler<UploadLogoCommand, Created>
+
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -34,7 +36,7 @@ namespace SmartRestaurant.Application.Images.Commands
             await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid<UploadListOfImagesCommandValidator,
                     UploadListOfImagesCommand>(request, cancellationToken).ConfigureAwait(false);
 
-            await CheckEntityExistence_ThrowExceptionOnNotFound(request).ConfigureAwait(false);
+            await CheckEntityExistence_ThrowExceptionOnNotFound(request.EntityId,request.EntityName).ConfigureAwait(false);
 
             AddImagesToFoodBusinessImages(request);
 
@@ -65,46 +67,81 @@ namespace SmartRestaurant.Application.Images.Commands
         #endregion
 
         #region Check entity existence
-        private async Task CheckEntityExistence_ThrowExceptionOnNotFound(UploadListOfImagesCommand request)
+        private async Task CheckEntityExistence_ThrowExceptionOnNotFound(string entityId, string entityName)
         {
-            switch (request.EntityName)
+            switch (entityName)
             {
                 case UploadImagesEntities.FoodBusiness:
-                    var foodBusiness = await _context.FoodBusinesses.FindAsync(Guid.Parse(request.EntityId)).ConfigureAwait(false);
+                    var foodBusiness = await _context.FoodBusinesses.FindAsync(Guid.Parse(entityId)).ConfigureAwait(false);
                     if (foodBusiness == null)
-                        throw new NotFoundException(nameof(FoodBusiness), request.EntityId);
+                        throw new NotFoundException(nameof(FoodBusiness), entityId);
                     break;
 
                 case UploadImagesEntities.Zone:
-                    var zone = await _context.Zones.FindAsync(Guid.Parse(request.EntityId)).ConfigureAwait(false);
+                    var zone = await _context.Zones.FindAsync(Guid.Parse(entityId)).ConfigureAwait(false);
                     if (zone == null)
-                        throw new NotFoundException(nameof(Zones), request.EntityId);
+                        throw new NotFoundException(nameof(Zones), entityId);
                     break;
 
                 case UploadImagesEntities.Table:
-                    var table = await _context.Tables.FindAsync(Guid.Parse(request.EntityId)).ConfigureAwait(false);
+                    var table = await _context.Tables.FindAsync(Guid.Parse(entityId)).ConfigureAwait(false);
                     if (table == null)
-                        throw new NotFoundException(nameof(Tables), request.EntityId);
+                        throw new NotFoundException(nameof(Tables), entityId);
                     break;
 
                 case UploadImagesEntities.Menu:
-                    var menu = await _context.Menus.FindAsync(Guid.Parse(request.EntityId)).ConfigureAwait(false);
+                    var menu = await _context.Menus.FindAsync(Guid.Parse(entityId)).ConfigureAwait(false);
                     if (menu == null)
-                        throw new NotFoundException(nameof(Menus), request.EntityId);
+                        throw new NotFoundException(nameof(Menus), entityId);
                     break;
 
                 case UploadImagesEntities.SubSection:
-                    var subSection = await _context.SubSections.FindAsync(Guid.Parse(request.EntityId)).ConfigureAwait(false);
+                    var subSection = await _context.SubSections.FindAsync(Guid.Parse(entityId)).ConfigureAwait(false);
                     if (subSection == null)
-                        throw new NotFoundException(nameof(SubSections), request.EntityId);
+                        throw new NotFoundException(nameof(SubSections), entityId);
                     break;
 
                 default:
-                    throw new NotFoundException(request.EntityName, request.EntityId);
+                    throw new NotFoundException(entityName, entityId);
             }
         }
         #endregion
 
+        #endregion
+
+
+
+        #region Handler
+        public async Task<Created> Handle(UploadLogoCommand request, CancellationToken cancellationToken)
+        {
+            await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid<UploadLogoCommandValidator,
+                    UploadLogoCommand>(request, cancellationToken).ConfigureAwait(false);
+
+            await CheckEntityExistence_ThrowExceptionOnNotFound(request.EntityId, request.EntityName).ConfigureAwait(false);
+
+            AddLogoToFoodBusinessImages(request);
+
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+        #endregion
+
+        #region Add logo to FoodBusinessImages
+        private void AddLogoToFoodBusinessImages(UploadLogoCommand request)
+        {            
+                using (var ms = new MemoryStream())
+                {
+                    request.logo.CopyTo(ms);
+                    var foodBusinessImage = new FoodBusinessImage
+                    {
+                        EntityId = Guid.Parse(request.EntityId),
+                        ImageBytes = ms.ToArray(),
+                        ImageTitle = request.logo.FileName,
+                        IsLogo = true
+                    };
+                    _context.FoodBusinessImages.Add(foodBusinessImage);
+                }
+        }
         #endregion
     }
 }
