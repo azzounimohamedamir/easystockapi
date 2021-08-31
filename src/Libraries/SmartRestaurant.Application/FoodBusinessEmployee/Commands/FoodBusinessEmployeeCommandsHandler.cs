@@ -157,7 +157,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
                 if (!userUpdateResult.Succeeded)
                     throw new UserManagerException(userUpdateResult.Errors);
 
-                var passwordResetResult = await _userManager.ResetPasswordAsync(user, request.Token, request.Password);
+                var passwordResetResult = await _userManager.ResetPasswordAsync(user, HexaDecimalHelper.FromHexString(request.Token), request.Password);
                 if (!passwordResetResult.Succeeded)
                     throw new UserManagerException(passwordResetResult.Errors);
 
@@ -223,9 +223,9 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 
         private async Task SendConfirmationEmail(ApplicationUser user)
         {
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);           
             var linkToAcceptInvitationWebPage =
-                $"{_webPortal.Value.host}{_webPortal.Value.pathToEmployeeAcceptInvitation.Replace("{id}", user.Id).Replace("{token}", token)}";
+                $"{_webPortal.Value.host}{_webPortal.Value.pathToEmployeeAcceptInvitation.Replace("{id}", user.Id).Replace("{token}", HexaDecimalHelper.ToHexString(token))}";
             var invitationToJoinOrganization = _emailTemplates.Value.InvitationToJoinOrganization;
             var template = invitationToJoinOrganization.Template
                 .Replace("{linkToAcceptInvitationWebPage}", linkToAcceptInvitationWebPage);
