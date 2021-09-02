@@ -119,15 +119,13 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
 
         private async Task GetFoodBusinessImagesAsync(FoodBusinessDto foodBusinessDto,
             CancellationToken cancellationToken)
-        {
-            /*
+        {         
             var images = await _applicationDbContext.FoodBusinessImages
                 .Where(x => x.EntityId == foodBusinessDto.FoodBusinessId)
                 .Select(x => x.ImageBytes).ToListAsync(cancellationToken);
 
             if (images.Any())
-                foodBusinessDto.Images.AddRange(images.Select(Convert.ToBase64String));
-                */
+                foodBusinessDto.Images.AddRange(images.Select(Convert.ToBase64String));              
         }
 
         private async Task GetCountOfZonesTablesAndMenus(FoodBusinessDto foodBusinessDto,

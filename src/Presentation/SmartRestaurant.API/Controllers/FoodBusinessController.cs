@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.API.Helpers;
-using SmartRestaurant.API.Models.MediaModels;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusiness.Queries;
-using SmartRestaurant.Application.Images.Commands;
-using SmartRestaurant.Application.Images.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -69,48 +63,7 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             return await SendWithErrorsHandlingAsync(new DeleteFoodBusinessCommand {Id = id});
-        }
-
-        [HttpPost]
-        [Route("{id:Guid}/uploadImages")]
-        [Authorize(Roles = "FoodBusinessAdministrator")]
-        public async Task<ActionResult> UploadImages([FromRoute] Guid id, [FromForm] FIleUploadModel images)
-        {
-            if (images.EntityId == Guid.Empty)
-                throw new InvalidOperationException("FoodBusiness id shouldn't be null or empty");
-            if (id != images.EntityId)
-                return BadRequest();
-            var foodBusiness = await SendAsync(new GetFoodBusinessByIdQuery {FoodBusinessId = images.EntityId});
-            if (foodBusiness == null)
-                return BadRequest("FoodBusiness wasn't found");
-            if (images.Files.Count <= 0)
-                return BadRequest("Unsuccessful");
-            var imageModels = FileHelper.SaveImagesAsync(images);
-            var createImagesCommand = new CreateListImagesCommand
-            {
-                EntityId = foodBusiness.FoodBusinessId
-            };
-            foreach (var imageModel in imageModels)
-                createImagesCommand.ImageCommands.Add(
-                    new CreateImageCommand
-                    {
-                        ImageTitle = imageModel.ImageTitle,
-                        ImageBytes = imageModel.ImageBytes,
-                        IsLogo = imageModel.IsLogo
-                    });
-
-            await SendAsync(createImagesCommand).ConfigureAwait(false);
-            return Ok("Successful");
-        }
-
-        [HttpGet]
-        [Route("{id:Guid}/allImages")]
-        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
-        public async Task<IEnumerable<string>> GetAllImagesByFoodBusinessId([FromRoute] Guid id)
-        {
-            var query = await SendAsync(new GetImagesByEntityIdQuery {EntityId = id}).ConfigureAwait(false);
-            return query.Select(Convert.ToBase64String);
-        }
+        }    
 
         [HttpPatch("updateFourDigitCode")]
         [Authorize(Roles = "FoodBusinessManager")]
