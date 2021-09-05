@@ -79,7 +79,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpDelete]
-        [Authorize(Roles = "FoodBusinessAdministrator")]
+        [Authorize(Roles = "FoodBusinessAdministrator, FoodBusinessManager")]
         public async Task<IActionResult> RemoveEmployeeFromOrganization([FromRoute] string id,
             [FromQuery] List<string> foodBusinessesIds)
         {
