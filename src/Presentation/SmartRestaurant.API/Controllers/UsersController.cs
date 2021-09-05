@@ -278,5 +278,23 @@ namespace SmartRestaurant.API.Controllers
                 ? HttpResponseHelper.Respond(ResponseType.OK)
                 : HttpResponseHelper.Respond(ResponseType.InternalServerError));
         }
+
+        /// <summary> SetNewPasswordForFoodBusinessAdministrator() </summary>
+        /// <remarks> This endpoint is used to set a new password for the account of FoodBusinessAdministrator </remarks>
+        /// <param name="id">This is the id of FoodBusinessAdministrator account.</param>
+        /// <param name="command"> This is payload object used to set a new password for the account of FoodBusinessAdministrator</param>
+        /// <response code="204"> The new password has been successfully set.</response>
+        /// <response code="400"> The payload sent to the backend-server in order to set a new password is invalid. </response>
+        /// <response code="401"> The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request. </response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("foodBusinessAdministrator/{id}/set-new-password")]
+        [Authorize(Roles = "SupportAgent")]
+        [HttpPatch]
+        public async Task<IActionResult> SetNewPasswordForFoodBusinessAdministrator([FromRoute] string id, SetNewPasswordForFoodBusinessAdministratorCommand command)
+        {
+            command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
+        }
     }
 }
