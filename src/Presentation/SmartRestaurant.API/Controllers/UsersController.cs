@@ -48,15 +48,30 @@ namespace SmartRestaurant.API.Controllers
             return Ok(pagedResult);
         }
 
+
+        /// <summary> Get users by role </summary>
+        /// <remarks> This endpoint will return a list of users based on their role. </remarks>
+        /// <param name="role"> Users list will be filtered based on role value.</param>
+        /// <param name="page">The start position of read pointer in a request results</param>
+        /// <param name="pageSize">The max number of users that should be returned</param>
+        /// <response code="200">The list of staff has been successfully fetched.</response>
+        /// <response code="400">The parameters sent to the backend-server in order to get the list of staff are invalid.</response>
+        /// <response code="401"> The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request. </response>
+        [ProducesResponseType(typeof(PagedListDto<ApplicationUserDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("role/{role}")]
         [Authorize(Roles = "SuperAdmin,SupportAgent")]
         [HttpGet]
-        public IActionResult GetAllByRole([FromRoute] string role, int page, int pageSize)
-        {
-            var result = _identityContext.UserRoles.Include(u => u.Role)
-                .Where(u => u.Role.Name == role).Select(u => u.User).GetPaged(page, pageSize);
-
-            return Ok(result);
+        public async Task<IActionResult> GetAllByRole([FromRoute] string role, int page, int pageSize)
+        {                   
+            var query = new GetUsersByRoleQuery
+            {
+                Role = role,
+                Page = page,
+                PageSize = pageSize
+            };
+            return await SendWithErrorsHandlingAsync(query);
         }
 
         [Route("{userId}")]
