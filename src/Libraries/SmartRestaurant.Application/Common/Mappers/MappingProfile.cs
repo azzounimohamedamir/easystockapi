@@ -4,13 +4,13 @@ using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
-using SmartRestaurant.Application.Images.Commands;
 using SmartRestaurant.Application.LinkedDevice.Commands;
 using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Sections.Commands;
 using SmartRestaurant.Application.SubSections.Commands;
 using SmartRestaurant.Application.Tables.Commands;
+using SmartRestaurant.Application.Users.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
@@ -106,6 +106,9 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Domain.Entities.FoodBusiness, FoodBusinessDto>()
                 .ReverseMap();
+
+            CreateMap<UpdateUserCommand, ApplicationUser>()
+               .ReverseMap();
 
         }
     }
