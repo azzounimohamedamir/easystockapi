@@ -19,7 +19,9 @@ namespace SmartRestaurant.Application.Users.Queries
 {
     public class UsersQueriesHandler :
         IRequestHandler<GetFoodBusinessEmployeesQuery, PagedListDto<FoodBusinessEmployeesDtos>>,
-        IRequestHandler<GetFoodBusinessManagersWithinOrganizationQuery, PagedListDto<FoodBusinessManagersDto>>
+        IRequestHandler<GetFoodBusinessManagersWithinOrganizationQuery, PagedListDto<FoodBusinessManagersDto>>,
+        IRequestHandler<GetUsersByRoleQuery, PagedListDto<ApplicationUserDto>>
+
     {
         private readonly IApplicationDbContext _context;
         private readonly IIdentityContext _identityContext;
@@ -37,6 +39,7 @@ namespace SmartRestaurant.Application.Users.Queries
             _mapper = mapper;
         }
 
+        #region Get FoodBusiness employees
         public async Task<PagedListDto<FoodBusinessEmployeesDtos>> Handle(GetFoodBusinessEmployeesQuery request,
             CancellationToken cancellationToken)
         {
@@ -92,7 +95,9 @@ namespace SmartRestaurant.Application.Users.Queries
                 pagedUsersList.PageCount, pagedUsersList.PageSize, pagedUsersList.RowCount, data);
             return pagedFoodBusinessEmployees;
         }
+        #endregion
 
+        #region Get FoodBusinessManagers within organization
         public async Task<PagedListDto<FoodBusinessManagersDto>> Handle(
             GetFoodBusinessManagersWithinOrganizationQuery request, CancellationToken cancellationToken)
         {
@@ -172,5 +177,36 @@ namespace SmartRestaurant.Application.Users.Queries
                 foreach (var foodBusiness in listOfFoodBusiness) foodBusinessManager.FoodBusinesses.Add(foodBusiness);
             }
         }
+        #endregion
+
+        #region Get users by role
+        public async Task<PagedListDto<ApplicationUserDto>> Handle(GetUsersByRoleQuery request, CancellationToken cancellationToken)
+        {
+            await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid<GetUsersByRoleQueryValidator, GetUsersByRoleQuery>
+                    (request, cancellationToken).ConfigureAwait(false);
+
+            var pagedUsersList = _identityContext.UserRoles.Include(u => u.Role)
+                .Where(u => u.Role.Name == request.Role).Select(u => u.User)
+                .GetPaged(request.Page, request.PageSize);
+
+
+            var data = _mapper.Map<List<ApplicationUserDto>>(await pagedUsersList.Data
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false));
+
+            foreach (var user in pagedUsersList.Data)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+                var applicationUserDto = data.FirstOrDefault(applicationUserDto => applicationUserDto.Id == user.Id);
+                applicationUserDto.Roles = (List<string>) userRoles;
+            }
+
+            return new PagedListDto<ApplicationUserDto>(pagedUsersList.CurrentPage,
+                pagedUsersList.PageCount, pagedUsersList.PageSize, pagedUsersList.RowCount, data);
+
+        }
+        #endregion
+
+
     }
 }

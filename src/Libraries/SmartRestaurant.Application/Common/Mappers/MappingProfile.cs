@@ -109,6 +109,9 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<UpdateUserCommand, ApplicationUser>()
                .ReverseMap();
+               
+            CreateMap<ApplicationUser, ApplicationUserDto>()
+                .ReverseMap();
 
         }
     }
