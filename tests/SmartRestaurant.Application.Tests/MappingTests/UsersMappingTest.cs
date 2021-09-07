@@ -71,5 +71,27 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(user.FullName, updateUserCommand.FullName);
             Assert.Equal(user.PhoneNumber, updateUserCommand.PhoneNumber);
         }
+        
+        public void Map_ApplicationUser_To_ApplicationUserDto_Valide_Test()
+        {
+            var user = new ApplicationUser
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = "aissa@gmail.com",
+                FullName = "aissa",
+                UserName = "aissa_user",
+                PhoneNumber = "07788991123",
+                IsActive = true
+            };
+
+            var applicationUserDto = _mapper.Map<ApplicationUserDto>(user);
+
+            Assert.Equal(applicationUserDto.Id, user.Id);
+            Assert.Equal(applicationUserDto.Email, user.Email);
+            Assert.Equal(applicationUserDto.FullName, user.FullName);
+            Assert.Equal(applicationUserDto.UserName, user.UserName);
+            Assert.Equal(applicationUserDto.PhoneNumber, user.PhoneNumber);
+            Assert.Equal(applicationUserDto.IsActive, user.IsActive);
+        }
     }
 }
