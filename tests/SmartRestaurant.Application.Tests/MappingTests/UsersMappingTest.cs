@@ -2,6 +2,7 @@
 using AutoMapper;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Tests.Configuration;
+using SmartRestaurant.Application.Users.Commands;
 using SmartRestaurant.Domain.Identity.Entities;
 using Xunit;
 
@@ -38,6 +39,37 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(foodBusinessEmployeesDto.UserName, user.UserName);
             Assert.Equal(foodBusinessEmployeesDto.PhoneNumber, user.PhoneNumber);
             Assert.Equal(foodBusinessEmployeesDto.IsActive, user.IsActive);
+        }
+
+        [Fact]
+        public void Map__To_ApplicationUser_Valide_Test()
+        {
+            var id = Guid.NewGuid().ToString();
+
+            var updateUserCommand = new UpdateUserCommand
+            {
+                Id = id,
+                FullName = "bilal",
+                PhoneNumber = "888888888",
+                Roles = null
+            };
+
+            var user = new ApplicationUser
+            {
+                Id = Guid.NewGuid().ToString(),
+                FullName = "aissa",
+                PhoneNumber = "07788991123",
+            };
+
+            Assert.NotEqual(user.Id, updateUserCommand.Id);
+            Assert.NotEqual(user.FullName, updateUserCommand.FullName);
+            Assert.NotEqual(user.PhoneNumber, updateUserCommand.PhoneNumber);
+
+            _mapper.Map(updateUserCommand, user);
+
+            Assert.Equal(user.Id, updateUserCommand.Id);
+            Assert.Equal(user.FullName, updateUserCommand.FullName);
+            Assert.Equal(user.PhoneNumber, updateUserCommand.PhoneNumber);
         }
     }
 }

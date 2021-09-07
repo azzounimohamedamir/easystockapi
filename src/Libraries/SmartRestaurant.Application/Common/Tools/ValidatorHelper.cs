@@ -53,6 +53,27 @@ namespace SmartRestaurant.Application.Common.Tools
             return new Regex(regex).Match(role).Success;
         }
 
+        public static bool ValidateUsersRoles(string role)
+        {
+            if (role == null)
+                return false;
+
+            var regex =
+                $"^(?:{Roles.SupportAgent.ToString()}" +
+                $"|{Roles.SalesMan.ToString()}" +
+                $"|{Roles.Photograph.ToString()}" +
+                $"|{Roles.FoodBusinessAdministrator.ToString()}" +
+                $"|{Roles.FoodBusinessManager.ToString()}" +
+                $"|{Roles.FoodBusinessOwner.ToString()}" +
+                $"|{Roles.Chef.ToString()}" +
+                $"|{Roles.Cashier.ToString()}" +
+                $"|{Roles.Waiter.ToString()}" +
+                $"|{Roles.Diner.ToString()}" +
+                $"|{Roles.Anounymous.ToString()}" +
+                $"|{Roles.Organization.ToString()})$";
+            return new Regex(regex).Match(role).Success;
+        }
+
         public static bool ValidateRoleForOraganizationStaff(string role)
         {
             if (role == null)

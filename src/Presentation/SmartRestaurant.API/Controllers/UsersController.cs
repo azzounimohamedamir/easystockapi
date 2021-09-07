@@ -15,6 +15,7 @@ using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Users.Commands;
 using SmartRestaurant.Application.Users.Queries;
 using SmartRestaurant.Domain.Identity.Entities;
 using Swashbuckle.AspNetCore.Annotations;
@@ -221,19 +222,22 @@ namespace SmartRestaurant.API.Controllers
                 throw new UserManagerException(userCreationResult.Errors);
         }
 
+        /// <summary> Update User Account  </summary>
+        /// <remarks> This endpoint is used to update user account.</remarks>
+        /// <param name="id">This is the user id.</param>
+        /// <param name="command"> This is the payload object used to update user account</param>
+        /// <response code="204">User account has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to update user account is invalid.</response>
+        /// <response code="401"> The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request. </response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [Authorize(Roles = "SuperAdmin,SupportAgent")]
         [HttpPut]
-        public async Task<IActionResult> Update([FromRoute] string id, ApplicationUserModel model)
+        public async Task<IActionResult> Update([FromRoute] string id, UpdateUserCommand command)
         {
-            var user = await _userManager.FindByIdAsync(id);
-            if (user == null)
-                throw new NotFoundException(nameof(user), id);
-            user.FullName = model.FullName;
-            user.Email = model.Email;
-            user.PhoneNumber = model.PhoneNumber;
-            var result = await _userManager.UpdateAsync(user);
-            return CheckResultStatus(result);
+            command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
         }
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
