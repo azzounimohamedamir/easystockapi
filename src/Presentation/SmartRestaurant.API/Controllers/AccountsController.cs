@@ -44,7 +44,7 @@ namespace SmartRestaurant.API.Controllers
             if (!user.IsActive) return Unauthorized();
             var token = await TokenGenerator.Generate(user, _userManager, _configuration);
             var roles = await _userManager.GetRolesAsync(user);
-            return Ok(new {token, user.UserName, roles});
+            return Ok(new {token, user.Id, user.UserName, roles});
         }
 
         [AllowAnonymous]
