@@ -4,6 +4,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusiness.Queries;
+using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
@@ -16,12 +17,12 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
         [Test]
         public async Task ShouldReturnAllFoodBusinessAssignedToFoodBusinessManagerTests()
         {
-            var tacosDzFoodBusinessAdministratorId = Guid.NewGuid().ToString();
+            await RolesTestTools.CreateRoles();
+            var tacosDzFoodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var tacosDz1 = new CreateFoodBusinessCommand
             {
                 Name = "tacos Dz 01",
-                FoodBusinessAdministratorId = tacosDzFoodBusinessAdministratorId,
-                AverageRating = 12,
+                FoodBusinessAdministratorId = tacosDzFoodBusinessAdministrator.Id,
                 HasCarParking = true
             };
             var tacosDz1FoodBusinessId = tacosDz1.Id;
@@ -30,8 +31,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             var tacosDz2 = new CreateFoodBusinessCommand
             {
                 Name = "tacos Dz 02",
-                FoodBusinessAdministratorId = tacosDzFoodBusinessAdministratorId,
-                AverageRating = 10,
+                FoodBusinessAdministratorId = tacosDzFoodBusinessAdministrator.Id,
                 HasCarParking = false
             };
             var tacosDz2FoodBusinessId = tacosDz2.Id;
@@ -40,19 +40,17 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             var tacosDz3 = new CreateFoodBusinessCommand
             {
                 Name = "tacos Dz 03",
-                FoodBusinessAdministratorId = tacosDzFoodBusinessAdministratorId,
-                AverageRating = 10,
+                FoodBusinessAdministratorId = tacosDzFoodBusinessAdministrator.Id,
                 HasCarParking = false
             };
             var tacosDz3FoodBusinessId = tacosDz3.Id;
             await SendAsync(tacosDz3);
 
-            var BigMamaFoodBusinessAdministratorId = Guid.NewGuid().ToString();
+            var bigMamaFoodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var bigMama = new CreateFoodBusinessCommand
             {
                 Name = "bigMama Dz",
-                FoodBusinessAdministratorId = BigMamaFoodBusinessAdministratorId,
-                AverageRating = 10,
+                FoodBusinessAdministratorId = bigMamaFoodBusinessAdministrator.Id,
                 HasCarParking = false
             };
             var bigMamaFoodBusinessId = bigMama.Id;

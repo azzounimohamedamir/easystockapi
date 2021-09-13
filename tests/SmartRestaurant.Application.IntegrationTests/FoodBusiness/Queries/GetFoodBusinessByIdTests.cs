@@ -4,6 +4,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusiness.Queries;
+using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Zones.Commands;
@@ -17,12 +18,13 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
         [Test]
         public async Task ShouldReturnFoodBusiness()
         {
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 Name = "TobeGotByID For Test",
-                AverageRating = 12,
                 HasCarParking = true,
-                FoodBusinessAdministratorId = Guid.NewGuid().ToString()
+                FoodBusinessAdministratorId = foodBusinessAdministrator.Id
             };
 
             await SendAsync(createFoodBusinessCommand);

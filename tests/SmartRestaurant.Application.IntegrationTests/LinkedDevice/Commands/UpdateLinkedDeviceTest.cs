@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.LinkedDevice.Commands;
 
 namespace SmartRestaurant.Application.IntegrationTests.LinkedDevice.Commands
@@ -15,21 +16,10 @@ namespace SmartRestaurant.Application.IntegrationTests.LinkedDevice.Commands
         [Test]
         public async Task UpdatedReservation_ShouldBeSavedToDB()
         {
-            var createFoodBusinessCommand = new CreateFoodBusinessCommand
-            {
-                FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
-                Name = "fast food test"
-            };
-            await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
-
-            var createFoodBusinessCommandSecond = new CreateFoodBusinessCommand
-            {
-                FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
-                Name = "fast food test2"
-            };
-            await SendAsync(createFoodBusinessCommandSecond);
-            var fastFoodSecond = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommandSecond.Id);
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
+            var fastFoodSecond = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
             var createLinkDeviceIDCommand = new CreateLinkedDeviceCommand
             {

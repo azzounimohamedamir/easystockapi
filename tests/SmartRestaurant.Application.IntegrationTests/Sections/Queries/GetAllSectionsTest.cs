@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Application.Sections.Commands;
 using SmartRestaurant.Application.Sections.Queries;
@@ -18,17 +17,15 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
         [Test]
         public async Task ShouldGetAllSections_ByFoodMenuId()
         {
-            var createFoodBusinessCommand = new CreateFoodBusinessCommand
-            {
-                FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
-                Name = "fast food test"
-            };
-            await SendAsync(createFoodBusinessCommand);
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
+
             var createMenuCommand = new CreateMenuCommand
             {
                 Name = "test menu",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = createFoodBusinessCommand.Id
+                FoodBusinessId = fastFood.FoodBusinessId
             };
             await SendAsync(createMenuCommand);
             for (var i = 0; i < 5; i++)
