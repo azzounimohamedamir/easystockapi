@@ -2,9 +2,12 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Domain.Identity.Entities;
+using SmartRestaurant.Domain.Identity.Enums;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
@@ -16,11 +19,14 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public FoodBusinessCommandHandler(IApplicationDbContext context, IMapper mapper)
+        public FoodBusinessCommandHandler(IApplicationDbContext context, IMapper mapper,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         public async Task<Created> Handle(CreateFoodBusinessCommand request,
@@ -29,6 +35,15 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             var validator = new CreateFoodBusinessCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
+
+            var user = await _userManager.FindByIdAsync(request.FoodBusinessAdministratorId).ConfigureAwait(false);
+            if (user == null)
+                throw new NotFoundException(nameof(ApplicationUser), request.FoodBusinessAdministratorId);
+
+            var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+            if (!roles.Contains(Roles.FoodBusinessAdministrator.ToString()))
+                throw new RolesCheckException("The user related to [foodBusinessAdministratorId] must have the role of FoodBusinessAdministrator");
+
             var entity = _mapper.Map<Domain.Entities.FoodBusiness>(request);
             _context.FoodBusinesses.Add(entity);
             await _context.SaveChangesAsync(cancellationToken);
