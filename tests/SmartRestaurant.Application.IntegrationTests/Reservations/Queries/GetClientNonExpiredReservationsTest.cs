@@ -15,7 +15,9 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
         [Test]
         public async Task ShouldGetClientNonExpiredReservations()
         {
-            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness();
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
             var client_01_UserId = Guid.NewGuid().ToString();
             var client_02_UserId = Guid.NewGuid().ToString();

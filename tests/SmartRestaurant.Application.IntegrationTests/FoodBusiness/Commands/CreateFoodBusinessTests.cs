@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
@@ -16,6 +18,9 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
         [Test]
         public async Task CreateFoodBusiness_ShouldSaveToDB()
         {
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+
             var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 AcceptsCreditCards = true,
@@ -31,7 +36,6 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                     },
                     StreetAddress = "Didouche Mourad"
                 },
-                AverageRating = 4,
                 Description = "",
                 HasCarParking = true,
                 IsHandicapFriendly = true,
@@ -44,7 +48,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                     ""
                 },
                 Website = "",
-                FoodBusinessAdministratorId = "4",
+                FoodBusinessAdministratorId = foodBusinessAdministrator.Id,
                 FoodBusinessCategory = FoodBusinessCategory.Restaurant
             };
 

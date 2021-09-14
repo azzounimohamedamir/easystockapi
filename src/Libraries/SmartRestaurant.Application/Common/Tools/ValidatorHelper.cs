@@ -31,6 +31,14 @@ namespace SmartRestaurant.Application.Common.Tools
             return password.Length >= 6;
         }
 
+        public static bool ValidateUrl(string url)
+        {
+            if (url == null)
+                return false;
+
+            return Uri.IsWellFormedUriString(url, UriKind.Absolute);
+        }
+
         public static bool ValidateAllRoles(string role)
         {
             if (role == null)

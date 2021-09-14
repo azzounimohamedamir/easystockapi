@@ -16,7 +16,10 @@ namespace SmartRestaurant.Application.IntegrationTests.Reservations.Queries
         [Test]
         public async Task ShouldGetReservationsList_ByReservationDateTimeInterval()
         {
-            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness();
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
+          
             var FoodBusinessManager_UserId = Guid.NewGuid().ToString();
 
 

@@ -3,6 +3,7 @@ using FluentAssertions;
 using FluentAssertions.Common;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Application.IntegrationTests.TestTools;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
 {
@@ -14,12 +15,14 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
         [Test]
         public async Task UpdateFourDigitCode_ShouldSaveToDB()
         {
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+
             var foodBusinessCommand = new CreateFoodBusinessCommand
             {
                 Name = "Fast Food Test",
-                AverageRating = 10,
                 HasCarParking = true,
-                FoodBusinessAdministratorId = "7"
+                FoodBusinessAdministratorId = foodBusinessAdministrator.Id
             };
 
             await SendAsync(foodBusinessCommand);

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Application.Menus.Queries;
 using SmartRestaurant.Domain.Enums;
@@ -17,17 +16,15 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
         [Test]
         public async Task ShouldGetMenu_ById()
         {
-            var createFoodBusinessCommand = new CreateFoodBusinessCommand
-            {
-                FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
-                Name = "fast food test"
-            };
-            await SendAsync(createFoodBusinessCommand);
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
+
             var createMenuCommand = new CreateMenuCommand
             {
                 Name = "tacos Dz ",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = createFoodBusinessCommand.Id
+                FoodBusinessId = fastFood.FoodBusinessId
             };
             await SendAsync(createMenuCommand);
             var query = await SendAsync(new GetMenuByIdQuery {MenuId = createMenuCommand.Id});

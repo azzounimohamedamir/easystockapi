@@ -2,6 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Application.IntegrationTests.TestTools;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
 {
@@ -12,12 +13,13 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
         [Test]
         public async Task ShouldUpdateFoodBusiness()
         {
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var foodBusinessCommand = new CreateFoodBusinessCommand
             {
                 Name = "Taj mahal",
-                AverageRating = 12,
                 HasCarParking = true,
-                FoodBusinessAdministratorId = "4"
+                FoodBusinessAdministratorId = foodBusinessAdministrator.Id
             };
 
             await SendAsync(foodBusinessCommand);

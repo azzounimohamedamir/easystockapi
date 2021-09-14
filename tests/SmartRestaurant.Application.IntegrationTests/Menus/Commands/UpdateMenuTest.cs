@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
@@ -12,22 +11,20 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
     using static Testing;
 
     [TestFixture]
-    public class UpdateMenuTest
+    public class UpdateMenuTest : TestBase
     {
         [Test]
-        public async Task CreateMenu_ShouldSaveToDB()
+        public async Task UpdateMenu_ShouldSaveToDB()
         {
-            var createFoodBusinessCommand = new CreateFoodBusinessCommand
-            {
-                FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
-                Name = "fast food test"
-            };
-            await SendAsync(createFoodBusinessCommand);
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
+         
             var createMenuCommand = new CreateMenuCommand
             {
                 Name = "test menu",
                 MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = createFoodBusinessCommand.Id
+                FoodBusinessId = fastFood.FoodBusinessId
             };
             await SendAsync(createMenuCommand);
             await SendAsync(new UpdateMenuCommand
@@ -35,7 +32,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
                 Id = createMenuCommand.Id,
                 Name = "test menu2",
                 MenuState = (int) MenuState.Disabled,
-                FoodBusinessId = createFoodBusinessCommand.Id
+                FoodBusinessId = fastFood.FoodBusinessId
             });
 
             var item = await FindAsync<Menu>(createMenuCommand.Id);

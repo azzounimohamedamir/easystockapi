@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.LinkedDevice.Commands;
 using SmartRestaurant.Application.LinkedDevice.Queries;
 
@@ -11,18 +10,14 @@ namespace SmartRestaurant.Application.IntegrationTests.LinkedDevice.Commands
     using static Testing;
 
     [TestFixture]
-    public class CreateLinkedDeviceTest
+    public class CreateLinkedDeviceTest : TestBase
     {
         [Test]
         public async Task CreateDeviceID_ShouldSaveToDB()
         {
-            var createFoodBusinessCommand = new CreateFoodBusinessCommand
-            {
-                FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
-                Name = "fast food test"
-            };
-            await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
             var createDeviceIDCommand = new CreateLinkedDeviceCommand
             {

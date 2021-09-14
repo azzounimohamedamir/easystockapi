@@ -18,40 +18,33 @@ namespace SmartRestaurant.Application.IntegrationTests.Users.Queries
         [Test]
         public async Task ShouldGetFoodBusinessManagers()
         {
+            await RolesTestTools.CreateRoles();
+            var organization_01_foodBusinessAdministrator = await CreateFoodBusinessAdministratorUser(_authenticatedUserId);
+            await AssignRolesToFoodBusinessAdministrator(organization_01_foodBusinessAdministrator);
             var organization_01_fastFood_01 = await FoodBusinessTestTools.CreateFoodBusiness(_authenticatedUserId);
             var organization_01_fastFood_02 = await FoodBusinessTestTools.CreateFoodBusiness(_authenticatedUserId);
 
-            await RolesTestTools.CreateRoles();
 
-            var organization_01_foodBusinessAdministrator =
-                await CreateFoodBusinessAdministratorUser(_authenticatedUserId);
-            await AssignRolesToFoodBusinessAdministrator(organization_01_foodBusinessAdministrator);
 
             var organization_01_foodBusinessManager = await CreateFoodBusinessManagerUser();
             await AssignRolesToFoodBusinessManager(organization_01_foodBusinessManager);
-            await AssignFoodBusinessManagerToOrganisation(organization_01_foodBusinessManager,
-                organization_01_fastFood_01);
+            await AssignFoodBusinessManagerToOrganisation(organization_01_foodBusinessManager, organization_01_fastFood_01);
 
             var organization_01_foodBusinessManager_02 = await CreateFoodBusinessManagerUser();
             await AssignRolesToFoodBusinessManager(organization_01_foodBusinessManager_02);
-            await AssignFoodBusinessManagerToOrganisation(organization_01_foodBusinessManager_02,
-                organization_01_fastFood_01);
+            await AssignFoodBusinessManagerToOrganisation(organization_01_foodBusinessManager_02, organization_01_fastFood_01);
 
             var organization_01_foodBusinessManager_03 = await CreateFoodBusinessManagerUser();
             await AssignRolesToFoodBusinessManager(organization_01_foodBusinessManager_03);
-            await AssignFoodBusinessManagerToOrganisation(organization_01_foodBusinessManager_03,
-                organization_01_fastFood_02);
+            await AssignFoodBusinessManagerToOrganisation(organization_01_foodBusinessManager_03, organization_01_fastFood_02);
 
+            var organization_02_foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var organization_02_fastFood = await FoodBusinessTestTools.CreateFoodBusiness(organization_02_foodBusinessAdministrator.Id);
 
-            var organization_02_fastFood = await FoodBusinessTestTools.CreateFoodBusiness();
-            var organization_02_foodBusinessAdministrator =
-                await CreateFoodBusinessAdministratorUser(organization_02_fastFood.FoodBusinessAdministratorId);
-            await AssignRolesToFoodBusinessAdministrator(organization_02_foodBusinessAdministrator);
 
             var organization_02_foodBusinessManager = await CreateFoodBusinessManagerUser();
             await AssignRolesToFoodBusinessManager(organization_02_foodBusinessManager);
-            await AssignFoodBusinessManagerToOrganisation(organization_02_foodBusinessManager,
-                organization_02_fastFood);
+            await AssignFoodBusinessManagerToOrganisation(organization_02_foodBusinessManager, organization_02_fastFood);
 
 
             var query = new GetFoodBusinessManagersWithinOrganizationQuery

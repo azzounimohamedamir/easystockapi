@@ -17,11 +17,9 @@ namespace SmartRestaurant.Application.IntegrationTests.Users.Queries
         [Test]
         public async Task ShouldGetFoodBusinessManagers()
         {
-            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness();
             await RolesTestTools.CreateRoles();
-
-            var foodBusinessAdministrator = await CreateFoodBusinessAdministratorUser();
-            await AssignRolesToFoodBusinessAdministrator(foodBusinessAdministrator);
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
             var foodBusinessManager = await CreateFoodBusinessManagerUser();
             await AssignRolesToFoodBusinessManager(foodBusinessManager);
@@ -40,15 +38,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Users.Queries
             result.Data[0].Roles.Should().NotBeNull();
         }
 
-        private static async Task AssignRolesToFoodBusinessAdministrator(ApplicationUser user)
-        {
-            var userRoles = new ApplicationUserRole
-            {
-                RoleId = ((int) Roles.FoodBusinessAdministrator).ToString(),
-                UserId = user.Id
-            };
-            await AddIdentityAsync(userRoles);
-        }
+       
 
         private static async Task AssignRolesToFoodBusinessManager(ApplicationUser user)
         {
@@ -69,20 +59,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Users.Queries
                 FoodBusinessId = foodBusiness.FoodBusinessId
             };
             await AddAsync(foodBusinessUser);
-        }
-
-        private static async Task<ApplicationUser> CreateFoodBusinessAdministratorUser()
-        {
-            var user = new ApplicationUser("FoodBusinessAdministrator", "FoodBusinessAdministrator@bv.com",
-                "FoodBusinessAdministrator@bv.com")
-            {
-                IsActive = true,
-                EmailConfirmed = true,
-                PasswordHash = // Real password is "Supportagent123@"
-                    "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw=="
-            };
-            await AddIdentityAsync(user);
-            return user;
         }
 
         private static async Task<ApplicationUser> CreateFoodBusinessManagerUser()

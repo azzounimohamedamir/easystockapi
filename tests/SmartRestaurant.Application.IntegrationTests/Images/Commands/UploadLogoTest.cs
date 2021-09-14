@@ -51,7 +51,9 @@ namespace SmartRestaurant.Application.IntegrationTests.Images.Commands
         [Test]
         public async Task ShouldUploadLogo()
         {
-            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness();
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
             CreateFakeMultiPartFormData(fastFood);
 
             var uploadLogoCommand = CastMultiPartFormData();
