@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentValidation;
-using SmartRestaurant.Application.Common.Commands;
+using MediatR;
+using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
+using SmartRestaurant.Application.Common.Tools;
+using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class UpdateFoodBusinessCommand : UpdateCommand
+    public class UpdateFoodBusinessCommand : IRequest<NoContent>
     {
+        [JsonIgnore] public string Id { get; set; }
         public string Name { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
         public string Description { get; set; }
-        public float AverageRating { get; set; }
-        public int NumberRatings { get; set; }
         public bool HasCarParking { get; set; }
         public bool IsHandicapFriendly { get; set; }
         public bool OffersTakeout { get; set; }
@@ -28,14 +30,68 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public int NIS { get; set; }
         public string Email { get; set; }
         public FoodBusinessCategory FoodBusinessCategory { get; set; }
+        public int FourDigitCode { get; set; }
+
     }
 
     public class UpdateFoodBusinessCommandValidator : AbstractValidator<UpdateFoodBusinessCommand>
     {
         public UpdateFoodBusinessCommandValidator()
         {
-            RuleFor(v => v.Id).NotEmpty().NotNull().NotEqual(Guid.Empty);
-            RuleFor(v => v.Name).MaximumLength(200).NotEmpty();
+            RuleFor(foodBusiness => foodBusiness.Id)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty()
+                .NotEqual(Guid.Empty.ToString())
+                .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID");
+
+            RuleFor(foodBusiness => foodBusiness.Name)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty()
+                .MaximumLength(200);
+
+            RuleFor(foodBusiness => foodBusiness.FoodBusinessAdministratorId)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty()
+                .NotEqual(Guid.Empty.ToString())
+                .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID");
+
+            RuleFor(foodBusiness => foodBusiness.Email)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty()
+                .MaximumLength(200)
+                .Must(ValidatorHelper.ValidateEmail).WithMessage("'{PropertyName}: {PropertyValue}' is invalide");
+
+            RuleFor(foodBusiness => foodBusiness.Address)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotNull()
+                .DependentRules(() => {
+                    RuleFor(foodBusiness => foodBusiness.Address.StreetAddress)
+                        .Cascade(CascadeMode.StopOnFirstFailure)
+                        .NotEmpty()
+                        .MaximumLength(200);
+
+                    RuleFor(foodBusiness => foodBusiness.Address.City)
+                        .Cascade(CascadeMode.StopOnFirstFailure)
+                        .NotEmpty()
+                        .MaximumLength(200);
+
+                    RuleFor(foodBusiness => foodBusiness.Address.Country)
+                        .Cascade(CascadeMode.StopOnFirstFailure)
+                        .NotEmpty()
+                        .MaximumLength(200);
+                });
+
+            RuleFor(foodBusiness => foodBusiness.Description)
+               .MaximumLength(500);
+
+            RuleFor(foodBusiness => foodBusiness.Website)
+                .Must(ValidatorHelper.ValidateUrl).WithMessage("'{PropertyName}: {PropertyValue}' is invalide")
+                .When(foodBusiness => !String.IsNullOrWhiteSpace(foodBusiness.Website));
+
+            RuleFor(foodBusiness => foodBusiness.FourDigitCode)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .GreaterThanOrEqualTo(0)
+                .LessThanOrEqualTo(9999);
         }
     }
 }
