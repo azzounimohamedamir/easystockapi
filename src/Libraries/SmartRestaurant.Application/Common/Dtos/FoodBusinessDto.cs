@@ -27,6 +27,12 @@ namespace SmartRestaurant.Application.Common.Dtos
         public List<string> Tags { get; set; }
         public string Website { get; set; }
         public FoodBusinessState FoodBusinessState { get; set; }
+        public string FoodBusinessAdministratorId { get; set; }
+        public int NRC { get; set; }
+        public int NIF { get; set; }
+        public int NIS { get; set; }
+        public string Email { get; set; }
+        public FoodBusinessCategory FoodBusinessCategory { get; set; }
         public List<string> Images { get; set; }
         public int zonesCount { get; set; }
         public int tablesCount { get; set; }
