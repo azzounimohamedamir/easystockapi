@@ -50,10 +50,12 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(command);
         }
 
+        [Route("{id}")]
         [HttpPut]
         [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent")]
-        public async Task<IActionResult> Update(UpdateFoodBusinessCommand command)
+        public async Task<IActionResult> Update([FromRoute] string id, UpdateFoodBusinessCommand command)
         {
+            command.Id = id;
             return await SendWithErrorsHandlingAsync(command);
         }
 
