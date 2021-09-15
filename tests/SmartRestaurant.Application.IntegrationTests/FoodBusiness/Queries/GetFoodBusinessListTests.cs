@@ -19,12 +19,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             for (var i = 0; i < 5; i++)
             {
                 var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
-                await SendAsync(new CreateFoodBusinessCommand
-                {
-                    Name = "tacos Dz  " + i,
-                    FoodBusinessAdministratorId = foodBusinessAdministrator.Id,
-                    HasCarParking = true
-                });
+                var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id, "tacos Dz  " + i);
             }
             
             var query = new GetFoodBusinessListQuery {Page = 1, PageSize = 5};

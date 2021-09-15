@@ -18,57 +18,29 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
         public async Task ShouldReturnAllFoodBusinessAssignedToFoodBusinessManagerTests()
         {
             await RolesTestTools.CreateRoles();
+
             var tacosDzFoodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
-            var tacosDz1 = new CreateFoodBusinessCommand
-            {
-                Name = "tacos Dz 01",
-                FoodBusinessAdministratorId = tacosDzFoodBusinessAdministrator.Id,
-                HasCarParking = true
-            };
-            var tacosDz1FoodBusinessId = tacosDz1.Id;
-            await SendAsync(tacosDz1);
-
-            var tacosDz2 = new CreateFoodBusinessCommand
-            {
-                Name = "tacos Dz 02",
-                FoodBusinessAdministratorId = tacosDzFoodBusinessAdministrator.Id,
-                HasCarParking = false
-            };
-            var tacosDz2FoodBusinessId = tacosDz2.Id;
-            await SendAsync(tacosDz2);
-
-            var tacosDz3 = new CreateFoodBusinessCommand
-            {
-                Name = "tacos Dz 03",
-                FoodBusinessAdministratorId = tacosDzFoodBusinessAdministrator.Id,
-                HasCarParking = false
-            };
-            var tacosDz3FoodBusinessId = tacosDz3.Id;
-            await SendAsync(tacosDz3);
-
+            var tacosDz1 = await FoodBusinessTestTools.CreateFoodBusiness(tacosDzFoodBusinessAdministrator.Id, "tacos Dz 01");           
+            var tacosDz2 = await FoodBusinessTestTools.CreateFoodBusiness(tacosDzFoodBusinessAdministrator.Id, "tacos Dz 02");           
+            var tacosDz3 = await FoodBusinessTestTools.CreateFoodBusiness(tacosDzFoodBusinessAdministrator.Id, "tacos Dz 03");
+           
             var bigMamaFoodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
-            var bigMama = new CreateFoodBusinessCommand
-            {
-                Name = "bigMama Dz",
-                FoodBusinessAdministratorId = bigMamaFoodBusinessAdministrator.Id,
-                HasCarParking = false
-            };
-            var bigMamaFoodBusinessId = bigMama.Id;
-            await SendAsync(bigMama);
+            var bigMama = await FoodBusinessTestTools.CreateFoodBusiness(bigMamaFoodBusinessAdministrator.Id, "bigMama Dz");
+   
 
 
             var aissaFoodBusinessManager = _authenticatedUserId;
             var assignAissaFoodBusinessManagerToTacosDz1 = new FoodBusinessUser
             {
                 ApplicationUserId = aissaFoodBusinessManager,
-                FoodBusinessId = tacosDz1FoodBusinessId
+                FoodBusinessId = tacosDz1.FoodBusinessId
             };
             await AddAsync(assignAissaFoodBusinessManagerToTacosDz1);
 
             var assignAissaFoodBusinessManagerToTacosDz2 = new FoodBusinessUser
             {
                 ApplicationUserId = aissaFoodBusinessManager,
-                FoodBusinessId = tacosDz2FoodBusinessId
+                FoodBusinessId = tacosDz2.FoodBusinessId
             };
             await AddAsync(assignAissaFoodBusinessManagerToTacosDz2);
 
@@ -76,7 +48,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             var assignKarimFoodBusinessManagerToTacosDz3 = new FoodBusinessUser
             {
                 ApplicationUserId = karimFoodBusinessManager,
-                FoodBusinessId = tacosDz3FoodBusinessId
+                FoodBusinessId = tacosDz3.FoodBusinessId
             };
             await AddAsync(assignKarimFoodBusinessManagerToTacosDz3);
 
@@ -85,7 +57,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             var assignAhmedFoodBusinessManagerToBigMama = new FoodBusinessUser
             {
                 ApplicationUserId = ahmedFoodBusinessManager,
-                FoodBusinessId = bigMamaFoodBusinessId
+                FoodBusinessId = bigMama.FoodBusinessId
             };
             await AddAsync(assignAhmedFoodBusinessManagerToBigMama);
 

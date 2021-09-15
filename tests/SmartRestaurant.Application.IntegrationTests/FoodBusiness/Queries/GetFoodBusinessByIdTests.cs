@@ -20,18 +20,12 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
         {
             await RolesTestTools.CreateRoles();
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
-            var createFoodBusinessCommand = new CreateFoodBusinessCommand
-            {
-                Name = "TobeGotByID For Test",
-                HasCarParking = true,
-                FoodBusinessAdministratorId = foodBusinessAdministrator.Id
-            };
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
-            await SendAsync(createFoodBusinessCommand);
 
             var createZoneCommand = new CreateZoneCommand
             {
-                FoodBusinessId = createFoodBusinessCommand.Id,
+                FoodBusinessId = fastFood.FoodBusinessId,
                 ZoneTitle = "VIP Zone"
             };
 
@@ -39,11 +33,11 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
 
             await CreateTables(createZoneCommand.Id);
 
-            await CreateMenu(createFoodBusinessCommand.Id);
+            await CreateMenu(fastFood.FoodBusinessId);
 
             var query = new GetFoodBusinessByIdQuery
             {
-                FoodBusinessId = createFoodBusinessCommand.Id
+                FoodBusinessId = fastFood.FoodBusinessId
             };
 
             var result = await SendAsync(query);
