@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
@@ -22,7 +23,10 @@ namespace SmartRestaurant.Application.Common.Mappers
     {
         public MappingProfile()
         {
-            CreateMap<Domain.Entities.FoodBusiness, FoodBusinessDto>().ReverseMap();
+            CreateMap<Domain.Entities.FoodBusiness, FoodBusinessDto>()
+                .AfterMap((src, dest) => dest.Tags = new List<string>((String.IsNullOrWhiteSpace(src.Tags)) ? new string[0] : src.Tags.Split(';')))
+                .ReverseMap();
+
             CreateMap<CreateFoodBusinessCommand, Domain.Entities.FoodBusiness>()
                 .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.Tags, o => o.MapFrom(p => string.Join(";", p.Tags)))
@@ -105,8 +109,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<UpdateFourDigitCodeCommand, Domain.Entities.FoodBusiness>()
                 .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id)).ReverseMap();
 
-            CreateMap<Domain.Entities.FoodBusiness, FoodBusinessDto>()
-                .ReverseMap();
+
 
             CreateMap<UpdateUserCommand, ApplicationUser>()
                .ReverseMap();
