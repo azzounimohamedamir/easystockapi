@@ -31,8 +31,10 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.Tags, o => o.MapFrom(p => string.Join(";", p.Tags)))
                 .ReverseMap();
-            CreateMap<Domain.Entities.FoodBusiness, UpdateFoodBusinessCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.FoodBusinessId))
+
+            CreateMap<UpdateFoodBusinessCommand, Domain.Entities.FoodBusiness> ()
+                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.Tags, o => o.MapFrom(p => string.Join(";", p.Tags)))
                 .ReverseMap();
             CreateMap<GeoPosition, GeoPositionDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();

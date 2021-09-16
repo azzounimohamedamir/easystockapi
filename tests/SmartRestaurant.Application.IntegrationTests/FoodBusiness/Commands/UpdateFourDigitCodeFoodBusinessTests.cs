@@ -17,27 +17,21 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
         {
             await RolesTestTools.CreateRoles();
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
-            var foodBusinessCommand = new CreateFoodBusinessCommand
-            {
-                Name = "Fast Food Test",
-                HasCarParking = true,
-                FoodBusinessAdministratorId = foodBusinessAdministrator.Id
-            };
-
-            await SendAsync(foodBusinessCommand);
             await Task.Delay(0).ContinueWith(async t =>
             {
                 var updateFourDigitCodeCommand = new UpdateFourDigitCodeCommand
                 {
-                    Id = foodBusinessCommand.Id,
-                    FourDigitCode = 0000
-                };
+                    Id = fastFood.FoodBusinessId,
+                    FourDigitCode = 5555
 
+
+                };
                 await SendAsync(updateFourDigitCodeCommand);
 
-                var item = await FindAsync<Domain.Entities.FoodBusiness>(foodBusinessCommand.Id);
-                item.FourDigitCode.IsSameOrEqualTo(0000);
+                var item = await FindAsync<Domain.Entities.FoodBusiness>(fastFood.FoodBusinessId);
+                item.FourDigitCode.IsSameOrEqualTo(5555);
                 item.FoodBusinessId.Should().Be(updateFourDigitCodeCommand.Id);
             });
         }

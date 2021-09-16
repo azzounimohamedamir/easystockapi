@@ -1,8 +1,10 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
@@ -71,16 +73,18 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public async Task<NoContent> Handle(UpdateFoodBusinessCommand request,
             CancellationToken cancellationToken)
         {
-            var entity = await _context.FoodBusinesses.FindAsync(request.Id).ConfigureAwait(false);
-
-            if (entity == null)
-                throw new NotFoundException(nameof(FoodBusiness), request.Id);
-
             var validator = new UpdateFoodBusinessCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-            entity = _mapper.Map<Domain.Entities.FoodBusiness>(request);
-            _context.FoodBusinesses.Update(entity);
+
+            var foodBusinesses = await _context.FoodBusinesses.AsNoTracking()
+                .FirstOrDefaultAsync(foodBusinesses => foodBusinesses.FoodBusinessId == Guid.Parse(request.Id), cancellationToken)
+                .ConfigureAwait(false);
+            if (foodBusinesses == null)
+                throw new NotFoundException(nameof(FoodBusiness), request.Id);
+
+            _mapper.Map(request, foodBusinesses);
+            _context.FoodBusinesses.Update(foodBusinesses);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }

@@ -16,20 +16,15 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
         {
             await RolesTestTools.CreateRoles();
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
-            var createCommand = new CreateFoodBusinessCommand
-            {
-                Name = "Taj mahal",
-                FoodBusinessAdministratorId = foodBusinessAdministrator.Id
-            };
-            await SendAsync(createCommand);
 
             await SendAsync(new DeleteFoodBusinessCommand
             {
-                Id = createCommand.Id
+                Id = fastFood.FoodBusinessId
             });
 
-            var foodBusiness = await FindAsync<Domain.Entities.FoodBusiness>(createCommand.Id);
+            var foodBusiness = await FindAsync<Domain.Entities.FoodBusiness>(fastFood.FoodBusinessId);
             foodBusiness.Should().BeNull();
         }
     }
