@@ -14,6 +14,7 @@ using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Users.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.ValueObjects;
 
@@ -47,10 +48,9 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ReverseMap();
             CreateMap<ZoneDto, Zone>().ReverseMap();
             CreateMap<TableDto, Table>().ReverseMap();
-            CreateMap<Table, CreateTableCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.TableId))
-                .ForMember(x => x.TableState, o => o.MapFrom(p => (short) p.TableState))
-                .ReverseMap();
+            CreateMap<CreateTableCommand, Table>()
+                .ForMember(x => x.TableId, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.TableState, o => o.MapFrom(p => (short)TableState.Available));
             CreateMap<Table, UpdateTableCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.TableId))
                 .ForMember(x => x.TableState, o => o.MapFrom(p => (short) p.TableState))

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -30,13 +31,21 @@ namespace SmartRestaurant.Application.Tables.Commands
             var validator = new CreateTableCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-            var table = await _context.Tables
-                .FirstOrDefaultAsync(x => x.ZoneId == request.ZoneId && x.TableNumber == request.TableNumber,
-                    cancellationToken)
+
+            var zone = await _context.Zones
+                .FirstOrDefaultAsync(x => x.ZoneId == Guid.Parse(request.ZoneId), cancellationToken)
                 .ConfigureAwait(false);
-            if (table != null)
-                throw new InvalidOperationException("There is a table with this number in the database.");
-            table = _mapper.Map<Table>(request);
+            if (zone == null)
+                throw new NotFoundException(nameof(Zone), request.ZoneId);
+
+            var maxTableNumber = _context.Tables
+               .Where(x => x.ZoneId == Guid.Parse(request.ZoneId))
+               .OrderByDescending(p => p.TableNumber)
+               .Select(x => x.TableNumber)
+               .FirstOrDefault();
+            
+            var table = _mapper.Map<Table>(request);
+            table.TableNumber = maxTableNumber + 1; 
             _context.Tables.Add(table);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
