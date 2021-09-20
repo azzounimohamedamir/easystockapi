@@ -4,6 +4,7 @@
     {
         Available,
         Occupied,
-        Booked
+        Booked,
+        Archived
     }
 }
