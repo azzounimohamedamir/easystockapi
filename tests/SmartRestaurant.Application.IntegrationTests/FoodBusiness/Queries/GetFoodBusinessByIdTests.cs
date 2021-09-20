@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusiness.Queries;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Menus.Commands;
@@ -21,17 +20,13 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             await RolesTestTools.CreateRoles();
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
+            
+            var createVipZone = await CreateVipZone(fastFood);
+            await CreateTables(createVipZone.Id.ToString());
 
-
-            var createZoneCommand = new CreateZoneCommand
-            {
-                FoodBusinessId = fastFood.FoodBusinessId,
-                ZoneTitle = "VIP Zone"
-            };
-
-            await SendAsync(createZoneCommand);
-
-            await CreateTables(createZoneCommand.Id);
+            var createFamilyZone = await CreateFamilyZone(fastFood);
+            await CreateTables(createFamilyZone.Id.ToString());
+            await CreateTables(createFamilyZone.Id.ToString());
 
             await CreateMenu(fastFood.FoodBusinessId);
 
@@ -39,13 +34,34 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             {
                 FoodBusinessId = fastFood.FoodBusinessId
             };
-
             var result = await SendAsync(query);
 
             result.Should().NotBeNull();
-            result.zonesCount.Should().Be(1);
+            result.zonesCount.Should().Be(2);
             result.menusCount.Should().Be(1);
             result.tablesCount.Should().Be(3);
+        }
+
+        private static async Task<CreateZoneCommand> CreateFamilyZone(Domain.Entities.FoodBusiness fastFood)
+        {
+            var createFamilyZone = new CreateZoneCommand
+            {
+                FoodBusinessId = fastFood.FoodBusinessId,
+                ZoneTitle = "Family Zone"
+            };
+            await SendAsync(createFamilyZone);
+            return createFamilyZone;
+        }
+
+        private static async Task<CreateZoneCommand> CreateVipZone(Domain.Entities.FoodBusiness fastFood)
+        {
+            var createVipZone = new CreateZoneCommand
+            {
+                FoodBusinessId = fastFood.FoodBusinessId,
+                ZoneTitle = "VIP Zone"
+            };
+            await SendAsync(createVipZone);
+            return createVipZone;
         }
 
         private static async Task CreateMenu(Guid foodBusinessId)
@@ -57,12 +73,11 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
             });
         }
 
-        private static async Task CreateTables(Guid zoneId)
+        private static async Task CreateTables(string zoneId)
         {
             await SendAsync(new CreateTableCommand
             {
                 ZoneId = zoneId,
-                TableNumber = 3,
                 Capacity = 4
             });
         }
