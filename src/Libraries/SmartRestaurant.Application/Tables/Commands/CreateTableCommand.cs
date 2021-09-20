@@ -1,30 +1,30 @@
 ﻿using System;
 using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Application.Common.Tools;
 
 namespace SmartRestaurant.Application.Tables.Commands
 {
     public class CreateTableCommand : CreateCommand
     {
-        public int TableNumber { get; set; }
-        public Guid ZoneId { get; set; }
-        public Zone Zone { get; set; }
+        public string ZoneId { get; set; }
         public int Capacity { get; set; }
-        public short TableState { get; set; }
     }
 
     public class CreateTableCommandValidator : AbstractValidator<CreateTableCommand>
     {
         public CreateTableCommandValidator()
         {
-            RuleFor(v => v.TableNumber)
-                .GreaterThan(0);
-            RuleFor(v => v.Capacity)
-                .GreaterThan(0);
-            RuleFor(v => v.ZoneId)
-                .NotEmpty()
-                .Must(v => v != Guid.Empty);
+            RuleFor(table => table.Capacity)
+                .GreaterThan(0)
+                .LessThanOrEqualTo(99);
+
+            RuleFor(table => table.ZoneId)
+              .Cascade(CascadeMode.StopOnFirstFailure)
+              .NotEmpty()
+              .NotEqual(Guid.Empty.ToString())
+              .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID");
+
         }
     }
 }

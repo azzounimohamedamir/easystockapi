@@ -30,10 +30,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Queries
             for (var i = 0; i < 5; i++)
                 await SendAsync(new CreateTableCommand
                 {
-                    ZoneId = createZoneCommand.Id,
+                    ZoneId = createZoneCommand.Id.ToString(),
                     Capacity = rnd.Next(1, 5),
-                    TableNumber = i + 1,
-                    TableState = (short) rnd.Next(0, 2)
                 });
             var query = new GetTablesListQuery {ZoneId = createZoneCommand.Id};
 

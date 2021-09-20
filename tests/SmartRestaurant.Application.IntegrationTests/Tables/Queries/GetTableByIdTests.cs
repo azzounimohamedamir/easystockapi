@@ -29,10 +29,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Queries
             await SendAsync(createZoneCommand);
             var createTableCommand = new CreateTableCommand
             {
-                ZoneId = createZoneCommand.Id,
+                ZoneId = createZoneCommand.Id.ToString(),
                 Capacity = 5,
-                TableNumber = 10,
-                TableState = 1
             };
             await SendAsync(createTableCommand);
             var query = new GetTableByIdQuery {TableId = createTableCommand.Id};
@@ -40,7 +38,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Tables.Queries
             var result = await SendAsync(query);
             result.Should().NotBeNull();
             result.Capacity.Should().Be(5);
-            result.TableState.Should().Be(TableState.Occupied);
+            result.TableState.Should().Be(TableState.Available);
             result.TableId.Should().Be(createTableCommand.Id);
         }
     }

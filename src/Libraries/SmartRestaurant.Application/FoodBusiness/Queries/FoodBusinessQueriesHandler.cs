@@ -139,8 +139,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
 
             var tablesCount = await _applicationDbContext.Tables
                 .Where(table => zonesIds.Contains(table.ZoneId))
-                .Select(table => table.TableNumber)
-                .SumAsync(cancellationToken)
+                .CountAsync(cancellationToken)
                 .ConfigureAwait(false);
 
             var menusCount = await _applicationDbContext.Menus
