@@ -9,13 +9,20 @@ namespace SmartRestaurant.Infrastructure.Identity.Services
         public UserService(IHttpContextAccessor httpContextAccessor)
         {
             User = httpContextAccessor.HttpContext.User;
+            Headers = httpContextAccessor.HttpContext.Request.Headers;
         }
 
         private ClaimsPrincipal User { get; }
+        private IHeaderDictionary Headers { get; }
 
         public string GetUserId()
         {
             return User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        }
+
+        public string GetUserLanguage()
+        {
+            return Headers["Accept-Language"];
         }
 
         public string GetRoles()
