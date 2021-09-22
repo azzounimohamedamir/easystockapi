@@ -53,6 +53,7 @@ namespace SmartRestaurant.Application.IntegrationTests
             var claimsPrincipal = new ClaimsPrincipal(new[] {claimsIdentity});
 
             var httpContext = new DefaultHttpContext {User = claimsPrincipal};
+            httpContext.Request.Headers.Add("Accept-Language", "en");
 
             services.AddSingleton(Mock.Of<IWebHostEnvironment>(w =>
                 w.EnvironmentName == "Development" &&
@@ -61,8 +62,9 @@ namespace SmartRestaurant.Application.IntegrationTests
             services.AddHttpContextAccessor();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton(Mock.Of<IHttpContextAccessor>(o =>
-                o.HttpContext.User == httpContext.User
-            ));
+                o.HttpContext.User == httpContext.User &&
+                o.HttpContext.Request.Headers == httpContext.Request.Headers
+            )); 
             startup.ConfigureServices(services);
 
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
