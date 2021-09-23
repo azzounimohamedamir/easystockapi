@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SmartRestaurant.API.Configurations;
+using SmartRestaurant.API.Swagger;
 using SmartRestaurant.Application;
 using SmartRestaurant.Application.Common.Configuration;
 using SmartRestaurant.Application.Common.Tools;
@@ -83,7 +84,7 @@ namespace SmartRestaurant.API
 
                 c.ExampleFilters();
                 c.OperationFilter<AddResponseHeadersFilter>();
-
+                c.OperationFilter<AddRequiredHeaderParameter>();
 
                 c.AddFluentValidationRules();
             });

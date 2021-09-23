@@ -7,6 +7,8 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models.UserModels;
+using SmartRestaurant.API.Swagger.Exception;
+using SmartRestaurant.Application.Accounts.Commands;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Identity.Entities;
@@ -108,11 +110,21 @@ namespace SmartRestaurant.API.Controllers
             return Ok(HttpResponseHelper.Respond(ResponseType.BadRequest));
         }
 
+
+        /// <summary> ForgetPassword() </summary>
+        /// <remarks>
+        ///     This endpoint is used to send a request to reset user password. After sending the request to reset user password; 
+        ///     the user will receive an email  which contains the link that will be used reset his password.
+        /// </remarks>
+        /// <param name="command">This is payload object used to create reset password request</param>
+        /// <response code="204">Reset password email has been successfully sent.</response>
+        /// <response code="400">The payload data sent to the backend-server in order send reset password request is invalid.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost("forgetPassword")]
-        public IActionResult ForgetPassword(string Email)
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgetPassword(ForgetPasswordCommand command)
         {
-            //Send email
-            return Ok(HttpResponseHelper.Respond(ResponseType.OK));
+            return await SendWithErrorsHandlingAsync(command);
         }
 
         private async Task<IActionResult> GrantDinerRole(ApplicationUser user, IdentityResult result)

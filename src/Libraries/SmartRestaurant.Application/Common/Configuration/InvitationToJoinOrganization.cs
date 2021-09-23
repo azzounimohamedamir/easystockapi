@@ -15,12 +15,4 @@
             set { }
         }
     }
-
-    public class Body
-    {
-        public string welcome { get; set; }
-        public string message { get; set; }
-        public string button { get; set; }
-        public string Content { get; set; }
-    }
 }
