@@ -15,7 +15,8 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             var createFoodBusinessCommand = new CreateFoodBusinessCommand
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
-                Name = "fast food test"
+                Name = "fast food test",
+                DefaultCurrencyId = Guid.NewGuid()
             };
             await SendAsync(createFoodBusinessCommand);
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);

@@ -50,7 +50,8 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 Email = "test@g22.com",
                 Website = "",
                 FoodBusinessAdministratorId = foodBusinessAdministrator.Id,
-                FoodBusinessCategory = FoodBusinessCategory.Restaurant
+                FoodBusinessCategory = FoodBusinessCategory.Restaurant,
+                DefaultCurrencyId = Guid.NewGuid()
             };
 
 
