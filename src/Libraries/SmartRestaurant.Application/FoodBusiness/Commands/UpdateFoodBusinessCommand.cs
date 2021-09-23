@@ -31,7 +31,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public string Email { get; set; }
         public FoodBusinessCategory FoodBusinessCategory { get; set; }
         public int FourDigitCode { get; set; }
-
+        public Guid DefaultCurrency { get; set; }
     }
 
     public class UpdateFoodBusinessCommandValidator : AbstractValidator<UpdateFoodBusinessCommand>
@@ -92,6 +92,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .GreaterThanOrEqualTo(0)
                 .LessThanOrEqualTo(9999);
+            
+            RuleFor(foodBusiness => foodBusiness.DefaultCurrency).NotEmpty().NotEqual(Guid.Empty);
         }
     }
 }

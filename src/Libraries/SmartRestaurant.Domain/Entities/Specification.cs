@@ -1,14 +1,14 @@
-﻿using System;
+using System;
 using SmartRestaurant.Domain.Common;
-using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Domain.Entities
 {
-    public class Menu : AuditableEntity
+    public class Specification : AuditableEntity
     {
-        public Guid MenuId { get; set; }
+        public Guid SpecificationId { get; set; }
         public string Name { get; set; }
-        public MenuState MenuState { get; set; }
+
+        public Guid DishId { get; set; }
         public Guid FoodBusinessId { get; set; }
     }
 }

@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using AutoMapper;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
+using SmartRestaurant.Application.Common.Extensions;
+using SmartRestaurant.Application.Dishes.Commands;
+using SmartRestaurant.Application.DishIngredients.Commands;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
+using SmartRestaurant.Application.Ingredients.Commands;
 using SmartRestaurant.Application.LinkedDevice.Commands;
 using SmartRestaurant.Application.Menus.Commands;
+using SmartRestaurant.Application.Orders.Commands;
+using SmartRestaurant.Application.Orders.Commands.Requests;
+using SmartRestaurant.Application.Orders.Queries.Responses;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Sections.Commands;
 using SmartRestaurant.Application.SubSections.Commands;
@@ -111,13 +118,53 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<UpdateFourDigitCodeCommand, Domain.Entities.FoodBusiness>()
                 .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id)).ReverseMap();
 
-
-
             CreateMap<UpdateUserCommand, ApplicationUser>()
                .ReverseMap();
                
             CreateMap<ApplicationUser, ApplicationUserDto>()
                 .ReverseMap();
+            
+             
+            CreateMap<Ingredient, CreateIngredientCommand>()
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.IngredientId))
+                .ReverseMap();
+            CreateMap<Ingredient, UpdateIngredientCommand>()
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.IngredientId))
+                .ReverseMap();
+            CreateMap<IngredientDto, Ingredient>().ReverseMap();
+            CreateMap<PagedResultBase<Ingredient>, PagedListDto<IngredientDto>>().ReverseMap();
+
+            CreateMap<Dish, CreateDishCommand>()
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.DishId))
+                .ReverseMap();
+            CreateMap<Dish, UpdateDishCommand>()
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.DishId))
+                .ReverseMap();
+            CreateMap<DishDto, Dish>().ReverseMap();
+            CreateMap<DurationDto, Duration>().ReverseMap();
+            CreateMap<Quantity, QuantityDto>()
+                .ForMember(x => x.MeasurementUnit, o => o.MapFrom(p => p.MeasurementUnits.ToString()))
+                .ReverseMap();
+            CreateMap<PagedResultBase<Dish>, PagedListDto<DishDto>>().ReverseMap();
+
+            CreateMap<DishIngredient, CreateDishIngredientCommand>()
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.DishIngredientId))
+                .ReverseMap();
+            CreateMap<DishIngredientDto, DishIngredient>().ReverseMap();
+
+            CreateMap<Order, CreateOrderCommand>()
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.OrderId))
+                .ReverseMap();
+            CreateMap<Order, UpdateOrderCommand>()
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.OrderId))
+                .ReverseMap();
+            CreateMap<OrderDish, OrderDishResponse>().ReverseMap();
+            CreateMap<OrderDishIngredient, OrderDishIngredientResponse>().ReverseMap();
+            CreateMap<Order, OrderResponse>()
+                .ForMember(x => x.OrderType, o => o.MapFrom(p => p.OrderType.ToString()))
+                .ReverseMap();
+            CreateMap<OrderDish, OrderDishRequest>().ReverseMap();
+            CreateMap<OrderDishIngredient, OrderDishIngredientRequest>().ReverseMap();
 
         }
     }

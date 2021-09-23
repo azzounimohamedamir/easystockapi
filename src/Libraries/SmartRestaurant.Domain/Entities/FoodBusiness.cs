@@ -29,5 +29,6 @@ namespace SmartRestaurant.Domain.Entities
         public PhoneNumber PhoneNumber { get; set; }
         public string Website { get; set; }
         public int FourDigitCode { get; set; }
+        public Guid DefaultCurrencyId { get; set; }
     }
 }
