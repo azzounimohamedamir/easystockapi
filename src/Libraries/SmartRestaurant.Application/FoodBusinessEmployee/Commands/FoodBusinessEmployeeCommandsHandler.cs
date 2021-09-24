@@ -31,10 +31,11 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         private readonly IOptions<SmtpConfig> _smtpConfig;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IOptions<WebPortal> _webPortal;
+        private readonly IUserService _userService;
 
         public FoodBusinessEmployeeCommandsHandler(IApplicationDbContext context,
             UserManager<ApplicationUser> userManager, IMapper mapper, IOptions<SmtpConfig> smtpConfig,
-            IOptions<WebPortal> webPortal, IOptions<EmailTemplates> emailTemplates)
+            IOptions<WebPortal> webPortal, IOptions<EmailTemplates> emailTemplates, IUserService userService)
         {
             _context = context;
             _userManager = userManager;
@@ -42,6 +43,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             _smtpConfig = smtpConfig;
             _webPortal = webPortal;
             _emailTemplates = emailTemplates;
+            _userService = userService;
         }
 
         public async Task<Ok> Handle(AddEmployeeInOrganizationCommand request,
@@ -223,13 +225,18 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 
         private async Task SendConfirmationEmail(ApplicationUser user)
         {
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);           
-            var linkToAcceptInvitationWebPage =
-                $"{_webPortal.Value.host}{_webPortal.Value.pathToEmployeeAcceptInvitation.Replace("{id}", user.Id).Replace("{token}", HexaDecimalHelper.ToHexString(token))}";
-            var invitationToJoinOrganization = _emailTemplates.Value.InvitationToJoinOrganization;
-            var template = invitationToJoinOrganization.Template
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var webPortalHost = _webPortal.Value.host;
+            var webPortalPathToEmployeeAcceptInvitation = _webPortal.Value.pathToEmployeeAcceptInvitation
+                .Replace("{id}", user.Id)
+                .Replace("{token}", HexaDecimalHelper.ToHexString(token));
+            var linkToAcceptInvitationWebPage = $"{webPortalHost}{webPortalPathToEmployeeAcceptInvitation}";
+
+            var userLanguage = _userService.GetUserLanguage();
+            var emailSubject = _emailTemplates.Value.InvitationToJoinOrganization.SelectLanguage(userLanguage).Subject;
+            var emailTemplate = _emailTemplates.Value.InvitationToJoinOrganization.SelectLanguage(userLanguage).Template
                 .Replace("{linkToAcceptInvitationWebPage}", linkToAcceptInvitationWebPage);
-            new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, invitationToJoinOrganization.Subject, template);
+            new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, emailSubject, emailTemplate);
         }
 
         #endregion
