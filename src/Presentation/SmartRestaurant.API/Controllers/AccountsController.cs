@@ -13,11 +13,13 @@ using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SmartRestaurant.API.Controllers
 {
     [Route("api/accounts")]
     [ApiController]
+    [SwaggerTag("List of actions that can be applied on user account.")]
     public class AccountsController : ApiController
     {
         private readonly IMemoryCache _cache;
@@ -124,6 +126,22 @@ namespace SmartRestaurant.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ForgetPassword(ForgetPasswordCommand command)
         {
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+        /// <summary> ResetUserPassword() </summary>
+        /// <remarks> This endpoint is used to reset user password.</remarks>
+        /// <param name="id">This is the user Id.</param>
+        /// <param name="command">This is the payload object used to reset user password</param>
+        /// <response code="204">Resetting user password has been successfully done.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to reset user password is invalid.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}/reset-password")]
+        [HttpPatch]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword([FromRoute] string id, ResetPasswordCommand command)
+        {
+            command.Id = id;
             return await SendWithErrorsHandlingAsync(command);
         }
 
