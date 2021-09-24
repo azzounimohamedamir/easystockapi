@@ -12,7 +12,9 @@ using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Accounts.Commands
 {
-    public class AccountsCommandsHandler : IRequestHandler<ForgetPasswordCommand, NoContent>
+    public class AccountsCommandsHandler : 
+        IRequestHandler<ForgetPasswordCommand, NoContent>,
+        IRequestHandler<ResetPasswordCommand, NoContent>
     {
         private readonly IOptions<EmailTemplates> _emailTemplates;
         private readonly IOptions<SmtpConfig> _smtpConfig;
@@ -30,6 +32,7 @@ namespace SmartRestaurant.Application.Accounts.Commands
             _userService = userService;
         }
 
+        #region Forget password handler
         public async Task<NoContent> Handle(ForgetPasswordCommand request, CancellationToken cancellationToken)
         {
             var validator = new ForgetPasswordCommandValidator();
@@ -45,6 +48,8 @@ namespace SmartRestaurant.Application.Accounts.Commands
             
             return default;
         }
+
+       
 
         private void SendResetPasswordEmail(ApplicationUser user, string token)
         {   
@@ -62,5 +67,26 @@ namespace SmartRestaurant.Application.Accounts.Commands
                 .Replace("{fullName}", user.FullName);
             new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, emailSubject, emailTemplate);
         }
+        #endregion
+
+        #region Reset password handler
+        public async Task<NoContent> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new ResetPasswordCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var user = await _userManager.FindByIdAsync(request.Id).ConfigureAwait(false);
+            if (user == null)
+                throw new NotFoundException(nameof(ApplicationUser), request.Id);
+
+            var passwordResetResult = await _userManager.ResetPasswordAsync(user, HexaDecimalHelper.FromHexString(request.Token), request.Password)
+                .ConfigureAwait(false);
+            if (!passwordResetResult.Succeeded)
+                throw new UserManagerException(passwordResetResult.Errors);
+
+            return default;
+        }
+        #endregion
     }
 }
