@@ -1,11 +1,13 @@
-﻿using System;
+using System;
+using SmartRestaurant.Domain.Common;
 
 namespace SmartRestaurant.Domain.Entities.Globalisation
 {
-    public class Currency
+    public class Currency : AuditableEntity
     {
         public Guid CurrencyId { get; set; }
+        public string Symbol { get; set; }
         public string Name { get; set; }
-        public string Symbole { get; set; }
+        public string Code { get; set; }
     }
 }

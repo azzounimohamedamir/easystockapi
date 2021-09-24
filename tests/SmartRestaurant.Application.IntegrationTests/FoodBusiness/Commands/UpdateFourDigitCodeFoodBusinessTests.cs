@@ -25,8 +25,6 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 {
                     Id = fastFood.FoodBusinessId,
                     FourDigitCode = 5555
-
-
                 };
                 await SendAsync(updateFourDigitCodeCommand);
 
