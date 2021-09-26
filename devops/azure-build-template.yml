@@ -36,6 +36,7 @@
 
   - job: DeployWaitingApproval
     dependsOn: Database_Migration
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
     pool: server
     timeoutInMinutes: 4320 # job times out in 3 days
 
