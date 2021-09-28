@@ -4,5 +4,7 @@
     {
         public InvitationToJoinOrganization InvitationToJoinOrganization { get; set; }
         public ResetPassword resetPassword { get; set; }
+        public ConfirmEmail ConfirmEmail { get; set; }
+
     }
 }
