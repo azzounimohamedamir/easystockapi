@@ -9,6 +9,7 @@ using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models.UserModels;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.Accounts.Commands;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Identity.Entities;
@@ -71,30 +72,21 @@ namespace SmartRestaurant.API.Controllers
             return await GrantDinerRole(user, result);
         }
 
+        /// <summary> AuthenticateViaSocialMedia() </summary>
+        /// <remarks>
+        ///     This endpoint is used to authenticate user via social media accounts. 
+        ///     if the user account does not exist; it will create a new account with a Diner role for him then a confirmation email will be sent to the user.
+        /// </remarks>
+        /// <param name="command">This is a payload object used to authenticate user via social media</param>
+        /// <response code="200">The user has been successfully authenticated.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to authenticate user is invalid.</response>
+        [ProducesResponseType(typeof(LoginResponseDto), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost("authenticateViaSocialMedia")]
-        public async Task<IActionResult> AuthenticateViaSocialMedia(AuthenticateViaSocialMediaModel model)
+        [AllowAnonymous]
+        public async Task<IActionResult> AuthenticateViaSocialMedia(AuthenticateViaSocialMediaCommand command)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
-            {
-                user = new ApplicationUser
-                {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    FullName = model.FullName
-                };
-                var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
-                await GrantDinerRole(user, result).ConfigureAwait(false);
-                if (result.Succeeded)
-                {
-                    var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-                    await SendEmailConfirmation(user, emailToken).ConfigureAwait(false);
-                }
-            }
-
-            var token = await TokenGenerator.Generate(user, _userManager, _configuration);
-            var roles = await _userManager.GetRolesAsync(user);
-            return Ok(new {token, user.UserName, roles});
+            return await SendWithErrorsHandlingAsync(command);
         }
 
         [HttpPost("changePassword")]

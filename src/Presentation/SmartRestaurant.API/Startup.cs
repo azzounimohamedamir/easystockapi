@@ -21,6 +21,7 @@ using SmartRestaurant.Infrastructure.Identity;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using SmartRestaurant.Application.Common.Configuration.SocialMedia;
 
 namespace SmartRestaurant.API
 {
@@ -46,6 +47,7 @@ namespace SmartRestaurant.API
             services.Configure<SmtpConfig>(Configuration.GetSection("Smtp"));
             services.Configure<WebPortal>(Configuration.GetSection("WebPortal"));
             services.Configure<EmailTemplates>(Configuration.GetSection("EmailTemplates"));
+            services.Configure<Authentication>(Configuration.GetSection("Authentication"));
             CORSConfiguration.AddCORSConfiguation(services);
 
             services.AddSwaggerGen(c =>
