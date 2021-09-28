@@ -104,7 +104,11 @@ namespace SmartRestaurant.Application.Accounts.Commands
         public async Task<LoginResponseDto> Handle(AuthenticateViaSocialMediaCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user == null)
+            if(user != null && (user.EmailConfirmed == false || user.IsActive == false))
+            {
+                throw new UnauthorizedException();
+            }
+            else if (user == null)
             {
                 user = new ApplicationUser
                 {
