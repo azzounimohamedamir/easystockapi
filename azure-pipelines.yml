@@ -1,3 +1,7 @@
+trigger:
+- develop
+- feature/*
+
 variables:
   - name: protectedBranches
     value: refs/heads/develop
