@@ -1,3 +1,4 @@
+
 variables:
   - name: protectedBranches
     value: refs/heads/develop
