@@ -1,6 +1,7 @@
 
+
 variables:
-  - name: protectedBranches
+  - name: protectedBranche
     value: refs/heads/develop
 
 stages:
