@@ -8,6 +8,13 @@
     "DefaultConnection": "Server=10.209.99.155;Database=default_features;User ID=SA;Password=Azerty123;Trusted_Connection=false;MultipleActiveResultSets=true",
     "IdentityConnection": "Server=10.209.99.155;Database=identity_features;User ID=SA;Password=Azerty123;Trusted_Connection=false;MultipleActiveResultSets=true"
   },
+  "Authentication": {
+    "Jwt": {
+      "JwtKey": "myrandomsigningkeyforgeneratingtokens",
+      "JwtIssuer": "http://localhost:5000",
+      "JwtExpireDays": 1
+    }
+  },
   "Smtp": {
     "Server": "pro2.mail.ovh.net",
     "Email": "no-reply@smartrestaurant.io",
@@ -17,7 +24,8 @@
   "WebPortal": {
     "host": "https://test.smartrestaurant.io",
     "pathToEmployeeAcceptInvitation": "/account/{id}/accept-invitation?token={token}",
-    "pathToResetPassword": "/account/{id}/reset-password?token={token}&fullName={fullName}"
+    "pathToResetPassword": "/account/{id}/reset-password?token={token}&fullName={fullName}",
+    "pathToConfirmEmail": "/account/confirmEmail/{id}?token={token}&fullName={fullName}"
   },
   "EmailTemplates": {
     "InvitationToJoinOrganization": {
@@ -74,6 +82,35 @@
           "Welcome": "<h1 style=\"font-size: 48px; font-weight: 400;\">Smart Restaurant</h1> <h1 style=\"font-weight: 400;\">Réinitialiser Le Mot De Passe!</h1>",
           "Message": "<div style=\"padding:10px;\"><div>Bonjour <strong>{fullName}</strong></div><br><div >Nous avons reçu une demande de réinitialisation de votre mot de passe.</div><div >Pour réinitialiser votre mot de passe, il suffit de cliquer sur le bouton ci-dessous.</div></div>",
           "Button": "<a href='{linkToResetPasswordWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">Réinitialiser Le Mot De Passe</a>",
+          "Content": "<div style=\"text-align:center; padding-left:20px;\">{welcome}<br></br>{message}<br></br>{button}"
+        }
+      }
+    },
+    "ConfirmEmail": {
+      "Ar": {
+        "Subject": "تأكيد عنوان البريد الإلكتروني",
+        "Body": {
+          "Welcome": "<h1 style=\"font-size: 48px; font-weight: 400;\">Smart Restaurant</h1> <h1 style=\"font-weight: 400;\">!تأكيد عنوان البريد الإلكتروني</h1>",
+          "Message": "<div style=\"padding:10px;\"><div><strong>{fullName}</strong> مرحبا</div><br><div>.تم إنشاء حسابك بنجاح</div><div>.من فضلك ، اضغط على الزر أدناه لتأكيد بريدك الإلكتروني</div></div>",
+          "Button": "<a href='{linkToConfirmEmailWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">قم بتأكيد بريدك الإلكتروني</a>",
+          "Content": "<div style=\"text-align:center; padding-left:20px;\">{welcome}<br></br>{message}<br></br>{button}"
+        }
+      },
+      "En": {
+        "Subject": "Confirm email address",
+        "Body": {
+          "Welcome": "<h1 style=\"font-size: 48px; font-weight: 400;\">Smart Restaurant</h1> <h1 style=\"font-weight: 400;\">Confirm Email Address!</h1>",
+          "Message": "<div style=\"padding:10px;\"><div>Hi <strong>{fullName}</strong></div><br><div >Your account has been successfully created.</div><div >Please, press the button below to confirm your email address.</div></div>",
+          "Button": "<a href='{linkToConfirmEmailWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">Confirm Your Email</a>",
+          "Content": "<div style=\"text-align:center; padding-left:20px;\">{welcome}<br></br>{message}<br></br>{button}"
+        }
+      },
+      "Fr": {
+        "Subject": "Confirmez l'adresse e-mail",
+        "Body": {
+          "Welcome": "<h1 style=\"font-size: 48px; font-weight: 400;\">Smart Restaurant</h1> <h1 style=\"font-weight: 400;\">Confirmez l'Adresse E-Mail!</h1>",
+          "Message": "<div style=\"padding:10px;\"><div>Bonjour <strong>{fullName}</strong></div><br><div >Votre compte a été créé avec succès.</div><div >Veuillez cliquer sur le bouton ci-dessous pour confirmer votre adresse électronique.</div></div>",
+          "Button": "<a href='{linkToConfirmEmailWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">Confirmez Votre Adresse Electronique</a>",
           "Content": "<div style=\"text-align:center; padding-left:20px;\">{welcome}<br></br>{message}<br></br>{button}"
         }
       }
