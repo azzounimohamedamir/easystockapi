@@ -1,12 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Application.Sections.Commands;
-using SmartRestaurant.Application.Sections.Queries;
+using SmartRestaurant.Application.SubSections.Commands;
+using SmartRestaurant.Application.SubSections.Queries;
 using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.IntegrationTests.SubSections.Queries
@@ -30,13 +29,22 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections.Queries
                 FoodBusinessId = fastFood.FoodBusinessId
             };
             await SendAsync(createMenuCommand);
+
+
+            var createSectionCommand = new CreateSectionCommand
+            {
+                Name = "section test",
+                MenuId = createMenuCommand.Id
+            };
+            await SendAsync(createSectionCommand).ConfigureAwait(false);
+
             for (var i = 0; i < 5; i++)
-                await SendAsync(new CreateSectionCommand
+                await SendAsync(new CreateSubSectionCommand
                 {
-                    Name = "section test " + i,
-                    MenuId = createMenuCommand.Id
+                    Name = "sub-section test " + i,
+                    SectionId = createSectionCommand.Id
                 }).ConfigureAwait(false);
-            var query = new GetSectionsListQuery {MenuId = createMenuCommand.Id, Page = 1, PageSize = 5};
+            var query = new GetSubSectionsListQuery { SectionId = createSectionCommand.Id, Page = 1, PageSize = 5};
             var result = await SendAsync(query);
 
             result.Data.Should().HaveCount(5);
