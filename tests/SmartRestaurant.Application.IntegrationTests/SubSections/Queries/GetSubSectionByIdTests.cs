@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Menus.Commands;
@@ -7,16 +6,17 @@ using SmartRestaurant.Application.Sections.Commands;
 using SmartRestaurant.Application.SubSections.Commands;
 using SmartRestaurant.Application.SubSections.Queries;
 using SmartRestaurant.Domain.Enums;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.SubSections.Queries
 {
     using static Testing;
 
     [TestFixture]
-    public class GetAllSubSectionsTest : TestBase
+    public class GetSubSectionByIdTests : TestBase
     {
         [Test]
-        public async Task ShouldGetAllSections_ByFoodMenuId()
+        public async Task ShouldGetSectionDetails()
         {
             await RolesTestTools.CreateRoles();
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
@@ -25,12 +25,12 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections.Queries
             var createMenuCommand = new CreateMenuCommand
             {
                 Name = "test menu",
-                MenuState = (int) MenuState.Enabled,
+                MenuState = (int)MenuState.Enabled,
                 FoodBusinessId = fastFood.FoodBusinessId
             };
             await SendAsync(createMenuCommand);
 
-
+           
             var createSectionCommand = new CreateSectionCommand
             {
                 Name = "section test",
@@ -38,16 +38,20 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections.Queries
             };
             await SendAsync(createSectionCommand).ConfigureAwait(false);
 
-            for (var i = 0; i < 5; i++)
-                await SendAsync(new CreateSubSectionCommand
-                {
-                    Name = "sub-section test " + i,
-                    SectionId = createSectionCommand.Id
-                }).ConfigureAwait(false);
-            var query = new GetSubSectionsListQuery { SectionId = createSectionCommand.Id, Page = 1, PageSize = 5};
-            var result = await SendAsync(query);
 
-            result.Data.Should().HaveCount(5);
+            var createSubSectionCommand = new CreateSubSectionCommand
+            {
+                Name = "sub-section test",
+                SectionId = createSectionCommand.Id
+            };
+            await SendAsync(createSubSectionCommand).ConfigureAwait(false);
+
+
+            var query = new GetSubSectionByIdQuery { Id = createSubSectionCommand.Id.ToString()};
+            var result = await SendAsync(query);
+            result.Should().NotBeNull();
+            result.Name.Should().Be("sub-section test");
+            result.SectionId.Should().Be(createSectionCommand.Id);
         }
     }
 }

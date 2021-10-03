@@ -72,6 +72,7 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ReverseMap();
             CreateMap<Menu, MenuDto>().ReverseMap();
             CreateMap<Section, SectionDto>().ReverseMap();
+            CreateMap<SubSection, SubSectionDto>().ReverseMap();
             CreateMap<SubSection, CreateSubSectionCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.SubSectionId))
                 .ReverseMap();
