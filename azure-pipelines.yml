@@ -39,7 +39,7 @@ stages:
 - stage: Deploy_To_Test_Env
   dependsOn: Build_On_Test_Evn
 #  condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/develop')
   pool: 
     name: test-SmartRestaurant-pool
     workspace:
