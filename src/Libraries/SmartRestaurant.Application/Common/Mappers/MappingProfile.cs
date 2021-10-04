@@ -7,6 +7,7 @@ using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Dishes.Commands;
 using SmartRestaurant.Application.DishIngredients.Commands;
 using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Application.FoodBusinessClient.Commands;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
 using SmartRestaurant.Application.Ingredients.Commands;
 using SmartRestaurant.Application.LinkedDevice.Commands;
@@ -166,6 +167,9 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<OrderDish, OrderDishRequest>().ReverseMap();
             CreateMap<OrderDishIngredient, OrderDishIngredientRequest>().ReverseMap();
 
+            CreateMap<CreateFoodBusinessClientCommand, Domain.Entities.FoodBusinessClient>()
+                .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.Id))
+                .ReverseMap();
         }
     }
 }

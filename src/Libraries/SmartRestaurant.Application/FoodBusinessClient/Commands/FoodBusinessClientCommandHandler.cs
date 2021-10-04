@@ -5,8 +5,6 @@ using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Identity.Entities;
-using SmartRestaurant.Domain.Identity.Enums;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,13 +33,6 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
             var user = await _userManager.FindByIdAsync(request.ManagerId).ConfigureAwait(false);
             if (user == null)
                 throw new NotFoundException(nameof(ApplicationUser), request.ManagerId);
-
-            var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
-            if (!roles.Contains(Roles.FoodBusinessAdministrator.ToString())
-                || !roles.Contains(Roles.FoodBusinessManager.ToString())
-                || !roles.Contains(Roles.SuperAdmin.ToString())
-                || !roles.Contains(Roles.SupportAgent.ToString()))
-                throw new RolesCheckException("The user related to [foodBusinessAdministratorId] must have the appropriate role to create a new Client");
 
             var entity = _mapper.Map<Domain.Entities.FoodBusinessClient>(request);
             _context.FoodBusinessClients.Add(entity);
