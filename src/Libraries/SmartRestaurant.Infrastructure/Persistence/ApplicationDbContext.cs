@@ -29,7 +29,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDish> OrderDishes { get; set; }
         public DbSet<OrderDishIngredient> OrderDishIngredients { get; set; }
-
+        public DbSet<FoodBusinessClient> FoodBusinessClients { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FoodBusinessUser>()

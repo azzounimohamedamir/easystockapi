@@ -17,6 +17,9 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
         public const string Diner_UserId_01 = "5a84cd00-59f0-4b22-bfce-07c080829118";
         public const string Diner_UserId_02 = "6b14cd00-59f0-4422-bfce-07c080829987";
 
+        public const string CEVITAL_UserId = "ba89dc5f-dfd1-4c87-9372-233c611cc756";
+        public const string Sonatrach_UserId = "a3dbd500-eab0-4233-86fd-7f1a4195f9a9";
+
         public static void Seed(this ModelBuilder modelBuilder)
         {
             #region Create application Roles
@@ -262,8 +265,35 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     PasswordHash =
                         "AQAAAAEAACcQAAAAEJFZbbuBIpvoyXKwrceuNsU4cXZ18LLAl8g7s48Pye4EAEXwA2hswtnLMhMS9Q7Cjw ==",
                     EmailConfirmed = true
-                }
+                },
 
+                #endregion
+
+                #region Create FoodBusinessClient Users
+                new ApplicationUser
+                {
+                    Id = Sonatrach_UserId,
+                    UserName = "manager@sonatrach.com",
+                    Email = "manager@sonatrach.com",
+                    NormalizedUserName = "MANAGER@SONATRACH.COM",
+                    NormalizedEmail = "MANAGER@SONATRACH.COM",
+                    // Real password is "Supportagent123@"
+                    PasswordHash =
+                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                    EmailConfirmed = true
+                },
+                new ApplicationUser
+                {
+                    Id = CEVITAL_UserId,
+                    UserName = "manager@cevital.com",
+                    Email = "manager@cevital.com",
+                    NormalizedUserName = "MANAGER@CEVITAL.COM",
+                    NormalizedEmail = "MANAGER@CEVITAL.COM",
+                    // Real password is "Supportagent123@"
+                    PasswordHash =
+                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                    EmailConfirmed = true
+                }
                 #endregion
 
             );
