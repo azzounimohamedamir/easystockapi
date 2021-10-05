@@ -50,7 +50,7 @@ stages:
       envName: SmartRestaurant-Test-Env
 
 - stage: Build_On_Prod_Evn
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/release'))
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/release')
   pool: 
     name: pre-prod-SmartRestaurant-pool
     workspace:
