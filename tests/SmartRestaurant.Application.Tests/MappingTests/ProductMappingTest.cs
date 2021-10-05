@@ -42,5 +42,45 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Null(product.Picture);
 
         }
+
+        [Fact]
+        public void Map_UpdateProductCommand_To_Product_Valide_Test()
+        {
+            var productId = Guid.NewGuid();
+            var product = new Product
+            {
+                ProductId = productId,
+                Name = "hamoud 2L",
+                Description = "description test",
+                Price = 150,
+                EnergeticValue = 200,
+                SectionId = Guid.NewGuid(),
+                SubSectionId = Guid.NewGuid(),
+                Picture = new byte[3] { 22, 23, 25 }
+            };
+
+            var updateProductCommand = new UpdateProductCommand
+            {
+                Id = productId.ToString(),
+                Name = "IFRI 1L",
+                Description = "IFRI description test",
+                Price = 80,
+                EnergeticValue = 120,
+                Picture = null
+
+            };
+
+
+            var updatedProduct = _mapper.Map(updateProductCommand, product);
+            Assert.Equal(updatedProduct.ProductId, Guid.Parse(updateProductCommand.Id));
+            Assert.Equal(updatedProduct.Name, updateProductCommand.Name);
+            Assert.Equal(updatedProduct.Description, updateProductCommand.Description);
+            Assert.Equal(updatedProduct.Price, updateProductCommand.Price);
+            Assert.Equal(updatedProduct.EnergeticValue, updateProductCommand.EnergeticValue);
+            Assert.NotNull(updatedProduct.SectionId);
+            Assert.NotNull(updatedProduct.SubSectionId);
+            Assert.Equal(updatedProduct.Picture, new byte[3] { 22, 23, 25 });
+
+        }
     }
 }
