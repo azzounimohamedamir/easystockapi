@@ -30,6 +30,23 @@ namespace SmartRestaurant.API.Controllers
         {
             return await SendWithErrorsHandlingAsync(command);
         }
-     
+
+        /// <summary> UpdateProduct() </summary>
+        /// <remarks>This endpoint allows <b>restaurant manager</b> to update a product. The product is a menu item that can be a drink, dessert, snack...etc. </remarks>
+        /// <param name="id">id of the product that would be updated</param>
+        /// <param name="command">This is payload object used to update a product</param>
+        /// <response code="204">The product has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to update a product is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}")]
+        [HttpPut]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<IActionResult> Update([FromRoute] string id, [FromForm] UpdateProductCommand command)
+        {
+            command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
+        }
     }
 }
