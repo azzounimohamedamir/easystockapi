@@ -26,6 +26,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDish> OrderDishes { get; set; }
         public DbSet<OrderDishIngredient> OrderDishIngredients { get; set; }
+        public DbSet<Domain.Entities.FoodBusinessClient> FoodBusinessClients { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

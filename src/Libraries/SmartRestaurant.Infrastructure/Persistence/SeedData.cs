@@ -52,6 +52,12 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public const string BigMama_BeverageMenu_Id = "8f8c0139-1f90-40f3-ab88-5db2de45ff2e";
         public const string BigMama_DessertMenu_Id = "45051fc7-6983-44a5-9c12-66116c4533bf";
 
+        public const string Sonatrach_FoodBusinessClientId = "e6f980ba-c381-4319-8b62-da017e116692";
+        public const string CEVITAL_FoodBusinessClientId = "1eb2b784-074d-4be4-afb7-9708331c0c63";
+        
+        public const string CEVITAL_UserId = "ba89dc5f-dfd1-4c87-9372-233c611cc756";
+        public const string Sonatrach_UserId = "a3dbd500-eab0-4233-86fd-7f1a4195f9a9";
+
         public static void Seed(this ModelBuilder modelBuilder)
         {
             #region Create a FoodBusinesses
@@ -127,7 +133,6 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             #endregion
 
-
             #region Assigning Employees userId with FoodBusinessId (restaurant).
 
             modelBuilder.Entity<FoodBusinessUser>().HasData(
@@ -176,7 +181,6 @@ namespace SmartRestaurant.Infrastructure.Persistence
             );
 
             #endregion
-
 
             #region Create reservations
 
@@ -844,6 +848,34 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             );
 
+            #endregion
+
+            #region Create FoodBusinessClient
+            // TODO : Create FoodBusiness Client
+
+            #region Create Sonatrach Entreprise
+
+            modelBuilder.Entity<FoodBusinessClient>().HasData(
+                new FoodBusinessClient
+                {
+                    FoodBusinessClientId = Guid.Parse(Sonatrach_FoodBusinessClientId),
+                    Name = "Sonatrach",
+                    Description = "SONATRACH est la première entreprise du continent africain. Une société intégrée de l'Amont à l'Aval pétrolier et gazier et un Groupe internationale.",
+                    Website = "https://sonatrach.com/",
+                    ManagerId = Sonatrach_UserId,
+                },
+                #endregion
+                #region Create CEVITAL Entreprise
+                new FoodBusinessClient
+                {
+                    FoodBusinessClientId = Guid.Parse(CEVITAL_FoodBusinessClientId),
+                    Name = "CEVITAL",
+                    Description = "Cevital is a family-run Group whose success and reputation are rooted in its history, its track record and its values.",
+                    Website = "https://cevital.com/",
+                    ManagerId = CEVITAL_UserId,
+                }
+                #endregion
+            );
             #endregion
         }
     }
