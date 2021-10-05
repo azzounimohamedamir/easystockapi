@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
@@ -14,7 +15,8 @@ using System.Threading.Tasks;
 namespace SmartRestaurant.Application.Products.Commands
 {
     public class ProductsCommandsHandler :
-         IRequestHandler<CreateProductCommand, Created>
+         IRequestHandler<CreateProductCommand, Created>,
+        IRequestHandler<UpdateProductCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -55,6 +57,32 @@ namespace SmartRestaurant.Application.Products.Commands
             }
 
             _context.Products.Add(product);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+        public async Task<NoContent> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new UpdateProductCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var userId = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
+
+            var product = await _context.Products.AsNoTracking().FirstOrDefaultAsync(r => r.ProductId == Guid.Parse(request.Id), cancellationToken).ConfigureAwait(false);
+            if (product == null)
+                throw new NotFoundException(nameof(Product), request.Id);
+
+            _mapper.Map(request, product);
+            using (var ms = new MemoryStream())
+            {
+                request.Picture.CopyTo(ms);
+                product.Picture = ms.ToArray();
+                product.LastModifiedBy = userId;
+                product.LastModifiedAt = DateTime.Now;
+            }
+
+            _context.Products.Update(product);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }

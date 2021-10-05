@@ -178,6 +178,10 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.SectionId, o => o.MapFrom(p => p.SectionId))
                 .ForMember(x => x.SubSectionId, o => o.MapFrom(p => p.SubSectionId))
                 .ForMember(x => x.Picture, o => o.Ignore());
+
+            CreateMap<UpdateProductCommand, Product>()
+               .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Id))
+               .ForMember(x => x.Picture, o => o.Ignore());
         }
     }
 }
