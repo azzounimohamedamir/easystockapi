@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Products.Commands;
 using SmartRestaurant.Application.Tests.Configuration;
 using SmartRestaurant.Domain.Entities;
@@ -81,6 +82,32 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.NotNull(updatedProduct.SubSectionId);
             Assert.Equal(updatedProduct.Picture, new byte[3] { 22, 23, 25 });
 
+        }
+
+        [Fact]
+        public void Map_Product_To_ProductDto_Valide_Test()
+        {
+            var product = new Product
+            {
+                ProductId = Guid.NewGuid(),
+                Name = "hamoud 2L",
+                Description = "description test",
+                Price = 150,
+                EnergeticValue = 200,
+                SectionId = Guid.NewGuid(),
+                SubSectionId = Guid.NewGuid(),
+                Picture = new byte[3] { 22, 23, 25 }
+            };
+            
+            var productDto = _mapper.Map<ProductDto>(product);
+            Assert.Equal(productDto.ProductId, product.ProductId);
+            Assert.Equal(productDto.Name, product.Name);
+            Assert.Equal(productDto.Description, product.Description);
+            Assert.Equal(productDto.Price, product.Price);
+            Assert.Equal(productDto.EnergeticValue, product.EnergeticValue);
+            Assert.Equal(productDto.SectionId, product.SectionId);
+            Assert.Equal(productDto.SubSectionId, product.SubSectionId);
+            Assert.Equal(productDto.Picture, Convert.ToBase64String(product.Picture));
         }
     }
 }
