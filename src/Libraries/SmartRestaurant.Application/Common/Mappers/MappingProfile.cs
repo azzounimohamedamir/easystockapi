@@ -15,6 +15,7 @@ using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Application.Orders.Commands;
 using SmartRestaurant.Application.Orders.Commands.Requests;
 using SmartRestaurant.Application.Orders.Queries.Responses;
+using SmartRestaurant.Application.Products.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Sections.Commands;
 using SmartRestaurant.Application.SubSections.Commands;
@@ -174,6 +175,20 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<UpdateFoodBusinessClientCommand, Domain.Entities.FoodBusinessClient>()
                 .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
+
+            CreateMap<CreateProductCommand, Product>()
+                .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.SectionId, o => o.MapFrom(p => p.SectionId))
+                .ForMember(x => x.SubSectionId, o => o.MapFrom(p => p.SubSectionId))
+                .ForMember(x => x.Picture, o => o.Ignore());
+
+            CreateMap<UpdateProductCommand, Product>()
+               .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Id))
+               .ForMember(x => x.Picture, o => o.Ignore());
+
+            CreateMap<Product, ProductDto>()
+               .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
+
         }
     }
 }

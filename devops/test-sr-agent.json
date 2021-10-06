@@ -5,8 +5,8 @@
   "SendGridUser": "Smart restaurant",
   "SendGridKey": "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",
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=default_db;User ID=SA;Password=Azerty123;Trusted_Connection=false;MultipleActiveResultSets=false",
-    "IdentityConnection": "Server=localhost;Database=identity_db;User ID=SA;Password=Azerty123;Trusted_Connection=false;MultipleActiveResultSets=false"
+    "DefaultConnection": "Server=localhost;Database=default_db;User ID=SA;Password=Azerty123;Trusted_Connection=false;MultipleActiveResultSets=true;Connect Timeout=30",
+    "IdentityConnection": "Server=localhost;Database=identity_db;User ID=SA;Password=Azerty123;Trusted_Connection=false;MultipleActiveResultSets=true;Connect Timeout=30"
   },
   "Authentication": {
     "Jwt": {
