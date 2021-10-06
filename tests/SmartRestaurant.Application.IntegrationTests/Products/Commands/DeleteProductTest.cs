@@ -39,7 +39,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Products.Commands
             };
             await SendAsync(createSectionCommand);
 
-            var product = await ProductTestTools.CreateProduct(createSectionCommand.Id, (int)ProductParent.Section);
+            var product = await ProductTestTools.CreateProduct();
             var checkProductExistance = await FindAsync<Product>(product.Id);
             checkProductExistance.Should().NotBeNull();
 

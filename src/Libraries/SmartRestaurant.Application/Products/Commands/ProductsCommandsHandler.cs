@@ -36,17 +36,6 @@ namespace SmartRestaurant.Application.Products.Commands
             if (!result.IsValid) throw new ValidationException(result);
 
             var userId = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
-
-            if(request.SectionId != null) {
-                var section = _context.Sections.Where(x => x.SectionId == Guid.Parse(request.SectionId)).FirstOrDefault();
-                if (section == null)
-                    throw new NotFoundException(nameof(Section), request.SectionId);
-            }
-            if (request.SubSectionId != null) {
-                var subSection = _context.SubSections.Where(x => x.SubSectionId == Guid.Parse(request.SubSectionId)).FirstOrDefault();
-                if (subSection == null)
-                    throw new NotFoundException(nameof(SubSection), request.SubSectionId);
-            }
             
             var product = _mapper.Map<Product>(request);          
             using (var ms = new MemoryStream())

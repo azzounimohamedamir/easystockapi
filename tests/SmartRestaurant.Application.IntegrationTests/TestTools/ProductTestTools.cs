@@ -16,7 +16,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
     }
         public class ProductTestTools
     {
-        public static async Task<CreateProductCommand> CreateProduct(Guid parentId, int parent)
+        public static async Task<CreateProductCommand> CreateProduct()
         {
             var createProductCommand = new CreateProductCommand
             {
@@ -24,8 +24,6 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 Description = "description test",
                 Price = 150,
                 EnergeticValue = 200,
-                SectionId = (parent == (int) ProductParent.Section) ? parentId.ToString() : null,
-                SubSectionId = (parent == (int)ProductParent.SubSection) ? parentId.ToString() : null,
             };
 
             byte[] imageBytes = Properties.Resources.food;
@@ -38,16 +36,14 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             return createProductCommand;
         }
 
-        public static async Task<Product> CreateProduct_2(Guid parentId, int parent)
+        public static async Task<Product> CreateProduct_2()
         {
             var createProductCommand = new CreateProductCommand
             {
                 Name = "hamoud 2L",
                 Description = "description test",
                 Price = 150,
-                EnergeticValue = 200,
-                SectionId = (parent == (int)ProductParent.Section) ? parentId.ToString() : null,
-                SubSectionId = (parent == (int)ProductParent.SubSection) ? parentId.ToString() : null,
+                EnergeticValue = 200
             };
 
             byte[] imageBytes = Properties.Resources.food;

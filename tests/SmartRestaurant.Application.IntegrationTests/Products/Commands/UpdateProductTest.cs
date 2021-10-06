@@ -5,7 +5,6 @@ using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Application.Products.Commands;
 using SmartRestaurant.Application.Sections.Commands;
-using SmartRestaurant.Application.SubSections.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
 using System;
@@ -43,7 +42,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Products.Commands
             };
             await SendAsync(createSectionCommand);
 
-            var product = await ProductTestTools.CreateProduct(createSectionCommand.Id, (int)ProductParent.Section);
+            var product = await ProductTestTools.CreateProduct();
 
             var updateProductCommand = await UpdateProduct(product);
             var updatedProduct = await FindAsync<Product>(Guid.Parse(updateProductCommand.Id));
@@ -54,62 +53,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Products.Commands
             updatedProduct.Description.Should().Be(updateProductCommand.Description);
             updatedProduct.Price.Should().Be(updateProductCommand.Price);
             updatedProduct.EnergeticValue.Should().Be(updateProductCommand.EnergeticValue);
-            updatedProduct.SectionId.Should().Be(product.SectionId);
-            updatedProduct.SubSectionId.Should().Be(null);
             updatedProduct.CreatedBy.Should().NotBeNull();
             updatedProduct.CreatedAt.Should().NotBe(default);
             updatedProduct.LastModifiedBy.Should().Be(_authenticatedUserId);
             updatedProduct.LastModifiedAt.Should().NotBe(default);
-        }
-     
-        [Test]
-        public async Task UpdateProductWithSubSectionAsParent_ShouldSaveToDB()
-        {
-            await RolesTestTools.CreateRoles();
-            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator(_authenticatedUserId);
-            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
-
-
-            var createMenuCommand = new CreateMenuCommand
-            {
-                Name = "test menu",
-                MenuState = (int)MenuState.Enabled,
-                FoodBusinessId = fastFood.FoodBusinessId
-            };
-            await SendAsync(createMenuCommand);
-
-
-            var createSectionCommand = new CreateSectionCommand
-            {
-                MenuId = createMenuCommand.Id,
-                Name = "section test menu"
-            };
-            await SendAsync(createSectionCommand);
-
-            var createSubSectionCommand = new CreateSubSectionCommand
-            {
-                SectionId = createSectionCommand.Id,
-                Name = "sub-section test menu"
-            };
-            await SendAsync(createSubSectionCommand);
-
-            var product = await ProductTestTools.CreateProduct(createSubSectionCommand.Id, (int)ProductParent.SubSection);
-
-            var updateProductCommand = await UpdateProduct(product);
-            var updatedProduct = await FindAsync<Product>(Guid.Parse(updateProductCommand.Id));
-            updatedProduct.Should().NotBeNull();
-            updatedProduct.ProductId.Should().Be(product.Id);
-            updatedProduct.Name.Should().BeEquivalentTo(updateProductCommand.Name);
-            updatedProduct.Description.Should().Be(updateProductCommand.Description);
-            updatedProduct.Price.Should().Be(updateProductCommand.Price);
-            updatedProduct.EnergeticValue.Should().Be(updateProductCommand.EnergeticValue);
-            updatedProduct.SectionId.Should().Be(null);
-            updatedProduct.SubSectionId.Should().Be(product.SubSectionId);
-            updatedProduct.CreatedBy.Should().NotBeNull();
-            updatedProduct.CreatedAt.Should().NotBe(default);
-            updatedProduct.LastModifiedBy.Should().Be(_authenticatedUserId);
-            updatedProduct.LastModifiedAt.Should().NotBe(default);
-        }
+        }     
      
         private static async Task<UpdateProductCommand> UpdateProduct(CreateProductCommand product)
         {

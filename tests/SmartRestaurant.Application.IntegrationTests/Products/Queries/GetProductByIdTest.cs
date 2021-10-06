@@ -40,7 +40,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Products.Commands
             await SendAsync(createSectionCommand);
 
 
-            var product = await ProductTestTools.CreateProduct_2(createSectionCommand.Id, (int)ProductParent.Section);
+            var product = await ProductTestTools.CreateProduct_2();
             var selectedProduct = await SendAsync(new GetProductByIdQuery { Id = product.ProductId.ToString() });
             selectedProduct.Should().NotBeNull();
             selectedProduct.ProductId.Should().Be(product.ProductId);
@@ -48,8 +48,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Products.Commands
             selectedProduct.Description.Should().Be(product.Description);
             selectedProduct.Price.Should().Be(product.Price);
             selectedProduct.EnergeticValue.Should().Be(product.EnergeticValue);
-            selectedProduct.SectionId.Should().Be(product.SectionId.ToString());
-            selectedProduct.SubSectionId.Should().Be(Guid.Empty);
             selectedProduct.Picture.Should().Be(Convert.ToBase64String(product.Picture));
         }
 

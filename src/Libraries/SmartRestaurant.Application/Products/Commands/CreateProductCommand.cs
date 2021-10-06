@@ -13,8 +13,6 @@ namespace SmartRestaurant.Application.Products.Commands
         public IFormFile Picture { get; set; }
         public float Price { get; set; }
         public float EnergeticValue { get; set; }
-        public string SubSectionId { get; set; }
-        public string SectionId { get; set; }
     }
 
     public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
@@ -25,26 +23,6 @@ namespace SmartRestaurant.Application.Products.Commands
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
                 .MaximumLength(200);
-
-            RuleFor(product => product.SectionId)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEqual(Guid.Empty.ToString())
-                .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID")
-                .When(x => (!String.IsNullOrWhiteSpace(x.SectionId) && String.IsNullOrWhiteSpace(x.SubSectionId)));
-
-            RuleFor(product => product.SubSectionId)
-              .Cascade(CascadeMode.StopOnFirstFailure)
-              .NotEqual(Guid.Empty.ToString())
-              .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID")
-              .When(x => (String.IsNullOrWhiteSpace(x.SectionId) && !String.IsNullOrWhiteSpace(x.SubSectionId)));
-
-            RuleFor(product => new { product.SectionId, product.SubSectionId })
-              .Must(x => false).WithMessage("You can not set 'Section Id' and 'SubSection Id' at the same time. you must set one property only")
-              .When(x => !String.IsNullOrWhiteSpace(x.SectionId) && !String.IsNullOrWhiteSpace(x.SubSectionId));
-
-            RuleFor(product => new { product.SectionId, product.SubSectionId })
-             .Must(x => false).WithMessage("You must set either a 'Section Id' or 'SubSection Id'.")
-             .When(x => String.IsNullOrWhiteSpace(x.SectionId) && String.IsNullOrWhiteSpace(x.SubSectionId));
 
             RuleFor(product => product.Picture)
                 .NotEmpty();
