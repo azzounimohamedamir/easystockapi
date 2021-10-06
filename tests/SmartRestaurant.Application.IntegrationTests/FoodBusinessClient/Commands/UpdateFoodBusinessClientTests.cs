@@ -9,6 +9,7 @@ using SmartRestaurant.Application.IntegrationTests.TestTools;
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Commands
 {
     using static Testing;
+    [TestFixture]
     public class UpdateFoodBusinessClientTests : TestBase
     {
         [Test]
@@ -18,12 +19,10 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
             var foodBusinessClientManager = await UsersTestTools.CreateFoodBusinessClientManager();
             var foodBusinessClient = await FoodBusinessClientTestTools.CreateFoodBusinessClient(foodBusinessClientManager.Id);
 
-
             await Task.Delay(0).ContinueWith(async t =>
             {
-                var updateFoodBusinessClientCommand = new UpdateFoodBusinessClientCommand
+                var createFoodBusinessClientCommand = new CreateFoodBusinessClientCommand
                 {
-                    Id = foodBusinessClient.ManagerId.ToString(),
                     Address = new AddressDto
                     {
                         City = "Algiers",
@@ -36,19 +35,47 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                         StreetAddress = "Didouche Mourad"
                     },
                     Description = "",
-                    Name = "G22 REI Updated test",
+                    Name = "G22 REI ",
                     PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                     Email = "test@g22.com",
                     Website = "",
                     ManagerId = foodBusinessClient.ManagerId,
                 };
+                await SendAsync(createFoodBusinessClientCommand);
+                var list = await FindAsync<Domain.Entities.FoodBusinessClient>(foodBusinessClient.FoodBusinessClientId);
+                var updateFoodBusinessClientCommand = new UpdateFoodBusinessClientCommand
+                {
+                    Id = foodBusinessClient.ManagerId.ToString(),
+                    Address = new AddressDto
+                    {
+                        City = "Alger",
+                        Country = "Algerie",
+                        GeoPosition = new GeoPositionDto
+                        {
+                            Latitude = "0",
+                            Longitude = "0"
+                        },
+                        StreetAddress = "Didouche Mourad"
+                    },
+                    Description = "Updated Description",
+                    Name = "G22 REI Updated test",
+                    PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 672217426 },
+                    Email = "testUpdate@g22.com",
+                    Website = "http://g22rei.com",
+                    ManagerId = foodBusinessClient.ManagerId
+                };
 
                 await SendAsync(updateFoodBusinessClientCommand);
+                var updatesList = await FindAsync<Domain.Entities.FoodBusinessClient>(foodBusinessClient.FoodBusinessClientId);
 
-                var list = await FindAsync<Domain.Entities.FoodBusinessClient>(foodBusinessClient.FoodBusinessClientId);
-
-                list.FoodBusinessClientId.Should().Be(updateFoodBusinessClientCommand.Id);
-                list.Name.Should().Be("G22 REI Updated test");
+                updatesList.FoodBusinessClientId.Should().Be(updateFoodBusinessClientCommand.Id);
+                updatesList.Address.Should().Be(updateFoodBusinessClientCommand.Address);
+                updatesList.Description.Should().BeEquivalentTo(updateFoodBusinessClientCommand.Description);
+                updatesList.Name.Should().BeEquivalentTo(updateFoodBusinessClientCommand.Name);
+                updatesList.PhoneNumber.Should().Be(updateFoodBusinessClientCommand.PhoneNumber);
+                updatesList.Email.Should().Be(updateFoodBusinessClientCommand.Email);
+                updatesList.Website.Should().Be(updateFoodBusinessClientCommand.Website);
+                updatesList.ManagerId.Should().Be(updateFoodBusinessClientCommand.ManagerId);
             });
         }
     }
