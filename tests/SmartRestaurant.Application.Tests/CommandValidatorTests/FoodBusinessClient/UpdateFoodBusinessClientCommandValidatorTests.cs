@@ -83,14 +83,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusinessCl
             _validator.ShouldHaveValidationErrorFor(updateFoodBusinessClientCommand => updateFoodBusinessClientCommand.Name,
                 empty);
         }
-        
-        [Fact]
-        public void Given_DescriptionIsNull_WhenValidating_ShouldGetAnError()
-        {
-            string _null = null;
-            _validator.ShouldHaveValidationErrorFor(updateFoodBusinessClientCommand => updateFoodBusinessClientCommand.Description, _null);
-        }
-       
+             
         [Fact]
         public void Given_EmptyManagerGuid_WhenValidating_ShouldError()
         {
