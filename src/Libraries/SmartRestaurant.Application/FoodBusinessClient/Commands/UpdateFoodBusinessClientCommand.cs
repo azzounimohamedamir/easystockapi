@@ -69,13 +69,17 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
                         .NotEmpty()
                         .MaximumLength(200);
                 });
+            RuleFor(foodBusinessClient => foodBusinessClient.PhoneNumber)
+               .Cascade(CascadeMode.StopOnFirstFailure)
+               .NotNull()
+               .NotEmpty();
 
-            RuleFor(foodBusiness => foodBusiness.Description)
+            RuleFor(foodBusinessClient => foodBusinessClient.Description)
                .MaximumLength(500);
 
-            RuleFor(foodBusiness => foodBusiness.Website)
+            RuleFor(foodBusinessClient => foodBusinessClient.Website)
                 .Must(ValidatorHelper.ValidateUrl).WithMessage("'{PropertyName}: {PropertyValue}' is invalide")
-                .When(foodBusiness => !String.IsNullOrWhiteSpace(foodBusiness.Website));
+                .When(foodBusinessClient => !String.IsNullOrWhiteSpace(foodBusinessClient.Website));
 
 
         }
