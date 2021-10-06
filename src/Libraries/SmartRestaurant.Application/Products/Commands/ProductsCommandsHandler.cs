@@ -16,7 +16,8 @@ namespace SmartRestaurant.Application.Products.Commands
 {
     public class ProductsCommandsHandler :
          IRequestHandler<CreateProductCommand, Created>,
-        IRequestHandler<UpdateProductCommand, NoContent>
+        IRequestHandler<UpdateProductCommand, NoContent>,
+        IRequestHandler<DeleteProductCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -83,6 +84,21 @@ namespace SmartRestaurant.Application.Products.Commands
             }
 
             _context.Products.Update(product);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+        public async Task<NoContent> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new DeleteProductCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var product = await _context.Products.AsNoTracking().FirstOrDefaultAsync(r => r.ProductId == Guid.Parse(request.Id), cancellationToken).ConfigureAwait(false);
+            if (product == null)
+                throw new NotFoundException(nameof(Product), request.Id);
+
+            _context.Products.Remove(product);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
