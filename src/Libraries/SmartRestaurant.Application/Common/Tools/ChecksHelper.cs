@@ -35,5 +35,11 @@ namespace SmartRestaurant.Application.Common.Tools
             if (!result.IsValid)
                 throw new ValidationException(result);
         }
+
+        public static bool IsFloatNumber(string text)
+        {
+            try { float.Parse(text); return true; }
+            catch (Exception) { return false; }
+        }
     }
 }
