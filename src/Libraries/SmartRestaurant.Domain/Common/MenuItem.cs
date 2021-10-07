@@ -10,9 +10,5 @@ namespace SmartRestaurant.Domain.Common
         public byte[] Picture { get; set; }
         public float Price { get; set; }
         public float EnergeticValue { get; set; }
-        public Guid? SubSectionId { get; set; }
-        public Guid? SectionId { get; set; }
-        public virtual SubSection SubSection { get; set; }
-        public virtual Section Section { get; set; }
     }
 }

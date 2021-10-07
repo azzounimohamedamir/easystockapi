@@ -26,9 +26,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 Name = "hamoud 2L",
                 Description = "description test",
                 Price = 150,
-                EnergeticValue = 200,
-                SectionId = Guid.NewGuid().ToString(),
-                SubSectionId = Guid.NewGuid().ToString()
+                EnergeticValue = 200
             };
 
 
@@ -38,8 +36,6 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(product.Description, createProductCommand.Description);
             Assert.Equal(product.Price, createProductCommand.Price);
             Assert.Equal(product.EnergeticValue, createProductCommand.EnergeticValue);
-            Assert.Equal(product.SectionId, Guid.Parse(createProductCommand.SectionId));
-            Assert.Equal(product.SubSectionId, Guid.Parse(createProductCommand.SubSectionId));
             Assert.Null(product.Picture);
 
         }
@@ -55,8 +51,6 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 Description = "description test",
                 Price = 150,
                 EnergeticValue = 200,
-                SectionId = Guid.NewGuid(),
-                SubSectionId = Guid.NewGuid(),
                 Picture = new byte[3] { 22, 23, 25 }
             };
 
@@ -78,8 +72,6 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(updatedProduct.Description, updateProductCommand.Description);
             Assert.Equal(updatedProduct.Price, updateProductCommand.Price);
             Assert.Equal(updatedProduct.EnergeticValue, updateProductCommand.EnergeticValue);
-            Assert.NotNull(updatedProduct.SectionId);
-            Assert.NotNull(updatedProduct.SubSectionId);
             Assert.Equal(updatedProduct.Picture, new byte[3] { 22, 23, 25 });
 
         }
@@ -94,8 +86,6 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 Description = "description test",
                 Price = 150,
                 EnergeticValue = 200,
-                SectionId = Guid.NewGuid(),
-                SubSectionId = Guid.NewGuid(),
                 Picture = new byte[3] { 22, 23, 25 }
             };
             
@@ -105,8 +95,6 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(productDto.Description, product.Description);
             Assert.Equal(productDto.Price, product.Price);
             Assert.Equal(productDto.EnergeticValue, product.EnergeticValue);
-            Assert.Equal(productDto.SectionId, product.SectionId);
-            Assert.Equal(productDto.SubSectionId, product.SubSectionId);
             Assert.Equal(productDto.Picture, Convert.ToBase64String(product.Picture));
         }
     }
