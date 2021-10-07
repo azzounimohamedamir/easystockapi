@@ -1,12 +1,10 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.FoodBusinessClient.Commands;
 using SmartRestaurant.Application.Tests.Configuration;
 using SmartRestaurant.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace SmartRestaurant.Application.Tests.MappingTests

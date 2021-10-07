@@ -1,11 +1,9 @@
-﻿using FluentAssertions;
+﻿using System.Threading.Tasks;
+using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.FoodBusinessClient.Queries;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Queries
 {

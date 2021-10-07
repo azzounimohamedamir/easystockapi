@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.FoodBusinessClient.Commands;
 using SmartRestaurant.Application.FoodBusinessClient.Queries;
-using System.Threading.Tasks;
+
 
 namespace SmartRestaurant.API.Controllers
 {

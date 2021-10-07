@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
