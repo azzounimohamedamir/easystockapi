@@ -186,7 +186,9 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Product, ProductDto>()
                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
-
+            CreateMap<Domain.Entities.FoodBusinessClient,FoodBusinessClientDto>()
+               .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.FoodBusinessClientId))
+               .ReverseMap();
         }
     }
 }
