@@ -2,6 +2,7 @@
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Domain.Entities;
+using System;
 using System.Linq;
 
 namespace SmartRestaurant.Application.Products.Queries.FilterStrategy
@@ -33,42 +34,42 @@ namespace SmartRestaurant.Application.Products.Queries.FilterStrategy
             {
                 case "==":
                     return products
-                       .Where(product => product.EnergeticValue == searchKey)
+                       .Where(product => product.EnergeticValue == searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case "!=":
                     return products
-                       .Where(product => product.EnergeticValue != searchKey)
+                       .Where(product => product.EnergeticValue != searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case ">":
                     return products
-                   .Where(product => product.EnergeticValue > searchKey)
+                   .Where(product => product.EnergeticValue > searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
                 case ">=":
                     return products
-                       .Where(product => product.EnergeticValue >= searchKey)
+                       .Where(product => product.EnergeticValue >= searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case "<":
                     return products
-                       .Where(product => product.EnergeticValue < searchKey)
+                       .Where(product => product.EnergeticValue < searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case "<=":
                     return products
-                       .Where(product => product.EnergeticValue <= searchKey)
+                       .Where(product => product.EnergeticValue <= searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 default:
                     return products
-                       .Where(product => product.EnergeticValue == searchKey)
+                       .Where(product => product.EnergeticValue == searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
             }
@@ -80,42 +81,42 @@ namespace SmartRestaurant.Application.Products.Queries.FilterStrategy
             {
                 case "==":
                     return products
-                       .Where(product => product.EnergeticValue == searchKey)
+                       .Where(product => product.EnergeticValue == searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case "!=":
                     return products
-                       .Where(product => product.EnergeticValue != searchKey)
+                       .Where(product => product.EnergeticValue != searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case ">":
                     return products
-                       .Where(product => product.EnergeticValue > searchKey)
+                       .Where(product => product.EnergeticValue > searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
                 case ">=":
                     return products
-                       .Where(product => product.EnergeticValue >= searchKey)
+                       .Where(product => product.EnergeticValue >= searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case "<":
                     return products
-                       .Where(product => product.EnergeticValue < searchKey)
+                       .Where(product => product.EnergeticValue < searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case "<=":
                     return products
-                       .Where(product => product.EnergeticValue <= searchKey)
+                       .Where(product => product.EnergeticValue <= searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 default:
                     return products
-                       .Where(product => product.EnergeticValue == searchKey)
+                       .Where(product => product.EnergeticValue == searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
             }
