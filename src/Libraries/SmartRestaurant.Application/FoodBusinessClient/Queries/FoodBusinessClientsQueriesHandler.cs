@@ -5,6 +5,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
 
@@ -12,7 +13,8 @@ using SmartRestaurant.Application.Common.Interfaces;
 namespace SmartRestaurant.Application.FoodBusinessClient.Queries
 {
     public class FoodBusinessClientsQueriesHandler :
-        IRequestHandler<GetFoodBusinesClientListQuery, PagedListDto<FoodBusinessClientDto>>
+        IRequestHandler<GetFoodBusinesClientListQuery, PagedListDto<FoodBusinessClientDto>>,
+        IRequestHandler<GetFoodBusinessClientByIdQuery, FoodBusinessClientDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -34,6 +36,11 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Queries
             var pagedResult = new PagedListDto<FoodBusinessClientDto>(query.CurrentPage, query.PageCount, query.PageSize,
                 query.RowCount, data);
             return pagedResult;
+        }
+        public async Task<FoodBusinessClientDto> Handle(GetFoodBusinessClientByIdQuery request, CancellationToken cancellationToken)
+        {
+            var query = await _context.FoodBusinessClients.FindAsync(request.FoodBusinessClientId).ConfigureAwait(false);
+            return _mapper.Map<FoodBusinessClientDto>(query);
         }
     }
 
