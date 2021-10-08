@@ -13,6 +13,8 @@ namespace SmartRestaurant.Application.Products.Commands
         public IFormFile Picture { get; set; }
         public float Price { get; set; }
         public float EnergeticValue { get; set; }
+        public string FoodBusinessId { get; set; }
+
     }
 
     public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
@@ -35,6 +37,13 @@ namespace SmartRestaurant.Application.Products.Commands
 
             RuleFor(product => product.Description)
                .MaximumLength(500);
+
+            RuleFor(product => product.FoodBusinessId)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEqual(Guid.Empty.ToString())
+                .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID")            
+                .When(product => product.FoodBusinessId != null);
+
         }
     }
 }
