@@ -10,5 +10,8 @@ namespace SmartRestaurant.Domain.Common
         public byte[] Picture { get; set; }
         public float Price { get; set; }
         public float EnergeticValue { get; set; }
+        public Guid? FoodBusinessId { get; set; }
+
+        public FoodBusiness FoodBusiness { get; set; }
     }
 }

@@ -8,7 +8,6 @@ using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Entities;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -36,7 +35,13 @@ namespace SmartRestaurant.Application.Products.Commands
             if (!result.IsValid) throw new ValidationException(result);
 
             var userId = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
-            
+            if (request.FoodBusinessId != null)
+            {
+                var foodBusiness = await _context.FoodBusinesses.AsNoTracking()
+                    .FirstOrDefaultAsync(r => r.FoodBusinessId == Guid.Parse(request.FoodBusinessId), cancellationToken).ConfigureAwait(false);
+                if (foodBusiness == null)
+                    throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
+            }
             var product = _mapper.Map<Product>(request);          
             using (var ms = new MemoryStream())
             {
@@ -62,7 +67,6 @@ namespace SmartRestaurant.Application.Products.Commands
             var product = await _context.Products.AsNoTracking().FirstOrDefaultAsync(r => r.ProductId == Guid.Parse(request.Id), cancellationToken).ConfigureAwait(false);
             if (product == null)
                 throw new NotFoundException(nameof(Product), request.Id);
-
             _mapper.Map(request, product);
             using (var ms = new MemoryStream())
             {

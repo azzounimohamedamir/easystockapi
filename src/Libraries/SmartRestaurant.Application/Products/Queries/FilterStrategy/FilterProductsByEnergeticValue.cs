@@ -2,6 +2,7 @@
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Domain.Entities;
+using System;
 using System.Linq;
 
 namespace SmartRestaurant.Application.Products.Queries.FilterStrategy
@@ -10,7 +11,14 @@ namespace SmartRestaurant.Application.Products.Queries.FilterStrategy
     {      
         public PagedResultBase<Product> FetchData(DbSet<Product> products, GetProductListQuery reques)
         {
-            var searchKey = ChecksHelper.IsFloatNumber(reques.SearchKey) ? float.Parse(reques.SearchKey) : -1;
+            if (!ChecksHelper.IsFloatNumber(reques.SearchKey))
+            {
+                return products
+                    .Where(product => product.EnergeticValue == -1000000)
+                    .GetPaged(reques.Page, reques.PageSize);
+            }
+
+            var searchKey = float.Parse(reques.SearchKey);
             var comparisonOperator = string.IsNullOrWhiteSpace(reques.ComparisonOperator) ? "==" : reques.ComparisonOperator;
             var sortOrder = string.IsNullOrWhiteSpace(reques.SortOrder) ? "acs" : reques.SortOrder;
 
@@ -33,42 +41,42 @@ namespace SmartRestaurant.Application.Products.Queries.FilterStrategy
             {
                 case "==":
                     return products
-                       .Where(product => product.EnergeticValue == searchKey)
+                       .Where(product => product.EnergeticValue == searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case "!=":
                     return products
-                       .Where(product => product.EnergeticValue != searchKey)
+                       .Where(product => product.EnergeticValue != searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case ">":
                     return products
-                   .Where(product => product.EnergeticValue > searchKey)
+                   .Where(product => product.EnergeticValue > searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
                 case ">=":
                     return products
-                       .Where(product => product.EnergeticValue >= searchKey)
+                       .Where(product => product.EnergeticValue >= searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case "<":
                     return products
-                       .Where(product => product.EnergeticValue < searchKey)
+                       .Where(product => product.EnergeticValue < searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case "<=":
                     return products
-                       .Where(product => product.EnergeticValue <= searchKey)
+                       .Where(product => product.EnergeticValue <= searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 default:
                     return products
-                       .Where(product => product.EnergeticValue == searchKey)
+                       .Where(product => product.EnergeticValue == searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderBy(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
             }
@@ -80,42 +88,42 @@ namespace SmartRestaurant.Application.Products.Queries.FilterStrategy
             {
                 case "==":
                     return products
-                       .Where(product => product.EnergeticValue == searchKey)
+                       .Where(product => product.EnergeticValue == searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case "!=":
                     return products
-                       .Where(product => product.EnergeticValue != searchKey)
+                       .Where(product => product.EnergeticValue != searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case ">":
                     return products
-                       .Where(product => product.EnergeticValue > searchKey)
+                       .Where(product => product.EnergeticValue > searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
                 case ">=":
                     return products
-                       .Where(product => product.EnergeticValue >= searchKey)
+                       .Where(product => product.EnergeticValue >= searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case "<":
                     return products
-                       .Where(product => product.EnergeticValue < searchKey)
+                       .Where(product => product.EnergeticValue < searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 case "<=":
                     return products
-                       .Where(product => product.EnergeticValue <= searchKey)
+                       .Where(product => product.EnergeticValue <= searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
 
                 default:
                     return products
-                       .Where(product => product.EnergeticValue == searchKey)
+                       .Where(product => product.EnergeticValue == searchKey && ((reques.FoodBusinessId == null) ? product.FoodBusinessId == null : product.FoodBusinessId == Guid.Parse(reques.FoodBusinessId)))
                        .OrderByDescending(product => product.EnergeticValue)
                        .GetPaged(reques.Page, reques.PageSize);
             }
