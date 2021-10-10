@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 
 namespace SmartRestaurant.Application.FoodBusinessClient.Queries
@@ -16,7 +15,8 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Queries
     public class FoodBusinessClientsQueriesHandler :
         IRequestHandler<GetFoodBusinesClientListQuery, PagedListDto<FoodBusinessClientDto>>,
         IRequestHandler<GetFoodBusinessClientByIdQuery, FoodBusinessClientDto>,
-        IRequestHandler<GetFoodBusinessClientByManagerIdQuery, FoodBusinessClientDto>
+        IRequestHandler<GetFoodBusinessClientByManagerIdQuery, FoodBusinessClientDto>,
+        IRequestHandler<GetFoodBusinessClientByEmailQuery, FoodBusinessClientDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -54,6 +54,18 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Queries
                 throw new InvalidOperationException("FoodBusinessClientManagerId shouldn't be null or  empty");
 
             var query = await _context.FoodBusinessClients.SingleOrDefaultAsync(foodBusinessClient => foodBusinessClient.ManagerId == request.FoodBusinessClientManagerId);
+            return _mapper.Map<FoodBusinessClientDto>(query);
+
+        }
+
+        public async Task<FoodBusinessClientDto> Handle(GetFoodBusinessClientByEmailQuery request,
+           CancellationToken cancellationToken)
+        {
+
+            if (request.Email == string.Empty || string.IsNullOrWhiteSpace(request.Email))
+                throw new InvalidOperationException("FoodBusinessClient Email shouldn't be null or  empty");
+
+            var query = await _context.FoodBusinessClients.SingleAsync(foodBusinessClient => foodBusinessClient.Email == request.Email);
             return _mapper.Map<FoodBusinessClientDto>(query);
 
         }
