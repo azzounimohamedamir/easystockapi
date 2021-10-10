@@ -178,6 +178,7 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<CreateProductCommand, Product>()
                 .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.FoodBusinessId))
                 .ForMember(x => x.Picture, o => o.Ignore());
 
             CreateMap<UpdateProductCommand, Product>()

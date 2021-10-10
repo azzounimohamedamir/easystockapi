@@ -10,5 +10,7 @@ namespace SmartRestaurant.Application.Common.Dtos
         public string Picture { get; set; }
         public float Price { get; set; }
         public float EnergeticValue { get; set; }
+        public string FoodBusinessId { get; set; }
+
     }
 }

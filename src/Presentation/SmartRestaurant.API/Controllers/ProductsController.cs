@@ -93,6 +93,7 @@ namespace SmartRestaurant.API.Controllers
         ///     If the currentFilter is a numeric value, we can applay the following operators on products list:
         ///     <b>==</b> | <b>!=</b> | <b>&#62;</b> | <b>&#62;=</b> | <b>&#60;</b> | <b>&#60;=</b>. Default value is: <b>==</b>
         /// </param>
+        /// <param name="foodBusinessId">If the foodBusinessId is set, we will get products list linked to that foodBusinessId else we will get products list created by SupportAgent.</param>
         /// <param name="page">The start position of read pointer in a request results. Default value is: <b>1</b></param>
         /// <param name="pageSize">The max number of Reservations that should be returned. Default value is: <b>10</b>. Max value is: <b>100</b></param>
         /// <response code="200"> Product details has been successfully fetched.<br></br><b>Note:</b> Picture will be encoded in Base64</response>
@@ -103,7 +104,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
-        public async Task<IActionResult> GetList(string currentFilter, string searchKey, string sortOrder, string comparisonOperator, int page, int pageSize)
+        public async Task<IActionResult> GetList(string currentFilter, string searchKey, string sortOrder, string comparisonOperator, string foodBusinessId, int page, int pageSize)
         {
             var query = new GetProductListQuery
             {
@@ -112,7 +113,8 @@ namespace SmartRestaurant.API.Controllers
                 SortOrder = sortOrder,
                 Page = page,
                 PageSize = pageSize,
-                ComparisonOperator = comparisonOperator
+                ComparisonOperator = comparisonOperator,
+                FoodBusinessId = foodBusinessId
             };
             return await SendWithErrorsHandlingAsync(query);
         }
