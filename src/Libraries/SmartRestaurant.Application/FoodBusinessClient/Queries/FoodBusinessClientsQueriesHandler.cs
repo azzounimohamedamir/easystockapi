@@ -1,18 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 
 namespace SmartRestaurant.Application.FoodBusinessClient.Queries
 {
     public class FoodBusinessClientsQueriesHandler :
-        IRequestHandler<GetFoodBusinesClientListQuery, PagedListDto<FoodBusinessClientDto>>
+        IRequestHandler<GetFoodBusinesClientListQuery, PagedListDto<FoodBusinessClientDto>>,
+        IRequestHandler<GetFoodBusinessClientByIdQuery, FoodBusinessClientDto>,
+        IRequestHandler<GetFoodBusinessClientByManagerIdQuery, FoodBusinessClientDto>,
+        IRequestHandler<GetFoodBusinessClientByEmailQuery, FoodBusinessClientDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -35,8 +40,57 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Queries
                 query.RowCount, data);
             return pagedResult;
         }
+
+        public async Task<FoodBusinessClientDto> Handle(GetFoodBusinessClientByIdQuery request, CancellationToken cancellationToken)
+        {
+            var validator = new GetFoodBusinessClientByIdQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var query = await _context.FoodBusinessClients.FindAsync(Guid.Parse(request.FoodBusinessClientId)).ConfigureAwait(false);
+            if (query == null)
+            {
+                throw new NotFoundException(nameof(FoodBusinessClient), request.FoodBusinessClientId);
+            }
+            return _mapper.Map<FoodBusinessClientDto>(query);
+        }
+
+        public async Task<FoodBusinessClientDto> Handle(GetFoodBusinessClientByManagerIdQuery request,
+           CancellationToken cancellationToken)
+        {
+
+            var validator = new GetFoodBusinessClientByManagerIdQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var query = await _context.FoodBusinessClients.SingleOrDefaultAsync(foodBusinessClient => foodBusinessClient.ManagerId == request.FoodBusinessClientManagerId);
+            if (query == null)
+            {
+                throw new NotFoundException(nameof(FoodBusinessClient), request.FoodBusinessClientManagerId);
+            }
+
+            return _mapper.Map<FoodBusinessClientDto>(query);
+
+        }
+
+        public async Task<FoodBusinessClientDto> Handle(GetFoodBusinessClientByEmailQuery request,
+           CancellationToken cancellationToken)
+        {
+
+            var validator = new GetFoodBusinessClientByEmailQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var query = await _context.FoodBusinessClients.SingleOrDefaultAsync(foodBusinessClient => foodBusinessClient.Email == request.Email);
+            if (query == null)
+            {
+                throw new NotFoundException(nameof(FoodBusinessClient), request.Email);
+            }
+            return _mapper.Map<FoodBusinessClientDto>(query);
+
+        }
     }
 
-    
-    
+
+
 }
