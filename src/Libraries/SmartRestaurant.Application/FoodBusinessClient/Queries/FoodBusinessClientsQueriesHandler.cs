@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
 using System;
@@ -42,18 +43,32 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Queries
 
         public async Task<FoodBusinessClientDto> Handle(GetFoodBusinessClientByIdQuery request, CancellationToken cancellationToken)
         {
-            var query = await _context.FoodBusinessClients.FindAsync(request.FoodBusinessClientId).ConfigureAwait(false);
+            var validator = new GetFoodBusinessClientByIdQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var query = await _context.FoodBusinessClients.FindAsync(Guid.Parse(request.FoodBusinessClientId)).ConfigureAwait(false);
+            if (query == null)
+            {
+                throw new NotFoundException(nameof(FoodBusinessClient), request.FoodBusinessClientId);
+            }
             return _mapper.Map<FoodBusinessClientDto>(query);
         }
 
         public async Task<FoodBusinessClientDto> Handle(GetFoodBusinessClientByManagerIdQuery request,
            CancellationToken cancellationToken)
         {
-          
-            if (request.FoodBusinessClientManagerId == string.Empty || string.IsNullOrWhiteSpace(request.FoodBusinessClientManagerId))
-                throw new InvalidOperationException("FoodBusinessClientManagerId shouldn't be null or  empty");
+
+            var validator = new GetFoodBusinessClientByManagerIdQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
 
             var query = await _context.FoodBusinessClients.SingleOrDefaultAsync(foodBusinessClient => foodBusinessClient.ManagerId == request.FoodBusinessClientManagerId);
+            if (query == null)
+            {
+                throw new NotFoundException(nameof(FoodBusinessClient), request.FoodBusinessClientManagerId);
+            }
+
             return _mapper.Map<FoodBusinessClientDto>(query);
 
         }
@@ -62,15 +77,20 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Queries
            CancellationToken cancellationToken)
         {
 
-            if (request.Email == string.Empty || string.IsNullOrWhiteSpace(request.Email))
-                throw new InvalidOperationException("FoodBusinessClient Email shouldn't be null or  empty");
+            var validator = new GetFoodBusinessClientByEmailQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
 
-            var query = await _context.FoodBusinessClients.SingleAsync(foodBusinessClient => foodBusinessClient.Email == request.Email);
+            var query = await _context.FoodBusinessClients.SingleOrDefaultAsync(foodBusinessClient => foodBusinessClient.Email == request.Email);
+            if (query == null)
+            {
+                throw new NotFoundException(nameof(FoodBusinessClient), request.Email);
+            }
             return _mapper.Map<FoodBusinessClientDto>(query);
 
         }
     }
 
-    
-    
+
+
 }
