@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Common.Extensions;
@@ -128,13 +129,21 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ReverseMap();
             
              
-            CreateMap<Ingredient, CreateIngredientCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.IngredientId))
-                .ReverseMap();
-            CreateMap<Ingredient, UpdateIngredientCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.IngredientId))
-                .ReverseMap();
-            CreateMap<IngredientDto, Ingredient>().ReverseMap();
+            CreateMap<CreateIngredientCommand, Ingredient>()
+                .ForMember(x => x.IngredientId, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.Names, o => o.MapFrom(p => p.Names))
+                .ForMember(x => x.Picture, o => o.Ignore());
+
+
+            CreateMap< UpdateIngredientCommand, Ingredient>()
+                .ForMember(x => x.IngredientId, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.Names, o => o.MapFrom(p => p.Names))
+                .ForMember(x => x.Picture, o => o.Ignore());
+
+            CreateMap<Ingredient, IngredientDto>()
+                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)))
+                .ForMember(x => x.Names, o => o.MapFrom(p => JsonConvert.DeserializeObject<List<IngredientNameDto>>(p.Names)));
+
             CreateMap<PagedResultBase<Ingredient>, PagedListDto<IngredientDto>>().ReverseMap();
 
             CreateMap<Dish, CreateDishCommand>()
