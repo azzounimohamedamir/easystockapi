@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Ingredients.Commands;
-using SmartRestaurant.Application.Products.Commands;
 using SmartRestaurant.Application.Tests.Configuration;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
