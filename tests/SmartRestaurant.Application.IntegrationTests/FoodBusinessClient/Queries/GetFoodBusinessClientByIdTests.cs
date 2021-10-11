@@ -16,9 +16,9 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Querie
             await RolesTestTools.CreateRoles();
             var foodBusinessClientManager = await UsersTestTools.CreateFoodBusinessClientManager();
             var fastFood = await FoodBusinessClientTestTools.CreateFoodBusinessClient(foodBusinessClientManager.Id);
-            var query = new GetFoodBusinessClientByIdQuery 
-            { 
-                FoodBusinessClientId = fastFood.FoodBusinessClientId 
+            var query = new GetFoodBusinessClientByIdQuery
+            {
+                FoodBusinessClientId = fastFood.FoodBusinessClientId.ToString()
             };
             var result = await SendAsync(query);
             result.Name.Should().Be("G22 REI");
