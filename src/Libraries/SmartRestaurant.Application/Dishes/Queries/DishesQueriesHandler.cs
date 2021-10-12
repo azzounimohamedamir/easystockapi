@@ -84,7 +84,7 @@ namespace SmartRestaurant.Application.Dishes.Queries
                 ingredient => ingredient.IngredientId, (dishIngredient, ingredient) => new DishIngredientDto
                 {
                     DishIngredientId = dishIngredient.DishIngredientId,
-                    IngredientName = ingredient.Name,
+                    IngredientName = ingredient.Names,
                     Quantity = _mapper.Map<QuantityDto>(dishIngredient.Quantity),
                     IsPrimary = dishIngredient.IsPrimary,
                     AmountPerStep = _mapper.Map<QuantityDto>(dishIngredient.AmountPerStep),
@@ -136,17 +136,17 @@ namespace SmartRestaurant.Application.Dishes.Queries
 
         private void CalculateTotal(Guid foodBusinessId, DishDto dish)
         {
-            var ingredients = _context.Ingredients.Where(i => i.FoodBusinessId == foodBusinessId).ToList();
+            //var ingredients = _context.Ingredients.Where(i => i.FoodBusinessId == foodBusinessId).ToList();
 
-            foreach (var ingredient in dish.DishIngredients.Select(dishIngredient =>
-                ingredients.FirstOrDefault(i => i.IngredientId == dishIngredient.IngredientId)))
-            {
-                if (ingredient == null) continue;
-                dish.TotalFat += ingredient.Fat;
-                dish.TotalCarbs += ingredient.Carbs;
-                dish.TotalProtein += ingredient.Protein;
-                dish.TotalEnergy += ingredient.Energy;
-            }
+            //foreach (var ingredient in dish.DishIngredients.Select(dishIngredient =>
+            //    ingredients.FirstOrDefault(i => i.IngredientId == dishIngredient.IngredientId)))
+            //{
+            //    if (ingredient == null) continue;
+            //    dish.TotalFat += ingredient.Fat;
+            //    dish.TotalCarbs += ingredient.Carbs;
+            //    dish.TotalProtein += ingredient.Protein;
+            //    dish.TotalEnergy += ingredient.Energy;
+            //}
         }
 
         private PriceDto MapPrice(Dish dish, CurrencyDto currency)
