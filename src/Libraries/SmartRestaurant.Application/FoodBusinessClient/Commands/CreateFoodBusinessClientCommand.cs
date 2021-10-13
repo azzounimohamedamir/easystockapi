@@ -68,6 +68,12 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
             RuleFor(foodBusinessClient => foodBusinessClient.Website)
                 .Must(ValidatorHelper.ValidateUrl).WithMessage("'{PropertyName}: {PropertyValue}' is invalide")
                 .When(foodBusiness => !String.IsNullOrWhiteSpace(foodBusiness.Website));
+
+            RuleFor(foodBusinessClient => foodBusinessClient.FoodBusinessId)
+             .Cascade(CascadeMode.StopOnFirstFailure)
+             .NotEmpty()
+             .NotEqual(Guid.Empty.ToString())
+             .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID");
         }
     }
 }

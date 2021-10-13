@@ -1,10 +1,10 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.FoodBusinessClient.Commands;
 using SmartRestaurant.Application.Tests.Configuration;
 using SmartRestaurant.Domain.ValueObjects;
+using System;
 using Xunit;
 
 namespace SmartRestaurant.Application.Tests.MappingTests
@@ -23,6 +23,8 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         [Fact]
         public void Map_CreateFoodBusinessClientCommand_To_FoodBusinessClient_Valide_Test()
         {
+            var foodBusinessId = Guid.NewGuid();
+            
             var createFoodBusinessClientCommand = new CreateFoodBusinessClientCommand
             {
                 Address = new AddressDto
@@ -41,7 +43,8 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                 Email = "test@g22.com",
                 Website = "",
-                ManagerId = Guid.NewGuid().ToString()
+                ManagerId = Guid.NewGuid().ToString(),
+                FoodBusinessId = foodBusinessId.ToString()
             };
 
             var validationResult = _createFoodBusinessClientValidator.Validate(createFoodBusinessClientCommand);
@@ -61,6 +64,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(foodBusinessClient.Email, createFoodBusinessClientCommand.Email);
             Assert.Equal(foodBusinessClient.Website, createFoodBusinessClientCommand.Website);
             Assert.Equal(foodBusinessClient.ManagerId, createFoodBusinessClientCommand.ManagerId);
+            Assert.Equal(foodBusinessClient.FoodBusinessId.ToString(), createFoodBusinessClientCommand.FoodBusinessId);
         }
 
         [Fact]
