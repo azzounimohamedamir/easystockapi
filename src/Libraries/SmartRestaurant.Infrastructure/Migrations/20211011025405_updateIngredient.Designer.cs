@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211011025405_updateIngredient")]
+    partial class updateIngredient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,9 +275,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("FoodBusinessId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("LastModifiedAt")
                         .HasColumnType("datetime2");
 
@@ -302,8 +301,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.HasKey("FoodBusinessClientId");
 
-                    b.HasIndex("FoodBusinessId");
-
                     b.ToTable("FoodBusinessClients");
 
                     b.HasData(
@@ -312,7 +309,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             FoodBusinessClientId = new Guid("e6f980ba-c381-4319-8b62-da017e116692"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "SONATRACH est la première entreprise du continent africain. Une société intégrée de l'Amont à l'Aval pétrolier et gazier et un Groupe internationale.",
-                            FoodBusinessId = new Guid("00000000-0000-0000-0000-000000000000"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ManagerId = "a3dbd500-eab0-4233-86fd-7f1a4195f9a9",
                             NIF = 0,
@@ -326,7 +322,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             FoodBusinessClientId = new Guid("1eb2b784-074d-4be4-afb7-9708331c0c63"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Cevital is a family-run Group whose success and reputation are rooted in its history, its track record and its values.",
-                            FoodBusinessId = new Guid("00000000-0000-0000-0000-000000000000"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ManagerId = "ba89dc5f-dfd1-4c87-9372-233c611cc756",
                             NIF = 0,
@@ -1643,12 +1638,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.FoodBusinessClient", b =>
                 {
-                    b.HasOne("SmartRestaurant.Domain.Entities.FoodBusiness", "FoodBusiness")
-                        .WithMany()
-                        .HasForeignKey("FoodBusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Address", "Address", b1 =>
                         {
                             b1.Property<Guid>("FoodBusinessClientId")

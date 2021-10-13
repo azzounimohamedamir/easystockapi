@@ -51,11 +51,11 @@ namespace SmartRestaurant.Application.DishIngredients.Commands
 
         private static void IngredientQuantityCheck(CreateDishIngredientCommand request, Ingredient ingredient)
         {
-            if (request.Quantity.MeasurementUnit != ingredient.MaxQuantity.MeasurementUnits.ToString()) return;
-            if (request.Quantity.Amount > ingredient.MaxQuantity.Amount)
-                throw new QuantityNotAllowedException(ingredient.Name, request.Quantity.Amount,
-                    ingredient.MaxQuantity.Amount,
-                    request.Quantity.MeasurementUnit);
+            //if (request.Quantity.MeasurementUnit != ingredient.MaxQuantity.MeasurementUnits.ToString()) return;
+            //if (request.Quantity.Amount > ingredient.MaxQuantity.Amount)
+            //    throw new QuantityNotAllowedException(ingredient.Name, request.Quantity.Amount,
+            //        ingredient.MaxQuantity.Amount,
+            //        request.Quantity.MeasurementUnit);
         }
     }
 }
