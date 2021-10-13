@@ -7,6 +7,7 @@ using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,7 +18,8 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Queries
         IRequestHandler<GetFoodBusinesClientListQuery, PagedListDto<FoodBusinessClientDto>>,
         IRequestHandler<GetFoodBusinessClientByIdQuery, FoodBusinessClientDto>,
         IRequestHandler<GetFoodBusinessClientByManagerIdQuery, FoodBusinessClientDto>,
-        IRequestHandler<GetFoodBusinessClientByEmailQuery, FoodBusinessClientDto>
+        IRequestHandler<GetFoodBusinessClientByEmailQuery, FoodBusinessClientDto>,
+        IRequestHandler<GetFoodBusinesClientListByFoodBusinessIdQuery, IEnumerable<FoodBusinessClientDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -88,6 +90,15 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Queries
             }
             return _mapper.Map<FoodBusinessClientDto>(query);
 
+        }
+
+        public async Task<IEnumerable<FoodBusinessClientDto>> Handle(GetFoodBusinesClientListByFoodBusinessIdQuery request, CancellationToken cancellationToken)
+        {
+            var query = await _context.FoodBusinessClients
+                .Where(x => x.FoodBusinessId == request.FoodBusinessId)
+                .ToArrayAsync(cancellationToken)
+                .ConfigureAwait(false);
+            return _mapper.Map<List<FoodBusinessClientDto>>(query);
         }
     }
 
