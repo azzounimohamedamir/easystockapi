@@ -25,26 +25,27 @@ namespace SmartRestaurant.Application.DishIngredients.Queries
         public async Task<List<DishIngredientDto>> Handle(GetDishIngredientsByDishIdQuery request,
             CancellationToken cancellationToken)
         {
-            var dish = await _context.Dishes.FindAsync(request.DishId);
+            //var dish = await _context.Dishes.FindAsync(request.DishId);
 
-            var dishIngredients = await _context.DishIngredients
-                .Where(di => di.DishId == request.DishId)
-                .ToListAsync(cancellationToken);
+            //var dishIngredients = await _context.DishIngredients
+            //    .Where(di => di.DishId == request.DishId)
+            //    .ToListAsync(cancellationToken);
 
-            var ingredients = await _context.Ingredients
-                .Where(i => i.FoodBusinessId == dish.FoodBusinessId)
-                .ToListAsync(cancellationToken);
+            //var ingredients = await _context.Ingredients
+            //    .Where(i => i.FoodBusinessId == dish.FoodBusinessId)
+            //    .ToListAsync(cancellationToken);
 
-            var dishIngredientsDto = _mapper.Map<List<DishIngredientDto>>(dishIngredients);
+            //var dishIngredientsDto = _mapper.Map<List<DishIngredientDto>>(dishIngredients);
 
-            for (var i = 0; i < dishIngredients.Count; i++)
-            {
-                var ingredientId = dishIngredientsDto[i].IngredientId;
-                dishIngredientsDto[i].IngredientName =
-                    ingredients.First(ingredient => ingredient.IngredientId == ingredientId).Name;
-            }
+            //for (var i = 0; i < dishIngredients.Count; i++)
+            //{
+            //    var ingredientId = dishIngredientsDto[i].IngredientId;
+            //    dishIngredientsDto[i].IngredientName =
+            //        ingredients.First(ingredient => ingredient.IngredientId == ingredientId).Name;
+            //}
 
-            return dishIngredientsDto;
+            //return dishIngredientsDto;
+            return default;
         }
     }
 }

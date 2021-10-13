@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Identity.Enums;
 
@@ -119,6 +121,52 @@ namespace SmartRestaurant.Application.Common.Tools
                 $"|{UploadImagesEntities.Menu}" +
                 $"|{UploadImagesEntities.SubSection})$";
             return new Regex(regex).Match(role).Success;
+        }
+
+
+        public static bool ValidateJsonSchemaForIngredientNames(string data)
+        {
+            try
+            {
+                dynamic jsonObject = JsonConvert.DeserializeObject<dynamic>(data);
+                if (jsonObject == null || ((JArray)jsonObject).Count == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    foreach (var obj in jsonObject)
+                    {
+                        string name = obj.name;
+                        string language = obj.language;
+                        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(language))
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public static bool IngredientNamesHasArabicLanguage(string data)
+        {
+            return data.Contains("\"ar\"") || data.Contains("'ar'");
+        }
+
+        public static bool IngredientNamesHasFrenchLanguage(string data)
+        {
+
+            return data.Contains("\"fr\"") || data.Contains("'fr'");
+        }
+
+        public static bool IngredientNamesHasEnglishLanguage(string data)
+        {
+            return data.Contains("\"en\"") || data.Contains("'en'");
         }
     }
 }
