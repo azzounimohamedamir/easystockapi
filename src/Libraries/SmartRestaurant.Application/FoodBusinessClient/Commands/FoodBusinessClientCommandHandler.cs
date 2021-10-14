@@ -53,7 +53,7 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
                .ConfigureAwait(false);
 
             if (foodBusinessClient != null)
-                throw new InvalidOperationException("Duplicate names are not allowed");
+                throw new ConflictException("Duplicate Emails are not allowed");
 
 
             var entity = _mapper.Map<Domain.Entities.FoodBusinessClient>(request);
