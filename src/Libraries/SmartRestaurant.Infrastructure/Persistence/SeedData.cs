@@ -863,6 +863,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     Description = "SONATRACH est la première entreprise du continent africain. Une société intégrée de l'Amont à l'Aval pétrolier et gazier et un Groupe internationale.",
                     Website = "https://sonatrach.com/",
                     ManagerId = Sonatrach_UserId,
+                    FoodBusinessId = Guid.Parse(TajMhal_FoodBusinessId)
                 },
                 #endregion
                 #region Create CEVITAL Entreprise
@@ -873,6 +874,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     Description = "Cevital is a family-run Group whose success and reputation are rooted in its history, its track record and its values.",
                     Website = "https://cevital.com/",
                     ManagerId = CEVITAL_UserId,
+                    FoodBusinessId = Guid.Parse(BigMama_FoodBusinessId)
                 }
                 #endregion
             );
