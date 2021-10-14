@@ -135,5 +135,30 @@ namespace SmartRestaurant.API.Controllers
         {
             return SendWithErrorsHandlingAsync(new GetFoodBusinessClientByEmailQuery { Email = email });
         }
+
+        /// <summary> This endpoint is used to delete a FoodBusinessClient </summary>
+        /// <remarks>
+        ///     1- This endpoint allows <b>Client</b> to delete FoodBusinessClient created by him.
+        ///     <br></br>
+        ///     2- This endpoint allows <b>foodBusinessClientManager</b> to delete FoodBusinessClient.
+        /// </remarks>
+        /// <param name="id">Id of foodBusinessClient which we want to delete</param>
+        /// <response code="200">The FoodBusinessClient has been successfully deleted.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to delete a FoodBusinessClient is invalid.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            return await SendWithErrorsHandlingAsync(new DeleteFoodBusinessClientCommand { Id = id });
+        }
     }
 }
