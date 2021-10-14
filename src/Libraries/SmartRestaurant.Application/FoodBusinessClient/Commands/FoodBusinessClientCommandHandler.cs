@@ -16,7 +16,9 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
     public class FoodBusinessClientCommandHandler :
         IRequestHandler<CreateFoodBusinessClientCommand, Created>,
         IRequestHandler<UpdateFoodBusinessClientCommand, NoContent>,
-        IRequestHandler<DeleteFoodBusinessClientCommand, NoContent>
+        IRequestHandler<DeleteFoodBusinessClientCommand, NoContent>,
+        IRequestHandler<ArchiveFoodBusinessClientCommand, NoContent>
+
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -78,6 +80,24 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
             _context.FoodBusinessClients.Remove(entity);
             await _context.SaveChangesAsync(cancellationToken);
 
+            return default;
+        }
+        public async Task<NoContent> Handle(ArchiveFoodBusinessClientCommand request,
+          CancellationToken cancellationToken)
+        {
+            var validator = new ArchiveFoodBusinessClientCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var FoodBusinessClients = await _context.FoodBusinessClients.AsNoTracking()
+                .FirstOrDefaultAsync(FoodBusinessClients => FoodBusinessClients.FoodBusinessClientId == request.Id, cancellationToken)
+                .ConfigureAwait(false);
+            if (FoodBusinessClients == null)
+                throw new NotFoundException(nameof(FoodBusinessClient), request.Id);
+
+            _mapper.Map(request, FoodBusinessClients);
+            _context.FoodBusinessClients.Update(FoodBusinessClients);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
     }

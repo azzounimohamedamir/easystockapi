@@ -160,5 +160,15 @@ namespace SmartRestaurant.API.Controllers
         {
             return await SendWithErrorsHandlingAsync(new DeleteFoodBusinessClientCommand { Id = id });
         }
+
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("archive/{id:Guid}")]
+        [HttpPut]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
+        public async Task<IActionResult> Archive([FromRoute] Guid id, ArchiveFoodBusinessClientCommand command)
+        {
+            command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
+        }
     }
 }
