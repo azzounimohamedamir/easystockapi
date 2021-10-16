@@ -18,6 +18,8 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
             await RolesTestTools.CreateRoles();
             var foodBusinessClientManager = await UsersTestTools.CreateFoodBusinessClientManager();
             var foodBusinessClient = await FoodBusinessClientTestTools.CreateFoodBusinessClient(foodBusinessClientManager.Id);
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
             await Task.Delay(0).ContinueWith(async t =>
             {
@@ -40,6 +42,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                     Email = "test@g22.com",
                     Website = "",
                     ManagerId = foodBusinessClient.ManagerId,
+                    FoodBusinessId = fastFood.FoodBusinessId.ToString()
                 };
                 await SendAsync(createFoodBusinessClientCommand);
                 var list = await FindAsync<Domain.Entities.FoodBusinessClient>(foodBusinessClient.FoodBusinessClientId);
@@ -62,7 +65,8 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                     PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 672217426 },
                     Email = "testUpdate@g22.com",
                     Website = "http://g22rei.com",
-                    ManagerId = foodBusinessClient.ManagerId
+                    ManagerId = foodBusinessClient.ManagerId,
+                    FoodBusinessId = fastFood.FoodBusinessId.ToString()
                 };
 
                 await SendAsync(updateFoodBusinessClientCommand);
@@ -76,6 +80,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                 updatesList.Email.Should().Be(updateFoodBusinessClientCommand.Email);
                 updatesList.Website.Should().Be(updateFoodBusinessClientCommand.Website);
                 updatesList.ManagerId.Should().Be(updateFoodBusinessClientCommand.ManagerId);
+                updatesList.FoodBusinessId.Should().Be(updateFoodBusinessClientCommand.FoodBusinessId);
             });
         }
     }
