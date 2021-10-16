@@ -9,6 +9,8 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
     {
         public static async Task<Domain.Entities.FoodBusinessClient> CreateFoodBusinessClient(string foodBusinessClientManagerId)
         {
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
             var createFoodBusinessClientCommand = new CreateFoodBusinessClientCommand
             {
                 Address = new AddressDto
@@ -27,15 +29,18 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                 Email = "test@g22.com",
                 Website = "",
-                ManagerId = foodBusinessClientManagerId
+                ManagerId = foodBusinessClientManagerId,
+                FoodBusinessId = fastFood.FoodBusinessId.ToString()
             };
             await SendAsync(createFoodBusinessClientCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusinessClient>(createFoodBusinessClientCommand.Id);
-            return fastFood;
+            var foodBusinessClient = await FindAsync<Domain.Entities.FoodBusinessClient>(createFoodBusinessClientCommand.Id);
+            return foodBusinessClient;
         }
 
         public static async Task<Domain.Entities.FoodBusinessClient> CreateFoodBusinessClient(string foodBusinessClientManagerId, string foodBusinessClientName)
         {
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
             var createFoodBusinessClientCommand = new CreateFoodBusinessClientCommand
             {
                 Address = new AddressDto
@@ -54,7 +59,8 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                 Email = "test@g22.com",
                 Website = "",
-                ManagerId = foodBusinessClientManagerId
+                ManagerId = foodBusinessClientManagerId,
+                FoodBusinessId = fastFood.FoodBusinessId.ToString()
             };
             await SendAsync(createFoodBusinessClientCommand);
             var foodBusinessClient = await FindAsync<Domain.Entities.FoodBusinessClient>(createFoodBusinessClientCommand.Id);

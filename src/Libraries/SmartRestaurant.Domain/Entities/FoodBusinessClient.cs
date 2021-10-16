@@ -8,5 +8,7 @@ namespace SmartRestaurant.Domain.Entities
         public Guid FoodBusinessClientId { get; set; }
         public string ManagerId { get; set; }
         public Boolean Archived { get; set; }
+        public Guid FoodBusinessId { get; set; }
+        public FoodBusiness FoodBusiness { get; set; }
     }
 }

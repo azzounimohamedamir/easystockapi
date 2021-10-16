@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -40,6 +41,23 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
             var user = await _userManager.FindByIdAsync(request.ManagerId).ConfigureAwait(false);
             if (user == null)
                 throw new NotFoundException(nameof(ApplicationUser), request.ManagerId);
+            var foodBusiness = await _context.FoodBusinesses
+               .Where(x => x.FoodBusinessId == Guid.Parse(request.FoodBusinessId))
+               .Select(x => x.FoodBusinessId)
+               .FirstOrDefaultAsync(cancellationToken)
+               .ConfigureAwait(false);
+            if (foodBusiness == Guid.Empty)
+                throw new NotFoundException(nameof(Domain.Entities.FoodBusiness), request.FoodBusinessId);
+
+            var foodBusinessClient = await _context.FoodBusinessClients
+               .FirstOrDefaultAsync(
+                   x => x.Email == request.Email && x.FoodBusinessId.ToString() == request.FoodBusinessId,
+                   cancellationToken)
+               .ConfigureAwait(false);
+
+            if (foodBusinessClient != null)
+                throw new ConflictException("Duplicate Emails are not allowed");
+
 
             var entity = _mapper.Map<Domain.Entities.FoodBusinessClient>(request);
             _context.FoodBusinessClients.Add(entity);

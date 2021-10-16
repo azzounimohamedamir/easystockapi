@@ -81,7 +81,7 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Queries
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var query = await _context.FoodBusinessClients.SingleOrDefaultAsync(foodBusinessClient => foodBusinessClient.Email == request.Email);
+            var query = await _context.FoodBusinessClients.FirstOrDefaultAsync(foodBusinessClient => foodBusinessClient.Email == request.Email);
             if (query == null)
             {
                 throw new NotFoundException(nameof(FoodBusinessClient), request.Email);

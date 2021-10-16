@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.FoodBusinessClient.Commands;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
-using SmartRestaurant.Domain.Enums;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Commands
 {
@@ -20,6 +17,8 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
         {
             await RolesTestTools.CreateRoles();
             var foodBusinessClientManager = await UsersTestTools.CreateFoodBusinessClientManager();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
             var createFoodBusinessClientCommand = new CreateFoodBusinessClientCommand
             {
@@ -39,7 +38,8 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                 PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                 Email = "test@g22rei.com",
                 Website = "http://g22rei.com",
-                ManagerId = foodBusinessClientManager.Id
+                ManagerId = foodBusinessClientManager.Id,
+                FoodBusinessId = fastFood.FoodBusinessId.ToString()
             };
 
 
@@ -51,6 +51,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
             item.FoodBusinessClientId.Should().Be(createFoodBusinessClientCommand.Id);
             item.Name.Should().BeEquivalentTo(createFoodBusinessClientCommand.Name);
             item.Address.Should().BeEquivalentTo(createFoodBusinessClientCommand.Address);
+            item.FoodBusinessId.Should().Be(fastFood.FoodBusinessId);
         }
     }
 }
