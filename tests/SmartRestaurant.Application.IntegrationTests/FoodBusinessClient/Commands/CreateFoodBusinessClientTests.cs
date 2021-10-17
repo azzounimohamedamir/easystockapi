@@ -39,7 +39,8 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                 Email = "test@g22rei.com",
                 Website = "http://g22rei.com",
                 ManagerId = foodBusinessClientManager.Id,
-                FoodBusinessId = fastFood.FoodBusinessId.ToString()
+                FoodBusinessId = fastFood.FoodBusinessId.ToString(),
+                Archived = false
             };
 
 
