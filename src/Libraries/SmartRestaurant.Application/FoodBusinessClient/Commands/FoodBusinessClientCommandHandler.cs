@@ -107,14 +107,14 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var FoodBusinessClients = await _context.FoodBusinessClients.AsNoTracking()
-                .FirstOrDefaultAsync(FoodBusinessClients => FoodBusinessClients.FoodBusinessClientId == request.Id, cancellationToken)
+            var foodBusinessClient = await _context.FoodBusinessClients.AsNoTracking()
+                .FirstOrDefaultAsync(FoodBusinessClients => FoodBusinessClients.FoodBusinessClientId.ToString() == request.Id, cancellationToken)
                 .ConfigureAwait(false);
-            if (FoodBusinessClients == null)
+            if (foodBusinessClient == null)
                 throw new NotFoundException(nameof(FoodBusinessClient), request.Id);
 
-            _mapper.Map(request, FoodBusinessClients);
-            _context.FoodBusinessClients.Update(FoodBusinessClients);
+            foodBusinessClient.Archived = request.Archived;
+            _context.FoodBusinessClients.Update(foodBusinessClient);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
