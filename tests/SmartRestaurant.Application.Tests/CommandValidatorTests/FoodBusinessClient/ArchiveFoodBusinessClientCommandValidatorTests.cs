@@ -40,6 +40,13 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusinessCl
             var validEntry = true;
             _validator.ShouldNotHaveValidationErrorFor(updateFoodBusinessClientCommand => updateFoodBusinessClientCommand.Archived, validEntry);
         }
-        
+
+        [Fact]
+        public void Given_UnarchivedIsValid_WhenValidating_ShouldBeValidated()
+        {
+            var validEntry = false;
+            _validator.ShouldNotHaveValidationErrorFor(updateFoodBusinessClientCommand => updateFoodBusinessClientCommand.Archived, validEntry);
+        }
+
     }
 }

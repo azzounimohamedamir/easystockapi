@@ -23,9 +23,7 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
                 .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID");
 
             RuleFor(v => v.Archived).Cascade(CascadeMode.StopOnFirstFailure)
-               .NotNull()
-               .NotEmpty()
-               .Equals(Boolean.TrueString);
+               .NotNull();
         }
     }
 }
