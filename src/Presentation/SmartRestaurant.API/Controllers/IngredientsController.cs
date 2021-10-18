@@ -64,7 +64,7 @@ namespace SmartRestaurant.API.Controllers
         /// <summary> CreateNewIngredient() </summary>
         /// <remarks>
         ///     This endpoint allows <b>Support Agent</b> to create a new ingredient.<br></br>
-        ///     <b>Note 01:</b> This is the enum used to set ingredient measurement unit: <b> enum MeasurementUnits { Gramme, KiloGramme, MilliLiter, Liter }</b><br></br>
+        ///     <b>Note 01:</b> This is the enum used to set ingredient measurement unit: <b> enum MeasurementUnits { Gramme, KiloGramme, MilliLiter, Liter, Unit }</b><br></br>
         ///     <b>Note 02:</b> Ingredient names must be in the format of Json string. 
         ///     <b>Example:</b> [{"name":"Black pepper","language":"en"},{"name":"الفلفل الاسود","language":"ar"},{"name":"Le poivre noir","language":"fr"}]   
         /// </remarks>
@@ -85,7 +85,7 @@ namespace SmartRestaurant.API.Controllers
         /// <summary> UpdateIngredient() </summary>
         /// <remarks>
         ///     This endpoint allows <b>Support Agent</b> to update ingredient.<br></br>
-        ///     <b>Note 01:</b> This is the enum used to set ingredient measurement unit: <b> enum MeasurementUnits { Gramme, KiloGramme, MilliLiter, Liter }</b><br></br>
+        ///     <b>Note 01:</b> This is the enum used to set ingredient measurement unit: <b> enum MeasurementUnits { Gramme, KiloGramme, MilliLiter, Liter, Unit }</b><br></br>
         ///     <b>Note 02:</b> Ingredient names must be in the format of Json string. 
         ///     <b>Example:</b> [{"name":"Black pepper","language":"en"},{"name":"الفلفل الاسود","language":"ar"},{"name":"Le poivre noir","language":"fr"}]   
         /// </remarks>
