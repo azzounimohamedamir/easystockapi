@@ -18,6 +18,7 @@ namespace SmartRestaurant.Application.Common.Dtos
         public PhoneNumberDto PhoneNumber { get; set; }
         public string Website { get; set; }
         public string ManagerId { get; set; }
+        public Guid FoodBusinessId { get; set; }
         public Boolean Archived { get; set; }
     }
 }
