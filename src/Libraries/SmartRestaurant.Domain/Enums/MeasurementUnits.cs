@@ -5,6 +5,7 @@ namespace SmartRestaurant.Domain.Enums
         Gramme,
         KiloGramme,
         MilliLiter,
-        Liter
+        Liter,
+        Unit
     }
 }

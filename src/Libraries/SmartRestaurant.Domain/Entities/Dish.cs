@@ -1,19 +1,23 @@
 using System;
+using System.Collections.Generic;
 using SmartRestaurant.Domain.Common;
-using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Domain.Entities
 {
-    public class Dish : AuditableEntity
+    public class Dish : MenuItem
     {
-        public Guid DishId { get; set; }
-        public string Name { get; set; }
-        public bool IsSupplement { get; set; }
-        public Duration AveragePreparationTime { get; set; }
-        public float PriceAmount { get; set; }
+        public Dish()
+        {
+            Supplements = new List<DishSupplement>();
+            Ingredients = new List<DishIngredient>();
+            Specifications = new List<DishSpecification>();
+        }
 
-        public Guid? MenuId { get; set; }
-        public Guid? SectionId { get; set; }
-        public Guid FoodBusinessId { get; set; }
+        public Guid DishId { get; set; }
+        public virtual IList<DishSpecification> Specifications { get; set; }
+        public virtual IList<DishIngredient> Ingredients { get; set; }
+        public virtual IList<DishSupplement> Supplements { get; set; }
+        public bool IsSupplement { get; set; }
+        public int EstimatedPreparationTime { get; set; }        
     }
 }
