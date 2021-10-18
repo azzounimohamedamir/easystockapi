@@ -94,8 +94,12 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Queries
 
         public async Task<IEnumerable<FoodBusinessClientDto>> Handle(GetFoodBusinesClientListByFoodBusinessIdQuery request, CancellationToken cancellationToken)
         {
+            var validator = new GetFoodBusinesClientListByFoodBusinessIdQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
             var query = await _context.FoodBusinessClients
-                .Where(x => x.FoodBusinessId == request.FoodBusinessId)
+                .Where(x => x.FoodBusinessId == Guid.Parse(request.FoodBusinessId))
                 .ToArrayAsync(cancellationToken)
                 .ConfigureAwait(false);
             return _mapper.Map<List<FoodBusinessClientDto>>(query);
