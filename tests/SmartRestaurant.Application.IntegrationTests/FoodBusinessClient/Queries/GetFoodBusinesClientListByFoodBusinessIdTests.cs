@@ -48,7 +48,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Querie
                 });
             }
 
-            var query = new GetFoodBusinesClientListByFoodBusinessIdQuery { FoodBusinessId = fastFood.FoodBusinessId };
+            var query = new GetFoodBusinesClientListByFoodBusinessIdQuery { FoodBusinessId = fastFood.FoodBusinessId.ToString() };
 
             var result = await SendAsync(query);
 
