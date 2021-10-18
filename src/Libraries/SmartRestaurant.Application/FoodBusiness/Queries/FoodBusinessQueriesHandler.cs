@@ -8,9 +8,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
-using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
+using SmartRestaurant.Application.FoodBusiness.Queries.FilterStrategy;
 
 namespace SmartRestaurant.Application.FoodBusiness.Queries
 {
@@ -91,16 +91,16 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
         public async Task<PagedListDto<FoodBusinessDto>> Handle(GetFoodBusinessListQuery request,
             CancellationToken cancellationToken)
         {
-            var result = _applicationDbContext.FoodBusinesses.GetPaged(request.Page, request.PageSize);
-            var data = _mapper.Map<List<FoodBusinessDto>>(await result.Data.ToListAsync(cancellationToken)
-                .ConfigureAwait(false));
+            var validator = new GetFoodBusinessListQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
 
-            foreach (var foodBusinessDto in data)
-                await GetFoodBusinessImagesAsync(foodBusinessDto, cancellationToken).ConfigureAwait(false);
+            var filter = FoodBusinessStrategies.GetFilterStrategy(request.CurrentFilter);
+            var query = filter.FetchData(_applicationDbContext.FoodBusinesses, request);
 
-            var pagedResult = new PagedListDto<FoodBusinessDto>(result.CurrentPage, result.PageCount, result.PageSize,
-                result.RowCount, data);
-            return pagedResult;
+            var data = _mapper.Map<List<FoodBusinessDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
+
+            return new PagedListDto<FoodBusinessDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
 
         async Task<FoodBusinessDto> IRequestHandler<GetFourDigitCodeFoodBusinessByIdQuery, FoodBusinessDto>.Handle(
