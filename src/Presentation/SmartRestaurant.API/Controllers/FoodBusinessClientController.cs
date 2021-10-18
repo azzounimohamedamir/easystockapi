@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,21 +16,40 @@ namespace SmartRestaurant.API.Controllers
     [ApiController]
     public class FoodBusinessClientController : ApiController
     {
+        /// <summary> This endpoint is used to create a FoodBusinessClient </summary>
+        /// <remarks>
+        ///     1- This endpoint allows <b>Client</b> to create FoodBusinessClient created by him.
+        ///     <br></br>
+        ///     2- This endpoint allows <b>foodBusinessClientManager</b> to create FoodBusinessClient.
+        /// </remarks>
+        /// <param name="command">This is Json object user create FoodBusinessClient</param>
+        /// <response code="204">The FoodBusinessClient has been successfully created.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to create a FoodBusinessClient is invalid.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
         public async Task<IActionResult> Create(CreateFoodBusinessClientCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }
+
         /// <summary> This endpoint is used to update a FoodBusinessClient </summary>
         /// <remarks>
         ///     1- This endpoint allows <b>Client</b> to update FoodBusinessClient created by him.
         ///     <br></br>
         ///     2- This endpoint allows <b>foodBusinessClientManager</b> to update FoodBusinessClient.
         /// </remarks>
-        /// <param name="command">This is Json object user update reservation</param>
+        /// <param name="command">This is Json object user update FoodBusinessClient</param>
         /// <param name="id">Id of foodBusinessClient which we want to Update</param>
-        /// <response code="200">The FoodBusinessClient has been successfully updated.</response>
+        /// <response code="204">The FoodBusinessClient has been successfully updated.</response>
         /// <response code="400">The payload data sent to the backend-server in order to update a FoodBusinessClient is invalid.</response>
         /// <response code="401">
         ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
@@ -48,6 +68,7 @@ namespace SmartRestaurant.API.Controllers
             command.Id = id;
             return await SendWithErrorsHandlingAsync(command);
         }
+
         /// <summary> This endpoint is used to get a FoodBusinessClient list </summary>
         /// <remarks>
         ///     This endpoint allows <b>foodBusinessManager</b> to get a list of FoodBusinessClients 
@@ -85,6 +106,7 @@ namespace SmartRestaurant.API.Controllers
         ///     execute this request.
         /// </response>
         [ProducesResponseType(typeof(FoodBusinessClientDto), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
@@ -92,12 +114,14 @@ namespace SmartRestaurant.API.Controllers
         {
             return SendWithErrorsHandlingAsync(new GetFoodBusinessClientByIdQuery { FoodBusinessClientId = id });
         }
+
         /// <summary> This endpoint is used to get a FoodBusinessClient By ManagerId </summary>
         /// <remarks>
         ///     This endpoint allows <b>foodBusinessClient Manager</b> to get  his FoodBusinessClient
         /// </remarks>
         /// <param name="id">id of FoodBusinessClient Manager that would be fetched.</param>
         /// <response code="200">The FoodBusinessClient has been successfully fetched.</response>
+        /// <response code="400">The ManagerId sent to the backend-server in order to fetch FoodBusinessClient is invalid.</response>
         /// <response code="401">
         ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
         ///     or authentication token is invalid or expired.
@@ -106,10 +130,12 @@ namespace SmartRestaurant.API.Controllers
         ///     The user account you used to log into the application, does not have the necessary privileges to
         ///     execute this request.
         /// </response>
+        [ProducesResponseType(typeof(FoodBusinessClientDto), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("by-manager-id")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
-        public Task<IActionResult> GetFoodBusinessClientListByManagerIdQuery(string id)
+        public Task<IActionResult> GetFoodBusinessClientByManagerIdQuery(string id)
         {
             return SendWithErrorsHandlingAsync(new GetFoodBusinessClientByManagerIdQuery { FoodBusinessClientManagerId = id });
         }
@@ -120,6 +146,7 @@ namespace SmartRestaurant.API.Controllers
         /// </remarks>
         /// <param name="email"> FoodBusinessClient email that would be fetched.</param>
         /// <response code="200">The FoodBusinessClient has been successfully fetched.</response>
+        /// <response code="400">The Email sent to the backend-server in order to fetch FoodBusinessClient is invalid.</response>
         /// <response code="401">
         ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
         ///     or authentication token is invalid or expired.
@@ -128,6 +155,8 @@ namespace SmartRestaurant.API.Controllers
         ///     The user account you used to log into the application, does not have the necessary privileges to
         ///     execute this request.
         /// </response>
+        [ProducesResponseType(typeof(FoodBusinessClientDto), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("by-email")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
@@ -135,5 +164,31 @@ namespace SmartRestaurant.API.Controllers
         {
             return SendWithErrorsHandlingAsync(new GetFoodBusinessClientByEmailQuery { Email = email });
         }
+
+        /// <summary> This endpoint is used to get a FoodBusinessClient list by FoodBusinessId</summary>
+        /// <remarks>
+        ///     This endpoint allows <b>foodBusinessManager</b> to get a list of FoodBusinessClients by FoodBusinessId
+        /// </remarks>
+        /// <param name="id"> Id of the FoodBusiness that would be used to fetch  list of FoodBusinessClients</param>
+        /// <response code="200">The list of FoodBusinessClient has been successfully fetched.</response>
+        /// <response code="400">The FoodBusinessId sent to the backend-server in order to fetch list of FoodBusinessClients  is invalid.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
+        [ProducesResponseType(typeof(IEnumerable<FoodBusinessClientDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("foodbusiness/{id}")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
+        public Task<IActionResult> GetFoodBusinesClientListByFoodBusinessIdQuery([FromRoute]string id)
+        {
+            return SendWithErrorsHandlingAsync(new GetFoodBusinesClientListByFoodBusinessIdQuery { FoodBusinessId = id });
+        }
+
     }
 }
