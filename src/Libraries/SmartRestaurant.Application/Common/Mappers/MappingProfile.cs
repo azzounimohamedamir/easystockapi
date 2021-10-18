@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using AutoMapper;
 using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Dtos.DishDtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Dishes.Commands;
-using SmartRestaurant.Application.DishIngredients.Commands;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusinessClient.Commands;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
@@ -146,23 +146,58 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<PagedResultBase<Ingredient>, PagedListDto<IngredientDto>>().ReverseMap();
 
-            CreateMap<Dish, CreateDishCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.DishId))
+            CreateMap<CreateDishCommand, Dish>()
+                .ForMember(x => x.DishId, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.Ingredients, o => o.MapFrom(p => p.Ingredients))
+                .ForMember(x => x.Supplements, o => o.MapFrom(p => p.Supplements))
+                .ForMember(x => x.Specifications, o => o.MapFrom(p => p.Specifications))
+                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.FromBase64String(p.Picture)));
+
+
+            CreateMap<UpdateDishCommand, Dish>()
+                .ForMember(x => x.DishId, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.Ingredients, o => o.MapFrom(p => p.Ingredients))
+                .ForMember(x => x.Supplements, o => o.MapFrom(p => p.Supplements))
+                .ForMember(x => x.Specifications, o => o.MapFrom(p => p.Specifications))
+                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.FromBase64String(p.Picture)));
+
+            CreateMap<Dish, DishDto>()
+                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)))
                 .ReverseMap();
-            CreateMap<Dish, UpdateDishCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.DishId))
+
+            CreateMap<DurationDto, Duration>()
                 .ReverseMap();
-            CreateMap<DishDto, Dish>().ReverseMap();
-            CreateMap<DurationDto, Duration>().ReverseMap();
+
             CreateMap<Quantity, QuantityDto>()
                 .ForMember(x => x.MeasurementUnit, o => o.MapFrom(p => p.MeasurementUnits.ToString()))
                 .ReverseMap();
-            CreateMap<PagedResultBase<Dish>, PagedListDto<DishDto>>().ReverseMap();
 
-            CreateMap<DishIngredient, CreateDishIngredientCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.DishIngredientId))
+            CreateMap<PagedResultBase<Dish>, PagedListDto<DishDto>>()
                 .ReverseMap();
-            CreateMap<DishIngredientDto, DishIngredient>().ReverseMap();
+
+            CreateMap<DishSpecification, DishSpecificationDto>()
+                .AfterMap((src, dest) => dest.ComboBoxContent = new List<string>((String.IsNullOrWhiteSpace(src.ComboBoxContent)) ? new string[0] : src.ComboBoxContent.Split(';')));
+            
+            CreateMap<DishSpecificationDto, DishSpecification>()
+                .ForMember(x => x.ComboBoxContent, o => o.MapFrom(p => string.Join(";", p.ComboBoxContent)));
+
+            CreateMap<DishIngredientCreateDto, DishIngredient>()
+                .ReverseMap();
+
+            CreateMap<DishSupplementCreateDto, DishSupplement>()
+                .ReverseMap();
+
+            CreateMap<DishIngredientDto, DishIngredient>()
+                .ReverseMap();
+
+            CreateMap<DishSupplement, DishSupplementDto>()
+                .ForMember(x => x.DishId, o => o.MapFrom(p => p.Supplement.DishId))
+                .ForMember(x => x.Name, o => o.MapFrom(p => p.Supplement.Name))
+                .ForMember(x => x.Description, o => o.MapFrom(p => p.Supplement.Description))
+                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Supplement.Picture)))
+                .ForMember(x => x.Price, o => o.MapFrom(p => p.Supplement.Price))
+                .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Supplement.EnergeticValue))
+                .ReverseMap();
 
             CreateMap<Order, CreateOrderCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.OrderId))
