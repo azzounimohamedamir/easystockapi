@@ -20,7 +20,9 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<Domain.Entities.LinkedDevice> LinkedDevices { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Dish> Dishes { get; set; }
+        public DbSet<DishSpecification> DishSpecifications { get; set; }
         public DbSet<DishIngredient> DishIngredients { get; set; }
+        public DbSet<DishSupplement> DishSupplements { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Specification> Specifications { get; set; }
         public DbSet<Order> Orders { get; set; }

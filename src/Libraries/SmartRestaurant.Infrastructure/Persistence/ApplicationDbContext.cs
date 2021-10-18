@@ -23,7 +23,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<LinkedDevice> LinkedDevices { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Dish> Dishes { get; set; }
+        public DbSet<DishSpecification> DishSpecifications { get; set; }
         public DbSet<DishIngredient> DishIngredients { get; set; }
+        public DbSet<DishSupplement> DishSupplements { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Specification> Specifications { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -35,6 +37,22 @@ namespace SmartRestaurant.Infrastructure.Persistence
         {
             modelBuilder.Entity<FoodBusinessUser>()
                 .HasKey(o => new {o.ApplicationUserId, o.FoodBusinessId});
+
+            modelBuilder.Entity<DishIngredient>()
+                .HasKey(o => new { o.DishId, o.IngredientId });
+
+            modelBuilder.Entity<DishSupplement>()
+                .HasKey(o => new { o.DishId, o.SupplementId});
+
+            modelBuilder.Entity<DishSupplement>()
+                .HasOne(e => e.Dish)
+                .WithMany(e => e.Supplements)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<DishSupplement>()
+                .HasOne(e => e.Supplement)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Seed();
         }
