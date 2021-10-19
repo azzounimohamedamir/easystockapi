@@ -16,7 +16,6 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
         public PhoneNumberDto PhoneNumber { get; set; }
         public string Description { get; set; }
         public string Website { get; set; }
-        public string ManagerId { get; set; }
         public int NRC { get; set; }
         public int NIF { get; set; }
         public int NIS { get; set; }
@@ -38,12 +37,7 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
                 .NotEmpty()
                 .MaximumLength(200);
 
-            RuleFor(foodBusinessClient => foodBusinessClient.ManagerId)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty()
-                .NotEqual(Guid.Empty.ToString())
-                .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID");
-
+           
             RuleFor(foodBusinessClient => foodBusinessClient.Email)
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()

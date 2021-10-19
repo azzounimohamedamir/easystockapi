@@ -84,26 +84,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusinessCl
                 empty);
         }
              
-        [Fact]
-        public void Given_EmptyManagerGuid_WhenValidating_ShouldError()
-        {
-            var emptyGuid = Guid.Empty.ToString();
-            _validator.ShouldHaveValidationErrorFor(updateFoodBusinessClientCommand => updateFoodBusinessClientCommand.ManagerId,
-                emptyGuid);
-        }
-        [Fact]
-        public void Given_ManagerIdIsEmpty_WhenValidating_ShouldGetAnError()
-        {
-            var empty = "";
-            _validator.ShouldHaveValidationErrorFor(updateFoodBusinessClientCommand => updateFoodBusinessClientCommand.ManagerId, empty);
-        }
-        [Fact]
-        public void Given_ManagerIdIsInvalidGuid_WhenValidating_ShouldGetAnError()
-        {
-            var invalidGuid = "3cbf3570-4444-4673-8746-2";
-            _validator.ShouldHaveValidationErrorFor(updateFoodBusinessClientCommand => updateFoodBusinessClientCommand.ManagerId, invalidGuid);
-        }
-       
+      
         [Fact]
         public void Given_WebsiteIsInvalid_WhenValidating_ShouldGetAnError()
         {

@@ -43,7 +43,6 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Querie
                      PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                     Email = "test"+i+"@g22.com",
                     Website = "",
-                    ManagerId = foodBusinessClientManager.Id,
                     FoodBusinessId = fastFood.FoodBusinessId.ToString()
                 });
             }

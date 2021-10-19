@@ -37,8 +37,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                     Name = "G22 REI ",
                     PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                     Email = "test@g22.com",
-                    Website = "",
-                    ManagerId = foodBusinessClient.ManagerId,
+                    Website = ""
 
                 };
                 await SendAsync(createFoodBusinessClientCommand);
