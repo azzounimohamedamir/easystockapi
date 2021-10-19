@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.CurrencyExchange;
 using SmartRestaurant.Application.Products.Queries.FilterStrategy;
 using SmartRestaurant.Domain.Entities;
 using System;
@@ -36,7 +37,16 @@ namespace SmartRestaurant.Application.Products.Queries
             if (product == null)
                 throw new NotFoundException(nameof(Product), request.Id);
 
-            return _mapper.Map<ProductDto>(product);
+            var productDto =_mapper.Map<ProductDto>(product);
+
+            if(product.FoodBusinessId != null)
+            {
+                var foodBusiness = await _context.FoodBusinesses.FindAsync(product.FoodBusinessId);
+                if (foodBusiness != null)
+                    productDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(product.Price, foodBusiness.DefaultCurrency);
+            }
+            
+            return productDto;
         }
 
         public async Task<PagedListDto<ProductDto>> Handle(GetProductListQuery request, CancellationToken cancellationToken)
@@ -49,6 +59,19 @@ namespace SmartRestaurant.Application.Products.Queries
             var query = filter.FetchData(_context.Products, request);
 
             var data = _mapper.Map<List<ProductDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
+
+            if (request.FoodBusinessId != null)
+            {
+                var foodBusiness = await _context.FoodBusinesses.FindAsync(Guid.Parse(request.FoodBusinessId));
+                if (foodBusiness != null)
+                {
+                    foreach (var product in data)
+                    {
+                        product.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(product.Price, foodBusiness.DefaultCurrency);
+                    }
+
+                }
+            }
 
             return new PagedListDto<ProductDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }      
