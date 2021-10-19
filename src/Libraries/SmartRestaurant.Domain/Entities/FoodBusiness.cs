@@ -19,6 +19,6 @@ namespace SmartRestaurant.Domain.Entities
         public FoodBusinessState FoodBusinessState { get; set; }
         public FoodBusinessCategory FoodBusinessCategory { get; set; }
         public int FourDigitCode { get; set; }
-        public Guid DefaultCurrencyId { get; set; }
+        public Currencies DefaultCurrency { get; set; }
     }
 }
