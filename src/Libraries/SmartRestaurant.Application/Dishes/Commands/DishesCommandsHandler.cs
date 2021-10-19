@@ -12,6 +12,7 @@ using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.Dishes.Commands
 {
@@ -96,11 +97,40 @@ namespace SmartRestaurant.Application.Dishes.Commands
         {
             if (dishIngredients != null)
             {
+                List<float> energeticValues = new List<float>();
                 var listOfIngredientsIds = dishIngredients.Select(x => Guid.Parse(x.IngredientId)).ToList();
                 var ingredients = await _context.Ingredients.Where(x => listOfIngredientsIds.Contains(x.IngredientId))
                     .ToListAsync()
                     .ConfigureAwait(false);
-                return ingredients.Sum(x => x.EnergeticValue.Energy);
+                foreach(var ingredient in ingredients)
+                {
+                    var dishIngredient = dishIngredients.FirstOrDefault(x => x.IngredientId == ingredient.IngredientId.ToString());
+                    if(dishIngredient.MeasurementUnits == ingredient.EnergeticValue.MeasurementUnit)
+                    {
+                        energeticValues.Add(((dishIngredient.InitialAmount * ingredient.EnergeticValue.Energy) / ingredient.EnergeticValue.Amount));
+                    }
+                    else
+                    {
+                        switch(dishIngredient.MeasurementUnits)
+                        {
+                            case MeasurementUnits.Gramme:
+                                energeticValues.Add(((dishIngredient.InitialAmount * (ingredient.EnergeticValue.Energy/1000)) / ingredient.EnergeticValue.Amount));
+
+                                break;
+                            case MeasurementUnits.KiloGramme:
+                                energeticValues.Add(((dishIngredient.InitialAmount * (ingredient.EnergeticValue.Energy * 1000)) / ingredient.EnergeticValue.Amount));
+                                break;
+                            case MeasurementUnits.MilliLiter:
+                                energeticValues.Add(((dishIngredient.InitialAmount * (ingredient.EnergeticValue.Energy / 1000)) / ingredient.EnergeticValue.Amount));
+
+                                break;
+                            case MeasurementUnits.Liter:
+                                energeticValues.Add(((dishIngredient.InitialAmount * (ingredient.EnergeticValue.Energy * 1000)) / ingredient.EnergeticValue.Amount));
+                                break;
+                        }
+                    }
+                }
+                return energeticValues.Sum(x => x);
             }
             return 0;
         }
