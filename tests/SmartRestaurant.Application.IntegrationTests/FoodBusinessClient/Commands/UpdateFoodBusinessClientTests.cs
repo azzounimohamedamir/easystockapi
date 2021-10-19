@@ -42,8 +42,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                     Email = "test@g22.com",
                     Website = "",
                     ManagerId = foodBusinessClient.ManagerId,
-                    FoodBusinessId = fastFood.FoodBusinessId.ToString(),
-                    Archived = false
+                    FoodBusinessId = fastFood.FoodBusinessId.ToString()
                 };
                 await SendAsync(createFoodBusinessClientCommand);
                 var list = await FindAsync<Domain.Entities.FoodBusinessClient>(foodBusinessClient.FoodBusinessClientId);
@@ -67,8 +66,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                     Email = "testUpdate@g22.com",
                     Website = "http://g22rei.com",
                     ManagerId = foodBusinessClient.ManagerId,
-                    FoodBusinessId = fastFood.FoodBusinessId.ToString(),
-                    Archived = false
+                    FoodBusinessId = fastFood.FoodBusinessId.ToString()
                 };
 
                 await SendAsync(updateFoodBusinessClientCommand);

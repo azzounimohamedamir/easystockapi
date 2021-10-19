@@ -19,7 +19,6 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
         public int NIS { get; set; }
         public string Email { get; set; }
         public string FoodBusinessId { get; set; }
-        public Boolean Archived { get; set; }
     }
 
     public class CreateFoodBusinessClientCommandValidator : AbstractValidator<CreateFoodBusinessClientCommand>
