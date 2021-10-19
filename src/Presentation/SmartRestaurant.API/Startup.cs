@@ -22,6 +22,8 @@ using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using SmartRestaurant.Application.Common.Configuration.SocialMedia;
+using IHostApplicationLifetime = Microsoft.Extensions.Hosting.IHostApplicationLifetime;
+using SmartRestaurant.Application.CurrencyExchange;
 
 namespace SmartRestaurant.API
 {
@@ -101,7 +103,7 @@ namespace SmartRestaurant.API
                 .AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNameCaseInsensitive = true; });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
@@ -130,6 +132,13 @@ namespace SmartRestaurant.API
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            lifetime.ApplicationStarted.Register(OnApplicationStarted);
+
+        }
+        public void OnApplicationStarted()
+        {
+            CurrencyExchangeApi.ImportFromOnlineApi();
         }
     }
 }
