@@ -17,19 +17,6 @@ namespace SmartRestaurant.Application.Common.Dtos.DishDtos
         public List<DishSupplementDto> Supplements { get; set; }
         public bool IsSupplement { get; set; }
         public int EstimatedPreparationTime { get; set; }
-
-
-
-
-
-        // public string Specifications { get; set; }
-        //public bool IsSupplement { get; set; }
-        //public DurationDto AveragePreparationTime { get; set; }
-        //public List<DishIngredientDto> DishIngredients { get; set; }
-        //public PriceDto Price { get; set; }
-        //public float TotalFat { get; set; }
-        //public float TotalProtein { get; set; }
-        //public float TotalCarbs { get; set; }
-        //public float TotalEnergy { get; set; }
+        public List<CurrencyDto> CurrencyExchange { get; set; }
     }
 }
