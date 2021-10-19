@@ -39,7 +39,6 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                     Email = "test@g22.com",
                     Website = "",
                     ManagerId = foodBusinessClient.ManagerId,
-                    Archived = false
 
                 };
                 await SendAsync(createFoodBusinessClientCommand);

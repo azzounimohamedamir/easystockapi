@@ -1,16 +1,16 @@
 ﻿using FluentValidation;
 using MediatR;
+using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
 using System;
-using System.Text.Json.Serialization;
 
 namespace SmartRestaurant.Application.FoodBusinessClient.Commands
 {
     public class ArchiveFoodBusinessClientCommand : IRequest<NoContent>
     {
         [JsonIgnore] public string Id { get; set; }
-        public Boolean Archived { get; set; }
+        public bool Archived { get; set; }
     }
     public class ArchiveFoodBusinessClientCommandValidator : AbstractValidator<ArchiveFoodBusinessClientCommand>
     {
