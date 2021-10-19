@@ -90,13 +90,13 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var entity = await _context.FoodBusinessClients.FindAsync(request.Id).ConfigureAwait(false);
+            var entity = await _context.FoodBusinessClients.AsNoTracking().FirstOrDefaultAsync(r => r.FoodBusinessClientId == Guid.Parse(request.Id), cancellationToken).ConfigureAwait(false);
 
             if (entity == null)
                 throw new NotFoundException(nameof(FoodBusinessClient), request.Id);
 
             _context.FoodBusinessClients.Remove(entity);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
             return default;
         }

@@ -1,20 +1,26 @@
-﻿using FluentValidation;
-using SmartRestaurant.Application.Common.Commands;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using FluentValidation;
+using MediatR;
+using SmartRestaurant.Application.Common.Tools;
+using SmartRestaurant.Application.Common.WebResults;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SmartRestaurant.Application.FoodBusinessClient.Commands
 {
-    public class DeleteFoodBusinessClientCommand : DeleteCommand
+    public class DeleteFoodBusinessClientCommand : IRequest<NoContent>
     {
-    }
+        [SwaggerSchema(ReadOnly = true)] public string Id { get; set; }
+}
 
-    public class DeleteFoodBusinessClientCommandValidator : AbstractValidator<DeleteFoodBusinessClientCommand>
+public class DeleteFoodBusinessClientCommandValidator : AbstractValidator<DeleteFoodBusinessClientCommand>
     {
         public DeleteFoodBusinessClientCommandValidator()
         {
-            RuleFor(v => v.Id).NotEmpty().NotNull().NotEqual(Guid.Empty);
+            RuleFor(product => product.Id)
+               .Cascade(CascadeMode.StopOnFirstFailure)
+               .NotEmpty()
+               .NotEqual(Guid.Empty.ToString())
+               .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID");
         }
     }
 }

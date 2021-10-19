@@ -24,7 +24,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
 
             await SendAsync(new DeleteFoodBusinessClientCommand
             {
-                Id = foodBusinessClient.FoodBusinessClientId
+                Id = foodBusinessClient.FoodBusinessClientId.ToString()
             });
 
             var item = await FindAsync<Domain.Entities.FoodBusinessClient>(foodBusinessClient.FoodBusinessClientId);
