@@ -115,31 +115,6 @@ namespace SmartRestaurant.API.Controllers
             return SendWithErrorsHandlingAsync(new GetFoodBusinessClientByIdQuery { FoodBusinessClientId = id });
         }
 
-        /// <summary> This endpoint is used to get a FoodBusinessClient By ManagerId </summary>
-        /// <remarks>
-        ///     This endpoint allows <b>foodBusinessClient Manager</b> to get  his FoodBusinessClient
-        /// </remarks>
-        /// <param name="id">id of FoodBusinessClient Manager that would be fetched.</param>
-        /// <response code="200">The FoodBusinessClient has been successfully fetched.</response>
-        /// <response code="400">The ManagerId sent to the backend-server in order to fetch FoodBusinessClient is invalid.</response>
-        /// <response code="401">
-        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
-        ///     or authentication token is invalid or expired.
-        /// </response>
-        /// <response code="403">
-        ///     The user account you used to log into the application, does not have the necessary privileges to
-        ///     execute this request.
-        /// </response>
-        [ProducesResponseType(typeof(FoodBusinessClientDto), 200)]
-        [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Route("by-manager-id")]
-        [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
-        public Task<IActionResult> GetFoodBusinessClientByManagerIdQuery(string id)
-        {
-            return SendWithErrorsHandlingAsync(new GetFoodBusinessClientByManagerIdQuery { FoodBusinessClientManagerId = id });
-        }
-
         /// <summary> This endpoint is used to get a FoodBusinessClient By Email </summary>
         /// <remarks>
         ///     This endpoint allows <b>foodBusinessClient Manager</b> to get his FoodBusinessClient

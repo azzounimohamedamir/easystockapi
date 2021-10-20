@@ -17,7 +17,6 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Queries
     public class FoodBusinessClientsQueriesHandler :
         IRequestHandler<GetFoodBusinesClientListQuery, PagedListDto<FoodBusinessClientDto>>,
         IRequestHandler<GetFoodBusinessClientByIdQuery, FoodBusinessClientDto>,
-        IRequestHandler<GetFoodBusinessClientByManagerIdQuery, FoodBusinessClientDto>,
         IRequestHandler<GetFoodBusinessClientByEmailQuery, FoodBusinessClientDto>,
         IRequestHandler<GetFoodBusinesClientListByFoodBusinessIdQuery, IEnumerable<FoodBusinessClientDto>>
     {
@@ -55,24 +54,6 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Queries
                 throw new NotFoundException(nameof(FoodBusinessClient), request.FoodBusinessClientId);
             }
             return _mapper.Map<FoodBusinessClientDto>(query);
-        }
-
-        public async Task<FoodBusinessClientDto> Handle(GetFoodBusinessClientByManagerIdQuery request,
-           CancellationToken cancellationToken)
-        {
-
-            var validator = new GetFoodBusinessClientByManagerIdQueryValidator();
-            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result);
-
-            var query = await _context.FoodBusinessClients.SingleOrDefaultAsync(foodBusinessClient => foodBusinessClient.ManagerId == request.FoodBusinessClientManagerId);
-            if (query == null)
-            {
-                throw new NotFoundException(nameof(FoodBusinessClient), request.FoodBusinessClientManagerId);
-            }
-
-            return _mapper.Map<FoodBusinessClientDto>(query);
-
         }
 
         public async Task<FoodBusinessClientDto> Handle(GetFoodBusinessClientByEmailQuery request,
