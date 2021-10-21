@@ -66,10 +66,12 @@ namespace SmartRestaurant.Application.Orders.Commands
 
         private async Task<string> GetFoodBusinessDefaultCurrency(Guid foodBusinessId)
         {
-            var foodBusiness = await _context.FoodBusinesses
-                .FirstOrDefaultAsync(d => d.FoodBusinessId == foodBusinessId);
-            var currency = await _context.Currencies.FindAsync(foodBusiness.DefaultCurrencyId);
-            return currency != null ? currency.Symbol : "DZD";
+            //var foodBusiness = await _context.FoodBusinesses
+            //    .FirstOrDefaultAsync(d => d.FoodBusinessId == foodBusinessId);
+            //var currency = await _context.Currencies.FindAsync(foodBusiness.DefaultCurrencyId);
+            //return currency != null ? currency.Symbol : "DZD";
+
+            return "DZD";
         }
 
         private async Task ReplaceOrder(CancellationToken cancellationToken, Order old, Order @new)

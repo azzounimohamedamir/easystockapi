@@ -31,7 +31,16 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("FoodBusinessId")
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("EnergeticValue")
+                        .HasColumnType("real");
+
+                    b.Property<int>("EstimatedPreparationTime")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("FoodBusinessId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsSupplement")
@@ -43,56 +52,99 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("MenuId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("PriceAmount")
+                    b.Property<byte[]>("Picture")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<Guid?>("SectionId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("DishId");
+
+                    b.HasIndex("FoodBusinessId");
 
                     b.ToTable("Dishes");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.DishIngredient", b =>
                 {
-                    b.Property<Guid>("DishIngredientId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("DishId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IngredientId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<float>("AmountIncreasePerStep")
+                        .HasColumnType("real");
+
+                    b.Property<float>("InitialAmount")
+                        .HasColumnType("real");
+
                     b.Property<bool>("IsPrimary")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LastModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("PricePerStep")
+                    b.Property<float>("MaximumAmount")
                         .HasColumnType("real");
 
-                    b.HasKey("DishIngredientId");
+                    b.Property<int>("MeasurementUnits")
+                        .HasColumnType("int");
+
+                    b.Property<float>("MinimumAmount")
+                        .HasColumnType("real");
+
+                    b.Property<float>("PriceIncreasePerStep")
+                        .HasColumnType("real");
+
+                    b.HasKey("DishId", "IngredientId");
+
+                    b.HasIndex("IngredientId");
 
                     b.ToTable("DishIngredients");
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.DishSpecification", b =>
+                {
+                    b.Property<Guid>("DishSpecificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("CheckBoxContent")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ComboBoxContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ContentType")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("DishId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DishSpecificationId");
+
+                    b.HasIndex("DishId");
+
+                    b.ToTable("DishSpecifications");
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.DishSupplement", b =>
+                {
+                    b.Property<Guid>("DishId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SupplementId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("DishId", "SupplementId");
+
+                    b.HasIndex("SupplementId");
+
+                    b.ToTable("DishSupplements");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.FoodBusiness", b =>
@@ -116,8 +168,8 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("DefaultCurrencyId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("DefaultCurrency")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -185,7 +237,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             AcceptsCreditCards = true,
                             AverageRating = 4.0,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DefaultCurrencyId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            DefaultCurrency = 0,
                             Description = "Envie de découvrir la cuisine indienne, le restaurant Taj Mahal vous invite à le faire et voyager à travers les odeurs des épices orientales qui se dégagent de ses mets à spécialités indiennes.",
                             FoodBusinessAdministratorId = "3cbf3570-4444-4444-8746-29b7cf568093",
                             FoodBusinessCategory = 0,
@@ -210,7 +262,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             AcceptsCreditCards = true,
                             AverageRating = 4.0,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DefaultCurrencyId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            DefaultCurrency = 0,
                             Description = "",
                             FoodBusinessAdministratorId = "44bf3570-0d44-4673-8746-29b7cf568088",
                             FoodBusinessCategory = 0,
@@ -235,7 +287,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             AcceptsCreditCards = true,
                             AverageRating = 5.0,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DefaultCurrencyId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            DefaultCurrency = 0,
                             Description = "ETuoYe SMdsYsup qqbdspY NEeZvsaI sUcIOE sVmPkJx RZFk FOKzUkG ffAsUB XyINU fhhIB OiIfN Antdhb XHbtaO UlStFP adgVv CRTToT Mcv FAHcd YyGH. CdDIPW TtDBaI qYg wVcSK NAXHnVC xpNBE fRufEW fggeTKc Iqq dfGZPAqoc MYxnH NCLtDA qqV TNYR LbwaYqv cvIiSvl KBTMl xAxHmu dilIqO mGM kxDhvLT PsYPdCB yZE uFfvGxQp uvoeDsAaE QQjgKs CnAnhrs qNPzSuq bvZjqMfy aaEGCqc XrvE KFXnmA mEnN uGHJt WypGwSiJDmP qBDWYau SzbxbSRUb CMwhBXiYA vQCTdtiB oVkRA XpHYTFE BYFpDTVlV zafiNugG YFyiIvYhhgyzj MihfVEqk OWlRLG YAUn sXWO jbKyczKOQfhXa qziTc xxMFCM WfVzT oPdKGSK Zz CzXeis.",
                             FoodBusinessAdministratorId = "08a1a626-7f8e-4b51-84fc-fc51b6302cca",
                             FoodBusinessCategory = 0,
@@ -1522,65 +1574,48 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Dish", b =>
                 {
-                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Duration", "AveragePreparationTime", b1 =>
-                        {
-                            b1.Property<Guid>("DishId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("TimeUnits")
-                                .HasColumnType("int");
-
-                            b1.Property<float>("Value")
-                                .HasColumnType("real");
-
-                            b1.HasKey("DishId");
-
-                            b1.ToTable("Dishes");
-
-                            b1.WithOwner()
-                                .HasForeignKey("DishId");
-                        });
+                    b.HasOne("SmartRestaurant.Domain.Entities.FoodBusiness", "FoodBusiness")
+                        .WithMany()
+                        .HasForeignKey("FoodBusinessId");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.DishIngredient", b =>
                 {
-                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Quantity", "AmountPerStep", b1 =>
-                        {
-                            b1.Property<Guid>("DishIngredientId")
-                                .HasColumnType("uniqueidentifier");
+                    b.HasOne("SmartRestaurant.Domain.Entities.Dish", null)
+                        .WithMany("Ingredients")
+                        .HasForeignKey("DishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                            b1.Property<float>("Amount")
-                                .HasColumnType("real");
+                    b.HasOne("SmartRestaurant.Domain.Entities.Ingredient", "Ingredient")
+                        .WithMany("Dishes")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                            b1.Property<int>("MeasurementUnits")
-                                .HasColumnType("int");
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.DishSpecification", b =>
+                {
+                    b.HasOne("SmartRestaurant.Domain.Entities.Dish", null)
+                        .WithMany("Specifications")
+                        .HasForeignKey("DishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                            b1.HasKey("DishIngredientId");
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.DishSupplement", b =>
+                {
+                    b.HasOne("SmartRestaurant.Domain.Entities.Dish", "Dish")
+                        .WithMany("Supplements")
+                        .HasForeignKey("DishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                            b1.ToTable("DishIngredients");
-
-                            b1.WithOwner()
-                                .HasForeignKey("DishIngredientId");
-                        });
-
-                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Quantity", "Quantity", b1 =>
-                        {
-                            b1.Property<Guid>("DishIngredientId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<float>("Amount")
-                                .HasColumnType("real");
-
-                            b1.Property<int>("MeasurementUnits")
-                                .HasColumnType("int");
-
-                            b1.HasKey("DishIngredientId");
-
-                            b1.ToTable("DishIngredients");
-
-                            b1.WithOwner()
-                                .HasForeignKey("DishIngredientId");
-                        });
+                    b.HasOne("SmartRestaurant.Domain.Entities.Dish", "Supplement")
+                        .WithMany()
+                        .HasForeignKey("SupplementId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.FoodBusiness", b =>

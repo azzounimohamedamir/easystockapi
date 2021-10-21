@@ -55,23 +55,23 @@ namespace SmartRestaurant.Application.Orders.Queries
 
         private async Task MapPrice(List<OrderResponse> data, List<Order> result, Guid foodBusinessId)
         {
-            var currency = await GetFoodBusinessDefaultCurrency(foodBusinessId);
-            foreach (var orderResponse in data) orderResponse.ExchangeCurrency = _mapper.Map<CurrencyDto>(currency);
+            //var currency = await GetFoodBusinessDefaultCurrency(foodBusinessId);
+            //foreach (var orderResponse in data) orderResponse.ExchangeCurrency = _mapper.Map<CurrencyDto>(currency);
         }
 
-        private async Task<CurrencyDto> GetFoodBusinessDefaultCurrency(Guid foodBusinessId)
-        {
-            var foodBusiness = await _context.FoodBusinesses
-                .FirstOrDefaultAsync(d => d.FoodBusinessId == foodBusinessId);
-            var currency = await _context.Currencies.FindAsync(foodBusiness.DefaultCurrencyId);
-            if (currency != null) return _mapper.Map<CurrencyDto>(currency);
+        //private async Task<CurrencyDto> GetFoodBusinessDefaultCurrency(Guid foodBusinessId)
+        //{
+        //    //var foodBusiness = await _context.FoodBusinesses
+        //    //    .FirstOrDefaultAsync(d => d.FoodBusinessId == foodBusinessId);
+        //    //var currency = await _context.Currencies.FindAsync(foodBusiness.DefaultCurrencyId);
+        //    //if (currency != null) return _mapper.Map<CurrencyDto>(currency);
 
-            return new CurrencyDto
-            {
-                Code = "DZD",
-                Name = "Algerian Dinar",
-                Symbol = "DZD"
-            };
-        }
+        //    return new CurrencyDto
+        //    {
+        //        Code = "DZD",
+        //        Name = "Algerian Dinar",
+        //        Symbol = "DZD"
+        //    };
+        //}
     }
 }

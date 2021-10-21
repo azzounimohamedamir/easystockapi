@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
@@ -11,6 +12,6 @@ namespace SmartRestaurant.Application.Common.Dtos
         public float Price { get; set; }
         public float EnergeticValue { get; set; }
         public string FoodBusinessId { get; set; }
-
+        public List<CurrencyDto> CurrencyExchange { get; set; }
     }
 }

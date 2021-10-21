@@ -79,5 +79,23 @@ namespace SmartRestaurant.Application.IntegrationTests.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /9j/4AAQSkZJRgABAQEAtwC3AAD/2wCEAAcFBQYFBAcGBQYIBwcIChELCgkJChUPEAwRGBUaGRgVGBcbHichGx0lHRcYIi4iJSgpKywrGiAvMy8qMicqKyoBBwgICgkKFAsLFCocGBwqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKv/CABEIARgBdwMBIgACEQEDEQH/xAA0AAABBQEBAQAAAAAAAAAAAAAAAQMEBQYCBwgBAAIDAQEAAAAAAAAAAAAAAAAEAQIDBQb/2gAMAwEAAhADEAAAAPpBAAQAOY/lvP6Fpmq2T5r1UpmPJwaTls1IStzMNaur0lI9yYjEJS78C0jF3mLmTZaRLqO1usNrZ0W7gz41F3LPM226+klZ53oWkWNJZp+JsZEE0y09pjXWr7edhtP0trQ4a6OkjmNzleYsV60ODBJJES9AQDOeOe7eP+b9XW3GZ0/A70N1vhq7jdXYrsPN [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PictureBase64_01 {
+            get {
+                return ResourceManager.GetString("PictureBase64_01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUWFRgWFhYYGBgaGBkYGRkYGhoaGBwaGRoZGhgYGhgcIS4lHB4rIRgYJjgnKy8xNTU1GiQ7QDs0Py40NTEBDAwMEA8QHxISHzQrJCQ0NDQxMTQxNDQ0NDQ0NDQ0NDE0NDQ0NDQxNDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0MTQ0NP/AABEIALMBGQMBIgACEQEDEQH/xAAcAAABBAMBAAAAAAAAAAAAAAAEAwUGBwABAgj/xABCEAACAQIEAwUGAgcHBAMBAAABAgADEQQSITEFQVEGImFxgQcTMlKRoRSxQmKCssHR8BUWNDVyouEjJDOSU9LxF//EABoBAAMBAQEBAAAAAAAAAAAAAAECAwQABQb/xAAuEQADAAEEAQQABAUFAAAAAAAAAQIRAxIhMQQTIkFRBWGBsTIzcZGhFBUjUuH/2gAMAwEAAhEDEQA/AH7EYKpltaR3H4eooN0Mm9DiubcQoFHG [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PictureBase64_02 {
+            get {
+                return ResourceManager.GetString("PictureBase64_02", resourceCulture);
+            }
+        }
     }
 }

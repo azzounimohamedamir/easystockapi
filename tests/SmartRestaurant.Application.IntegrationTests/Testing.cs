@@ -15,6 +15,7 @@ using NUnit.Framework;
 using Respawn;
 using SmartRestaurant.API;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
 using SmartRestaurant.Infrastructure.Identity.Persistence;
 using SmartRestaurant.Infrastructure.Identity.Services;
@@ -134,6 +135,23 @@ namespace SmartRestaurant.Application.IntegrationTests
             var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
             return context.Set<TEntity>().Where(predicate).ToList();
+        }
+
+        public static async Task<Dish> GetDish(Guid dishId)
+        {
+            using var scope = _scopeFactory.CreateScope();
+
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+            return await context.Set<Dish>()
+                 .Include(x => x.Ingredients)
+                 .ThenInclude(x => x.Ingredient)
+                 .Include(x => x.Supplements)
+                 .ThenInclude(x => x.Supplement)
+                 .Include(x => x.Specifications)
+                 .Where(u => u.DishId == dishId)
+                 .FirstOrDefaultAsync()
+                 .ConfigureAwait(false); 
         }
 
         public static async Task AddAsync<TEntity>(TEntity entity)
