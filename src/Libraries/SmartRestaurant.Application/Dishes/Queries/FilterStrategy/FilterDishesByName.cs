@@ -18,18 +18,33 @@ namespace SmartRestaurant.Application.Dishes.Queries.FilterStrategy
             {
                 case "acs":
                     return dishes
+                       .Include(x => x.Ingredients)
+                       .ThenInclude(x => x.Ingredient)
+                       .Include(x => x.Supplements)
+                       .ThenInclude(x => x.Supplement)
+                       .Include(x => x.Specifications)
                        .Where(Condition(request.FoodBusinessId, searchKey))
                        .OrderBy(dish => dish.Name)
                        .GetPaged(request.Page, request.PageSize);
 
                 case "desc":
                     return dishes
+                       .Include(x => x.Ingredients)
+                       .ThenInclude(x => x.Ingredient)
+                       .Include(x => x.Supplements)
+                       .ThenInclude(x => x.Supplement)
+                       .Include(x => x.Specifications)
                        .Where(Condition(request.FoodBusinessId, searchKey))
                        .OrderByDescending(dish => dish.Name)
                        .GetPaged(request.Page, request.PageSize);
 
                 default:
                     return dishes
+                       .Include(x => x.Ingredients)
+                       .ThenInclude(x => x.Ingredient)
+                       .Include(x => x.Supplements)
+                       .ThenInclude(x => x.Supplement)
+                       .Include(x => x.Specifications)
                        .Where(Condition(request.FoodBusinessId, searchKey))
                        .OrderBy(dish => dish.Name)
                        .GetPaged(request.Page, request.PageSize);
