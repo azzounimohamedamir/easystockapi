@@ -29,7 +29,6 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                 Email = "test@g22.com",
                 Website = "",
-                ManagerId = foodBusinessClientManagerId,
                 FoodBusinessId = fastFood.FoodBusinessId.ToString()
             };
             await SendAsync(createFoodBusinessClientCommand);
@@ -59,7 +58,6 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                 Email = "test@g22.com",
                 Website = "",
-                ManagerId = foodBusinessClientManagerId,
                 FoodBusinessId = fastFood.FoodBusinessId.ToString()
             };
             await SendAsync(createFoodBusinessClientCommand);

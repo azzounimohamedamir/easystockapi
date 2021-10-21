@@ -16,7 +16,6 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
         public async Task CreateFoodBusinessClient_ShouldSaveToDB()
         {
             await RolesTestTools.CreateRoles();
-            var foodBusinessClientManager = await UsersTestTools.CreateFoodBusinessClientManager();
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
@@ -38,7 +37,6 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                 PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                 Email = "test@g22rei.com",
                 Website = "http://g22rei.com",
-                ManagerId = foodBusinessClientManager.Id,
                 FoodBusinessId = fastFood.FoodBusinessId.ToString()
             };
 

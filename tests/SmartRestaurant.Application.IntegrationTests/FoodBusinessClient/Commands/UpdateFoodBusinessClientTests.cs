@@ -41,7 +41,6 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                     PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                     Email = "test@g22.com",
                     Website = "",
-                    ManagerId = foodBusinessClient.ManagerId,
                     FoodBusinessId = fastFood.FoodBusinessId.ToString()
                 };
                 await SendAsync(createFoodBusinessClientCommand);
@@ -65,7 +64,6 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                     PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 672217426 },
                     Email = "testUpdate@g22.com",
                     Website = "http://g22rei.com",
-                    ManagerId = foodBusinessClient.ManagerId,
                     FoodBusinessId = fastFood.FoodBusinessId.ToString()
                 };
 
@@ -79,7 +77,6 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessClient.Comman
                 updatesList.PhoneNumber.Should().Be(updateFoodBusinessClientCommand.PhoneNumber);
                 updatesList.Email.Should().Be(updateFoodBusinessClientCommand.Email);
                 updatesList.Website.Should().Be(updateFoodBusinessClientCommand.Website);
-                updatesList.ManagerId.Should().Be(updateFoodBusinessClientCommand.ManagerId);
                 updatesList.FoodBusinessId.Should().Be(updateFoodBusinessClientCommand.FoodBusinessId);
             });
         }

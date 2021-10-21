@@ -43,7 +43,6 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
                 Email = "test@g22.com",
                 Website = "",
-                ManagerId = Guid.NewGuid().ToString(),
                 FoodBusinessId = foodBusinessId.ToString()
             };
 
@@ -63,7 +62,6 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(foodBusinessClient.PhoneNumber.Number, createFoodBusinessClientCommand.PhoneNumber.Number);
             Assert.Equal(foodBusinessClient.Email, createFoodBusinessClientCommand.Email);
             Assert.Equal(foodBusinessClient.Website, createFoodBusinessClientCommand.Website);
-            Assert.Equal(foodBusinessClient.ManagerId, createFoodBusinessClientCommand.ManagerId);
             Assert.Equal(foodBusinessClient.FoodBusinessId.ToString(), createFoodBusinessClientCommand.FoodBusinessId);
         }
 
@@ -88,8 +86,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 Name = "G22 REI ",
                 PhoneNumber = new PhoneNumber { CountryCode = 213, Number = 670217536 },
                 Email = "test@g22.com",
-                Website = "",
-                ManagerId = Guid.NewGuid().ToString()
+                Website = ""
             };
             var updateFoodBusinessClientCommand = new UpdateFoodBusinessClientCommand
             {
@@ -112,7 +109,6 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 Website = "http://g22rei.com"
                 
             };
-            var ManagerId = foodBusinessClient.ManagerId;
              _mapper.Map(updateFoodBusinessClientCommand,foodBusinessClient);
             Assert.Equal(foodBusinessClient.FoodBusinessClientId, foodBusinessClientId);
             Assert.Equal(foodBusinessClient.Name, updateFoodBusinessClientCommand.Name);
@@ -126,7 +122,6 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(foodBusinessClient.PhoneNumber.Number, updateFoodBusinessClientCommand.PhoneNumber.Number);
             Assert.Equal(foodBusinessClient.Email, updateFoodBusinessClientCommand.Email);
             Assert.Equal(foodBusinessClient.Website, updateFoodBusinessClientCommand.Website);
-            Assert.Equal(foodBusinessClient.ManagerId, updateFoodBusinessClientCommand.ManagerId);
         }
         [Fact]
         public void Map_FoodBusinessClientDto_To_FoodBusinessClient_Valide_Test()
@@ -150,7 +145,6 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 672217426 },
                 Email = "testUpdate@g22.com",
                 Website = "http://g22rei.com",
-                ManagerId = Guid.NewGuid().ToString()
 
             };
             var foodBusinessClient = _mapper.Map<Domain.Entities.FoodBusinessClient>(foodBusinessClientDto);
@@ -167,7 +161,6 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(foodBusinessClientDto.PhoneNumber.Number, foodBusinessClient.PhoneNumber.Number);
             Assert.Equal(foodBusinessClientDto.Email, foodBusinessClient.Email);
             Assert.Equal(foodBusinessClientDto.Website, foodBusinessClient.Website);
-            Assert.Equal(foodBusinessClientDto.ManagerId, foodBusinessClient.ManagerId);
 
         }
 

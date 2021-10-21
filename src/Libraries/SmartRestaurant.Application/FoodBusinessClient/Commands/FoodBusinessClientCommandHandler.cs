@@ -36,11 +36,7 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
         {
             var validator = new CreateFoodBusinessClientCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result);
-
-            var user = await _userManager.FindByIdAsync(request.ManagerId).ConfigureAwait(false);
-            if (user == null)
-                throw new NotFoundException(nameof(ApplicationUser), request.ManagerId);
+            if (!result.IsValid) throw new ValidationException(result);     
             var foodBusiness = await _context.FoodBusinesses
                .Where(x => x.FoodBusinessId == Guid.Parse(request.FoodBusinessId))
                .Select(x => x.FoodBusinessId)
