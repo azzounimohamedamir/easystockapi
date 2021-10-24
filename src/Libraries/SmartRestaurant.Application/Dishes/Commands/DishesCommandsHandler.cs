@@ -33,6 +33,9 @@ namespace SmartRestaurant.Application.Dishes.Commands
 
         public async Task<Created> Handle(CreateDishCommand request, CancellationToken cancellationToken)
         {
+            if (request.Supplements == null)
+                request.Supplements = new List<DishSupplementCreateDto>();
+
             var validator = new CreateDishCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
@@ -67,6 +70,9 @@ namespace SmartRestaurant.Application.Dishes.Commands
 
         public async Task<NoContent> Handle(UpdateDishCommand request, CancellationToken cancellationToken)
         {
+            if (request.Supplements == null)
+                    request.Supplements = new List<DishSupplementCreateDto>();
+
             var validator = new UpdateDishCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);

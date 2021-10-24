@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
@@ -21,6 +22,7 @@ namespace SmartRestaurant.API.Controllers
         /// <param name="searchKey">Search keyword</param>
         /// <param name="sortOrder">Dishes list can be sorted by: <b>acs</b> | <b>desc</b>. Default value is: <b>acs</b></param>
         /// <param name="foodBusinessId">If the foodBusinessId is set, we will get dishes list linked to that foodBusinessId else we will get an empty list.</param>
+        /// <param name="isSupplement">If isSupplement is set to null, we will get dishes list linked to that foodBusinessId else we will get an empty list.</param>
         /// <param name="page">The start position of read pointer in a request results. Default value is: <b>1</b></param>
         /// <param name="pageSize">The max number of Reservations that should be returned. Default value is: <b>10</b>. Max value is: <b>100</b></param>
         /// <response code="200"> Dishes list has been successfully fetched.<br></br><b>Note:</b> Picture will be encoded in Base64</response>
@@ -31,7 +33,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent,Diner")]
         [HttpGet]
-        public Task<IActionResult> GetList(string currentFilter, string searchKey, string sortOrder, string foodBusinessId,  int page, int pageSize)
+        public Task<IActionResult> GetList(string currentFilter, string searchKey, string sortOrder, string foodBusinessId, Nullable<bool> isSupplement,  int page, int pageSize)
         {
             var query = new GetDishesListQuery
             {
@@ -40,7 +42,8 @@ namespace SmartRestaurant.API.Controllers
                 SortOrder = sortOrder,
                 Page = page,
                 PageSize = pageSize,
-                FoodBusinessId = foodBusinessId
+                FoodBusinessId = foodBusinessId,
+                IsSupplement = isSupplement
             };
             return SendWithErrorsHandlingAsync(query);
         }

@@ -15,6 +15,7 @@ namespace SmartRestaurant.Application.Dishes.Queries
         public string SortOrder { get; set; }
         public string CurrentFilter { get; set; }
         public string FoodBusinessId { get; set; }
+        public Nullable<bool> IsSupplement { get; set; }
     }
 
     public class GetDishesListQueryValidator : AbstractValidator<GetDishesListQuery>

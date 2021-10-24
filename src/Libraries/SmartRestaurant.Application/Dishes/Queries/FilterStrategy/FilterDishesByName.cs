@@ -23,7 +23,7 @@ namespace SmartRestaurant.Application.Dishes.Queries.FilterStrategy
                        .Include(x => x.Supplements)
                        .ThenInclude(x => x.Supplement)
                        .Include(x => x.Specifications)
-                       .Where(Condition(request.FoodBusinessId, searchKey))
+                       .Where(Condition(request.FoodBusinessId, request.IsSupplement, searchKey))
                        .OrderBy(dish => dish.Name)
                        .GetPaged(request.Page, request.PageSize);
 
@@ -34,7 +34,7 @@ namespace SmartRestaurant.Application.Dishes.Queries.FilterStrategy
                        .Include(x => x.Supplements)
                        .ThenInclude(x => x.Supplement)
                        .Include(x => x.Specifications)
-                       .Where(Condition(request.FoodBusinessId, searchKey))
+                       .Where(Condition(request.FoodBusinessId, request.IsSupplement, searchKey))
                        .OrderByDescending(dish => dish.Name)
                        .GetPaged(request.Page, request.PageSize);
 
@@ -45,18 +45,25 @@ namespace SmartRestaurant.Application.Dishes.Queries.FilterStrategy
                        .Include(x => x.Supplements)
                        .ThenInclude(x => x.Supplement)
                        .Include(x => x.Specifications)
-                       .Where(Condition(request.FoodBusinessId, searchKey))
+                       .Where(Condition(request.FoodBusinessId, request.IsSupplement, searchKey))
                        .OrderBy(dish => dish.Name)
                        .GetPaged(request.Page, request.PageSize);
             }
         }
 
-        private static Expression<Func<Dish, bool>> Condition(string foodBusinessId, string searchKey)
+        private static Expression<Func<Dish, bool>> Condition(string foodBusinessId, Nullable<bool> isSupplement, string searchKey)
         {
-            if(foodBusinessId == null)
+            if(foodBusinessId == null && isSupplement == null)
                 return dish => dish.Name.Contains(searchKey) && dish.FoodBusinessId == null;
-            else 
+
+            else if (foodBusinessId == null && isSupplement != null)
+                return dish => dish.Name.Contains(searchKey) && dish.FoodBusinessId == null && dish.IsSupplement == isSupplement;
+
+            else if (foodBusinessId != null && isSupplement == null)
                 return dish => dish.Name.Contains(searchKey) && dish.FoodBusinessId == Guid.Parse(foodBusinessId);
+
+            else
+                return dish => dish.Name.Contains(searchKey) && dish.FoodBusinessId == Guid.Parse(foodBusinessId) && dish.IsSupplement == isSupplement;
         }
 
     }
