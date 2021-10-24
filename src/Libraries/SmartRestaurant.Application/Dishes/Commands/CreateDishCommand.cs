@@ -66,6 +66,10 @@ namespace SmartRestaurant.Application.Dishes.Commands
               .NotEmpty().WithMessage("'Specification' must not be empty")
               .SetValidator(new DishSpecificationDtoValidator())
               .When(dish => dish.Specifications != null);
+
+            RuleFor(x => x.IsSupplement)
+                .Must(x => false).WithMessage("Supplement dish can not have supplements")
+                .When(x => x.IsSupplement == true && x.Supplements.Count > 0);
         }
     }  
 }
