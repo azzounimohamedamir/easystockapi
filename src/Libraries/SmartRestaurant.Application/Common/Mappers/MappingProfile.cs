@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.DishDtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
+using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Dishes.Commands;
 using SmartRestaurant.Application.FoodBusiness.Commands;
@@ -239,6 +240,16 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<AddProductToSectionCommand, SectionProduct>();
 
             CreateMap<AddDishToSectionCommand, SectionDish>();
+
+            CreateMap<Product, MenuItemDto>()
+                .ForMember(x => x.MenuItemId, o => o.MapFrom(p => p.ProductId))
+                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)))
+                .ForMember(x => x.Type, o => o.MapFrom(p => MenuItemType.Product));
+
+            CreateMap<Dish, MenuItemDto>()
+                .ForMember(x => x.MenuItemId, o => o.MapFrom(p => p.DishId))
+                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)))
+                .ForMember(x => x.Type, o => o.MapFrom(p => MenuItemType.Dish));
 
         }
     }
