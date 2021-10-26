@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
@@ -13,7 +14,9 @@ namespace SmartRestaurant.Application.Sections.Commands
     public class SectionsCommandsHandler :
         IRequestHandler<CreateSectionCommand, Created>,
         IRequestHandler<UpdateSectionCommand, NoContent>,
-        IRequestHandler<DeleteSectionCommand, NoContent>
+        IRequestHandler<DeleteSectionCommand, NoContent>,
+        IRequestHandler<AddProductToSectionCommand, NoContent>,
+        IRequestHandler<AddDishToSectionCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -63,5 +66,54 @@ namespace SmartRestaurant.Application.Sections.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
+
+        public async Task<NoContent> Handle(AddProductToSectionCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new AddProductToSectionCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var section = await _context.Sections.AsNoTracking()
+                .FirstOrDefaultAsync(s => s.SectionId == Guid.Parse(request.SectionId), cancellationToken)
+                .ConfigureAwait(false);
+            if (section == null)
+                throw new NotFoundException(nameof(Section), request.SectionId);
+
+            var product = await _context.Products.AsNoTracking()
+               .FirstOrDefaultAsync(s => s.ProductId == Guid.Parse(request.ProductId), cancellationToken)
+               .ConfigureAwait(false);
+            if (product == null)
+                throw new NotFoundException(nameof(Product), request.ProductId);
+
+            var sectionProduct = _mapper.Map<SectionProduct>(request);
+            _context.SectionProducts.Add(sectionProduct);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+        public async Task<NoContent> Handle(AddDishToSectionCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new AddDishToSectionCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var section = await _context.Sections.AsNoTracking()
+                .FirstOrDefaultAsync(s => s.SectionId == Guid.Parse(request.SectionId), cancellationToken)
+                .ConfigureAwait(false);
+            if (section == null)
+                throw new NotFoundException(nameof(Section), request.SectionId);
+
+            var dish = await _context.Dishes.AsNoTracking()
+               .FirstOrDefaultAsync(s => s.DishId == Guid.Parse(request.DishId), cancellationToken)
+               .ConfigureAwait(false);
+            if (dish == null)
+                throw new NotFoundException(nameof(Dish), request.DishId);
+
+            var sectionDish = _mapper.Map<SectionDish>(request);
+            _context.SectionDishes.Add(sectionDish);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
     }
 }
