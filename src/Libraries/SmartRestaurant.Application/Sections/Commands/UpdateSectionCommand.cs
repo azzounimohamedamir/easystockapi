@@ -8,6 +8,7 @@ namespace SmartRestaurant.Application.Sections.Commands
     {
         public string Name { get; set; }
         public Guid MenuId { get; set; }
+        public bool HasSubSection { get; set; }
     }
 
     public class UpdateSectionCommandValidator : AbstractValidator<UpdateSectionCommand>
