@@ -16,7 +16,9 @@ namespace SmartRestaurant.Application.Sections.Commands
         IRequestHandler<UpdateSectionCommand, NoContent>,
         IRequestHandler<DeleteSectionCommand, NoContent>,
         IRequestHandler<AddProductToSectionCommand, NoContent>,
-        IRequestHandler<AddDishToSectionCommand, NoContent>
+        IRequestHandler<AddDishToSectionCommand, NoContent>,
+        IRequestHandler<RemoveProductFromSectionCommand, NoContent>,
+        IRequestHandler<RemoveDishFromSectionCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -115,5 +117,40 @@ namespace SmartRestaurant.Application.Sections.Commands
             return default;
         }
 
+        public async Task<NoContent> Handle(RemoveProductFromSectionCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new RemoveProductFromSectionCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var sectionProduct = await _context.SectionProducts.AsNoTracking().FirstOrDefaultAsync(s =>
+               s.ProductId == Guid.Parse(request.ProductId) &&
+               s.SectionId == Guid.Parse(request.SectionId),
+               cancellationToken).ConfigureAwait(false);
+            if (sectionProduct == null)
+                throw new NotFoundException(nameof(SectionProduct), "The product to be removed does not exist within menu section");
+
+            _context.SectionProducts.Remove(sectionProduct);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+        public async Task<NoContent> Handle(RemoveDishFromSectionCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new RemoveDishFromSectionCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var sectionDish = await _context.SectionDishes.AsNoTracking().FirstOrDefaultAsync(s => 
+               s.DishId == Guid.Parse(request.DishId) && 
+               s.SectionId == Guid.Parse(request.SectionId), 
+               cancellationToken).ConfigureAwait(false);
+            if (sectionDish == null)
+                throw new NotFoundException(nameof(SectionDish), "The dish to be removed does not exist within menu section");
+
+            _context.SectionDishes.Remove(sectionDish);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
     }
 }
