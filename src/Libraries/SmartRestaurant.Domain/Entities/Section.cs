@@ -15,7 +15,7 @@ namespace SmartRestaurant.Domain.Entities
         public string Name { get; set; }
         public Guid MenuId { get; set; }
         public Menu Menu { get; set; }
-        public bool HasSubSection { get; set; }
+        public Nullable<bool> HasSubSection { get; set; }
         public virtual IList<SectionDish> Dishes { get; set; }
         public virtual IList<SectionProduct> Products { get; set; }
     }
