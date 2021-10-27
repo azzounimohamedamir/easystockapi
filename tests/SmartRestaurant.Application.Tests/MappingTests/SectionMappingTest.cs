@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
+using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Sections.Commands;
 using SmartRestaurant.Application.Tests.Configuration;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Enums;
 using Xunit;
 
 namespace SmartRestaurant.Application.Tests.MappingTests
@@ -42,6 +46,77 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             var sectionDish = _mapper.Map<SectionDish>(addDishToSectionCommand);
             Assert.Equal(sectionDish.SectionId, Guid.Parse(addDishToSectionCommand.SectionId));
             Assert.Equal(sectionDish.DishId, Guid.Parse(addDishToSectionCommand.DishId));
-        }      
+        }
+
+        [Fact]
+        public void Map_Product_To_MenuItemDto_Test()
+        {
+            var product = new Product
+            {
+                ProductId = Guid.NewGuid(),
+                Name = "hamoud 2L",
+                Description = "description test",
+                Price = 150,
+                EnergeticValue = 200,
+                Picture = new byte[3] { 22, 23, 25 }
+            };
+
+
+            var menuItemDto = _mapper.Map<MenuItemDto>(product);
+            Assert.Equal(menuItemDto.MenuItemId, product.ProductId);
+            Assert.Equal(menuItemDto.Name, product.Name);
+            Assert.Equal(menuItemDto.Description, product.Description);
+            Assert.Equal(menuItemDto.Price, product.Price);
+            Assert.Equal(menuItemDto.EnergeticValue, product.EnergeticValue);
+            Assert.Equal(menuItemDto.Picture, Convert.ToBase64String(product.Picture));
+            Assert.Equal(menuItemDto.Type, MenuItemType.Product);
+
+        }
+
+        [Fact]
+        public void Map_Dish_To_MenuItemDto_Test()
+        {
+            var dish = new Dish
+            {
+                DishId = Guid.NewGuid(),
+                Name = "Fakhitasse",
+                Description = "Fakhitasse description",
+                Picture = Convert.FromBase64String(Properties.Resources.picture),
+                Price = 280,
+                FoodBusinessId = Guid.NewGuid(),
+                Specifications = new List<DishSpecification>() {
+                    new  DishSpecification()   {ContentType =  ContentType.CheckBox, Title = "Slaty", CheckBoxContent = false},
+                    new  DishSpecification()   {ContentType = ContentType.ComboBox,  Title = "Cuission", ComboBoxContent = "Bien Cuite;Demi cuisson" }
+                },
+                Ingredients = new List<DishIngredient>() {
+                    new  DishIngredient()   {
+                        InitialAmount = 20,
+                        MinimumAmount = 10,
+                        MaximumAmount = 50,
+                        MeasurementUnits = MeasurementUnits.KiloGramme,
+                        AmountIncreasePerStep = 10,
+                        PriceIncreasePerStep = 20,
+                        IngredientId = Guid.NewGuid()
+                    },
+                },
+                Supplements = new List<DishSupplement>() {
+                    new  DishSupplement()   {SupplementId =  Guid.NewGuid()},
+                    new  DishSupplement()   {SupplementId =  Guid.NewGuid()},
+                },
+                IsSupplement = true,
+                EstimatedPreparationTime = 1200
+            };
+
+
+            var menuItemDto = _mapper.Map<MenuItemDto>(dish);
+            Assert.Equal(menuItemDto.MenuItemId, dish.DishId);
+            Assert.Equal(menuItemDto.Name, dish.Name);
+            Assert.Equal(menuItemDto.Description, dish.Description);
+            Assert.Equal(menuItemDto.Price, dish.Price);
+            Assert.Equal(menuItemDto.EnergeticValue, dish.EnergeticValue);
+            Assert.Equal(menuItemDto.Picture, Convert.ToBase64String(dish.Picture));
+            Assert.Equal(menuItemDto.Type, MenuItemType.Dish);
+
+        }       
     }
 }
