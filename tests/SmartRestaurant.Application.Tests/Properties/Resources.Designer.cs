@@ -69,5 +69,14 @@ namespace SmartRestaurant.Application.Tests.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /9j/4AAQSkZJRgABAQEBLAEsAAD/7TZcUGhvdG9zaG9wIDMuMAA4QklNA+0AAAAAABABLAAAAAEAAQEsAAAAAQABOEJJTQQEAAAAAAGsHAFaAAMbJUccAgAAAgAEHAIZAAk1MDEgdW5pb24cAhkAJUJyb29rbHluIE5ldyBZb3JrIFdlZGRpbmcgUGhvdG9ncmFwaHkcAhkAIERlc3RpbmF0aW9uIFdlZGRpbmcgUGhvdG9ncmFwaGVyHAIZAA1EaXNoIEZvb2QgTllDHAIZAB9HbG9iYWwgUHJlLVdlZGRpbmcgUGhvdG9ncmFwaGVyHAIZAA5HbG9iYWwgV2VkZGluZxwCGQAYUHJlLVdlZGRpbmcgUGhvdG9ncmFwaGVyHAIZABVSb2IgQWxsZW4gUGhvdG9ncmFwaHkcAhkALFJvYiBBbGxlbiBQaG90b2dyYXBoeSBIZWFkc2hvdHMgUGhvdG9ncmFwaGVyHAIZAAxTbGF0ZSBGbG9yYWwcAhkA [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string picture {
+            get {
+                return ResourceManager.GetString("picture", resourceCulture);
+            }
+        }
     }
 }

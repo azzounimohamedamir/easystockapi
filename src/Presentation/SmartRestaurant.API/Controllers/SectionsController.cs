@@ -62,5 +62,38 @@ namespace SmartRestaurant.API.Controllers
         {
             return await SendWithErrorsHandlingAsync(new GetSectionByIdQuery { Id = id });
         }
+
+        /// <summary> AddProductToSection() </summary>
+        /// <remarks> This endpoint is used to add a new product to menu section. </remarks>
+        /// <param name="command">This is payload object used to add a new product to menu section</param>
+        /// <response code="204">The product has been successfully added to menu section.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to add a new product to menu section is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("add-product")]
+        [HttpPost]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<IActionResult> AddProductToSection(AddProductToSectionCommand command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+        /// <summary> AddDishToSection() </summary>
+        /// <remarks> This endpoint is used to add a new dish to menu section. </remarks>
+        /// <param name="command">This is payload object used to add a new dish to menu section</param>
+        /// <response code="204">The dish has been successfully added to menu section.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to add a new dish to menu section is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("add-dish")]
+        [HttpPost]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<IActionResult> AddDishToSection(AddDishToSectionCommand command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
+        }
+      
     }
 }

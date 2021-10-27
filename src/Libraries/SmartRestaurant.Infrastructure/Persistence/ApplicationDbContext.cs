@@ -18,6 +18,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Table> Tables { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Section> Sections { get; set; }
+        public DbSet<SectionDish> SectionDishes { get; set; }
+        public DbSet<SectionProduct> SectionProducts { get; set; }
         public DbSet<SubSection> SubSections { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<LinkedDevice> LinkedDevices { get; set; }
@@ -53,6 +55,12 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 .HasOne(e => e.Supplement)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SectionDish>()
+              .HasKey(o => new { o.SectionId, o.DishId });
+
+            modelBuilder.Entity<SectionProduct>()
+              .HasKey(o => new { o.SectionId, o.ProductId });
 
             modelBuilder.Seed();
         }
