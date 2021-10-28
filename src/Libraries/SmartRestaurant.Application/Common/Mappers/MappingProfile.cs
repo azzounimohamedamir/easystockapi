@@ -251,6 +251,10 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)))
                 .ForMember(x => x.Type, o => o.MapFrom(p => MenuItemType.Dish));
 
+            CreateMap<AddProductToSubSectionCommand, SubSectionProduct>();
+
+            CreateMap<AddDishToSubSectionCommand, SubSectionDish>();
+
         }
     }
 }
