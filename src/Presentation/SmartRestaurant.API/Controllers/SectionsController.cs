@@ -157,7 +157,7 @@ namespace SmartRestaurant.API.Controllers
         [Route("{id}/menu-items")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
-        public async Task<IActionResult> GetList([FromRoute] string id,  string searchKey, int page, int pageSize)
+        public async Task<IActionResult> GetSectionMenuItems([FromRoute] string id,  string searchKey, int page, int pageSize)
         {
             var query = new GetSectionMenuItemsQuery
             {
