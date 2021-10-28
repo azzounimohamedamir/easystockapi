@@ -93,5 +93,51 @@ namespace SmartRestaurant.API.Controllers
         {
             return await SendWithErrorsHandlingAsync(command);
         }
+
+
+        /// <summary> RemoveProductFromSubSection() </summary>
+        /// <remarks> This endpoint is used to remove product from menu sub-section. </remarks>
+        /// <param name="id">id of sub-section that product belong to.</param>
+        /// <param name="productId">id of product that would be removed from menu sub-section.</param>
+        /// <response code="204">The product has been successfully removed from menu sub-section.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to remove product from menu sub-section is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}/product/{productId}")]
+        [HttpDelete]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<IActionResult> RemoveProductFromSubSection([FromRoute] string id, [FromRoute] string productId)
+        {
+            var command = new RemoveProductFromSubSectionCommand
+            {
+                SubSectionId = id,
+                ProductId = productId
+            };
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+
+        /// <summary> RemoveDishFromSubSection() </summary>
+        /// <remarks> This endpoint is used to remove dish from menu sub-section. </remarks>
+        /// <param name="id">id of sub-section that dish belong to.</param>
+        /// <param name="dishId">id of dish that would be removed from menu sub-section.</param>
+        /// <response code="204">The dish has been successfully removed from menu sub-section.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to remove dish from menu sub-section is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}/dish/{dishId}")]
+        [HttpDelete]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<IActionResult> RemoveDishFromSubSection([FromRoute] string id, [FromRoute] string dishId)
+        {
+            var command = new RemoveDishFromSubSectionCommand
+            {
+                SubSectionId = id,
+                DishId = dishId
+            };
+            return await SendWithErrorsHandlingAsync(command);
+        }
     }
 }
