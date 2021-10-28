@@ -87,6 +87,13 @@ namespace SmartRestaurant.Application.Sections.Commands
             if (product == null)
                 throw new NotFoundException(nameof(Product), request.ProductId);
 
+            var sectionProductExistance = await _context.SectionProducts.AsNoTracking().FirstOrDefaultAsync(s =>
+            s.ProductId == Guid.Parse(request.ProductId) &&
+            s.SectionId == Guid.Parse(request.SectionId),
+            cancellationToken).ConfigureAwait(false);
+            if (sectionProductExistance != null)
+                throw new ConflictException("The product you are trying to add already exist");
+
             var sectionProduct = _mapper.Map<SectionProduct>(request);
             _context.SectionProducts.Add(sectionProduct);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -110,6 +117,13 @@ namespace SmartRestaurant.Application.Sections.Commands
                .ConfigureAwait(false);
             if (dish == null)
                 throw new NotFoundException(nameof(Dish), request.DishId);
+
+            var sectionDishExistance = await _context.SectionDishes.AsNoTracking().FirstOrDefaultAsync(s =>
+           s.DishId == Guid.Parse(request.DishId) &&
+           s.SectionId == Guid.Parse(request.SectionId),
+           cancellationToken).ConfigureAwait(false);
+            if (sectionDishExistance != null)
+                throw new ConflictException("The dish you are trying to add already exist");
 
             var sectionDish = _mapper.Map<SectionDish>(request);
             _context.SectionDishes.Add(sectionDish);

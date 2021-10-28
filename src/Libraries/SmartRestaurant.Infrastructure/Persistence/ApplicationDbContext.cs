@@ -21,6 +21,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<SectionDish> SectionDishes { get; set; }
         public DbSet<SectionProduct> SectionProducts { get; set; }
         public DbSet<SubSection> SubSections { get; set; }
+        public DbSet<SubSectionDish> SubSectionDishes { get; set; }
+        public DbSet<SubSectionProduct> SubSectionProducts { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<LinkedDevice> LinkedDevices { get; set; }
         public DbSet<Currency> Currencies { get; set; }
@@ -61,6 +63,12 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<SectionProduct>()
               .HasKey(o => new { o.SectionId, o.ProductId });
+
+            modelBuilder.Entity<SubSectionDish>()
+             .HasKey(o => new { o.SubSectionId, o.DishId });
+
+            modelBuilder.Entity<SubSectionProduct>()
+              .HasKey(o => new { o.SubSectionId, o.ProductId });
 
             modelBuilder.Seed();
         }

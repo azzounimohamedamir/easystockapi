@@ -8,6 +8,7 @@ namespace SmartRestaurant.Domain.Entities
     {
         public Guid ProductId { get; set; }
         public virtual IList<SectionProduct> Sections { get; set; }
+        public virtual IList<SubSectionProduct> SubSections { get; set; }
     }
 
 
