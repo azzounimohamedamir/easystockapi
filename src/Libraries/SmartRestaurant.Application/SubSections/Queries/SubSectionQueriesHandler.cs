@@ -16,7 +16,8 @@ namespace SmartRestaurant.Application.SubSections.Queries
 {
     public class SubSectionsQueriesHandler :
         IRequestHandler<GetSubSectionsListQuery, PagedListDto<SubSectionDto>>,
-        IRequestHandler<GetSubSectionByIdQuery, SubSectionDto>
+        IRequestHandler<GetSubSectionByIdQuery, SubSectionDto>,
+        IRequestHandler<GetSubSectionMenuItemsQuery, PagedListDto<MenuItemDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -50,6 +51,45 @@ namespace SmartRestaurant.Application.SubSections.Queries
                 throw new NotFoundException(nameof(SubSection), request.Id);
 
             return _mapper.Map<SubSectionDto>(subSections);
+        }
+
+        public async Task<PagedListDto<MenuItemDto>> Handle(GetSubSectionMenuItemsQuery request, CancellationToken cancellationToken)
+        {
+            var validator = new GetSubSectionMenuItemsQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var subSection = await _context.SubSections.FindAsync(Guid.Parse(request.SubSectionId)).ConfigureAwait(false);
+            if (subSection == null)
+                throw new NotFoundException(nameof(SubSection), request.SubSectionId);
+
+            var query = await _context.SubSections
+              .Include(x => x.Products)
+              .Include(x => x.Dishes)
+              .Where(x => x.SubSectionId == Guid.Parse(request.SubSectionId))
+              .Select(x => new
+              {
+                  ProductsId = x.Products.Select(x => x.ProductId).ToList(),
+                  DishesId = x.Dishes.Select(x => x.DishId).ToList()
+              })
+              .FirstOrDefaultAsync()
+              .ConfigureAwait(false);
+
+            var searchKey = string.IsNullOrWhiteSpace(request.SearchKey) ? "" : request.SearchKey;
+
+            var products = _context.Products.Where(product => query.ProductsId.Contains(product.ProductId) && product.Name.Contains(searchKey))
+                    .OrderBy(product => product.Name)
+                    .GetPaged(request.Page, request.PageSize);
+
+            var dishes = _context.Dishes.Where(dish => query.DishesId.Contains(dish.DishId) && dish.Name.Contains(searchKey))
+                    .OrderBy(dish => dish.Name)
+                    .GetPaged(request.Page, request.PageSize);
+
+            var menuItemsDto = new List<MenuItemDto>();
+            menuItemsDto.AddRange(_mapper.Map<List<MenuItemDto>>(await products.Data.ToListAsync(cancellationToken).ConfigureAwait(false)));
+            menuItemsDto.AddRange(_mapper.Map<List<MenuItemDto>>(await dishes.Data.ToListAsync(cancellationToken).ConfigureAwait(false)));
+
+            return new PagedListDto<MenuItemDto>(request.Page, products.PageCount + dishes.PageCount, request.PageSize, menuItemsDto.Count, menuItemsDto);
         }
     }
 }
