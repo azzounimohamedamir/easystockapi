@@ -5,26 +5,26 @@ variables:
     value: refs/heads/develop
 
 stages:
-- stage: Build_On_Dev_Evn
-  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/develop'))
-  pool: 
-    name: features-SmartRestaurant-pool
-    workspace:
-      clean: all
-  jobs:
-  - template: devops/azure-build-template.yml
+#- stage: Build_On_Dev_Evn
+#  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/develop'))
+#  pool: 
+#    name: features-SmartRestaurant-pool
+#    workspace:
+#      clean: all
+#  jobs:
+#  - template: devops/azure-build-template.yml
 
-- stage: Deploy_To_Dev_Env
-  dependsOn: Build_On_Dev_Evn
-  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/develop'))
-  pool: 
-    name: features-SmartRestaurant-pool
-    workspace:
-      clean: none
-  jobs:
-  - template: devops/azure-deploy-template.yml
-    parameters:
-      envName: SmartRestaurant-Dev-Env
+#- stage: Deploy_To_Dev_Env
+#  dependsOn: Build_On_Dev_Evn
+#  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/develop'))
+#  pool: 
+#    name: features-SmartRestaurant-pool
+#    workspace:
+#      clean: none
+#  jobs:
+#  - template: devops/azure-deploy-template.yml
+#    parameters:
+#      envName: SmartRestaurant-Dev-Env
 
 
 - stage: Build_On_Test_Evn
