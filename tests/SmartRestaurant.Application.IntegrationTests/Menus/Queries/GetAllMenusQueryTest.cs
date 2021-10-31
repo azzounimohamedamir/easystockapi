@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
@@ -28,7 +29,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
                     FoodBusinessId = fastFood.FoodBusinessId
                 });
             var query = new GetMenusListQuery
-                {FoodBusinessId = fastFood.FoodBusinessId, Page = 1, PageSize = 5};
+                {FoodBusinessId = fastFood.FoodBusinessId.ToString(), Page = 1, PageSize = 5};
             var result = await SendAsync(query);
 
             result.Data.Should().HaveCount(5);
