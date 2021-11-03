@@ -38,5 +38,6 @@ namespace SmartRestaurant.Application.Common.Dtos
         public int tablesCount { get; set; }
         public int menusCount { get; set; }
         public int FourDigitCode { get; set; }
+        public Currencies DefaultCurrency { get; set; }
     }
 }
