@@ -37,6 +37,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<OrderDishIngredient> OrderDishIngredients { get; set; }
         public DbSet<FoodBusinessClient> FoodBusinessClients { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Illness> Illnesses { get; set; }
+        public DbSet<IngredientIllness> IngredientIllnesses { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FoodBusinessUser>()
@@ -69,6 +72,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<SubSectionProduct>()
               .HasKey(o => new { o.SubSectionId, o.ProductId });
+
+            modelBuilder.Entity<IngredientIllness>()
+                .HasKey(i => new { i.IllnessId, i.IngredientId });
 
             modelBuilder.Seed();
         }

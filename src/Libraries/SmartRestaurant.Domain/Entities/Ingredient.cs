@@ -12,5 +12,6 @@ namespace SmartRestaurant.Domain.Entities
         public byte[] Picture { get; set; }
         public EnergeticValue EnergeticValue { get; set; }
         public virtual IList<DishIngredient> Dishes { get; set; }
+        public IList<IngredientIllness> IngredientIllnesses { get; set; }
     }
 }
