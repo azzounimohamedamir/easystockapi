@@ -28,7 +28,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public string Email { get; set; }
         public FoodBusinessCategory FoodBusinessCategory { get; set; }
         public int FourDigitCode { get; set; }
-        public Guid DefaultCurrencyId { get; set; }
+        public Currencies DefaultCurrency { get; set; }
     }
 
 
@@ -85,7 +85,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
                 .GreaterThanOrEqualTo(0)
                 .LessThanOrEqualTo(9999);
 
-            RuleFor(foodBusiness => foodBusiness.DefaultCurrencyId).NotEmpty();
+            RuleFor(foodBusiness => foodBusiness.DefaultCurrency)
+                .IsInEnum();
         }
     }
 }

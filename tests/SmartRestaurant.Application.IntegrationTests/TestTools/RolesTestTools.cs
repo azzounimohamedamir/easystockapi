@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using SmartRestaurant.Application.FoodBusiness.Commands;
+using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
 
@@ -16,7 +17,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             {
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 Name = "fast food test",
-                DefaultCurrencyId = Guid.NewGuid()
+                DefaultCurrency = Currencies.USD
             };
             await SendAsync(createFoodBusinessCommand);
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
