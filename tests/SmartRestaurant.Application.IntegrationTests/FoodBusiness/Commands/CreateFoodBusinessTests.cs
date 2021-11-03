@@ -51,7 +51,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 Website = "",
                 FoodBusinessAdministratorId = foodBusinessAdministrator.Id,
                 FoodBusinessCategory = FoodBusinessCategory.Restaurant,
-                DefaultCurrencyId = Guid.NewGuid()
+                DefaultCurrency = Currencies.USD
             };
 
 

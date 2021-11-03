@@ -43,7 +43,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 Website = "",
                 FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
                 FoodBusinessCategory = FoodBusinessCategory.Restaurant,
-                DefaultCurrencyId = Guid.NewGuid()
+                DefaultCurrency = Currencies.USD
             };
             await SendAsync(createFoodBusinessCommand);
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
@@ -82,7 +82,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 Website = "",
                 FoodBusinessAdministratorId = foodBusinessAdministratorId,
                 FoodBusinessCategory = FoodBusinessCategory.Restaurant,
-                DefaultCurrencyId = Guid.NewGuid()
+                DefaultCurrency = Currencies.USD
             };
             await SendAsync(createFoodBusinessCommand);
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
@@ -121,7 +121,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 Website = "",
                 FoodBusinessAdministratorId = foodBusinessAdministratorId,
                 FoodBusinessCategory = FoodBusinessCategory.Restaurant,
-                DefaultCurrencyId = Guid.NewGuid()
+                DefaultCurrency = Currencies.USD
             };
             await SendAsync(createFoodBusinessCommand);
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
