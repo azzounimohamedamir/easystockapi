@@ -34,18 +34,6 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(illness.IllnessId, createIllnessCommand.Id);
         }
 
-        [Fact]
-        public void Map_AddIngredientToIllnessCommand_To_IllnessIngredient_Valide_Test()
-        {
-            var addIngredientToIllnessCommand = new AddIngredientToIllnessCommand
-            {
-                IllnessId = Guid.NewGuid().ToString(),
-                IngredientId = Guid.NewGuid().ToString()
-            };
-
-            var illnessIngredient = _mapper.Map<IngredientIllness>(addIngredientToIllnessCommand);
-            Assert.Equal(illnessIngredient.IllnessId, Guid.Parse(addIngredientToIllnessCommand.IllnessId));
-            Assert.Equal(illnessIngredient.IngredientId, Guid.Parse(addIngredientToIllnessCommand.IngredientId));
-        }
+      
     }
 }
