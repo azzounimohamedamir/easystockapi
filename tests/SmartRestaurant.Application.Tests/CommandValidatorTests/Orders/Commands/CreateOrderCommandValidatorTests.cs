@@ -1,7 +1,5 @@
 ﻿using FluentValidation.TestHelper;
-using Microsoft.AspNetCore.Http;
 using SmartRestaurant.Application.Orders.Commands;
-using SmartRestaurant.Domain.Enums;
 using System;
 using Xunit;
 
