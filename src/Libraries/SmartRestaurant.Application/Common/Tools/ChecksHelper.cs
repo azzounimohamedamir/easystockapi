@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -40,6 +42,16 @@ namespace SmartRestaurant.Application.Common.Tools
         {
             try { float.Parse(text); return true; }
             catch (Exception) { return false; }
+        }
+
+        public static bool IsEmptyList<T>(List<T> list)
+        {
+            if (list == null)
+            {
+                return true;
+            }
+
+            return !list.Any();
         }
     }
 }
