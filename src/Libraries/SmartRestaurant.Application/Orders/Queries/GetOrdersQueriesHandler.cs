@@ -29,28 +29,30 @@ namespace SmartRestaurant.Application.Orders.Queries
 
         public async Task<OrderResponse> Handle(GetOrderByd request, CancellationToken cancellationToken)
         {
-            var order = await _context.Orders.Where(o => o.OrderId == request.OrderId).Include(o => o.OrderDishes)
-                .ThenInclude(o => o.OrderDishIngredients).FirstOrDefaultAsync(cancellationToken);
-            if (order == null) throw new NotFoundException(nameof(Order), request.OrderId);
-            var dto = _mapper.Map<OrderResponse>(order);
-            await MapPrice(new List<OrderResponse> {dto}, new List<Order> {order}, order.FoodBusinessId);
-            return dto;
+            //var order = await _context.Orders.Where(o => o.OrderId == request.OrderId).Include(o => o.OrderDishes)
+            //    .ThenInclude(o => o.OrderDishIngredients).FirstOrDefaultAsync(cancellationToken);
+            //if (order == null) throw new NotFoundException(nameof(Order), request.OrderId);
+            //var dto = _mapper.Map<OrderResponse>(order);
+            //await MapPrice(new List<OrderResponse> {dto}, new List<Order> {order}, order.FoodBusinessId);
+            //return dto;
+            return default;
         }
 
         public async Task<PagedListDto<OrderResponse>> Handle(GetOrdersByFoodBusinessIdQuery request,
             CancellationToken cancellationToken)
         {
-            var foodBusiness = await _context.FoodBusinesses.FindAsync(request.FoodBusinessId);
-            if (foodBusiness == null) throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
-            var result = _context.Orders.Where(o => o.FoodBusinessId == request.FoodBusinessId)
-                .Include(o => o.OrderDishes).ThenInclude(o => o.OrderDishIngredients)
-                .GetPaged(request.Page, request.PageSize);
-            var data = _mapper.Map<List<OrderResponse>>(
-                await result.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
-            await MapPrice(data, result.Data.ToList(), request.FoodBusinessId);
-            var pagedResult = new PagedListDto<OrderResponse>(result.CurrentPage, result.PageCount, result.PageSize,
-                result.RowCount, data);
-            return pagedResult;
+            //var foodBusiness = await _context.FoodBusinesses.FindAsync(request.FoodBusinessId);
+            //if (foodBusiness == null) throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
+            //var result = _context.Orders.Where(o => o.FoodBusinessId == request.FoodBusinessId)
+            //    .Include(o => o.OrderDishes).ThenInclude(o => o.OrderDishIngredients)
+            //    .GetPaged(request.Page, request.PageSize);
+            //var data = _mapper.Map<List<OrderResponse>>(
+            //    await result.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
+            //await MapPrice(data, result.Data.ToList(), request.FoodBusinessId);
+            //var pagedResult = new PagedListDto<OrderResponse>(result.CurrentPage, result.PageCount, result.PageSize,
+            //    result.RowCount, data);
+            //return pagedResult;
+            return default;
         }
 
         private async Task MapPrice(List<OrderResponse> data, List<Order> result, Guid foodBusinessId)
