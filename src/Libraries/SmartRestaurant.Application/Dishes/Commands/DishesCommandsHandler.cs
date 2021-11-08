@@ -111,7 +111,11 @@ namespace SmartRestaurant.Application.Dishes.Commands
                 foreach(var ingredient in ingredients)
                 {
                     var dishIngredient = dishIngredients.FirstOrDefault(x => x.IngredientId == ingredient.IngredientId.ToString());
-                    if(dishIngredient.MeasurementUnits == ingredient.EnergeticValue.MeasurementUnit)
+                    if (ingredient.EnergeticValue.Amount == 0)
+                    {
+                        energeticValues.Add(0);
+                    }
+                    else if (dishIngredient.MeasurementUnits == ingredient.EnergeticValue.MeasurementUnit)
                     {
                         energeticValues.Add(((dishIngredient.InitialAmount * ingredient.EnergeticValue.Energy) / ingredient.EnergeticValue.Amount));
                     }
