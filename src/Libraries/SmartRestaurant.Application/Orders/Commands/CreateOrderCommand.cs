@@ -39,6 +39,16 @@ namespace SmartRestaurant.Application.Orders.Commands
                  .Must(x => false).WithMessage("Please select the Occupied Tables because the order type is DineIn")
                  .When(x => ChecksHelper.IsEmptyList(x.OccupiedTables) == true && x.Type == OrderTypes.DineIn);
 
+            RuleFor(x => x.OccupiedTables)
+                 .Must(x => false).WithMessage("You can not occupy tables if Order type is Takeout or Delivery")
+                 .When(x => ChecksHelper.IsEmptyList(x.OccupiedTables) == false && (x.Type == OrderTypes.Takeout || x.Type == OrderTypes.Delivery));
+
+            RuleForEach(x => x.OccupiedTables)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty().WithMessage("'Dish Occupied Table' must not be empty")
+                .SetValidator(new OrderOccupiedTableDtoValidator())
+                .When(x => ChecksHelper.IsEmptyList(x.OccupiedTables) == false && x.Type == OrderTypes.DineIn);
+           
             RuleForEach(x => x.Products)
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("'Ingredient' must not be empty")
