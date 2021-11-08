@@ -30,8 +30,12 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Specification> Specifications { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderOccupiedTable> OrderOccupiedTables { get; set; }
+        public DbSet<OrderProduct> OrderProducts { get; set; }
         public DbSet<OrderDish> OrderDishes { get; set; }
         public DbSet<OrderDishIngredient> OrderDishIngredients { get; set; }
+        public DbSet<OrderDishSpecification> OrderDishSpecifications { get; set; }
+        public DbSet<OrderDishSupplement> OrderDishSupplements { get; set; }
         public DbSet<Domain.Entities.FoodBusinessClient> FoodBusinessClients { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Domain.Entities.Illness> Illnesses { get; set; }

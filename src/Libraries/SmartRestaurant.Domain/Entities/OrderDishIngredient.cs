@@ -1,15 +1,21 @@
-using System;
-using SmartRestaurant.Domain.Common;
+using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.ValueObjects;
+using System;
 
 namespace SmartRestaurant.Domain.Entities
 {
-    public class OrderDishIngredient : AuditableEntity
+    public class OrderDishIngredient
     {
         public Guid OrderDishIngredientId { get; set; }
-        public string Name { get; set; }
-        public Quantity QuantityPerStep { get; set; }
-        public float PriceValuePerStep { get; set; }
+        public bool IsPrimary { get; set; }
+        public float Amount { get; set; }
+        public float MinimumAmount { get; set; }
+        public float MaximumAmount { get; set; }
+        public float AmountIncreasePerStep { get; set; }
+        public float PriceIncreasePerStep { get; set; }
+        public MeasurementUnits MeasurementUnits { get; set; }
         public int Steps { get; set; }
+        public OrderIngredient OrderIngredient { get; set; }
+        public Guid OrderDishId { get; set; }
     }
 }
