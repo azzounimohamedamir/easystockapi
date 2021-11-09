@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
+using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.Validators;
 using SmartRestaurant.Domain.Enums;
@@ -12,6 +13,7 @@ namespace SmartRestaurant.Application.Orders.Commands
     public class CreateOrderCommand : CreateCommand
     {
         public OrderTypes Type { get; set; }
+        public TakeoutDetailsDto TakeoutDetails { get; set; }
         public List<OrderDishDto> Dishes { get; set; }
         public List<OrderProductDto> Products { get; set; }
         public List<OrderOccupiedTableDto> OccupiedTables { get; set; }
@@ -24,6 +26,24 @@ namespace SmartRestaurant.Application.Orders.Commands
         {
             RuleFor(m => m.Type)
                 .IsInEnum();
+
+            RuleFor(x => x.TakeoutDetails)
+             .Cascade(CascadeMode.StopOnFirstFailure)
+             .NotEmpty().WithMessage("'{PropertyName}' details must not be empty")
+             .DependentRules(() => {
+                 RuleFor(x => x.TakeoutDetails.Type)
+                  .IsInEnum();
+
+                 RuleFor(x => x.TakeoutDetails.DeliveryTime)
+                    .Must(x => false).WithMessage("'{PropertyName}' must be null because you have set Takeout type as Instant")
+                    .When(x => x.TakeoutDetails.Type == TakeoutType.Instant && x.TakeoutDetails.DeliveryTime != null);
+
+                 RuleFor(x => x.TakeoutDetails.DeliveryTime)
+                   .Must(x => false).WithMessage("You have to set Delivery Time because you have set Takeout type as Delayed")
+                   .When(x => x.TakeoutDetails.Type == TakeoutType.Delayed && x.TakeoutDetails.DeliveryTime == default);
+             })
+             .When(x => x.Type == OrderTypes.Takeout);
+
 
             RuleFor(m => m.FoodBusinessId)
                 .Cascade(CascadeMode.StopOnFirstFailure)
