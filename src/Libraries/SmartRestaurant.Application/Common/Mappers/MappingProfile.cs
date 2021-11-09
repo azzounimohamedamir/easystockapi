@@ -260,6 +260,10 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.IllnessId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.Name, o => o.MapFrom(p => p.Name));
 
+            CreateMap<Domain.Entities.Illness, IllnessDto>()
+               .ForMember(x => x.IllnessId, o => o.MapFrom(p => p.IllnessId))
+               .ReverseMap();
+
         }
     }
 }
