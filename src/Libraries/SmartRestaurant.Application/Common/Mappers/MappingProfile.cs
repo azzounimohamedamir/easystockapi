@@ -4,6 +4,7 @@ using AutoMapper;
 using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.DishDtos;
+using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Extensions;
@@ -201,17 +202,47 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Supplement.EnergeticValue))
                 .ReverseMap();
 
-            CreateMap<Order, CreateOrderCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.OrderId))
+            CreateMap<CreateOrderCommand, Order>()
+                .ForMember(x => x.OrderId, o => o.MapFrom(p => p.Id));
+
+            CreateMap<OrderDishDto, OrderDish>()
                 .ReverseMap();
+
+            CreateMap<OrderProductDto, OrderProduct>()
+                .ReverseMap();
+
+            CreateMap<OrderDishDto, OrderDish>()
+                .ReverseMap();
+
+            CreateMap<OrderProductDto, OrderProduct>()
+                .ReverseMap();
+
+            CreateMap<OrderDishIngredientDto, OrderDishIngredient>()
+                .ReverseMap();         
+
+            CreateMap<OrderDishSpecification, OrderDishSpecificationDto>()
+                .AfterMap((src, dest) => dest.ComboBoxContent = new List<string>((string.IsNullOrWhiteSpace(src.ComboBoxContent)) ? new string[0] : src.ComboBoxContent.Split(';')));
+
+            CreateMap<OrderDishSpecificationDto, OrderDishSpecification>()
+                .ForMember(x => x.ComboBoxContent, o => o.MapFrom(p => string.Join(";", p.ComboBoxContent)));
+
+            CreateMap<OrderDishSupplementDto, OrderDishSupplement>()
+                .ReverseMap();
+
+            CreateMap<OrderOccupiedTableDto, OrderOccupiedTable>()
+                .ReverseMap();
+
+            CreateMap<OrderIngredientDto, OrderIngredient>()
+                .ReverseMap();
+
+            CreateMap<EnergeticValueDto, EnergeticValue>()
+                .ReverseMap();
+
             CreateMap<Order, UpdateOrderCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.OrderId))
                 .ReverseMap();
             CreateMap<OrderDish, OrderDishResponse>().ReverseMap();
             CreateMap<OrderDishIngredient, OrderDishIngredientResponse>().ReverseMap();
-            CreateMap<Order, OrderResponse>()
-                .ForMember(x => x.OrderType, o => o.MapFrom(p => p.OrderType.ToString()))
-                .ReverseMap();
             CreateMap<OrderDish, OrderDishRequest>().ReverseMap();
             CreateMap<OrderDishIngredient, OrderDishIngredientRequest>().ReverseMap();
 

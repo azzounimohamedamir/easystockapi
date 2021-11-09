@@ -1,14 +1,17 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.Orders.Commands
 {
@@ -17,11 +20,14 @@ namespace SmartRestaurant.Application.Orders.Commands
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
+        private readonly string _algeriaZoneId = "W. Central Africa Standard Time";
 
-        public OrdersCommandsHandlers(IApplicationDbContext context, IMapper mapper)
+        public OrdersCommandsHandlers(IApplicationDbContext context, IMapper mapper, IUserService userService)
         {
             _context = context;
             _mapper = mapper;
+            _userService = userService;
         }
 
         public async Task<Created> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -29,87 +35,141 @@ namespace SmartRestaurant.Application.Orders.Commands
             var validator = new CreateOrderCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-            var foodBusiness = await _context.FoodBusinesses.FindAsync(request.FoodBusinessId);
-            if (foodBusiness == null) throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
+
+            var foodBusiness = await _context.FoodBusinesses.FindAsync(Guid.Parse(request.FoodBusinessId));
+            if (foodBusiness == null)
+                throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
+
             var order = _mapper.Map<Order>(request);
-            CalculateTotalPrice(order);
-            await Pay(order);
+            order.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
+            order.CreatedAt = DateTime.Now;
+
+            CalculateAndSetOrderEnergeticValues(order);
+            CalculateAndSetOrderTotalPrice(order);
+            CalculateAndSetOrderNumber(order, foodBusiness);
             _context.Orders.Add(order);
-            await _context.SaveChangesAsync(cancellationToken);
+           await _context.SaveChangesAsync(cancellationToken);
+                     
             return default;
         }
 
+      
         public async Task<NoContent> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
             var validator = new UpdateOrderCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-            var order = await _context.Orders.AsNoTracking().Include(o => o.OrderDishes)
-                .ThenInclude(o => o.OrderDishIngredients).FirstOrDefaultAsync(o => o.OrderId == request.Id,
-                    cancellationToken);
-            var entity = _mapper.Map<Order>(request);
-            entity.FoodBusinessId = order.FoodBusinessId;
-            CalculateTotalPrice(entity);
-            await Pay(entity);
-            await ReplaceOrder(cancellationToken, order, entity);
             return default;
         }
 
-        private async Task Pay(Order order)
+
+        private void CalculateAndSetOrderNumber(Order order, Domain.Entities.FoodBusiness foodBusiness)
         {
-            if (order.MoneyReceived > order.TotalToPay)
-                order.MoneyReturned = order.MoneyReceived - order.TotalToPay;
+            var maxOrderNumber = 0;
+            TimeZoneInfo algeriaZone = TimeZoneInfo.FindSystemTimeZoneById(_algeriaZoneId);
+
+            DateTime utcNow = DateTime.UtcNow;
+            DateTime algeriaTimeNow = TimeZoneInfo.ConvertTimeFromUtc(utcNow, algeriaZone);
+
+            DateTime orderNumberLastResetDateTimeInUtc = TimeZoneInfo.ConvertTimeToUtc(foodBusiness.OrderNumberLastResetDateTime);
+            DateTime orderNumberLastResetDateTimeInAlgeriaTime = TimeZoneInfo.ConvertTimeFromUtc(orderNumberLastResetDateTimeInUtc, algeriaZone);
+
+            if (orderNumberLastResetDateTimeInAlgeriaTime.Day == algeriaTimeNow.Day)
+            {
+                maxOrderNumber = _context.Orders
+                      .Where(x => x.FoodBusinessId == foodBusiness.FoodBusinessId)
+                      .OrderByDescending(p => p.Number)
+                      .Select(x => x.Number)
+                      .FirstOrDefault();
+            }
             else
-                throw new MoneyNotSufficientException(order.TotalToPay, order.MoneyReceived,
-                    await GetFoodBusinessDefaultCurrency(order.FoodBusinessId));
+            {
+                foodBusiness.OrderNumberLastResetDateTime = DateTime.Now;
+                _context.FoodBusinesses.Update(foodBusiness);
+            }
+          
+            order.Number = maxOrderNumber + 1;
         }
 
-        private async Task<string> GetFoodBusinessDefaultCurrency(Guid foodBusinessId)
-        {
-            //var foodBusiness = await _context.FoodBusinesses
-            //    .FirstOrDefaultAsync(d => d.FoodBusinessId == foodBusinessId);
-            //var currency = await _context.Currencies.FindAsync(foodBusiness.DefaultCurrencyId);
-            //return currency != null ? currency.Symbol : "DZD";
 
-            return "DZD";
-        }
-
-        private async Task ReplaceOrder(CancellationToken cancellationToken, Order old, Order @new)
+        private  void CalculateAndSetOrderTotalPrice(Order order)
         {
-            await RemoveExistingOrder(old, cancellationToken);
-            await CreateOrder(@new, cancellationToken);
-        }
+            float totalToPay = 0;
 
-        private async Task CreateOrder(Order order, CancellationToken cancellationToken)
-        {
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync(cancellationToken);
-        }
+            foreach (var dish in order.Dishes)
+            {
+                float totalDishPrice = dish.UnitPrice;
 
-        private async Task RemoveExistingOrder(Order order, CancellationToken cancellationToken)
-        {
-            var orderDishes = order.OrderDishes;
-            if (orderDishes.Count > 0)
-                foreach (var orderDish in orderDishes)
+                foreach (var supplement in dish.Supplements)
                 {
-                    foreach (var orderDishIngredient in orderDish.OrderDishIngredients)
-                        _context.OrderDishIngredients.Remove(orderDishIngredient);
-
-                    _context.OrderDishes.Remove(orderDish);
+                    if(supplement.IsSelected == true)
+                        totalDishPrice += supplement.Price;
                 }
 
-            _context.Orders.Remove(order);
-            await _context.SaveChangesAsync(cancellationToken);
+                foreach (var ingredient in dish.Ingredients)
+                {
+                    totalDishPrice += (ingredient.Steps * ingredient.PriceIncreasePerStep);
+                }
+
+                totalToPay += (dish.Quantity * totalDishPrice);
+            }
+
+            foreach (var product in order.Products)
+            {
+                totalToPay += (product.Quantity * product.UnitPrice);
+            }
+
+            order.TotalToPay = totalToPay;            
         }
 
-        private static void CalculateTotalPrice(Order order)
+        private void CalculateAndSetOrderEnergeticValues(Order order)
         {
-            foreach (var dish in order.OrderDishes)
+            foreach (var dish in order.Dishes)
             {
-                order.TotalToPay += dish.PriceValue;
-                foreach (var dishIngredient in dish.OrderDishIngredients.Where(dishIngredient =>
-                    dishIngredient.Steps > 0))
-                    order.TotalToPay += dishIngredient.Steps * dishIngredient.PriceValuePerStep;
+                List<float> energeticValues = new List<float>();
+                energeticValues.Add(dish.EnergeticValue);
+
+                foreach (var supplement in dish.Supplements)
+                {
+                    if (supplement.IsSelected == true)
+                        energeticValues.Add(supplement.EnergeticValue);
+                }
+
+                foreach (var ingredient in dish.Ingredients)
+                {
+                    var OrderishIngredient = ingredient;
+                    var ingredientDtails = ingredient.OrderIngredient;
+                    if(ingredientDtails.EnergeticValue.Amount == 0)
+                    {
+                        energeticValues.Add(0);
+                    }
+                    else if (OrderishIngredient.MeasurementUnits == ingredientDtails.EnergeticValue.MeasurementUnit)
+                    {
+                        energeticValues.Add(((OrderishIngredient.Amount * ingredientDtails.EnergeticValue.Energy) / ingredientDtails.EnergeticValue.Amount));
+                    }
+                    else
+                    {
+                        switch (OrderishIngredient.MeasurementUnits)
+                        {
+                            case MeasurementUnits.Gramme:
+                                energeticValues.Add(((OrderishIngredient.Amount * (ingredientDtails.EnergeticValue.Energy / 1000)) / ingredientDtails.EnergeticValue.Amount));
+
+                                break;
+                            case MeasurementUnits.KiloGramme:
+                                energeticValues.Add(((OrderishIngredient.Amount * (ingredientDtails.EnergeticValue.Energy * 1000)) / ingredientDtails.EnergeticValue.Amount));
+                                break;
+                            case MeasurementUnits.MilliLiter:
+                                energeticValues.Add(((OrderishIngredient.Amount * (ingredientDtails.EnergeticValue.Energy / 1000)) / ingredientDtails.EnergeticValue.Amount));
+
+                                break;
+                            case MeasurementUnits.Liter:
+                                energeticValues.Add(((OrderishIngredient.Amount * (ingredientDtails.EnergeticValue.Energy * 1000)) / ingredientDtails.EnergeticValue.Amount));
+                                break;
+                        }
+                    }
+                }
+
+                dish.EnergeticValue = energeticValues.Sum(x => x);
             }
         }
     }

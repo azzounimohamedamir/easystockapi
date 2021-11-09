@@ -33,11 +33,11 @@ namespace SmartRestaurant.Application.Ingredients.Commands
                .NotNull()
                .DependentRules(() => {
                    RuleFor(ingredien => ingredien.EnergeticValue.Amount)    
-                      .GreaterThanOrEqualTo(0);
+                      .GreaterThan(0);
 
                    RuleFor(ingredien => ingredien.EnergeticValue.MeasurementUnit)
                       .IsInEnum();
-
+                    
                    RuleFor(ingredien => ingredien.EnergeticValue.Fat)
                     .GreaterThanOrEqualTo(0);
 

@@ -1,12 +1,10 @@
+﻿using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Domain.Enums;
-using SmartRestaurant.Domain.ValueObjects;
-using System;
 
-namespace SmartRestaurant.Domain.Entities
+namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
 {
-    public class OrderDishIngredient
+    public class OrderDishIngredientDto
     {
-        public Guid OrderDishIngredientId { get; set; }
         public bool IsPrimary { get; set; }
         public float Amount { get; set; }
         public float MinimumAmount { get; set; }
@@ -15,7 +13,6 @@ namespace SmartRestaurant.Domain.Entities
         public float PriceIncreasePerStep { get; set; }
         public MeasurementUnits MeasurementUnits { get; set; }
         public int Steps { get; set; }
-        public OrderIngredient OrderIngredient { get; set; }
-        public Guid OrderDishId { get; set; }
+        public OrderIngredientDto OrderIngredient { get; set; }
     }
 }
