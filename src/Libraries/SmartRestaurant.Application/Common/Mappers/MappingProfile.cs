@@ -238,6 +238,9 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<EnergeticValueDto, EnergeticValue>()
                 .ReverseMap();
 
+            CreateMap<TakeoutDetailsDto, TakeoutDetails>()
+                .ReverseMap();
+
             CreateMap<Order, UpdateOrderCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.OrderId))
                 .ReverseMap();

@@ -1,7 +1,5 @@
-﻿using SmartRestaurant.Application.Common.Dtos.DishDtos;
-using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
+﻿using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
-using SmartRestaurant.Application.Dishes.Commands;
 using SmartRestaurant.Application.Orders.Commands;
 using SmartRestaurant.Domain.Enums;
 using System;

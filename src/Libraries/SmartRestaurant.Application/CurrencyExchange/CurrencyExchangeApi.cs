@@ -11,7 +11,8 @@ namespace SmartRestaurant.Application.CurrencyExchange
        
         public static void ImportFromOnlineApi()
         {
-            ApplicationScheduler.IntervalInHours(DateTime.Now.Hour, DateTime.Now.Minute + 2, 24, Import());
+            DateTime now = DateTime.Now.AddMinutes(2);
+            ApplicationScheduler.IntervalInHours(now.Hour, now.Minute, 24, Import());
             Action Import()
             {
                 return async () =>
