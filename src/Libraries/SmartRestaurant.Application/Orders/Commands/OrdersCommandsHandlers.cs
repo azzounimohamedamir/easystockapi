@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Transactions;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
@@ -44,6 +44,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             order.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.CreatedAt = DateTime.Now;
 
+            ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(order, TableState.Occupied);
             CalculateAndSetOrderEnergeticValues(order);
             CalculateAndSetOrderTotalPrice(order);
             CalculateAndSetOrderNumber(order, foodBusiness);
@@ -170,6 +171,25 @@ namespace SmartRestaurant.Application.Orders.Commands
                 }
 
                 dish.EnergeticValue = energeticValues.Sum(x => x);
+            }
+        }
+
+        private void ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(Order order, TableState newState)
+        {
+            if (order.Type != OrderTypes.DineIn)
+                return;
+
+            foreach(var occupiedTable in order.OccupiedTables)
+            {
+                var table = _context.Tables.AsNoTracking().FirstOrDefault(t => t.TableId == Guid.Parse(occupiedTable.TableId));
+                if (table == null)
+                    throw new NotFoundException(nameof(Tables), occupiedTable.TableId);
+
+                if(table.TableState == TableState.Occupied)
+                    throw new ConflictException($"The table numbered with '{table.TableNumber.ToString().PadLeft(3,'0')}' already occupied");
+
+                table.TableState = newState;
+                _context.Tables.Update(table);
             }
         }
     }
