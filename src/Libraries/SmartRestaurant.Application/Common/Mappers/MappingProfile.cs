@@ -11,6 +11,7 @@ using SmartRestaurant.Application.Dishes.Commands;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusinessClient.Commands;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
+using SmartRestaurant.Application.Illness.Commands;
 using SmartRestaurant.Application.Ingredients.Commands;
 using SmartRestaurant.Application.LinkedDevice.Commands;
 using SmartRestaurant.Application.Menus.Commands;
@@ -254,6 +255,10 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<AddProductToSubSectionCommand, SubSectionProduct>();
 
             CreateMap<AddDishToSubSectionCommand, SubSectionDish>();
+
+            CreateMap<CreateIllnessCommand, Domain.Entities.Illness>()
+                .ForMember(x => x.IllnessId, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.Name, o => o.MapFrom(p => p.Name));
 
         }
     }
