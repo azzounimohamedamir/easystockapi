@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211107025045_updateOrderEntity")]
+    partial class updateOrderEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -504,20 +506,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.ToTable("Currencies");
                 });
 
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.Illness", b =>
-                {
-                    b.Property<Guid>("IllnessId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IllnessId");
-
-                    b.ToTable("Illnesses");
-                });
-
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Ingredient", b =>
                 {
                     b.Property<Guid>("IngredientId")
@@ -545,21 +533,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.HasKey("IngredientId");
 
                     b.ToTable("Ingredients");
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.IngredientIllness", b =>
-                {
-                    b.Property<Guid>("IllnessId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IngredientId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("IllnessId", "IngredientId");
-
-                    b.HasIndex("IngredientId");
-
-                    b.ToTable("IngredientIllnesses");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.LinkedDevice", b =>
@@ -2031,21 +2004,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("IngredientId");
                         });
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.IngredientIllness", b =>
-                {
-                    b.HasOne("SmartRestaurant.Domain.Entities.Illness", "Illness")
-                        .WithMany("IngredientIllnesses")
-                        .HasForeignKey("IllnessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SmartRestaurant.Domain.Entities.Ingredient", "Ingredient")
-                        .WithMany("IngredientIllnesses")
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.LinkedDevice", b =>
