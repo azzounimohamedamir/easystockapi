@@ -22,6 +22,8 @@ namespace SmartRestaurant.Application.Orders.Commands
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly string _algeriaZoneId = "W. Central Africa Standard Time";
+        private readonly string CreateAction = "CreateAction";
+        private readonly string UpdateAction = "UpdateAction";
 
         public OrdersCommandsHandlers(IApplicationDbContext context, IMapper mapper, IUserService userService)
         {
@@ -44,7 +46,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             order.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.CreatedAt = DateTime.Now;
 
-            ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(order, TableState.Occupied);
+            ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(order, CreateAction);
             CalculateAndSetOrderEnergeticValues(order);
             CalculateAndSetOrderTotalPrice(order);
             CalculateAndSetOrderNumber(order, foodBusiness);
@@ -60,10 +62,38 @@ namespace SmartRestaurant.Application.Orders.Commands
             var validator = new UpdateOrderCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
+
+            var order = await _context.Orders
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Specifications)
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Ingredients)
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Supplements)
+                .Include(o => o.Products)
+                .Include(o => o.OccupiedTables)
+                .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
+                .ConfigureAwait(false);
+
+            if (order == null)
+                throw new NotFoundException(nameof(Order), request.Id);
+
+            var releasedTables = GetReleasedTables(order, request);
+
+            _mapper.Map(request, order);
+            order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
+            order.LastModifiedAt = DateTime.Now;
+
+            ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(releasedTables);
+            ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(order, UpdateAction);
+            CalculateAndSetOrderEnergeticValues(order);
+            CalculateAndSetOrderTotalPrice(order);
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
 
-
+   
         private void CalculateAndSetOrderNumber(Order order, Domain.Entities.FoodBusiness foodBusiness)
         {
             var maxOrderNumber = 0;
@@ -174,7 +204,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             }
         }
 
-        private void ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(Order order, TableState newState)
+        private void ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(Order order, string action)
         {
             if (order.Type != OrderTypes.DineIn)
                 return;
@@ -185,12 +215,43 @@ namespace SmartRestaurant.Application.Orders.Commands
                 if (table == null)
                     throw new NotFoundException(nameof(Tables), occupiedTable.TableId);
 
-                if(table.TableState == TableState.Occupied)
+                if(table.TableState == TableState.Occupied && action == CreateAction)
                     throw new ConflictException($"The table numbered with '{table.TableNumber.ToString().PadLeft(3,'0')}' already occupied");
 
-                table.TableState = newState;
+                if (table.TableState == TableState.Archived)
+                    throw new ConflictException($"The table numbered with '{table.TableNumber.ToString().PadLeft(3, '0')}' can not be used because it is archived");
+
+                table.TableState = TableState.Occupied;
                 _context.Tables.Update(table);
             }
+        }
+
+        private void ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(List<string> releasedTables)
+        {           
+            foreach (var tableId in releasedTables)
+            {
+                var table = _context.Tables.AsNoTracking().FirstOrDefault(t => t.TableId == Guid.Parse(tableId));
+                if (table == null)
+                    throw new NotFoundException(nameof(Tables), tableId);
+              
+                table.TableState = TableState.Available;
+                _context.Tables.Update(table);
+            }
+        }
+
+        private List<string> GetReleasedTables(Order order, UpdateOrderCommand request)
+        {
+            if (order.Type != OrderTypes.DineIn)
+                return new List<string>();
+
+            List<string> releasedTables = new List<string>();
+            foreach(var orderOccupiedTable in order.OccupiedTables)
+            {
+               var result = request.OccupiedTables.Find(x => x.TableId == orderOccupiedTable.TableId);
+                if (result == null)
+                    releasedTables.Add(orderOccupiedTable.TableId);
+            }
+            return releasedTables;
         }
     }
 }
