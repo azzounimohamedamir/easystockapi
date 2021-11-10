@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,13 +10,13 @@ using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.CurrencyExchange;
-using SmartRestaurant.Application.Orders.Queries.Responses;
+using SmartRestaurant.Application.Orders.Queries.FilterStrategy;
 using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.Orders.Queries
 {
     public class GetOrdersQueriesHandler : IRequestHandler<GetOrderByIdQuery, OrderDto>,
-        IRequestHandler<GetOrdersByFoodBusinessIdQuery, PagedListDto<OrderResponse>>
+        IRequestHandler<GetOrdersListQuery, PagedListDto<OrderDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -56,10 +57,26 @@ namespace SmartRestaurant.Application.Orders.Queries
             return orderDto;
         }
 
-        public async Task<PagedListDto<OrderResponse>> Handle(GetOrdersByFoodBusinessIdQuery request,
-            CancellationToken cancellationToken)
+        public async Task<PagedListDto<OrderDto>> Handle(GetOrdersListQuery request, CancellationToken cancellationToken)
         {
-            return default;
+            var validator = new GetOrdersListQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var foodBusiness = await _context.FoodBusinesses.FindAsync(Guid.Parse(request.FoodBusinessId));
+            if (foodBusiness == null)
+                throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
+
+            var filter = OrderStrategies.GetFilterStrategy(request.CurrentFilter);
+            var query = filter.FetchData(_context.Orders, request);
+
+            var data = _mapper.Map<List<OrderDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
+
+            foreach (var order in data)
+            {
+                order.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(order.TotalToPay, foodBusiness.DefaultCurrency);
+            }
+            return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
     }
 }
