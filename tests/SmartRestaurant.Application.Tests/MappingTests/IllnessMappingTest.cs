@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using SmartRestaurant.Application.Illness.Commands;
 using SmartRestaurant.Application.Tests.Configuration;
-using SmartRestaurant.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace SmartRestaurant.Application.Tests.MappingTests

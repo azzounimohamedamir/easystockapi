@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Extensions;
-using SmartRestaurant.Domain.Entities;
 using System.Linq;
 
 namespace SmartRestaurant.Application.Illness.Queries.FilterStrategy
