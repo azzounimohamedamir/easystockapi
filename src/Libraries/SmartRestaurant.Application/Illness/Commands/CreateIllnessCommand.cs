@@ -8,7 +8,7 @@ namespace SmartRestaurant.Application.Illness.Commands
     public class CreateIllnessCommand : CreateCommand
     {
         public string Name { get; set; }
-        public List<IngredientDto> Ingredients { get; set; }
+        public List<IngredientIllnessDto> Ingredients { get; set; }
     }
 
 

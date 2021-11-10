@@ -154,6 +154,19 @@ namespace SmartRestaurant.Application.IntegrationTests
                  .ConfigureAwait(false); 
         }
 
+        public static async Task<Domain.Entities.Illness> GetIllness(Guid illnessId)
+        {
+            using var scope = _scopeFactory.CreateScope();
+
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+            return await context.Set<Domain.Entities.Illness>()
+                 .Include(x => x.IngredientIllnesses)
+                 .ThenInclude(x => x.Ingredient)
+                 .Where(u => u.IllnessId == illnessId)
+                 .FirstOrDefaultAsync()
+                 .ConfigureAwait(false);
+        }
         public static async Task<Order> GetOrder(Guid orderId)
         {
             using var scope = _scopeFactory.CreateScope();

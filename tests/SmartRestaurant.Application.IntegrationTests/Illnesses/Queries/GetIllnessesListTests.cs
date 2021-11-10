@@ -8,7 +8,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Illnesses.Queries
 {
     using static Testing;
     [TestFixture]
-    public class GetIllnessesListTests
+    public class GetIllnessesListTests : TestBase
     {
         [Test]
         public async Task GetIllnessList()
