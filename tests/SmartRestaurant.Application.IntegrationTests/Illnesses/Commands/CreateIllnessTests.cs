@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.IntegrationTests.Illnesses.Commands
 {
+    using static Testing;
     [TestFixture]
     public class CreateIllnessTests : TestBase
     {
