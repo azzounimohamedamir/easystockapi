@@ -14,7 +14,7 @@ namespace SmartRestaurant.API.Controllers
     {
         /// <summary> This endpoint is used to create an Illness </summary>
         /// <remarks>
-        ///     1- This endpoint allows <b>Mananger</b> to create Illness.
+        ///     1- This endpoint allows <b>Support Agent</b> to create Illness.
         ///     <br></br>
         /// </remarks>
         /// <param name="command">This is Json object user create Illness</param>
@@ -33,6 +33,33 @@ namespace SmartRestaurant.API.Controllers
         [Authorize(Roles = "SupportAgent")]
         public async Task<IActionResult> Create(CreateIllnessCommand command)
         {
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+        /// <summary> This endpoint is used to update an Illness </summary>
+        /// <remarks>
+        ///     1- This endpoint allows <b>Support Agent</b> to update Illness.
+        ///     <br></br>
+        /// </remarks>
+        /// <param name="id">id of the illness that would be updated</param>
+        /// <param name="command">This is Json object user update Illness</param>
+        /// <response code="204">The Illness has been successfully update.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to update an Illness is invalid.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}")]
+        [HttpPut]
+        [Authorize(Roles = "SupportAgent")]
+        public async Task<IActionResult> Update([FromRoute] string id, UpdateIllnessCommand command)
+        {
+            command.Id = id;
             return await SendWithErrorsHandlingAsync(command);
         }
 
@@ -62,6 +89,23 @@ namespace SmartRestaurant.API.Controllers
                 PageSize = pageSize,
             };
             return SendWithErrorsHandlingAsync(query);
+        }
+
+        /// <summary> This endpoint is used to get Illness by id </summary>
+        /// <remarks>This endpoint allows us to fetch Illness details.</remarks>
+        /// <param name="id">id of the Illness that would be used to fetch Illness details</param>
+        /// <response code="200"> Illness details has been successfully fetched.<br></br></response>
+        /// <response code="400">The payload data sent to the backend-server in order to fetch Illness details is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(IllnessDto), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [HttpGet]
+        [Route("{id}")]
+        [Authorize(Roles = "SupportAgent")]
+        public Task<IActionResult> Get([FromRoute] string id)
+        {
+            return SendWithErrorsHandlingAsync(new GetIllnessByIdQuery { Id = id });
         }
     }
 }

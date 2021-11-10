@@ -4,6 +4,8 @@ using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +13,8 @@ using System.Threading.Tasks;
 namespace SmartRestaurant.Application.Illness.Commands
 {
     public class IllnessCommandsHandler :
-        IRequestHandler<CreateIllnessCommand, Created>
+        IRequestHandler<CreateIllnessCommand, Created>,
+        IRequestHandler<UpdateIllnessCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -37,5 +40,35 @@ namespace SmartRestaurant.Application.Illness.Commands
             return default;
         }
 
+        public async Task<NoContent> Handle(UpdateIllnessCommand request, CancellationToken cancellationToken)
+        {
+            if (request.Ingredients == null)
+                request.Ingredients = new List<IngredientIllnessDto>();
+            var validator = new UpdateIllnessCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+            var illness = await _context.Illnesses
+              .Include(x => x.IngredientIllnesses)
+              .ThenInclude(x => x.Ingredient)
+              .Where(u => u.IllnessId == Guid.Parse(request.Id))
+              .FirstOrDefaultAsync()
+              .ConfigureAwait(false);
+            var ingredientIllness = await _context.IngredientIllnesses.Where(u => u.IllnessId == Guid.Parse(request.Id)).ToListAsync().ConfigureAwait(false);
+            foreach (IngredientIllness ingredientIllness1 in ingredientIllness)
+            {
+                _context.IngredientIllnesses.Remove(ingredientIllness1);
+            }
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            if (illness == null)
+            {
+                throw new NotFoundException(nameof(Illness), request.Id);
+            }
+
+            _mapper.Map(request, illness);
+            _context.Illnesses.Update(illness);
+
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
     }
 }
