@@ -247,6 +247,8 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap< UpdateOrderStatusCommand, Order>();
 
+            CreateMap<Order, OrderDto>();
+
             CreateMap<OrderDish, OrderDishResponse>().ReverseMap();
             CreateMap<OrderDishIngredient, OrderDishIngredientResponse>().ReverseMap();
             CreateMap<OrderDish, OrderDishRequest>().ReverseMap();
