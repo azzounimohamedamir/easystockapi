@@ -16,7 +16,8 @@ namespace SmartRestaurant.Application.Illness.Commands
 {
     public class IllnessCommandsHandler :
         IRequestHandler<CreateIllnessCommand, Created>,
-        IRequestHandler<UpdateIllnessCommand, NoContent>
+        IRequestHandler<UpdateIllnessCommand, NoContent>,
+        IRequestHandler<DeleteIllnessCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -70,6 +71,20 @@ namespace SmartRestaurant.Application.Illness.Commands
             _context.Illnesses.Update(illness);
 
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+        public async Task<NoContent> Handle(DeleteIllnessCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new DeleteIllnessCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var illness = await _context.Illnesses.FindAsync(Guid.Parse(request.Id)).ConfigureAwait(false);
+            if (illness == null) throw new NotFoundException(nameof(Illness), request.Id);
+
+            _context.Illnesses.Remove(illness);
+            await _context.SaveChangesAsync(cancellationToken);
             return default;
         }
     }

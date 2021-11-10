@@ -107,5 +107,22 @@ namespace SmartRestaurant.API.Controllers
         {
             return SendWithErrorsHandlingAsync(new GetIllnessByIdQuery { Id = id });
         }
+
+        /// <summary> This endpoint is used to delete Illness  </summary>
+        /// <remarks>This endpoint allows <b>Support Agent</b> to delete illness.</remarks>
+        /// <param name="id">id of the illness that would be deleted</param>
+        /// <response code="204">The illness has been successfully deleted.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to delete a illness is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+
+        [Route("{id}")]
+        [HttpDelete]
+        [Authorize(Roles = "SupportAgent")]
+        public async Task<IActionResult> Delete([FromRoute] string id)
+        {
+            return await SendWithErrorsHandlingAsync(new DeleteIllnessCommand { Id = id });
+        }
     }
 }
