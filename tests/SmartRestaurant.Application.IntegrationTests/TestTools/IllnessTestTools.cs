@@ -14,22 +14,23 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             var createIllnessCommand = new CreateIllnessCommand
             {
                 Name = "test",
-                Ingredients = new List<IngredientDto>()
+                Ingredients = new List<IngredientIllnessDto>()
                 {
-                    new IngredientDto()
+                    new IngredientIllnessDto()
                     {
-                        IngredientId = ingredientId
+                        IngredientId = ingredientId.ToString()
                     }
                 }
             };
+            await SendAsync(createIllnessCommand);
             var createIllnessCommand2 = new CreateIllnessCommand
             {
                 Name = "allergie",
-                Ingredients = new List<IngredientDto>()
+                Ingredients = new List<IngredientIllnessDto>()
                 {
-                    new IngredientDto()
+                   new IngredientIllnessDto()
                     {
-                        IngredientId = ingredientId
+                        IngredientId = ingredientId.ToString()
                     }
                 }
             };
