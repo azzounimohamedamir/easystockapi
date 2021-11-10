@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Domain.Entities;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -37,15 +34,6 @@ namespace SmartRestaurant.Application.Illness.Commands
             var illness = _mapper.Map<Domain.Entities.Illness>(request);
             _context.Illnesses.Add(illness);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-
-            var Illness = await _context.Illnesses
-                 .Include(x => x.IngredientIllnesses)
-                 .ThenInclude(x => x.Ingredient)
-                 .Where(u => u.IllnessId == request.Id)
-                 .FirstOrDefaultAsync()
-                 .ConfigureAwait(false);
-
             return default;
         }
 
