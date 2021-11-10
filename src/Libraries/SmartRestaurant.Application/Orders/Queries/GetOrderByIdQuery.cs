@@ -11,9 +11,9 @@ namespace SmartRestaurant.Application.Orders.Queries
         public string Id { get; set; }
     }
 
-    public class GetOrderByIdValidator : AbstractValidator<GetOrderByIdQuery>
+    public class GetOrderByIdQueryValidator : AbstractValidator<GetOrderByIdQuery>
     {
-        public GetOrderByIdValidator()
+        public GetOrderByIdQueryValidator()
         {
             RuleFor(dish => dish.Id)
               .Cascade(CascadeMode.StopOnFirstFailure)

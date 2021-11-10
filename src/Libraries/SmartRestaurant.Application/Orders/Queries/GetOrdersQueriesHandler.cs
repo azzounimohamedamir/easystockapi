@@ -28,7 +28,7 @@ namespace SmartRestaurant.Application.Orders.Queries
 
         public async Task<OrderDto> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
         {
-            var validator = new GetOrderByIdValidator();
+            var validator = new GetOrderByIdQueryValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
