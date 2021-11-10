@@ -7,7 +7,7 @@ using SmartRestaurant.Application.Zones.Commands;
 using System;
 using System.Threading.Tasks;
 
-namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
+namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
 {
     using static Testing;
 
