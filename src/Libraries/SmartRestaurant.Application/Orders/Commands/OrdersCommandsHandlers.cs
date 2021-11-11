@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -23,7 +24,6 @@ namespace SmartRestaurant.Application.Orders.Commands
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        private readonly string _algeriaZoneId = "W. Central Africa Standard Time";
         private readonly string CreateAction = "CreateAction";
         private readonly string UpdateAction = "UpdateAction";
 
@@ -129,13 +129,13 @@ namespace SmartRestaurant.Application.Orders.Commands
         private void CalculateAndSetOrderNumber(Order order, Domain.Entities.FoodBusiness foodBusiness)
         {
             var maxOrderNumber = 0;
-            TimeZoneInfo algeriaZone = TimeZoneInfo.FindSystemTimeZoneById(_algeriaZoneId);
+            var algeriaZone = GetAlgeriaTimeZone();
 
-            DateTime utcNow = DateTime.UtcNow;
-            DateTime algeriaTimeNow = TimeZoneInfo.ConvertTimeFromUtc(utcNow, algeriaZone);
+            var utcNow = DateTime.UtcNow;
+            var algeriaTimeNow = TimeZoneInfo.ConvertTimeFromUtc(utcNow, algeriaZone);
 
-            DateTime orderNumberLastResetDateTimeInUtc = TimeZoneInfo.ConvertTimeToUtc(foodBusiness.OrderNumberLastResetDateTime);
-            DateTime orderNumberLastResetDateTimeInAlgeriaTime = TimeZoneInfo.ConvertTimeFromUtc(orderNumberLastResetDateTimeInUtc, algeriaZone);
+            var orderNumberLastResetDateTimeInUtc = TimeZoneInfo.ConvertTimeToUtc(foodBusiness.OrderNumberLastResetDateTime);
+            var orderNumberLastResetDateTimeInAlgeriaTime = TimeZoneInfo.ConvertTimeFromUtc(orderNumberLastResetDateTimeInUtc, algeriaZone);
 
             if (orderNumberLastResetDateTimeInAlgeriaTime.Day == algeriaTimeNow.Day)
             {
@@ -284,6 +284,23 @@ namespace SmartRestaurant.Application.Orders.Commands
                     releasedTables.Add(orderOccupiedTable.TableId);
             }
             return releasedTables;
-        }      
+        }
+
+        public TimeZoneInfo GetAlgeriaTimeZone()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return TimeZoneInfo.FindSystemTimeZoneById("W. Central Africa Standard Time");
+            }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                return TimeZoneInfo.FindSystemTimeZoneById("Africa/Algiers");
+            }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                throw new NotImplementedException("I don't know how to do a lookup for time zone on a Mac.");
+            }
+            return default;
+        }
     }
 }
