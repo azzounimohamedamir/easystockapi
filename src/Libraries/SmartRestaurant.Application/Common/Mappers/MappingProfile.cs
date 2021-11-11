@@ -17,8 +17,6 @@ using SmartRestaurant.Application.Ingredients.Commands;
 using SmartRestaurant.Application.LinkedDevice.Commands;
 using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Application.Orders.Commands;
-using SmartRestaurant.Application.Orders.Commands.Requests;
-using SmartRestaurant.Application.Orders.Queries.Responses;
 using SmartRestaurant.Application.Products.Commands;
 using SmartRestaurant.Application.Reservations.Commands;
 using SmartRestaurant.Application.Sections.Commands;
@@ -248,11 +246,6 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap< UpdateOrderStatusCommand, Order>();
 
             CreateMap<Order, OrderDto>();
-
-            CreateMap<OrderDish, OrderDishResponse>().ReverseMap();
-            CreateMap<OrderDishIngredient, OrderDishIngredientResponse>().ReverseMap();
-            CreateMap<OrderDish, OrderDishRequest>().ReverseMap();
-            CreateMap<OrderDishIngredient, OrderDishIngredientRequest>().ReverseMap();
 
             CreateMap<CreateFoodBusinessClientCommand, Domain.Entities.FoodBusinessClient>()
                 .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.Id))

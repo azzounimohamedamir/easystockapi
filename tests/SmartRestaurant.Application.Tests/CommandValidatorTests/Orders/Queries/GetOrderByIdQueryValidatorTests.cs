@@ -3,7 +3,7 @@ using SmartRestaurant.Application.Orders.Queries;
 using System;
 using Xunit;
 
-namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Orders.Commands
+namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Orders.Queries
 {
     public class GetOrderByIdQueryValidatorTests
     {
