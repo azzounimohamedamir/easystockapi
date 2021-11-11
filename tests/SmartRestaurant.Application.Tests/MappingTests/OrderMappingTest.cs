@@ -427,5 +427,124 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         Assert.Equal(order.Status, OrderStatuses.Cancelled);       
     }
 
+
+        [Fact]
+        public void Map_Order_To_OrderDto_Valide_Test()
+        {
+            var order = _mapper.Map<Order>(new CreateOrderCommand
+            {
+                Type = OrderTypes.DineIn,
+                FoodBusinessId = "3cbf3570-4444-4673-8746-29b7cf568093",
+                TakeoutDetails = new TakeoutDetailsDto()
+                {
+                    DeliveryTime = DateTime.Now,
+                    Type = TakeoutType.Delayed
+                },
+                OccupiedTables = new List<OrderOccupiedTableDto>() {
+                    new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab00" }
+                },
+                Dishes = new List<OrderDishDto>() {
+                    new OrderDishDto {
+                        DishId =  "0e0b853c-9518-499f-b5ca-07afdd5f1e6f",
+                        Name =  "Rice",
+                        UnitPrice =  200,
+                        EnergeticValue =  0,
+                        Description =  "",
+                        EstimatedPreparationTime =  15,
+                        TableNumber =  4,
+                        ChairNumber =  1,
+                        Quantity =  2,
+                        Specifications = new List<OrderDishSpecificationDto>() { CheckBox, ComboBox },
+                        Ingredients =  new List<OrderDishIngredientDto>() { Ingredient },
+                        Supplements = new List<OrderDishSupplementDto>() { Supplement },
+                    }
+                },
+                Products = new List<OrderProductDto>() {
+                    new OrderProductDto {
+                        ProductId =  "7d0bf292-b9bf-404c-a50f-99c9631b3e18",
+                        Name =  "Hamooud 1L",
+                        UnitPrice =  120,
+                        EnergeticValue =  200,
+                        Description =  null,
+                        TableNumber =  4,
+                        ChairNumber =  1,
+                        Quantity =  1
+                    }
+                }
+            }); ;
+            order.CreatedAt = DateTime.Now;
+
+            var orderDto = _mapper.Map<OrderDto>(order);
+
+            Assert.Equal(orderDto.Type, order.Type);
+            Assert.Equal(orderDto.Status, order.Status);
+            Assert.Equal(orderDto.FoodBusinessId, order.FoodBusinessId);
+            Assert.Equal(orderDto.CreatedAt, order.CreatedAt);
+            Assert.Equal(orderDto.TotalToPay, order.TotalToPay);
+            Assert.Equal(orderDto.MoneyReceived, order.MoneyReceived);
+            Assert.Equal(orderDto.MoneyReturned, order.MoneyReturned);
+            Assert.Equal(orderDto.Number, order.Number);
+            Assert.Equal(orderDto.OrderId, order.OrderId);
+            Assert.Equal(orderDto.TakeoutDetails.Type, order.TakeoutDetails.Type);
+            Assert.Equal(orderDto.TakeoutDetails.DeliveryTime, order.TakeoutDetails.DeliveryTime);
+
+            Assert.Equal(orderDto.OccupiedTables[0].TableId, order.OccupiedTables[0].TableId);
+
+            Assert.Equal(orderDto.Products[0].Name, order.Products[0].Name);
+            Assert.Equal(orderDto.Products[0].UnitPrice, order.Products[0].UnitPrice);
+            Assert.Equal(orderDto.Products[0].EnergeticValue, order.Products[0].EnergeticValue);
+            Assert.Equal(orderDto.Products[0].Description, order.Products[0].Description);
+            Assert.Equal(orderDto.Products[0].TableNumber, order.Products[0].TableNumber);
+            Assert.Equal(orderDto.Products[0].ChairNumber, order.Products[0].ChairNumber);
+            Assert.Equal(orderDto.Products[0].Quantity, order.Products[0].Quantity);
+
+            Assert.Equal(orderDto.Dishes[0].Name, order.Dishes[0].Name);
+            Assert.Equal(orderDto.Dishes[0].UnitPrice, order.Dishes[0].UnitPrice);
+            Assert.Equal(orderDto.Dishes[0].EnergeticValue, order.Dishes[0].EnergeticValue);
+            Assert.Equal(orderDto.Dishes[0].Description, order.Dishes[0].Description);
+            Assert.Equal(orderDto.Dishes[0].EstimatedPreparationTime, order.Dishes[0].EstimatedPreparationTime);
+            Assert.Equal(orderDto.Dishes[0].TableNumber, order.Dishes[0].TableNumber);
+            Assert.Equal(orderDto.Dishes[0].ChairNumber, order.Dishes[0].ChairNumber);
+            Assert.Equal(orderDto.Dishes[0].Quantity, order.Dishes[0].Quantity);
+
+            Assert.Equal(orderDto.Dishes[0].Specifications[0].Title, order.Dishes[0].Specifications[0].Title);
+            Assert.Equal(orderDto.Dishes[0].Specifications[0].ContentType, order.Dishes[0].Specifications[0].ContentType);
+            Assert.Equal(orderDto.Dishes[0].Specifications[0].ComboBoxContent, new string[0]);
+            Assert.Equal(orderDto.Dishes[0].Specifications[0].ComboBoxSelection, order.Dishes[0].Specifications[0].ComboBoxSelection);
+            Assert.Equal(orderDto.Dishes[0].Specifications[0].CheckBoxContent, order.Dishes[0].Specifications[0].CheckBoxContent);
+            Assert.Equal(orderDto.Dishes[0].Specifications[0].CheckBoxSelection, order.Dishes[0].Specifications[0].CheckBoxSelection);
+            Assert.Equal(orderDto.Dishes[0].Specifications[1].Title, order.Dishes[0].Specifications[1].Title);
+            Assert.Equal(orderDto.Dishes[0].Specifications[1].ContentType, order.Dishes[0].Specifications[1].ContentType);
+            Assert.Equal(orderDto.Dishes[0].Specifications[1].ComboBoxContent, order.Dishes[0].Specifications[1].ComboBoxContent.Split(';'));
+            Assert.Equal(orderDto.Dishes[0].Specifications[1].ComboBoxSelection, order.Dishes[0].Specifications[1].ComboBoxSelection);
+            Assert.Equal(orderDto.Dishes[0].Specifications[1].CheckBoxContent, order.Dishes[0].Specifications[1].CheckBoxContent);
+            Assert.Equal(orderDto.Dishes[0].Specifications[1].CheckBoxSelection, order.Dishes[0].Specifications[1].CheckBoxSelection);
+
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].IsPrimary, order.Dishes[0].Ingredients[0].IsPrimary);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].Amount, order.Dishes[0].Ingredients[0].Amount);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].MinimumAmount, order.Dishes[0].Ingredients[0].MinimumAmount);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].MaximumAmount, order.Dishes[0].Ingredients[0].MaximumAmount);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].AmountIncreasePerStep, order.Dishes[0].Ingredients[0].AmountIncreasePerStep);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].PriceIncreasePerStep, order.Dishes[0].Ingredients[0].PriceIncreasePerStep);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].Steps, order.Dishes[0].Ingredients[0].Steps);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].MeasurementUnits, order.Dishes[0].Ingredients[0].MeasurementUnits);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].OrderIngredient.IngredientId, order.Dishes[0].Ingredients[0].OrderIngredient.IngredientId);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].OrderIngredient.Names, order.Dishes[0].Ingredients[0].OrderIngredient.Names);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat, order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein, order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates, order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Energy, order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Energy);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Amount, order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Amount);
+            Assert.Equal(orderDto.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.MeasurementUnit, order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.MeasurementUnit);
+
+            Assert.Equal(orderDto.Dishes[0].Supplements[0].SupplementId, order.Dishes[0].Supplements[0].SupplementId);
+            Assert.Equal(orderDto.Dishes[0].Supplements[0].Name, order.Dishes[0].Supplements[0].Name);
+            Assert.Equal(orderDto.Dishes[0].Supplements[0].Price, order.Dishes[0].Supplements[0].Price);
+            Assert.Equal(orderDto.Dishes[0].Supplements[0].EnergeticValue, order.Dishes[0].Supplements[0].EnergeticValue);
+            Assert.Equal(orderDto.Dishes[0].Supplements[0].Description, order.Dishes[0].Supplements[0].Description);
+            Assert.Equal(orderDto.Dishes[0].Supplements[0].IsSelected, order.Dishes[0].Supplements[0].IsSelected);
+        }
+
+
     }
 }

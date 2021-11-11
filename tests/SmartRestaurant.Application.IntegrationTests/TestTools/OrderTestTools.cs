@@ -74,6 +74,11 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             {
                 Type = OrderTypes.DineIn,
                 FoodBusinessId = foodBusinessId.ToString(),
+                TakeoutDetails = new TakeoutDetailsDto()
+                {
+                    DeliveryTime = DateTime.Now,
+                    Type = TakeoutType.Delayed
+                },
                 OccupiedTables = new List<OrderOccupiedTableDto>() {
                     new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab00" }
                 },
