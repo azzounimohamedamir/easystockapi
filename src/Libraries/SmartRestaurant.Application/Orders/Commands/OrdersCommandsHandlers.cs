@@ -16,7 +16,9 @@ using SmartRestaurant.Domain.Enums;
 namespace SmartRestaurant.Application.Orders.Commands
 {
     public class OrdersCommandsHandlers : IRequestHandler<CreateOrderCommand, Created>,
-        IRequestHandler<UpdateOrderCommand, NoContent>
+        IRequestHandler<UpdateOrderCommand, NoContent>,
+        IRequestHandler<UpdateOrderStatusCommand, NoContent>
+
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -93,7 +95,37 @@ namespace SmartRestaurant.Application.Orders.Commands
             return default;
         }
 
-   
+
+        public async Task<NoContent> Handle(UpdateOrderStatusCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new UpdateOrderStatusCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var order = await _context.Orders
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Specifications)
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Ingredients)
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Supplements)
+                .Include(o => o.Products)
+                .Include(o => o.OccupiedTables)
+                .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
+                .ConfigureAwait(false);
+            if (order == null)
+                throw new NotFoundException(nameof(Order), request.Id);
+
+            _mapper.Map(request, order);
+            order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
+            order.LastModifiedAt = DateTime.Now;
+
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+
         private void CalculateAndSetOrderNumber(Order order, Domain.Entities.FoodBusiness foodBusiness)
         {
             var maxOrderNumber = 0;
@@ -252,6 +284,6 @@ namespace SmartRestaurant.Application.Orders.Commands
                     releasedTables.Add(orderOccupiedTable.TableId);
             }
             return releasedTables;
-        }
+        }      
     }
 }

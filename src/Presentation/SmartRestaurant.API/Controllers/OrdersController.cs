@@ -52,5 +52,26 @@ namespace SmartRestaurant.API.Controllers
             command.Id = id;
             return await SendWithErrorsHandlingAsync(command);
         }
+
+        /// <summary> UpdateOrderStatus() </summary>
+        /// <remarks>
+        ///     This endpoint allows user to update Order Status.<br></br>
+        ///     <b>Note 01:</b> This is the enum used to set Order Status: <b> enum OrderStatuses { InQueue, Serving, Served, Billed, Cancelled } </b><br></br>
+        /// </remarks>        
+        /// /// <param name="id">id of the order that would be updated</param>
+        /// <param name="command">This is payload object used to update order status</param>
+        /// <response code="204">The order has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in-order to update order status is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}/status")]
+        [HttpPut]
+        [Authorize(Roles = "FoodBusinessManager,Cashier")]
+        public async Task<IActionResult> UpdateOrderStatus([FromRoute] string id, UpdateOrderStatusCommand command)
+        {
+            command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
+        }
     }
 }

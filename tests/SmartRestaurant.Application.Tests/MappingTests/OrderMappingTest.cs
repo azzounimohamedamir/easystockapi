@@ -376,5 +376,56 @@ namespace SmartRestaurant.Application.Tests.MappingTests
     }
 
 
+    [Fact]
+    public void Map_UpdateOrderStatusCommand_To_Order_Valide_Test()
+    {
+        var createOrderCommand = new CreateOrderCommand
+        {
+            Type = OrderTypes.DineIn,
+            FoodBusinessId = "3cbf3570-4444-4673-8746-29b7cf568093",
+            OccupiedTables = new List<OrderOccupiedTableDto>() {
+        new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab00" }
+    },
+            Dishes = new List<OrderDishDto>() {
+            new OrderDishDto {
+            DishId =  "0e0b853c-9518-499f-b5ca-07afdd5f1e6f",
+            Name =  "Rice",
+            UnitPrice =  200,
+            EnergeticValue =  0,
+            Description =  "",
+            EstimatedPreparationTime =  15,
+            TableNumber =  4,
+            ChairNumber =  1,
+            Quantity =  2,
+            Specifications = new List<OrderDishSpecificationDto>() { CheckBox, ComboBox },
+            Ingredients =  new List<OrderDishIngredientDto>() { Ingredient },
+            Supplements = new List<OrderDishSupplementDto>() { Supplement },
+        }
+    },
+            Products = new List<OrderProductDto>() {
+        new OrderProductDto {
+        ProductId =  "7d0bf292-b9bf-404c-a50f-99c9631b3e18",
+        Name =  "Hamooud 1L",
+        UnitPrice =  120,
+        EnergeticValue =  200,
+        Description =  null,
+        TableNumber =  4,
+        ChairNumber =  1,
+        Quantity =  1
+        }
+    }
+        };
+        var order = _mapper.Map<Order>(createOrderCommand);
+        var updateOrderStatusCommand = new UpdateOrderStatusCommand
+        {
+          Status = OrderStatuses.Cancelled
+        };
+
+
+        Assert.Equal(order.Status, OrderStatuses.InQueue);
+        _mapper.Map(updateOrderStatusCommand, order);
+        Assert.Equal(order.Status, OrderStatuses.Cancelled);       
+    }
+
     }
 }
