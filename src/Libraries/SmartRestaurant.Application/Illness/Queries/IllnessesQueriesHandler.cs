@@ -44,17 +44,20 @@ namespace SmartRestaurant.Application.Illness.Queries
             var validator = new GetIllnessByIdQueryValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-
-            var Illness = await _context.Illnesses
+            var IllnessDto = await _context.Illnesses
                .Include(x => x.IngredientIllnesses)
                .ThenInclude(x => x.Ingredient)
+               .Select(x => new IllnessDto
+               {
+                   IllnessId = x.IllnessId,
+                   Name = x.Name,
+                   Ingredients = _mapper.Map<List<IngredientDto>>(x.IngredientIllnesses.Select(i => i.Ingredient).ToList())
+               })
                .Where(u => u.IllnessId == Guid.Parse(request.Id))
                .FirstOrDefaultAsync()
                .ConfigureAwait(false);
-            if (Illness == null)
+            if (IllnessDto == null)
                 throw new NotFoundException(nameof(Illness), request.Id);
-
-            var IllnessDto = _mapper.Map<IllnessDto>(Illness);
             return IllnessDto;
         }
     }

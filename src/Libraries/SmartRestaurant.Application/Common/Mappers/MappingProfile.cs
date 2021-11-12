@@ -304,8 +304,7 @@ namespace SmartRestaurant.Application.Common.Mappers
                .ReverseMap();
 
             CreateMap<IngredientIllnessDto, IngredientIllness>();
-            CreateMap<IllnessIngredientUpdateDto, IngredientIllness>()
-                .ReverseMap();
+          
         }
     }
 }
