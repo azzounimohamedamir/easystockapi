@@ -32,15 +32,15 @@ namespace SmartRestaurant.Application.IntegrationTests.Illnesses.Queries
 
             selectedIllness.Ingredients.Should().HaveCount(1);
            
-            selectedIllness.Ingredients[0].Ingredient.IngredientId.Should().Be(illness.IngredientIllnesses[0].IngredientId);
-            selectedIllness.Ingredients[0].Ingredient.Names.Should().BeEquivalentTo(JsonConvert.DeserializeObject<List<IngredientNameDto>>(illness.IngredientIllnesses[0].Ingredient.Names));
-            selectedIllness.Ingredients[0].Ingredient.EnergeticValue.Amount.Should().Be(illness.IngredientIllnesses[0].Ingredient.EnergeticValue.Amount);
-            selectedIllness.Ingredients[0].Ingredient.EnergeticValue.MeasurementUnit.Should().Be(illness.IngredientIllnesses[0].Ingredient.EnergeticValue.MeasurementUnit);
-            selectedIllness.Ingredients[0].Ingredient.EnergeticValue.Fat.Should().Be(illness.IngredientIllnesses[0].Ingredient.EnergeticValue.Fat);
-            selectedIllness.Ingredients[0].Ingredient.EnergeticValue.Protein.Should().Be(illness.IngredientIllnesses[0].Ingredient.EnergeticValue.Protein);
-            selectedIllness.Ingredients[0].Ingredient.EnergeticValue.Carbohydrates.Should().Be(illness.IngredientIllnesses[0].Ingredient.EnergeticValue.Carbohydrates);
-            selectedIllness.Ingredients[0].Ingredient.EnergeticValue.Energy.Should().Be(illness.IngredientIllnesses[0].Ingredient.EnergeticValue.Energy);
-            selectedIllness.Ingredients[0].Ingredient.Picture.Should().Be(Convert.ToBase64String(illness.IngredientIllnesses[0].Ingredient.Picture));
+            selectedIllness.Ingredients[0].IngredientId.Should().Be(illness.IngredientIllnesses[0].IngredientId);
+            selectedIllness.Ingredients[0].Names.Should().BeEquivalentTo(JsonConvert.DeserializeObject<List<IngredientNameDto>>(illness.IngredientIllnesses[0].Ingredient.Names));
+            selectedIllness.Ingredients[0].EnergeticValue.Amount.Should().Be(illness.IngredientIllnesses[0].Ingredient.EnergeticValue.Amount);
+            selectedIllness.Ingredients[0].EnergeticValue.MeasurementUnit.Should().Be(illness.IngredientIllnesses[0].Ingredient.EnergeticValue.MeasurementUnit);
+            selectedIllness.Ingredients[0].EnergeticValue.Fat.Should().Be(illness.IngredientIllnesses[0].Ingredient.EnergeticValue.Fat);
+            selectedIllness.Ingredients[0].EnergeticValue.Protein.Should().Be(illness.IngredientIllnesses[0].Ingredient.EnergeticValue.Protein);
+            selectedIllness.Ingredients[0].EnergeticValue.Carbohydrates.Should().Be(illness.IngredientIllnesses[0].Ingredient.EnergeticValue.Carbohydrates);
+            selectedIllness.Ingredients[0].EnergeticValue.Energy.Should().Be(illness.IngredientIllnesses[0].Ingredient.EnergeticValue.Energy);
+            selectedIllness.Ingredients[0].Picture.Should().Be(Convert.ToBase64String(illness.IngredientIllnesses[0].Ingredient.Picture));
 
         }
     }

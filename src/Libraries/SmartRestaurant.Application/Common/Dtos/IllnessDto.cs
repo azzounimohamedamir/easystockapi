@@ -7,6 +7,6 @@ namespace SmartRestaurant.Application.Common.Dtos
     {
         public Guid IllnessId { get; set; }
         public string Name { get; set; }
-        public List<IllnessIngredientUpdateDto> Ingredients { get; set; }
+        public List<IngredientDto> Ingredients { get; set; }
     }
 }

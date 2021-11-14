@@ -56,12 +56,6 @@ namespace SmartRestaurant.Application.Illness.Commands
               .Where(u => u.IllnessId == Guid.Parse(request.Id))
               .FirstOrDefaultAsync()
               .ConfigureAwait(false);
-            var ingredientIllness = await _context.IngredientIllnesses.Where(u => u.IllnessId == Guid.Parse(request.Id)).ToListAsync().ConfigureAwait(false);
-            foreach (IngredientIllness ingredientIllness1 in ingredientIllness)
-            {
-                _context.IngredientIllnesses.Remove(ingredientIllness1);
-            }
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             if (illness == null)
             {
                 throw new NotFoundException(nameof(Illness), request.Id);
@@ -69,7 +63,6 @@ namespace SmartRestaurant.Application.Illness.Commands
 
             _mapper.Map(request, illness);
             _context.Illnesses.Update(illness);
-
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
