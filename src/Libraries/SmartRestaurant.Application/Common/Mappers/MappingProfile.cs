@@ -290,13 +290,20 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<CreateIllnessCommand, Domain.Entities.Illness>()
                 .ForMember(x => x.IllnessId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.IngredientIllnesses, o => o.MapFrom(p => p.Ingredients));
+                .ForMember(x => x.IngredientIllnesses, o=> o.MapFrom(p => p.Ingredients));
+            CreateMap<UpdateIllnessCommand, Domain.Entities.Illness>()
+                .ForMember(x => x.IllnessId, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.IngredientIllnesses, o => o.MapFrom(p => p.Ingredients))
+                .ReverseMap();
 
             CreateMap<Domain.Entities.Illness, IllnessDto>()
                .ForMember(x => x.IllnessId, o => o.MapFrom(p => p.IllnessId))
+                .ForMember(x => x.Ingredients, o => o.MapFrom(p => p.IngredientIllnesses))
                .ReverseMap();
 
             CreateMap<IngredientIllnessDto, IngredientIllness>();
+            CreateMap<IllnessIngredientUpdateDto, IngredientIllness>()
+                .ReverseMap();
         }
     }
 }
