@@ -5,9 +5,9 @@ using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,7 +32,13 @@ namespace SmartRestaurant.Application.Illness.Commands
         {
             if (request.Ingredients == null)
                 request.Ingredients = new List<IngredientIllnessDto>();
-
+            var illnessName = await _context.Illnesses
+           .FirstOrDefaultAsync(u => u.Name.ToUpper() == request.Name.ToUpper(), cancellationToken)
+           .ConfigureAwait(false); ;
+            if (illnessName != null)
+            {
+                throw new ConflictException("Illness '" + request.Name + "' already exists");
+            }
             var validator = new CreateIllnessCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
@@ -46,7 +52,14 @@ namespace SmartRestaurant.Application.Illness.Commands
         public async Task<NoContent> Handle(UpdateIllnessCommand request, CancellationToken cancellationToken)
         {
             if (request.Ingredients == null)
-                request.Ingredients = new List<IngredientIllnessDto>();
+                request.Ingredients = new List<IngredientIllnessDto>(); 
+            var illnessName = await _context.Illnesses
+              .FirstOrDefaultAsync(u => u.Name.ToUpper() == request.Name.ToUpper() && u.IllnessId.ToString() != request.Id,cancellationToken)
+              .ConfigureAwait(false); ;
+            if(illnessName != null)
+            {
+                throw new ConflictException("Illness '"+ request.Name + "' already exists");
+            }
             var validator = new UpdateIllnessCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
