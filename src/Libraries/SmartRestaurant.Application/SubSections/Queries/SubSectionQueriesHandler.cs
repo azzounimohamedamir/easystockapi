@@ -89,7 +89,7 @@ namespace SmartRestaurant.Application.SubSections.Queries
             menuItemsDto.AddRange(_mapper.Map<List<MenuItemDto>>(await products.Data.ToListAsync(cancellationToken).ConfigureAwait(false)));
             menuItemsDto.AddRange(_mapper.Map<List<MenuItemDto>>(await dishes.Data.ToListAsync(cancellationToken).ConfigureAwait(false)));
 
-            return new PagedListDto<MenuItemDto>(request.Page, products.PageCount + dishes.PageCount, request.PageSize, menuItemsDto.Count, menuItemsDto);
+            return new PagedListDto<MenuItemDto>(request.Page, products.PageCount + dishes.PageCount, request.PageSize, products.RowCount + dishes.RowCount, menuItemsDto);
         }
     }
 }
