@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using SmartRestaurant.Application.Orders.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Application.Tables.Commands;
+using SmartRestaurant.Application.FoodBusinessClient.Commands;
 
 namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
 {
@@ -81,17 +82,20 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             await RolesTestTools.CreateRoles();
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
+            var foodBusinessClient = await CreateFoodBusinessClient(fastFood);
             var createZoneCommand = await CreateZone(fastFood);
             await CreateTable(createZoneCommand);
 
             var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId);
 
-            var updateOrderCommand = await UpdateOrder(createOrderCommand);
+            var updateOrderCommand = await UpdateOrder(createOrderCommand, foodBusinessClient);
 
             var order = await GetOrder(Guid.Parse(updateOrderCommand.Id));
             order.OrderId.Should().Be(createOrderCommand.Id);
             order.TotalToPay.Should().Be(1716);
             order.FoodBusinessId.Should().Be(Guid.Parse(createOrderCommand.FoodBusinessId));
+
+            order.FoodBusinessClientId.Should().Be(Guid.Parse(updateOrderCommand.FoodBusinessClientId));
             order.OccupiedTables[0].TableId.Should().Be(updateOrderCommand.OccupiedTables[0].TableId);
             order.Products[0].Name.Should().Be(updateOrderCommand.Products[0].Name);
             order.Products[0].UnitPrice.Should().Be(updateOrderCommand.Products[0].UnitPrice);
@@ -148,6 +152,35 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             order.Dishes[0].Supplements[0].IsSelected.Should().Be(updateOrderCommand.Dishes[0].Supplements[0].IsSelected);
         }
 
+        private static async Task<Domain.Entities.FoodBusinessClient> CreateFoodBusinessClient(Domain.Entities.FoodBusiness fastFood)
+        {
+            var createFoodBusinessClientCommand = new CreateFoodBusinessClientCommand
+            {
+                Address = new AddressDto
+                {
+                    City = "Algiers",
+                    Country = "Algeria",
+                    GeoPosition = new GeoPositionDto
+                    {
+                        Latitude = "0",
+                        Longitude = "0"
+                    },
+                    StreetAddress = "Didouche Mourad"
+                },
+                Description = "",
+                Name = "G22 REI",
+                PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
+                Email = "test@g22rei.com",
+                Website = "http://g22rei.com",
+                FoodBusinessId = fastFood.FoodBusinessId.ToString()
+            };
+
+
+            await SendAsync(createFoodBusinessClientCommand);
+            return await FindAsync<Domain.Entities.FoodBusinessClient>(createFoodBusinessClientCommand.Id);
+
+        }
+
         private static async Task CreateTable(CreateZoneCommand createZoneCommand)
         {
             var createTableCommand01 = new CreateTableCommand
@@ -178,11 +211,12 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             return createZoneCommand;
         }
 
-        private async Task<UpdateOrderCommand> UpdateOrder(CreateOrderCommand createOrderCommand)
+        private async Task<UpdateOrderCommand> UpdateOrder(CreateOrderCommand createOrderCommand, Domain.Entities.FoodBusinessClient foodBusinessClient)
         {
             var updateOrderCommand = new UpdateOrderCommand
             {
                 Id = createOrderCommand.Id.ToString(),
+                FoodBusinessClientId = foodBusinessClient.FoodBusinessClientId.ToString(),
                 Type = OrderTypes.DineIn,
                 OccupiedTables = new List<OrderOccupiedTableDto>() {
                 new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab20" }
