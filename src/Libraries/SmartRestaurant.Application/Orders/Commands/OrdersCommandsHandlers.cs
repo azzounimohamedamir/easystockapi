@@ -44,6 +44,13 @@ namespace SmartRestaurant.Application.Orders.Commands
             if (foodBusiness == null)
                 throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
 
+            if(request.FoodBusinessClientId != null)
+            {
+                var foodBusinessClient = await _context.FoodBusinessClients.FindAsync(Guid.Parse(request.FoodBusinessClientId));
+                if (foodBusinessClient == null)
+                    throw new NotFoundException(nameof(FoodBusinessClient), request.FoodBusinessClientId);
+            }
+
             var order = _mapper.Map<Order>(request);
             order.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.CreatedAt = DateTime.Now;
@@ -64,6 +71,13 @@ namespace SmartRestaurant.Application.Orders.Commands
             var validator = new UpdateOrderCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
+
+            if (request.FoodBusinessClientId != null)
+            {
+                var foodBusinessClient = await _context.FoodBusinessClients.FindAsync(Guid.Parse(request.FoodBusinessClientId));
+                if (foodBusinessClient == null)
+                    throw new NotFoundException(nameof(FoodBusinessClient), request.FoodBusinessClientId);
+            }
 
             var order = await _context.Orders
                 .Include(o => o.Dishes)
