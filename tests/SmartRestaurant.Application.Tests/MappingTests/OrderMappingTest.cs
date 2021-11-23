@@ -174,7 +174,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         var order = _mapper.Map<Order>(createOrderCommand);
         Assert.Equal(order.Type, OrderTypes.DineIn);
         Assert.Equal(order.FoodBusinessId, Guid.Parse(createOrderCommand.FoodBusinessId));
-
+        Assert.Null(order.FoodBusinessClientId);
         Assert.Equal(order.OccupiedTables[0].TableId, createOrderCommand.OccupiedTables[0].TableId);
 
         Assert.Equal(order.Products[0].Name, createOrderCommand.Products[0].Name);
@@ -236,10 +236,11 @@ namespace SmartRestaurant.Application.Tests.MappingTests
     [Fact]
     public void Map_UpdateOrderCommand_To_Order_Valide_Test()
     {
-        var createOrderCommand = new CreateOrderCommand
-        {
-            Type = OrderTypes.DineIn,
-            FoodBusinessId = "3cbf3570-4444-4673-8746-29b7cf568093",
+            var createOrderCommand = new CreateOrderCommand
+            {
+                Type = OrderTypes.DineIn,
+                FoodBusinessId = "3cbf3570-4444-4673-8746-29b7cf568093",
+                FoodBusinessClientId = null,
             OccupiedTables = new List<OrderOccupiedTableDto>() {
             new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab00" }
         },
@@ -276,6 +277,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
 
         var updateOrderCommand = new UpdateOrderCommand
         {
+            FoodBusinessClientId = "ccffcd45-59bb-75ab-b3cf-07b3cf29ab33",
             Type = OrderTypes.DineIn,
             OccupiedTables = new List<OrderOccupiedTableDto>() {
                 new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab20" }
@@ -315,10 +317,12 @@ namespace SmartRestaurant.Application.Tests.MappingTests
 
             _mapper.Map(updateOrderCommand, order);
 
-            Assert.Equal(order.Type, updateOrderCommand.Type);
+        Assert.Equal(order.Type, updateOrderCommand.Type);
         Assert.Equal(order.FoodBusinessId, Guid.Parse(createOrderCommand.FoodBusinessId));
+        Assert.NotNull(order.FoodBusinessClientId);
 
         Assert.Equal(order.OccupiedTables[0].TableId, updateOrderCommand.OccupiedTables[0].TableId);
+        Assert.Equal(order.FoodBusinessClientId, Guid.Parse(updateOrderCommand.FoodBusinessClientId));
 
         Assert.Equal(order.Products[0].Name, updateOrderCommand.Products[0].Name);
         Assert.Equal(order.Products[0].UnitPrice, updateOrderCommand.Products[0].UnitPrice);
