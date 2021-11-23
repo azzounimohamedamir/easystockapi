@@ -18,6 +18,7 @@ namespace SmartRestaurant.Application.Orders.Commands
         public List<OrderProductDto> Products { get; set; }
         public List<OrderOccupiedTableDto> OccupiedTables { get; set; }
         public string FoodBusinessId { get; set; }
+        public string FoodBusinessClientId { get; set; }
     }
 
     public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
@@ -50,6 +51,13 @@ namespace SmartRestaurant.Application.Orders.Commands
                 .NotEmpty()
                 .NotEqual(Guid.Empty.ToString())
                 .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID");
+
+            RuleFor(m => m.FoodBusinessClientId)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty()
+                .NotEqual(Guid.Empty.ToString())
+                .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID")
+                .When(x => x.FoodBusinessClientId != null);
 
             RuleFor(x => x.Dishes)
                  .Must(x => false).WithMessage("Order can not be empty, please select at least a dish or product")
