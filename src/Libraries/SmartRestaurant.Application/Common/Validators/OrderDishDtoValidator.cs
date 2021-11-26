@@ -30,10 +30,10 @@ namespace SmartRestaurant.Application.Common.Validators
               .MaximumLength(500);
 
             RuleFor(x => x.TableNumber)
-                .GreaterThan(0);
+                .GreaterThanOrEqualTo(0);
 
             RuleFor(x => x.ChairNumber)
-                .GreaterThan(0)
+                .GreaterThanOrEqualTo(0)
                 .LessThanOrEqualTo(99);
 
             RuleFor(x => x.Quantity)
