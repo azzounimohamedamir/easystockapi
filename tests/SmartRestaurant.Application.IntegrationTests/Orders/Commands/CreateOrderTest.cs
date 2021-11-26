@@ -30,6 +30,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             order.Type.Should().Be(OrderTypes.DineIn);
             order.Status.Should().Be(OrderStatuses.InQueue);
             order.FoodBusinessId.Should().Be(Guid.Parse(createOrderCommand.FoodBusinessId));
+            order.FoodBusinessClientId.Should().BeNull();
             order.TotalToPay.Should().Be(760);
             order.OccupiedTables[0].TableId.Should().Be(createOrderCommand.OccupiedTables[0].TableId);
 

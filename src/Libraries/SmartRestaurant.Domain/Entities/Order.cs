@@ -20,5 +20,9 @@ namespace SmartRestaurant.Domain.Entities
         public virtual List<OrderProduct> Products { get; set; }
         public virtual List<OrderOccupiedTable> OccupiedTables { get; set; }        
         public Guid FoodBusinessId { get; set; }
+        public virtual FoodBusiness FoodBusiness { get; set; }
+        public Guid? FoodBusinessClientId { get; set; }
+        public virtual FoodBusinessClient FoodBusinessClient { get; set; }
+
     }
 }

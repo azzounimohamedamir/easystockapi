@@ -20,6 +20,7 @@ namespace SmartRestaurant.Application.Orders.Commands
         public List<OrderDishDto> Dishes { get; set; }
         public List<OrderProductDto> Products { get; set; }
         public List<OrderOccupiedTableDto> OccupiedTables { get; set; }
+        public string FoodBusinessClientId { get; set; }
     }
 
     public class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderCommand>
@@ -34,6 +35,13 @@ namespace SmartRestaurant.Application.Orders.Commands
 
             RuleFor(m => m.Type)
                 .IsInEnum();
+
+            RuleFor(m => m.FoodBusinessClientId)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty()
+                .NotEqual(Guid.Empty.ToString())
+                .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID")
+                .When(x => x.FoodBusinessClientId != null);
 
             RuleFor(x => x.TakeoutDetails)
                  .Cascade(CascadeMode.StopOnFirstFailure)
