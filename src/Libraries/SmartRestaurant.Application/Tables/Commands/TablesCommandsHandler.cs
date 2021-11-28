@@ -38,12 +38,20 @@ namespace SmartRestaurant.Application.Tables.Commands
             if (zone == null)
                 throw new NotFoundException(nameof(Zone), request.ZoneId);
 
+
+            var zonesIds = await _context.Zones
+              .Where(x => x.FoodBusinessId == zone.FoodBusinessId)
+              .Select(x => x.ZoneId)
+              .ToListAsync()
+              .ConfigureAwait(false);
+
+
             var maxTableNumber = _context.Tables
-               .Where(x => x.ZoneId == Guid.Parse(request.ZoneId))
-               .OrderByDescending(p => p.TableNumber)
-               .Select(x => x.TableNumber)
-               .FirstOrDefault();
-            
+              .Where(x => zonesIds.Contains(x.ZoneId))
+              .OrderByDescending(p => p.TableNumber)
+              .Select(x => x.TableNumber)
+              .FirstOrDefault();
+
             var table = _mapper.Map<Table>(request);
             table.TableNumber = maxTableNumber + 1; 
             _context.Tables.Add(table);
