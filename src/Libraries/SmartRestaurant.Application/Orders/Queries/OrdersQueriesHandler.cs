@@ -15,13 +15,13 @@ using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.Orders.Queries
 {
-    public class GetOrdersQueriesHandler : IRequestHandler<GetOrderByIdQuery, OrderDto>,
+    public class OrdersQueriesHandler : IRequestHandler<GetOrderByIdQuery, OrderDto>,
         IRequestHandler<GetOrdersListQuery, PagedListDto<OrderDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetOrdersQueriesHandler(IApplicationDbContext context, IMapper mapper)
+        public OrdersQueriesHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
