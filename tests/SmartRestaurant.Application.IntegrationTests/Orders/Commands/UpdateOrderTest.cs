@@ -11,6 +11,8 @@ using SmartRestaurant.Application.Orders.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.FoodBusinessClient.Commands;
+using Newtonsoft.Json;
+using SmartRestaurant.Application.Common.Dtos;
 
 namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
 {
@@ -52,7 +54,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             OrderIngredient = new OrderIngredientDto()
             {
                 IngredientId = "72867405-75a6-44bc-ac82-407ea918c8dc",
-                Names = "[{\"name\" = \"Cooking oil Modified\",\"language\" = \"en\"},{\"name\" = \"زيت الطهي\",\"language\" = \"ar\"},{\"name\" = \"Huile\",\"language\" = \"fr\"}]",
+                Names = new List<IngredientNameDto>{
+                    new IngredientNameDto() {Name = "Cooking oil Modified",Language = "en"},
+                    new IngredientNameDto() {Name = "Modified زيت الطهي",Language = "ar"},
+                    new IngredientNameDto() {Name = "Huile Modified",Language = "fr"}
+                    },
                 EnergeticValue = new EnergeticValueDto
                 {
                     Fat = 1,
@@ -136,7 +142,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             order.Dishes[0].Ingredients[0].Steps.Should().Be(updateOrderCommand.Dishes[0].Ingredients[0].Steps);
             order.Dishes[0].Ingredients[0].MeasurementUnits.Should().Be(updateOrderCommand.Dishes[0].Ingredients[0].MeasurementUnits);
             order.Dishes[0].Ingredients[0].OrderIngredient.IngredientId.Should().Be(updateOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.IngredientId);
-            order.Dishes[0].Ingredients[0].OrderIngredient.Names.Should().Be(updateOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.Names);
+            order.Dishes[0].Ingredients[0].OrderIngredient.Names.Should().Be(JsonConvert.SerializeObject(updateOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.Names));
             order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat.Should().Be(updateOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat);
             order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein.Should().Be(updateOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein);
             order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates.Should().Be(updateOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates);

@@ -6,6 +6,7 @@ using SmartRestaurant.Domain.Enums;
 using FluentAssertions;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Application.Tables.Commands;
+using Newtonsoft.Json;
 
 namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
 {
@@ -73,7 +74,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             order.Dishes[0].Ingredients[0].Steps.Should().Be(createOrderCommand.Dishes[0].Ingredients[0].Steps);
             order.Dishes[0].Ingredients[0].MeasurementUnits.Should().Be(createOrderCommand.Dishes[0].Ingredients[0].MeasurementUnits);
             order.Dishes[0].Ingredients[0].OrderIngredient.IngredientId.Should().Be(createOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.IngredientId);
-            order.Dishes[0].Ingredients[0].OrderIngredient.Names.Should().Be(createOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.Names);
+            order.Dishes[0].Ingredients[0].OrderIngredient.Names.Should().Be(JsonConvert.SerializeObject(createOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.Names) );
             order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat.Should().Be(createOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat);
             order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein.Should().Be(createOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein);
             order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates.Should().Be(createOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates);
