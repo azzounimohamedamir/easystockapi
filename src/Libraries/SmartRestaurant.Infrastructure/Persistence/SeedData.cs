@@ -662,7 +662,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 new Table
                 {
                     ZoneId = Guid.Parse(TajMhal_VipZone_Id),
-                    TableNumber = 4,
+                    TableNumber = 1,
                     Capacity = 4,
                     CreatedBy = TajMhal_FoodBusinessManager_UserId,
                     CreatedAt = DateTime.Now,
@@ -671,7 +671,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 new Table
                 {
                     ZoneId = Guid.Parse(TajMhal_FamilyZone_Id),
-                    TableNumber = 5,
+                    TableNumber = 2,
                     Capacity = 6,
                     CreatedBy = TajMhal_FoodBusinessManager_UserId,
                     CreatedAt = DateTime.Now,
@@ -680,7 +680,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 new Table
                 {
                     ZoneId = Guid.Parse(TajMhal_NormalZone_Id),
-                    TableNumber = 10,
+                    TableNumber = 4,
                     Capacity = 4,
                     CreatedBy = TajMhal_FoodBusinessManager_UserId,
                     CreatedAt = DateTime.Now,
@@ -689,7 +689,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 new Table
                 {
                     ZoneId = Guid.Parse(TajMhal_OutdoorZone_Id),
-                    TableNumber = 7,
+                    TableNumber = 5,
                     Capacity = 3,
                     CreatedBy = TajMhal_FoodBusinessManager_UserId,
                     CreatedAt = DateTime.Now,
@@ -703,7 +703,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 new Table
                 {
                     ZoneId = Guid.Parse(Mcdonald_NormalZone_Id),
-                    TableNumber = 7,
+                    TableNumber = 1,
                     Capacity = 5,
                     CreatedBy = Mcdonald_FoodBusinessManager_UserId,
                     CreatedAt = DateTime.Now,
@@ -712,7 +712,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 new Table
                 {
                     ZoneId = Guid.Parse(Mcdonald_OutdoorZone_Id),
-                    TableNumber = 3,
+                    TableNumber = 2,
                     Capacity = 3,
                     CreatedBy = Mcdonald_FoodBusinessManager_UserId,
                     CreatedAt = DateTime.Now,
@@ -726,7 +726,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 new Table
                 {
                     ZoneId = Guid.Parse(BigMama_SharedZone_Id),
-                    TableNumber = 8,
+                    TableNumber = 1,
                     Capacity = 6,
                     CreatedBy = BigMama_SalimFoodBusinessManager_UserId,
                     CreatedAt = DateTime.Now,
