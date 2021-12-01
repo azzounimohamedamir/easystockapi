@@ -7,6 +7,7 @@
         public float UnitPrice { get; set; }
         public float EnergeticValue { get; set; }
         public string Description { get; set; }
+        public string TableId { get; set; }
         public int TableNumber { get; set; }
         public int ChairNumber { get; set; }
         public float Quantity { get; set; }

@@ -8,6 +8,7 @@ namespace SmartRestaurant.Domain.Entities
     {
         public Guid OrderDishId { get; set; }
         public string DishId { get; set; }
+        public float InitialPrice { get; set; }
         public int EstimatedPreparationTime { get; set; }
         public virtual IList<OrderDishSpecification> Specifications { get; set; }
         public virtual IList<OrderDishIngredient> Ingredients { get; set; }
