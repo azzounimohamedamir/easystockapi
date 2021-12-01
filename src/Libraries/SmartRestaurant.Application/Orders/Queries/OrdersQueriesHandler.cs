@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
@@ -12,17 +13,20 @@ using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.CurrencyExchange;
 using SmartRestaurant.Application.Orders.Queries.FilterStrategy;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Identity.Entities;
 
 namespace SmartRestaurant.Application.Orders.Queries
 {
-    public class GetOrdersQueriesHandler : IRequestHandler<GetOrderByIdQuery, OrderDto>,
+    public class OrdersQueriesHandler : IRequestHandler<GetOrderByIdQuery, OrderDto>,
         IRequestHandler<GetOrdersListQuery, PagedListDto<OrderDto>>
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetOrdersQueriesHandler(IApplicationDbContext context, IMapper mapper)
+        public OrdersQueriesHandler(IApplicationDbContext context, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
             _mapper = mapper;
         }
@@ -46,13 +50,14 @@ namespace SmartRestaurant.Application.Orders.Queries
                 .ConfigureAwait(false);
             if (order == null)
                 throw new NotFoundException(nameof(Order), request.Id);
-
+                       
             var foodBusiness = await _context.FoodBusinesses.FindAsync(order.FoodBusinessId);
             if (foodBusiness == null)
                 throw new NotFoundException(nameof(FoodBusiness), request.Id);
 
             var orderDto = _mapper.Map<OrderDto>(order);
             orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);
+            orderDto.CreatedBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(order.CreatedBy));
 
             return orderDto;
         }
@@ -70,11 +75,13 @@ namespace SmartRestaurant.Application.Orders.Queries
             var filter = OrderStrategies.GetFilterStrategy(request.CurrentFilter);
             var query = filter.FetchData(_context.Orders, request);
 
-            var data = _mapper.Map<List<OrderDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
+            var queryData = await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false);
+            var data = _mapper.Map<List<OrderDto>>(queryData);
 
             foreach (var order in data)
             {
                 order.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(order.TotalToPay, foodBusiness.DefaultCurrency);
+                order.CreatedBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(queryData.Find(o => o.OrderId == order.OrderId).CreatedBy));
             }
             return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }

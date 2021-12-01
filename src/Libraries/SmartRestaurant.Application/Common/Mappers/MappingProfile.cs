@@ -245,7 +245,8 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap< UpdateOrderStatusCommand, Order>();
 
-            CreateMap<Order, OrderDto>();
+            CreateMap<Order, OrderDto>()
+                .ForMember(x => x.CreatedBy, o => o.Ignore());
 
             CreateMap<CreateFoodBusinessClientCommand, Domain.Entities.FoodBusinessClient>()
                 .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.Id))
@@ -302,7 +303,7 @@ namespace SmartRestaurant.Application.Common.Mappers
                .ReverseMap();
 
             CreateMap<IngredientIllnessDto, IngredientIllness>();
-          
+
         }
     }
 }

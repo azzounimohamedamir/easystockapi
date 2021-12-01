@@ -5,7 +5,6 @@ using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Tools;
-using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.Orders.Queries
 {

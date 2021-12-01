@@ -20,6 +20,9 @@ namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
         public List<OrderOccupiedTableDto> OccupiedTables { get; set; }
         public List<CurrencyDto> CurrencyExchange { get; set; }
         public DateTime CreatedAt { get; set; }
+        public ApplicationUserDto CreatedBy { get; set; }
         public Guid FoodBusinessId { get; set; }
+        public Guid? FoodBusinessClientId { get; set; }
+
     }
 }
