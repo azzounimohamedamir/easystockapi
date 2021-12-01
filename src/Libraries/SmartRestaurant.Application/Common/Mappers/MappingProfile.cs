@@ -215,8 +215,8 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<OrderProductDto, OrderProduct>()
                 .ReverseMap();
 
-            CreateMap<OrderDishIngredientDto, OrderDishIngredient>()
-                .ReverseMap();
+            CreateMap<OrderDishIngredient, OrderDishIngredientDto>()
+            .ReverseMap();
 
             CreateMap<OrderDishSpecification, OrderDishSpecificationDto>()
                 .AfterMap((src, dest) => dest.ComboBoxContent = new List<string>((string.IsNullOrWhiteSpace(src.ComboBoxContent)) ? new string[0] : src.ComboBoxContent.Split(';')));
@@ -230,8 +230,11 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<OrderOccupiedTableDto, OrderOccupiedTable>()
                 .ReverseMap();
 
+            CreateMap<OrderIngredient, OrderIngredientDto>()
+                .ForMember(x => x.Names, o => o.MapFrom(p => JsonConvert.DeserializeObject<List<IngredientNameDto>>(p.Names)));
+
             CreateMap<OrderIngredientDto, OrderIngredient>()
-                .ReverseMap();
+               .ForMember(x => x.Names, o => o.MapFrom(p => JsonConvert.SerializeObject(p.Names)));         
 
             CreateMap<EnergeticValueDto, EnergeticValue>()
                 .ReverseMap();
@@ -247,7 +250,7 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Order, OrderDto>()
                 .ForMember(x => x.CreatedBy, o => o.Ignore());
-
+         
             CreateMap<CreateFoodBusinessClientCommand, Domain.Entities.FoodBusinessClient>()
                 .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
