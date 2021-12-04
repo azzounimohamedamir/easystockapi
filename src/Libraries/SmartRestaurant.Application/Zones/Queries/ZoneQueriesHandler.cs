@@ -12,7 +12,8 @@ namespace SmartRestaurant.Application.Zones.Queries
 {
     public class ZoneQueriesHandler :
         IRequestHandler<GetZonesListQuery, IEnumerable<ZoneDto>>,
-        IRequestHandler<GetZoneByIdQuery, ZoneDto>
+        IRequestHandler<GetZoneByIdQuery, ZoneDto>,
+        IRequestHandler<GetZonesListWithTablesQuery, IEnumerable<ZoneWithTablesDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -36,5 +37,17 @@ namespace SmartRestaurant.Application.Zones.Queries
                 .ConfigureAwait(false);
             return _mapper.Map<List<ZoneDto>>(query);
         }
+
+        public async Task<IEnumerable<ZoneWithTablesDto>> Handle(GetZonesListWithTablesQuery request, CancellationToken cancellationToken)
+        {
+            var queryZone = await _context.Zones
+                .Where(x => x.FoodBusinessId == request.FoodBusinessId)
+                .Include(x=>x.Tables)
+                .ToArrayAsync(cancellationToken)
+                .ConfigureAwait(false);
+            var queryZoneDto = _mapper.Map<List<ZoneWithTablesDto>>(queryZone);
+            return queryZoneDto;
+        }
+
     }
 }
