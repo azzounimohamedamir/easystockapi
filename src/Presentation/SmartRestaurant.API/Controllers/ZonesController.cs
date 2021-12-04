@@ -18,6 +18,13 @@ namespace SmartRestaurant.API.Controllers
         {
             return await SendWithErrorsHandlingAsync(new GetZonesListQuery {FoodBusinessId = id});
         }
+        [Route("ZoneWithTables/{id:Guid}")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<IActionResult> GetWithTable([FromRoute] Guid id)
+        {
+            return await SendWithErrorsHandlingAsync(new GetZonesListWithTablesQuery { FoodBusinessId = id });
+        }
 
         [Route("{id:Guid}")]
         [HttpGet]
