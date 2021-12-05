@@ -47,7 +47,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Queries
 
 
             }
-            var query = new GetZonesListWithTablesQuery { FoodBusinessId = fastFood.FoodBusinessId};
+            var query = new GetZonesListWithTablesQuery { FoodBusinessId = fastFood.FoodBusinessId.ToString()};
             var result = await SendAsync(query);
             result.Should().HaveCount(2);
             foreach (var item in result)    
