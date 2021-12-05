@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Zones.Queries
 {
@@ -40,11 +42,17 @@ namespace SmartRestaurant.Application.Zones.Queries
 
         public async Task<IEnumerable<ZoneWithTablesDto>> Handle(GetZonesListWithTablesQuery request, CancellationToken cancellationToken)
         {
+            // validation
+            var validator = new GetZonesListWithTablesQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+            // Do query
             var queryZone = await _context.Zones
-                .Where(x => x.FoodBusinessId == request.FoodBusinessId)
+                .Where(x => x.FoodBusinessId == Guid.Parse(request.FoodBusinessId))
                 .Include(x=>x.Tables)
                 .ToArrayAsync(cancellationToken)
                 .ConfigureAwait(false);
+            // Mapping to Dto and send
             var queryZoneDto = _mapper.Map<List<ZoneWithTablesDto>>(queryZone);
             return queryZoneDto;
         }
