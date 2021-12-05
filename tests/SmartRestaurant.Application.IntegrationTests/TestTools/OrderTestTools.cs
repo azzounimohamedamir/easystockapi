@@ -1,4 +1,5 @@
-﻿using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
+﻿using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Orders.Commands;
 using SmartRestaurant.Domain.Enums;
@@ -47,7 +48,11 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 OrderIngredient = new OrderIngredientDto()
                 {
                     IngredientId = "72867405-75a6-44bc-ac82-407ea918c8dc",
-                    Names = "[{\"name\" = \"Cooking oil\",\"language\" = \"en\"},{\"name\" = \"زيت الطهي\",\"language\" = \"ar\"},{\"name\" = \"Huile\",\"language\" = \"fr\"}]",
+                    Names = new List<IngredientNameDto>{
+                    new IngredientNameDto() {Name = "Cooking oil Modified",Language = "en"},
+                    new IngredientNameDto() {Name = "Modified زيت الطهي",Language = "ar"},
+                    new IngredientNameDto() {Name = "Huile Modified",Language = "fr"}
+                    },
                     EnergeticValue = new EnergeticValueDto
                     {
                         Fat = 0,

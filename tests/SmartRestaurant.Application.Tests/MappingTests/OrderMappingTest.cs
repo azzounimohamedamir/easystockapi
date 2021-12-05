@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using Newtonsoft.Json;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Orders.Commands;
@@ -50,7 +52,11 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Steps = 0,
             OrderIngredient =  new OrderIngredientDto() {
                 IngredientId =  "72867405-75a6-44bc-ac82-407ea918c8dc",
-                Names =  "[{\"name\" = \"Cooking oil\",\"language\" = \"en\"},{\"name\" = \"زيت الطهي\",\"language\" = \"ar\"},{\"name\" = \"Huile\",\"language\" = \"fr\"}]",
+                Names = new List<IngredientNameDto>{ 
+                    new IngredientNameDto() {Name = "Cooking oil",Language = "en"},
+                    new IngredientNameDto() {Name = "زيت الطهي",Language = "ar"},
+                    new IngredientNameDto() {Name = "Huile",Language = "fr"}
+                    },
                 EnergeticValue =  new EnergeticValueDto {
                     Fat =  0,
                     Protein =  0,
@@ -108,7 +114,11 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             OrderIngredient = new OrderIngredientDto()
             {
                 IngredientId = "72867405-75a6-44bc-ac82-407ea918c8dc",
-                Names = "[{\"name\" = \"Cooking oil Modified\",\"language\" = \"en\"},{\"name\" = \"زيت الطهي\",\"language\" = \"ar\"},{\"name\" = \"Huile\",\"language\" = \"fr\"}]",
+                Names = new List<IngredientNameDto>{
+                    new IngredientNameDto() {Name = "Cooking oil Modified",Language = "en"},
+                    new IngredientNameDto() {Name = "Modified زيت الطهي",Language = "ar"},
+                    new IngredientNameDto() {Name = "Huile Modified",Language = "fr"}
+                    },
                 EnergeticValue = new EnergeticValueDto
                 {
                     Fat = 1,
@@ -216,7 +226,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         Assert.Equal(order.Dishes[0].Ingredients[0].Steps, createOrderCommand.Dishes[0].Ingredients[0].Steps);
         Assert.Equal(order.Dishes[0].Ingredients[0].MeasurementUnits, createOrderCommand.Dishes[0].Ingredients[0].MeasurementUnits);
         Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.IngredientId, createOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.IngredientId);
-        Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.Names, createOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.Names);
+        Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.Names, JsonConvert.SerializeObject(createOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.Names));
         Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat, createOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat);
         Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein, createOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein);
         Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates, createOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates);
@@ -363,7 +373,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         Assert.Equal(order.Dishes[0].Ingredients[0].Steps, updateOrderCommand.Dishes[0].Ingredients[0].Steps);
         Assert.Equal(order.Dishes[0].Ingredients[0].MeasurementUnits, updateOrderCommand.Dishes[0].Ingredients[0].MeasurementUnits);
         Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.IngredientId, updateOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.IngredientId);
-        Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.Names, updateOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.Names);
+        Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.Names, JsonConvert.SerializeObject(updateOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.Names));
         Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat, updateOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat);
         Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein, updateOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein);
         Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates, updateOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates);
@@ -533,7 +543,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(orderDto.Dishes[0].Ingredients[0].Steps, order.Dishes[0].Ingredients[0].Steps);
             Assert.Equal(orderDto.Dishes[0].Ingredients[0].MeasurementUnits, order.Dishes[0].Ingredients[0].MeasurementUnits);
             Assert.Equal(orderDto.Dishes[0].Ingredients[0].OrderIngredient.IngredientId, order.Dishes[0].Ingredients[0].OrderIngredient.IngredientId);
-            Assert.Equal(orderDto.Dishes[0].Ingredients[0].OrderIngredient.Names, order.Dishes[0].Ingredients[0].OrderIngredient.Names);
+            Assert.Equal(JsonConvert.SerializeObject(orderDto.Dishes[0].Ingredients[0].OrderIngredient.Names), order.Dishes[0].Ingredients[0].OrderIngredient.Names);
             Assert.Equal(orderDto.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat, order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat);
             Assert.Equal(orderDto.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein, order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein);
             Assert.Equal(orderDto.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates, order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates);
