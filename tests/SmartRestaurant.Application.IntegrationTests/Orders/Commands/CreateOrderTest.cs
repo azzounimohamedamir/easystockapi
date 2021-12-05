@@ -44,7 +44,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             order.Products[0].Quantity.Should().Be(createOrderCommand.Products[0].Quantity);
 
             order.Dishes[0].Name.Should().Be(createOrderCommand.Dishes[0].Name);
-            order.Dishes[0].UnitPrice.Should().Be(createOrderCommand.Dishes[0].UnitPrice);
+            order.Dishes[0].UnitPrice.Should().Be(320);
             order.Dishes[0].EnergeticValue.Should().Be(createOrderCommand.Dishes[0].EnergeticValue);
             order.Dishes[0].Description.Should().Be(createOrderCommand.Dishes[0].Description);
             order.Dishes[0].EstimatedPreparationTime.Should().Be(createOrderCommand.Dishes[0].EstimatedPreparationTime);

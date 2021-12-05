@@ -87,11 +87,11 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 OccupiedTables = new List<OrderOccupiedTableDto>() {
                     new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab00" }
                 },
-                Dishes = new List<OrderDishDto>() {
-                     new OrderDishDto {
+                Dishes = new List<OrderDishCommandDto>() {
+                     new OrderDishCommandDto {
                       DishId =  "0e0b853c-9518-499f-b5ca-07afdd5f1e6f",
                       Name =  "Rice",
-                      UnitPrice =  200,
+                      InitialPrice = 200,
                       EnergeticValue =  0,
                       Description =  "",
                       EstimatedPreparationTime =  15,
