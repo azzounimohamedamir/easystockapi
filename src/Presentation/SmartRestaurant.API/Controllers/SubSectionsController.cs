@@ -15,7 +15,7 @@ namespace SmartRestaurant.API.Controllers
     {
         [Route("section/{id:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> GetBySectionId([FromRoute] Guid id, int page, int pageSize)
         {
             return await SendWithErrorsHandlingAsync(new GetSubSectionsListQuery
@@ -23,14 +23,14 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Create(CreateSubSectionCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }
 
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Update(UpdateSubSectionCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -38,7 +38,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{id:Guid}")]
         [HttpDelete]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             return await SendWithErrorsHandlingAsync(new DeleteSubSectionCommand {Id = id});
@@ -55,7 +55,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new GetSubSectionByIdQuery { Id = id });
@@ -72,7 +72,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("add-product")]
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> AddProductToSubSection(AddProductToSubSectionCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -88,7 +88,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("add-dish")]
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> AddDishToSubSection(AddDishToSubSectionCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -106,7 +106,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}/product/{productId}")]
         [HttpDelete]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> RemoveProductFromSubSection([FromRoute] string id, [FromRoute] string productId)
         {
             var command = new RemoveProductFromSubSectionCommand
@@ -129,7 +129,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}/dish/{dishId}")]
         [HttpDelete]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> RemoveDishFromSubSection([FromRoute] string id, [FromRoute] string dishId)
         {
             var command = new RemoveDishFromSubSectionCommand

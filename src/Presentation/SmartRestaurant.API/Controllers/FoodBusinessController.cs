@@ -30,7 +30,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(PagedListDto<FoodBusinessDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent,SuperAdmin")]
         public Task<IActionResult> Get(string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
         {
             var query = new GetFoodBusinessListQuery
@@ -46,7 +46,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("byFoodBusinessAdministrator")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessAdministrator")]
+        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
         public Task<IActionResult> GetByFoodBusinessAdministratorId()
         {
             return SendWithErrorsHandlingAsync(new GetFoodBusinessListByAdmin());
@@ -54,7 +54,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("byFoodBusinessManager")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,SuperAdmin")]
         public Task<IActionResult> GetAllFoodBusinessByFoodBusinessManager()
         {
             return SendWithErrorsHandlingAsync(new GetAllFoodBusinessByFoodBusinessManagerQuery());
@@ -62,7 +62,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{id:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent,SuperAdmin")]
         public Task<IActionResult> GetById([FromRoute] Guid id)
         {
             return SendWithErrorsHandlingAsync(new GetFoodBusinessByIdQuery {FoodBusinessId = id});
@@ -77,7 +77,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{id}")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
         public async Task<IActionResult> Update([FromRoute] string id, UpdateFoodBusinessCommand command)
         {
             command.Id = id;
@@ -86,21 +86,21 @@ namespace SmartRestaurant.API.Controllers
 
         [HttpDelete]
         [Route("{id:Guid}")]
-        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             return await SendWithErrorsHandlingAsync(new DeleteFoodBusinessCommand {Id = id});
         }    
 
         [HttpPatch("updateFourDigitCode")]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,SuperAdmin")]
         public async Task<IActionResult> UpdateFourDigitCode(UpdateFourDigitCodeCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }
 
         [HttpGet("getFourDigitCode")]
-        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,SupportAgent,SuperAdmin")]
         public async Task<IActionResult> GetFourDigitCode(GetFourDigitCodeFoodBusinessByIdQuery command)
         {
             return await SendWithErrorsHandlingAsync(command);
