@@ -32,8 +32,7 @@ namespace SmartRestaurant.Application.Menus.Commands
             var validator = new CreateMenuCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-            await UpdateMenuStateAsync(request.MenuState, request.FoodBusinessId, request.Id, cancellationToken)
-                .ConfigureAwait(false);
+
             var menu = _mapper.Map<Menu>(request);
             _context.Menus.Add(menu);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -59,32 +58,39 @@ namespace SmartRestaurant.Application.Menus.Commands
             var validator = new UpdateMenuCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
+
             var menu = await _context.Menus.AsNoTracking()
                 .FirstOrDefaultAsync(m => m.MenuId == request.Id, cancellationToken)
                 .ConfigureAwait(false);
             if (menu == null)
                 throw new NotFoundException(nameof(Menu), request.Id);
-            await UpdateMenuStateAsync(request.MenuState, request.FoodBusinessId, request.Id, cancellationToken)
-                .ConfigureAwait(false);
+
+            await UpdateMenuStateAsync(request, cancellationToken).ConfigureAwait(false);
+
             var entity = _mapper.Map<Menu>(request);
             _context.Menus.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
 
-        private async Task UpdateMenuStateAsync(int state, Guid foodBusinessId, Guid? menuId,
-            CancellationToken cancellationToken)
+        private async Task UpdateMenuStateAsync(UpdateMenuCommand request, CancellationToken cancellationToken)
         {
-            if (state != (int) MenuState.Enabled) return;
+            if (request.MenuState == MenuState.Disabled) 
+                return;
+
             var menus = await _context.Menus
-                .Where(x => x.FoodBusinessId == foodBusinessId
-                            && x.MenuId != menuId
-                            && x.MenuState == MenuState.Enabled)
+                .Where(x => x.FoodBusinessId == request.FoodBusinessId  && x.MenuId != request.Id)
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false);
+
             if (menus.Any())
+            {
                 foreach (var menu in menus)
+                {
                     menu.MenuState = MenuState.Disabled;
+                }                   
+            }
+                
         }
     }
 }

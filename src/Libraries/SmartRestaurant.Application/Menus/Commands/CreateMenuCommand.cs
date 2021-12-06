@@ -7,7 +7,6 @@ namespace SmartRestaurant.Application.Menus.Commands
     public class CreateMenuCommand : CreateCommand
     {
         public string Name { get; set; }
-        public int MenuState { get; set; }
         public Guid FoodBusinessId { get; set; }
     }
 

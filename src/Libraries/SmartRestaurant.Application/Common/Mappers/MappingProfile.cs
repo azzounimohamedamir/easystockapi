@@ -66,15 +66,15 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.TableId))
                 .ForMember(x => x.TableState, o => o.MapFrom(p => (short)p.TableState))
                 .ReverseMap();
-            CreateMap<Menu, CreateMenuCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.MenuId))
-                .ForMember(x => x.MenuState, o => o.MapFrom(p => (int)p.MenuState))
-                .ReverseMap();
-            CreateMap<Menu, UpdateMenuCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.MenuId))
-                .ForMember(x => x.MenuState, o => o.MapFrom(p => (int)p.MenuState))
-                .ReverseMap();
+
+            CreateMap<CreateMenuCommand, Menu>()
+                .ForMember(x => x.MenuState, o => o.MapFrom(p => MenuState.Disabled));
+
+            CreateMap<UpdateMenuCommand, Menu>()
+                .ForMember(x => x.MenuId, o => o.MapFrom(p => p.Id));
+
             CreateMap<Menu, MenuDto>().ReverseMap();
+
             CreateMap<Section, SectionDto>().ReverseMap();
             CreateMap<SubSection, SubSectionDto>().ReverseMap();
             CreateMap<SubSection, CreateSubSectionCommand>()
