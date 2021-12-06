@@ -69,7 +69,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
         public async Task<IActionResult> Create(CreateFoodBusinessCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);

@@ -27,7 +27,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(PagedListDto<IngredientDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         [HttpGet]
         public Task<IActionResult> GetList(string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
         {
@@ -53,7 +53,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(IngredientDto), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         [HttpGet]
         public Task<IActionResult> Get([FromRoute] string id)
         {
@@ -74,7 +74,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Authorize(Roles = "SupportAgent")]
+        [Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreateIngredientCommand command)
         {
@@ -97,7 +97,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
-        [Authorize(Roles = "SupportAgent")]
+        [Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpPut]
         public async Task<IActionResult> Update([FromRoute] string id, [FromForm] UpdateIngredientCommand command)
         {
@@ -115,7 +115,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
-        [Authorize(Roles = "SupportAgent")]
+        [Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpDelete]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {

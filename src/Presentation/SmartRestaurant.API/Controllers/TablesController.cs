@@ -16,7 +16,7 @@ namespace SmartRestaurant.API.Controllers
     {
         [Route("zone/{zoneId:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Get([FromRoute] Guid zoneId)
         {
             return await SendWithErrorsHandlingAsync(new GetTablesListQuery {ZoneId = zoneId});
@@ -24,7 +24,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{id:guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             return await SendWithErrorsHandlingAsync(new GetTableByIdQuery {TableId = id});
@@ -39,14 +39,14 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Create(CreateTableCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }
 
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Update(UpdateTableCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -54,7 +54,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{id:guid}")]
         [HttpDelete]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             return await SendWithErrorsHandlingAsync(new DeleteTableCommand {Id = id});
