@@ -21,19 +21,19 @@ namespace SmartRestaurant.API.Controllers
         {
             return await SendWithErrorsHandlingAsync(new GetZonesListQuery {FoodBusinessId = id});
         }
-        /// <summary> GetWithTable() </summary>
-        /// <remarks>This endpoint allows <b>restaurant manager</b> and <b>Support Agent</b> to fetch zone with tables.</remarks>
+        /// <summary> GetListOfZonesWithTables() </summary>
+        /// <remarks>This endpoint allows <b>restaurant manager</b> and <b>Support Agent</b> to fetch the liste of zones with tables of the FoodBusiness.</remarks>
         /// <param name="id">id of the Food Buisines that would be used to fetch zone and table</param>
-        /// <response code="200"> Zone with tables has been successfully fetched.</response>
-        /// <response code="400">The payload data sent to the backend-server in order to fetch product details is invalid.</response>
+        /// <response code="200"> the liste of Zone with tables has been successfully fetched.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to fetch the liste of zones is invalid.</response>
         /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(IEnumerable<ZoneWithTablesDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Route("ZoneWithTables/{id}")]
+        [Route("ZonesWithTables/{id}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
-        public async Task<IActionResult> GetWithTable([FromRoute] string id)
+        public async Task<IActionResult> GetListOfZonesWithTables([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new GetZonesListWithTablesQuery { FoodBusinessId = id });
         }
