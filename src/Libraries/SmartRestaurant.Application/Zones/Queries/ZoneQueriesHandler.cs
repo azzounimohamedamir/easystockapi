@@ -42,17 +42,14 @@ namespace SmartRestaurant.Application.Zones.Queries
 
         public async Task<IEnumerable<ZoneWithTablesDto>> Handle(GetZonesListWithTablesQuery request, CancellationToken cancellationToken)
         {
-            // validation
             var validator = new GetZonesListWithTablesQueryValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-            // Do query
             var queryZone = await _context.Zones
                 .Where(x => x.FoodBusinessId == Guid.Parse(request.FoodBusinessId))
                 .Include(x=>x.Tables)
                 .ToArrayAsync(cancellationToken)
                 .ConfigureAwait(false);
-            // Mapping to Dto and send
             var queryZoneDto = _mapper.Map<List<ZoneWithTablesDto>>(queryZone);
             return queryZoneDto;
         }
