@@ -151,11 +151,11 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             OccupiedTables = new List<OrderOccupiedTableDto>() {
                 new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab00" }
             },
-            Dishes = new List<OrderDishDto>() {
-                    new OrderDishDto {
+            Dishes = new List<OrderDishCommandDto>() {
+                    new OrderDishCommandDto {
                     DishId =  "0e0b853c-9518-499f-b5ca-07afdd5f1e6f",
                     Name =  "Rice",
-                    UnitPrice =  200,
+                    InitialPrice =  200,
                     EnergeticValue =  0,
                     Description =  "",
                     EstimatedPreparationTime =  15,
@@ -196,7 +196,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         Assert.Equal(order.Products[0].Quantity, createOrderCommand.Products[0].Quantity);
 
         Assert.Equal(order.Dishes[0].Name, createOrderCommand.Dishes[0].Name);
-        Assert.Equal(order.Dishes[0].UnitPrice, createOrderCommand.Dishes[0].UnitPrice);
+        Assert.Equal(order.Dishes[0].InitialPrice, createOrderCommand.Dishes[0].InitialPrice);
         Assert.Equal(order.Dishes[0].EnergeticValue, createOrderCommand.Dishes[0].EnergeticValue);
         Assert.Equal(order.Dishes[0].Description, createOrderCommand.Dishes[0].Description);
         Assert.Equal(order.Dishes[0].EstimatedPreparationTime, createOrderCommand.Dishes[0].EstimatedPreparationTime);
@@ -254,11 +254,11 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             OccupiedTables = new List<OrderOccupiedTableDto>() {
             new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab00" }
         },
-            Dishes = new List<OrderDishDto>() {
-                new OrderDishDto {
+            Dishes = new List<OrderDishCommandDto>() {
+                new OrderDishCommandDto {
                 DishId =  "0e0b853c-9518-499f-b5ca-07afdd5f1e6f",
                 Name =  "Rice",
-                UnitPrice =  200,
+                InitialPrice =  200,
                 EnergeticValue =  0,
                 Description =  "",
                 EstimatedPreparationTime =  15,
@@ -292,11 +292,11 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             OccupiedTables = new List<OrderOccupiedTableDto>() {
                 new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab20" }
             },
-            Dishes = new List<OrderDishDto>() {
-                new OrderDishDto {
+            Dishes = new List<OrderDishCommandDto>() {
+                new OrderDishCommandDto {
                     DishId =  "0e0b853c-9518-499f-b5ca-07afdd5f1eff",
                     Name =  "Special dish",
-                    UnitPrice =  1500,
+                    InitialPrice =  1500,
                     EnergeticValue =  500,
                     Description =  "test desc",
                     EstimatedPreparationTime =  20,
@@ -343,7 +343,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         Assert.Equal(order.Products[0].Quantity, updateOrderCommand.Products[0].Quantity);
 
         Assert.Equal(order.Dishes[0].Name, updateOrderCommand.Dishes[0].Name);
-        Assert.Equal(order.Dishes[0].UnitPrice, updateOrderCommand.Dishes[0].UnitPrice);
+        Assert.Equal(order.Dishes[0].InitialPrice, updateOrderCommand.Dishes[0].InitialPrice);
         Assert.Equal(order.Dishes[0].EnergeticValue, updateOrderCommand.Dishes[0].EnergeticValue);
         Assert.Equal(order.Dishes[0].Description, updateOrderCommand.Dishes[0].Description);
         Assert.Equal(order.Dishes[0].EstimatedPreparationTime, updateOrderCommand.Dishes[0].EstimatedPreparationTime);
@@ -400,11 +400,11 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             OccupiedTables = new List<OrderOccupiedTableDto>() {
         new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab00" }
     },
-            Dishes = new List<OrderDishDto>() {
-            new OrderDishDto {
+            Dishes = new List<OrderDishCommandDto>() {
+            new OrderDishCommandDto {
             DishId =  "0e0b853c-9518-499f-b5ca-07afdd5f1e6f",
             Name =  "Rice",
-            UnitPrice =  200,
+            InitialPrice =  200,
             EnergeticValue =  0,
             Description =  "",
             EstimatedPreparationTime =  15,
@@ -457,11 +457,11 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 OccupiedTables = new List<OrderOccupiedTableDto>() {
                     new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab00" }
                 },
-                Dishes = new List<OrderDishDto>() {
-                    new OrderDishDto {
+                Dishes = new List<OrderDishCommandDto>() {
+                    new OrderDishCommandDto {
                         DishId =  "0e0b853c-9518-499f-b5ca-07afdd5f1e6f",
                         Name =  "Rice",
-                        UnitPrice =  200,
+                        InitialPrice = 200,
                         EnergeticValue =  0,
                         Description =  "",
                         EstimatedPreparationTime =  15,
@@ -513,6 +513,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(orderDto.Products[0].Quantity, order.Products[0].Quantity);
 
             Assert.Equal(orderDto.Dishes[0].Name, order.Dishes[0].Name);
+            Assert.Equal(orderDto.Dishes[0].InitialPrice, order.Dishes[0].InitialPrice);
             Assert.Equal(orderDto.Dishes[0].UnitPrice, order.Dishes[0].UnitPrice);
             Assert.Equal(orderDto.Dishes[0].EnergeticValue, order.Dishes[0].EnergeticValue);
             Assert.Equal(orderDto.Dishes[0].Description, order.Dishes[0].Description);

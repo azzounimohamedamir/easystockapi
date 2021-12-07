@@ -8,9 +8,10 @@ namespace SmartRestaurant.Domain.Entities
 {
     public class Order : AuditableEntity
     {
-        public Guid OrderId { get; set; }
+        public Guid OrderId { get; set; } 
         public int Number { get; set; }
         public float TotalToPay { get; set; }
+        public int Discount { get; set; }
         public float MoneyReceived { get; set; }
         public float MoneyReturned { get; set; }
         public OrderTypes Type { get; set; }

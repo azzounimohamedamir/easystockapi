@@ -175,7 +175,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 
             foreach (var dish in order.Dishes)
             {
-                float totalDishPrice = dish.UnitPrice;
+                float totalDishPrice = dish.InitialPrice;
 
                 foreach (var supplement in dish.Supplements)
                 {
@@ -187,7 +187,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                 {
                     totalDishPrice += (ingredient.Steps * ingredient.PriceIncreasePerStep);
                 }
-
+                dish.UnitPrice = totalDishPrice;
                 totalToPay += (dish.Quantity * totalDishPrice);
             }
 

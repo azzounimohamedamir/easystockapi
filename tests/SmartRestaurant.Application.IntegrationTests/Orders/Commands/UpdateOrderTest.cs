@@ -112,7 +112,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             order.Products[0].Quantity.Should().Be(updateOrderCommand.Products[0].Quantity);
 
             order.Dishes[0].Name.Should().Be(updateOrderCommand.Dishes[0].Name);
-            order.Dishes[0].UnitPrice.Should().Be(updateOrderCommand.Dishes[0].UnitPrice);
+            order.Dishes[0].InitialPrice.Should().Be(updateOrderCommand.Dishes[0].InitialPrice);
+            order.Dishes[0].UnitPrice.Should().Be(1506);
             order.Dishes[0].EnergeticValue.Should().Be(1100);
             order.Dishes[0].Description.Should().Be(updateOrderCommand.Dishes[0].Description);
             order.Dishes[0].EstimatedPreparationTime.Should().Be(updateOrderCommand.Dishes[0].EstimatedPreparationTime);
@@ -227,11 +228,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
                 OccupiedTables = new List<OrderOccupiedTableDto>() {
                 new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab20" }
                 },
-                Dishes = new List<OrderDishDto>() {
-                new OrderDishDto {
+                Dishes = new List<OrderDishCommandDto>() {
+                new OrderDishCommandDto {
                     DishId =  "0e0b853c-9518-499f-b5ca-07afdd5f1eff",
                     Name =  "Special dish",
-                    UnitPrice =  1500,
+                    InitialPrice =  1500,
                     EnergeticValue =  800,
                     Description =  "test desc",
                     EstimatedPreparationTime =  20,

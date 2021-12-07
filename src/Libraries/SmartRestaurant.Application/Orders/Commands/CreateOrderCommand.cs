@@ -14,7 +14,7 @@ namespace SmartRestaurant.Application.Orders.Commands
     {
         public OrderTypes Type { get; set; }
         public TakeoutDetailsDto TakeoutDetails { get; set; }
-        public List<OrderDishDto> Dishes { get; set; }
+        public List<OrderDishCommandDto> Dishes { get; set; }
         public List<OrderProductDto> Products { get; set; }
         public List<OrderOccupiedTableDto> OccupiedTables { get; set; }
         public string FoodBusinessId { get; set; }
@@ -86,7 +86,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             RuleForEach(x => x.Dishes)
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("'Dish' must not be empty")
-                .SetValidator(new OrderDishDtoValidator())
+                .SetValidator(new OrderDishCommandDtoValidator())
                 .When(x => ChecksHelper.IsEmptyList(x.Dishes) == false);
         }
     }

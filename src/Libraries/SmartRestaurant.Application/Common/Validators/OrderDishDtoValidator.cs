@@ -5,9 +5,9 @@ using System;
 
 namespace SmartRestaurant.Application.Common.Validators
 {
-    public class OrderDishDtoValidator : AbstractValidator<OrderDishDto>
+    public class OrderDishCommandDtoValidator : AbstractValidator<OrderDishCommandDto>
     {
-        public OrderDishDtoValidator()
+        public OrderDishCommandDtoValidator()
         {
             RuleFor(x => x.DishId)
                 .Cascade(CascadeMode.StopOnFirstFailure)
@@ -20,7 +20,7 @@ namespace SmartRestaurant.Application.Common.Validators
                 .NotEmpty()
                 .MaximumLength(200);
 
-            RuleFor(x => x.UnitPrice)
+            RuleFor(x => x.InitialPrice)
                 .GreaterThanOrEqualTo(0);
 
             RuleFor(x => x.EnergeticValue)
