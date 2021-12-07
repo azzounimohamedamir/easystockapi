@@ -15,7 +15,7 @@ namespace SmartRestaurant.API.Controllers
     public class FoodBusinessEmployeeController : ApiController
     {
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessAdministrator")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> AddEmployeeInOrganization(AddEmployeeInOrganizationCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -45,7 +45,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager, SuperAdmin, SupportAgent")]
         public async Task<IActionResult> UpdateEmployeeRoleInOrganization([FromRoute] string id,
             UpdateEmployeeRoleInOrganizationCommand command)
         {
@@ -79,7 +79,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpDelete]
-        [Authorize(Roles = "FoodBusinessAdministrator, FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> RemoveEmployeeFromOrganization([FromRoute] string id,
             [FromQuery] List<string> foodBusinessesIds)
         {
@@ -112,7 +112,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("invite")]
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessAdministrator, FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessAdministrator, FoodBusinessManager ,SuperAdmin, SupportAgent")]
         public async Task<IActionResult> InviteUserToJoinOrganization(InviteUserToJoinOrganizationCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);

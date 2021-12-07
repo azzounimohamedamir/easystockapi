@@ -17,7 +17,7 @@ namespace SmartRestaurant.API.Controllers
     {
         [Route("menu/{id:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> GetByMenuId([FromRoute] Guid id, int page, int pageSize)
         {
             return await SendWithErrorsHandlingAsync(new GetSectionsListQuery
@@ -25,14 +25,14 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Create(CreateSectionCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }
 
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Update(UpdateSectionCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -40,7 +40,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{id:Guid}")]
         [HttpDelete]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             return await SendWithErrorsHandlingAsync(new DeleteSectionCommand {Id = id});
@@ -57,7 +57,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new GetSectionByIdQuery { Id = id });
@@ -73,7 +73,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("add-product")]
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> AddProductToSection(AddProductToSectionCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -89,7 +89,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("add-dish")]
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> AddDishToSection(AddDishToSectionCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -107,7 +107,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}/product/{productId}")]
         [HttpDelete]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> RemoveProductFromSection([FromRoute] string id, [FromRoute] string productId)
         {
             var command = new RemoveProductFromSectionCommand
@@ -130,7 +130,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}/dish/{dishId}")]
         [HttpDelete]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> RemoveDishFromSection([FromRoute] string id, [FromRoute] string dishId)
         {
             var command = new RemoveDishFromSectionCommand
@@ -156,7 +156,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}/menu-items")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> GetSectionMenuItems([FromRoute] string id,  string searchKey, int page, int pageSize)
         {
             var query = new GetSectionMenuItemsQuery

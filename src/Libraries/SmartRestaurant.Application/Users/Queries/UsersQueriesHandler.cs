@@ -21,7 +21,6 @@ namespace SmartRestaurant.Application.Users.Queries
         IRequestHandler<GetFoodBusinessEmployeesQuery, PagedListDto<FoodBusinessEmployeesDtos>>,
         IRequestHandler<GetFoodBusinessManagersWithinOrganizationQuery, PagedListDto<FoodBusinessManagersDto>>,
         IRequestHandler<GetUsersByRoleQuery, PagedListDto<ApplicationUserDto>>
-
     {
         private readonly IApplicationDbContext _context;
         private readonly IIdentityContext _identityContext;
@@ -73,6 +72,14 @@ namespace SmartRestaurant.Application.Users.Queries
             {
                 var employeesRoles = new List<string>
                     {Roles.Cashier.ToString(), Roles.Waiter.ToString(), Roles.Chef.ToString()};
+                pagedUsersList = _identityContext.UserRoles.Include(u => u.Role)
+                    .Where(u => employeesRoles.Contains(u.Role.Name) && usersIdsList.Contains(u.User.Id))
+                    .Select(u => u.User)
+                    .GetPaged(request.Page, request.PageSize);
+            }else if( roles.Contains(Roles.SuperAdmin.ToString()) || roles.Contains(Roles.SupportAgent.ToString()))
+            {
+                var employeesRoles = new List<string>
+                    {Roles.Cashier.ToString(), Roles.Waiter.ToString(), Roles.Chef.ToString(), Roles.FoodBusinessManager.ToString()};
                 pagedUsersList = _identityContext.UserRoles.Include(u => u.Role)
                     .Where(u => employeesRoles.Contains(u.Role.Name) && usersIdsList.Contains(u.User.Id))
                     .Select(u => u.User)

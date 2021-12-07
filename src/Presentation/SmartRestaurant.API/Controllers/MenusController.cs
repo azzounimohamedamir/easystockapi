@@ -31,7 +31,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(PagedListDto<MenuDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public Task<IActionResult> GetList(string foodBusinessId, string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
         {
             var query = new GetMenusListQuery
@@ -48,21 +48,21 @@ namespace SmartRestaurant.API.Controllers
 
         [HttpGet]
         [Route("{id:Guid}")]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public Task<IActionResult> Get([FromRoute] Guid id)
         {
             return SendWithErrorsHandlingAsync(new GetMenuByIdQuery {MenuId = id});
         }
 
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Create(CreateMenuCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }
 
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Update(UpdateMenuCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -70,7 +70,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{id:Guid}")]
         [HttpDelete]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             return await SendWithErrorsHandlingAsync(new DeleteMenuCommand {Id = id});

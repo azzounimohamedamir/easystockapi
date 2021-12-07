@@ -30,7 +30,7 @@ namespace SmartRestaurant.API.Controllers
         /// </response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
-        [Authorize(Roles = "SupportAgent")]
+        [Authorize(Roles = "SupportAgent,SuperAdmin")]
         public async Task<IActionResult> Create(CreateIllnessCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -56,7 +56,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpPut]
-        [Authorize(Roles = "SupportAgent")]
+        [Authorize(Roles = "SupportAgent,SuperAdmin")]
         public async Task<IActionResult> Update([FromRoute] string id, UpdateIllnessCommand command)
         {
             command.Id = id;
@@ -76,7 +76,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(PagedListDto<IllnessDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Authorize(Roles = "SupportAgent")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         [HttpGet]
         public Task<IActionResult> GetList(string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
         {
@@ -102,7 +102,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
         [Route("{id}")]
-        [Authorize(Roles = "SupportAgent")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public Task<IActionResult> Get([FromRoute] string id)
         {
             return SendWithErrorsHandlingAsync(new GetIllnessByIdQuery { Id = id });
@@ -119,7 +119,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{id}")]
         [HttpDelete]
-        [Authorize(Roles = "SupportAgent")]
+        [Authorize(Roles = "SupportAgent,SuperAdmin")]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new DeleteIllnessCommand { Id = id });

@@ -128,7 +128,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(PagedListDto<FoodBusinessEmployeesDtos>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("foodBusiness/staff")]
-        [Authorize(Roles = "FoodBusinessAdministrator, FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessAdministrator, FoodBusinessManager ,SuperAdmin, SupportAgent")]
         [HttpGet]
         public async Task<IActionResult> GetStaff(string foodBusinessId, int page, int pageSize)
         {
@@ -166,7 +166,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(PagedListDto<FoodBusinessManagersDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("organization/foodBusinessManagers")]
-        [Authorize(Roles = "FoodBusinessAdministrator")]
+        [Authorize(Roles = "FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         [HttpGet]
         public async Task<IActionResult> GetFoodBusinessManagersWithinOrganization(int page, int pageSize)
         {
@@ -308,7 +308,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request. </response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("foodBusinessAdministrator/{id}/set-new-password")]
-        [Authorize(Roles = "SupportAgent")]
+        [Authorize(Roles = "SuperAdmin, SupportAgent")]
         [HttpPatch]
         public async Task<IActionResult> SetNewPasswordForFoodBusinessAdministrator([FromRoute] string id, SetNewPasswordForFoodBusinessAdministratorCommand command)
         {
