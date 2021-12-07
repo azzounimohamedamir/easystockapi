@@ -1,13 +1,14 @@
 ﻿using System;
 using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
+using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.Menus.Commands
 {
     public class UpdateMenuCommand : UpdateCommand
     {
         public string Name { get; set; }
-        public int MenuState { get; set; }
+        public MenuState MenuState { get; set; }
         public Guid FoodBusinessId { get; set; }
     }
 
