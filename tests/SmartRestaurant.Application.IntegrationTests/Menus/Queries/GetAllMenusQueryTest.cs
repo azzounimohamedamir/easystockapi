@@ -1,11 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Menus.Commands;
 using SmartRestaurant.Application.Menus.Queries;
-using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
 {
@@ -25,7 +23,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
                 await SendAsync(new CreateMenuCommand
                 {
                     Name = "tacos Dz  " + i,
-                    MenuState = (int) MenuState.Enabled,
                     FoodBusinessId = fastFood.FoodBusinessId
                 });
             var query = new GetMenusListQuery

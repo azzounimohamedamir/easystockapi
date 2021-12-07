@@ -23,7 +23,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
             var createMenuCommand = new CreateMenuCommand
             {
                 Name = "test menu1",
-                MenuState = (int) MenuState.Enabled,
                 FoodBusinessId = fastFood.FoodBusinessId
             };
             await SendAsync(createMenuCommand);

@@ -23,40 +23,14 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
             var createMenuCommand = new CreateMenuCommand
             {
                 Name = "test menu",
-                MenuState = (int) MenuState.Enabled,
                 FoodBusinessId = fastFood.FoodBusinessId
             };
             await SendAsync(createMenuCommand);
             var item = await FindAsync<Menu>(createMenuCommand.Id);
 
             item.Should().NotBeNull();
-            item.MenuState.Should().Be(MenuState.Enabled);
+            item.MenuState.Should().Be(MenuState.Disabled);
             item.Name.Should().Be("test menu");
-        }
-
-        [Test]
-        public async Task CreateMenuWitheEnabledState_ShouldDisableOtherMenus()
-        {
-            await RolesTestTools.CreateRoles();
-            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
-            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
-
-            await SendAsync(new CreateMenuCommand
-            {
-                Name = "test menu1",
-                MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = fastFood.FoodBusinessId
-            });
-            await SendAsync(new CreateMenuCommand
-            {
-                Name = "test menu2",
-                MenuState = (int) MenuState.Enabled,
-                FoodBusinessId = fastFood.FoodBusinessId
-            });
-            var items = Where<Menu>(menu =>
-                menu.MenuState == MenuState.Enabled && menu.FoodBusinessId == fastFood.FoodBusinessId);
-
-            items.Count.Should().Be(1);
         }
     }
 }

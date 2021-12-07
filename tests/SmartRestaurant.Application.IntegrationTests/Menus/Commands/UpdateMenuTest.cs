@@ -23,7 +23,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
             var createMenuCommand = new CreateMenuCommand
             {
                 Name = "test menu",
-                MenuState = (int) MenuState.Enabled,
                 FoodBusinessId = fastFood.FoodBusinessId
             };
             await SendAsync(createMenuCommand);
@@ -31,14 +30,14 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
             {
                 Id = createMenuCommand.Id,
                 Name = "test menu2",
-                MenuState = (int) MenuState.Disabled,
+                MenuState = MenuState.Enabled,
                 FoodBusinessId = fastFood.FoodBusinessId
             });
 
             var item = await FindAsync<Menu>(createMenuCommand.Id);
 
             item.Should().NotBeNull();
-            item.MenuState.Should().Be(MenuState.Disabled);
+            item.MenuState.Should().Be(MenuState.Enabled);
             item.Name.Should().Be("test menu2");
         }
     }
