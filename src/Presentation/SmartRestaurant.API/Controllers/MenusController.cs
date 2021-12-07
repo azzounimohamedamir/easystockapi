@@ -46,6 +46,24 @@ namespace SmartRestaurant.API.Controllers
             return SendWithErrorsHandlingAsync(query);
         }
 
+
+        /// <summary> GetFoodBusinessActiveMenu() </summary>
+        /// <remarks>This endpoint allows <b>restaurant manager</b> to fetch foodBusiness active menu including all its child entities.</remarks>
+        /// <param name="foodBusinessId">id of the foodBusiness that would be used to fetch its active menu</param>
+        /// <response code="200"> FoodBusiness active menu has been successfully fetched</response>
+        /// <response code="400">The payload data sent to the backend-server in order to fetch foodBusiness active menu is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ActiveMenuDto), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [HttpGet]
+        [Route("food-business-active-menu")]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public Task<IActionResult> GetFoodBusinessActiveMenu(string foodBusinessId)
+        {
+            return SendWithErrorsHandlingAsync(new GetActiveMenuQuery { FoodBusinessId = foodBusinessId });
+        }
+
         [HttpGet]
         [Route("{id:Guid}")]
         [Authorize(Roles = "FoodBusinessManager")]
