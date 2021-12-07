@@ -68,6 +68,7 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ReverseMap();
 
             CreateMap<CreateMenuCommand, Menu>()
+                .ForMember(x => x.MenuId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.MenuState, o => o.MapFrom(p => MenuState.Disabled));
 
             CreateMap<UpdateMenuCommand, Menu>()
@@ -75,8 +76,67 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Menu, MenuDto>().ReverseMap();
 
+            CreateMap<Menu, ActiveMenuDto>().ReverseMap();
+
             CreateMap<Section, SectionDto>().ReverseMap();
+
+            CreateMap<Section, ActiveSectionDto>()
+                .ForPath(x => x.MenuItems.Dishes, o => o.MapFrom(p => p.Dishes))
+                .ForPath(x => x.MenuItems.Products, o => o.MapFrom(p => p.Products))           
+                .ReverseMap();
+
+            CreateMap<SectionDish, DishDto>()
+                .ForMember(x => x.DishId, o => o.MapFrom(p => p.Dish.DishId))
+                .ForMember(x => x.Name, o => o.MapFrom(p => p.Dish.Name))
+                .ForMember(x => x.Description, o => o.MapFrom(p => p.Dish.Description))
+                .ForMember(x => x.Price, o => o.MapFrom(p => p.Dish.Price))
+                .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Dish.EnergeticValue))
+                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Dish.FoodBusinessId))
+                .ForMember(x => x.Ingredients, o => o.MapFrom(p => p.Dish.Ingredients))
+                .ForMember(x => x.Supplements, o => o.MapFrom(p => p.Dish.Supplements))
+                .ForMember(x => x.Specifications, o => o.MapFrom(p => p.Dish.Specifications))
+                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Dish.Picture)));
+
+
+            CreateMap<SectionProduct, ProductDto>()
+                .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Product.ProductId))
+                .ForMember(x => x.Name, o => o.MapFrom(p => p.Product.Name))
+                .ForMember(x => x.Description, o => o.MapFrom(p => p.Product.Description))
+                .ForMember(x => x.Price, o => o.MapFrom(p => p.Product.Price))
+                .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Product.EnergeticValue))
+                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Product.FoodBusinessId))
+                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Product.Picture)));
+
             CreateMap<SubSection, SubSectionDto>().ReverseMap();
+
+            CreateMap<SubSection, ActiveSubSectionDto>()
+                .ForPath(x => x.MenuItems.Dishes, o => o.MapFrom(p => p.Dishes))
+                .ForPath(x => x.MenuItems.Products, o => o.MapFrom(p => p.Products))
+                .ReverseMap();
+
+            CreateMap<SubSectionDish, DishDto>()
+                .ForMember(x => x.DishId, o => o.MapFrom(p => p.Dish.DishId))
+                .ForMember(x => x.Name, o => o.MapFrom(p => p.Dish.Name))
+                .ForMember(x => x.Description, o => o.MapFrom(p => p.Dish.Description))
+                .ForMember(x => x.Price, o => o.MapFrom(p => p.Dish.Price))
+                .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Dish.EnergeticValue))
+                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Dish.FoodBusinessId))
+                .ForMember(x => x.Ingredients, o => o.MapFrom(p => p.Dish.Ingredients))
+                .ForMember(x => x.Supplements, o => o.MapFrom(p => p.Dish.Supplements))
+                .ForMember(x => x.Specifications, o => o.MapFrom(p => p.Dish.Specifications))
+                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Dish.Picture)));
+
+            CreateMap<SubSectionProduct, ProductDto>()
+                .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Product.ProductId))
+                .ForMember(x => x.Name, o => o.MapFrom(p => p.Product.Name))
+                .ForMember(x => x.Description, o => o.MapFrom(p => p.Product.Description))
+                .ForMember(x => x.Price, o => o.MapFrom(p => p.Product.Price))
+                .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Product.EnergeticValue))
+                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Product.FoodBusinessId))
+                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Product.Picture)));
+
+
+
             CreateMap<SubSection, CreateSubSectionCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.SubSectionId))
                 .ReverseMap();
