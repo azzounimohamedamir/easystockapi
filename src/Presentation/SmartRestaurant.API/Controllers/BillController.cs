@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.Bills.Commands;
+using SmartRestaurant.Application.Bills.Queries;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
+using SmartRestaurant.Application.Common.Dtos.BillDtos;
 using SmartRestaurant.Application.Common.Enums;
-using SmartRestaurant.Application.Orders.Commands;
-using SmartRestaurant.Application.Orders.Queries;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace SmartRestaurant.API.Controllers
@@ -28,7 +27,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager,Cashier")]
+        [Authorize(Roles = "FoodBusinessManager,Cashier,SupportAgent")]
         public async Task<IActionResult> Update([FromRoute] string id, UpdateBillCommand command)
         {
             command.Id = id;
@@ -36,6 +35,39 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
-        
+        /// <summary> GetListOfBills() </summary>
+        /// <remarks>This endpoint allows us to fetch list of bills.</remarks>
+        /// <param name="currentFilter">Bills list can be filtred by: <b>order number</b></param>
+        /// <param name="searchKey">Search keyword</param>
+        /// <param name="sortOrder">Bills list can be sorted by: <b>acs</b> | <b>desc</b>. Default value is: <b>acs</b></param>
+        /// <param name="foodBusinessId">We will get bills list linked to that foodBusinessId.</param>
+        /// <param name="dateInterval">We will get results within the selected interval. Default interval is: <b>ToDay</b><br></br>
+        ///     <b>Note 01:</b> This is the enum used to set Date Interval: <b>  enum DateFilter { ToDay, Last7Days, Last30Days, All } </b>
+        /// </param>
+        /// <param name="page">The start position of read pointer in a request results. Default value is: <b>1</b></param>
+        /// <param name="pageSize">The max number of Results that should be returned. Default value is: <b>10</b>. Max value is: <b>100</b></param>
+        /// <response code="200"> Bills list has been successfully fetched.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to fetch bills list is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(PagedListDto<BillDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,Cashier,SupportAgent")]
+        [HttpGet]
+        public Task<IActionResult> GetList(string currentFilter, string searchKey, string sortOrder, string foodBusinessId,
+            int page, int pageSize, DateFilter dateInterval)
+        {
+            var query = new GetBillsListQuery
+            {
+                CurrentFilter = currentFilter,
+                SearchKey = searchKey,
+                SortOrder = sortOrder,
+                Page = page,
+                PageSize = pageSize,
+                FoodBusinessId = foodBusinessId,
+                DateInterval = dateInterval
+            };
+            return SendWithErrorsHandlingAsync(query);
+        }
     }
 }
