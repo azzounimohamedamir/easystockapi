@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SmartRestaurant.Application.Common.Dtos.BillDtos
+﻿namespace SmartRestaurant.Application.Common.Dtos.BillDtos
 {
     public class BillDishCommandDto
     {

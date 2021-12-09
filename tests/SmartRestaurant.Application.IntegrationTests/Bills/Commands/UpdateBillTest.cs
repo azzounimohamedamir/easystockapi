@@ -119,7 +119,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Commands
             order.Dishes[0].Name.Should().Be(order.Dishes[0].Name);
             order.Dishes[0].Discount.Should().Be(50);
             order.Dishes[0].InitialPrice.Should().Be(order.Dishes[0].InitialPrice);
-            order.Dishes[0].UnitPrice.Should().Be(320);
+            order.Dishes[0].UnitPrice.Should().Be(160);
             order.Dishes[0].EnergeticValue.Should().Be(order.Dishes[0].EnergeticValue);
             order.Dishes[0].Description.Should().Be(order.Dishes[0].Description);
             order.Dishes[0].EstimatedPreparationTime.Should().Be(order.Dishes[0].EstimatedPreparationTime);

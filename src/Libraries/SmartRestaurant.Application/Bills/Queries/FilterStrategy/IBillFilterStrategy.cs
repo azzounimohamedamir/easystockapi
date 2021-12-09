@@ -1,0 +1,11 @@
+﻿using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Common.Extensions;
+using SmartRestaurant.Domain.Entities;
+
+namespace SmartRestaurant.Application.Bills.Queries.FilterStrategy
+{
+    public interface IBillFilterStrategy
+    {     
+        public PagedResultBase<Order> FetchData(DbSet<Order> orders, GetBillsListQuery request);
+    }
+}

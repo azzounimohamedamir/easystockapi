@@ -193,6 +193,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 
             foreach (var product in order.Products)
             {
+                product.InitialPrice = product.UnitPrice;
                 totalToPay += (product.Quantity * product.UnitPrice);
             }
 
