@@ -25,7 +25,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
             var createZoneCommand = await CreateZone(fastFood);
             await CreateTable(createZoneCommand);
-            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId);
+            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null);
             var order = await GetOrder(createOrderCommand.Id);
 
 

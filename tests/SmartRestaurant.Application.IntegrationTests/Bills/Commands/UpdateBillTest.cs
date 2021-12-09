@@ -95,7 +95,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Commands
             var createZoneCommand = await CreateZone(fastFood);
             await CreateTable(createZoneCommand);
 
-            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId);
+            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null);
 
             var updateOrderBillCommand = await UpdateBill(await GetOrder(createOrderCommand.Id));
 

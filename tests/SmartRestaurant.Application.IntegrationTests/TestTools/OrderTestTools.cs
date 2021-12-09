@@ -13,7 +13,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
 
     public class OrderTestTools
     {
-        public static async Task<CreateOrderCommand> CreateOrder(Guid foodBusinessId)
+        public static async Task<CreateOrderCommand> CreateOrder(Guid foodBusinessId, string? foodBusinessClientId)
         {
             OrderDishSpecificationDto CheckBox = new OrderDishSpecificationDto()
             {
@@ -79,6 +79,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             {
                 Type = OrderTypes.DineIn,
                 FoodBusinessId = foodBusinessId.ToString(),
+                FoodBusinessClientId = foodBusinessClientId,
                 TakeoutDetails = new TakeoutDetailsDto()
                 {
                     DeliveryTime = DateTime.Now,

@@ -174,6 +174,8 @@ namespace SmartRestaurant.Application.IntegrationTests
             var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
             return await context.Set<Order>()
+                    .Include(o => o.FoodBusiness)
+                    .Include(o => o.FoodBusinessClient)
                     .Include(o => o.Dishes)
                     .ThenInclude(o => o.Specifications)
                     .Include(o => o.Dishes)
