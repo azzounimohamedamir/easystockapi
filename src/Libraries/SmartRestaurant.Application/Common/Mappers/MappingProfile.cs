@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Dtos.BillDtos;
 using SmartRestaurant.Application.Common.Dtos.DishDtos;
 using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
@@ -307,6 +308,12 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<Order, UpdateOrderCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.OrderId))
                 .ReverseMap();
+
+            CreateMap<Order, BillDto>().ForMember(dest => dest.Tables, opt => opt.MapFrom<BillResolver>());
+            CreateMap<OrderDish, BillDishDto>();
+            CreateMap<OrderProduct, BillProductDto>();
+            CreateMap<Domain.Entities.FoodBusiness, BillFoodBusinessDto>(); 
+            CreateMap<Domain.Entities.FoodBusinessClient, BillFoodBusinessClientDto>();
 
             CreateMap< UpdateOrderStatusCommand, Order>();
 
