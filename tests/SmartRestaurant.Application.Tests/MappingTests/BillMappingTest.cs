@@ -139,6 +139,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(billDto.Status, order.Status);
             Assert.Equal(billDto.CreatedAt, order.CreatedAt);
             Assert.Equal(billDto.TotalToPay, order.TotalToPay);
+            Assert.Equal(billDto.Discount, order.Discount);
             Assert.Equal(billDto.MoneyReceived, order.MoneyReceived);
             Assert.Equal(billDto.MoneyReturned, order.MoneyReturned);
             Assert.Equal(billDto.Number, order.Number);
@@ -170,6 +171,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(billDto.Tables[0].Chairs[0].Products[0].Name, order.Products[0].Name);
             Assert.Equal(billDto.Tables[0].Chairs[0].Products[0].InitialPrice, order.Products[0].InitialPrice);
             Assert.Equal(billDto.Tables[0].Chairs[0].Products[0].UnitPrice, order.Products[0].UnitPrice);
+            Assert.Equal(billDto.Tables[0].Chairs[0].Products[0].Discount, order.Products[0].Discount);
             Assert.Equal(billDto.Tables[0].Chairs[0].Products[0].Quantity, order.Products[0].Quantity);
 
             Assert.Equal(billDto.Tables[0].TableId, order.Dishes[0].TableId);
@@ -177,6 +179,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(billDto.Tables[0].Chairs[0].Dishes[0].Name, order.Dishes[0].Name);
             Assert.Equal(billDto.Tables[0].Chairs[0].Dishes[0].InitialPrice, order.Dishes[0].InitialPrice);
             Assert.Equal(billDto.Tables[0].Chairs[0].Dishes[0].UnitPrice, order.Dishes[0].UnitPrice);
+            Assert.Equal(billDto.Tables[0].Chairs[0].Dishes[0].Discount, order.Dishes[0].Discount);
             Assert.Equal(billDto.Tables[0].Chairs[0].Dishes[0].Quantity, order.Dishes[0].Quantity);
         }
     }
