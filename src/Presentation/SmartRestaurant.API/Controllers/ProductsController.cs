@@ -27,7 +27,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         public async Task<IActionResult> Create([FromForm] CreateProductCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -44,7 +44,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromForm] UpdateProductCommand command)
         {
             command.Id = id;
@@ -61,7 +61,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpDelete]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new DeleteProductCommand { Id = id});
@@ -78,7 +78,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new GetProductByIdQuery { Id = id });
@@ -103,7 +103,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(PagedListDto<ProductDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         public async Task<IActionResult> GetList(string currentFilter, string searchKey, string sortOrder, string comparisonOperator, string foodBusinessId, int page, int pageSize)
         {
             var query = new GetProductListQuery

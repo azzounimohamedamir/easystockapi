@@ -31,7 +31,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(PagedListDto<DishDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,SuperAdmin,FoodBusinessAdministrator,SupportAgent,Diner")]
         [HttpGet]
         public Task<IActionResult> GetList(string currentFilter, string searchKey, string sortOrder, string foodBusinessId, Nullable<bool> isSupplement,  int page, int pageSize)
         {

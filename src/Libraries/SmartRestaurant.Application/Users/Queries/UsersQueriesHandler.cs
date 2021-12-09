@@ -61,14 +61,7 @@ namespace SmartRestaurant.Application.Users.Queries
                 .Select(foodBusinessUsers => foodBusinessUsers.ApplicationUserId).ToList();
 
             PagedResultBase<ApplicationUser> pagedUsersList = null;
-            if (roles.Contains(Roles.FoodBusinessAdministrator.ToString()))
-            {
-                pagedUsersList = _identityContext.UserRoles.Include(u => u.Role)
-                    .Where(u => u.Role.Name == Roles.FoodBusinessManager.ToString() && usersIdsList.Contains(u.User.Id))
-                    .Select(u => u.User)
-                    .GetPaged(request.Page, request.PageSize);
-            }
-            else if (roles.Contains(Roles.FoodBusinessManager.ToString()))
+            if (roles.Contains(Roles.FoodBusinessManager.ToString()))
             {
                 var employeesRoles = new List<string>
                     {Roles.Cashier.ToString(), Roles.Waiter.ToString(), Roles.Chef.ToString()};
@@ -76,7 +69,7 @@ namespace SmartRestaurant.Application.Users.Queries
                     .Where(u => employeesRoles.Contains(u.Role.Name) && usersIdsList.Contains(u.User.Id))
                     .Select(u => u.User)
                     .GetPaged(request.Page, request.PageSize);
-            }else if( roles.Contains(Roles.SuperAdmin.ToString()) || roles.Contains(Roles.SupportAgent.ToString()))
+            }else if( roles.Contains(Roles.SuperAdmin.ToString()) || roles.Contains(Roles.SupportAgent.ToString()) || roles.Contains(Roles.FoodBusinessAdministrator.ToString()))
             {
                 var employeesRoles = new List<string>
                     {Roles.Cashier.ToString(), Roles.Waiter.ToString(), Roles.Chef.ToString(), Roles.FoodBusinessManager.ToString()};
