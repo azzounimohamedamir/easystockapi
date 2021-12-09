@@ -3,7 +3,6 @@ using NUnit.Framework;
 using SmartRestaurant.Application.Bills.Queries;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
-using SmartRestaurant.Application.Orders.Queries;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using System;

@@ -1,7 +1,6 @@
 ﻿using System;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 
-
 namespace SmartRestaurant.Application.Common.Dtos.BillDtos
 {
     public class BillFoodBusinessClientDto
