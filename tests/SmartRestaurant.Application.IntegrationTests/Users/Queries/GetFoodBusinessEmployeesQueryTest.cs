@@ -44,7 +44,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Users.Queries
         {
             var userRoles = new ApplicationUserRole
             {
-                RoleId = ((int) Roles.FoodBusinessManager).ToString(),
+                RoleId = ((int) Roles.Chef).ToString(),
                 UserId = user.Id
             };
             await AddIdentityAsync(userRoles);
@@ -63,8 +63,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Users.Queries
 
         private static async Task<ApplicationUser> CreateFoodBusinessManagerUser()
         {
-            var user = new ApplicationUser("FoodBusinessManager", "FoodBusinessManager@bv.com",
-                "FoodBusinessManager@bv.com")
+            var user = new ApplicationUser("Chef", "Chef@bv.com",
+                "Chef@bv.com")
             {
                 IsActive = true,
                 EmailConfirmed = true,
