@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SmartRestaurant.Application.Common.Dtos.BillDtos;
+using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace SmartRestaurant.Application.Common.Mappers
                 var chair = billTables.Find(x => x.TableId == product.TableId)
                     .Chairs.Find(x => x.ChairNumber == product.ChairNumber);
                 chair.Products.Add(context.Mapper.Map<OrderProduct, BillProductDto> (product));
-                chair.TotalToPay += CalculatePriceAfterDiscount((product.Quantity * product.UnitPrice), order.Discount);
+                chair.TotalToPay += BillHelpers.CalculatePriceAfterDiscount((product.Quantity * product.UnitPrice), order.Discount);
             }
 
             foreach (var dish in order.Dishes)
@@ -45,7 +46,7 @@ namespace SmartRestaurant.Application.Common.Mappers
                 var chair = billTables.Find(x => x.TableId == dish.TableId)
                     .Chairs.Find(x => x.ChairNumber == dish.ChairNumber);
                 chair.Dishes.Add(context.Mapper.Map<OrderDish, BillDishDto>(dish));
-                chair.TotalToPay += CalculatePriceAfterDiscount((dish.Quantity * dish.UnitPrice), order.Discount);
+                chair.TotalToPay += BillHelpers.CalculatePriceAfterDiscount((dish.Quantity * dish.UnitPrice), order.Discount);
             }
            
             return billTables;
@@ -91,12 +92,6 @@ namespace SmartRestaurant.Application.Common.Mappers
                 billTables[0].Chairs[0].Dishes.Add(context.Mapper.Map<OrderDish, BillDishDto>(dish));
             }
             return billTables;
-        }
-
-        private float CalculatePriceAfterDiscount(float price, int discount)
-        {
-            var discountAmount = (price * discount) / 100;
-            return price - discountAmount;
         }
     }
 }

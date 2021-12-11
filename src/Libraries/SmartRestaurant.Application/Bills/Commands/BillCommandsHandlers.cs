@@ -113,23 +113,17 @@ namespace SmartRestaurant.Application.Bills.Commands
                 {
                     totalDishPrice += (ingredient.Steps * ingredient.PriceIncreasePerStep);
                 }
-                dish.UnitPrice = CalculatePriceAfterDiscount(totalDishPrice, dish.Discount);
+                dish.UnitPrice = BillHelpers.CalculatePriceAfterDiscount(totalDishPrice, dish.Discount);
                 totalToPay += (dish.Quantity * dish.UnitPrice);
             }
 
             foreach (var product in order.Products)
             {
-                product.UnitPrice = CalculatePriceAfterDiscount(product.InitialPrice, product.Discount);
+                product.UnitPrice = BillHelpers.CalculatePriceAfterDiscount(product.InitialPrice, product.Discount);
                 totalToPay += (product.Quantity * product.UnitPrice);
             }
 
-            order.TotalToPay = CalculatePriceAfterDiscount(totalToPay, order.Discount);            
-        }
-
-        private float CalculatePriceAfterDiscount(float price, int discount)
-        {
-            var discountAmount = (price * discount) / 100;
-            return price - discountAmount;
+            order.TotalToPay = BillHelpers.CalculatePriceAfterDiscount(totalToPay, order.Discount);
         }
     }
 }
