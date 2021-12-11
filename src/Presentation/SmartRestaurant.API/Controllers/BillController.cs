@@ -87,5 +87,22 @@ namespace SmartRestaurant.API.Controllers
         {
             return await SendWithErrorsHandlingAsync(new GetBillByIdQuery { Id = id });
         }
+
+
+        /// <summary> PayBill() </summary>
+        /// <remarks>This endpoint allows user to Pay a Bill. </remarks>        
+        /// <param name="id">id of the order that will used to pay its bill </param>
+        /// <response code="204">Bill payment has been successfully done.</response>
+        /// <response code="400">The payload data sent to the backend-server in-order to pay a bill is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}/pay")]
+        [HttpPatch]
+        [Authorize(Roles = "FoodBusinessManager,Cashier,SupportAgent")]
+        public async Task<IActionResult> PayBill([FromRoute] string id)
+        {
+            return await SendWithErrorsHandlingAsync(new PayBillCommand { Id = id });
+        }
     }
 }
