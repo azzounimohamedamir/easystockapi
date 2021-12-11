@@ -12,6 +12,7 @@ namespace SmartRestaurant.Domain.Entities
         public int Number { get; set; }
         public float TotalToPay { get; set; }
         public int Discount { get; set; }
+        public int TVA { get; set; }
         public float MoneyReceived { get; set; }
         public float MoneyReturned { get; set; }
         public OrderTypes Type { get; set; }
