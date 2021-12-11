@@ -140,8 +140,6 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(billDto.CreatedAt, order.CreatedAt);
             Assert.Equal(billDto.TotalToPay, order.TotalToPay);
             Assert.Equal(billDto.Discount, order.Discount);
-            Assert.Equal(billDto.MoneyReceived, order.MoneyReceived);
-            Assert.Equal(billDto.MoneyReturned, order.MoneyReturned);
             Assert.Equal(billDto.Number, order.Number);
             Assert.Equal(billDto.OrderId, order.OrderId);
 

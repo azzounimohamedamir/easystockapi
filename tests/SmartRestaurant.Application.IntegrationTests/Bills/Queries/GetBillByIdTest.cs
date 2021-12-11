@@ -67,8 +67,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Queries
             selectedBill.CreatedAt.Should().Be(order.CreatedAt);
             selectedBill.TotalToPay.Should().Be(order.TotalToPay);
             selectedBill.Discount.Should().Be(order.Discount);
-            selectedBill.MoneyReceived.Should().Be(order.MoneyReceived);
-            selectedBill.MoneyReturned.Should().Be(order.MoneyReturned);
             selectedBill.Number.Should().Be(order.Number);
             selectedBill.OrderId.Should().Be(order.OrderId);
 
