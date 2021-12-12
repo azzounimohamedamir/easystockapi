@@ -43,13 +43,19 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
                 throw new NotFoundException(nameof(ApplicationUser), request.FoodBusinessAdministratorId);
 
             var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
-            if (!roles.Contains(Roles.FoodBusinessAdministrator.ToString()))
+            if (roles.Contains(Roles.FoodBusinessAdministrator.ToString()) || roles.Contains(Roles.SuperAdmin.ToString()) || roles.Contains(Roles.SupportAgent.ToString()))
+            {
+                var entity = _mapper.Map<Domain.Entities.FoodBusiness>(request);
+                _context.FoodBusinesses.Add(entity);
+                await _context.SaveChangesAsync(cancellationToken);
+                return default;
+            }
+            else
+            {
                 throw new RolesCheckException("The user related to [foodBusinessAdministratorId] must have the role of FoodBusinessAdministrator");
+            }
 
-            var entity = _mapper.Map<Domain.Entities.FoodBusiness>(request);
-            _context.FoodBusinesses.Add(entity);
-            await _context.SaveChangesAsync(cancellationToken);
-            return default;
+
         }
 
         public async Task<NoContent> Handle(DeleteFoodBusinessCommand request,
