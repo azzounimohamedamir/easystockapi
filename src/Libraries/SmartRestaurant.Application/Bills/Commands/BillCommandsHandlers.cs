@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -16,7 +13,9 @@ using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.Bills.Commands
 {
-    public class BillCommandsHandlers : IRequestHandler<UpdateBillCommand, NoContent>
+    public class BillCommandsHandlers : 
+        IRequestHandler<UpdateBillCommand, NoContent>,
+        IRequestHandler<PayBillCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -28,8 +27,7 @@ namespace SmartRestaurant.Application.Bills.Commands
             _mapper = mapper;
             _userService = userService;
         }
-
-         
+        
         public async Task<NoContent> Handle(UpdateBillCommand request, CancellationToken cancellationToken)
         {
             var validator = new UpdateBillCommandValidator();
@@ -49,8 +47,35 @@ namespace SmartRestaurant.Application.Bills.Commands
             if (order == null)
                 throw new NotFoundException(nameof(Order), request.Id);
 
+            if (order.Status == OrderStatuses.Billed)
+                throw new ConflictException("Sorry, you can not update a paid Bill");
+
             MapBillDiscount(request, order);
             CalculateAndSetOrderTotalPrice(order);
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+        public async Task<NoContent> Handle(PayBillCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new PayBillCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var order = await _context.Orders
+                .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
+                .ConfigureAwait(false);
+            if (order == null)
+                throw new NotFoundException(nameof(Order), request.Id);
+
+            if (order.Status == OrderStatuses.Billed)
+                throw new ConflictException("Bill has been already paid");
+
+            order.Status = OrderStatuses.Billed;
+            order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
+            order.LastModifiedAt = DateTime.Now;
+
             _context.Orders.Update(order);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
@@ -88,23 +113,17 @@ namespace SmartRestaurant.Application.Bills.Commands
                 {
                     totalDishPrice += (ingredient.Steps * ingredient.PriceIncreasePerStep);
                 }
-                dish.UnitPrice = CalculatePriceAfterDiscount(totalDishPrice, dish.Discount);
+                dish.UnitPrice = BillHelpers.CalculatePriceAfterDiscount(totalDishPrice, dish.Discount);
                 totalToPay += (dish.Quantity * dish.UnitPrice);
             }
 
             foreach (var product in order.Products)
             {
-                product.UnitPrice = CalculatePriceAfterDiscount(product.InitialPrice, product.Discount);
+                product.UnitPrice = BillHelpers.CalculatePriceAfterDiscount(product.InitialPrice, product.Discount);
                 totalToPay += (product.Quantity * product.UnitPrice);
             }
 
-            order.TotalToPay = CalculatePriceAfterDiscount(totalToPay, order.Discount);            
-        }
-
-        private float CalculatePriceAfterDiscount(float price, int discount)
-        {
-            var discountAmount = (price * discount) / 100;
-            return price - discountAmount;
+            order.TotalToPay = BillHelpers.CalculatePriceAfterDiscount(totalToPay, order.Discount);
         }
     }
 }

@@ -9,6 +9,7 @@ using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Extensions;
+using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Dishes.Commands;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusinessClient.Commands;
@@ -265,7 +266,8 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ReverseMap();
 
             CreateMap<CreateOrderCommand, Order>()
-                .ForMember(x => x.OrderId, o => o.MapFrom(p => p.Id));
+                .ForMember(x => x.OrderId, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.TVA, o => o.MapFrom(p => 19));
 
             CreateMap<OrderDishCommandDto, OrderDish>();
 
@@ -309,7 +311,11 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.OrderId))
                 .ReverseMap();
 
-            CreateMap<Order, BillDto>().ForMember(dest => dest.Tables, opt => opt.MapFrom<BillResolver>());
+            CreateMap<Order, BillDto>()
+                .ForMember(dest => dest.Tables, opt => opt.MapFrom<BillResolver>())
+                .ForMember(dest => dest.TvaPercentage, o => o.MapFrom(p => p.TVA))
+                .ForMember(dest => dest.TvaValue, o => o.MapFrom(p => BillHelpers.CalculateTVA(p.TotalToPay, p.TVA)));
+
             CreateMap<OrderDish, BillDishDto>();
             CreateMap<OrderProduct, BillProductDto>();
             CreateMap<Domain.Entities.FoodBusiness, BillFoodBusinessDto>(); 

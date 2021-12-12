@@ -26,6 +26,10 @@ namespace SmartRestaurant.Application.Orders.Commands
 
             RuleFor(m => m.Status)
                 .IsInEnum();
+
+            RuleFor(m => m.Status)
+                .Must(m => false).WithMessage("You are not allowed to set order status to 'Billed'")
+                .When(m => m.Status == OrderStatuses.Billed);
         }          
     }
 }

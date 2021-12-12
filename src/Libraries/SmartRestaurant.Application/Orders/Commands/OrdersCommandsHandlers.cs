@@ -90,9 +90,11 @@ namespace SmartRestaurant.Application.Orders.Commands
                 .Include(o => o.OccupiedTables)
                 .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
                 .ConfigureAwait(false);
-
             if (order == null)
                 throw new NotFoundException(nameof(Order), request.Id);
+
+            if (order.Status == OrderStatuses.Billed)
+                throw new ConflictException("Sorry, you can not update a Billed Order");
 
             var releasedTables = GetReleasedTables(order, request);
 
@@ -130,10 +132,15 @@ namespace SmartRestaurant.Application.Orders.Commands
             if (order == null)
                 throw new NotFoundException(nameof(Order), request.Id);
 
+            if (order.Status == OrderStatuses.Billed)
+                throw new ConflictException("Sorry, you can not change the status for a Billed Order");
+
             _mapper.Map(request, order);
             order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.LastModifiedAt = DateTime.Now;
 
+            var releasedTables = order.OccupiedTables.Select(x => x.TableId).ToList();
+            ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(releasedTables);
             _context.Orders.Update(order);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
