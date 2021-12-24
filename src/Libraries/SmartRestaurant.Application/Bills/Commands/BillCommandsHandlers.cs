@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -64,8 +66,9 @@ namespace SmartRestaurant.Application.Bills.Commands
             if (!result.IsValid) throw new ValidationException(result);
 
             var order = await _context.Orders
-                .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
-                .ConfigureAwait(false);
+              .Include(o => o.OccupiedTables)
+              .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
+              .ConfigureAwait(false);
             if (order == null)
                 throw new NotFoundException(nameof(Order), request.Id);
 
@@ -76,9 +79,27 @@ namespace SmartRestaurant.Application.Bills.Commands
             order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.LastModifiedAt = DateTime.Now;
 
+            ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(order);
             _context.Orders.Update(order);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
+        }
+
+        private void ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(Order order)
+        {
+            if (order.Type != OrderTypes.DineIn)
+                return;
+
+            List<string> releasedTables = order.OccupiedTables.Select(x => x.TableId).ToList();
+            foreach (var tableId in releasedTables)
+            {
+                var table = _context.Tables.AsNoTracking().FirstOrDefault(t => t.TableId == Guid.Parse(tableId));
+                if (table == null)
+                    continue;
+
+                table.TableState = TableState.Available;
+                _context.Tables.Update(table);
+            }
         }
 
         private void MapBillDiscount(UpdateBillCommand request, Order order)
