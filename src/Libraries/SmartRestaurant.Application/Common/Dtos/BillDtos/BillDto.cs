@@ -15,7 +15,7 @@ namespace SmartRestaurant.Application.Common.Dtos.BillDtos
         public float TotalToPay { get; set; }
         public float TvaPercentage { get; set; }
         public float TvaValue { get; set; }
-        public int Discount { get; set; }
+        public float Discount { get; set; }
         public OrderTypes Type { get; set; }
         public OrderStatuses Status { get; set; }
         public List<BillTableDto> Tables { get; set; }
