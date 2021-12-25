@@ -134,17 +134,31 @@ namespace SmartRestaurant.Application.Bills.Commands
                 {
                     totalDishPrice += (ingredient.Steps * ingredient.PriceIncreasePerStep);
                 }
-                dish.UnitPrice = BillHelpers.CalculatePriceAfterDiscount(totalDishPrice, dish.Discount);
-                totalToPay += (dish.Quantity * dish.UnitPrice);
+
+                dish.UnitPrice = totalDishPrice;
+                var totalDishPriceByQuantity = dish.Quantity * dish.UnitPrice;
+
+                if (dish.Discount > totalDishPriceByQuantity || dish.Discount < 0)
+                    throw new ValidationException($"The discount value for the dish [{dish.Name}] must be between 0 and {totalDishPriceByQuantity}");
+                else
+                    totalToPay += totalDishPriceByQuantity - dish.Discount;
             }
 
             foreach (var product in order.Products)
             {
-                product.UnitPrice = BillHelpers.CalculatePriceAfterDiscount(product.InitialPrice, product.Discount);
-                totalToPay += (product.Quantity * product.UnitPrice);
+                product.UnitPrice = product.InitialPrice;
+                var totalProductPriceByQuantity = product.Quantity * product.UnitPrice;
+
+                if (product.Discount > totalProductPriceByQuantity || product.Discount < 0)
+                    throw new ValidationException($"The discount value for the product [{product.Name}] must be between 0 and {totalProductPriceByQuantity}");
+                else
+                    totalToPay += totalProductPriceByQuantity - product.Discount;
             }
 
-            order.TotalToPay = BillHelpers.CalculatePriceAfterDiscount(totalToPay, order.Discount);
+            if (order.Discount > totalToPay || order.Discount < 0)
+                throw new ValidationException($"The value of the global discount must be between 0 and {totalToPay}");
+            else
+                order.TotalToPay = totalToPay - order.Discount;
         }
     }
 }
