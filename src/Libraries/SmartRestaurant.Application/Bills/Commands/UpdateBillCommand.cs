@@ -29,8 +29,7 @@ namespace SmartRestaurant.Application.Bills.Commands
                 .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID");
 
             RuleFor(x => x.Discount)
-                .GreaterThanOrEqualTo(0)
-                .LessThanOrEqualTo(100);
+                .GreaterThanOrEqualTo(0);
 
             RuleForEach(x => x.Products)
                 .Cascade(CascadeMode.StopOnFirstFailure)

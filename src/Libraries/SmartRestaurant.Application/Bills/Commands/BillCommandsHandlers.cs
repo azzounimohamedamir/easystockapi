@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -64,8 +66,9 @@ namespace SmartRestaurant.Application.Bills.Commands
             if (!result.IsValid) throw new ValidationException(result);
 
             var order = await _context.Orders
-                .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
-                .ConfigureAwait(false);
+              .Include(o => o.OccupiedTables)
+              .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
+              .ConfigureAwait(false);
             if (order == null)
                 throw new NotFoundException(nameof(Order), request.Id);
 
@@ -76,9 +79,27 @@ namespace SmartRestaurant.Application.Bills.Commands
             order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.LastModifiedAt = DateTime.Now;
 
+            ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(order);
             _context.Orders.Update(order);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
+        }
+
+        private void ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(Order order)
+        {
+            if (order.Type != OrderTypes.DineIn)
+                return;
+
+            List<string> releasedTables = order.OccupiedTables.Select(x => x.TableId).ToList();
+            foreach (var tableId in releasedTables)
+            {
+                var table = _context.Tables.AsNoTracking().FirstOrDefault(t => t.TableId == Guid.Parse(tableId));
+                if (table == null)
+                    continue;
+
+                table.TableState = TableState.Available;
+                _context.Tables.Update(table);
+            }
         }
 
         private void MapBillDiscount(UpdateBillCommand request, Order order)
@@ -113,17 +134,31 @@ namespace SmartRestaurant.Application.Bills.Commands
                 {
                     totalDishPrice += (ingredient.Steps * ingredient.PriceIncreasePerStep);
                 }
-                dish.UnitPrice = BillHelpers.CalculatePriceAfterDiscount(totalDishPrice, dish.Discount);
-                totalToPay += (dish.Quantity * dish.UnitPrice);
+
+                dish.UnitPrice = totalDishPrice;
+                var totalDishPriceByQuantity = dish.Quantity * dish.UnitPrice;
+
+                if (dish.Discount > totalDishPriceByQuantity || dish.Discount < 0)
+                    throw new ValidationException($"The discount value for the dish [{dish.Name}] must be between 0 and {totalDishPriceByQuantity}");
+                else
+                    totalToPay += totalDishPriceByQuantity - dish.Discount;
             }
 
             foreach (var product in order.Products)
             {
-                product.UnitPrice = BillHelpers.CalculatePriceAfterDiscount(product.InitialPrice, product.Discount);
-                totalToPay += (product.Quantity * product.UnitPrice);
+                product.UnitPrice = product.InitialPrice;
+                var totalProductPriceByQuantity = product.Quantity * product.UnitPrice;
+
+                if (product.Discount > totalProductPriceByQuantity || product.Discount < 0)
+                    throw new ValidationException($"The discount value for the product [{product.Name}] must be between 0 and {totalProductPriceByQuantity}");
+                else
+                    totalToPay += totalProductPriceByQuantity - product.Discount;
             }
 
-            order.TotalToPay = BillHelpers.CalculatePriceAfterDiscount(totalToPay, order.Discount);
+            if (order.Discount > totalToPay || order.Discount < 0)
+                throw new ValidationException($"The value of the global discount must be between 0 and {totalToPay}");
+            else
+                order.TotalToPay = totalToPay - order.Discount;
         }
     }
 }

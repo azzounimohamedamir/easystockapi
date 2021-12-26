@@ -7,7 +7,7 @@ namespace SmartRestaurant.Domain.Common
         public string Name { get; set; }
         public float InitialPrice { get; set; }
         public float UnitPrice { get; set; }
-        public int Discount { get; set; }      
+        public float Discount { get; set; }      
         public float EnergeticValue { get; set; }
         public string Description { get; set; }
         public string TableId { get; set; }

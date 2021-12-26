@@ -2,17 +2,12 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
-using SmartRestaurant.Domain.Enums;
 using FluentAssertions;
-using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using System.Collections.Generic;
-using SmartRestaurant.Application.Orders.Commands;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.FoodBusinessClient.Commands;
-using Newtonsoft.Json;
-using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Application.Bills.Commands;
 using SmartRestaurant.Application.Common.Dtos.BillDtos;
@@ -24,67 +19,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Commands
     [TestFixture]
     public class UpdateBillTest : TestBase
     {
-        OrderDishSpecificationDto CheckBoxModified = new OrderDishSpecificationDto()
-        {
-            Title = "Spicy Modified",
-            ContentType = ContentType.CheckBox,
-            CheckBoxContent = false,
-            ComboBoxContent = null,
-            CheckBoxSelection = true,
-            ComboBoxSelection = null
-        };
-
-        OrderDishSpecificationDto ComboBoxModified = new OrderDishSpecificationDto()
-        {
-            Title = "Cuisson Modified",
-            ContentType = ContentType.ComboBox,
-            CheckBoxContent = true,
-            ComboBoxContent = new List<string>() { "Bien Cuite Modified", "Demi cuisson Modified" },
-            CheckBoxSelection = false,
-            ComboBoxSelection = "Demi cuisson Modified"
-        };
-
-        OrderDishIngredientDto IngredientModified = new OrderDishIngredientDto()
-        {
-            IsPrimary = false,
-            Amount = 15,
-            MinimumAmount = 10,
-            MaximumAmount = 20,
-            AmountIncreasePerStep = 5,
-            PriceIncreasePerStep = 3,
-            MeasurementUnits = MeasurementUnits.MilliLiter,
-            Steps = 2,
-            OrderIngredient = new OrderIngredientDto()
-            {
-                IngredientId = "72867405-75a6-44bc-ac82-407ea918c8dc",
-                Names = new List<IngredientNameDto>{
-                    new IngredientNameDto() {Name = "Cooking oil Modified",Language = "en"},
-                    new IngredientNameDto() {Name = "Modified زيت الطهي",Language = "ar"},
-                    new IngredientNameDto() {Name = "Huile Modified",Language = "fr"}
-                    },
-                EnergeticValue = new EnergeticValueDto
-                {
-                    Fat = 1,
-                    Protein = 1,
-                    Carbohydrates = 1,
-                    Energy = 10,
-                    Amount = 0.5f,
-                    MeasurementUnit = MeasurementUnits.MilliLiter
-                }
-            }
-        };
-
-        OrderDishSupplementDto SupplementModified = new OrderDishSupplementDto()
-        {
-            SupplementId = "e66f88b3-f39a-4301-97f0-471ad7f07e66",
-            Name = "French Fries Modified",
-            Price = 100,
-            EnergeticValue = 250,
-            Description = "TEST Modified",
-            IsSelected = false
-        };
-
-
         [Test]
         public async Task UpdateBill_ShouldSaveToDB()
         {
@@ -102,7 +36,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Commands
             var order = await GetOrder(Guid.Parse(updateOrderBillCommand.Id));
             order.OrderId.Should().Be(createOrderCommand.Id);
             order.Discount.Should().Be(50);
-            order.TotalToPay.Should().Be(190);
+            order.TotalToPay.Should().Be(610);
             order.FoodBusinessId.Should().Be(order.FoodBusinessId);
 
             order.FoodBusinessClientId.Should().Be(order.FoodBusinessClientId);
@@ -119,7 +53,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Commands
             order.Dishes[0].Name.Should().Be(order.Dishes[0].Name);
             order.Dishes[0].Discount.Should().Be(50);
             order.Dishes[0].InitialPrice.Should().Be(order.Dishes[0].InitialPrice);
-            order.Dishes[0].UnitPrice.Should().Be(160);
+            order.Dishes[0].UnitPrice.Should().Be(320);
             order.Dishes[0].EnergeticValue.Should().Be(order.Dishes[0].EnergeticValue);
             order.Dishes[0].Description.Should().Be(order.Dishes[0].Description);
             order.Dishes[0].EstimatedPreparationTime.Should().Be(order.Dishes[0].EstimatedPreparationTime);

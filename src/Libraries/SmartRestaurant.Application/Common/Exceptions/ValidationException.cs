@@ -9,5 +9,10 @@ namespace SmartRestaurant.Application.Common.Exceptions
         {
             Errors.AddRange(result.Errors.Select(error => error.ErrorMessage));
         }
+
+        public ValidationException(string message) : base(400, "Validation error")
+        {
+            Errors.Add(message);
+        }
     }
 }

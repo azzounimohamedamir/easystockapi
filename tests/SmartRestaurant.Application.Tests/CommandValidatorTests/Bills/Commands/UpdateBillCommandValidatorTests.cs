@@ -55,12 +55,5 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Bills  .Comman
             int value = -1;
             _validator.ShouldHaveValidationErrorFor(x => x.Discount, value);
         }
-
-        [Fact]
-        public void Given_DiscountGreaterThenMaximum_WhenValidating_ShouldGetAnError()
-        {
-            int value = 101;
-            _validator.ShouldHaveValidationErrorFor(x => x.Discount, value);
-        }
     }
 }
