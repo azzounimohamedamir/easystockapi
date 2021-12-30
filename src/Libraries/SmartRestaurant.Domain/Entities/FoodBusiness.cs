@@ -1,6 +1,7 @@
 ﻿using System;
 using SmartRestaurant.Domain.Common;
 using SmartRestaurant.Domain.Enums;
+using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Domain.Entities
 {
@@ -21,5 +22,8 @@ namespace SmartRestaurant.Domain.Entities
         public int FourDigitCode { get; set; }
         public Currencies DefaultCurrency { get; set; }
         public DateTime OrderNumberLastResetDateTime { get; set; }
+        public CommissionConfigs CommissionConfigs { get; set; }
+        public bool IsActivityFrozen { get; set; }
+
     }
 }
