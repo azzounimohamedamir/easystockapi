@@ -28,6 +28,21 @@ namespace SmartRestaurant.API.Controllers
         {
             command.FoodBusinessId = id;
             return await SendWithErrorsHandlingAsync(command);
-        }     
+        }
+
+        /// <summary> CalculateLastMonthCommissionFees() </summary>
+        /// <remarks>This endpoint allows user to manually Calculate Last Month Commission Fees for all foodbusinesses in database. </remarks>        
+        /// <response code="204">Calculation last month commission fees has been successfully done.</response>
+        /// <response code="400">The payload data sent to the backend-server in-order to calculation last month commission fees is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("calculate-last-month-fees")]
+        [HttpPost]
+        [Authorize(Roles = "SuperAdmin,SupportAgent,SalesMan")]
+        public async Task<IActionResult> CalculateLastMonthCommissionFees()
+        {
+            return await SendWithErrorsHandlingAsync(new CalculateLastMonthCommissionFeesCommand());
+        }
     }
 }
