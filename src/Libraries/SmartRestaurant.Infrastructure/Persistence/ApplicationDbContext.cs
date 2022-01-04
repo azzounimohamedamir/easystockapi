@@ -43,6 +43,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Product> Products { get; set; }
         public DbSet<Illness> Illnesses { get; set; }
         public DbSet<IngredientIllness> IngredientIllnesses { get; set; }
+        public DbSet<MonthlyCommission> MonthlyCommission { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
