@@ -24,7 +24,7 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 using SmartRestaurant.Application.Common.Configuration.SocialMedia;
 using IHostApplicationLifetime = Microsoft.Extensions.Hosting.IHostApplicationLifetime;
 using SmartRestaurant.Application.CurrencyExchange;
-using Newtonsoft.Json.Converters;
+using SmartRestaurant.API.Scheduler;
 
 namespace SmartRestaurant.API
 {
@@ -101,8 +101,8 @@ namespace SmartRestaurant.API
                 {
                     c.ValidatorFactoryType = typeof(HttpContextServiceProviderValidatorFactory);
                 })
-                .AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;})
-                .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new StringEnumConverter())); ;
+                .AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;});
+            services.AddMediator();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
@@ -142,6 +142,7 @@ namespace SmartRestaurant.API
         public void OnApplicationStarted()
         {
             CurrencyExchangeApi.ImportFromOnlineApi();
+            new CommissionScheduler().ExecuteCommissionMonthlyTasks();
         }
     }
 }

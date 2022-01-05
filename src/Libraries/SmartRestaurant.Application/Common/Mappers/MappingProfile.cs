@@ -385,6 +385,13 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<SetFoodBusinessCommissionCommand, Domain.Entities.FoodBusiness>()
                 .ForMember(x => x.CommissionConfigs, opt => opt.MapFrom<SetFoodBusinessCommissionResolver>());
-        }
+
+            CreateMap<Domain.Entities.FoodBusiness, MonthlyCommission>()
+                .ForMember(x => x.CommissionConfigs, opt => opt.MapFrom(p => p.CommissionConfigs))
+                .ForMember(x => x.FoodBusinessId, opt => opt.MapFrom(p => p.FoodBusinessId))
+                .ForMember(x => x.Month, opt => opt.MapFrom(p => DateTimeHelpers.GetLastMonth(DateTime.Now)))
+                .ForMember(x => x.MonthlyCommissionId, opt => opt.MapFrom(p => Guid.NewGuid()))
+                .ForMember(x => x.Status, opt => opt.MapFrom(p => CommissionStatus.Unpaid));
+        }        
     }
 }

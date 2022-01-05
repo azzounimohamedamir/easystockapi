@@ -2,6 +2,7 @@
 using AutoMapper;
 using SmartRestaurant.Application.commisiones.Commands;
 using SmartRestaurant.Application.Tests.Configuration;
+using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.ValueObjects;
 using Xunit;
@@ -16,7 +17,37 @@ namespace SmartRestaurant.Application.Tests.MappingTests
         {
             _mapper = fixture.Mapper;
         }
-      
+
+        Domain.Entities.FoodBusiness foodBusiness = new Domain.Entities.FoodBusiness
+        {
+            FoodBusinessId = Guid.NewGuid(),
+            AcceptsCreditCards = true,
+            AcceptTakeout = true,
+            Address = new Address
+            {
+                City = "Algiers",
+                Country = "Algeria",
+                GeoPosition = new GeoPosition
+                {
+                    Latitude = "0",
+                    Longitude = "0"
+                },
+                StreetAddress = "Didouche Mourad"
+            },
+            Description = "",
+            HasCarParking = true,
+            IsHandicapFriendly = true,
+            Name = "Taj mahal",
+            OffersTakeout = true,
+            PhoneNumber = new PhoneNumber { CountryCode = 213, Number = 670217536 },
+            Tags = "pizza;sandwish",
+            Email = "test@g22.com",
+            Website = "",
+            FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
+            FoodBusinessCategory = FoodBusinessCategory.Restaurant,
+            DefaultCurrency = Currencies.USD,
+            CommissionConfigs = null
+        };
 
         [Fact]
         public void Map_SetFoodBusinessCommissionCommand_To_FoodBusiness_Valide_Test()
@@ -26,39 +57,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                 Value = 25,
                 Type = CommissionType.PerPerson,
                 WhoPay = WhoPayCommission.FoodBusinessCustomer,
-            };
-
-            var foodBusiness = new Domain.Entities.FoodBusiness
-            {
-                AcceptsCreditCards = true,
-                AcceptTakeout = true,
-                Address = new Address
-                {
-                    City = "Algiers",
-                    Country = "Algeria",
-                    GeoPosition = new GeoPosition
-                    {
-                        Latitude = "0",
-                        Longitude = "0"
-                    },
-                    StreetAddress = "Didouche Mourad"
-                },
-                Description = "",
-                HasCarParking = true,
-                IsHandicapFriendly = true,
-                Name = "Taj mahal",
-                OffersTakeout = true,
-                PhoneNumber = new PhoneNumber { CountryCode = 213, Number = 670217536 },
-                Tags = "pizza;sandwish",
-                Email = "test@g22.com",
-                Website = "",
-                FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
-                FoodBusinessCategory = FoodBusinessCategory.Restaurant,
-                DefaultCurrency = Currencies.USD,
-                CommissionConfigs = null
-            };
-
-
+            };          
 
             _mapper.Map(setFoodBusinessCommissionCommand, foodBusiness);
             Assert.Equal(foodBusiness.AcceptsCreditCards, foodBusiness.AcceptsCreditCards);
@@ -84,11 +83,31 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(setFoodBusinessCommissionCommand.Value, foodBusiness.CommissionConfigs.Value);
             Assert.Equal(setFoodBusinessCommissionCommand.Type, foodBusiness.CommissionConfigs.Type);
             Assert.Equal(setFoodBusinessCommissionCommand.WhoPay, foodBusiness.CommissionConfigs.WhoPay);
+        }
 
 
 
+        [Fact]
+        public void Map_FoodBusiness_To_MonthlyCommission_Valide_Test()
+        {
+            var newFoodBusiness = foodBusiness;
+            newFoodBusiness.CommissionConfigs = new CommissionConfigs
+            {
+                Value = 20,
+                Type = CommissionType.PerPerson,
+                WhoPay = WhoPayCommission.FoodBusiness
+            };
 
-
+            var now = DateTime.Now.AddMonths(-1);
+            var monthlyCommission = _mapper.Map<MonthlyCommission>(foodBusiness);
+            Assert.Equal(foodBusiness.FoodBusinessId, monthlyCommission.FoodBusinessId);
+            Assert.Equal(CommissionStatus.Unpaid, monthlyCommission.Status);
+            Assert.Equal(0, monthlyCommission.TotalToPay);
+            Assert.Equal(0, monthlyCommission.numberOfOrdersOrPersons);
+            Assert.Equal(new DateTime(now.Year, now.Month, 1, 0, 0, 0), monthlyCommission.Month);
+            Assert.Equal(foodBusiness.CommissionConfigs.Value, monthlyCommission.CommissionConfigs.Value);
+            Assert.Equal(foodBusiness.CommissionConfigs.Type, monthlyCommission.CommissionConfigs.Type);
+            Assert.Equal(foodBusiness.CommissionConfigs.WhoPay, monthlyCommission.CommissionConfigs.WhoPay);
         }
 
     }

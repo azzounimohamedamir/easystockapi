@@ -40,6 +40,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<Product> Products { get; set; }
         public DbSet<Domain.Entities.Illness> Illnesses { get; set; }
         public DbSet<IngredientIllness> IngredientIllnesses { get; set; }
+        public DbSet<MonthlyCommission> MonthlyCommission { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
