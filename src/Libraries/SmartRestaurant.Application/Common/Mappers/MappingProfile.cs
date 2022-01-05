@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 using Newtonsoft.Json;
+using SmartRestaurant.Application.commisiones.Commands;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.BillDtos;
 using SmartRestaurant.Application.Common.Dtos.DishDtos;
@@ -382,6 +383,8 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<IngredientIllnessDto, IngredientIllness>();
 
+            CreateMap<SetFoodBusinessCommissionCommand, Domain.Entities.FoodBusiness>()
+                .ForMember(x => x.CommissionConfigs, opt => opt.MapFrom<SetFoodBusinessCommissionResolver>());
         }
     }
 }
