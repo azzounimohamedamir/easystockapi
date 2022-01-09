@@ -101,7 +101,8 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.Ingredients, o => o.MapFrom(p => p.Dish.Ingredients))
                 .ForMember(x => x.Supplements, o => o.MapFrom(p => p.Dish.Supplements))
                 .ForMember(x => x.Specifications, o => o.MapFrom(p => p.Dish.Specifications))
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Dish.Picture)));
+                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Dish.Picture)))
+                .ForMember(x => x.EstimatedPreparationTime, o => o.MapFrom(p => p.Dish.EstimatedPreparationTime));
 
 
             CreateMap<SectionProduct, ProductDto>()
@@ -130,7 +131,9 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.Ingredients, o => o.MapFrom(p => p.Dish.Ingredients))
                 .ForMember(x => x.Supplements, o => o.MapFrom(p => p.Dish.Supplements))
                 .ForMember(x => x.Specifications, o => o.MapFrom(p => p.Dish.Specifications))
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Dish.Picture)));
+                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Dish.Picture)))
+                .ForMember(x => x.EstimatedPreparationTime, o => o.MapFrom(p => p.Dish.EstimatedPreparationTime)); 
+            
 
             CreateMap<SubSectionProduct, ProductDto>()
                 .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Product.ProductId))
