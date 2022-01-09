@@ -124,6 +124,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
 
             var commissionConfigsDto = _mapper.Map<CommissionConfigsDto>(foodBusiness);
             Assert.Equal(foodBusiness.FoodBusinessId, commissionConfigsDto.FoodBusinessId);
+            Assert.Equal(foodBusiness.Name, commissionConfigsDto.FoodBusinessName);
             Assert.Equal(foodBusiness.DefaultCurrency, commissionConfigsDto.DefaultCurrency);
             Assert.Equal(foodBusiness.CommissionConfigs.Value, commissionConfigsDto.Value);
             Assert.Equal(foodBusiness.CommissionConfigs.Type, commissionConfigsDto.Type);
