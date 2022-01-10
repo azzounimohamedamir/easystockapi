@@ -24,6 +24,12 @@ namespace SmartRestaurant.API.Scheduler
                         Debug.WriteLine("########## Calculate Last Month Commission Fees ##########");
                         await new MediatorService().SendAsync(new CalculateLastMonthCommissionFeesCommand());
                     }
+
+                    if (now.Day == 10)
+                    {
+                        Debug.WriteLine("########## Freeze FoodBusiness Activities That Has Not Paid Commission Fees ##########");
+                        await new MediatorService().SendAsync(new FreezeFoodBusinessActivitiesThatHasNotPaidCommissionFeesCommand());
+                    }
                 };
             }
         }
