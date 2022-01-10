@@ -44,6 +44,32 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
+        /// <summary> GetMonthlyCommissionListByFoodBusinessUser() </summary>
+        /// <remarks>This endpoint allows FoodBusiness User to fetch list of monthly commission for the selected FoodBusiness.</remarks>
+        /// <param name="foodBusinessId">id of foodBusiness that we would like to get its list of monthly commission.</param>
+        /// <param name="page">The start position of read pointer in a request results. Default value is: <b>1</b></param>
+        /// <param name="pageSize">The max number of Reservations that should be returned. Default value is: <b>10</b>. Max value is: <b>100</b></param>
+        /// <response code="200"> List of monthly commission has been successfully fetched.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to fetch list of monthly commission is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(PagedListDto<CommissionConfigsDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator")]
+        [Route("monthly-commissions-by-foodbusiness-user")]
+        [HttpGet]
+        public Task<IActionResult> GetMonthlyCommissionListByFoodBusinessUser(string foodBusinessId, int page, int pageSize)
+        {
+            var query = new GetMonthlyCommissionListByFoodBusinessUserQuery
+            {
+                FoodBusinessId = foodBusinessId,
+                Page = page,
+                PageSize = pageSize
+            };
+            return SendWithErrorsHandlingAsync(query);
+        }
+
+
         /// <summary> SetFoodBusinessCommissionConfigs() </summary>
         /// <remarks>This endpoint allows user to set FoodBusiness Commission Configs. </remarks>        
         /// <param name="id">id of the FoodBusiness that we will set its Commission </param>
