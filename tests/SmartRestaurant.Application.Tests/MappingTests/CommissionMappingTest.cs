@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using SmartRestaurant.Application.commisiones.Commands;
+using SmartRestaurant.Application.Common.Dtos.CommissionsDtos;
 using SmartRestaurant.Application.Tests.Configuration;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
@@ -110,5 +111,23 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(foodBusiness.CommissionConfigs.WhoPay, monthlyCommission.CommissionConfigs.WhoPay);
         }
 
+        [Fact]
+        public void Map_FoodBusiness_To_CommissionConfigsDto_Valide_Test()
+        {
+            var newFoodBusiness = foodBusiness;
+            newFoodBusiness.CommissionConfigs = new CommissionConfigs
+            {
+                Value = 20,
+                Type = CommissionType.PerPerson,
+                WhoPay = WhoPayCommission.FoodBusiness
+            };
+
+            var commissionConfigsDto = _mapper.Map<CommissionConfigsDto>(foodBusiness);
+            Assert.Equal(foodBusiness.FoodBusinessId, commissionConfigsDto.FoodBusinessId);
+            Assert.Equal(foodBusiness.DefaultCurrency, commissionConfigsDto.DefaultCurrency);
+            Assert.Equal(foodBusiness.CommissionConfigs.Value, commissionConfigsDto.Value);
+            Assert.Equal(foodBusiness.CommissionConfigs.Type, commissionConfigsDto.Type);
+            Assert.Equal(foodBusiness.CommissionConfigs.WhoPay, commissionConfigsDto.WhoPay);
+        }
     }
 }

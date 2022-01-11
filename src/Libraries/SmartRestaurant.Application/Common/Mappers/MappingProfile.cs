@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using SmartRestaurant.Application.commisiones.Commands;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.BillDtos;
+using SmartRestaurant.Application.Common.Dtos.CommissionsDtos;
 using SmartRestaurant.Application.Common.Dtos.DishDtos;
 using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
@@ -392,6 +393,12 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.Month, opt => opt.MapFrom(p => DateTimeHelpers.GetLastMonth(DateTime.Now)))
                 .ForMember(x => x.MonthlyCommissionId, opt => opt.MapFrom(p => Guid.NewGuid()))
                 .ForMember(x => x.Status, opt => opt.MapFrom(p => CommissionStatus.Unpaid));
-        }        
+
+            CreateMap<Domain.Entities.FoodBusiness, CommissionConfigsDto>()
+                   .ForMember(x => x.Value, opt => opt.MapFrom(p => p.CommissionConfigs.Value))
+                   .ForMember(x => x.Type, opt => opt.MapFrom(p => p.CommissionConfigs.Type))
+                   .ForMember(x => x.WhoPay, opt => opt.MapFrom(p => p.CommissionConfigs.WhoPay));
+
+        }
     }
 }
