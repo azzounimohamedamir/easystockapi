@@ -56,9 +56,26 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false);
 
-            return _mapper.Map<List<FoodBusinessDto>>(foodBusinesses);
+            var result = await PopulatDtoWithFoodBuisenessLogos(foodBusinesses, cancellationToken).ConfigureAwait(false);
+            return result;
+
         }
 
+        private async Task<List<FoodBusinessDto>> PopulatDtoWithFoodBuisenessLogos(List<Domain.Entities.FoodBusiness> foodBusinesses, CancellationToken cancellationToken)
+        {
+            var result = _mapper.Map<List<FoodBusinessDto>>(foodBusinesses);
+            foreach (var foodBusinesse in result)
+            {
+                var images = await _applicationDbContext.FoodBusinessImages.
+                    Where(f => f.EntityId == foodBusinesse.FoodBusinessId && f.IsLogo)
+                 .Select(im => im.ImageBytes).ToArrayAsync(cancellationToken).ConfigureAwait(false);
+                if (images != null)
+                {
+                    foodBusinesse.Logo = images.Select(Convert.ToBase64String).FirstOrDefault();
+                }
+            }
+            return result;
+        }
 
         public async Task<FoodBusinessDto> Handle(GetFoodBusinessByIdQuery request, CancellationToken cancellationToken)
         {
