@@ -403,6 +403,11 @@ namespace SmartRestaurant.Application.Common.Mappers
                    .ForMember(x => x.Type, opt => opt.MapFrom(p => p.CommissionConfigs.Type))
                    .ForMember(x => x.WhoPay, opt => opt.MapFrom(p => p.CommissionConfigs.WhoPay));
 
+            CreateMap<MonthlyCommission, MonthlyCommissionDto>()
+                   .ForMember(x => x.FoodBusinessId, opt => opt.MapFrom(p => p.FoodBusiness.FoodBusinessId))
+                   .ForMember(x => x.FoodBusinessName, opt => opt.MapFrom(p => p.FoodBusiness.Name))
+                   .ForMember(x => x.DefaultCurrency, opt => opt.MapFrom(p => p.FoodBusiness.DefaultCurrency));
+
         }
     }
 }

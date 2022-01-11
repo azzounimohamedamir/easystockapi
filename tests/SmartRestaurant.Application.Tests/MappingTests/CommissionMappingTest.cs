@@ -130,5 +130,38 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(foodBusiness.CommissionConfigs.Type, commissionConfigsDto.Type);
             Assert.Equal(foodBusiness.CommissionConfigs.WhoPay, commissionConfigsDto.WhoPay);
         }
+
+        [Fact]
+        public void Map_MonthlyCommission_To_MonthlyCommissionDto_Valide_Test()
+        {
+            var now = DateTime.Now.AddMonths(-1);
+            var monthlyCommission = new MonthlyCommission
+            {
+                MonthlyCommissionId = Guid.NewGuid(),
+                Month = new DateTime(now.Year, now.Month, 1, 0, 0, 0),
+                TotalToPay = 60,
+                numberOfOrdersOrPersons = 3,
+                Status = CommissionStatus.Unpaid,
+                CommissionConfigs = new CommissionConfigs
+                {
+                    Value = 20,
+                    Type = CommissionType.PerPerson,
+                    WhoPay = WhoPayCommission.FoodBusiness
+                },
+                FoodBusiness = foodBusiness
+            };
+                
+            var monthlyCommissionDto = _mapper.Map<MonthlyCommissionDto>(monthlyCommission);
+            Assert.Equal(monthlyCommission.FoodBusiness.FoodBusinessId, monthlyCommissionDto.FoodBusinessId);
+            Assert.Equal(monthlyCommission.FoodBusiness.Name, monthlyCommissionDto.FoodBusinessName);
+            Assert.Equal(monthlyCommission.FoodBusiness.DefaultCurrency, monthlyCommissionDto.DefaultCurrency);
+            Assert.Equal(CommissionStatus.Unpaid, monthlyCommissionDto.Status);
+            Assert.Equal(60, monthlyCommissionDto.TotalToPay);
+            Assert.Equal(3, monthlyCommissionDto.numberOfOrdersOrPersons);
+            Assert.Equal(new DateTime(now.Year, now.Month, 1, 0, 0, 0), monthlyCommissionDto.Month);
+            Assert.Equal(monthlyCommission.CommissionConfigs.Value, monthlyCommissionDto.CommissionConfigs.Value);
+            Assert.Equal(monthlyCommission.CommissionConfigs.Type, monthlyCommissionDto.CommissionConfigs.Type);
+            Assert.Equal(monthlyCommission.CommissionConfigs.WhoPay, monthlyCommissionDto.CommissionConfigs.WhoPay);
+        }
     }
 }
