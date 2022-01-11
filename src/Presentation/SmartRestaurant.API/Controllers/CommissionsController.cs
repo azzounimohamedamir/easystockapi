@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.commisiones.Commands;
 using SmartRestaurant.Application.commisiones.Queries;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.CommissionsDtos;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -14,6 +15,35 @@ namespace SmartRestaurant.API.Controllers
     [SwaggerTag("List of actions that can be applied on FoodBusiness Commissions")]
     public class CommissionsController : ApiController
     {
+        /// <summary> GetListOfCommissionConfigs() </summary>
+        /// <remarks>This endpoint allows us to fetch list of commission configs.</remarks>
+        /// <param name="currentFilter">List of commission configs can be filtred by: <b>foodbusinessname</b></param>
+        /// <param name="searchKey">Search keyword</param>
+        /// <param name="sortOrder">List of commission configs can be sorted by: <b>acs</b> | <b>desc</b>. Default value is: <b>acs</b></param>
+        /// <param name="page">The start position of read pointer in a request results. Default value is: <b>1</b></param>
+        /// <param name="pageSize">The max number of Reservations that should be returned. Default value is: <b>10</b>. Max value is: <b>100</b></param>
+        /// <response code="200"> List of commission configs has been successfully fetched.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to fetch list of commission configs is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(PagedListDto<CommissionConfigsDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Authorize(Roles = "SuperAdmin,SupportAgent,SalesMan")]
+        [HttpGet]
+        public Task<IActionResult> GetListOfCommissionConfigs(string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
+        {
+            var query = new GetCommissionConfigsListQuery
+            {
+                CurrentFilter = currentFilter,
+                SearchKey = searchKey,
+                SortOrder = sortOrder,
+                Page = page,
+                PageSize = pageSize
+            };
+            return SendWithErrorsHandlingAsync(query);
+        }
+
+
         /// <summary> SetFoodBusinessCommissionConfigs() </summary>
         /// <remarks>This endpoint allows user to set FoodBusiness Commission Configs. </remarks>        
         /// <param name="id">id of the FoodBusiness that we will set its Commission </param>
