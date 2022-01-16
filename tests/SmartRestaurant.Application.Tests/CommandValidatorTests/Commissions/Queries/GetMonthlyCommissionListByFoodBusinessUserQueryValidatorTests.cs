@@ -1,5 +1,5 @@
 ﻿using FluentValidation.TestHelper;
-using SmartRestaurant.Application.commisiones.Queries;
+using SmartRestaurant.Application.CommissionsMonthlyFees.Queries;
 using System;
 using Xunit;
 

@@ -5,7 +5,7 @@ using SmartRestaurant.Application.Common.Dtos.CommissionsDtos;
 using SmartRestaurant.Application.Common.Tools;
 using System;
 
-namespace SmartRestaurant.Application.commisiones.Queries
+namespace SmartRestaurant.Application.CommissionsMonthlyFees.Queries
 {
     public class GetMonthlyCommissionListByFoodBusinessUserQuery : IRequest<PagedListDto<MonthlyCommissionDto>>
     {

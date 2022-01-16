@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.commisiones.Commands;
-using SmartRestaurant.Application.commisiones.Queries;
-using SmartRestaurant.Application.FoodBusiness.Queries;
+using SmartRestaurant.Application.CommissionsMonthlyFees.Commands;
+using SmartRestaurant.Application.CommissionsMonthlyFees.Queries;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Domain.Enums;
 
