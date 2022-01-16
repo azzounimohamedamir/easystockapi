@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.commisiones.Commands;
+using SmartRestaurant.Application.CommissionsMonthlyFees.Commands;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
