@@ -25,6 +25,7 @@ using SmartRestaurant.Application.Common.Configuration.SocialMedia;
 using IHostApplicationLifetime = Microsoft.Extensions.Hosting.IHostApplicationLifetime;
 using SmartRestaurant.Application.CurrencyExchange;
 using SmartRestaurant.API.Scheduler;
+using SmartRestaurant.API.Middlewares;
 
 namespace SmartRestaurant.API
 {
@@ -131,7 +132,7 @@ namespace SmartRestaurant.API
             });
 
             app.UseRouting();
-
+            app.UseMiddleware<AuthorizeNonFrozenFoodBusinessesMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
