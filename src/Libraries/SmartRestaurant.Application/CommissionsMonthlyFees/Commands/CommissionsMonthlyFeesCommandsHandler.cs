@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos.BillDtos;
+using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
@@ -17,8 +19,9 @@ namespace SmartRestaurant.Application.CommissionsMonthlyFees.Commands
 {
     public class CommissionsMonthlyFeesCommandHandler :
         IRequestHandler<CalculateLastMonthCommissionFeesCommand, Created>,
-        IRequestHandler<FreezeFoodBusinessActivitiesThatHasNotPaidCommissionFeesCommand, NoContent>
-        
+        IRequestHandler<FreezeFoodBusinessActivitiesThatHasNotPaidCommissionFeesCommand, NoContent>,
+        IRequestHandler<PayFoodBusinessMonthlyCommissionFeesCommand, NoContent>
+
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -27,6 +30,36 @@ namespace SmartRestaurant.Application.CommissionsMonthlyFees.Commands
         {
             _context = context;
             _mapper = mapper;
+        }
+
+        public async Task<NoContent> Handle(PayFoodBusinessMonthlyCommissionFeesCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new PayFoodBusinessMonthlyCommissionFeesCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var monthlyCommission = await _context.MonthlyCommission
+                .FirstOrDefaultAsync(c => c.MonthlyCommissionId == Guid.Parse(request.MonthlyCommissionId))
+                .ConfigureAwait(false);
+            if (monthlyCommission.Status == CommissionStatus.Paid)
+                return default;
+
+            var foodBusinesses = await _context.FoodBusinesses
+                .FirstOrDefaultAsync(foodBusinesses => foodBusinesses.FoodBusinessId == monthlyCommission.FoodBusinessId)
+                .ConfigureAwait(false);
+            if (foodBusinesses == null)
+                throw new NotFoundException(nameof(FoodBusiness), monthlyCommission.FoodBusinessId.ToString());
+
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                foodBusinesses.IsActivityFrozen = false;
+                monthlyCommission.Status = CommissionStatus.Paid;
+                _context.FoodBusinesses.Update(foodBusinesses);
+                _context.MonthlyCommission.Update(monthlyCommission);
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                transaction.Complete();
+            }
+            return default;
         }
 
         public async Task<NoContent> Handle(FreezeFoodBusinessActivitiesThatHasNotPaidCommissionFeesCommand request, CancellationToken cancellationToken)
