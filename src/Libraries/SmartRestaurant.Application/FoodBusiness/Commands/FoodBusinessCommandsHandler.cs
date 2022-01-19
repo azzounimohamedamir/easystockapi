@@ -121,7 +121,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
                 .FirstOrDefaultAsync(foodBusinesses => foodBusinesses.FoodBusinessId == Guid.Parse(request.FoodBusinessId), cancellationToken)
                 .ConfigureAwait(false);
             if (foodBusinesses == null)
-                throw new NotFoundException(nameof(FoodBusiness), request.Id);
+                throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
 
             foodBusinesses.IsActivityFrozen = !foodBusinesses.IsActivityFrozen;
             _context.FoodBusinesses.Update(foodBusinesses);

@@ -1,12 +1,13 @@
 ﻿using System;
 using FluentValidation;
-using SmartRestaurant.Application.Common.Commands;
+using MediatR;
 using SmartRestaurant.Application.Common.Tools;
+using SmartRestaurant.Application.Common.WebResults;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace SmartRestaurant.Application.FoodBusiness.Commands
 {
-    public class ToggleFoodBusinessFreezingStatusCommand : DeleteCommand
+    public class ToggleFoodBusinessFreezingStatusCommand : IRequest<NoContent>
     {
         [SwaggerSchema(ReadOnly = true)] public string FoodBusinessId { get; set; }
 
