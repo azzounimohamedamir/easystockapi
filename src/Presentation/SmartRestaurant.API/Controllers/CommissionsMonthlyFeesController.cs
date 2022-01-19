@@ -95,5 +95,22 @@ namespace SmartRestaurant.API.Controllers
         {
             return await SendWithErrorsHandlingAsync(new FreezeFoodBusinessActivitiesThatHasNotPaidCommissionFeesCommand());
         }
+
+
+        /// <summary> PayFoodBusinessMonthlyCommissionFees() </summary>
+        /// <remarks>This endpoint allows user to pay FoodBusiness monthly commission fees. </remarks>        
+        /// <param name="id">id of the MonthlyCommission that will used to pay its bill </param>
+        /// <response code="204">Monthly commission has been successfully paid.</response>
+        /// <response code="400">The payload data sent to the backend-server in-order to pay monthly commission is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}/pay")]
+        [HttpPatch]
+        [Authorize(Roles = "SuperAdmin,SupportAgent,SalesMan")]
+        public async Task<IActionResult> PayFoodBusinessMonthlyCommissionFees([FromRoute] string id)
+        {
+            return await SendWithErrorsHandlingAsync(new PayFoodBusinessMonthlyCommissionFeesCommand { MonthlyCommissionId = id });
+        }
     }
 }
