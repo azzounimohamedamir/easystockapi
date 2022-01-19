@@ -2,6 +2,8 @@
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Tests.Configuration;
+using SmartRestaurant.Domain.Enums;
+using SmartRestaurant.Domain.ValueObjects;
 using Xunit;
 
 namespace SmartRestaurant.Application.Tests.MappingTests
@@ -80,6 +82,26 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             var foodBusiness = _mapper.Map<Domain.Entities.FoodBusiness>(foodBusinessDto);
 
             Assert.Equal("798924059", foodBusiness.PhoneNumber.Number.ToString());
+        }
+
+        [Fact]
+        public void Map_FoodBusinessDto_CommissionConfigs_to_FoodBusiness_CommissionConfigs_Valide_Test()
+        {
+            var foodBusinessDto = new FoodBusinessDto
+            {
+                CommissionConfigs = new CommissionConfigs
+                {
+                    Type = CommissionType.PerPerson,
+                    Value = 50,
+                    WhoPay = WhoPayCommission.FoodBusiness
+                }
+            };
+            var foodBusiness = _mapper.Map<Domain.Entities.FoodBusiness>(foodBusinessDto);
+
+            Assert.Equal(CommissionType.PerPerson, foodBusiness.CommissionConfigs.Type);
+            Assert.Equal(50, foodBusiness.CommissionConfigs.Value);
+            Assert.Equal(WhoPayCommission.FoodBusiness, foodBusiness.CommissionConfigs.WhoPay);
+
         }
     }
 }
