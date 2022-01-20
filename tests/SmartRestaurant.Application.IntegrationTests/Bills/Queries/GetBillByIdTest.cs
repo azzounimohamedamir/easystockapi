@@ -9,6 +9,7 @@ using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Orders.Queries;
 using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.Zones.Commands;
+using SmartRestaurant.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -106,6 +107,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Queries
             selectedBill.Tables[0].Chairs[0].Dishes[0].UnitPrice.Should().Be(order.Dishes[0].UnitPrice);
             selectedBill.Tables[0].Chairs[0].Dishes[0].Discount.Should().Be(order.Dishes[0].Discount);
             selectedBill.Tables[0].Chairs[0].Dishes[0].Quantity.Should().Be(order.Dishes[0].Quantity);
+
+            selectedBill.CommissionConfigs.Value.Should().Be(0);
+            selectedBill.CommissionConfigs.Type.Should().Be(CommissionType.PerPerson);
+            selectedBill.CommissionConfigs.WhoPay.Should().Be(WhoPayCommission.FoodBusiness);
+
         }
 
         private static async Task CreateTable(CreateZoneCommand createZoneCommand)
