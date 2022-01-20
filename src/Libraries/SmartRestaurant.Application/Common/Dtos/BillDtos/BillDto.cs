@@ -1,4 +1,5 @@
 ﻿using SmartRestaurant.Domain.Enums;
+using SmartRestaurant.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 
@@ -13,6 +14,7 @@ namespace SmartRestaurant.Application.Common.Dtos.BillDtos
         public Guid OrderId { get; set; }
         public int Number { get; set; }
         public float TotalToPay { get; set; }
+        public float TotalToPayWithoutCommissionValue { get; set; }
         public float TvaPercentage { get; set; }
         public float TvaValue { get; set; }
         public float Discount { get; set; }
@@ -20,6 +22,7 @@ namespace SmartRestaurant.Application.Common.Dtos.BillDtos
         public OrderStatuses Status { get; set; }
         public List<BillTableDto> Tables { get; set; }
         public DateTime CreatedAt { get; set; }
+        public CommissionConfigs CommissionConfigs { get; set; }
         public BillFoodBusinessDto FoodBusiness { get; set; }
         public BillFoodBusinessClientDto FoodBusinessClient { get; set; }
 
