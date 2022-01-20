@@ -46,6 +46,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<CreateFoodBusinessCommand, Domain.Entities.FoodBusiness>()
                 .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.Tags, o => o.MapFrom(p => string.Join(";", p.Tags)))
+                .ForMember(x => x.CommissionConfigs, o => o.MapFrom(p => new CommissionConfigs()))
                 .ReverseMap();
 
             CreateMap<UpdateFoodBusinessCommand, Domain.Entities.FoodBusiness>()
