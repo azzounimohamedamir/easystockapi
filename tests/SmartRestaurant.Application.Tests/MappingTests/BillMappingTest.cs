@@ -120,11 +120,17 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                     ChairNumber =  1,
                     Quantity =  1
                 }
-            }
-            }); ;
+            },            
+            });
             order.CreatedAt = DateTime.Now;
             order.FoodBusiness = CreateFoodBusiness();
             order.FoodBusinessClient = CreateFoodBusinessClient();
+            order.CommissionConfigs = new CommissionConfigs
+            {
+                Value = 20,
+                Type = CommissionType.PerPerson,
+                WhoPay = WhoPayCommission.FoodBusiness
+            };
             return order;
         }
 
@@ -179,6 +185,10 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(billDto.Tables[0].Chairs[0].Dishes[0].UnitPrice, order.Dishes[0].UnitPrice);
             Assert.Equal(billDto.Tables[0].Chairs[0].Dishes[0].Discount, order.Dishes[0].Discount);
             Assert.Equal(billDto.Tables[0].Chairs[0].Dishes[0].Quantity, order.Dishes[0].Quantity);
+
+            Assert.Equal(20, order.CommissionConfigs.Value);
+            Assert.Equal(CommissionType.PerPerson, order.CommissionConfigs.Type);
+            Assert.Equal(WhoPayCommission.FoodBusiness, order.CommissionConfigs.WhoPay);
         }
     }
 }
