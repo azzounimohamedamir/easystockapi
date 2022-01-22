@@ -26,7 +26,10 @@ namespace SmartRestaurant.API.Middlewares
 
         public async Task Invoke(HttpContext context, IApplicationDbContext _context)
         {        
-            if (IsFoodBusinessUser(context) && !IsAnonymousEndpoint(context) && !IsGetEndpoint(context))
+            if (    IsFoodBusinessUser(context) 
+                && !IsAnonymousEndpoint(context) 
+                && !IsGetEndpoint(context)
+                && !IsFoodBusinessStaffEndpoint(context))
             {
                 var foodBusinessId = context.Request.Headers["FoodBusinessId"].ToString();
                 if (string.IsNullOrWhiteSpace(foodBusinessId))
@@ -64,8 +67,8 @@ namespace SmartRestaurant.API.Middlewares
                 context.Response.ContentType = "application/json";
                 await context.Response.WriteAsync(JsonConvert.SerializeObject(new
                 {
-                    baseException.Message,
-                    baseException.Errors
+                    message = baseException.Message,
+                    errors = baseException.Errors
                 }));
             }
         }
@@ -75,6 +78,11 @@ namespace SmartRestaurant.API.Middlewares
             return context.GetEndpoint()?.Metadata?.GetMetadata<IAllowAnonymous>() is object;
         }
 
+        private bool IsFoodBusinessStaffEndpoint(HttpContext context)
+        {
+            return context.Request.Path.Value.Contains("api/foodbusinessstaff");
+        }
+        
         private bool IsGetEndpoint(HttpContext context)
         {
             return context.Request.Method == "GET";
