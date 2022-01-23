@@ -1,4 +1,4 @@
-﻿using SmartRestaurant.Application.commisiones.Commands;
+﻿using SmartRestaurant.Application.CommissionsMonthlyFees.Commands;
 using SmartRestaurant.Application.Services;
 using System;
 using System.Diagnostics;
