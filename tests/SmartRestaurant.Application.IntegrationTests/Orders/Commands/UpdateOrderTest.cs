@@ -157,6 +157,10 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             order.Dishes[0].Supplements[0].EnergeticValue.Should().Be(updateOrderCommand.Dishes[0].Supplements[0].EnergeticValue);
             order.Dishes[0].Supplements[0].Description.Should().Be(updateOrderCommand.Dishes[0].Supplements[0].Description);
             order.Dishes[0].Supplements[0].IsSelected.Should().Be(updateOrderCommand.Dishes[0].Supplements[0].IsSelected);
+
+            order.CommissionConfigs.Value.Should().Be(0);
+            order.CommissionConfigs.Type.Should().Be(CommissionType.PerPerson);
+            order.CommissionConfigs.WhoPay.Should().Be(WhoPayCommission.FoodBusiness);
         }
 
         private static async Task<Domain.Entities.FoodBusinessClient> CreateFoodBusinessClient(Domain.Entities.FoodBusiness fastFood)

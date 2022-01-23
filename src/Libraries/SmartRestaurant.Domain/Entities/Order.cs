@@ -11,6 +11,7 @@ namespace SmartRestaurant.Domain.Entities
         public Guid OrderId { get; set; } 
         public int Number { get; set; }
         public float TotalToPay { get; set; }
+        public float TotalToPayWithoutCommissionValue { get; set; }
         public float Discount { get; set; }
         public int TVA { get; set; }
         public float MoneyReceived { get; set; }
@@ -20,7 +21,8 @@ namespace SmartRestaurant.Domain.Entities
         public TakeoutDetails TakeoutDetails { get; set; }      
         public virtual List<OrderDish> Dishes { get; set; }
         public virtual List<OrderProduct> Products { get; set; }
-        public virtual List<OrderOccupiedTable> OccupiedTables { get; set; }        
+        public virtual List<OrderOccupiedTable> OccupiedTables { get; set; }
+        public CommissionConfigs CommissionConfigs { get; set; }
         public Guid FoodBusinessId { get; set; }
         public virtual FoodBusiness FoodBusiness { get; set; }
         public Guid? FoodBusinessClientId { get; set; }

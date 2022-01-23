@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Common.Dtos.BillDtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
+using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Application.Orders.Commands
 {
@@ -57,7 +59,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 
             ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(order, CreateAction);
             CalculateAndSetOrderEnergeticValues(order);
-            CalculateAndSetOrderTotalPrice(order);
+            CalculateAndSetOrderTotalPrice(order, foodBusiness);
             CalculateAndSetOrderNumber(order, foodBusiness);
             _context.Orders.Add(order);
            await _context.SaveChangesAsync(cancellationToken);
@@ -88,6 +90,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                 .ThenInclude(o => o.Supplements)
                 .Include(o => o.Products)
                 .Include(o => o.OccupiedTables)
+                .Include(o => o.FoodBusiness)
                 .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
                 .ConfigureAwait(false);
             if (order == null)
@@ -105,7 +108,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(releasedTables);
             ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(order, UpdateAction);
             CalculateAndSetOrderEnergeticValues(order);
-            CalculateAndSetOrderTotalPrice(order);
+            CalculateAndSetOrderTotalPrice(order, order.FoodBusiness);
             _context.Orders.Update(order);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
@@ -176,7 +179,39 @@ namespace SmartRestaurant.Application.Orders.Commands
         }
 
 
-        private  void CalculateAndSetOrderTotalPrice(Order order)
+        private  void CalculateAndSetOrderTotalPrice(Order order, Domain.Entities.FoodBusiness foodBusiness)
+        {
+            order.CommissionConfigs = foodBusiness.CommissionConfigs == null ? new CommissionConfigs() : foodBusiness.CommissionConfigs;
+            if (foodBusiness.CommissionConfigs == null || foodBusiness.CommissionConfigs.WhoPay == WhoPayCommission.FoodBusiness)
+            {
+                CalculateTotalPrice(order);
+            }
+            else
+            {
+                CalculateTotalPrice(order);
+                AddCommissionValueToTotalPrice(order, foodBusiness);
+            }
+        }
+
+        private void AddCommissionValueToTotalPrice(Order order, Domain.Entities.FoodBusiness foodBusiness)
+        {
+            if (order.Type == OrderTypes.DineIn && foodBusiness.CommissionConfigs.Type == CommissionType.PerPerson)
+            {
+                var personsCount = 0;
+                var billDto = _mapper.Map<BillDto>(order);
+                foreach (var table in billDto.Tables)
+                {
+                    personsCount += table.Chairs.Count;
+                }
+                order.TotalToPay += (foodBusiness.CommissionConfigs.Value * personsCount);
+            }
+            else
+            {
+                order.TotalToPay += foodBusiness.CommissionConfigs.Value;
+            }
+        }
+
+        private void CalculateTotalPrice(Order order)
         {
             float totalToPay = 0;
 
@@ -204,7 +239,9 @@ namespace SmartRestaurant.Application.Orders.Commands
                 totalToPay += (product.Quantity * product.UnitPrice);
             }
 
-            order.TotalToPay = totalToPay;            
+            order.TotalToPay = totalToPay;
+            order.TotalToPayWithoutCommissionValue = totalToPay;
+
         }
 
         private void CalculateAndSetOrderEnergeticValues(Order order)
