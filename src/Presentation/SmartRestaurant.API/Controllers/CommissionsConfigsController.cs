@@ -54,7 +54,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
-        [HttpPut]
+        [HttpPatch]
         [Authorize(Roles = "SuperAdmin,SupportAgent,SalesMan")]
         public async Task<IActionResult> SetFoodBusinessCommissionConfigs([FromRoute] string id, SetFoodBusinessCommissionCommand command)
         {
