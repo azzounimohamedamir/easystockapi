@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -18,7 +19,8 @@ using SmartRestaurant.Domain.Identity.Entities;
 namespace SmartRestaurant.Application.Orders.Queries
 {
     public class OrdersQueriesHandler : IRequestHandler<GetOrderByIdQuery, OrderDto>,
-        IRequestHandler<GetOrdersListQuery, PagedListDto<OrderDto>>
+        IRequestHandler<GetOrdersListQuery, PagedListDto<OrderDto>>,
+        IRequestHandler<GetLastOrderByTableIDQuery, OrderDto>
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IApplicationDbContext _context;
@@ -84,6 +86,39 @@ namespace SmartRestaurant.Application.Orders.Queries
                 order.CreatedBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(queryData.Find(o => o.OrderId == order.OrderId).CreatedBy));
             }
             return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
+        }
+
+        public async Task<OrderDto> Handle(GetLastOrderByTableIDQuery request, CancellationToken cancellationToken)
+        {
+            var validator = new GetLastOrderByTableIDValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var orders = await _context.Orders.AsNoTracking()
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Specifications)
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Ingredients)
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Supplements)
+                .Include(o => o.Products)
+                .Include(o => o.OccupiedTables)
+                .Where(o => o.OccupiedTables.Select(t => t.TableId).Contains(request.TableId))
+                .OrderByDescending(o=>o.CreatedAt)
+                .Take(1)
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false);
+            if (orders == null || orders.Count==0)
+                throw new NotFoundException(nameof(Order), request.TableId);
+
+            var foodBusiness = await _context.FoodBusinesses.FindAsync(orders[0].FoodBusinessId);
+            if (foodBusiness == null)
+                throw new NotFoundException(nameof(FoodBusiness), request.TableId);
+
+            var orderDto = _mapper.Map<OrderDto>(orders[0]);
+            orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);
+            orderDto.CreatedBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(orders[0].CreatedBy));
+            return orderDto;
         }
     }
 }
