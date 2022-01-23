@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.commisiones.Commands;
 using SmartRestaurant.Application.Common.Dtos.BillDtos;
-using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
@@ -18,8 +16,9 @@ using SmartRestaurant.Domain.Enums;
 namespace SmartRestaurant.Application.CommissionsMonthlyFees.Commands
 {
     public class CommissionsMonthlyFeesCommandHandler :
-        IRequestHandler<CalculateLastMonthCommissionFeesCommand, Created>
-
+        IRequestHandler<CalculateLastMonthCommissionFeesCommand, Created>,
+        IRequestHandler<FreezeFoodBusinessActivitiesThatHasNotPaidCommissionFeesCommand, NoContent>
+        
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -30,9 +29,9 @@ namespace SmartRestaurant.Application.CommissionsMonthlyFees.Commands
             _mapper = mapper;
         }
 
-        public async Task<Created> Handle(CalculateLastMonthCommissionFeesCommand request, CancellationToken cancellationToken)
+        public async Task<NoContent> Handle(FreezeFoodBusinessActivitiesThatHasNotPaidCommissionFeesCommand request, CancellationToken cancellationToken)
         {
-            var foodBusinessesIds = await GetListOfFoodBusinessesIds().ConfigureAwait(false);
+            var foodBusinessesIds = await GetListOfNonFrozenFoodBusinessesIds().ConfigureAwait(false);
 
             foreach (var foodBusinessId in foodBusinessesIds)
             {
@@ -40,7 +39,28 @@ namespace SmartRestaurant.Application.CommissionsMonthlyFees.Commands
                 if (foodBusiness == null || foodBusiness.CommissionConfigs == null)
                     continue;
 
-                if (await isMonthlyCommissionAlreadyCalculated(foodBusinessId).ConfigureAwait(false) == true)
+                var lastMonthlyCommission = await GetLastMonthlyCommission(foodBusinessId).ConfigureAwait(false);
+                if (lastMonthlyCommission.Status == CommissionStatus.Paid)
+                    continue;
+
+                foodBusiness.IsActivityFrozen = true;
+                _context.FoodBusinesses.Update(foodBusiness);
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            }
+            return default;
+        }
+
+        public async Task<Created> Handle(CalculateLastMonthCommissionFeesCommand request, CancellationToken cancellationToken)
+        {
+            var foodBusinessesIds = await GetListOfNonFrozenFoodBusinessesIds().ConfigureAwait(false);
+
+            foreach (var foodBusinessId in foodBusinessesIds)
+            {
+                var foodBusiness = await GetFoodBusinessById(foodBusinessId).ConfigureAwait(false);
+                if (foodBusiness == null || foodBusiness.CommissionConfigs == null)
+                    continue;
+
+                if (await IsMonthlyCommissionAlreadyCalculated(foodBusinessId).ConfigureAwait(false) == true)
                     continue;
 
                 var monthlyCommission = _mapper.Map<MonthlyCommission>(foodBusiness);
@@ -53,6 +73,15 @@ namespace SmartRestaurant.Application.CommissionsMonthlyFees.Commands
             return default;
         }
 
+        private async Task<MonthlyCommission> GetLastMonthlyCommission(Guid foodBusinessId)
+        {
+            return await _context.MonthlyCommission.AsNoTracking()
+                .Where(c => c.FoodBusinessId == foodBusinessId)
+                .OrderBy(c => c.Month)
+                .LastOrDefaultAsync()
+                .ConfigureAwait(false);
+        }
+
         private async Task<Domain.Entities.FoodBusiness> GetFoodBusinessById(Guid foodBusinessId)
         {
             return await _context.FoodBusinesses.AsNoTracking()
@@ -60,7 +89,7 @@ namespace SmartRestaurant.Application.CommissionsMonthlyFees.Commands
                  .ConfigureAwait(false);
         }
 
-        private async Task<List<Guid>> GetListOfFoodBusinessesIds()
+        private async Task<List<Guid>> GetListOfNonFrozenFoodBusinessesIds()
         {
             return await _context.FoodBusinesses
                 .Where(foodBusinesses => foodBusinesses.IsActivityFrozen == false)
@@ -69,7 +98,7 @@ namespace SmartRestaurant.Application.CommissionsMonthlyFees.Commands
                 .ConfigureAwait(false);
         }
 
-        private async Task<bool> isMonthlyCommissionAlreadyCalculated(Guid foodBusinessId)
+        private async Task<bool> IsMonthlyCommissionAlreadyCalculated(Guid foodBusinessId)
         {
             var lastMonth = DateTimeHelpers.GetLastMonth(DateTime.Now);
             var monthlyCommission = await _context.MonthlyCommission.AsNoTracking()
