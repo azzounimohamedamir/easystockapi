@@ -17,7 +17,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         IRequestHandler<CreateFoodBusinessCommand, Created>,
         IRequestHandler<UpdateFourDigitCodeCommand, NoContent>,
         IRequestHandler<UpdateFoodBusinessCommand, NoContent>,
-        IRequestHandler<DeleteFoodBusinessCommand, NoContent>
+        IRequestHandler<DeleteFoodBusinessCommand, NoContent>,
+        IRequestHandler<ToggleFoodBusinessFreezingStatusCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -106,6 +107,24 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             if (!result.IsValid) throw new ValidationException(result);
             entity.FourDigitCode = request.FourDigitCode;
             _context.FoodBusinesses.Update(entity);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+        public async Task<NoContent> Handle(ToggleFoodBusinessFreezingStatusCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new ToggleFoodBusinessFreezingStatusCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var foodBusinesses = await _context.FoodBusinesses.AsNoTracking()
+                .FirstOrDefaultAsync(foodBusinesses => foodBusinesses.FoodBusinessId == Guid.Parse(request.FoodBusinessId), cancellationToken)
+                .ConfigureAwait(false);
+            if (foodBusinesses == null)
+                throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
+
+            foodBusinesses.IsActivityFrozen = !foodBusinesses.IsActivityFrozen;
+            _context.FoodBusinesses.Update(foodBusinesses);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }

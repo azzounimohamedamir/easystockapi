@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Domain.Enums;
+using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
@@ -39,6 +40,8 @@ namespace SmartRestaurant.Application.Common.Dtos
         public int menusCount { get; set; }
         public int FourDigitCode { get; set; }
         public Currencies DefaultCurrency { get; set; }
+        public CommissionConfigs CommissionConfigs { get; set; }
+        public bool IsActivityFrozen { get; set; }
         public string Logo { get; set; }
     }
 }
