@@ -29,7 +29,9 @@ namespace SmartRestaurant.API.Middlewares
             if (    IsFoodBusinessUser(context) 
                 && !IsAnonymousEndpoint(context) 
                 && !IsGetEndpoint(context)
-                && !IsFoodBusinessStaffEndpoint(context))
+                && !IsFoodBusinessStaffEndpoint(context)
+                && !IsFoodBusinessEndpoint(context)
+                )
             {
                 var foodBusinessId = context.Request.Headers["FoodBusinessId"].ToString();
                 if (string.IsNullOrWhiteSpace(foodBusinessId))
@@ -82,7 +84,12 @@ namespace SmartRestaurant.API.Middlewares
         {
             return context.Request.Path.Value.Contains("api/foodbusinessstaff");
         }
-        
+
+        private bool IsFoodBusinessEndpoint(HttpContext context)
+        {
+            return context.Request.Path.Value.Contains("api/foodbusiness");
+        }
+              
         private bool IsGetEndpoint(HttpContext context)
         {
             return context.Request.Method == "GET";
