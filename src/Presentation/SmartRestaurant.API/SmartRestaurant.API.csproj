@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web" ToolsVersion="Current">
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<GenerateProgramFile>false</GenerateProgramFile>
+		<FileUpgradeFlags>
+		</FileUpgradeFlags>
+		<UpgradeBackupLocation>
+		</UpgradeBackupLocation>
+		<OldToolsVersion>2.0</OldToolsVersion>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>1591</NoWarn>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="9.0.0" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.0" />
+		<PackageReference Include="FluentValidation" Version="8.6.2" />
+		<PackageReference Include="Microsoft.OpenApi" Version="1.2.3" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.1.5" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
+		<PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="3.1.1" />				
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />		
+		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.1.4" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Libraries\SmartRestaurant.Application\SmartRestaurant.Application.csproj" />
+		<ProjectReference Include="..\..\Libraries\SmartRestaurant.Domain\SmartRestaurant.Domain.csproj" />
+		<ProjectReference Include="..\..\Libraries\SmartRestaurant.Infrastructure.Identity\SmartRestaurant.Infrastructure.Identity.csproj" />
+		<ProjectReference Include="..\..\Libraries\SmartRestaurant.Infrastructure\SmartRestaurant.Infrastructure.csproj" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,52 @@
+  parameters:
+    WebProjectName: 'src/Presentation/SmartRestaurant.API/'
+    TestProjectFolder: 'tests'
+  
+  jobs:
+  - job: Build_the_API
+    steps:
+      - script: |
+         cp devops/$(Agent.Name).json ${{ parameters.WebProjectName }}/appsettings.json
+         cd ${{ parameters.WebProjectName }}
+         dotnet clean SmartRestaurant.API.csproj
+         dotnet restore SmartRestaurant.API.csproj
+        displayName: Restore Common Packages
+      - script: |
+         cp devops/$(Agent.Name).json src/Libraries/SmartRestaurant.Application/appsettings.json
+         cp devops/$(Agent.Name).json src/Libraries/SmartRestaurant.Infrastructure/appsettings.json
+         cd "src/Libraries/SmartRestaurant.Application/"
+         dotnet add package DataTables.AspNetCore.Mvc
+        displayName: Add AspNetCore.Mvc Packages
+      - script: |
+          cd ${{ parameters.WebProjectName }}
+          dotnet build --no-restore SmartRestaurant.API.csproj
+        displayName: Build
+      
+      
+  - job: Database_Migration
+    steps:
+     - checkout: none
+     - script: |
+         cd ${{ parameters.WebProjectName }}
+         dotnet ef database update --context:ApplicationDbContext
+         dotnet ef database update --context:IdentityContext
+       displayName: Database Initialization
+    dependsOn: Build_the_API
+    condition: succeeded()
+
+  - job: DeployWaitingApproval
+    dependsOn: Database_Migration
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    pool: server
+    timeoutInMinutes: 4320 # job times out in 3 days
+
+    steps:
+
+    - task: ManualValidation@0
+      displayName: WaitingApproval
+      timeoutInMinutes: 1440 # task times out in 1 day
+      inputs:
+        notifyUsers: |
+          hamza.achi@eadn.dz
+        instructions: 'Please approve the deployment on Test Env'
+        onTimeout: 'reject'
