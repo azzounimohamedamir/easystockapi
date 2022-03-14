@@ -9,14 +9,14 @@ using System.Text;
 
 namespace SmartRestaurant.Application.Illness.Queries
 {
-    public class GetDeshesIllnessQuery : IRequest<IList<DisheIllnessDto>>
+    public class GetDishesIllnessQuery : IRequest<IList<DishIllnessDto>>
     {
         public List<string> disheIds { get; set; }
         public List<string> illnesIds { get; set; }
     }
-    public class GetDeshesIllnessQueryValidator : AbstractValidator<GetDeshesIllnessQuery>
+    public class GetDishesIllnessQueryValidator : AbstractValidator<GetDishesIllnessQuery>
     {
-        public GetDeshesIllnessQueryValidator()
+        public GetDishesIllnessQueryValidator()
         {
             RuleFor(x => x.disheIds)
                 .Cascade(CascadeMode.StopOnFirstFailure)

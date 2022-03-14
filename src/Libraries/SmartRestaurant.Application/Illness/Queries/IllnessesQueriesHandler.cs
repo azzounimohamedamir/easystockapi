@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace SmartRestaurant.Application.Illness.Queries
 {
     public class IllnessesQueriesHandler : IRequestHandler<GetIllnessesListQuery, PagedListDto<IllnessDto>>,
-        IRequestHandler<GetIllnessByIdQuery, IllnessDto>, IRequestHandler<GetDeshesIllnessQuery, IList<DisheIllnessDto>>
+        IRequestHandler<GetIllnessByIdQuery, IllnessDto>, IRequestHandler<GetDishesIllnessQuery, IList<DishIllnessDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -61,9 +61,9 @@ namespace SmartRestaurant.Application.Illness.Queries
             return IllnessDto;
         }
 
-        public async Task<IList<DisheIllnessDto>> Handle(GetDeshesIllnessQuery request, CancellationToken cancellationToken)
+        public async Task<IList<DishIllnessDto>> Handle(GetDishesIllnessQuery request, CancellationToken cancellationToken)
         {
-            var validator = new GetDeshesIllnessQueryValidator();
+            var validator = new GetDishesIllnessQueryValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
@@ -71,11 +71,11 @@ namespace SmartRestaurant.Application.Illness.Queries
                 .Include(xx => xx.Ingredients).ThenInclude(xx => xx.Ingredient).
                 ThenInclude(xx=>xx.IngredientIllnesses).ThenInclude(x=>x.Illness).ToList();
             if (deshes == null)
-                return new List<DisheIllnessDto>();
+                return new List<DishIllnessDto>();
             return deshes.Where(x => x.Ingredients != null && x.Ingredients.Count != 0)
             .Select(desh=> 
             {
-                return new DisheIllnessDto()
+                return new DishIllnessDto()
                 {
                     IdDishe = desh.DishId.ToString(),
                     IllnessIngredients = desh.Ingredients.Select(ingredient => 

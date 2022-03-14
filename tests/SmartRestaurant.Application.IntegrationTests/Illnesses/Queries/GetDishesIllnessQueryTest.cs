@@ -9,10 +9,10 @@ namespace SmartRestaurant.Application.IntegrationTests.Illnesses.Queries
 {
     using static Testing;
     [TestFixture]
-    public class GetDeshesIllnessQueryTest : TestBase
+    public class GetDishesIllnessQueryTest : TestBase
     {
         [Test]
-        public async Task GetDeshesIllnessQuery_whenDesheContainIngredientAndExisteIllnessWitheThisIngredient_shouldRetunTheDsheIdWithEasheIngredienWithTheCorespondingIllnes()
+        public async Task GetDishesIllnessQuery_whenDishContainIngredientAndExisteIllnessWithThisIngredient_ShouldReturnTheDishIdWithTheCorrespondingIllnessOfEachIngredient()
         {
             await RolesTestTools.CreateRoles();
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator(_authenticatedUserId);
@@ -22,7 +22,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Illnesses.Queries
             var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
             var createIllnessCommand = await IllnessTestTools.CreateIllnesswithDeffirentIngredients(createIngredientCommand.Id, createIngredientCommand2.Id);
 
-            var listDishesIllness = await SendAsync(new GetDeshesIllnessQuery { 
+            var listDishesIllness = await SendAsync(new GetDishesIllnessQuery { 
                 disheIds=new List<string>() { createDishCommand.Id.ToString() } ,
                 illnesIds = new List<string>() { createIllnessCommand.Id.ToString() },
             });

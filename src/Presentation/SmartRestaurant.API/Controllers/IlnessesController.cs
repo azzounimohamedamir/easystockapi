@@ -141,14 +141,14 @@ namespace SmartRestaurant.API.Controllers
         ///     The user account you used to log into the application, does not have the necessary privileges to
         ///     execute this request.
         /// </response>
-        [ProducesResponseType(typeof(IList<DisheIllnessDto>), 200)]
+        [ProducesResponseType(typeof(IList<DishIllnessDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [ProducesResponseType(typeof(ExceptionResponse), 401)]
         [ProducesResponseType(typeof(ExceptionResponse), 403)]
         [HttpPost]
         [Route("disheillness")]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
-        public async Task<IActionResult> GetDeshesIllness(GetDeshesIllnessQuery command)
+        public async Task<IActionResult> GetDeshesIllness(GetDishesIllnessQuery command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }

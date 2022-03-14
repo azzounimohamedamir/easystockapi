@@ -7,13 +7,13 @@ using Xunit;
 
 namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Illnesses.Queries
 {
-    public class GetDeshesIllnessQueryValidatorTest
+    public class GetDishesIllnessQueryValidatorTest
     {
-        private readonly GetDeshesIllnessQueryValidator _validator;
+        private readonly GetDishesIllnessQueryValidator _validator;
 
-        public GetDeshesIllnessQueryValidatorTest()
+        public GetDishesIllnessQueryValidatorTest()
         {
-            _validator = new GetDeshesIllnessQueryValidator();
+            _validator = new GetDishesIllnessQueryValidator();
         }
 
         [Fact]
