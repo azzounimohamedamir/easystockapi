@@ -26,6 +26,9 @@ using IHostApplicationLifetime = Microsoft.Extensions.Hosting.IHostApplicationLi
 using SmartRestaurant.Application.CurrencyExchange;
 using SmartRestaurant.API.Scheduler;
 using SmartRestaurant.API.Middlewares;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.API
 {
@@ -130,7 +133,22 @@ namespace SmartRestaurant.API
                 c.DocExpansion(DocExpansion.None);
 
             });
+            var defaultDateCulture = "fr-FR";
+            var cultureInfo = new CultureInfo(defaultDateCulture);
+            cultureInfo.NumberFormat.NumberDecimalSeparator = ",";
+            cultureInfo.NumberFormat.CurrencyDecimalSeparator = ",";
 
+            // Configure the Localization middleware
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(cultureInfo),
+                SupportedCultures = new List<CultureInfo> {
+                    cultureInfo,
+                },
+                SupportedUICultures = new List<CultureInfo> {
+                    cultureInfo,
+                }
+            });
             app.UseRouting();
             app.UseMiddleware<AuthorizeNonFrozenFoodBusinessesMiddleware>();
             app.UseAuthentication();
