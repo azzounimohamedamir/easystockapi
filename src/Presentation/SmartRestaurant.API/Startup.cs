@@ -138,7 +138,6 @@ namespace SmartRestaurant.API
             cultureInfo.NumberFormat.NumberDecimalSeparator = ",";
             cultureInfo.NumberFormat.CurrencyDecimalSeparator = ",";
 
-            // Configure the Localization middleware
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture(cultureInfo),
