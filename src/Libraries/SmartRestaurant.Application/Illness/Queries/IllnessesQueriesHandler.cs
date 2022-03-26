@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace SmartRestaurant.Application.Illness.Queries
 {
     public class IllnessesQueriesHandler : IRequestHandler<GetIllnessesListQuery, PagedListDto<IllnessDto>>,
-        IRequestHandler<GetIllnessByIdQuery, IllnessDto>
+        IRequestHandler<GetIllnessByIdQuery, IllnessDto>, IRequestHandler<GetDishesIllnessQuery, IList<DishIllnessDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -59,6 +59,37 @@ namespace SmartRestaurant.Application.Illness.Queries
             if (IllnessDto == null)
                 throw new NotFoundException(nameof(Illness), request.Id);
             return IllnessDto;
+        }
+
+        public async Task<IList<DishIllnessDto>> Handle(GetDishesIllnessQuery request, CancellationToken cancellationToken)
+        {
+            var validator = new GetDishesIllnessQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var deshes = _context.Dishes.AsNoTracking().Where(x => request.disheIds.Contains(x.DishId.ToString()))
+                .Include(xx => xx.Ingredients).ThenInclude(xx => xx.Ingredient).
+                ThenInclude(xx=>xx.IngredientIllnesses).ThenInclude(x=>x.Illness).ToList();
+            if (deshes == null)
+                return new List<DishIllnessDto>();
+            return deshes.Where(x => x.Ingredients != null && x.Ingredients.Count != 0)
+            .Select(desh=> 
+            {
+                return new DishIllnessDto()
+                {
+                    IdDishe = desh.DishId.ToString(),
+                    IllnessIngredients = desh.Ingredients.Select(ingredient => 
+                    {
+                        return new IllnessIngredientCorrespondingDto() {
+
+                            IngredientId = ingredient.Ingredient.IngredientId.ToString(),
+                            Illness = ingredient.Ingredient.IngredientIllnesses.
+                            Where(x=> request.illnesIds.Contains(x.IllnessId.ToString())).
+                            Select(xx => new IllnessDto() { IllnessId = xx.IllnessId, Name = xx.Illness.Name }).ToList()
+                        };
+                    }).ToList() 
+                };
+            }).ToList();
         }
     }
 }
