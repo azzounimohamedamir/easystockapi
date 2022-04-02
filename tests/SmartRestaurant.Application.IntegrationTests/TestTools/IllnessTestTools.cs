@@ -37,5 +37,33 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             await SendAsync(createIllnessCommand2);
             return createIllnessCommand;
         }
+        public static async Task<CreateIllnessCommand> CreateIllnesswithDeffirentIngredients(Guid ingredientId, Guid ingredientId2)
+        {
+            var createIllnessCommand = new CreateIllnessCommand
+            {
+                Name = "test",
+                Ingredients = new List<IngredientIllnessDto>()
+                {
+                    new IngredientIllnessDto()
+                    {
+                        IngredientId = ingredientId.ToString()
+                    }
+                }
+            };
+            await SendAsync(createIllnessCommand);
+            var createIllnessCommand2 = new CreateIllnessCommand
+            {
+                Name = "allergie",
+                Ingredients = new List<IngredientIllnessDto>()
+                {
+                   new IngredientIllnessDto()
+                    {
+                        IngredientId = ingredientId2.ToString()
+                    }
+                }
+            };
+            await SendAsync(createIllnessCommand2);
+            return createIllnessCommand;
+        }
     }
 }

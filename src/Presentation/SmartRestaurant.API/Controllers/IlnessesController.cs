@@ -4,6 +4,7 @@ using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Illness.Commands;
 using SmartRestaurant.Application.Illness.Queries;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
@@ -123,6 +124,33 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new DeleteIllnessCommand { Id = id });
+        }
+        /// <summary> This endpoint is used to Get the corresponding illness of ingridient in a liste of deshes </summary>
+        /// <remarks>
+        ///     1- This endpoint allows <b>FoodBusinessManager ,SupportAgent,FoodBusinessAdministrator,SuperAdmin</b> to Query the Illness of dishes ingredients.
+        ///     <br></br>
+        /// </remarks>
+        /// <param name="command">This is Json object containe the ids of deshes and the ids of illess</param>
+        /// <response code="204">The Illness has been successfully created.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to Query Illness is invalid.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
+        [ProducesResponseType(typeof(IList<DishIllnessDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [ProducesResponseType(typeof(ExceptionResponse), 401)]
+        [ProducesResponseType(typeof(ExceptionResponse), 403)]
+        [HttpPost]
+        [Route("disheillness")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
+        public async Task<IActionResult> GetDeshesIllness(GetDishesIllnessQuery command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
         }
     }
 }
