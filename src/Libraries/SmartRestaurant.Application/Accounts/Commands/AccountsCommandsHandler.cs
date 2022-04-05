@@ -21,8 +21,9 @@ namespace SmartRestaurant.Application.Accounts.Commands
     public class AccountsCommandsHandler : 
         IRequestHandler<ForgetPasswordCommand, NoContent>,
         IRequestHandler<ResetPasswordCommand, NoContent>,
-        IRequestHandler<AuthenticateViaSocialMediaCommand, LoginResponseDto>
-
+        IRequestHandler<AuthenticateViaSocialMediaCommand, LoginResponseDto>,
+        IRequestHandler<SendEmailConfirmationCommand, NoContent>
+                
     {
         private readonly IOptions<EmailTemplates> _emailTemplates;
         private readonly IOptions<SmtpConfig> _smtpConfig;
@@ -163,6 +164,12 @@ namespace SmartRestaurant.Application.Accounts.Commands
                 .Replace("{linkToConfirmEmailWebPage}", linkToConfirmEmailWebPage)
                 .Replace("{fullName}", user.FullName);
             new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, emailSubject, emailTemplate);
+        }
+
+        public Task<NoContent> Handle(SendEmailConfirmationCommand request, CancellationToken cancellationToken)
+        {
+            SendConfirmEmail(request.User, request.token);
+            return default;
         }
         #endregion
 

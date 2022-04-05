@@ -7,6 +7,7 @@ using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using SmartRestaurant.Application.Accounts.Commands;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Identity.Entities;
@@ -71,10 +72,10 @@ namespace SmartRestaurant.API.Controllers
 
         protected Task SendEmailConfirmation(ApplicationUser user, string code)
         {
-            var url = $"{Request.Scheme}://{Request.Host.Value}.{Request.PathBase}";
-            var callBack = url + "/account/confirmEmail/" + user.Id + "?token=" + HttpUtility.UrlEncode(code);
-            return _emailSender.SendEmailAsync(user.Email, "Confirm your email",
-                $"Please confirm your account by <a href='{callBack}'>clicking here</a>.");
+            Mediator.Send(new SendEmailConfirmationCommand() { User = user, token = code });
+            return Task.CompletedTask;
+
+
         }
 
         protected Task SendPassword(string email, string password)
