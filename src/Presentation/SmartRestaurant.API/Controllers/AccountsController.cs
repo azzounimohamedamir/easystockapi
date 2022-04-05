@@ -156,8 +156,8 @@ namespace SmartRestaurant.API.Controllers
             var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
             if (user == null)
                 return BadRequest("User wasn't found");
-
-            var result = await _userManager.ConfirmEmailAsync(user, token).ConfigureAwait(false);
+            var convertedTocken = Application.Common.Tools.HexaDecimalHelper.FromHexString(token);
+            var result = await _userManager.ConfirmEmailAsync(user, convertedTocken).ConfigureAwait(false);
             if (result.Succeeded)
             {
                 var item = _cache.Get<MemoryCachePasswordModel>(user.Email);
