@@ -1,0 +1,126 @@
+﻿{
+  "JwtKey": "myrandomsigningkeyforgeneratingtokens",
+  "JwtIssuer": "http://127.0.0.1:5000",
+  "JwtExpireDays": 1,
+  "SendGridUser": "Smart restaurant",
+  "SendGridKey": "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",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost,5500;Database=default_db;User ID=sr_user;Password=Solution.2022;Trusted_Connection=false;MultipleActiveResultSets=true;Connect Timeout=30",
+    "IdentityConnection": "Server=localhost,5500;Database=identity_db;User ID=sr_user;Password=Solution.2022;Trusted_Connection=false;MultipleActiveResultSets=true;Connect Timeout=30"
+  },
+  "Authentication": {
+    "Jwt": {
+      "JwtKey": "myrandomsigningkeyforgeneratingtokens",
+      "JwtIssuer": "http://localhost:5000",
+      "JwtExpireDays": 1
+    }
+  },
+  "Smtp": {
+    "Server": "pro2.mail.ovh.net",
+    "Email": "no-reply@smartrestaurant.io",
+    "Pass": "PlT20.1L!Dr",
+    "Port": "587"
+  },
+  "WebPortal": {
+    "host": "https://test.smartrestaurant.io",
+    "pathToEmployeeAcceptInvitation": "/account/{id}/accept-invitation?token={token}",
+    "pathToResetPassword": "/account/{id}/reset-password?token={token}&fullName={fullName}",
+    "pathToConfirmEmail": "/account/confirmEmail/{id}?token={token}&fullName={fullName}"
+  },
+  "EmailTemplates": {
+    "InvitationToJoinOrganization": {
+      "Ar": {
+        "Subject": "دعوة للانضمام إلى مؤسسة",
+        "Body": {
+          "Welcome": "<h1 style=\"font-size: 48px; font-weight: 400;\">Smart Restaurant</h1><h1 style=\"font-weight: 400;\">دعوة للانضمام إلى مؤسسة</h1>",
+          "Message": "<div style=\"padding:10px;\"><div>.نحن متحمسون لأنك ستضم لنا</div><div>.أولاً ، عليك إكمال عملية التسجيل. فقط اضغط على الزر أدناه</div></div>",
+          "Button": "<a href='{linkToAcceptInvitationWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">إكمال عملية التسجيل</a>",
+          "Content": "<div style=\"text-align:center; padding-left:20px;\">{welcome}<br></br>{message}<br></br>{button}"
+        }
+      },
+      "En": {
+        "Subject": "Invitation to join an organization",
+        "Body": {
+          "Welcome": "<h1 style=\"font-size: 48px; font-weight: 400;\">Smart Restaurant</h1><h1 style=\"font-weight: 400;\">Invitation to join an organization</h1>",
+          "Message": "<div style=\"padding:10px;\"><div>We are excited that you will join us.</div><div>Firstly, you have to complete the registration process. Just click the button below.</div></div>",
+          "Button": "<a href='{linkToAcceptInvitationWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">Complete Registration Process</a>",
+          "Content": "<div style=\"text-align:center; padding-left:20px;\">{welcome}<br></br>{message}<br></br>{button}"
+        }
+      },
+      "Fr": {
+        "Subject": "Invitation à rejoindre une organisation",
+        "Body": {
+          "Welcome": "<h1 style=\"font-size: 48px; font-weight: 400;\">Smart Restaurant</h1><h1 style=\"font-weight: 400;\">Invitation à rejoindre une organisation</h1>",
+          "Message": "<div style=\"padding:10px;\"><div>Nous sommes ravis que vous nous rejoigniez.</div><div>Premièrement, vous devez compléter le processus d'enregistrement. Il suffit de cliquer sur le bouton ci-dessous.</div></div>",
+          "Button": "<a href='{linkToAcceptInvitationWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">Complétez le processus d'enregistrement</a>",
+          "Content": "<div style=\"text-align:center; padding-left:20px;\">{welcome}<br></br>{message}<br></br>{button}"
+        }
+      }
+    },
+    "ResetPassword": {
+      "Ar": {
+        "Subject": "إعادة تعيين كلمة مرور الحساب",
+        "Body": {
+          "Welcome": "<h1 style=\"font-size: 48px; font-weight: 400;\">Smart Restaurant</h1> <h1 style=\"font-weight: 400;\">!إعادة تعيين كلمة المرور</h1>",
+          "Message": "<div style=\"padding:10px;\"><div><strong>{fullName}</strong> مرحبا</div><br><div>.لقد تلقينا طلبًا لإعادة تعيين كلمة المرور الخاصة بك</div><div>.لإعادة تعيين كلمة المرور الخاصة بك ، فقط اضغط على الزر أدناه</div></div>",
+          "Button": "<a href='{linkToResetPasswordWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">إعادة تعيين كلمة المرور</a>",
+          "Content": "<div style=\"text-align:center; padding-left:20px;\">{welcome}<br></br>{message}<br></br>{button}"
+        }
+      },
+      "En": {
+        "Subject": "Reset account password",
+        "Body": {
+          "Welcome": "<h1 style=\"font-size: 48px; font-weight: 400;\">Smart Restaurant</h1> <h1 style=\"font-weight: 400;\">Reset Password!</h1>",
+          "Message": "<div style=\"padding:10px;\"><div>Hi <strong>{fullName}</strong></div><br><div >We have received a request to reset your password.</div><div > To reset your password, just press the button below.</div></div>",
+          "Button": "<a href='{linkToResetPasswordWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">Reset Password</a>",
+          "Content": "<div style=\"text-align:center; padding-left:20px;\">{welcome}<br></br>{message}<br></br>{button}"
+        }
+      },
+      "Fr": {
+        "Subject": "Réinitialiser le mot de passe du compte",
+        "Body": {
+          "Welcome": "<h1 style=\"font-size: 48px; font-weight: 400;\">Smart Restaurant</h1> <h1 style=\"font-weight: 400;\">Réinitialiser Le Mot De Passe!</h1>",
+          "Message": "<div style=\"padding:10px;\"><div>Bonjour <strong>{fullName}</strong></div><br><div >Nous avons reçu une demande de réinitialisation de votre mot de passe.</div><div >Pour réinitialiser votre mot de passe, il suffit de cliquer sur le bouton ci-dessous.</div></div>",
+          "Button": "<a href='{linkToResetPasswordWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">Réinitialiser Le Mot De Passe</a>",
+          "Content": "<div style=\"text-align:center; padding-left:20px;\">{welcome}<br></br>{message}<br></br>{button}"
+        }
+      }
+    },
+    "ConfirmEmail": {
+      "Ar": {
+        "Subject": "تأكيد عنوان البريد الإلكتروني",
+        "Body": {
+          "Welcome": "<h1 style=\"font-size: 48px; font-weight: 400;\">Smart Restaurant</h1> <h1 style=\"font-weight: 400;\">!تأكيد عنوان البريد الإلكتروني</h1>",
+          "Message": "<div style=\"padding:10px;\"><div><strong>{fullName}</strong> مرحبا</div><br><div>.تم إنشاء حسابك بنجاح</div><div>.من فضلك ، اضغط على الزر أدناه لتأكيد بريدك الإلكتروني</div></div>",
+          "Button": "<a href='{linkToConfirmEmailWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">قم بتأكيد بريدك الإلكتروني</a>",
+          "Content": "<div style=\"text-align:center; padding-left:20px;\">{welcome}<br></br>{message}<br></br>{button}"
+        }
+      },
+      "En": {
+        "Subject": "Confirm email address",
+        "Body": {
+          "Welcome": "<h1 style=\"font-size: 48px; font-weight: 400;\">Smart Restaurant</h1> <h1 style=\"font-weight: 400;\">Confirm Email Address!</h1>",
+          "Message": "<div style=\"padding:10px;\"><div>Hi <strong>{fullName}</strong></div><br><div >Your account has been successfully created.</div><div >Please, press the button below to confirm your email address.</div></div>",
+          "Button": "<a href='{linkToConfirmEmailWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">Confirm Your Email</a>",
+          "Content": "<div style=\"text-align:center; padding-left:20px;\">{welcome}<br></br>{message}<br></br>{button}"
+        }
+      },
+      "Fr": {
+        "Subject": "Confirmez l'adresse e-mail",
+        "Body": {
+          "Welcome": "<h1 style=\"font-size: 48px; font-weight: 400;\">Smart Restaurant</h1> <h1 style=\"font-weight: 400;\">Confirmez l'Adresse E-Mail!</h1>",
+          "Message": "<div style=\"padding:10px;\"><div>Bonjour <strong>{fullName}</strong></div><br><div >Votre compte a été créé avec succès.</div><div >Veuillez cliquer sur le bouton ci-dessous pour confirmer votre adresse électronique.</div></div>",
+          "Button": "<a href='{linkToConfirmEmailWebPage}' style=\"font-size: 20px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; color: #FFBF00; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFBF00; display: inline-block;\" target=\"_blank\">Confirmez Votre Adresse Electronique</a>",
+          "Content": "<div style=\"text-align:center; padding-left:20px;\">{welcome}<br></br>{message}<br></br>{button}"
+        }
+      }
+    }
+  },
+  "DefaultCulture": "fr-FR",
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
