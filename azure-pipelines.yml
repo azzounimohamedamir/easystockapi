@@ -60,7 +60,7 @@ stages:
 
 - stage: Deploy_To_Prod_Env
   dependsOn: Build_On_Prod_Evn
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   pool: 
     name: prod-SmartRestaurant-pool
     workspace:
