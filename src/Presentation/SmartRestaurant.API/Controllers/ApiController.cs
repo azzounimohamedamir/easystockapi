@@ -59,29 +59,13 @@ namespace SmartRestaurant.API.Controllers
             }
         }
 
-        public IActionResult SendWithIdentityErrorsHandlingAsync<TRequest>(TRequest result)
-        {
-            var errors = new List<string>();
-            var validationFailures = (result as ValidationResult)?.Errors;
-            if (validationFailures != null) errors.AddRange(validationFailures.Select(error => error.ErrorMessage));
-            return BadRequest(new Dictionary<string, string[]>
-            {
-                {"ErrorMessages", errors.ToArray()}
-            });
-        }
 
         protected Task SendEmailConfirmation(ApplicationUser user, string code)
         {
             Mediator.Send(new SendEmailConfirmationCommand() { User = user, token = code });
             return Task.CompletedTask;
 
-
         }
 
-        protected Task SendPassword(string email, string password)
-        {
-            return _emailSender.SendEmailAsync(email, "Password",
-                $"Please use this Password: {password} to sign in to your account");
-        }
     }
 }

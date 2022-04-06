@@ -151,24 +151,9 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("/api/accounts/confirmEmail/{userId}")]
         [HttpGet]
-        public async Task<IActionResult> ConfirmEmail([FromRoute] string userId, string token)
+        public async Task<IActionResult> ConfirmEmail([FromRoute] string userId, string token, string fullName)
         {
-            var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
-            if (user == null)
-                return BadRequest("User wasn't found");
-            var convertedTocken = Application.Common.Tools.HexaDecimalHelper.FromHexString(token);
-            var result = await _userManager.ConfirmEmailAsync(user, convertedTocken).ConfigureAwait(false);
-            if (result.Succeeded)
-            {
-                var item = _cache.Get<MemoryCachePasswordModel>(user.Email);
-                if (item != null)
-                {
-                    await SendPassword(item.Email, item.Password).ConfigureAwait(false);
-                    _cache.Remove(item);
-                }
-            }
-
-            return SendWithIdentityErrorsHandlingAsync(result);
+            return await SendWithErrorsHandlingAsync(new ConfirmEmailCommad() {UserId= userId,Token=token,FullName=fullName });
         }
     }
 }

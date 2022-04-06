@@ -1,4 +1,4 @@
-﻿namespace SmartRestaurant.API.Models.UserModels
+﻿namespace SmartRestaurant.Application.Accounts.Commands
 {
     public class MemoryCachePasswordModel
     {
