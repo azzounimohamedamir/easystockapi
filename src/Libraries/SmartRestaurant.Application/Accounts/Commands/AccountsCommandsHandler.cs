@@ -23,6 +23,7 @@ namespace SmartRestaurant.Application.Accounts.Commands
         IRequestHandler<ForgetPasswordCommand, NoContent>,
         IRequestHandler<ResetPasswordCommand, NoContent>,
         IRequestHandler<AuthenticateViaSocialMediaCommand, LoginResponseDto>,
+        IRequestHandler<SendEmailConfirmationCommand, NoContent>,
         IRequestHandler<ConfirmEmailCommad, NoContent>
     {
         private readonly IOptions<EmailTemplates> _emailTemplates;
