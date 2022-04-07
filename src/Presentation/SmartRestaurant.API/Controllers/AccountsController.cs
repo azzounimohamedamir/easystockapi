@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using SmartRestaurant.API.Helpers;
 using SmartRestaurant.API.Models.UserModels;
@@ -23,7 +22,6 @@ namespace SmartRestaurant.API.Controllers
     [SwaggerTag("List of actions that can be applied on user account.")]
     public class AccountsController : ApiController
     {
-        private readonly IMemoryCache _cache;
         private readonly IConfiguration _configuration;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -31,12 +29,11 @@ namespace SmartRestaurant.API.Controllers
         public AccountsController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IConfiguration configuration, IMemoryCache cache, IEmailSender emailSender) : base(emailSender)
+            IConfiguration configuration, IEmailSender emailSender) : base(emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
-            _cache = cache;
         }
 
         [AllowAnonymous]
@@ -151,24 +148,9 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("/api/accounts/confirmEmail/{userId}")]
         [HttpGet]
-        public async Task<IActionResult> ConfirmEmail([FromRoute] string userId, string token)
+        public async Task<IActionResult> ConfirmEmail([FromRoute] string userId, string token, string fullName)
         {
-            var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
-            if (user == null)
-                return BadRequest("User wasn't found");
-            var convertedTocken = Application.Common.Tools.HexaDecimalHelper.FromHexString(token);
-            var result = await _userManager.ConfirmEmailAsync(user, convertedTocken).ConfigureAwait(false);
-            if (result.Succeeded)
-            {
-                var item = _cache.Get<MemoryCachePasswordModel>(user.Email);
-                if (item != null)
-                {
-                    await SendPassword(item.Email, item.Password).ConfigureAwait(false);
-                    _cache.Remove(item);
-                }
-            }
-
-            return SendWithIdentityErrorsHandlingAsync(result);
+            return await SendWithErrorsHandlingAsync(new ConfirmEmailCommad() {UserId= userId,Token=token,FullName=fullName });
         }
     }
 }
