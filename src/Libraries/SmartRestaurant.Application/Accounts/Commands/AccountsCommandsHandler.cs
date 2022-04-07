@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using FluentValidation.Results;
 using SmartRestaurant.Application.Common.Configuration;
 using SmartRestaurant.Application.Common.Configuration.SocialMedia;
 using SmartRestaurant.Application.Common.Dtos;
@@ -16,6 +17,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Accounts.Commands
 {
@@ -188,14 +190,9 @@ namespace SmartRestaurant.Application.Accounts.Commands
                 throw new NotFoundException("User",HexaDecimalHelper.FromHexString(request.FullName));
             var convertedTocken = Application.Common.Tools.HexaDecimalHelper.FromHexString(request.Token);
             var Confirmresult = await _userManager.ConfirmEmailAsync(user, convertedTocken).ConfigureAwait(false);
-            if (Confirmresult.Succeeded)
+            if (!Confirmresult.Succeeded && Confirmresult.Errors.Any())
             {
-                var item = _cache.Get<MemoryCachePasswordModel>(user.Email);
-                if (item != null)
-                {
-                    await SendPassword(item.Email, item.Password).ConfigureAwait(false);
-                    _cache.Remove(item);
-                }
+                throw new ValidationException(new ValidationResult(Confirmresult.Errors.Select(x => new ValidationFailure(x.Code, x.Description))));
             }
             return default;
         }
