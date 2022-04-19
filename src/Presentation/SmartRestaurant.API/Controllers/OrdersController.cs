@@ -28,7 +28,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Authorize(Roles = "FoodBusinessManager,Cashier")]
+        [Authorize(Roles = "FoodBusinessManager,Cashier,Diner")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateOrderCommand command)
         {
