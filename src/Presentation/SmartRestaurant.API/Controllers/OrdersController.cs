@@ -23,7 +23,7 @@ namespace SmartRestaurant.API.Controllers
         ///     <b>Note 02:</b> This is the enum used to set Takeout Type: <b>  enum TakeoutType { Instant, Delayed } </b><br></br>
         /// </remarks>
         /// <param name="command">This is the payload object used to create a new Order</param>
-        /// <response code="204">The order has been successfully created.</response>
+        /// <response code="200">The order has been successfully created.</response>
         /// <response code="400">The payload data sent to the backend-server in order to create a new order is invalid.</response>
         /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
