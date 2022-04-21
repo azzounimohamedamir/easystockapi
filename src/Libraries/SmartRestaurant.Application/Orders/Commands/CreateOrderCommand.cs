@@ -13,7 +13,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SmartRestaurant.Application.Orders.Commands
 {
-    public class CreateOrderCommand : IRequest<Guid>
+    public class CreateOrderCommand : IRequest<OrderIdDto>
     {
         public CreateOrderCommand()
         {
