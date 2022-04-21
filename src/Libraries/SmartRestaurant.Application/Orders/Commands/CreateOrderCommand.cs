@@ -1,17 +1,28 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using FluentValidation;
+using MediatR;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.Validators;
 using SmartRestaurant.Domain.Enums;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SmartRestaurant.Application.Orders.Commands
 {
-    public class CreateOrderCommand : CreateCommand
+    public class CreateOrderCommand : IRequest<OrderIdDto>
     {
+        public CreateOrderCommand()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        [SwaggerSchema(ReadOnly = true)]
+        [JsonIgnore]
+        public Guid Id { get; set; }
         public OrderTypes Type { get; set; }
         public TakeoutDetailsDto TakeoutDetails { get; set; }
         public List<OrderDishCommandDto> Dishes { get; set; }

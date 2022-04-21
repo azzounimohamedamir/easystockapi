@@ -8,6 +8,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos.BillDtos;
+using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
@@ -18,7 +19,7 @@ using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Application.Orders.Commands
 {
-    public class OrdersCommandsHandlers : IRequestHandler<CreateOrderCommand, Created>,
+    public class OrdersCommandsHandlers : IRequestHandler<CreateOrderCommand, OrderIdDto>,
         IRequestHandler<UpdateOrderCommand, NoContent>,
         IRequestHandler<UpdateOrderStatusCommand, NoContent>
 
@@ -36,7 +37,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             _userService = userService;
         }
 
-        public async Task<Created> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+        public async Task<OrderIdDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             var validator = new CreateOrderCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
@@ -62,9 +63,9 @@ namespace SmartRestaurant.Application.Orders.Commands
             CalculateAndSetOrderTotalPrice(order, foodBusiness);
             CalculateAndSetOrderNumber(order, foodBusiness);
             _context.Orders.Add(order);
-           await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
                      
-            return default;
+            return new OrderIdDto() { OrderId=order.OrderId.ToString() };
         }
 
       
