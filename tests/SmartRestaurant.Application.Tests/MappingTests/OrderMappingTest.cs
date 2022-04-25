@@ -559,7 +559,97 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(orderDto.Dishes[0].Supplements[0].Description, order.Dishes[0].Supplements[0].Description);
             Assert.Equal(orderDto.Dishes[0].Supplements[0].IsSelected, order.Dishes[0].Supplements[0].IsSelected);
         }
+        [Fact]
+        public void Map_AddSeatOrderToTableOrderCommand_To_Order_Valide_Test()
+        {
+            var addSeatOrderCommand = new AddSeatOrderToTableOrderCommand
+            {
+               
+                Dishes = new List<OrderDishCommandDto>() {
+                new OrderDishCommandDto {
+                DishId =  "0e0b853c-9518-499f-b5ca-07afdd5f1e6f",
+                Name =  "Rice",
+                InitialPrice =  200,
+                EnergeticValue =  0,
+                Description =  "",
+                EstimatedPreparationTime =  15,
+                TableNumber =  4,
+                ChairNumber =  1,
+                Quantity =  2,
+                Specifications = new List<OrderDishSpecificationDto>() { CheckBox, ComboBox },
+                Ingredients =  new List<OrderDishIngredientDto>() { Ingredient },
+                Supplements = new List<OrderDishSupplementDto>() { Supplement },
+                }
+            },
+            Products = new List<OrderProductDto>() {
+            new OrderProductDto {
+                ProductId =  "7d0bf292-b9bf-404c-a50f-99c9631b3e18",
+                Name =  "Hamooud 1L",
+                UnitPrice =  120,
+                EnergeticValue =  200,
+                Description =  null,
+                TableNumber =  4,
+                ChairNumber =  1,
+                Quantity =  1
+                }
+            }
+            };
+            var order = _mapper.Map<Order>(addSeatOrderCommand);
 
+            Assert.Equal(order.Products[0].Name, addSeatOrderCommand.Products[0].Name);
+            Assert.Equal(order.Products[0].UnitPrice, addSeatOrderCommand.Products[0].UnitPrice);
+            Assert.Equal(order.Products[0].EnergeticValue, addSeatOrderCommand.Products[0].EnergeticValue);
+            Assert.Equal(order.Products[0].Description, addSeatOrderCommand.Products[0].Description);
+            Assert.Equal(order.Products[0].TableNumber, addSeatOrderCommand.Products[0].TableNumber);
+            Assert.Equal(order.Products[0].ChairNumber, addSeatOrderCommand.Products[0].ChairNumber);
+            Assert.Equal(order.Products[0].Quantity, addSeatOrderCommand.Products[0].Quantity);
+
+            Assert.Equal(order.Dishes[0].Name, addSeatOrderCommand.Dishes[0].Name);
+            Assert.Equal(order.Dishes[0].InitialPrice, addSeatOrderCommand.Dishes[0].InitialPrice);
+            Assert.Equal(order.Dishes[0].EnergeticValue, addSeatOrderCommand.Dishes[0].EnergeticValue);
+            Assert.Equal(order.Dishes[0].Description, addSeatOrderCommand.Dishes[0].Description);
+            Assert.Equal(order.Dishes[0].EstimatedPreparationTime, addSeatOrderCommand.Dishes[0].EstimatedPreparationTime);
+            Assert.Equal(order.Dishes[0].TableNumber, addSeatOrderCommand.Dishes[0].TableNumber);
+            Assert.Equal(order.Dishes[0].ChairNumber, addSeatOrderCommand.Dishes[0].ChairNumber);
+            Assert.Equal(order.Dishes[0].Quantity, addSeatOrderCommand.Dishes[0].Quantity);
+
+            Assert.Equal(order.Dishes[0].Specifications[0].Title, addSeatOrderCommand.Dishes[0].Specifications[0].Title);
+            Assert.Equal(order.Dishes[0].Specifications[0].ContentType, addSeatOrderCommand.Dishes[0].Specifications[0].ContentType);
+            Assert.Null(order.Dishes[0].Specifications[0].ComboBoxContent);
+            Assert.Equal(order.Dishes[0].Specifications[0].ComboBoxSelection, addSeatOrderCommand.Dishes[0].Specifications[0].ComboBoxSelection);
+            Assert.Equal(order.Dishes[0].Specifications[0].CheckBoxContent, addSeatOrderCommand.Dishes[0].Specifications[0].CheckBoxContent);
+            Assert.Equal(order.Dishes[0].Specifications[0].CheckBoxSelection, addSeatOrderCommand.Dishes[0].Specifications[0].CheckBoxSelection);
+            Assert.Equal(order.Dishes[0].Specifications[1].Title, addSeatOrderCommand.Dishes[0].Specifications[1].Title);
+            Assert.Equal(order.Dishes[0].Specifications[1].ContentType, addSeatOrderCommand.Dishes[0].Specifications[1].ContentType);
+            Assert.Equal(order.Dishes[0].Specifications[1].ComboBoxContent, string.Join(";", addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContent));
+            Assert.Equal(order.Dishes[0].Specifications[1].ComboBoxSelection, addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxSelection);
+            Assert.Equal(order.Dishes[0].Specifications[1].CheckBoxContent, addSeatOrderCommand.Dishes[0].Specifications[1].CheckBoxContent);
+            Assert.Equal(order.Dishes[0].Specifications[1].CheckBoxSelection, addSeatOrderCommand.Dishes[0].Specifications[1].CheckBoxSelection);
+
+            Assert.Equal(order.Dishes[0].Ingredients[0].IsPrimary, addSeatOrderCommand.Dishes[0].Ingredients[0].IsPrimary);
+            Assert.Equal(order.Dishes[0].Ingredients[0].Amount, addSeatOrderCommand.Dishes[0].Ingredients[0].Amount);
+            Assert.Equal(order.Dishes[0].Ingredients[0].MinimumAmount, addSeatOrderCommand.Dishes[0].Ingredients[0].MinimumAmount);
+            Assert.Equal(order.Dishes[0].Ingredients[0].MaximumAmount, addSeatOrderCommand.Dishes[0].Ingredients[0].MaximumAmount);
+            Assert.Equal(order.Dishes[0].Ingredients[0].AmountIncreasePerStep, addSeatOrderCommand.Dishes[0].Ingredients[0].AmountIncreasePerStep);
+            Assert.Equal(order.Dishes[0].Ingredients[0].PriceIncreasePerStep, addSeatOrderCommand.Dishes[0].Ingredients[0].PriceIncreasePerStep);
+            Assert.Equal(order.Dishes[0].Ingredients[0].Steps, addSeatOrderCommand.Dishes[0].Ingredients[0].Steps);
+            Assert.Equal(order.Dishes[0].Ingredients[0].MeasurementUnits, addSeatOrderCommand.Dishes[0].Ingredients[0].MeasurementUnits);
+            Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.IngredientId, addSeatOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.IngredientId);
+            Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.Names, JsonConvert.SerializeObject(addSeatOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.Names));
+            Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat, addSeatOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Fat);
+            Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein, addSeatOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Protein);
+            Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates, addSeatOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Carbohydrates);
+            Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Energy, addSeatOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Energy);
+            Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Amount, addSeatOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.Amount);
+            Assert.Equal(order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.MeasurementUnit, addSeatOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.MeasurementUnit);
+
+            Assert.Equal(order.Dishes[0].Supplements[0].SupplementId, addSeatOrderCommand.Dishes[0].Supplements[0].SupplementId);
+            Assert.Equal(order.Dishes[0].Supplements[0].Name, addSeatOrderCommand.Dishes[0].Supplements[0].Name);
+            Assert.Equal(order.Dishes[0].Supplements[0].Price, addSeatOrderCommand.Dishes[0].Supplements[0].Price);
+            Assert.Equal(order.Dishes[0].Supplements[0].EnergeticValue, addSeatOrderCommand.Dishes[0].Supplements[0].EnergeticValue);
+            Assert.Equal(order.Dishes[0].Supplements[0].Description, addSeatOrderCommand.Dishes[0].Supplements[0].Description);
+            Assert.Equal(order.Dishes[0].Supplements[0].IsSelected, addSeatOrderCommand.Dishes[0].Supplements[0].IsSelected);
+        }
 
     }
 }
