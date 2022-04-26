@@ -27,6 +27,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="400">The payload data sent to the backend-server in order to create a new order is invalid.</response>
         /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(OrderDto), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Authorize(Roles = "FoodBusinessManager,Cashier,Diner")]
         [HttpPost]

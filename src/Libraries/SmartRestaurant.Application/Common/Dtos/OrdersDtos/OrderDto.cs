@@ -1,4 +1,5 @@
-﻿using SmartRestaurant.Application.Common.Dtos.ValueObjects;
+﻿using SmartRestaurant.Application.Common.Dtos.BillDtos;
+using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
         public ApplicationUserDto CreatedBy { get; set; }
         public Guid FoodBusinessId { get; set; }
         public Guid? FoodBusinessClientId { get; set; }
+        public BillFoodBusinessDto FoodBusiness { get; set; }
+        public BillFoodBusinessClientDto FoodBusinessClient { get; set; }
 
     }
 }
