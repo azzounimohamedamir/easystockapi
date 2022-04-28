@@ -173,7 +173,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("FromTable/{tableId}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,Cashier")]
+        [Authorize(Roles = "FoodBusinessManager,Cashier,Diner")]
         public async Task<IActionResult> GetLastOrderByTableId([FromRoute] string tableId)
         {
             return await SendWithErrorsHandlingAsync(new GetLastOrderByTableIDQuery { TableId = tableId });
