@@ -47,7 +47,6 @@ namespace SmartRestaurant.API
             services.AddDirectoryBrowser();
             services.AddInfrastructure(Configuration);
             services.AddIdentityInfrastructure(Configuration);
-            services.AddMemoryCache();
             services.AddHttpContextAccessor();
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddAutoMapper(typeof(MappingProfile));

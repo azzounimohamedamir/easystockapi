@@ -7,20 +7,24 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.BillDtos;
+using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Application.CurrencyExchange;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Application.Orders.Commands
 {
-    public class OrdersCommandsHandlers : IRequestHandler<CreateOrderCommand, Created>,
+    public class OrdersCommandsHandlers : IRequestHandler<CreateOrderCommand, OrderDto>,
         IRequestHandler<UpdateOrderCommand, NoContent>,
-        IRequestHandler<UpdateOrderStatusCommand, NoContent>
+        IRequestHandler<UpdateOrderStatusCommand, NoContent>,
+        IRequestHandler<AddSeatOrderToTableOrderCommand, NoContent>
 
     {
         private readonly IApplicationDbContext _context;
@@ -36,7 +40,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             _userService = userService;
         }
 
-        public async Task<Created> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+        public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             var validator = new CreateOrderCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
@@ -62,12 +66,26 @@ namespace SmartRestaurant.Application.Orders.Commands
             CalculateAndSetOrderTotalPrice(order, foodBusiness);
             CalculateAndSetOrderNumber(order, foodBusiness);
             _context.Orders.Add(order);
-           await _context.SaveChangesAsync(cancellationToken);
-                     
-            return default;
+            await _context.SaveChangesAsync(cancellationToken);
+
+            var newOrder = await _context.Orders.AsNoTracking()
+                 .Include(o => o.Dishes)
+                 .ThenInclude(o => o.Specifications)
+                 .Include(o => o.Dishes)
+                 .ThenInclude(o => o.Ingredients)
+                 .Include(o => o.Dishes)
+                 .ThenInclude(o => o.Supplements)
+                 .Include(o => o.Products)
+                 .Include(o => o.OccupiedTables)
+                 .Include(o => o.FoodBusiness)
+                 .Include(o => o.FoodBusinessClient)
+                 .FirstOrDefaultAsync(o => o.OrderId == request.Id, cancellationToken)
+                 .ConfigureAwait(false);
+
+            return _mapper.Map<OrderDto>(newOrder);
         }
 
-      
+
         public async Task<NoContent> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
             var validator = new UpdateOrderCommandValidator();
@@ -124,7 +142,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             var order = await _context.Orders
                 .Include(o => o.Dishes)
                 .ThenInclude(o => o.Specifications)
-                .Include(o => o.Dishes) 
+                .Include(o => o.Dishes)
                 .ThenInclude(o => o.Ingredients)
                 .Include(o => o.Dishes)
                 .ThenInclude(o => o.Supplements)
@@ -147,6 +165,75 @@ namespace SmartRestaurant.Application.Orders.Commands
             _context.Orders.Update(order);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
+        }
+        public async Task<NoContent> Handle(AddSeatOrderToTableOrderCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new AddSeatOrderToTableOrderCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+            Order order = await GetOrderForUpdate(request.Id, cancellationToken).ConfigureAwait(false);
+            RemoveOldOrderOfChair(request, order);
+            AddNewOrderOfChair(request, order);
+            SetTableIsOccupedIfIsNew(request, order);
+            await UpdateOrder(order, cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+        private void SetTableIsOccupedIfIsNew(AddSeatOrderToTableOrderCommand request, Order order)
+        {
+            var currentOrderTables = order.OccupiedTables.Select(x => x.TableId).ToList();
+            if (!currentOrderTables.Contains(request.TableId))
+            {
+                var occuppedTable = new OrderOccupiedTable() { TableId = request.TableId };
+                order.OccupiedTables.Add(occuppedTable);
+                SetTabelOccuped(UpdateAction, occuppedTable);
+            }
+        }
+
+        private void RemoveOldOrderOfChair(AddSeatOrderToTableOrderCommand request, Order order)
+        {
+            order.Dishes.RemoveAll(x => x.TableId == request.TableId &&
+            x.ChairNumber == request.ChairNumber);
+            order.Products.RemoveAll(x => x.TableId == request.TableId &&
+            x.ChairNumber == request.ChairNumber);
+        }
+        private void AddNewOrderOfChair(AddSeatOrderToTableOrderCommand request, Order order)
+        {
+            Order NewOrder = new Order();
+            _mapper.Map(request, NewOrder);
+            order.Products.AddRange(NewOrder.Products);
+            order.Dishes.AddRange(NewOrder.Dishes);
+        }
+
+        private async Task<Order> GetOrderForUpdate(string id, CancellationToken cancellationToken)
+        {
+            var order = await _context.Orders
+              .Include(o => o.Dishes)
+              .ThenInclude(o => o.Specifications)
+              .Include(o => o.Dishes)
+              .ThenInclude(o => o.Ingredients)
+              .Include(o => o.Dishes)
+              .ThenInclude(o => o.Supplements)
+              .Include(o => o.Products)
+              .Include(o => o.OccupiedTables)
+              .Include(o => o.FoodBusiness)
+              .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(id), cancellationToken)
+              .ConfigureAwait(false);
+            if (order == null)
+                throw new NotFoundException(nameof(Order), id);
+
+            if (order.Status == OrderStatuses.Billed)
+                throw new ConflictException("Sorry, you can not update a Billed Order");
+            return order;
+        }
+        private async Task UpdateOrder(Order order, CancellationToken cancellationToken)
+        {
+            order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
+            order.LastModifiedAt = DateTime.Now;
+            CalculateAndSetOrderEnergeticValues(order);
+            CalculateAndSetOrderTotalPrice(order, order.FoodBusiness);
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
 
@@ -302,19 +389,24 @@ namespace SmartRestaurant.Application.Orders.Commands
 
             foreach(var occupiedTable in order.OccupiedTables)
             {
-                var table = _context.Tables.AsNoTracking().FirstOrDefault(t => t.TableId == Guid.Parse(occupiedTable.TableId));
-                if (table == null)
-                    throw new NotFoundException(nameof(Tables), occupiedTable.TableId);
-
-                if(table.TableState == TableState.Occupied && action == CreateAction)
-                    throw new ConflictException($"The table numbered with '{table.TableNumber.ToString().PadLeft(3,'0')}' already occupied");
-
-                if (table.TableState == TableState.Archived)
-                    throw new ConflictException($"The table numbered with '{table.TableNumber.ToString().PadLeft(3, '0')}' can not be used because it is archived");
-
-                table.TableState = TableState.Occupied;
-                _context.Tables.Update(table);
+                SetTabelOccuped(action, occupiedTable);
             }
+        }
+
+        private void SetTabelOccuped(string action, OrderOccupiedTable occupiedTable)
+        {
+            var table = _context.Tables.AsNoTracking().FirstOrDefault(t => t.TableId == Guid.Parse(occupiedTable.TableId));
+            if (table == null)
+                throw new NotFoundException(nameof(Tables), occupiedTable.TableId);
+
+            if(table.TableState == TableState.Occupied && action == CreateAction)
+                throw new ConflictException($"The table numbered with '{table.TableNumber.ToString().PadLeft(3,'0')}' already occupied");
+
+            if (table.TableState == TableState.Archived)
+                throw new ConflictException($"The table numbered with '{table.TableNumber.ToString().PadLeft(3, '0')}' can not be used because it is archived");
+
+            table.TableState = TableState.Occupied;
+            _context.Tables.Update(table);
         }
 
         private void ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(List<string> releasedTables)

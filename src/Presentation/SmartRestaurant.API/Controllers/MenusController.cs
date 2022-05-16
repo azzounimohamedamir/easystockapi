@@ -58,7 +58,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
         [Route("food-business-active-menu")]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "FoodBusinessManager,Diner")]
         public Task<IActionResult> GetFoodBusinessActiveMenu(string foodBusinessId)
         {
             return SendWithErrorsHandlingAsync(new GetActiveMenuQuery { FoodBusinessId = foodBusinessId });
