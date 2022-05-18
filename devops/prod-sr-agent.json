@@ -11,7 +11,7 @@
   "Authentication": {
     "Jwt": {
       "JwtKey": "myrandomsigningkeyforgeneratingtokens",
-      "JwtIssuer": "http://localhost:5000",
+      "JwtIssuer": "http://127.0.0.1:5000",
       "JwtExpireDays": 1
     }
   },
