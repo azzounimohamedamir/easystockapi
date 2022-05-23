@@ -24,6 +24,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Dishes.Commands
             createdDish.Should().NotBeNull();
             createdDish.DishId.Should().Be(createDishCommand.Id);
             createdDish.Name.Should().Be(createDishCommand.Name);
+
+            createdDish.Names.AR.Should().Be(createDishCommand.Names.AR);
+            createdDish.Names.EN.Should().Be(createDishCommand.Names.EN);
+            createdDish.Names.FR.Should().Be(createDishCommand.Names.FR);
+            createdDish.Names.TR.Should().Be(createDishCommand.Names.TR);
+            createdDish.Names.RU.Should().Be(createDishCommand.Names.RU);
+
             createdDish.Price.Should().Be( createDishCommand.Price);
             createdDish.FoodBusinessId.Should().Be(Guid.Parse(createDishCommand.FoodBusinessId));
             createdDish.IsSupplement.Should().Be(createDishCommand.IsSupplement);
@@ -54,6 +61,16 @@ namespace SmartRestaurant.Application.IntegrationTests.Dishes.Commands
 
             createdDish.Supplements.Should().HaveCount(1);
             createdDish.Supplements[0].Supplement.DishId.Should().Be(Guid.Parse(createDishCommand.Supplements[0].SupplementId));
+
+            var suppliment = await GetDish(Guid.Parse(createDishCommand.Supplements[0].SupplementId));
+            
+            createdDish.Supplements[0].Supplement.Name.Should().Be(suppliment.Name);
+
+            createdDish.Supplements[0].Supplement.Names.AR.Should().Be(suppliment.Names.AR);
+            createdDish.Supplements[0].Supplement.Names.EN.Should().Be(suppliment.Names.EN);
+            createdDish.Supplements[0].Supplement.Names.FR.Should().Be(suppliment.Names.FR);
+            createdDish.Supplements[0].Supplement.Names.TR.Should().Be(suppliment.Names.TR);
+            createdDish.Supplements[0].Supplement.Names.RU.Should().Be(suppliment.Names.RU);
         }
     }
 }

@@ -23,8 +23,8 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections.Commands
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
             var createMenuCommand = await CreateMenu(fastFood);
-            var createSectionCommand = await CreateSection(createMenuCommand);
-            var createSubSectionCommand = await createSubSection(createSectionCommand);
+            var createSectionCommand = await SectionTestTools.CreateSection(createMenuCommand);
+            var createSubSectionCommand = await SubSectionTestTools.CreateSubSection(createSectionCommand);
             var createProductCommand = await ProductTestTools.CreateProduct();
 
             var addProductToSubSectionCommand = await AddProductToSubSection(createSubSectionCommand, createProductCommand);
@@ -57,28 +57,7 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections.Commands
             return addProductToSubSectionCommand;
         }
 
-        private static async Task<CreateSubSectionCommand> createSubSection(CreateSectionCommand createSectionCommand)
-        {
-            var createSubSectionCommand = new CreateSubSectionCommand
-            {
-                SectionId = createSectionCommand.Id,
-                Name = "sub section test menu"
-            };
-            await SendAsync(createSubSectionCommand);
-            return createSubSectionCommand;
-        }
-
-        private static async Task<CreateSectionCommand> CreateSection(CreateMenuCommand createMenuCommand)
-        {
-            var createSectionCommand = new CreateSectionCommand
-            {
-                MenuId = createMenuCommand.Id,
-                Name = "section test menu"
-            };
-            await SendAsync(createSectionCommand);
-            return createSectionCommand;
-        }
-
+    
         private static async Task<CreateMenuCommand> CreateMenu(Domain.Entities.FoodBusiness fastFood)
         {
             var createMenuCommand = new CreateMenuCommand

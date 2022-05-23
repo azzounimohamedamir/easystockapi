@@ -34,9 +34,9 @@ namespace SmartRestaurant.Application.Zones.Queries
         public async Task<IEnumerable<ZoneDto>> Handle(GetZonesListQuery request, CancellationToken cancellationToken)
         {
             var query = await _context.Zones
-                .Where(x => x.FoodBusinessId == request.FoodBusinessId)
-                .ToArrayAsync(cancellationToken)
-                .ConfigureAwait(false);
+                         .Where(x => x.FoodBusinessId == request.FoodBusinessId)
+                         .ToArrayAsync(cancellationToken)
+                         .ConfigureAwait(false);
             return _mapper.Map<List<ZoneDto>>(query);
         }
 

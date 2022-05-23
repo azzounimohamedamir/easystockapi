@@ -28,21 +28,14 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections
                 FoodBusinessId = fastFood.FoodBusinessId
             };
             await SendAsync(createMenuCommand);
-            var createSectionCommand = new CreateSectionCommand
-            {
-                MenuId = createMenuCommand.Id,
-                Name = "section test menu"
-            };
-            await SendAsync(createSectionCommand);
-            var createSubSectionCommand = new CreateSubSectionCommand
-            {
-                SectionId = createSectionCommand.Id,
-                Name = "section test menu"
-            };
-            await SendAsync(createSubSectionCommand);
-            await SendAsync(new DeleteSubSectionCommand {Id = createSubSectionCommand.Id});
+            var createSectionCommand = await SectionTestTools.CreateSection(createMenuCommand);
+
+            var createSubSectionCommand = await SubSectionTestTools.CreateSubSection(createSectionCommand);
+            await SendAsync(new DeleteSubSectionCommand { Id = createSubSectionCommand.Id });
             var item = await FindAsync<SubSection>(createSubSectionCommand.Id);
             item.Should().BeNull();
         }
+
+ 
     }
 }

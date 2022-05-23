@@ -96,6 +96,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<SectionDish, DishDto>()
                 .ForMember(x => x.DishId, o => o.MapFrom(p => p.Dish.DishId))
                 .ForMember(x => x.Name, o => o.MapFrom(p => p.Dish.Name))
+                .ForMember(x => x.Names, o => o.MapFrom(p => p.Dish.Names))
                 .ForMember(x => x.Description, o => o.MapFrom(p => p.Dish.Description))
                 .ForMember(x => x.Price, o => o.MapFrom(p => p.Dish.Price))
                 .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Dish.EnergeticValue))
@@ -110,6 +111,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<SectionProduct, ProductDto>()
                 .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Product.ProductId))
                 .ForMember(x => x.Name, o => o.MapFrom(p => p.Product.Name))
+                .ForMember(x => x.Names, o => o.MapFrom(p => p.Product.Names))
                 .ForMember(x => x.Description, o => o.MapFrom(p => p.Product.Description))
                 .ForMember(x => x.Price, o => o.MapFrom(p => p.Product.Price))
                 .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Product.EnergeticValue))
@@ -126,6 +128,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<SubSectionDish, DishDto>()
                 .ForMember(x => x.DishId, o => o.MapFrom(p => p.Dish.DishId))
                 .ForMember(x => x.Name, o => o.MapFrom(p => p.Dish.Name))
+                .ForMember(x => x.Names, o => o.MapFrom(p => p.Dish.Names))
                 .ForMember(x => x.Description, o => o.MapFrom(p => p.Dish.Description))
                 .ForMember(x => x.Price, o => o.MapFrom(p => p.Dish.Price))
                 .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Dish.EnergeticValue))
@@ -140,6 +143,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<SubSectionProduct, ProductDto>()
                 .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Product.ProductId))
                 .ForMember(x => x.Name, o => o.MapFrom(p => p.Product.Name))
+                .ForMember(x => x.Names, o => o.MapFrom(p => p.Product.Names))
                 .ForMember(x => x.Description, o => o.MapFrom(p => p.Product.Description))
                 .ForMember(x => x.Price, o => o.MapFrom(p => p.Product.Price))
                 .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Product.EnergeticValue))
@@ -265,6 +269,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<DishSupplement, DishSupplementDto>()
                 .ForMember(x => x.DishId, o => o.MapFrom(p => p.Supplement.DishId))
                 .ForMember(x => x.Name, o => o.MapFrom(p => p.Supplement.Name))
+                .ForMember(x => x.Names, o => o.MapFrom(p => p.Supplement.Names))
                 .ForMember(x => x.Description, o => o.MapFrom(p => p.Supplement.Description))
                 .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Supplement.Picture)))
                 .ForMember(x => x.Price, o => o.MapFrom(p => p.Supplement.Price))
@@ -413,7 +418,9 @@ namespace SmartRestaurant.Application.Common.Mappers
                    .ForMember(x => x.FoodBusinessId, opt => opt.MapFrom(p => p.FoodBusiness.FoodBusinessId))
                    .ForMember(x => x.FoodBusinessName, opt => opt.MapFrom(p => p.FoodBusiness.Name))
                    .ForMember(x => x.DefaultCurrency, opt => opt.MapFrom(p => p.FoodBusiness.DefaultCurrency));
-
+            
+            CreateMap<Names, NamesDto>()
+                .ReverseMap(); 
         }
     }
 }

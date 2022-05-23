@@ -21,6 +21,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Illnesses.Commands
 
             item.Should().NotBeNull();
             item.Name.Should().Be("test");
+            item.Names.AR.Should().Be("testAR");
+            item.Names.EN.Should().Be("testEN");
+            item.Names.FR.Should().Be("testFR");
+            item.Names.TR.Should().Be("testTR");
+            item.Names.RU.Should().Be("testRU");
             item.IllnessId.Should().Be(createIllnessCommand.Id);
             item.IngredientIllnesses.Should().HaveCount(1);
             item.IngredientIllnesses[0].Ingredient.IngredientId.Should().Be(Guid.Parse(createIllnessCommand.Ingredients[0].IngredientId));

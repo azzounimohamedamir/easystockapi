@@ -1,4 +1,5 @@
-﻿using SmartRestaurant.Application.Common.Enums;
+﻿using SmartRestaurant.Application.Common.Dtos.ValueObjects;
+using SmartRestaurant.Application.Common.Enums;
 using System;
 
 namespace SmartRestaurant.Application.Common.Dtos
@@ -7,6 +8,7 @@ namespace SmartRestaurant.Application.Common.Dtos
     {
         public Guid MenuItemId { get; set; }
         public string Name { get; set; }
+        public NamesDto Names { get; set; }
         public string Description { get; set; }
         public string Picture { get; set; }
         public float Price { get; set; }

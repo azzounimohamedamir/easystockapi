@@ -30,29 +30,20 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections
                 FoodBusinessId = fastFood.FoodBusinessId
             };
             await SendAsync(createMenuCommand);
-            var createSectionCommand = new CreateSectionCommand
-            {
-                MenuId = createMenuCommand.Id,
-                Name = "section test menu"
-            };
-            await SendAsync(createSectionCommand);
+            var createSectionCommand = await SectionTestTools.CreateSection(createMenuCommand);
 
-            var createSubSectionCommand = new CreateSubSectionCommand
-            {
-                SectionId = createSectionCommand.Id,
-                Name = "subsection test menu"
-            };
-            await SendAsync(createSubSectionCommand);
-            await SendAsync(new UpdateSubSectionCommand
-            {
-                Id = createSubSectionCommand.Id,
-                SectionId = createSectionCommand.Id,
-                Name = "subsection 2 test menu"
-            });
+            var createSubSectionCommand = await SubSectionTestTools.CreateSubSection(createSectionCommand);
+
+            await SubSectionTestTools.UpdateSubSection(createSectionCommand, createSubSectionCommand, "subsection 2 test menu");
             var item = await FindAsync<SubSection>(createSubSectionCommand.Id);
 
             item.Should().NotBeNull();
             item.Name.Should().Be("subsection 2 test menu");
+            item.Names.AR.Should().Be("AR");
+            item.Names.EN.Should().Be("EN");
+            item.Names.FR.Should().Be("FR");
+            item.Names.TR.Should().Be("TR");
+            item.Names.RU.Should().Be("RU");
             item.SectionId.Should().Be(createSectionCommand.Id);
         }
     }

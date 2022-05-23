@@ -54,16 +54,36 @@ namespace SmartRestaurant.Application.Dishes.Queries.FilterStrategy
         private static Expression<Func<Dish, bool>> Condition(string foodBusinessId, Nullable<bool> isSupplement, string searchKey)
         {
             if(foodBusinessId == null && isSupplement == null)
-                return dish => dish.Name.Contains(searchKey) && dish.FoodBusinessId == null;
+                return dish => (dish.Name.Contains(searchKey) 
+                || dish.Names.AR.Contains(searchKey)
+                || dish.Names.EN.Contains(searchKey)
+                || dish.Names.FR.Contains(searchKey)
+                || dish.Names.TR.Contains(searchKey)
+                || dish.Names.RU.Contains(searchKey)) && dish.FoodBusinessId == null;
 
             else if (foodBusinessId == null && isSupplement != null)
-                return dish => dish.Name.Contains(searchKey) && dish.FoodBusinessId == null && dish.IsSupplement == isSupplement;
+                return dish => (dish.Name.Contains(searchKey)
+                || dish.Names.AR.Contains(searchKey)
+                || dish.Names.EN.Contains(searchKey)
+                || dish.Names.FR.Contains(searchKey)
+                || dish.Names.TR.Contains(searchKey)
+                || dish.Names.RU.Contains(searchKey)) && dish.FoodBusinessId == null && dish.IsSupplement == isSupplement;
 
             else if (foodBusinessId != null && isSupplement == null)
-                return dish => dish.Name.Contains(searchKey) && dish.FoodBusinessId == Guid.Parse(foodBusinessId);
+                return dish => (dish.Name.Contains(searchKey)
+                || dish.Names.AR.Contains(searchKey)
+                || dish.Names.EN.Contains(searchKey)
+                || dish.Names.FR.Contains(searchKey)
+                || dish.Names.TR.Contains(searchKey)
+                || dish.Names.RU.Contains(searchKey)) && dish.FoodBusinessId == Guid.Parse(foodBusinessId);
 
             else
-                return dish => dish.Name.Contains(searchKey) && dish.FoodBusinessId == Guid.Parse(foodBusinessId) && dish.IsSupplement == isSupplement;
+                return dish => (dish.Name.Contains(searchKey)
+                || dish.Names.AR.Contains(searchKey)
+                || dish.Names.EN.Contains(searchKey)
+                || dish.Names.FR.Contains(searchKey)
+                || dish.Names.TR.Contains(searchKey)
+                || dish.Names.RU.Contains(searchKey)) && dish.FoodBusinessId == Guid.Parse(foodBusinessId) && dish.IsSupplement == isSupplement;
         }
 
     }

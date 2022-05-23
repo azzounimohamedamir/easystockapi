@@ -27,12 +27,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections
                 FoodBusinessId = fastFood.FoodBusinessId
             };
             await SendAsync(createMenuCommand);
-            var createSectionCommand = new CreateSectionCommand
-            {
-                MenuId = createMenuCommand.Id,
-                Name = "section test menu"
-            };
-            await SendAsync(createSectionCommand);
+            var createSectionCommand = await SectionTestTools.CreateSection(createMenuCommand);
             await SendAsync(new DeleteSectionCommand {Id = createSectionCommand.Id});
             var item = await FindAsync<Section>(createSectionCommand.Id);
             item.Should().BeNull();
