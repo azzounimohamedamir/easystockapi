@@ -82,6 +82,7 @@ namespace SmartRestaurant.Application.Menus.Queries
                 .ThenInclude(sb => sb.Dishes)
                 .ThenInclude(d => d.Dish)
                 .ThenInclude(d => d.Supplements)
+                .ThenInclude(d=>d.Supplement)
 
                 .Include(m => m.Sections)
                 .ThenInclude(s => s.SubSections)
@@ -99,6 +100,7 @@ namespace SmartRestaurant.Application.Menus.Queries
                 .ThenInclude(sb => sb.Dishes)
                 .ThenInclude(d => d.Dish)
                 .ThenInclude(d => d.Supplements)
+                .ThenInclude(d => d.Supplement)
 
                 .Include(m => m.Sections)
                 .ThenInclude(sb => sb.Products)
