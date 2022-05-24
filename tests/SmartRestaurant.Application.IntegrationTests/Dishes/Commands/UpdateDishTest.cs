@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Dishes.Commands;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Domain.Entities;
@@ -31,6 +32,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Dishes.Commands
             updatedDish.Should().NotBeNull();
             updatedDish.DishId.Should().Be(updateDishCommand.Id);
             updatedDish.Name.Should().Be(updateDishCommand.Name);
+
+            updatedDish.Names.AR.Should().Be(updateDishCommand.Names.AR);
+            updatedDish.Names.EN.Should().Be(updateDishCommand.Names.EN);
+            updatedDish.Names.FR.Should().Be(updateDishCommand.Names.FR);
+            updatedDish.Names.TR.Should().Be(updateDishCommand.Names.TR);
+            updatedDish.Names.RU.Should().Be(updateDishCommand.Names.RU);
+
             updatedDish.Price.Should().Be(updateDishCommand.Price);
             updatedDish.FoodBusinessId.Should().Be(dish.FoodBusinessId);
             updatedDish.IsSupplement.Should().Be(updateDishCommand.IsSupplement);
@@ -55,6 +63,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Dishes.Commands
             {
                 Id = dish.DishId.ToString(),
                 Name = "Fakhitasse modified",
+                Names = new NamesDto() { AR = "Fakhitasse AR modified", EN = "Fakhitasse EN modified", FR = "Fakhitasse FR modified", TR = "Fakhitasse TR modified", RU = "Fakhitasse RU modified" },
                 Description = "Fakhitasse description modified",
                 Picture = Properties.Resources.PictureBase64_02,
                 Price = 330,

@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Products.Commands;
 using SmartRestaurant.Domain.Entities;
 
@@ -20,6 +21,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             var createProductCommand = new CreateProductCommand
             {
                 Name = "hamoud 2L",
+                Names = new NamesDto() { AR = "hamoud 2L AR", EN = "hamoud 2L EN", FR = "hamoud 2L FR", TR = "hamoud 2L TR", RU = "hamoud 2L RU" },
                 Description = "description test",
                 Price = 150,
                 EnergeticValue = 200,
@@ -40,6 +42,14 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             var createProductCommand = new CreateProductCommand
             {
                 Name = "hamoud 2L",
+                Names=new NamesDto()
+                {
+                    AR= "hamoud 2L AR",
+                    EN= "hamoud 2L EN",
+                    FR= "hamoud 2L FR",
+                    TR= "hamoud 2L TR",
+                    RU= "hamoud 2L RU"
+                },
                 Description = "description test",
                 Price = 150,
                 EnergeticValue = 200
@@ -62,6 +72,14 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 var createProductCommand = new CreateProductCommand
                 {
                     Name = $"hamoud 2L {i}",
+                    Names = new NamesDto()
+                    {
+                        AR = $"hamoud 2L {i} AR",
+                        EN = $"hamoud 2L {i} EN",
+                        FR = $"hamoud 2L {i} FR",
+                        TR = $"hamoud 2L {i} TR",
+                        RU = $"hamoud 2L {i} RU"
+                    },
                     Description = $"description test {i}",
                     Price = 150 + i,
                     EnergeticValue = 200 + i

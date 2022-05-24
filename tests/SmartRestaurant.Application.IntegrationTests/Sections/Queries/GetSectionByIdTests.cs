@@ -28,19 +28,17 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
             };
             await SendAsync(createMenuCommand);
 
-           
-            var createSectionCommand = new CreateSectionCommand
-            {
-                Name = "section test",
-                MenuId = createMenuCommand.Id
-            };
-            await SendAsync(createSectionCommand).ConfigureAwait(false);
-        
-
+            var createSectionCommand = await SectionTestTools.CreateSection(createMenuCommand, "section test");
+            
             var query = new GetSectionByIdQuery { Id = createSectionCommand.Id.ToString()};
             var result = await SendAsync(query);
             result.Should().NotBeNull();
             result.Name.Should().Be("section test");
+            result.Names.AR.Should().Be("AR");
+            result.Names.EN.Should().Be("EN");
+            result.Names.FR.Should().Be("FR");
+            result.Names.TR.Should().Be("TR");
+            result.Names.RU.Should().Be("RU");
             result.MenuId.Should().Be(createMenuCommand.Id);
         }
     }

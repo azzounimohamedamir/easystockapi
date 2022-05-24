@@ -634,7 +634,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             MenuId = new Guid("ccaecd78-ccbb-ee04-56ff-88887129aaba"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 548, DateTimeKind.Local).AddTicks(1782),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 240, DateTimeKind.Local).AddTicks(1009),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -644,7 +644,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             MenuId = new Guid("ccaecd78-ccbb-ee04-56ff-88887129aabb"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 548, DateTimeKind.Local).AddTicks(2457),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 240, DateTimeKind.Local).AddTicks(1392),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -654,7 +654,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             MenuId = new Guid("ccaecd78-ccbb-ee04-56ff-88887129aabc"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 548, DateTimeKind.Local).AddTicks(2486),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 240, DateTimeKind.Local).AddTicks(1409),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -664,7 +664,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             MenuId = new Guid("ccaecd78-ccbb-ee04-56ff-88887129aabd"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 548, DateTimeKind.Local).AddTicks(2494),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 240, DateTimeKind.Local).AddTicks(1413),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -674,7 +674,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             MenuId = new Guid("ccaecd78-ccbb-ee04-56ff-88887129aabe"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 548, DateTimeKind.Local).AddTicks(2500),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 240, DateTimeKind.Local).AddTicks(1418),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -684,7 +684,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             MenuId = new Guid("ccaecd78-ccbb-ee04-56ff-88887129aa00"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 548, DateTimeKind.Local).AddTicks(2507),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 240, DateTimeKind.Local).AddTicks(1423),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -694,7 +694,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             MenuId = new Guid("ccaecd78-ccbb-ee04-56ff-88887129aa01"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 548, DateTimeKind.Local).AddTicks(2653),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 240, DateTimeKind.Local).AddTicks(1427),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -704,7 +704,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             MenuId = new Guid("ccaecd78-ccbb-ee04-56ff-88887129aa02"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 548, DateTimeKind.Local).AddTicks(2662),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 240, DateTimeKind.Local).AddTicks(1431),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -714,7 +714,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             MenuId = new Guid("e2289d77-b8e1-4476-bf66-e64f1a23d752"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 548, DateTimeKind.Local).AddTicks(2669),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 240, DateTimeKind.Local).AddTicks(1434),
                             CreatedBy = "64fed988-6f68-49dc-ad54-0da50ec02319",
                             FoodBusinessId = new Guid("88bc7853-220f-9173-3246-afb7cf595022"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -724,7 +724,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             MenuId = new Guid("8f8c0139-1f90-40f3-ab88-5db2de45ff2e"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 548, DateTimeKind.Local).AddTicks(2675),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 240, DateTimeKind.Local).AddTicks(1439),
                             CreatedBy = "64fed988-6f68-49dc-ad54-0da50ec02319",
                             FoodBusinessId = new Guid("88bc7853-220f-9173-3246-afb7cf595022"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -734,7 +734,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             MenuId = new Guid("45051fc7-6983-44a5-9c12-66116c4533bf"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 548, DateTimeKind.Local).AddTicks(2702),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 240, DateTimeKind.Local).AddTicks(1442),
                             CreatedBy = "64fed988-6f68-49dc-ad54-0da50ec02319",
                             FoodBusinessId = new Guid("88bc7853-220f-9173-3246-afb7cf595022"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1142,397 +1142,397 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596300"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 546, DateTimeKind.Local).AddTicks(9487),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(8770),
                             CreatedBy = "5a84cd00-59f0-4b22-bfce-07c080829118",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 2,
-                            ReservationDate = new DateTime(2022, 1, 20, 10, 58, 41, 545, DateTimeKind.Local).AddTicks(4771),
+                            ReservationDate = new DateTime(2022, 5, 23, 17, 20, 7, 237, DateTimeKind.Local).AddTicks(8338),
                             ReservationName = "ReservationName_00"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596301"),
-                            CreatedAt = new DateTime(2022, 1, 20, 10, 58, 41, 547, DateTimeKind.Local).AddTicks(315),
+                            CreatedAt = new DateTime(2022, 5, 23, 17, 20, 7, 238, DateTimeKind.Local).AddTicks(9302),
                             CreatedBy = "5a84cd00-59f0-4b22-bfce-07c080829118",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 5,
-                            ReservationDate = new DateTime(2022, 1, 20, 13, 58, 41, 547, DateTimeKind.Local).AddTicks(274),
+                            ReservationDate = new DateTime(2022, 5, 23, 20, 20, 7, 238, DateTimeKind.Local).AddTicks(9276),
                             ReservationName = "ReservationName_01"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596302"),
-                            CreatedAt = new DateTime(2022, 1, 5, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(374),
+                            CreatedAt = new DateTime(2022, 5, 8, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9344),
                             CreatedBy = "5a84cd00-59f0-4b22-bfce-07c080829118",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 3,
-                            ReservationDate = new DateTime(2022, 1, 21, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(339),
+                            ReservationDate = new DateTime(2022, 5, 24, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9317),
                             ReservationName = "ReservationName_02"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596303"),
-                            CreatedAt = new DateTime(2022, 2, 4, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(489),
+                            CreatedAt = new DateTime(2022, 6, 7, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9416),
                             CreatedBy = "5a84cd00-59f0-4b22-bfce-07c080829118",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 2,
-                            ReservationDate = new DateTime(2027, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(384),
+                            ReservationDate = new DateTime(2027, 5, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9351),
                             ReservationName = "ReservationName_03"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596304"),
-                            CreatedAt = new DateTime(2022, 1, 20, 6, 34, 41, 547, DateTimeKind.Local).AddTicks(510),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 56, 7, 238, DateTimeKind.Local).AddTicks(9427),
                             CreatedBy = "5a84cd00-59f0-4b22-bfce-07c080829118",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 8,
-                            ReservationDate = new DateTime(2037, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(502),
+                            ReservationDate = new DateTime(2037, 5, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9422),
                             ReservationName = "ReservationName_04"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596305"),
-                            CreatedAt = new DateTime(2022, 1, 19, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(542),
+                            CreatedAt = new DateTime(2022, 5, 22, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9445),
                             CreatedBy = "5a84cd00-59f0-4b22-bfce-07c080829118",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 13,
-                            ReservationDate = new DateTime(2022, 1, 20, 2, 58, 41, 547, DateTimeKind.Local).AddTicks(539),
+                            ReservationDate = new DateTime(2022, 5, 23, 9, 20, 7, 238, DateTimeKind.Local).AddTicks(9444),
                             ReservationName = "ReservationName_05"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596306"),
-                            CreatedAt = new DateTime(2021, 12, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(654),
+                            CreatedAt = new DateTime(2022, 4, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9451),
                             CreatedBy = "5a84cd00-59f0-4b22-bfce-07c080829118",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 7,
-                            ReservationDate = new DateTime(2022, 1, 8, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(650),
+                            ReservationDate = new DateTime(2022, 5, 11, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9450),
                             ReservationName = "ReservationName_06"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596307"),
-                            CreatedAt = new DateTime(2021, 11, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(665),
+                            CreatedAt = new DateTime(2022, 3, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9458),
                             CreatedBy = "5a84cd00-59f0-4b22-bfce-07c080829118",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 9,
-                            ReservationDate = new DateTime(2021, 11, 28, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(663),
+                            ReservationDate = new DateTime(2022, 3, 31, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9457),
                             ReservationName = "ReservationName_07"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596308"),
-                            CreatedAt = new DateTime(2022, 5, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(676),
+                            CreatedAt = new DateTime(2022, 9, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9464),
                             CreatedBy = "5a84cd00-59f0-4b22-bfce-07c080829118",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 4,
-                            ReservationDate = new DateTime(2022, 6, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(674),
+                            ReservationDate = new DateTime(2022, 10, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9462),
                             ReservationName = "ReservationName_08"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596309"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(687),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9469),
                             CreatedBy = "6b14cd00-59f0-4422-bfce-07c080829987",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 3,
-                            ReservationDate = new DateTime(2022, 1, 20, 9, 58, 41, 547, DateTimeKind.Local).AddTicks(685),
+                            ReservationDate = new DateTime(2022, 5, 23, 16, 20, 7, 238, DateTimeKind.Local).AddTicks(9468),
                             ReservationName = "ReservationName_09"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596310"),
-                            CreatedAt = new DateTime(2022, 1, 20, 10, 58, 41, 547, DateTimeKind.Local).AddTicks(697),
+                            CreatedAt = new DateTime(2022, 5, 23, 17, 20, 7, 238, DateTimeKind.Local).AddTicks(9475),
                             CreatedBy = "6b14cd00-59f0-4422-bfce-07c080829987",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 6,
-                            ReservationDate = new DateTime(2022, 1, 20, 12, 58, 41, 547, DateTimeKind.Local).AddTicks(695),
+                            ReservationDate = new DateTime(2022, 5, 23, 19, 20, 7, 238, DateTimeKind.Local).AddTicks(9473),
                             ReservationName = "ReservationName_10"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596311"),
-                            CreatedAt = new DateTime(2022, 1, 6, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(707),
+                            CreatedAt = new DateTime(2022, 5, 9, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9479),
                             CreatedBy = "6b14cd00-59f0-4422-bfce-07c080829987",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 4,
-                            ReservationDate = new DateTime(2022, 1, 22, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(705),
+                            ReservationDate = new DateTime(2022, 5, 25, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9478),
                             ReservationName = "ReservationName_11"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596312"),
-                            CreatedAt = new DateTime(2022, 3, 12, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(717),
+                            CreatedAt = new DateTime(2022, 7, 13, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9485),
                             CreatedBy = "6b14cd00-59f0-4422-bfce-07c080829987",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 3,
-                            ReservationDate = new DateTime(2026, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(715),
+                            ReservationDate = new DateTime(2026, 5, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9484),
                             ReservationName = "ReservationName_12"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596313"),
-                            CreatedAt = new DateTime(2022, 1, 20, 6, 34, 41, 547, DateTimeKind.Local).AddTicks(729),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 56, 7, 238, DateTimeKind.Local).AddTicks(9490),
                             CreatedBy = "6b14cd00-59f0-4422-bfce-07c080829987",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 9,
-                            ReservationDate = new DateTime(2037, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(725),
+                            ReservationDate = new DateTime(2037, 5, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9489),
                             ReservationName = "ReservationName_13"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596314"),
-                            CreatedAt = new DateTime(2022, 1, 18, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(739),
+                            CreatedAt = new DateTime(2022, 5, 21, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9496),
                             CreatedBy = "6b14cd00-59f0-4422-bfce-07c080829987",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 14,
-                            ReservationDate = new DateTime(2022, 1, 20, 1, 58, 41, 547, DateTimeKind.Local).AddTicks(737),
+                            ReservationDate = new DateTime(2022, 5, 23, 8, 20, 7, 238, DateTimeKind.Local).AddTicks(9494),
                             ReservationName = "ReservationName_14"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596315"),
-                            CreatedAt = new DateTime(2021, 12, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(748),
+                            CreatedAt = new DateTime(2022, 4, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9501),
                             CreatedBy = "6b14cd00-59f0-4422-bfce-07c080829987",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 8,
-                            ReservationDate = new DateTime(2022, 1, 7, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(746),
+                            ReservationDate = new DateTime(2022, 5, 10, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9500),
                             ReservationName = "ReservationName_15"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596316"),
-                            CreatedAt = new DateTime(2021, 10, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(758),
+                            CreatedAt = new DateTime(2022, 2, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9507),
                             CreatedBy = "6b14cd00-59f0-4422-bfce-07c080829987",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 10,
-                            ReservationDate = new DateTime(2021, 12, 1, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(756),
+                            ReservationDate = new DateTime(2022, 4, 3, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9506),
                             ReservationName = "ReservationName_16"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596317"),
-                            CreatedAt = new DateTime(2022, 4, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(769),
+                            CreatedAt = new DateTime(2022, 8, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9513),
                             CreatedBy = "6b14cd00-59f0-4422-bfce-07c080829987",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 5,
-                            ReservationDate = new DateTime(2022, 5, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(767),
+                            ReservationDate = new DateTime(2022, 9, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9511),
                             ReservationName = "ReservationName_17"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596327"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(779),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9518),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 3,
-                            ReservationDate = new DateTime(2022, 1, 20, 8, 58, 41, 547, DateTimeKind.Local).AddTicks(777),
+                            ReservationDate = new DateTime(2022, 5, 23, 15, 20, 7, 238, DateTimeKind.Local).AddTicks(9517),
                             ReservationName = "ReservationName_27"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596328"),
-                            CreatedAt = new DateTime(2022, 1, 20, 9, 58, 41, 547, DateTimeKind.Local).AddTicks(789),
+                            CreatedAt = new DateTime(2022, 5, 23, 16, 20, 7, 238, DateTimeKind.Local).AddTicks(9523),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 6,
-                            ReservationDate = new DateTime(2022, 1, 20, 11, 58, 41, 547, DateTimeKind.Local).AddTicks(787),
+                            ReservationDate = new DateTime(2022, 5, 23, 18, 20, 7, 238, DateTimeKind.Local).AddTicks(9522),
                             ReservationName = "ReservationName_28"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596329"),
-                            CreatedAt = new DateTime(2022, 1, 6, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(798),
+                            CreatedAt = new DateTime(2022, 5, 9, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9528),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 4,
-                            ReservationDate = new DateTime(2022, 1, 21, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(796),
+                            ReservationDate = new DateTime(2022, 5, 24, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9527),
                             ReservationName = "ReservationName_29"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596330"),
-                            CreatedAt = new DateTime(2022, 3, 16, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(808),
+                            CreatedAt = new DateTime(2022, 7, 17, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9534),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 3,
-                            ReservationDate = new DateTime(2025, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(805),
+                            ReservationDate = new DateTime(2025, 5, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9532),
                             ReservationName = "ReservationName_30"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596331"),
-                            CreatedAt = new DateTime(2022, 1, 20, 6, 13, 41, 547, DateTimeKind.Local).AddTicks(818),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 35, 7, 238, DateTimeKind.Local).AddTicks(9539),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 9,
-                            ReservationDate = new DateTime(2035, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(815),
+                            ReservationDate = new DateTime(2035, 5, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9537),
                             ReservationName = "ReservationName_31"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596332"),
-                            CreatedAt = new DateTime(2022, 1, 17, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(828),
+                            CreatedAt = new DateTime(2022, 5, 20, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9545),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 14,
-                            ReservationDate = new DateTime(2022, 1, 20, 2, 58, 41, 547, DateTimeKind.Local).AddTicks(826),
+                            ReservationDate = new DateTime(2022, 5, 23, 9, 20, 7, 238, DateTimeKind.Local).AddTicks(9543),
                             ReservationName = "ReservationName_32"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596333"),
-                            CreatedAt = new DateTime(2021, 12, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(838),
+                            CreatedAt = new DateTime(2022, 4, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9549),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 8,
-                            ReservationDate = new DateTime(2022, 1, 10, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(835),
+                            ReservationDate = new DateTime(2022, 5, 13, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9548),
                             ReservationName = "ReservationName_33"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596334"),
-                            CreatedAt = new DateTime(2021, 11, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(848),
+                            CreatedAt = new DateTime(2022, 3, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9556),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 10,
-                            ReservationDate = new DateTime(2021, 12, 8, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(846),
+                            ReservationDate = new DateTime(2022, 4, 10, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9554),
                             ReservationName = "ReservationName_34"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596335"),
-                            CreatedAt = new DateTime(2022, 3, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(859),
+                            CreatedAt = new DateTime(2022, 7, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9562),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 5,
-                            ReservationDate = new DateTime(2022, 4, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(856),
+                            ReservationDate = new DateTime(2022, 8, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9560),
                             ReservationName = "ReservationName_35"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596336"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(871),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9568),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 4,
-                            ReservationDate = new DateTime(2022, 1, 20, 6, 58, 41, 547, DateTimeKind.Local).AddTicks(869),
+                            ReservationDate = new DateTime(2022, 5, 23, 13, 20, 7, 238, DateTimeKind.Local).AddTicks(9566),
                             ReservationName = "ReservationName_36"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596337"),
-                            CreatedAt = new DateTime(2022, 1, 20, 7, 58, 41, 547, DateTimeKind.Local).AddTicks(880),
+                            CreatedAt = new DateTime(2022, 5, 23, 14, 20, 7, 238, DateTimeKind.Local).AddTicks(9573),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 5,
-                            ReservationDate = new DateTime(2022, 1, 20, 9, 58, 41, 547, DateTimeKind.Local).AddTicks(878),
+                            ReservationDate = new DateTime(2022, 5, 23, 16, 20, 7, 238, DateTimeKind.Local).AddTicks(9571),
                             ReservationName = "ReservationName_37"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596338"),
-                            CreatedAt = new DateTime(2022, 1, 6, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(889),
+                            CreatedAt = new DateTime(2022, 5, 9, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9577),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 6,
-                            ReservationDate = new DateTime(2022, 1, 25, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(887),
+                            ReservationDate = new DateTime(2022, 5, 28, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9576),
                             ReservationName = "ReservationName_38"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596339"),
-                            CreatedAt = new DateTime(2022, 2, 9, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(900),
+                            CreatedAt = new DateTime(2022, 6, 12, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9583),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 7,
-                            ReservationDate = new DateTime(2024, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(897),
+                            ReservationDate = new DateTime(2024, 5, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9581),
                             ReservationName = "ReservationName_39"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596340"),
-                            CreatedAt = new DateTime(2022, 1, 20, 6, 41, 41, 547, DateTimeKind.Local).AddTicks(911),
+                            CreatedAt = new DateTime(2022, 5, 23, 13, 3, 7, 238, DateTimeKind.Local).AddTicks(9589),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 10,
-                            ReservationDate = new DateTime(2032, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(908),
+                            ReservationDate = new DateTime(2032, 5, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9587),
                             ReservationName = "ReservationName_40"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596341"),
-                            CreatedAt = new DateTime(2022, 1, 15, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(921),
+                            CreatedAt = new DateTime(2022, 5, 18, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9594),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 17,
-                            ReservationDate = new DateTime(2022, 1, 19, 17, 58, 41, 547, DateTimeKind.Local).AddTicks(918),
+                            ReservationDate = new DateTime(2022, 5, 23, 0, 20, 7, 238, DateTimeKind.Local).AddTicks(9593),
                             ReservationName = "ReservationName_41"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596342"),
-                            CreatedAt = new DateTime(2021, 12, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(931),
+                            CreatedAt = new DateTime(2022, 4, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9599),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 4,
-                            ReservationDate = new DateTime(2022, 1, 13, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(929),
+                            ReservationDate = new DateTime(2022, 5, 16, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9598),
                             ReservationName = "ReservationName_42"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596343"),
-                            CreatedAt = new DateTime(2022, 2, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(941),
+                            CreatedAt = new DateTime(2022, 6, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9605),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 11,
-                            ReservationDate = new DateTime(2022, 3, 4, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(939),
+                            ReservationDate = new DateTime(2022, 7, 5, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9604),
                             ReservationName = "ReservationName_43"
                         },
                         new
                         {
                             ReservationId = new Guid("acbf657b-3398-7a73-8746-77b7cf596344"),
-                            CreatedAt = new DateTime(2022, 3, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(951),
+                            CreatedAt = new DateTime(2022, 7, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9612),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NumberOfDiners = 2,
-                            ReservationDate = new DateTime(2022, 4, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(949),
+                            ReservationDate = new DateTime(2022, 8, 23, 12, 20, 7, 238, DateTimeKind.Local).AddTicks(9611),
                             ReservationName = "ReservationName_44"
                         });
                 });
@@ -1711,7 +1711,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         {
                             TableId = new Guid("44aecd78-59bb-7504-bfff-07c07129ab00"),
                             Capacity = 4,
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(8793),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(8607),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TableNumber = 1,
@@ -1722,7 +1722,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         {
                             TableId = new Guid("44aecd78-59bb-7504-bfff-07c07129ab01"),
                             Capacity = 6,
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(9526),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(9448),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TableNumber = 2,
@@ -1733,7 +1733,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         {
                             TableId = new Guid("44aecd78-59bb-7504-bfff-07c07129ab02"),
                             Capacity = 4,
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(9560),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(9478),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TableNumber = 4,
@@ -1744,7 +1744,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         {
                             TableId = new Guid("44aecd78-59bb-7504-bfff-07c07129ab03"),
                             Capacity = 3,
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(9568),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(9482),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TableNumber = 5,
@@ -1755,7 +1755,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         {
                             TableId = new Guid("44aecd78-59bb-7504-bfff-07c07129aba2"),
                             Capacity = 5,
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(9575),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(9487),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TableNumber = 1,
@@ -1766,7 +1766,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         {
                             TableId = new Guid("44aecd78-59bb-7504-bfff-07c07129aba3"),
                             Capacity = 3,
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(9583),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(9491),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TableNumber = 2,
@@ -1777,7 +1777,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         {
                             TableId = new Guid("b006e2c5-5b8e-4584-8021-3cecd76c9ca6"),
                             Capacity = 6,
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(9590),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(9495),
                             CreatedBy = "64fed988-6f68-49dc-ad54-0da50ec02319",
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TableNumber = 1,
@@ -1820,7 +1820,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             ZoneId = new Guid("32bccd11-59fd-3304-bfaa-07c08082abc0"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(5317),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(4212),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1829,7 +1829,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             ZoneId = new Guid("32bccd11-59fd-3304-bfaa-07c08082abc1"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(6051),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(4639),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1838,7 +1838,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             ZoneId = new Guid("32bccd11-59fd-3304-bfaa-07c08082abc2"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(6086),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(4659),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1847,7 +1847,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             ZoneId = new Guid("32bccd11-59fd-3304-bfaa-07c08082abc3"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(6096),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(4665),
                             CreatedBy = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             FoodBusinessId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1856,7 +1856,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             ZoneId = new Guid("32bccd11-59fd-33ff-bfaa-07c08082aba1"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(6105),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(4670),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1865,7 +1865,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             ZoneId = new Guid("32bccd11-59fd-33ff-bfaa-07c08082aba2"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(6113),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(4675),
                             CreatedBy = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             FoodBusinessId = new Guid("66bf3570-440d-4673-8746-29b7cf568099"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1874,7 +1874,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             ZoneId = new Guid("f60d55e2-4e54-4896-9632-98d36d7680c3"),
-                            CreatedAt = new DateTime(2022, 1, 20, 5, 58, 41, 547, DateTimeKind.Local).AddTicks(6123),
+                            CreatedAt = new DateTime(2022, 5, 23, 12, 20, 7, 239, DateTimeKind.Local).AddTicks(4680),
                             CreatedBy = "64fed988-6f68-49dc-ad54-0da50ec02319",
                             FoodBusinessId = new Guid("88bc7853-220f-9173-3246-afb7cf595022"),
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1887,6 +1887,34 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.HasOne("SmartRestaurant.Domain.Entities.FoodBusiness", "FoodBusiness")
                         .WithMany()
                         .HasForeignKey("FoodBusinessId");
+
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("DishId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("DishId");
+
+                            b1.ToTable("Dishes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("DishId");
+                        });
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.DishIngredient", b =>
@@ -2089,6 +2117,37 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         .HasForeignKey("FoodBusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.Illness", b =>
+                {
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("IllnessId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("IllnessId");
+
+                            b1.ToTable("Illnesses");
+
+                            b1.WithOwner()
+                                .HasForeignKey("IllnessId");
+                        });
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Ingredient", b =>
@@ -2343,6 +2402,34 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.HasOne("SmartRestaurant.Domain.Entities.FoodBusiness", "FoodBusiness")
                         .WithMany()
                         .HasForeignKey("FoodBusinessId");
+
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("ProductId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("ProductId");
+
+                            b1.ToTable("Products");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProductId");
+                        });
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reservation", b =>
@@ -2361,6 +2448,34 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("SectionId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("SectionId");
+
+                            b1.ToTable("Sections");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SectionId");
+                        });
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.SectionDish", b =>
@@ -2400,6 +2515,34 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         .HasForeignKey("SectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("SubSectionId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("SubSectionId");
+
+                            b1.ToTable("SubSections");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SubSectionId");
+                        });
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.SubSectionDish", b =>
@@ -2448,6 +2591,34 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         .HasForeignKey("FoodBusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("ZoneId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("ZoneId");
+
+                            b1.ToTable("Zones");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ZoneId");
+                        });
                 });
 #pragma warning restore 612, 618
         }

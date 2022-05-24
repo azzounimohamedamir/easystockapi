@@ -19,6 +19,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Products.Commands
             createdProduct.Should().NotBeNull();
             createdProduct.ProductId.Should().Be(createProductCommand.Id);
             createdProduct.Name.Should().BeEquivalentTo(createProductCommand.Name);
+            
+            createdProduct.Names.AR.Should().BeEquivalentTo(createProductCommand.Names.AR);
+            createdProduct.Names.EN.Should().BeEquivalentTo(createProductCommand.Names.EN);
+            createdProduct.Names.FR.Should().BeEquivalentTo(createProductCommand.Names.FR);
+            createdProduct.Names.TR.Should().BeEquivalentTo(createProductCommand.Names.TR);
+            createdProduct.Names.RU.Should().BeEquivalentTo(createProductCommand.Names.RU);
+
             createdProduct.Description.Should().Be(createProductCommand.Description);
             createdProduct.Price.Should().Be(150);
             createdProduct.EnergeticValue.Should().Be(200);

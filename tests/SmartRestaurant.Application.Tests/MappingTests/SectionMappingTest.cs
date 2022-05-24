@@ -7,6 +7,7 @@ using SmartRestaurant.Application.Sections.Commands;
 using SmartRestaurant.Application.Tests.Configuration;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
+using SmartRestaurant.Domain.ValueObjects;
 using Xunit;
 
 namespace SmartRestaurant.Application.Tests.MappingTests
@@ -55,6 +56,14 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             {
                 ProductId = Guid.NewGuid(),
                 Name = "hamoud 2L",
+                Names = new Names()
+                {
+                    AR = "hamoud 2L AR",
+                    EN = "hamoud 2L EN",
+                    FR = "hamoud 2L FR",
+                    TR = "hamoud 2L TR",
+                    RU = "hamoud 2L RU"
+                },
                 Description = "description test",
                 Price = 150,
                 EnergeticValue = 200,
@@ -65,6 +74,13 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             var menuItemDto = _mapper.Map<MenuItemDto>(product);
             Assert.Equal(menuItemDto.MenuItemId, product.ProductId);
             Assert.Equal(menuItemDto.Name, product.Name);
+
+            Assert.Equal(product.Names.AR, menuItemDto.Names.AR);
+            Assert.Equal(product.Names.EN, menuItemDto.Names.EN);
+            Assert.Equal(product.Names.FR, menuItemDto.Names.FR);
+            Assert.Equal(product.Names.TR, menuItemDto.Names.TR);
+            Assert.Equal(product.Names.RU, menuItemDto.Names.RU);
+
             Assert.Equal(menuItemDto.Description, product.Description);
             Assert.Equal(menuItemDto.Price, product.Price);
             Assert.Equal(menuItemDto.EnergeticValue, product.EnergeticValue);
@@ -80,6 +96,14 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             {
                 DishId = Guid.NewGuid(),
                 Name = "Fakhitasse",
+                Names = new Names()
+                {
+                    AR = "Fakhitasse AR",
+                    EN = "Fakhitasse EN",
+                    FR = "Fakhitasse FR",
+                    TR = "Fakhitasse TR",
+                    RU = "Fakhitasse RU"
+                },
                 Description = "Fakhitasse description",
                 Picture = Convert.FromBase64String(Properties.Resources.picture),
                 Price = 280,
@@ -111,6 +135,13 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             var menuItemDto = _mapper.Map<MenuItemDto>(dish);
             Assert.Equal(menuItemDto.MenuItemId, dish.DishId);
             Assert.Equal(menuItemDto.Name, dish.Name);
+
+            Assert.Equal(dish.Names.AR, menuItemDto.Names.AR);
+            Assert.Equal(dish.Names.EN, menuItemDto.Names.EN);
+            Assert.Equal(dish.Names.FR, menuItemDto.Names.FR);
+            Assert.Equal(dish.Names.TR, menuItemDto.Names.TR);
+            Assert.Equal(dish.Names.RU, menuItemDto.Names.RU);
+
             Assert.Equal(menuItemDto.Description, dish.Description);
             Assert.Equal(menuItemDto.Price, dish.Price);
             Assert.Equal(menuItemDto.EnergeticValue, dish.EnergeticValue);

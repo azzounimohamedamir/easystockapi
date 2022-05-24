@@ -1,4 +1,5 @@
 ﻿using SmartRestaurant.Application.Common.Dtos.DishDtos;
+using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Dishes.Commands;
 using SmartRestaurant.Domain.Enums;
 using System;
@@ -16,6 +17,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             var createDishSupplement = new CreateDishCommand
             {
                 Name = "Supplement",
+                Names = new NamesDto() { AR= "Supplement AR", EN= "Supplement EN", FR= "Supplement FR", TR= "Supplement TR", RU= "Supplement RU" },
                 Description = "Supplement description",
                 Picture = Properties.Resources.PictureBase64_02,
                 Price = 100,
@@ -28,6 +30,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             var createDishCommand = new CreateDishCommand
             {
                 Name = "Fakhitasse",
+                Names = new NamesDto() { AR = "Fakhitasse AR", EN = "Fakhitasse EN", FR = "Fakhitasse FR", TR = "Fakhitasse TR", RU = "Fakhitasse RU" },
                 Description = "Fakhitasse description",
                 Picture = Properties.Resources.PictureBase64_01,
                 Price = 280,
