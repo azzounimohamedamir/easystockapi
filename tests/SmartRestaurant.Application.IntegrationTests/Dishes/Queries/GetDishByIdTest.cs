@@ -31,6 +31,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Dishes.Queries
 
             selectedDish.DishId.Should().Be(dish.DishId);
             selectedDish.Name.Should().Be(dish.Name);
+
+            selectedDish.Names.AR.Should().BeEquivalentTo(dish.Names.AR);
+            selectedDish.Names.EN.Should().BeEquivalentTo(dish.Names.EN);
+            selectedDish.Names.FR.Should().BeEquivalentTo(dish.Names.FR);
+            selectedDish.Names.TR.Should().BeEquivalentTo(dish.Names.TR);
+            selectedDish.Names.RU.Should().BeEquivalentTo(dish.Names.RU);
+
             selectedDish.Price.Should().Be(dish.Price);
             selectedDish.FoodBusinessId.Should().Be(dish.FoodBusinessId.ToString());
             selectedDish.IsSupplement.Should().Be(dish.IsSupplement);
@@ -70,6 +77,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Dishes.Queries
             selectedDish.Supplements[0].Description.Should().Be(dish.Supplements[0].Supplement.Description);
             selectedDish.Supplements[0].EnergeticValue.Should().Be(dish.Supplements[0].Supplement.EnergeticValue);
             selectedDish.Supplements[0].Name.Should().Be(dish.Supplements[0].Supplement.Name);
+
+            selectedDish.Supplements[0].Names.AR.Should().Be(dish.Supplements[0].Supplement.Names.AR);
+            selectedDish.Supplements[0].Names.EN.Should().Be(dish.Supplements[0].Supplement.Names.EN);
+            selectedDish.Supplements[0].Names.FR.Should().Be(dish.Supplements[0].Supplement.Names.FR);
+            selectedDish.Supplements[0].Names.TR.Should().Be(dish.Supplements[0].Supplement.Names.TR);
+            selectedDish.Supplements[0].Names.RU.Should().Be(dish.Supplements[0].Supplement.Names.RU);
+
             selectedDish.Supplements[0].Picture.Should().Be(Convert.ToBase64String(dish.Supplements[0].Supplement.Picture));
             selectedDish.Supplements[0].Price.Should().Be(dish.Supplements[0].Supplement.Price);
         }

@@ -89,7 +89,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
             var foodBusinessClient = await CreateFoodBusinessClient(fastFood);
-            var createZoneCommand = await CreateZone(fastFood);
+            var createZoneCommand = await ZoneTestTools.CreateZone(fastFood);
             await CreateTable(createZoneCommand);
 
             var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null);
@@ -209,17 +209,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
                 ZoneId = createZoneCommand.Id.ToString()
             };
             await SendAsync(createTableCommand02);
-        }
-
-        private static async Task<CreateZoneCommand> CreateZone(Domain.Entities.FoodBusiness fastFood)
-        {
-            var createZoneCommand = new CreateZoneCommand
-            {
-                FoodBusinessId = fastFood.FoodBusinessId,
-                ZoneTitle = "zone 45"
-            };
-            await SendAsync(createZoneCommand);
-            return createZoneCommand;
         }
 
         private async Task<UpdateOrderCommand> UpdateOrder(CreateOrderCommand createOrderCommand, Domain.Entities.FoodBusinessClient foodBusinessClient)

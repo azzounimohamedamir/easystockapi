@@ -28,11 +28,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
             };
             await SendAsync(createMenuCommand);
             for (var i = 0; i < 5; i++)
-                await SendAsync(new CreateSectionCommand
-                {
-                    Name = "section test " + i,
-                    MenuId = createMenuCommand.Id
-                }).ConfigureAwait(false);
+                await SectionTestTools.CreateSection(createMenuCommand, "section test " + i);
+               
             var query = new GetSectionsListQuery {MenuId = createMenuCommand.Id, Page = 1, PageSize = 5};
             var result = await SendAsync(query);
 

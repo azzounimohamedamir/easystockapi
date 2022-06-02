@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartRestaurant.Application.Common.Dtos.ValueObjects;
+using System;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
@@ -6,6 +7,7 @@ namespace SmartRestaurant.Application.Common.Dtos
     {
         public Guid SectionId { get; set; }
         public string Name { get; set; }
+        public NamesDto Names { get; set; }
         public Guid MenuId { get; set; }
         public Nullable<bool> HasSubSection { get; set; }
     }

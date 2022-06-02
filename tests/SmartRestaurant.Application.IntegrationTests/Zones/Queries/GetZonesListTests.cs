@@ -22,11 +22,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Queries
             for (var i = 0; i < 5; i++)
             {
                 var name = "zone " + Guid.NewGuid();
-                await SendAsync(new CreateZoneCommand
-                {
-                    FoodBusinessId = fastFood.FoodBusinessId,
-                    ZoneTitle = name
-                });
+                await ZoneTestTools.CreateZone(fastFood, name,true);
             }
 
             var query = new GetZonesListQuery {FoodBusinessId = fastFood.FoodBusinessId};

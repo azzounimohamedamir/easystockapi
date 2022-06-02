@@ -14,6 +14,14 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             var createIllnessCommand = new CreateIllnessCommand
             {
                 Name = "test",
+                Names = new Common.Dtos.ValueObjects.NamesDto()
+                {
+                    AR = "testAR",
+                    EN = "testEN",
+                    FR = "testFR",
+                    TR = "testTR",
+                    RU = "testRU"
+                },
                 Ingredients = new List<IngredientIllnessDto>()
                 {
                     new IngredientIllnessDto()
@@ -26,6 +34,14 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             var createIllnessCommand2 = new CreateIllnessCommand
             {
                 Name = "allergie",
+                Names = new Common.Dtos.ValueObjects.NamesDto()
+                {
+                    AR = "allergieAR",
+                    EN = "allergieEN",
+                    FR = "allergieFR",
+                    TR = "allergieTR",
+                    RU = "allergieRU"
+                },
                 Ingredients = new List<IngredientIllnessDto>()
                 {
                    new IngredientIllnessDto()
@@ -42,6 +58,14 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             var createIllnessCommand = new CreateIllnessCommand
             {
                 Name = "test",
+                Names = new Common.Dtos.ValueObjects.NamesDto()
+                {
+                    AR = "testAR",
+                    EN = "testEN",
+                    FR = "testFR",
+                    TR = "testTR",
+                    RU = "testRU"
+                },
                 Ingredients = new List<IngredientIllnessDto>()
                 {
                     new IngredientIllnessDto()
@@ -54,6 +78,14 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             var createIllnessCommand2 = new CreateIllnessCommand
             {
                 Name = "allergie",
+                Names = new Common.Dtos.ValueObjects.NamesDto()
+                {
+                    AR = "allergieAR",
+                    EN = "allergieEN",
+                    FR = "allergieFR",
+                    TR = "allergieTR",
+                    RU = "allergieRU"
+                },
                 Ingredients = new List<IngredientIllnessDto>()
                 {
                    new IngredientIllnessDto()

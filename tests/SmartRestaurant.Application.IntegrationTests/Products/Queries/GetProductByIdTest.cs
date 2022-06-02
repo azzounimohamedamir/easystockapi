@@ -20,6 +20,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Products.Commands
             selectedProduct.Should().NotBeNull();
             selectedProduct.ProductId.Should().Be(product.ProductId);
             selectedProduct.Name.Should().BeEquivalentTo(product.Name);
+
+            selectedProduct.Names.AR.Should().BeEquivalentTo(product.Names.AR);
+            selectedProduct.Names.EN.Should().BeEquivalentTo(product.Names.EN);
+            selectedProduct.Names.FR.Should().BeEquivalentTo(product.Names.FR);
+            selectedProduct.Names.TR.Should().BeEquivalentTo(product.Names.TR);
+            selectedProduct.Names.RU.Should().BeEquivalentTo(product.Names.RU);
+
             selectedProduct.Description.Should().Be(product.Description);
             selectedProduct.Price.Should().Be(product.Price);
             selectedProduct.EnergeticValue.Should().Be(product.EnergeticValue);

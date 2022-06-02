@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartRestaurant.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Common.Dtos
@@ -7,6 +8,7 @@ namespace SmartRestaurant.Application.Common.Dtos
     {
         public Guid IllnessId { get; set; }
         public string Name { get; set; }
+        public Names Names { get; set; }
         public List<IngredientDto> Ingredients { get; set; }
     }
 }

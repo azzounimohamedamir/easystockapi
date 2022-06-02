@@ -21,7 +21,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
             var createMenuCommand = await CreateMenu(fastFood);
-            var createSectionCommand = await CreateSection(createMenuCommand);
+            var createSectionCommand = await SectionTestTools.CreateSection(createMenuCommand);
             var createDishCommand = await CreateDish(fastFood);
             var createProductCommand = await ProductTestTools.CreateProduct();
 
@@ -71,16 +71,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
             return createDishCommand;
         }
 
-        private static async Task<CreateSectionCommand> CreateSection(CreateMenuCommand createMenuCommand)
-        {
-            var createSectionCommand = new CreateSectionCommand
-            {
-                MenuId = createMenuCommand.Id,
-                Name = "section test menu"
-            };
-            await SendAsync(createSectionCommand);
-            return createSectionCommand;
-        }
 
         private static async Task<CreateMenuCommand> CreateMenu(Domain.Entities.FoodBusiness fastFood)
         {

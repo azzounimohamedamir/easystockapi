@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using NUnit.Framework;
+using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Application.Products.Commands;
 using SmartRestaurant.Domain.Entities;
@@ -26,6 +27,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Products.Commands
             updatedProduct.Should().NotBeNull();
             updatedProduct.ProductId.Should().Be(product.Id);
             updatedProduct.Name.Should().BeEquivalentTo(updateProductCommand.Name);
+
+            updatedProduct.Names.AR.Should().BeEquivalentTo(updateProductCommand.Names.AR);
+            updatedProduct.Names.EN.Should().BeEquivalentTo(updateProductCommand.Names.EN);
+            updatedProduct.Names.FR.Should().BeEquivalentTo(updateProductCommand.Names.FR);
+            updatedProduct.Names.TR.Should().BeEquivalentTo(updateProductCommand.Names.TR);
+            updatedProduct.Names.RU.Should().BeEquivalentTo(updateProductCommand.Names.RU);
+
             updatedProduct.Description.Should().Be(updateProductCommand.Description);
             updatedProduct.Price.Should().Be(updateProductCommand.Price);
             updatedProduct.EnergeticValue.Should().Be(updateProductCommand.EnergeticValue);
@@ -41,6 +49,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Products.Commands
             {
                 Id = product.Id.ToString(),
                 Name = "IFRI 1L",
+                Names = new NamesDto() { AR = "hamoud 2L AR updated", EN = "hamoud 2L EN updated", FR = "hamoud 2L FR updated", TR = "hamoud 2L TR updated", RU = "hamoud 2L RU updated" },
                 Description = "IFRI description test",
                 Price = 80,
                 EnergeticValue = 120,

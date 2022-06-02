@@ -28,6 +28,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Illnesses.Commands
             updatedIllness.Should().NotBeNull();
             updatedIllness.IllnessId.Should().Be(updateIllnessCommand.Id);
             updatedIllness.Name.Should().Be(updateIllnessCommand.Name);
+            updatedIllness.Names.AR.Should().Be("Fakhitasse modifiedAR");
+            updatedIllness.Names.EN.Should().Be("Fakhitasse modifiedEN");
+            updatedIllness.Names.FR.Should().Be("Fakhitasse modifiedFR");
+            updatedIllness.Names.TR.Should().Be("Fakhitasse modifiedTR");
+            updatedIllness.Names.RU.Should().Be("Fakhitasse modifiedRU");
             updatedIllness.IngredientIllnesses.Should().HaveCount(0);
 
 
@@ -40,6 +45,14 @@ namespace SmartRestaurant.Application.IntegrationTests.Illnesses.Commands
             {
                 Id = illness.IllnessId.ToString(),
                 Name = "Fakhitasse modified",
+                Names = new Common.Dtos.ValueObjects.NamesDto()
+                {
+                    AR = "Fakhitasse modifiedAR",
+                    EN = "Fakhitasse modifiedEN",
+                    FR = "Fakhitasse modifiedFR",
+                    TR = "Fakhitasse modifiedTR",
+                    RU = "Fakhitasse modifiedRU"
+                }
             };
             await SendAsync(updateIllnessCommand);
             return updateIllnessCommand;

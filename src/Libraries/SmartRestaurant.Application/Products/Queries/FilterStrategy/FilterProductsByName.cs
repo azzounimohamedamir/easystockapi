@@ -39,9 +39,20 @@ namespace SmartRestaurant.Application.Products.Queries.FilterStrategy
         private static Expression<Func<Product, bool>> Condition(string foodBusinessId, string searchKey)
         {
             if(foodBusinessId == null)
-                return product => product.Name.Contains(searchKey) && product.FoodBusinessId == null;
+                return product => (product.Name.Contains(searchKey) 
+                || product.Names.AR.Contains(searchKey)
+                || product.Names.EN.Contains(searchKey)
+                || product.Names.FR.Contains(searchKey)
+                || product.Names.TR.Contains(searchKey)
+                || product.Names.RU.Contains(searchKey)) 
+                && product.FoodBusinessId == null;
             else 
-                return product => product.Name.Contains(searchKey) && product.FoodBusinessId == Guid.Parse(foodBusinessId);
+                return product => (product.Name.Contains(searchKey)
+                || product.Names.AR.Contains(searchKey)
+                || product.Names.EN.Contains(searchKey)
+                || product.Names.FR.Contains(searchKey)
+                || product.Names.TR.Contains(searchKey)
+                || product.Names.RU.Contains(searchKey)) && product.FoodBusinessId == Guid.Parse(foodBusinessId);
         }
 
     }

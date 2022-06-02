@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartRestaurant.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
 
 namespace SmartRestaurant.Domain.Entities
@@ -13,6 +14,7 @@ namespace SmartRestaurant.Domain.Entities
 
         public Guid SectionId { get; set; }
         public string Name { get; set; }
+        public Names Names { get; set; }
         public Guid MenuId { get; set; }
         public Menu Menu { get; set; }
         public Nullable<bool> HasSubSection { get; set; }

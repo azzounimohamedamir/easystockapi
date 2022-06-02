@@ -19,12 +19,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Commands
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
-            var createZoneCommand = new CreateZoneCommand
-            {
-                FoodBusinessId = fastFood.FoodBusinessId,
-                ZoneTitle = "zone 51"
-            };
-            await SendAsync(createZoneCommand);
+            var createZoneCommand = await ZoneTestTools.CreateZone(fastFood);
+
             var deleteCommand = new DeleteZoneCommand {Id = createZoneCommand.Id};
             await SendAsync(deleteCommand);
             var zone51 = await FindAsync<Zone>(createZoneCommand.Id);

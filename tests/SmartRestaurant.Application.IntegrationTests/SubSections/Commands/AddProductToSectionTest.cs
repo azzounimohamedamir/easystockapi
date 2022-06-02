@@ -23,8 +23,8 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections.Commands
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
             var createMenuCommand = await createMenu(fastFood);
-            var createSectionCommand = await createSection(createMenuCommand);
-            var createSubSectionCommand = await createSubSection(createSectionCommand);
+            var createSectionCommand = await SectionTestTools.CreateSection(createMenuCommand);
+            var createSubSectionCommand = await SubSectionTestTools.CreateSubSection(createSectionCommand, "sub section test menu");
             var createProductCommand = await ProductTestTools.CreateProduct();
 
             var addProductToSubSectionCommand = new AddProductToSubSectionCommand
@@ -43,28 +43,7 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections.Commands
             item[0].ProductId.Should().Be(addProductToSubSectionCommand.ProductId);
         }
 
-        private static async Task<CreateSectionCommand> createSection(CreateMenuCommand createMenuCommand)
-        {
-            var createSectionCommand = new CreateSectionCommand
-            {
-                MenuId = createMenuCommand.Id,
-                Name = "section test menu"
-            };
-            await SendAsync(createSectionCommand);
-            return createSectionCommand;
-        }
-
-        private static async Task<CreateSubSectionCommand> createSubSection(CreateSectionCommand createSectionCommand)
-        {
-            var createSubSectionCommand = new CreateSubSectionCommand
-            {
-                SectionId = createSectionCommand.Id,
-                Name = "sub section test menu"
-            };
-            await SendAsync(createSubSectionCommand);
-            return createSubSectionCommand;
-        }
-
+     
         private static async Task<CreateMenuCommand> createMenu(Domain.Entities.FoodBusiness fastFood)
         {
             var createMenuCommand = new CreateMenuCommand

@@ -23,6 +23,14 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             {
                 ZoneId = Guid.NewGuid(),
                 ZoneTitle = "Class A",
+                Names =new Domain.ValueObjects.Names()
+                {
+                    AR="AR",
+                    EN="EN",
+                    FR="FR",
+                    TR="TR",
+                    RU="RU"
+                },
                 FoodBusinessId = Guid.NewGuid(),
                 Tables = new List<Table>(),
             };
@@ -38,6 +46,13 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             var zonetDto = _mapper.Map<ZoneWithTablesDto>(zone);
             Assert.Equal(zonetDto.ZoneId, zone.ZoneId);
             Assert.Equal(zonetDto.ZoneTitle, zone.ZoneTitle);
+
+            Assert.Equal(zonetDto.Names.AR, zone.Names.AR);
+            Assert.Equal(zonetDto.Names.EN, zone.Names.EN);
+            Assert.Equal(zonetDto.Names.FR, zone.Names.FR);
+            Assert.Equal(zonetDto.Names.TR, zone.Names.TR);
+            Assert.Equal(zonetDto.Names.RU, zone.Names.RU);
+
             Assert.Equal(zonetDto.FoodBusinessId, zone.FoodBusinessId);
             Assert.Equal(zonetDto.Tables[0].TableId, zone.Tables[0].TableId);
             Assert.Equal(zonetDto.Tables[0].Capacity, zone.Tables[0].Capacity);

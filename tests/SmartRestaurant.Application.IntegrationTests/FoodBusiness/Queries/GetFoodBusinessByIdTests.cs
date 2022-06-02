@@ -44,24 +44,12 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
 
         private static async Task<CreateZoneCommand> CreateFamilyZone(Domain.Entities.FoodBusiness fastFood)
         {
-            var createFamilyZone = new CreateZoneCommand
-            {
-                FoodBusinessId = fastFood.FoodBusinessId,
-                ZoneTitle = "Family Zone"
-            };
-            await SendAsync(createFamilyZone);
-            return createFamilyZone;
+           return  await ZoneTestTools.CreateZone(fastFood, "Family Zone",true);
         }
 
         private static async Task<CreateZoneCommand> CreateVipZone(Domain.Entities.FoodBusiness fastFood)
         {
-            var createVipZone = new CreateZoneCommand
-            {
-                FoodBusinessId = fastFood.FoodBusinessId,
-                ZoneTitle = "VIP Zone"
-            };
-            await SendAsync(createVipZone);
-            return createVipZone;
+            return await ZoneTestTools.CreateZone(fastFood, "VIP Zone",true);
         }
 
         private static async Task CreateMenu(Guid foodBusinessId)
