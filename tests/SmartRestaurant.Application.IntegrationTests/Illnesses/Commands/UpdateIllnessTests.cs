@@ -40,7 +40,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Illnesses.Commands
             updatedIllness.Names.FR.Should().Be("Fakhitasse modifiedFR");
             updatedIllness.Names.TR.Should().Be("Fakhitasse modifiedTR");
             updatedIllness.Names.RU.Should().Be("Fakhitasse modifiedRU");
-            updatedIllness.IngredientIllnesses.Should().HaveCount(0);
+            updatedIllness.IngredientIllnesses.Should().HaveCount(1);
 
 
             updatedIllness.Names.AR.Should().Be("Fakhitasse modifiedAR");

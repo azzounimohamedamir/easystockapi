@@ -152,7 +152,8 @@ namespace SmartRestaurant.Application.Illness.Queries
 
             ).ToList();
 
-            return result;
+           result.SummaryIngredientIllness.RemoveAll(s=>s.Illness==null || s.Illness.Count==0);
+           return result;
         }
     }
 }

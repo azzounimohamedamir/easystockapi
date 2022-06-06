@@ -28,6 +28,35 @@ namespace SmartRestaurant.Application.Illness.Commands
                 .SetValidator(new IllnessIngedientValidator())
                 .NotEmpty().WithMessage("'Ingredient' must not be empty")
                 .When(illness => illness.Ingredients != null);
+            RuleFor(v => v.Names)
+               .Cascade(CascadeMode.StopOnFirstFailure)
+               .NotNull()
+               .DependentRules(() => {
+                   RuleFor(v => v.Names.AR)
+                      .Cascade(CascadeMode.StopOnFirstFailure)
+                      .NotEmpty()
+                      .MaximumLength(200);
+
+                   RuleFor(v => v.Names.EN)
+                      .Cascade(CascadeMode.StopOnFirstFailure)
+                      .NotEmpty()
+                      .MaximumLength(200);
+
+                   RuleFor(v => v.Names.FR)
+                      .Cascade(CascadeMode.StopOnFirstFailure)
+                      .NotEmpty()
+                      .MaximumLength(200);
+
+                   RuleFor(v => v.Names.TR)
+                      .Cascade(CascadeMode.StopOnFirstFailure)
+                      .NotEmpty()
+                      .MaximumLength(200);
+
+                   RuleFor(v => v.Names.RU)
+                    .Cascade(CascadeMode.StopOnFirstFailure)
+                    .NotEmpty()
+                    .MaximumLength(200);
+               });
         }
     }
 }
