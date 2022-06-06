@@ -28,6 +28,7 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
                        .Include(o => o.OccupiedTables)
                        .Where(Condition(request))
                        .OrderByDescending(orders => orders.Status)
+                       .ThenByDescending(orders => orders.CreatedAt)
                        .GetPaged(request.Page, request.PageSize);
 
                 default:
@@ -42,6 +43,7 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
                        .Include(o => o.OccupiedTables)
                        .Where(Condition(request))
                        .OrderBy(orders => orders.Status)
+                       .ThenByDescending(orders => orders.CreatedAt)
                        .GetPaged(request.Page, request.PageSize);
             }
         }
