@@ -3,6 +3,7 @@ using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Common.Tools;
+using SmartRestaurant.Application.Common.Validators;
 using SmartRestaurant.Application.Common.WebResults;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -35,9 +36,11 @@ namespace SmartRestaurant.Application.Illness.Commands
                  .MaximumLength(200);
 
             RuleForEach(illness => illness.Ingredients)
-              .Cascade(CascadeMode.StopOnFirstFailure)
-              .NotEmpty().WithMessage("'Ingredient' must not be empty")
-              .When(illness => illness.Ingredients != null);
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .SetValidator(new IllnessIngedientValidator())
+                .NotEmpty().WithMessage("'Ingredient' must not be empty")
+                .When(illness => illness.Ingredients != null);
+
             RuleFor(v => v.Names)
              .Cascade(CascadeMode.StopOnFirstFailure)
              .NotNull()

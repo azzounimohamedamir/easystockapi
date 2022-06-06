@@ -2,6 +2,7 @@
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
+using SmartRestaurant.Application.Common.Validators;
 using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Illness.Commands
@@ -24,37 +25,9 @@ namespace SmartRestaurant.Application.Illness.Commands
                 .MaximumLength(200);
             RuleForEach(illness => illness.Ingredients)
                 .Cascade(CascadeMode.StopOnFirstFailure)
+                .SetValidator(new IllnessIngedientValidator())
                 .NotEmpty().WithMessage("'Ingredient' must not be empty")
                 .When(illness => illness.Ingredients != null);
-            RuleFor(v => v.Names)
-                 .Cascade(CascadeMode.StopOnFirstFailure)
-                 .NotNull()
-                 .DependentRules(() => {
-                     RuleFor(v => v.Names.AR)
-                        .Cascade(CascadeMode.StopOnFirstFailure)
-                        .NotEmpty()
-                        .MaximumLength(200);
-
-                     RuleFor(v => v.Names.EN)
-                        .Cascade(CascadeMode.StopOnFirstFailure)
-                        .NotEmpty()
-                        .MaximumLength(200);
-
-                     RuleFor(v => v.Names.FR)
-                        .Cascade(CascadeMode.StopOnFirstFailure)
-                        .NotEmpty()
-                        .MaximumLength(200);
-
-                     RuleFor(v => v.Names.TR)
-                        .Cascade(CascadeMode.StopOnFirstFailure)
-                        .NotEmpty()
-                        .MaximumLength(200);
-
-                     RuleFor(v => v.Names.RU)
-                      .Cascade(CascadeMode.StopOnFirstFailure)
-                      .NotEmpty()
-                      .MaximumLength(200);
-                 });
         }
     }
 }

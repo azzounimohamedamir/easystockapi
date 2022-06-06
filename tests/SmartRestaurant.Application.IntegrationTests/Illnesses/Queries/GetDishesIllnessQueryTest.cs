@@ -20,7 +20,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Illnesses.Queries
             var createIngredientCommand = await IngredientTestTools.CreateIngredient();
             var createIngredientCommand2 = await IngredientTestTools.CreateIngredient();
             var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
-            var createIllnessCommand = await IllnessTestTools.CreateIllnesswithDeffirentIngredients(createIngredientCommand.Id, createIngredientCommand2.Id);
+            var (createIllnessCommand, createIllnessCommand2) = await IllnessTestTools.CreateIllnesswithDeffirentIngredients(createIngredientCommand.Id, createIngredientCommand2.Id);
 
             var listDishesIllness = await SendAsync(new GetDishesIllnessQuery { 
                 disheIds=new List<string>() { createDishCommand.Id.ToString() } ,

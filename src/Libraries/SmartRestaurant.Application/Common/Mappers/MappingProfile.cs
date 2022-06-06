@@ -393,11 +393,16 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Domain.Entities.Illness, IllnessDto>()
                .ForMember(x => x.IllnessId, o => o.MapFrom(p => p.IllnessId))
-                .ForMember(x => x.Ingredients, o => o.MapFrom(p => p.IngredientIllnesses))
+                .ForMember(x => x.IngredientIllnesses, o => o.MapFrom(p => p.IngredientIllnesses))
                .ReverseMap();
 
-            CreateMap<IngredientIllnessDto, IngredientIllness>();
-
+            CreateMap<IngredientIllnessDto, IngredientIllness>()
+                .ForMember(x=>x.IngredientId,o=> o.MapFrom(p =>Guid.Parse( p.IngredientId)))
+                .ReverseMap();
+            CreateMap<CriticalQteIllnessIngredientDto,IngredientIllness>()
+                                .ForPath(x => x.Illness.Names, o => o.MapFrom(p => p.IllnessName))
+                                .ForPath(x => x.Quantity, o => o.MapFrom(p => p.Quantity))
+                                .ReverseMap();
             CreateMap<SetFoodBusinessCommissionCommand, Domain.Entities.FoodBusiness>()
                 .ForMember(x => x.CommissionConfigs, opt => opt.MapFrom<SetFoodBusinessCommissionResolver>());
 
