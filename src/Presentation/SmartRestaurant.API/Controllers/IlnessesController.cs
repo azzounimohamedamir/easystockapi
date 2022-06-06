@@ -152,5 +152,32 @@ namespace SmartRestaurant.API.Controllers
         {
             return await SendWithErrorsHandlingAsync(command);
         }
+
+        /// <summary> This endpoint is used to Get the corresponding illness of ingridient in a liste of deshes grouping with ingredients </summary>
+        /// <remarks>
+        ///     1- This endpoint allows <b>FoodBusinessManager ,SupportAgent,FoodBusinessAdministrator,SuperAdmin</b> to Query the Illness of dishes ingredients.
+        ///     <br></br>
+        /// </remarks>
+        /// <param name="command">This is Json object containe the ids of deshes and the ids of illess</param>
+        /// <response code="400">The payload data sent to the backend-server in order to Query Illness is invalid.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
+        [ProducesResponseType(typeof(IList<DishIllnessDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [ProducesResponseType(typeof(ExceptionResponse), 401)]
+        [ProducesResponseType(typeof(ExceptionResponse), 403)]
+        [HttpPost]
+        [Route("warningingredentOrder")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner")]
+        public async Task<IActionResult> WarningIngredentOrder(GetWarningIngredientOfOrderWithIllnessQuery command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
+        }
     }
 }

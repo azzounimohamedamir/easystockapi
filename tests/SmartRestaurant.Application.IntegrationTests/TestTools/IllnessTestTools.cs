@@ -26,7 +26,8 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 {
                     new IngredientIllnessDto()
                     {
-                        IngredientId = ingredientId.ToString()
+                        IngredientId = ingredientId.ToString(),
+                        Quantity=15
                     }
                 }
             };
@@ -46,14 +47,15 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 {
                    new IngredientIllnessDto()
                     {
-                        IngredientId = ingredientId.ToString()
+                        IngredientId = ingredientId.ToString(),
+                        Quantity=20
                     }
                 }
             };
             await SendAsync(createIllnessCommand2);
             return createIllnessCommand;
         }
-        public static async Task<CreateIllnessCommand> CreateIllnesswithDeffirentIngredients(Guid ingredientId, Guid ingredientId2)
+        public static async Task<(CreateIllnessCommand, CreateIllnessCommand)> CreateIllnesswithDeffirentIngredients(Guid ingredientId, Guid ingredientId2)
         {
             var createIllnessCommand = new CreateIllnessCommand
             {
@@ -70,7 +72,8 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 {
                     new IngredientIllnessDto()
                     {
-                        IngredientId = ingredientId.ToString()
+                        IngredientId = ingredientId.ToString(),
+                        Quantity=15
                     }
                 }
             };
@@ -90,12 +93,13 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 {
                    new IngredientIllnessDto()
                     {
-                        IngredientId = ingredientId2.ToString()
+                        IngredientId = ingredientId2.ToString(),
+                        Quantity=20
                     }
                 }
             };
             await SendAsync(createIllnessCommand2);
-            return createIllnessCommand;
+            return (createIllnessCommand ,createIllnessCommand2);
         }
     }
 }

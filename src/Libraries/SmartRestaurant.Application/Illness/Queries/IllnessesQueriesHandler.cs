@@ -2,9 +2,11 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Illness.Queries.FilterStrategy;
+using SmartRestaurant.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,9 @@ using System.Threading.Tasks;
 namespace SmartRestaurant.Application.Illness.Queries
 {
     public class IllnessesQueriesHandler : IRequestHandler<GetIllnessesListQuery, PagedListDto<IllnessDto>>,
-        IRequestHandler<GetIllnessByIdQuery, IllnessDto>, IRequestHandler<GetDishesIllnessQuery, IList<DishIllnessDto>>
+        IRequestHandler<GetIllnessByIdQuery, IllnessDto>, 
+        IRequestHandler<GetDishesIllnessQuery, IList<DishIllnessDto>>,
+        IRequestHandler<GetWarningIngredientOfOrderWithIllnessQuery, WarningIngredientOfOrder>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -44,20 +48,15 @@ namespace SmartRestaurant.Application.Illness.Queries
             var validator = new GetIllnessByIdQueryValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-            var IllnessDto = await _context.Illnesses
+            var Illness = await _context.Illnesses
                .Include(x => x.IngredientIllnesses)
                .ThenInclude(x => x.Ingredient)
-               .Select(x => new IllnessDto
-               {
-                   IllnessId = x.IllnessId,
-                   Name = x.Name,
-                   Ingredients = _mapper.Map<List<IngredientDto>>(x.IngredientIllnesses.Select(i => i.Ingredient).ToList())
-               })
                .Where(u => u.IllnessId == Guid.Parse(request.Id))
                .FirstOrDefaultAsync()
                .ConfigureAwait(false);
-            if (IllnessDto == null)
+            if (Illness == null)
                 throw new NotFoundException(nameof(Illness), request.Id);
+            var IllnessDto = _mapper.Map<IllnessDto>(Illness);
             return IllnessDto;
         }
 
@@ -90,6 +89,71 @@ namespace SmartRestaurant.Application.Illness.Queries
                     }).ToList() 
                 };
             }).ToList();
+        }
+        public class ElementToProcessWarning
+        {
+            public string IdIngredient { get; set; }
+            public string IdDishe { get; set; }
+            public float Quantity { get; set; }
+            public bool InSupplement { get; set; }
+        }
+        public async Task<WarningIngredientOfOrder> Handle(GetWarningIngredientOfOrderWithIllnessQuery request, CancellationToken cancellationToken)
+        {
+            var losteElementToProcesse = request.SummaryIngredients.SelectMany(
+            summaryItem =>
+                    summaryItem.IngredientDishes.
+                    Select(x => new ElementToProcessWarning()
+                    {
+                        IdDishe = summaryItem.IdDish,
+                        IdIngredient = x.IdIngredient,
+                        Quantity = x.Quantity* summaryItem.QteDish,
+                        InSupplement = false,
+                    }).Union(
+                        summaryItem.IdSupplement.SelectMany(
+                            supp =>
+                            {
+                                return
+                                _context.Dishes.AsNoTracking()
+                                .Include(xx => xx.Ingredients).ThenInclude(xx=>xx.Ingredient).
+                                FirstOrDefault(x => x.DishId == Guid.Parse(supp)).Ingredients.
+                                Select(x => new ElementToProcessWarning()
+                                {
+                                    IdDishe = summaryItem.IdDish,
+                                    IdIngredient = x.IngredientId.ToString(),
+                                    Quantity = x.InitialAmount* summaryItem.QteDish,
+                                    InSupplement=true,
+                                  }).ToList();
+                            }
+                        ))
+                    ).ToList();
+            WarningIngredientOfOrder result = new WarningIngredientOfOrder();
+            result.SummaryIngredientIllness = losteElementToProcesse
+            .GroupBy(x => x.IdIngredient).Select(x =>
+            {
+                var SumQte = x.Sum(y => y.Quantity);
+                var warning = new WarningIngredientOfOrderWithIllness()
+                {
+                    IngredientId = x.Key,
+                    Ingredient = _mapper.Map<IngredientDto>(_context.Ingredients.AsNoTracking().FirstOrDefault(ing=>ing.IngredientId.ToString().Equals(x.Key))),
+                    Dishes = x.Select(t =>new DisheInSupplement()
+                    {
+                        IdDish= t.IdDishe,
+                        InSuplement= t.InSupplement
+                    }).ToList(),
+                    Quantity = SumQte,
+                    Illness = _mapper.Map<List<CriticalQteIllnessIngredientDto>>(
+                    _context.IngredientIllnesses.AsNoTracking().
+                    Include(x => x.Illness).
+                    Where(y => y.IngredientId.ToString().Equals(x.Key) && y.Quantity<= SumQte)
+                    .ToList())
+                };
+                return warning;
+            }
+
+            ).ToList();
+
+           result.SummaryIngredientIllness.RemoveAll(s=>s.Illness==null || s.Illness.Count==0);
+           return result;
         }
     }
 }
