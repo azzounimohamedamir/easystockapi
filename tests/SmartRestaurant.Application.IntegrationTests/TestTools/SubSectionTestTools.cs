@@ -11,11 +11,12 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
     using static Testing;
     public class SubSectionTestTools
     {
-        public static async Task<CreateSubSectionCommand> CreateSubSection(CreateSectionCommand createSectionCommand,string name= "subsection test menu")
+        public static async Task<CreateSubSectionCommand> CreateSubSection(CreateSectionCommand createSectionCommand,string name= "subsection test menu",int order=1)
         {
             var createSubSectionCommand = new CreateSubSectionCommand
             {
                 SectionId = createSectionCommand.Id,
+                Order = order,
                 Names = new NamesDto() { AR = "AR", EN = "EN", FR = "FR", TR = "TR", RU = "RU" },
                 Name = name
             };
@@ -27,6 +28,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             await SendAsync(new UpdateSubSectionCommand
             {
                 Id = createSubSectionCommand.Id,
+                Order=2,
                 SectionId = createSectionCommand.Id,
                 Name = NewName,
                 Names = new NamesDto() { AR = "AR", EN = "EN", FR = "FR", TR = "TR", RU = "RU" },

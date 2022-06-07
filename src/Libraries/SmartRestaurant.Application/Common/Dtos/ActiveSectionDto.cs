@@ -8,6 +8,7 @@ namespace SmartRestaurant.Application.Common.Dtos
     public class ActiveSectionDto
     {
         public Guid SectionId { get; set; }
+        public int Order { get; set; }
         public string Name { get; set; }
         public NamesDto Names { get; set; }
         public Nullable<bool> HasSubSection { get; set; }

@@ -31,7 +31,7 @@ namespace SmartRestaurant.Application.SubSections.Queries
         public async Task<PagedListDto<SubSectionDto>> Handle(GetSubSectionsListQuery request,
             CancellationToken cancellationToken)
         {
-            var query = _context.SubSections.Where(s => s.SectionId == request.SectionId)
+            var query = _context.SubSections.Where(s => s.SectionId == request.SectionId).OrderBy(s => s.Order)
                 .GetPaged(request.Page, request.PageSize);
             var data = _mapper.Map<List<SubSectionDto>>(await query.Data.ToListAsync(cancellationToken)
                 .ConfigureAwait(false));

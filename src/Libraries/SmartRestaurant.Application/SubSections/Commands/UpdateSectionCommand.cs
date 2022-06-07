@@ -8,6 +8,7 @@ namespace SmartRestaurant.Application.SubSections.Commands
     public class UpdateSubSectionCommand : UpdateCommand
     {
         public string Name { get; set; }
+        public int Order { get; set; }
         public NamesDto Names { get; set; }
         public Guid SectionId { get; set; }
     }
@@ -17,6 +18,7 @@ namespace SmartRestaurant.Application.SubSections.Commands
         public UpdateSubSectionCommandValidator()
         {
             RuleFor(m => m.Name).NotEmpty().MaximumLength(200);
+            RuleFor(m => m.Order).GreaterThan(0);
             RuleFor(m => m.Id).NotEmpty().NotEqual(Guid.Empty);
             RuleFor(v => v.Names)
               .Cascade(CascadeMode.StopOnFirstFailure)

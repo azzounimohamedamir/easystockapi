@@ -39,6 +39,7 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections
 
             item.Should().NotBeNull();
             item.Name.Should().Be("subsection 2 test menu");
+            item.Order.Should().Be(2);
             item.Names.AR.Should().Be("AR");
             item.Names.EN.Should().Be("EN");
             item.Names.FR.Should().Be("FR");
