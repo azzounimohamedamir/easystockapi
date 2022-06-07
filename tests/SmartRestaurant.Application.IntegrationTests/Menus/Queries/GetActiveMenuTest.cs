@@ -31,12 +31,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
             }
 
             var menuId = Guid.NewGuid();
-            await SendAsync(new CreateMenuCommand
+            var CreateMenueCommand = new CreateMenuCommand
             {
                 Id = menuId,
                 Name = "test menu",
                 FoodBusinessId = fastFood.FoodBusinessId
-            });
+            };
+            await SendAsync(CreateMenueCommand);
             await SendAsync(new UpdateMenuCommand
             {
                 Id = menuId,
@@ -44,10 +45,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
                 MenuState = MenuState.Enabled,
                 FoodBusinessId = fastFood.FoodBusinessId
             });
-
+            var createSectionCommand = await SectionTestTools.CreateSection(CreateMenueCommand);
+            var createSubSectionCommand = await SubSectionTestTools.CreateSubSection(createSectionCommand);
             var result = await SendAsync(new GetActiveMenuQuery { FoodBusinessId = fastFood.FoodBusinessId.ToString() });
             result.MenuId.Should().Be(menuId);
             result.Name.Should().Be("test menu -- enabled");
+            result.Sections[0].Order.Should().Be(1);
+            result.Sections[0].SubSections[0].Order.Should().Be(1);
         }
     }
 }

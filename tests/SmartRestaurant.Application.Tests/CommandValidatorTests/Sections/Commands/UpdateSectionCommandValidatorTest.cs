@@ -61,5 +61,17 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.Sections.Comma
             var result = _validator.TestValidate(commandNullRu);
             result.ShouldHaveValidationErrorFor(person => person.Names.RU);
         }
+        [Fact]
+        public void Given_OrderIsLessThanZero_WhenValidating_ShouldGetAnError()
+        {
+            var lessThanZero = -1;
+            _validator.ShouldHaveValidationErrorFor(x => x.Order, lessThanZero);
+        }
+        [Fact]
+        public void Given_OrderIsZero_WhenValidating_ShouldGetAnError()
+        {
+            var Zero = 0;
+            _validator.ShouldHaveValidationErrorFor(x => x.Order, Zero);
+        }
     }
 }

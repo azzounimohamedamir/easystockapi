@@ -26,9 +26,9 @@
 		<PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\Libraries\SmartRestaurant.Application\SmartRestaurant.Application.csproj" />
-		<ProjectReference Include="..\..\Libraries\SmartRestaurant.Domain\SmartRestaurant.Domain.csproj" />
-		<ProjectReference Include="..\..\Libraries\SmartRestaurant.Infrastructure.Identity\SmartRestaurant.Infrastructure.Identity.csproj" />
-		<ProjectReference Include="..\..\Libraries\SmartRestaurant.Infrastructure\SmartRestaurant.Infrastructure.csproj" />
+	  <ProjectReference Include="..\..\Libraries\SmartRestaurant.Application\SmartRestaurant.Application.csproj" />
+	  <ProjectReference Include="..\..\Libraries\SmartRestaurant.Domain\SmartRestaurant.Domain.csproj" />
+	  <ProjectReference Include="..\..\Libraries\SmartRestaurant.Infrastructure.Identity\SmartRestaurant.Infrastructure.Identity.csproj" />
+	  <ProjectReference Include="..\..\Libraries\SmartRestaurant.Infrastructure\SmartRestaurant.Infrastructure.csproj" />
 	</ItemGroup>
 </Project>

@@ -12,11 +12,12 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
     using static Testing;
     public class SectionTestTools
     {
-        public static async Task<CreateSectionCommand> CreateSection(CreateMenuCommand createMenuCommand,string name= "section test menu")
+        public static async Task<CreateSectionCommand> CreateSection(CreateMenuCommand createMenuCommand,string name= "section test menu",int order=1)
         {
             var createSectionCommand = new CreateSectionCommand
             {
                 MenuId = createMenuCommand.Id,
+                Order= order,
                 Names = new NamesDto() { AR = "AR", EN = "EN", FR = "FR", TR = "TR", RU = "RU" },
                 Name = name
             };

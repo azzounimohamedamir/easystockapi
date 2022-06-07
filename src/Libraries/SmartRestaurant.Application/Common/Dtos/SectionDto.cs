@@ -6,6 +6,7 @@ namespace SmartRestaurant.Application.Common.Dtos
     public class SectionDto
     {
         public Guid SectionId { get; set; }
+        public int Order { get; set; }
         public string Name { get; set; }
         public NamesDto Names { get; set; }
         public Guid MenuId { get; set; }

@@ -8,6 +8,7 @@ namespace SmartRestaurant.Application.Sections.Commands
     public class CreateSectionCommand : CreateCommand
     {
         public string Name { get; set; }
+        public int Order { get; set; }
         public NamesDto Names { get; set; }
         public Guid MenuId { get; set; }
     }
@@ -17,6 +18,7 @@ namespace SmartRestaurant.Application.Sections.Commands
         public CreateSectionCommandValidator()
         {
             RuleFor(m => m.Name).NotEmpty().MaximumLength(200);
+            RuleFor(m => m.Order).GreaterThan(0);
             RuleFor(m => m.MenuId).NotEmpty().NotEqual(Guid.Empty);
             RuleFor(v => v.Names)
               .Cascade(CascadeMode.StopOnFirstFailure)

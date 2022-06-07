@@ -31,6 +31,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections
             await SendAsync(new UpdateSectionCommand
             {
                 Id = createSectionCommand.Id,
+                Order=2,
                 MenuId = createMenuCommand.Id,
                 Names = new Common.Dtos.ValueObjects.NamesDto() { AR = "AR", EN = "EN", FR = "FR", TR = "TR", RU = "RU" },
                 Name = "section 2 test menu"
@@ -39,6 +40,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections
 
             item.Should().NotBeNull();
             item.Name.Should().Be("section 2 test menu");
+            item.Order.Should().Be(2);
             item.Names.AR.Should().Be("AR");
             item.Names.EN.Should().Be("EN");
             item.Names.FR.Should().Be("FR");

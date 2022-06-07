@@ -31,7 +31,7 @@ namespace SmartRestaurant.Application.Sections.Queries
         public async Task<PagedListDto<SectionDto>> Handle(GetSectionsListQuery request,
             CancellationToken cancellationToken)
         {
-            var query = _context.Sections.Where(s => s.MenuId == request.MenuId)
+            var query = _context.Sections.Where(s => s.MenuId == request.MenuId).OrderBy(s=>s.Order)
                 .GetPaged(request.Page, request.PageSize);
             var data = _mapper.Map<List<SectionDto>>(await query.Data.ToListAsync(cancellationToken)
                 .ConfigureAwait(false));

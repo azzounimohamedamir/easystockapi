@@ -33,6 +33,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Sections.Queries
             var query = new GetSectionByIdQuery { Id = createSectionCommand.Id.ToString()};
             var result = await SendAsync(query);
             result.Should().NotBeNull();
+            result.Order.Should().Be(1);
             result.Name.Should().Be("section test");
             result.Names.AR.Should().Be("AR");
             result.Names.EN.Should().Be("EN");

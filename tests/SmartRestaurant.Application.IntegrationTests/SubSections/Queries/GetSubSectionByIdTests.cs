@@ -35,6 +35,7 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections.Queries
             var query = new GetSubSectionByIdQuery { Id = createSubSectionCommand.Id.ToString()};
             var result = await SendAsync(query);
             result.Should().NotBeNull();
+            result.Order.Should().Be(1);
             result.Name.Should().Be("sub-section test");
             result.Names.AR.Should().Be("AR");
             result.Names.EN.Should().Be("EN");
