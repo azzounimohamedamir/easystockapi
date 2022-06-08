@@ -144,7 +144,12 @@ namespace SmartRestaurant.Application.Illness.Queries
                     Illness = _mapper.Map<List<CriticalQteIllnessIngredientDto>>(
                     _context.IngredientIllnesses.AsNoTracking().
                     Include(x => x.Illness).
-                    Where(y => y.IngredientId.ToString().Equals(x.Key) && y.Quantity<= SumQte)
+                    Where(
+                        y =>
+                        y.IngredientId.ToString().Equals(x.Key)&&
+                        request.SummaryIllness.Contains(y.IllnessId.ToString()) && 
+                        y.Quantity<= SumQte
+                    )
                     .ToList())
                 };
                 return warning;
