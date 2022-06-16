@@ -17,6 +17,8 @@
     <Compile Remove="Migrations\20220519052023_translatZonesSectionsSubSectionIllness.Designer.cs" />
     <Compile Remove="Migrations\20220519060513_translatZonesSectionsSubSectionIllness.cs" />
     <Compile Remove="Migrations\20220519060513_translatZonesSectionsSubSectionIllness.Designer.cs" />
+    <Compile Remove="Migrations\20220614080325_updateDefaultTranslationOfOrdersAndSupplumentsOrders.cs" />
+    <Compile Remove="Migrations\20220614080325_updateDefaultTranslationOfOrdersAndSupplumentsOrders.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
