@@ -29,14 +29,17 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Commands
             var createZoneCommand = await ZoneTestTools.CreateZone(fastFood);
             await CreateTable(createZoneCommand);
 
-            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null);
+            var createIngredientCommand = await IngredientTestTools.CreateIngredient();
+            var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
+            var createProductCommand = await ProductTestTools.CreateProduct();
+            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
 
             var updateOrderBillCommand = await UpdateBill(await GetOrder(createOrderCommand.Id));
 
             var order = await GetOrder(Guid.Parse(updateOrderBillCommand.Id));
             order.OrderId.Should().Be(createOrderCommand.Id);
             order.Discount.Should().Be(50);
-            order.TotalToPay.Should().Be(610);
+            order.TotalToPay.Should().Be(760);
             order.FoodBusinessId.Should().Be(order.FoodBusinessId);
 
             order.FoodBusinessClientId.Should().Be(order.FoodBusinessClientId);
@@ -53,7 +56,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Commands
             order.Dishes[0].Name.Should().Be(order.Dishes[0].Name);
             order.Dishes[0].Discount.Should().Be(50);
             order.Dishes[0].InitialPrice.Should().Be(order.Dishes[0].InitialPrice);
-            order.Dishes[0].UnitPrice.Should().Be(320);
+            order.Dishes[0].UnitPrice.Should().Be(380);
             order.Dishes[0].EnergeticValue.Should().Be(order.Dishes[0].EnergeticValue);
             order.Dishes[0].Description.Should().Be(order.Dishes[0].Description);
             order.Dishes[0].EstimatedPreparationTime.Should().Be(order.Dishes[0].EstimatedPreparationTime);

@@ -24,26 +24,21 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             var createZoneCommand = await ZoneTestTools.CreateZone(fastFood);
             await CreateTable(createZoneCommand);
 
-            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null);
+            var createIngredientCommand = await IngredientTestTools.CreateIngredient();
+            var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
+            var createProductCommand = await ProductTestTools.CreateProduct();
+            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
+
             var createdOrder = await GetOrder(createOrderCommand.Id);
             createdOrder.Status.Should().Be(OrderStatuses.InQueue);
 
-            var updateOrderCommand = await UpdateOrderStatus(createOrderCommand);
+            var updateOrderCommand = await OrderTestTools.UpdateOrderStatus(createOrderCommand);
+
             var updatedOrderStatus = await GetOrder(Guid.Parse(updateOrderCommand.Id));
             updatedOrderStatus.Status.Should().Be(OrderStatuses.Cancelled);   
         }
 
 
-        private async Task<UpdateOrderStatusCommand> UpdateOrderStatus(CreateOrderCommand createOrderCommand)
-        {
-            var updateStatusOrderCommand = new UpdateOrderStatusCommand
-            {
-               Id = createOrderCommand.Id.ToString(),
-               Status = OrderStatuses.Cancelled
-            };
-            await SendAsync(updateStatusOrderCommand);
-            return updateStatusOrderCommand;
-        }
 
         private static async Task CreateTable(CreateZoneCommand createZoneCommand)
         {

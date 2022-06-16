@@ -25,11 +25,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
             var createZoneCommand = await ZoneTestTools.CreateZone(fastFood);
             await CreateTable(createZoneCommand);
-            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null);
+            var createIngredientCommand = await IngredientTestTools.CreateIngredient();
+            var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
+            var createProductCommand = await ProductTestTools.CreateProduct();
+            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
             var order = await GetOrder(createOrderCommand.Id);
 
-
-
+            var userDish= await GetDish(createDishCommand.Id);
 
 
             var selectedOrder = await SendAsync(new GetOrderByIdQuery { Id = order.OrderId.ToString() });
@@ -62,10 +64,17 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
             selectedOrder.Products[0].Quantity.Should().Be(order.Products[0].Quantity);
 
             selectedOrder.Dishes[0].Name.Should().Be(order.Dishes[0].Name);
+            selectedOrder.Dishes[0].Names.AR.Should().Be(userDish.Names.AR);
+            selectedOrder.Dishes[0].Names.EN.Should().Be(userDish.Names.EN);
+            selectedOrder.Dishes[0].Names.FR.Should().Be(userDish.Names.FR);
+            selectedOrder.Dishes[0].Names.TR.Should().Be(userDish.Names.TR);
+            selectedOrder.Dishes[0].Names.RU.Should().Be(userDish.Names.RU);
+
             selectedOrder.Dishes[0].UnitPrice.Should().Be(order.Dishes[0].UnitPrice);
+            selectedOrder.Dishes[0].InitialPrice.Should().Be(order.Dishes[0].InitialPrice);
             selectedOrder.Dishes[0].EnergeticValue.Should().Be(order.Dishes[0].EnergeticValue);
-            selectedOrder.Dishes[0].Description.Should().Be(order.Dishes[0].Description);
-            selectedOrder.Dishes[0].EstimatedPreparationTime.Should().Be(order.Dishes[0].EstimatedPreparationTime);
+            selectedOrder.Dishes[0].Description.Should().Be(userDish.Description);
+            selectedOrder.Dishes[0].EstimatedPreparationTime.Should().Be(userDish.EstimatedPreparationTime);
             selectedOrder.Dishes[0].TableNumber.Should().Be(order.Dishes[0].TableNumber);
             selectedOrder.Dishes[0].ChairNumber.Should().Be(order.Dishes[0].ChairNumber);
             selectedOrder.Dishes[0].Quantity.Should().Be(order.Dishes[0].Quantity);
@@ -101,10 +110,16 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
             selectedOrder.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.MeasurementUnit.Should().Be(order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.MeasurementUnit);
 
             selectedOrder.Dishes[0].Supplements[0].SupplementId.Should().Be(order.Dishes[0].Supplements[0].SupplementId);
-            selectedOrder.Dishes[0].Supplements[0].Name.Should().Be(order.Dishes[0].Supplements[0].Name);
-            selectedOrder.Dishes[0].Supplements[0].Price.Should().Be(order.Dishes[0].Supplements[0].Price);
-            selectedOrder.Dishes[0].Supplements[0].EnergeticValue.Should().Be(order.Dishes[0].Supplements[0].EnergeticValue);
-            selectedOrder.Dishes[0].Supplements[0].Description.Should().Be(order.Dishes[0].Supplements[0].Description);
+            selectedOrder.Dishes[0].Supplements[0].Name.Should().Be(userDish.Supplements[0].Supplement.Name);
+            selectedOrder.Dishes[0].Supplements[0].Names.AR.Should().Be(userDish.Supplements[0].Supplement.Names.AR);
+            selectedOrder.Dishes[0].Supplements[0].Names.EN.Should().Be(userDish.Supplements[0].Supplement.Names.EN);
+            selectedOrder.Dishes[0].Supplements[0].Names.FR.Should().Be(userDish.Supplements[0].Supplement.Names.FR);
+            selectedOrder.Dishes[0].Supplements[0].Names.TR.Should().Be(userDish.Supplements[0].Supplement.Names.TR);
+            selectedOrder.Dishes[0].Supplements[0].Names.RU.Should().Be(userDish.Supplements[0].Supplement.Names.RU);
+            selectedOrder.Dishes[0].Supplements[0].Price.Should().Be(100);
+            selectedOrder.Dishes[0].Supplements[0].EnergeticValue.Should().Be(userDish.Supplements[0].Supplement.EnergeticValue);
+            selectedOrder.Dishes[0].Supplements[0].Description.Should().Be(userDish.Supplements[0].Supplement.Description);
+
             selectedOrder.Dishes[0].Supplements[0].IsSelected.Should().Be(order.Dishes[0].Supplements[0].IsSelected);
         }
 
