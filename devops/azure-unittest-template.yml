@@ -25,7 +25,7 @@ jobs:
       inputs:
         command: custom
         custom: 'tool '
-        arguments: install --global dotnet-ef
+        arguments: install --global dotnet-ef --version 3.1
     - task: UseDotNet@2
       inputs:
         version: '3.1.x'
