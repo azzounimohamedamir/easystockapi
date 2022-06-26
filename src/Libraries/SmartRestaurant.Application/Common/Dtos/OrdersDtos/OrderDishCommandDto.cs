@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SmartRestaurant.Domain.ValueObjects;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
 {
@@ -6,6 +7,7 @@ namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
     {
         public string DishId { get; set; }
         public string Name { get; set; }
+        public Names Names { get; set; }
         public float InitialPrice { get; set; }
         public float EnergeticValue { get; set; }
         public string Description { get; set; }

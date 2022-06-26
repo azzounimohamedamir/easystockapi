@@ -31,8 +31,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Commands
             var foodBusinessClient = await CreateFoodBusinessClient(fastFood);
             var createZoneCommand = await ZoneTestTools.CreateZone(fastFood);
             await CreateTable(createZoneCommand);
+            var createIngredientCommand = await IngredientTestTools.CreateIngredient();
+            var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
+            var createProductCommand = await ProductTestTools.CreateProduct();
+            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, foodBusinessClient.FoodBusinessClientId.ToString(), createDishCommand, createProductCommand);
 
-            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, foodBusinessClient.FoodBusinessClientId.ToString());
             var orderBeforPayment = await GetOrder(createOrderCommand.Id);
 
             var PayBillCommand = await PayBill(await GetOrder(createOrderCommand.Id));
@@ -41,7 +44,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Commands
             orderAfterPayment.OrderId.Should().Be(orderBeforPayment.OrderId);
             orderAfterPayment.Status.Should().Be(OrderStatuses.Billed);
             orderAfterPayment.Discount.Should().Be(0);
-            orderAfterPayment.TotalToPay.Should().Be(760);
+            orderAfterPayment.TotalToPay.Should().Be(910);
             orderAfterPayment.FoodBusinessId.Should().Be(orderBeforPayment.FoodBusinessId);
             orderAfterPayment.FoodBusinessClientId.Should().Be(orderBeforPayment.FoodBusinessClientId);
 
@@ -59,7 +62,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Commands
             orderAfterPayment.Dishes[0].Name.Should().Be(orderBeforPayment.Dishes[0].Name);
             orderAfterPayment.Dishes[0].Discount.Should().Be(0);
             orderAfterPayment.Dishes[0].InitialPrice.Should().Be(orderBeforPayment.Dishes[0].InitialPrice);
-            orderAfterPayment.Dishes[0].UnitPrice.Should().Be(320);
+            orderAfterPayment.Dishes[0].UnitPrice.Should().Be(380);
             orderAfterPayment.Dishes[0].EnergeticValue.Should().Be(orderBeforPayment.Dishes[0].EnergeticValue);
             orderAfterPayment.Dishes[0].Description.Should().Be(orderBeforPayment.Dishes[0].Description);
             orderAfterPayment.Dishes[0].EstimatedPreparationTime.Should().Be(orderBeforPayment.Dishes[0].EstimatedPreparationTime);

@@ -58,6 +58,8 @@ namespace SmartRestaurant.Application.Orders.Commands
             }
 
             var order = _mapper.Map<Order>(request);
+            order= PopulatFromLocalDishesAndProducts(order);
+
             order.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.CreatedAt = DateTime.Now;
 
@@ -85,6 +87,67 @@ namespace SmartRestaurant.Application.Orders.Commands
             return _mapper.Map<OrderDto>(newOrder);
         }
 
+        private Order PopulatFromLocalDishesAndProducts(Order order)
+        {
+            order.Dishes = order.Dishes.Select((OrderDish od) =>
+            {
+                var orderDish = _context.Dishes.
+                FirstOrDefault(d => d.DishId.Equals(Guid.Parse(od.DishId)));
+                if (orderDish == null)
+                    throw new NotFoundException("Dish", od.DishId);
+                od.Names = new Names()
+                {
+                    AR = orderDish.Names.AR,
+                    EN = orderDish.Names.EN,
+                    FR = orderDish.Names.FR,
+                    TR = orderDish.Names.TR,
+                    RU = orderDish.Names.RU,
+                }; ;
+                od.Description = orderDish.Description;
+                od.Name = orderDish.Name;
+                od.EstimatedPreparationTime = orderDish.EstimatedPreparationTime;
+                od.InitialPrice = orderDish.Price;
+                od.Supplements = od.Supplements.Select((supplement) =>
+                {
+                    var supp = _context.Dishes.FirstOrDefault(d => d.DishId.Equals(Guid.Parse(supplement.SupplementId)));
+                    supplement.Name = supp.Name;
+                    supplement.Names =new Names()
+                    {
+                        AR= supp.Names.AR,
+                        EN= supp.Names.EN,
+                        FR= supp.Names.FR,
+                        TR= supp.Names.TR,
+                        RU= supp.Names.RU,
+                    };
+                    supplement.Description = supp.Description;
+                    supplement.Price = supp.Price;
+                    supplement.EnergeticValue = supp.EnergeticValue;
+                    return supplement;
+                }).ToList();
+                return od;
+            }).ToList();
+            order.Products = order.Products.Select((OrderProduct p) =>
+            {
+                var orderProduct = _context.Products.FirstOrDefault(d => d.ProductId.Equals(Guid.Parse(p.ProductId)));
+                if (orderProduct == null)
+                    throw new NotFoundException("Products", p.ProductId);
+                p.Names = new Names()
+                {
+                    AR = orderProduct.Names.AR,
+                    EN = orderProduct.Names.EN,
+                    FR = orderProduct.Names.FR,
+                    TR = orderProduct.Names.TR,
+                    RU = orderProduct.Names.RU,
+                };
+                p.Description = orderProduct.Description;
+                p.Name = orderProduct.Name;
+                p.EnergeticValue = orderProduct.EnergeticValue;
+                p.UnitPrice = orderProduct.Price;
+                p.InitialPrice = orderProduct.Price;
+                return p;
+            }).ToList();
+            return order;
+        }
 
         public async Task<NoContent> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
@@ -120,6 +183,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             var releasedTables = GetReleasedTables(order, request);
 
             _mapper.Map(request, order);
+            order = PopulatFromLocalDishesAndProducts(order);
             order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.LastModifiedAt = DateTime.Now;
 
@@ -171,7 +235,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             var validator = new AddSeatOrderToTableOrderCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-            Order order = await GetOrderForUpdate(request.Id, cancellationToken).ConfigureAwait(false);
+            Order order = await GetOrderForUpdate(request.Id, cancellationToken).ConfigureAwait(false);       
             RemoveOldOrderOfChair(request, order);
             AddNewOrderOfChair(request, order);
             SetTableIsOccupedIfIsNew(request, order);
@@ -201,6 +265,7 @@ namespace SmartRestaurant.Application.Orders.Commands
         {
             Order NewOrder = new Order();
             _mapper.Map(request, NewOrder);
+            NewOrder = PopulatFromLocalDishesAndProducts(NewOrder);
             order.Products.AddRange(NewOrder.Products);
             order.Dishes.AddRange(NewOrder.Dishes);
         }

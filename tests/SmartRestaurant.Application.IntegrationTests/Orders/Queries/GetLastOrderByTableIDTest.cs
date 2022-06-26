@@ -26,11 +26,20 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
             var createZoneCommand = await ZoneTestTools.CreateZone(fastFood);
             var selectedTabelId = "44aecd78-59bb-7504-bfff-07c07129ab00";
             await CreateTable(createZoneCommand, selectedTabelId);
-            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null);
-            var order = await GetOrder(createOrderCommand.Id);
+            
+            var createIngredientCommand = await IngredientTestTools.CreateIngredient();
+            var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
+            var createProductCommand = await ProductTestTools.CreateProduct();
+            
+            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
+            
+            await OrderTestTools.UpdateOrderStatus(createOrderCommand);
+            
+            var createOrderCommand2 = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
+            
             var lastOrder = await SendAsync(new GetLastOrderByTableIDQuery { TableId = selectedTabelId });
             lastOrder.Should().NotBeNull();
-            Assert.AreEqual(lastOrder.OrderId, order.OrderId);
+            Assert.AreEqual(lastOrder.OrderId, createOrderCommand2.Id);
         }
 
         private static async Task CreateTable(CreateZoneCommand createZoneCommand, string idTable)

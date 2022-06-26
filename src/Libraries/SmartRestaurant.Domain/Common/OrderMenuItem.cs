@@ -1,10 +1,12 @@
-﻿ using System;
+﻿using SmartRestaurant.Domain.ValueObjects;
+using System;
 
 namespace SmartRestaurant.Domain.Common
 {
     public class OrderMenuItem
     {
         public string Name { get; set; }
+        public Names Names { get; set; }
         public float InitialPrice { get; set; }
         public float UnitPrice { get; set; }
         public float Discount { get; set; }      
