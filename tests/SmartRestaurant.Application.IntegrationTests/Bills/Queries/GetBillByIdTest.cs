@@ -55,7 +55,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Queries
 
             var createZoneCommand = await ZoneTestTools.CreateZone(fastFood);
             await CreateTable(createZoneCommand);
-            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, createFoodBusinessClientCommand.Id.ToString());
+            var createIngredientCommand = await IngredientTestTools.CreateIngredient();
+            var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
+            var createProductCommand = await ProductTestTools.CreateProduct();
+            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, createFoodBusinessClientCommand.Id.ToString(), createDishCommand, createProductCommand);
+
             var order = await GetOrder(createOrderCommand.Id);
 
             var selectedBill = await SendAsync(new GetBillByIdQuery { Id = order.OrderId.ToString() });

@@ -13,6 +13,7 @@ namespace SmartRestaurant.Domain.Entities
         }
 
         public Guid SectionId { get; set; }
+        public int Order { get; set; }
         public string Name { get; set; }
         public Names Names { get; set; }
         public Guid MenuId { get; set; }

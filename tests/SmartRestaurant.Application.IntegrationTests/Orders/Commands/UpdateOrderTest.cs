@@ -13,6 +13,8 @@ using SmartRestaurant.Application.Tables.Commands;
 using SmartRestaurant.Application.FoodBusinessClient.Commands;
 using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Dishes.Commands;
+using SmartRestaurant.Application.Products.Commands;
 
 namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
 {
@@ -71,15 +73,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             }
         };
 
-        OrderDishSupplementDto SupplementModified = new OrderDishSupplementDto()
-        {
-            SupplementId = "e66f88b3-f39a-4301-97f0-471ad7f07e66",
-            Name = "French Fries Modified",
-            Price = 100,
-            EnergeticValue = 250,
-            Description = "TEST Modified",
-            IsSelected = false
-        };
 
 
         [Test]
@@ -92,31 +85,55 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             var createZoneCommand = await ZoneTestTools.CreateZone(fastFood);
             await CreateTable(createZoneCommand);
 
-            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null);
+            var createIngredientCommand = await IngredientTestTools.CreateIngredient();
+            var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
+            var createProductCommand = await ProductTestTools.CreateProduct();
+            var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
 
-            var updateOrderCommand = await UpdateOrder(createOrderCommand, foodBusinessClient);
+
+            var createIngredientCommandToUpdate = await IngredientTestTools.CreateIngredient();
+            var createDishCommandToUpdate = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommandToUpdate.Id);
+            var createProductCommandToUpdated = await ProductTestTools.CreateProduct();
+
+            var updateOrderCommand = await UpdateOrder(createOrderCommand, foodBusinessClient, 
+                createDishCommandToUpdate, createProductCommandToUpdated);
 
             var order = await GetOrder(Guid.Parse(updateOrderCommand.Id));
+            
+            var UsedSupplimentInCommand = await GetDish(Guid.Parse(createDishCommandToUpdate.Supplements[0].SupplementId));
+
             order.OrderId.Should().Be(createOrderCommand.Id);
-            order.TotalToPay.Should().Be(1716);
+            order.TotalToPay.Should().Be(836);
             order.FoodBusinessId.Should().Be(Guid.Parse(createOrderCommand.FoodBusinessId));
 
             order.FoodBusinessClientId.Should().Be(Guid.Parse(updateOrderCommand.FoodBusinessClientId));
             order.OccupiedTables[0].TableId.Should().Be(updateOrderCommand.OccupiedTables[0].TableId);
-            order.Products[0].Name.Should().Be(updateOrderCommand.Products[0].Name);
-            order.Products[0].UnitPrice.Should().Be(updateOrderCommand.Products[0].UnitPrice);
-            order.Products[0].EnergeticValue.Should().Be(updateOrderCommand.Products[0].EnergeticValue);
-            order.Products[0].Description.Should().Be(updateOrderCommand.Products[0].Description);
+            order.Products[0].Name.Should().Be(createProductCommandToUpdated.Name);
+            order.Products[0].Names.AR.Should().Be(createProductCommandToUpdated.Names.AR);
+            order.Products[0].Names.EN.Should().Be(createProductCommandToUpdated.Names.EN);
+            order.Products[0].Names.FR.Should().Be(createProductCommandToUpdated.Names.FR);
+            order.Products[0].Names.TR.Should().Be(createProductCommandToUpdated.Names.TR);
+            order.Products[0].Names.RU.Should().Be(createProductCommandToUpdated.Names.RU);
+
+            order.Products[0].UnitPrice.Should().Be(createProductCommandToUpdated.Price);
+            order.Products[0].EnergeticValue.Should().Be(createProductCommandToUpdated.EnergeticValue);
+            order.Products[0].Description.Should().Be(createProductCommandToUpdated.Description);
             order.Products[0].TableNumber.Should().Be(updateOrderCommand.Products[0].TableNumber);
             order.Products[0].ChairNumber.Should().Be(updateOrderCommand.Products[0].ChairNumber);
             order.Products[0].Quantity.Should().Be(updateOrderCommand.Products[0].Quantity);
 
-            order.Dishes[0].Name.Should().Be(updateOrderCommand.Dishes[0].Name);
-            order.Dishes[0].InitialPrice.Should().Be(updateOrderCommand.Dishes[0].InitialPrice);
-            order.Dishes[0].UnitPrice.Should().Be(1506);
-            order.Dishes[0].EnergeticValue.Should().Be(1100);
-            order.Dishes[0].Description.Should().Be(updateOrderCommand.Dishes[0].Description);
-            order.Dishes[0].EstimatedPreparationTime.Should().Be(updateOrderCommand.Dishes[0].EstimatedPreparationTime);
+            order.Dishes[0].Name.Should().Be(createDishCommandToUpdate.Name);
+            order.Dishes[0].Names.AR.Should().Be(createDishCommandToUpdate.Names.AR);
+            order.Dishes[0].Names.EN.Should().Be(createDishCommandToUpdate.Names.EN);
+            order.Dishes[0].Names.FR.Should().Be(createDishCommandToUpdate.Names.FR);
+            order.Dishes[0].Names.TR.Should().Be(createDishCommandToUpdate.Names.TR);
+            order.Dishes[0].Names.RU.Should().Be(createDishCommandToUpdate.Names.RU);
+
+            order.Dishes[0].InitialPrice.Should().Be(createDishCommandToUpdate.Price);
+            order.Dishes[0].UnitPrice.Should().Be(386);
+            order.Dishes[0].EnergeticValue.Should().Be(300);
+            order.Dishes[0].Description.Should().Be(createDishCommandToUpdate.Description);
+            order.Dishes[0].EstimatedPreparationTime.Should().Be(createDishCommandToUpdate.EstimatedPreparationTime);
             order.Dishes[0].TableNumber.Should().Be(updateOrderCommand.Dishes[0].TableNumber);
             order.Dishes[0].ChairNumber.Should().Be(updateOrderCommand.Dishes[0].ChairNumber);
             order.Dishes[0].Quantity.Should().Be(updateOrderCommand.Dishes[0].Quantity);
@@ -152,10 +169,16 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             order.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.MeasurementUnit.Should().Be(updateOrderCommand.Dishes[0].Ingredients[0].OrderIngredient.EnergeticValue.MeasurementUnit);
 
             order.Dishes[0].Supplements[0].SupplementId.Should().Be(updateOrderCommand.Dishes[0].Supplements[0].SupplementId);
-            order.Dishes[0].Supplements[0].Name.Should().Be(updateOrderCommand.Dishes[0].Supplements[0].Name);
-            order.Dishes[0].Supplements[0].Price.Should().Be(updateOrderCommand.Dishes[0].Supplements[0].Price);
-            order.Dishes[0].Supplements[0].EnergeticValue.Should().Be(updateOrderCommand.Dishes[0].Supplements[0].EnergeticValue);
-            order.Dishes[0].Supplements[0].Description.Should().Be(updateOrderCommand.Dishes[0].Supplements[0].Description);
+            order.Dishes[0].Supplements[0].Name.Should().Be(UsedSupplimentInCommand.Name);
+            order.Dishes[0].Supplements[0].Names.AR.Should().Be(UsedSupplimentInCommand.Names.AR);
+            order.Dishes[0].Supplements[0].Names.EN.Should().Be(UsedSupplimentInCommand.Names.EN);
+            order.Dishes[0].Supplements[0].Names.FR.Should().Be(UsedSupplimentInCommand.Names.FR);
+            order.Dishes[0].Supplements[0].Names.TR.Should().Be(UsedSupplimentInCommand.Names.TR);
+            order.Dishes[0].Supplements[0].Names.RU.Should().Be(UsedSupplimentInCommand.Names.RU);
+
+            order.Dishes[0].Supplements[0].Price.Should().Be(UsedSupplimentInCommand.Price);
+            order.Dishes[0].Supplements[0].EnergeticValue.Should().Be(UsedSupplimentInCommand.EnergeticValue);
+            order.Dishes[0].Supplements[0].Description.Should().Be(UsedSupplimentInCommand.Description);
             order.Dishes[0].Supplements[0].IsSelected.Should().Be(updateOrderCommand.Dishes[0].Supplements[0].IsSelected);
 
             order.CommissionConfigs.Value.Should().Be(0);
@@ -211,7 +234,10 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             await SendAsync(createTableCommand02);
         }
 
-        private async Task<UpdateOrderCommand> UpdateOrder(CreateOrderCommand createOrderCommand, Domain.Entities.FoodBusinessClient foodBusinessClient)
+        private async Task<UpdateOrderCommand> UpdateOrder(CreateOrderCommand createOrderCommand, 
+            Domain.Entities.FoodBusinessClient foodBusinessClient,
+            CreateDishCommand dishCommand,
+            CreateProductCommand procuctCommand)
         {
             var updateOrderCommand = new UpdateOrderCommand
             {
@@ -223,27 +249,22 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
                 },
                 Dishes = new List<OrderDishCommandDto>() {
                 new OrderDishCommandDto {
-                    DishId =  "0e0b853c-9518-499f-b5ca-07afdd5f1eff",
-                    Name =  "Special dish",
-                    InitialPrice =  1500,
-                    EnergeticValue =  800,
-                    Description =  "test desc",
-                    EstimatedPreparationTime =  20,
+                    DishId =  dishCommand.Id.ToString(),
                     TableNumber =  5,
                     ChairNumber =  2,
                     Quantity =  1,
                     Specifications = new List<OrderDishSpecificationDto>() { CheckBoxModified, ComboBoxModified },
                     Ingredients =  new List<OrderDishIngredientDto>() { IngredientModified },
-                    Supplements = new List<OrderDishSupplementDto>() { SupplementModified },
+                    Supplements = new List<OrderDishSupplementDto>() { new OrderDishSupplementDto()
+                        {
+                            SupplementId =dishCommand.Supplements[0].SupplementId,
+                            IsSelected = true
+                        } },
                     }
                 },
                 Products = new List<OrderProductDto>() {
                 new OrderProductDto {
-                    ProductId =  "7d0bf292-b9bf-404c-a50f-99c9631b3e33",
-                    Name =  "Cocacola 0.25L",
-                    UnitPrice =  70,
-                    EnergeticValue =  90,
-                    Description =  "test desc",
+                    ProductId =  procuctCommand.Id.ToString(),
                     TableNumber =  5,
                     ChairNumber =  3,
                     Quantity =  3

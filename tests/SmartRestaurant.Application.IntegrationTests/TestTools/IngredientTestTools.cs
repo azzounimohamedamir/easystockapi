@@ -12,11 +12,14 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
 
     public class IngredientTestTools
     {
-        public static async Task<CreateIngredientCommand> CreateIngredient()
+        public static async Task<CreateIngredientCommand> CreateIngredient(
+            string namear= "الفلفل الاسود",
+            string nameEn= "Black pepper",
+            string nameFr= "Le poivre noir")
         {
             var createIngredientCommand = new CreateIngredientCommand
             {
-                Names = @"[{'name':'Black pepper','language':'en'},{'name':'الفلفل الاسود','language':'ar'},{'name':'Le poivre noir','language':'fr'}]",
+                Names =$@"[{{'name':'{nameEn}','language':'en'}},{{'name':'{namear}','language':'ar'}},{{'name':'{nameFr}','language':'fr'}}]",
                 EnergeticValue = new EnergeticValue
                 {
                     Amount = 10,

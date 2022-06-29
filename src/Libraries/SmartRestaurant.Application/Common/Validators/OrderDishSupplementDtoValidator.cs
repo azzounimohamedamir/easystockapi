@@ -15,19 +15,6 @@ namespace SmartRestaurant.Application.Common.Validators
                 .NotEqual(Guid.Empty.ToString())
                 .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID");
 
-            RuleFor(x => x.Name)
-               .Cascade(CascadeMode.StopOnFirstFailure)
-               .NotEmpty()
-               .MaximumLength(200);
-
-            RuleFor(x => x.Price)
-                .GreaterThanOrEqualTo(0);
-
-            RuleFor(x => x.EnergeticValue)
-                .GreaterThanOrEqualTo(0);
-
-            RuleFor(x => x.Description)
-              .MaximumLength(500);
         }
 
     }

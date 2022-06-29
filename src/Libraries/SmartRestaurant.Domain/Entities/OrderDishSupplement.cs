@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartRestaurant.Domain.ValueObjects;
+using System;
 
 namespace SmartRestaurant.Domain.Entities
 {
@@ -7,6 +8,7 @@ namespace SmartRestaurant.Domain.Entities
         public Guid OrderDishSupplementId { get; set; }
         public string SupplementId { get; set; }
         public string Name { get; set; }
+        public Names Names { get; set; }
         public float Price { get; set; }
         public float EnergeticValue { get; set; }
         public string Description { get; set; }

@@ -1,9 +1,12 @@
-﻿namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
+﻿using SmartRestaurant.Domain.ValueObjects;
+
+namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
 {
     public class OrderProductDto
     {
         public string ProductId { get; set; }
         public string Name { get; set; }
+        public Names Names { get; set; }
         public float UnitPrice { get; set; }
         public float EnergeticValue { get; set; }
         public string Description { get; set; }
