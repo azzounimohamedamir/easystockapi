@@ -12,7 +12,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Dishes.Commands
     public class CreateDishTest : TestBase
     {    
         [Test]
-        public async Task CreateIngredient_ShouldSaveToDB()
+        public async Task CreateDish_ShouldSaveToDB()
         {
             await RolesTestTools.CreateRoles();
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator(_authenticatedUserId);
@@ -43,13 +43,33 @@ namespace SmartRestaurant.Application.IntegrationTests.Dishes.Commands
 
             createdDish.Specifications.Should().HaveCount(2);
             createdDish.Specifications[0].Title.Should().Be(createDishCommand.Specifications[0].Title);
+
+            createdDish.Specifications[0].Names.AR.Should().Be(createDishCommand.Specifications[0].Names.AR);
+            createdDish.Specifications[0].Names.EN.Should().Be(createDishCommand.Specifications[0].Names.EN);
+            createdDish.Specifications[0].Names.FR.Should().Be(createDishCommand.Specifications[0].Names.FR);
+            createdDish.Specifications[0].Names.TR.Should().Be(createDishCommand.Specifications[0].Names.TR);
+            createdDish.Specifications[0].Names.RU.Should().Be(createDishCommand.Specifications[0].Names.RU);
+
             createdDish.Specifications[0].ContentType.Should().Be(createDishCommand.Specifications[0].ContentType);
             createdDish.Specifications[0].CheckBoxContent.Should().Be(createDishCommand.Specifications[0].CheckBoxContent);
             createdDish.Specifications[0].ComboBoxContent.Should().BeNull();
             createdDish.Specifications[1].Title.Should().Be(createDishCommand.Specifications[1].Title);
             createdDish.Specifications[1].ContentType.Should().Be(createDishCommand.Specifications[1].ContentType);
             createdDish.Specifications[1].CheckBoxContent.Should().Be(createDishCommand.Specifications[1].CheckBoxContent);
-            createdDish.Specifications[1].ComboBoxContent.Should().Be(string.Join(";", createDishCommand.Specifications[1].ComboBoxContent));
+            
+            createdDish.Specifications[1].ComboBoxContentTranslation[0].Name.Should().Be(createDishCommand.Specifications[1].ComboBoxContentTranslation[0].Name);
+            createdDish.Specifications[1].ComboBoxContentTranslation[0].Names.AR.Should().Be(createDishCommand.Specifications[1].ComboBoxContentTranslation[0].Names.AR);
+            createdDish.Specifications[1].ComboBoxContentTranslation[0].Names.EN.Should().Be(createDishCommand.Specifications[1].ComboBoxContentTranslation[0].Names.EN);
+            createdDish.Specifications[1].ComboBoxContentTranslation[0].Names.FR.Should().Be(createDishCommand.Specifications[1].ComboBoxContentTranslation[0].Names.FR);
+            createdDish.Specifications[1].ComboBoxContentTranslation[0].Names.TR.Should().Be(createDishCommand.Specifications[1].ComboBoxContentTranslation[0].Names.TR);
+            createdDish.Specifications[1].ComboBoxContentTranslation[0].Names.RU.Should().Be(createDishCommand.Specifications[1].ComboBoxContentTranslation[0].Names.RU);
+            
+            createdDish.Specifications[1].ComboBoxContentTranslation[1].Name.Should().Be(createDishCommand.Specifications[1].ComboBoxContentTranslation[1].Name);
+            createdDish.Specifications[1].ComboBoxContentTranslation[1].Names.AR.Should().Be(createDishCommand.Specifications[1].ComboBoxContentTranslation[1].Names.AR);
+            createdDish.Specifications[1].ComboBoxContentTranslation[1].Names.EN.Should().Be(createDishCommand.Specifications[1].ComboBoxContentTranslation[1].Names.EN);
+            createdDish.Specifications[1].ComboBoxContentTranslation[1].Names.FR.Should().Be(createDishCommand.Specifications[1].ComboBoxContentTranslation[1].Names.FR);
+            createdDish.Specifications[1].ComboBoxContentTranslation[1].Names.TR.Should().Be(createDishCommand.Specifications[1].ComboBoxContentTranslation[1].Names.TR);
+            createdDish.Specifications[1].ComboBoxContentTranslation[1].Names.RU.Should().Be(createDishCommand.Specifications[1].ComboBoxContentTranslation[1].Names.RU);
 
             createdDish.Ingredients.Should().HaveCount(1);
             createdDish.Ingredients[0].InitialAmount.Should().Be(createDishCommand.Ingredients[0].InitialAmount);

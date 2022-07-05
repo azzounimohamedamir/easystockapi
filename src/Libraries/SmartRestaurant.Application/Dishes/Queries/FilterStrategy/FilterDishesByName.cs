@@ -23,6 +23,7 @@ namespace SmartRestaurant.Application.Dishes.Queries.FilterStrategy
                        .Include(x => x.Supplements)
                        .ThenInclude(x => x.Supplement)
                        .Include(x => x.Specifications)
+                       .ThenInclude(x => x.ComboBoxContentTranslation)
                        .Where(Condition(request.FoodBusinessId, request.IsSupplement, searchKey))
                        .OrderBy(dish => dish.Name)
                        .GetPaged(request.Page, request.PageSize);
@@ -34,6 +35,7 @@ namespace SmartRestaurant.Application.Dishes.Queries.FilterStrategy
                        .Include(x => x.Supplements)
                        .ThenInclude(x => x.Supplement)
                        .Include(x => x.Specifications)
+                       .ThenInclude(x => x.ComboBoxContentTranslation)
                        .Where(Condition(request.FoodBusinessId, request.IsSupplement, searchKey))
                        .OrderByDescending(dish => dish.Name)
                        .GetPaged(request.Page, request.PageSize);

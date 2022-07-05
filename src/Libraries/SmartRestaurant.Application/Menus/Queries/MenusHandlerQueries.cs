@@ -78,6 +78,7 @@ namespace SmartRestaurant.Application.Menus.Queries
                 .ThenInclude(sb => sb.Dishes)
                 .ThenInclude(d => d.Dish)
                 .ThenInclude(d => d.Specifications)
+                .ThenInclude(x => x.ComboBoxContentTranslation)
                 .Include(m => m.Sections)
                 .ThenInclude(sb => sb.Dishes)
                 .ThenInclude(d => d.Dish)

@@ -80,17 +80,44 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
             selectedOrder.Dishes[0].Quantity.Should().Be(order.Dishes[0].Quantity);
 
             selectedOrder.Dishes[0].Specifications[0].Title.Should().Be(order.Dishes[0].Specifications[0].Title);
+            selectedOrder.Dishes[0].Specifications[0].Names.AR.Should().Be(order.Dishes[0].Specifications[0].Names.AR);
+            selectedOrder.Dishes[0].Specifications[0].Names.EN.Should().Be(order.Dishes[0].Specifications[0].Names.EN);
+            selectedOrder.Dishes[0].Specifications[0].Names.FR.Should().Be(order.Dishes[0].Specifications[0].Names.FR);
+            selectedOrder.Dishes[0].Specifications[0].Names.TR.Should().Be(order.Dishes[0].Specifications[0].Names.TR);
+            selectedOrder.Dishes[0].Specifications[0].Names.RU.Should().Be(order.Dishes[0].Specifications[0].Names.RU);
+
             selectedOrder.Dishes[0].Specifications[0].ContentType.Should().Be(order.Dishes[0].Specifications[0].ContentType);
             selectedOrder.Dishes[0].Specifications[0].ComboBoxContent.Should().BeEquivalentTo(new string[0]);
-            selectedOrder.Dishes[0].Specifications[0].ComboBoxSelection.Should().Be(order.Dishes[0].Specifications[0].ComboBoxSelection); ; ; ; ; ; ; ;
+            selectedOrder.Dishes[0].Specifications[0].ComboBoxSelection.Should().Be(order.Dishes[0].Specifications[0].ComboBoxSelection);
             selectedOrder.Dishes[0].Specifications[0].CheckBoxContent.Should().Be(order.Dishes[0].Specifications[0].CheckBoxContent);
             selectedOrder.Dishes[0].Specifications[0].CheckBoxSelection.Should().Be(order.Dishes[0].Specifications[0].CheckBoxSelection);
             selectedOrder.Dishes[0].Specifications[1].Title.Should().Be(order.Dishes[0].Specifications[1].Title);
+
+            selectedOrder.Dishes[0].Specifications[1].Names.AR.Should().Be(order.Dishes[0].Specifications[1].Names.AR);
+            selectedOrder.Dishes[0].Specifications[1].Names.EN.Should().Be(order.Dishes[0].Specifications[1].Names.EN);
+            selectedOrder.Dishes[0].Specifications[1].Names.FR.Should().Be(order.Dishes[0].Specifications[1].Names.FR);
+            selectedOrder.Dishes[0].Specifications[1].Names.TR.Should().Be(order.Dishes[0].Specifications[1].Names.TR);
+            selectedOrder.Dishes[0].Specifications[1].Names.RU.Should().Be(order.Dishes[0].Specifications[1].Names.RU);
+
             selectedOrder.Dishes[0].Specifications[1].ContentType.Should().Be(order.Dishes[0].Specifications[1].ContentType);
-            selectedOrder.Dishes[0].Specifications[1].ComboBoxContent.Should().BeEquivalentTo(order.Dishes[0].Specifications[1].ComboBoxContent.Split(';'));
+
             selectedOrder.Dishes[0].Specifications[1].ComboBoxSelection.Should().Be(order.Dishes[0].Specifications[1].ComboBoxSelection);
             selectedOrder.Dishes[0].Specifications[1].CheckBoxContent.Should().Be(order.Dishes[0].Specifications[1].CheckBoxContent);
             selectedOrder.Dishes[0].Specifications[1].CheckBoxSelection.Should().Be(order.Dishes[0].Specifications[1].CheckBoxSelection);
+
+            selectedOrder.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Name.Should().Be(order.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Name);
+            selectedOrder.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.AR.Should().Be(order.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.AR);
+            selectedOrder.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.EN.Should().Be(order.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.EN);
+            selectedOrder.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.FR.Should().Be(order.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.FR);
+            selectedOrder.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.TR.Should().Be(order.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.TR);
+            selectedOrder.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.RU.Should().Be(order.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.RU);
+            
+            selectedOrder.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Name.Should().Be(order.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Name);
+            selectedOrder.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.AR.Should().Be(order.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.AR);
+            selectedOrder.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.EN.Should().Be(order.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.EN);
+            selectedOrder.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.FR.Should().Be(order.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.FR);
+            selectedOrder.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.TR.Should().Be(order.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.TR);
+            selectedOrder.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.RU.Should().Be(order.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.RU);
 
             selectedOrder.Dishes[0].Ingredients[0].IsPrimary.Should().Be(order.Dishes[0].Ingredients[0].IsPrimary);
             selectedOrder.Dishes[0].Ingredients[0].Amount.Should().Be(order.Dishes[0].Ingredients[0].Amount);

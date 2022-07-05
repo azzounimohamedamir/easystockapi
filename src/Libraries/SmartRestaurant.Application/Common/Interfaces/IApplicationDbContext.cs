@@ -25,6 +25,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<DishSpecification> DishSpecifications { get; set; }
+        public DbSet<DishComboBoxItemTranslation> DishComboBoxItemTranslations { get; set; }
         public DbSet<DishIngredient> DishIngredients { get; set; }
         public DbSet<DishSupplement> DishSupplements { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
@@ -35,6 +36,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<OrderDish> OrderDishes { get; set; }
         public DbSet<OrderDishIngredient> OrderDishIngredients { get; set; }
         public DbSet<OrderDishSpecification> OrderDishSpecifications { get; set; }
+        public DbSet<OrderComboBoxItemTranslation> OrderComboBoxItemTranslations { get; set; }
         public DbSet<OrderDishSupplement> OrderDishSupplements { get; set; }
         public DbSet<Domain.Entities.FoodBusinessClient> FoodBusinessClients { get; set; }
         public DbSet<Product> Products { get; set; }

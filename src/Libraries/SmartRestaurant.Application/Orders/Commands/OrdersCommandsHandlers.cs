@@ -73,6 +73,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             var newOrder = await _context.Orders.AsNoTracking()
                  .Include(o => o.Dishes)
                  .ThenInclude(o => o.Specifications)
+                 .ThenInclude(o => o.ComboBoxContentTranslation)
                  .Include(o => o.Dishes)
                  .ThenInclude(o => o.Ingredients)
                  .Include(o => o.Dishes)
@@ -165,6 +166,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             var order = await _context.Orders
                 .Include(o => o.Dishes)
                 .ThenInclude(o => o.Specifications)
+                .ThenInclude(o => o.ComboBoxContentTranslation)
                 .Include(o => o.Dishes)
                 .ThenInclude(o => o.Ingredients)
                 .Include(o => o.Dishes)
@@ -206,6 +208,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             var order = await _context.Orders
                 .Include(o => o.Dishes)
                 .ThenInclude(o => o.Specifications)
+                .ThenInclude(o => o.ComboBoxContentTranslation)
                 .Include(o => o.Dishes)
                 .ThenInclude(o => o.Ingredients)
                 .Include(o => o.Dishes)
@@ -275,6 +278,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             var order = await _context.Orders
               .Include(o => o.Dishes)
               .ThenInclude(o => o.Specifications)
+              .ThenInclude(o => o.ComboBoxContentTranslation)
               .Include(o => o.Dishes)
               .ThenInclude(o => o.Ingredients)
               .Include(o => o.Dishes)
