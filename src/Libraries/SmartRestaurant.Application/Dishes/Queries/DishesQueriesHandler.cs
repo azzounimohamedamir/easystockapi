@@ -40,6 +40,7 @@ namespace SmartRestaurant.Application.Dishes.Queries
                  .Include(x => x.Supplements)
                  .ThenInclude(x => x.Supplement)
                  .Include(x => x.Specifications)
+                 .ThenInclude(x=>x.ComboBoxContentTranslation)
                  .Where(u => u.DishId == Guid.Parse(request.Id))
                  .FirstOrDefaultAsync()
                  .ConfigureAwait(false);

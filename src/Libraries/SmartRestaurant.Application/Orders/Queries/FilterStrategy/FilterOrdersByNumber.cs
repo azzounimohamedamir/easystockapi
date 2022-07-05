@@ -20,6 +20,7 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
                     return orders
                        .Include(o => o.Dishes)
                        .ThenInclude(o => o.Specifications)
+                       .ThenInclude(o=>o.ComboBoxContentTranslation)
                        .Include(o => o.Dishes)
                        .ThenInclude(o => o.Ingredients)
                        .Include(o => o.Dishes)
@@ -35,6 +36,7 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
                     return orders
                        .Include(o => o.Dishes)
                        .ThenInclude(o => o.Specifications)
+                       .ThenInclude(o =>o.ComboBoxContentTranslation)
                        .Include(o => o.Dishes)
                        .ThenInclude(o => o.Ingredients)
                        .Include(o => o.Dishes)
