@@ -89,17 +89,46 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             order.Dishes[indexOfAddedOrder].Quantity.Should().Be(addSeatOrderCommand.Dishes[0].Quantity);
 
             order.Dishes[indexOfAddedOrder].Specifications[0].Title.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[0].Title);
+            
+            order.Dishes[indexOfAddedOrder].Specifications[0].Title.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[0].Title);
+            order.Dishes[indexOfAddedOrder].Specifications[0].Names.AR.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[0].Names.AR);
+            order.Dishes[indexOfAddedOrder].Specifications[0].Names.EN.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[0].Names.EN);
+            order.Dishes[indexOfAddedOrder].Specifications[0].Names.FR.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[0].Names.FR);
+            order.Dishes[indexOfAddedOrder].Specifications[0].Names.TR.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[0].Names.TR);
+            order.Dishes[indexOfAddedOrder].Specifications[0].Names.RU.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[0].Names.RU);
+
             order.Dishes[indexOfAddedOrder].Specifications[0].ContentType.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[0].ContentType);
             order.Dishes[indexOfAddedOrder].Specifications[0].ComboBoxContent.Should().BeNull();
-            order.Dishes[indexOfAddedOrder].Specifications[0].ComboBoxSelection.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[0].ComboBoxSelection); ; ; ; ; ; ; ;
+            order.Dishes[indexOfAddedOrder].Specifications[0].ComboBoxSelection.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[0].ComboBoxSelection);
             order.Dishes[indexOfAddedOrder].Specifications[0].CheckBoxContent.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[0].CheckBoxContent);
             order.Dishes[indexOfAddedOrder].Specifications[0].CheckBoxSelection.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[0].CheckBoxSelection);
+            
             order.Dishes[indexOfAddedOrder].Specifications[1].Title.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].Title);
-            order.Dishes[indexOfAddedOrder].Specifications[1].ContentType.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ContentType);
-            order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxContent.Should().Be(string.Join(";", addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContent));
+            order.Dishes[indexOfAddedOrder].Specifications[1].Names.AR.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].Names.AR);
+            order.Dishes[indexOfAddedOrder].Specifications[1].Names.EN.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].Names.EN);
+            order.Dishes[indexOfAddedOrder].Specifications[1].Names.FR.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].Names.FR);
+            order.Dishes[indexOfAddedOrder].Specifications[1].Names.TR.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].Names.TR);
+            order.Dishes[indexOfAddedOrder].Specifications[1].Names.RU.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].Names.RU);
+
+            order.Dishes[indexOfAddedOrder].Specifications[1].ContentType.Should().Be(createDishCommand.Specifications[1].ContentType);
+
             order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxSelection.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxSelection);
             order.Dishes[indexOfAddedOrder].Specifications[1].CheckBoxContent.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].CheckBoxContent);
             order.Dishes[indexOfAddedOrder].Specifications[1].CheckBoxSelection.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].CheckBoxSelection);
+
+            order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxContentTranslation[0].Name.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Name);
+            order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxContentTranslation[0].Names.AR.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.AR);
+            order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxContentTranslation[0].Names.EN.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.EN);
+            order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxContentTranslation[0].Names.FR.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.FR);
+            order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxContentTranslation[0].Names.TR.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.TR);
+            order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxContentTranslation[0].Names.RU.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.RU);
+
+            order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxContentTranslation[1].Name.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Name);
+            order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxContentTranslation[1].Names.AR.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.AR);
+            order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxContentTranslation[1].Names.EN.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.EN);
+            order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxContentTranslation[1].Names.FR.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.FR);
+            order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxContentTranslation[1].Names.TR.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.TR);
+            order.Dishes[indexOfAddedOrder].Specifications[1].ComboBoxContentTranslation[1].Names.RU.Should().Be(addSeatOrderCommand.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.RU);
 
             order.Dishes[indexOfAddedOrder].Ingredients[0].IsPrimary.Should().Be(addSeatOrderCommand.Dishes[0].Ingredients[0].IsPrimary);
             order.Dishes[indexOfAddedOrder].Ingredients[0].Amount.Should().Be(addSeatOrderCommand.Dishes[0].Ingredients[0].Amount);
@@ -138,6 +167,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
         OrderDishSpecificationDto CheckBoxModified = new OrderDishSpecificationDto()
         {
             Title = "Spicy Modified",
+            Names = new NamesDto() { AR = "Spicy Modified ar", EN = "Spicy Modified en", FR = "Spicy Modified fr", TR = "Spicy Modified tr", RU = "Spicy Modified ru" },
             ContentType = ContentType.CheckBox,
             CheckBoxContent = false,
             ComboBoxContent = null,
@@ -148,9 +178,22 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
         OrderDishSpecificationDto ComboBoxModified = new OrderDishSpecificationDto()
         {
             Title = "Cuisson Modified",
+            Names = new NamesDto() { AR = "Cuisson Modified ar", EN = "Cuisson Modified en", FR = "Cuisson Modified fr", TR = "Cuisson Modified tr", RU = "Cuisson Modified ru" },
             ContentType = ContentType.ComboBox,
             CheckBoxContent = true,
-            ComboBoxContent = new List<string>() { "Bien Cuite Modified", "Demi cuisson Modified" },
+            ComboBoxContentTranslation = new List<TranslationItemDto>()
+                        {
+                            new TranslationItemDto()
+                            {
+                                Name="Bien Cuite Modified",
+                                Names=new NamesDto() {AR="Bien Cuite Modified ar",EN="Bien Cuite Modified en",FR="Bien Cuite Modified fr",TR="Bien Cuite Modified tr",RU="Bien Cuite Modifiede ru"}
+                            },
+                            new TranslationItemDto()
+                            {
+                                    Name="Demi cuisson Modified",
+                                Names=new NamesDto() {AR="Demi cuisson Modified ar",EN="Demi cuisson Modified en",FR="Demi cuisson Modified fr",TR="Demi cuisson tr",RU="Demi cuisson Modified ru"}
+                            }
+                        },
             CheckBoxSelection = false,
             ComboBoxSelection = "Demi cuisson Modified"
         };

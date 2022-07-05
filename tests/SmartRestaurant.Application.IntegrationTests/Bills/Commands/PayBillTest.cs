@@ -71,17 +71,45 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Commands
             orderAfterPayment.Dishes[0].Quantity.Should().Be(orderBeforPayment.Dishes[0].Quantity);
 
             orderAfterPayment.Dishes[0].Specifications[0].Title.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].Title);
+            orderAfterPayment.Dishes[0].Specifications[0].Names.AR.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].Names.AR);
+            orderAfterPayment.Dishes[0].Specifications[0].Names.EN.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].Names.EN);
+            orderAfterPayment.Dishes[0].Specifications[0].Names.FR.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].Names.FR);
+            orderAfterPayment.Dishes[0].Specifications[0].Names.TR.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].Names.TR);
+            orderAfterPayment.Dishes[0].Specifications[0].Names.RU.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].Names.RU);
+
             orderAfterPayment.Dishes[0].Specifications[0].ContentType.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].ContentType);
             orderAfterPayment.Dishes[0].Specifications[0].ComboBoxContent.Should().BeNull();
-            orderAfterPayment.Dishes[0].Specifications[0].ComboBoxSelection.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].ComboBoxSelection); ; ; ; ; ; ; ;
+            orderAfterPayment.Dishes[0].Specifications[0].ComboBoxSelection.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].ComboBoxSelection);
             orderAfterPayment.Dishes[0].Specifications[0].CheckBoxContent.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].CheckBoxContent);
             orderAfterPayment.Dishes[0].Specifications[0].CheckBoxSelection.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].CheckBoxSelection);
             orderAfterPayment.Dishes[0].Specifications[1].Title.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].Title);
+            
+            orderAfterPayment.Dishes[0].Specifications[1].Names.AR.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].Names.AR);
+            orderAfterPayment.Dishes[0].Specifications[1].Names.EN.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].Names.EN);
+            orderAfterPayment.Dishes[0].Specifications[1].Names.FR.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].Names.FR);
+            orderAfterPayment.Dishes[0].Specifications[1].Names.TR.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].Names.TR);
+            orderAfterPayment.Dishes[0].Specifications[1].Names.RU.Should().Be(orderBeforPayment.Dishes[0].Specifications[0].Names.RU);
+
+
             orderAfterPayment.Dishes[0].Specifications[1].ContentType.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ContentType);
-            orderAfterPayment.Dishes[0].Specifications[1].ComboBoxContent.Should().Be(string.Join(";", orderBeforPayment.Dishes[0].Specifications[1].ComboBoxContent));
+         
             orderAfterPayment.Dishes[0].Specifications[1].ComboBoxSelection.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ComboBoxSelection);
             orderAfterPayment.Dishes[0].Specifications[1].CheckBoxContent.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].CheckBoxContent);
             orderAfterPayment.Dishes[0].Specifications[1].CheckBoxSelection.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].CheckBoxSelection);
+
+            orderAfterPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Name.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Name);
+            orderAfterPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.AR.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.AR);
+            orderAfterPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.EN.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.EN);
+            orderAfterPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.FR.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.FR);
+            orderAfterPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.TR.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.TR);
+            orderAfterPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.RU.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[0].Names.RU);
+
+            orderAfterPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Name.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Name);
+            orderAfterPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.AR.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.AR);
+            orderAfterPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.EN.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.EN);
+            orderAfterPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.FR.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.FR);
+            orderAfterPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.TR.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.TR);
+            orderAfterPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.RU.Should().Be(orderBeforPayment.Dishes[0].Specifications[1].ComboBoxContentTranslation[1].Names.RU);
 
             orderAfterPayment.Dishes[0].Ingredients[0].IsPrimary.Should().Be(orderAfterPayment.Dishes[0].Ingredients[0].IsPrimary);
             orderAfterPayment.Dishes[0].Ingredients[0].Amount.Should().Be(orderBeforPayment.Dishes[0].Ingredients[0].Amount);
