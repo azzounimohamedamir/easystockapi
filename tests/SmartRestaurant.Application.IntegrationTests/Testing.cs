@@ -149,6 +149,7 @@ namespace SmartRestaurant.Application.IntegrationTests
                  .Include(x => x.Supplements)
                  .ThenInclude(x => x.Supplement)
                  .Include(x => x.Specifications)
+                 .ThenInclude(x=>x.ComboBoxContentTranslation)
                  .Where(u => u.DishId == dishId)
                  .FirstOrDefaultAsync()
                  .ConfigureAwait(false); 
@@ -178,6 +179,7 @@ namespace SmartRestaurant.Application.IntegrationTests
                     .Include(o => o.FoodBusinessClient)
                     .Include(o => o.Dishes)
                     .ThenInclude(o => o.Specifications)
+                    .ThenInclude(o=>o.ComboBoxContentTranslation)
                     .Include(o => o.Dishes)
                     .ThenInclude(o => o.Ingredients)
                     .Include(o => o.Dishes)

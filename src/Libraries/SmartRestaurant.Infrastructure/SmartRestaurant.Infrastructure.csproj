@@ -19,6 +19,10 @@
     <Compile Remove="Migrations\20220519060513_translatZonesSectionsSubSectionIllness.Designer.cs" />
     <Compile Remove="Migrations\20220614080325_updateDefaultTranslationOfOrdersAndSupplumentsOrders.cs" />
     <Compile Remove="Migrations\20220614080325_updateDefaultTranslationOfOrdersAndSupplumentsOrders.Designer.cs" />
+    <Compile Remove="Migrations\20220628132414_addTitelTranslationInOrderDishSpecification.cs" />
+    <Compile Remove="Migrations\20220628132414_addTitelTranslationInOrderDishSpecification.Designer.cs" />
+    <Compile Remove="Migrations\20220628163737_initTranslationDataOfDishSpecificationAndOrderSpecification.cs" />
+    <Compile Remove="Migrations\20220628163737_initTranslationDataOfDishSpecificationAndOrderSpecification.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

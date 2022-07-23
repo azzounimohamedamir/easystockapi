@@ -36,8 +36,28 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 Price = 280,
                 FoodBusinessId = foodBusinessId.ToString(),
                 Specifications = new List<DishSpecificationDto>() {
-                    new  DishSpecificationDto()   {ContentType =  ContentType.CheckBox, Title = "Slaty", CheckBoxContent = false},
-                    new  DishSpecificationDto()   {ContentType = ContentType.ComboBox,  Title = "Cuission", ComboBoxContent = new List<string>() {"Bien Cuite", "Demi cuisson" } }
+                    new  DishSpecificationDto()   
+                    {ContentType =  ContentType.CheckBox,
+                    Names= new NamesDto(){AR="Slaty ar",EN="Slaty en",FR="Slaty fr",TR="Slaty tr",RU="Slaty ru"}, 
+                    Title = "Slaty",
+                    CheckBoxContent = false},
+                    new  DishSpecificationDto()   
+                    {ContentType = ContentType.ComboBox,
+                    Names= new NamesDto(){AR="Cuission ar",EN="Cuission en",FR="Cuission fr",TR="Cuission tr",RU="Cuission ru"},
+                    Title = "Cuission",
+                    ComboBoxContentTranslation=new List<Common.Dtos.TranslationItemDto>()
+                    {
+                        new Common.Dtos.TranslationItemDto()
+                        {
+                            Name="Bien Cuite",
+                            Names=new NamesDto() {AR="Bien Cuite ar",EN="Bien Cuite en",FR="Bien Cuite fr",TR="Bien Cuite tr",RU="Bien Cuite ru"}
+                        },
+                        new Common.Dtos.TranslationItemDto()
+                        {
+                             Name="Demi cuisson",
+                            Names=new NamesDto() {AR="Demi cuisson ar",EN="Demi cuisson en",FR="Demi cuisson fr",TR="Demi cuisson tr",RU="Demi cuisson ru"}
+                        }
+                    } }
                 },
                 Ingredients = new List<DishIngredientCreateDto>() {
                     new  DishIngredientCreateDto()   {
@@ -73,8 +93,28 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 Price = 280,
                 FoodBusinessId = foodBusinessId.ToString(),
                 Specifications = new List<DishSpecificationDto>() {
-                    new  DishSpecificationDto()   {ContentType =  ContentType.CheckBox, Title = "Slaty", CheckBoxContent = false},
-                    new  DishSpecificationDto()   {ContentType = ContentType.ComboBox,  Title = "Cuission", ComboBoxContent = new List<string>() {"Bien Cuite", "Demi cuisson" } }
+                    new  DishSpecificationDto()
+                    {ContentType =  ContentType.CheckBox,
+                    Names= new NamesDto(){AR="Slaty ar",EN="Slaty en",FR="Slaty fr",TR="Slaty tr",RU="Slaty ru"},
+                    Title = "Slaty",
+                    CheckBoxContent = false},
+                    new  DishSpecificationDto()
+                    {ContentType = ContentType.ComboBox,
+                    Names= new NamesDto(){AR="Slaty ar",EN="Slaty en",FR="Slaty fr",TR="Slaty tr",RU="Slaty ru"},
+                    Title = "Cuission",
+                    ComboBoxContentTranslation=new List<Common.Dtos.TranslationItemDto>()
+                    {
+                        new Common.Dtos.TranslationItemDto()
+                        {
+                            Name="Bien Cuite",
+                            Names=new NamesDto() {AR="Bien Cuite ar",EN="Bien Cuite en",FR="Bien Cuite fr",TR="Bien Cuite tr",RU="Bien Cuite ru"}
+                        },
+                        new Common.Dtos.TranslationItemDto()
+                        {
+                             Name="Demi cuisson",
+                            Names=new NamesDto() {AR="Demi cuisson ar",EN="Demi cuisson en",FR="Demi cuisson fr",TR="Demi cuisson tr",RU="Demi cuisson ru"}
+                        }
+                    } }
                 },
                 Ingredients = new List<DishIngredientCreateDto>() {
                     new  DishIngredientCreateDto()   {
@@ -129,9 +169,34 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 Picture = Properties.Resources.PictureBase64_01,
                 Price = 280,
                 FoodBusinessId = foodBusinessId.ToString(),
-                Specifications = new List<DishSpecificationDto>() {
-                    new  DishSpecificationDto()   {ContentType =  ContentType.CheckBox, Title = "Slaty", CheckBoxContent = false},
-                    new  DishSpecificationDto()   {ContentType = ContentType.ComboBox,  Title = "Cuission", ComboBoxContent = new List<string>() {"Bien Cuite", "Demi cuisson" } }
+                Specifications = new List<DishSpecificationDto>() 
+                {
+                    new  DishSpecificationDto()
+                    {
+                        ContentType =  ContentType.CheckBox,
+                        Names= new NamesDto(){AR="Slaty ar",EN="Slaty en",FR="Slaty fr",TR="Slaty tr",RU="Slaty ru"},
+                        Title = "Slaty",
+                        CheckBoxContent = false
+                    },
+                    new  DishSpecificationDto()
+                    {
+                        ContentType = ContentType.ComboBox,
+                        Names= new NamesDto(){AR="Cuission ar",EN="Cuission en",FR="Cuission fr",TR="Cuission tr",RU="Cuission ru"},
+                        Title = "Cuission",
+                        ComboBoxContentTranslation=new List<Common.Dtos.TranslationItemDto>()
+                        {
+                            new Common.Dtos.TranslationItemDto()
+                            {
+                                Name="Bien Cuite",
+                                Names=new NamesDto() {AR="Bien Cuite ar",EN="Bien Cuite en",FR="Bien Cuite fr",TR="Bien Cuite tr",RU="Bien Cuite ru"}
+                            },
+                            new Common.Dtos.TranslationItemDto()
+                            {
+                                    Name="Demi cuisson",
+                                Names=new NamesDto() {AR="Demi cuisson ar",EN="Demi cuisson en",FR="Demi cuisson fr",TR="Demi cuisson tr",RU="Demi cuisson ru"}
+                            }
+                        } 
+                    }
                 },
                 Ingredients = new List<DishIngredientCreateDto>() {
                     new  DishIngredientCreateDto()   {

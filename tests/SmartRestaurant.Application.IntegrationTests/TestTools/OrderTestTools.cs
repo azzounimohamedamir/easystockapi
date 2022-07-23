@@ -22,9 +22,10 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         {
             OrderDishSpecificationDto CheckBox = new OrderDishSpecificationDto()
             {
-                Title = "Spicy",
-                ContentType = 0,
-                CheckBoxContent = true,
+                ContentType = ContentType.CheckBox,
+                Names = new NamesDto() { AR = "Slaty ar", EN = "Slaty en", FR = "Slaty fr", TR = "Slaty tr", RU = "Slaty ru" },
+                Title = "Slaty",
+                CheckBoxContent = false,
                 ComboBoxContent = null,
                 CheckBoxSelection = false,
                 ComboBoxSelection = null
@@ -32,10 +33,22 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
 
             OrderDishSpecificationDto ComboBox = new OrderDishSpecificationDto()
             {
-                Title = "Cuisson",
-                ContentType = 0,
-                CheckBoxContent = true,
-                ComboBoxContent = new List<string>() { "Bien Cuite", "Demi cuisson" },
+                ContentType = ContentType.ComboBox,
+                Names = new NamesDto() { AR = "Slaty ar", EN = "Slaty en", FR = "Slaty fr", TR = "Slaty tr", RU = "Slaty ru" },
+                Title = "Cuission",
+                ComboBoxContentTranslation = new List<TranslationItemDto>()
+                        {
+                            new TranslationItemDto()
+                            {
+                                Name="Bien Cuite",
+                                Names=new NamesDto() {AR="Bien Cuite ar",EN="Bien Cuite en",FR="Bien Cuite fr",TR="Bien Cuite tr",RU="Bien Cuite ru"}
+                            },
+                            new Common.Dtos.TranslationItemDto()
+                            {
+                                    Name="Demi cuisson",
+                                Names=new NamesDto() {AR="Demi cuisson ar",EN="Demi cuisson en",FR="Demi cuisson fr",TR="Demi cuisson tr",RU="Demi cuisson ru"}
+                            }
+                        },
                 CheckBoxSelection = false,
                 ComboBoxSelection = "Demi cuisson"
             };

@@ -28,6 +28,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<DishSpecification> DishSpecifications { get; set; }
+        public DbSet<DishComboBoxItemTranslation> DishComboBoxItemTranslations { get; set; }
         public DbSet<DishIngredient> DishIngredients { get; set; }
         public DbSet<DishSupplement> DishSupplements { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
@@ -38,6 +39,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<OrderDish> OrderDishes { get; set; }
         public DbSet<OrderDishIngredient> OrderDishIngredients { get; set; }
         public DbSet<OrderDishSpecification> OrderDishSpecifications { get; set; }
+        public DbSet<OrderComboBoxItemTranslation> OrderComboBoxItemTranslations { get; set; }
         public DbSet<OrderDishSupplement> OrderDishSupplements { get; set; }
         public DbSet<FoodBusinessClient> FoodBusinessClients { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -80,6 +82,12 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<IngredientIllness>()
                 .HasKey(i => new { i.IllnessId, i.IngredientId });
+
+            modelBuilder.Entity<OrderComboBoxItemTranslation>()
+                .HasKey(o => o.OrderComboBoxItemTranslationId);
+
+            modelBuilder.Entity<DishComboBoxItemTranslation>()
+                .HasKey(o => o.DishComboBoxItemTranslationId);
 
             modelBuilder.Seed();
         }
