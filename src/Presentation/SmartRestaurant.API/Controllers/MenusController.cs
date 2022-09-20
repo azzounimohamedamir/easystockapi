@@ -31,7 +31,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(PagedListDto<MenuDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient")]
         public Task<IActionResult> GetList(string foodBusinessId, string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
         {
             var query = new GetMenusListQuery
