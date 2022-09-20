@@ -71,7 +71,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("addChairOrderToTableOrder")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,Diner")]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,Diner,HotelClient")]
         public async Task<IActionResult> AddChairOrderToTableOrder(AddSeatOrderToTableOrderCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);

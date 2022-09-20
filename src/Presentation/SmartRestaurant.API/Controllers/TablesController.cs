@@ -16,7 +16,7 @@ namespace SmartRestaurant.API.Controllers
     {
         [Route("zone/{zoneId:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient")]
         public async Task<IActionResult> Get([FromRoute] Guid zoneId)
         {
             return await SendWithErrorsHandlingAsync(new GetTablesListQuery {ZoneId = zoneId});

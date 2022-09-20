@@ -60,7 +60,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
         [Route("{id}")]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,Diner,HotelClient")]
         public Task<IActionResult> Get([FromRoute] string id)
         {
             return SendWithErrorsHandlingAsync(new GetDishByIdQuery {Id = id});
