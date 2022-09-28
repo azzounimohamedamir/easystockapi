@@ -1,8 +1,8 @@
 ﻿namespace SmartRestaurant.Application.Dishes.Queries.FilterStrategy
 {
-    public static class DishStrategies
+    public static class DishesStrategies
     {
-        public static IDishFilterStrategy GetFilterStrategy(string currentFilter)
+        public static IDishesFilterStrategy GetFilterStrategy(string currentFilter)
         {
             if (string.IsNullOrWhiteSpace(currentFilter))
                 return new FilterDishesByName();

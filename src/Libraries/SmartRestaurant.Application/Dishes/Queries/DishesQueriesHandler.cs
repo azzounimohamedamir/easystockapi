@@ -67,7 +67,7 @@ namespace SmartRestaurant.Application.Dishes.Queries
             if (foodBusiness == null)
                 throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
 
-            var filter = DishStrategies.GetFilterStrategy(request.CurrentFilter);
+            var filter = DishesStrategies.GetFilterStrategy(request.CurrentFilter);
             var query = filter.FetchData(_context.Dishes, request);
 
             var data = _mapper.Map<List<DishDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
