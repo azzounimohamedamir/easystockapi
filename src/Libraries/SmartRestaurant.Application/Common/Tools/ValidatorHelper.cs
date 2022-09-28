@@ -80,7 +80,11 @@ namespace SmartRestaurant.Application.Common.Tools
                 $"|{Roles.Waiter.ToString()}" +
                 $"|{Roles.Diner.ToString()}" +
                 $"|{Roles.Anounymous.ToString()}" +
-                $"|{Roles.Organization.ToString()})$";
+                $"|{Roles.Organization.ToString()}" +
+                $"|{Roles.HotelClient.ToString()}" +
+                $"|{Roles.HotelManager.ToString()}" +
+                $"|{Roles.HotelReceptionist.ToString()}" +
+                $"|{Roles.HotelServiceAdmin.ToString()})$";
             return new Regex(regex).Match(role).Success;
         }
 

@@ -285,7 +285,15 @@ namespace SmartRestaurant.API.Controllers
             var result = await _userManager.UpdateAsync(user);
             return CheckResultStatus(result);
         }
-
+        [Authorize(Roles = "SupportAgent,SuperAdmin")]
+        [HttpPatch("{id}/forceEmailConfirmed")]
+        public async Task<IActionResult> ForceEmailConfirmed([FromRoute]string id, [FromQuery] bool stateEmailConfirmed)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            user.EmailConfirmed = stateEmailConfirmed;
+            var result = await _userManager.UpdateAsync(user);
+            return CheckResultStatus(result);
+        }
         private static bool SuperAdminCheck(IEnumerable<string> roles)
         {
             return roles.Contains("SuperAdmin", StringComparer.OrdinalIgnoreCase);

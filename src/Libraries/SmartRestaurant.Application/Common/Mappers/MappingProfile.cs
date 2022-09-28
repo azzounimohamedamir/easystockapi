@@ -203,6 +203,7 @@ namespace SmartRestaurant.Application.Common.Mappers
                .ReverseMap();
 
             CreateMap<ApplicationUser, ApplicationUserDto>()
+                .ForMember(x => x.EmailConfirmed, o => o.MapFrom(p => p.EmailConfirmed))
                 .ReverseMap();
 
 
