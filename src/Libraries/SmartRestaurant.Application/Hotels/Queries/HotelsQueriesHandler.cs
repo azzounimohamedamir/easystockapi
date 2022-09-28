@@ -26,7 +26,7 @@ namespace SmartRestaurant.Application.Hotels.Queries
 
         public async Task<IEnumerable<HotelsDto>> Handle(GetHotelsListQuery request, CancellationToken cancellationToken)
         {
-            var query = await _context.hotels.ToArrayAsync(cancellationToken)
+            var query = await _context.Hotels.ToArrayAsync(cancellationToken)
                 .ConfigureAwait(false);
             return _mapper.Map<IEnumerable<HotelsDto>>(query);
         }

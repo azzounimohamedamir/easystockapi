@@ -37,7 +37,6 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<OrderProduct> OrderProducts { get; set; }
         public DbSet<OrderDish> OrderDishes { get; set; }
         public DbSet<OrderDishIngredient> OrderDishIngredients { get; set; }
-        public DbSet<Domain.Entities.Hotels> hotels { get; set; }
 
         public DbSet<OrderDishSpecification> OrderDishSpecifications { get; set; }
         public DbSet<OrderComboBoxItemTranslation> OrderComboBoxItemTranslations { get; set; }

@@ -11,25 +11,26 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Application.Common.Interfaces;
+using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Authorization;
+using SmartRestaurant.Application.Hotels.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/hotels")]
     [ApiController]
-    public class HotelsController : ControllerBase
+    [SwaggerTag("List of actions that can be applied on Hotels")]
+    public class HotelsController : ApiController
     {
-        private readonly IApplicationDbContext _context;
+       
 
-        public HotelsController(IApplicationDbContext context)
-        {
-            _context = context;
-        }
-
-        // GET: api/Accessoires
+       
+        [Authorize(Roles = "FoodBusinessManager,HotelManager,HotelClient")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hotels>>> GetAccessoires()
+        public Task<IActionResult> GetList()
         {
-            return await _context.hotels.ToListAsync();
+            var query = new GetHotelsListQuery {};
+            return SendWithErrorsHandlingAsync(query);
         }
 
     }
