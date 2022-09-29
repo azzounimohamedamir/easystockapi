@@ -29,8 +29,11 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         public Task<IActionResult> GetList()
         {
+
             var query = new GetHotelsListQuery {};
+
             return SendWithErrorsHandlingAsync(query);
+
         }
 
     }

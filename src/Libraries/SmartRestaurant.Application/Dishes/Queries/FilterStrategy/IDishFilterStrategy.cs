@@ -4,7 +4,7 @@ using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.Dishes.Queries.FilterStrategy
 {
-    public interface IDishesFilterStrategy
+    public interface IDishFilterStrategy
     {     
         public PagedResultBase<Dish> FetchData(DbSet<Dish> Dishes, GetDishesListQuery request);
     }

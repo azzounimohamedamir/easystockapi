@@ -140,7 +140,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
                 new Hotels
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse(Mcdonald_FoodBusinessAdministrator_UserId),
                     ImagUrl = "assets/hotels/aurassi.jpg",
                     FoodBusinessAdministratorId = TajMhal_FoodBusinessAdministrator_UserId,
                     Name = "Aurassi",
@@ -148,7 +148,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 ,
                  new Hotels
                  {
-                     Id = Guid.NewGuid(),
+                     Id = Guid.Parse(TajMhal_FoodBusinessId),
                      ImagUrl = "assets/hotels/sofitel.jpg",
                      FoodBusinessAdministratorId = TajMhal_FoodBusinessAdministrator_UserId,
                      Name = "Sofitel",
@@ -156,7 +156,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                  ,
                   new Hotels
                   {
-                      Id = Guid.NewGuid(),
+                      Id = Guid.Parse(BigMama_FoodBusinessAdministrator_UserId),
                       ImagUrl = "assets/hotels/tulip.jpg",
                       FoodBusinessAdministratorId = TajMhal_FoodBusinessAdministrator_UserId,
                       Name = "Tulip",

@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace SmartRestaurant.Application.Dishes.Queries.FilterStrategy
 {
-    public class FilterDishesByName : IDishesFilterStrategy
+    public class FilterDishesByName : IDishFilterStrategy
     {
         public PagedResultBase<Dish> FetchData(DbSet<Dish> dishes, GetDishesListQuery request)
         {
