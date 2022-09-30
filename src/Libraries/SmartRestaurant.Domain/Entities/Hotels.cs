@@ -5,6 +5,7 @@ using System.Text;
 
 namespace SmartRestaurant.Domain.Entities
 {
+    // entity hotel
     public class Hotels
     {
       
