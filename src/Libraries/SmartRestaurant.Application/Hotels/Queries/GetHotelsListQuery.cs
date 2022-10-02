@@ -7,8 +7,12 @@ using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Hotels.Queries
 {
-    public class GetHotelsListQuery : IRequest<IEnumerable<HotelsDto>>
+    public class GetHotelsListQuery : IRequest<PagedListDto<HotelsDto>>
     {
-        public Guid Id { get; set; }
+        public int Page { get; set; }
+        public int PageSize { get; set; }
+        public string SearchKey { get; set; }
+        public string SortOrder { get; set; }
+        public string CurrentFilter { get; set; }
     }
 }

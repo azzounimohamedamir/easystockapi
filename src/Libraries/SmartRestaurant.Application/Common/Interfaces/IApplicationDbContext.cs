@@ -17,7 +17,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<Section> Sections { get; set; }
         public DbSet<SectionDish> SectionDishes { get; set; }
         public DbSet<SectionProduct> SectionProducts { get; set; }
-        public DbSet<Domain.Entities.Hotels> Hotels{ get; set; }
+        public DbSet<Hotel> Hotels{ get; set; }
 
         public DbSet<SubSection> SubSections { get; set; }
         public DbSet<SubSectionDish> SubSectionDishes { get; set; }

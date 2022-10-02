@@ -17,7 +17,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Zone> Zones { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<Menu> Menus { get; set; }
-        public DbSet<Hotels> Hotels { get; set; }
+        public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<SectionDish> SectionDishes { get; set; }
         public DbSet<SectionProduct> SectionProducts { get; set; }
@@ -92,7 +92,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
             modelBuilder.Entity<DishComboBoxItemTranslation>()
                 .HasKey(o => o.DishComboBoxItemTranslationId);
 
-            modelBuilder.Entity<Hotels>()
+            modelBuilder.Entity<Hotel>()
                 .HasKey(o => o.Id);
 
             modelBuilder.Seed();

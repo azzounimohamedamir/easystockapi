@@ -14,6 +14,8 @@ using SmartRestaurant.Application.Common.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using SmartRestaurant.Application.Hotels.Queries;
+using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.API.Swagger.Exception;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -22,19 +24,26 @@ namespace SmartRestaurant.API.Controllers
     [SwaggerTag("List of actions that can be applied on Hotels")]
     public class HotelsController : ApiController
     {
-       
 
-       
-        [Authorize(Roles = "FoodBusinessManager,HotelManager,HotelClient")]
+
+        [ProducesResponseType(typeof(PagedListDto<HotelsDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Authorize(Roles = "FoodBusinessManager,SuperAdmin,HotelManager,HotelClient")]
+
         [HttpGet]
-        public Task<IActionResult> GetList()
+        public Task<IActionResult> GetList(string Id, string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
         {
-
-            var query = new GetHotelsListQuery {};
-
+            var query = new GetHotelsListQuery
+            {
+                CurrentFilter = currentFilter,
+                SearchKey = searchKey,
+                SortOrder = sortOrder,
+                Page = page,
+                PageSize = pageSize
+            };
             return SendWithErrorsHandlingAsync(query);
-
         }
+
 
     }
 }

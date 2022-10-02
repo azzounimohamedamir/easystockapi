@@ -134,11 +134,11 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             );
 
-            modelBuilder.Entity<Hotels>().HasData(
+            modelBuilder.Entity<Hotel>().HasData(
 
 
 
-                new Hotels
+                new Hotel
                 {
                     Id = Guid.Parse(Mcdonald_FoodBusinessAdministrator_UserId),
                     ImagUrl = "assets/hotels/aurassi.jpg",
@@ -146,7 +146,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     Name = "Aurassi",
                 }
                 ,
-                 new Hotels
+                 new Hotel
                  {
                      Id = Guid.Parse(TajMhal_FoodBusinessId),
                      ImagUrl = "assets/hotels/sofitel.jpg",
@@ -154,7 +154,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                      Name = "Sofitel",
                  }
                  ,
-                  new Hotels
+                  new Hotel
                   {
                       Id = Guid.Parse(BigMama_FoodBusinessAdministrator_UserId),
                       ImagUrl = "assets/hotels/tulip.jpg",
