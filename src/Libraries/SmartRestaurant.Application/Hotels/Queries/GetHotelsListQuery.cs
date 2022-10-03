@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Hotels.Queries
 {
-    public class GetHotelsListQuery : IRequest<PagedListDto<HotelsDto>>
+    public class GetHotelsListQuery : IRequest<PagedListDto<HotelDto>>
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
