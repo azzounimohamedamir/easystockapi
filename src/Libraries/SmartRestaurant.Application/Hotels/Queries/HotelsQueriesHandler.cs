@@ -14,7 +14,7 @@ using SmartRestaurant.Application.Hotels.Queries.FilterStrategy;
 namespace SmartRestaurant.Application.Hotels.Queries
 {
     public class HotelsQueriesHandler :
-        IRequestHandler<GetHotelsListQuery, PagedListDto<HotelsDto>>
+        IRequestHandler<GetHotelsListQuery, PagedListDto<HotelDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -27,21 +27,17 @@ namespace SmartRestaurant.Application.Hotels.Queries
 
      
 
-        public async Task<PagedListDto<HotelsDto>> Handle(GetHotelsListQuery request, CancellationToken cancellationToken)
+        public async Task<PagedListDto<HotelDto>> Handle(GetHotelsListQuery request, CancellationToken cancellationToken)
         {
-            Debug.Write("request " + JsonSerializer.Serialize(request));
 
             var filter = HotelsStrategies.GetFilterStrategy(request.CurrentFilter);
-            Debug.Write("filter " + JsonSerializer.Serialize(filter));
 
             var query = filter.FetchData(_context.Hotels, request);
-            Debug.Write("query " + JsonSerializer.Serialize(query));
 
-            var data = _mapper.Map<List<HotelsDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
+            var data = _mapper.Map<List<HotelDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
 
-            Debug.Write("datalist " + JsonSerializer.Serialize(data));
 
-            return new PagedListDto<HotelsDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
+            return new PagedListDto<HotelDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
     }
 }

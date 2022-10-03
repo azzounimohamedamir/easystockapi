@@ -26,9 +26,9 @@ namespace SmartRestaurant.API.Controllers
     {
 
 
-        [ProducesResponseType(typeof(PagedListDto<HotelsDto>), 200)]
+        [ProducesResponseType(typeof(PagedListDto<HotelDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Authorize(Roles = "FoodBusinessManager,SuperAdmin,HotelManager,HotelClient")]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,HotelManager,HotelClient")]
 
         [HttpGet]
         public Task<IActionResult> GetList(string Id, string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
