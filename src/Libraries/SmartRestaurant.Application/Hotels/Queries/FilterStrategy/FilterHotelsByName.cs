@@ -16,7 +16,6 @@ namespace SmartRestaurant.Application.Hotels.Queries.FilterStrategy
 
             return hotels
                .Where(Condition(searchKey))
-               .OrderBy(hotel => hotel.Name)
                .GetPaged(request.Page, request.PageSize);
 
         }
