@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Application
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Application.Tests", "tests\SmartRestaurant.Application.Tests\SmartRestaurant.Application.Tests.csproj", "{6DACC0EF-6761-4979-8293-745055D3BFDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Domain.Identity", "src\Libraries\SmartRestaurant.Domain.Identity\SmartRestaurant.Domain.Identity.csproj", "{9F6123B8-3AE4-444E-B011-AD454E2E94DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Domain.Identity", "src\Libraries\SmartRestaurant.Domain.Identity\SmartRestaurant.Domain.Identity.csproj", "{9F6123B8-3AE4-444E-B011-AD454E2E94DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
