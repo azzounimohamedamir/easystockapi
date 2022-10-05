@@ -158,14 +158,12 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<SubSection, CreateSubSectionCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.SubSectionId))
                 .ReverseMap();
-            CreateMap<Hotel, CreateHotelCommand>()
-               .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
-               .ForMember(x => x.Picture, o => o.Ignore())
-               .ReverseMap();
+
 
             CreateMap<CreateHotelCommand, Hotel>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.Picture, o => o.Ignore());
+                .ForMember(x => x.Picture, o => o.Ignore()).
+                 ForMember(x => x.FoodBusinessAdministratorId, o => o.MapFrom(p => p.FoodBusinessAdministratorId));
 
 
             CreateMap<Section, CreateSectionCommand>()
@@ -375,6 +373,10 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Product, ProductDto>()
                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
+
+            CreateMap<Hotel, HotelDto>()
+              .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
+
             CreateMap<Domain.Entities.FoodBusinessClient, FoodBusinessClientDto>()
                .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.FoodBusinessClientId))
                .ReverseMap();

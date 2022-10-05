@@ -23,11 +23,13 @@ namespace SmartRestaurant.Application.Hotels.Commands
                 .NotEmpty().MinimumLength(5);
             RuleFor(hotel => hotel.ImagUrl)
                 .NotEmpty().MinimumLength(10);
+            RuleFor(hotel => hotel.Picture)
+                .NotEmpty();
 
-           
+
 
             RuleFor(hotel => hotel.FoodBusinessAdministratorId)
-               .NotNull().MinimumLength(10);
+               .NotNull();
               
         }
     }
