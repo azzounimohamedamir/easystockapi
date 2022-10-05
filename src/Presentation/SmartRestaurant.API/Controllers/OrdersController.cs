@@ -52,7 +52,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager,Cashier")]
+        [Authorize(Roles = "FoodBusinessManager, Cashier, HotelClient")]
         public async Task<IActionResult> Update([FromRoute] string id, UpdateOrderCommand command)
         {
             command.Id = id;
