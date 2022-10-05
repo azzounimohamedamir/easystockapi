@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
+using SmartRestaurant.Application.Hotels.Commands;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -45,5 +46,20 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
+
+
+
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [HttpPost]
+       [Authorize(Roles = "FoodBusinessAdministrator")]
+        public async Task<IActionResult> Create([FromForm]CreateHotelCommand command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
+        }
     }
+
+
+
+   
+
 }

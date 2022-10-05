@@ -16,6 +16,8 @@ using SmartRestaurant.Application.Dishes.Commands;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusinessClient.Commands;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
+using SmartRestaurant.Application.Hotels.Commands;
+
 using SmartRestaurant.Application.Illness.Commands;
 using SmartRestaurant.Application.Ingredients.Commands;
 using SmartRestaurant.Application.LinkedDevice.Commands;
@@ -156,6 +158,16 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<SubSection, CreateSubSectionCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.SubSectionId))
                 .ReverseMap();
+            CreateMap<Hotel, CreateHotelCommand>()
+               .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+               .ForMember(x => x.Picture, o => o.Ignore())
+               .ReverseMap();
+
+            CreateMap<CreateHotelCommand, Hotel>()
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.Picture, o => o.Ignore());
+
+
             CreateMap<Section, CreateSectionCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.SectionId))
                 .ReverseMap();

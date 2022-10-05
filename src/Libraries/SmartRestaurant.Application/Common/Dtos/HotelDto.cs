@@ -8,6 +8,8 @@ namespace SmartRestaurant.Application.Common.Dtos
     {
         public Guid Id { get; set; }
         public string ImagUrl { get; set; }
+        public byte[] Picture { get; set; }
+
         public string FoodBusinessAdministratorId { get; set; }
         public string Name { get; set; }
     }

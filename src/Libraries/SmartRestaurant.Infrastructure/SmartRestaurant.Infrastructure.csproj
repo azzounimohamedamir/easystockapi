@@ -5,27 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20220501171442_addTranslationzoneSectionSubSection.cs" />
-    <Compile Remove="Migrations\20220501171442_addTranslationzoneSectionSubSection.Designer.cs" />
-    <Compile Remove="Migrations\20220504063156_translatIllness.cs" />
-    <Compile Remove="Migrations\20220504063156_translatIllness.Designer.cs" />
-    <Compile Remove="Migrations\20220518175225_translatZonesSectionsSubSectionIllness.cs" />
-    <Compile Remove="Migrations\20220518175225_translatZonesSectionsSubSectionIllness.Designer.cs" />
-    <Compile Remove="Migrations\20220519044048_translatZonesSectionsSubSectionIllness.cs" />
-    <Compile Remove="Migrations\20220519044048_translatZonesSectionsSubSectionIllness.Designer.cs" />
-    <Compile Remove="Migrations\20220519052023_translatZonesSectionsSubSectionIllness.cs" />
-    <Compile Remove="Migrations\20220519052023_translatZonesSectionsSubSectionIllness.Designer.cs" />
-    <Compile Remove="Migrations\20220519060513_translatZonesSectionsSubSectionIllness.cs" />
-    <Compile Remove="Migrations\20220519060513_translatZonesSectionsSubSectionIllness.Designer.cs" />
-    <Compile Remove="Migrations\20220614080325_updateDefaultTranslationOfOrdersAndSupplumentsOrders.cs" />
-    <Compile Remove="Migrations\20220614080325_updateDefaultTranslationOfOrdersAndSupplumentsOrders.Designer.cs" />
-    <Compile Remove="Migrations\20220628132414_addTitelTranslationInOrderDishSpecification.cs" />
-    <Compile Remove="Migrations\20220628132414_addTitelTranslationInOrderDishSpecification.Designer.cs" />
-    <Compile Remove="Migrations\20220628163737_initTranslationDataOfDishSpecificationAndOrderSpecification.cs" />
-    <Compile Remove="Migrations\20220628163737_initTranslationDataOfDishSpecificationAndOrderSpecification.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
