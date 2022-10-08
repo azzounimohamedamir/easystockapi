@@ -16,6 +16,8 @@ using SmartRestaurant.Application.Dishes.Commands;
 using SmartRestaurant.Application.FoodBusiness.Commands;
 using SmartRestaurant.Application.FoodBusinessClient.Commands;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
+using SmartRestaurant.Application.Hotels.Commands;
+
 using SmartRestaurant.Application.Illness.Commands;
 using SmartRestaurant.Application.Ingredients.Commands;
 using SmartRestaurant.Application.LinkedDevice.Commands;
@@ -156,6 +158,14 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<SubSection, CreateSubSectionCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.SubSectionId))
                 .ReverseMap();
+
+
+            CreateMap<CreateHotelCommand, Hotel>()
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.Picture, o => o.Ignore()).
+                 ForMember(x => x.FoodBusinessAdministratorId, o => o.MapFrom(p => p.FoodBusinessAdministratorId));
+
+
             CreateMap<Section, CreateSectionCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.SectionId))
                 .ReverseMap();
@@ -363,6 +373,10 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Product, ProductDto>()
                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
+
+            CreateMap<Hotel, HotelDto>()
+              .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
+
             CreateMap<Domain.Entities.FoodBusinessClient, FoodBusinessClientDto>()
                .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.FoodBusinessClientId))
                .ReverseMap();

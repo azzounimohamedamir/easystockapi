@@ -133,6 +133,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 #endregion
 
             );
+            #region Create a Hotels
 
             modelBuilder.Entity<Hotel>().HasData(
 
@@ -166,6 +167,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
 
             ) ;
+            #endregion
 
 
             #region Assigning Employees userId with FoodBusinessId (restaurant).

@@ -6,13 +6,14 @@ using System.Text;
 namespace SmartRestaurant.Domain.Entities
 {
     // entity hotel
-    public class Hotel
+    public class Hotel: Entreprise
     {
       
             public Guid Id { get; set; }
             public string ImagUrl { get; set; }
+            public byte[] Picture { get; set; }
+
             public string FoodBusinessAdministratorId { get; set; }
-            public string Name { get; set; }
         }
 
     
