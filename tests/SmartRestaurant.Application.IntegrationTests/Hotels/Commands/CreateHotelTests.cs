@@ -46,7 +46,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Hotels.Commands
                 NRC = 485844,
                 Email = "madina@hotel.dz",
                 Website = "",
-                FoodBusinessAdministratorId = Guid.NewGuid().ToString(),
+                FoodBusinessAdministratorId = foodBusinessAdministrator.Id,
             };
 
 
@@ -63,7 +63,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Hotels.Commands
             var item = await FindAsync<Domain.Entities.Hotel>(createHotelCommand.Id);
 
             item.Should().NotBeNull();
-            item.FoodBusinessAdministratorId.Should().Be(createHotelCommand.FoodBusinessAdministratorId);
+            item.FoodBusinessAdministratorId.Should().Be(foodBusinessAdministrator.Id);
             item.Name.Should().BeEquivalentTo(createHotelCommand.Name);
             item.Address.Should().BeEquivalentTo(createHotelCommand.Address);
             item.Description.Should().BeEquivalentTo(createHotelCommand.Description);
