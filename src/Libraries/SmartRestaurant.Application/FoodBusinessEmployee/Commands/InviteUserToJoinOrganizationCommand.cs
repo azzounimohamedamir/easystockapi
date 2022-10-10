@@ -11,6 +11,8 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         public List<string> FoodBusinessesIds { get; set; }
         public string Email { get; set; }
         public List<string> Roles { get; set; }
+        public string Typeinvitation { get; set; }
+
     }
 
     public class InviteUserToJoinOrganizationCommandValidator : AbstractValidator<InviteUserToJoinOrganizationCommand>

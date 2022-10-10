@@ -182,7 +182,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 
             var newUser = _mapper.Map<ApplicationUser>(request);
             await CreateUserAndAssignRolesToHim(request, newUser).ConfigureAwait(false);
-            await AssignUserToFoodBusinesses(request.FoodBusinessesIds, newUser.Id, cancellationToken)
+            await AssignUserToFoodBusinesses(request.FoodBusinessesIds,request.Typeinvitation, newUser.Id, cancellationToken)
                 .ConfigureAwait(false);
             await SendConfirmationEmail(newUser);
             return default;
@@ -208,18 +208,36 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             foreach (var role in roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
         }
 
-        private async Task AssignUserToFoodBusinesses(List<string> listOfFoodBusinessesIds, string userId,
+        private async Task AssignUserToFoodBusinesses(List<string> listOfFoodBusinessesIds, string type, string userId,
             CancellationToken cancellationToken)
         {
-            foreach (var foodBusinessId in listOfFoodBusinessesIds)
+            if (type == "F")
+
             {
-                var foodBusinessUser = new FoodBusinessUser
+                foreach (var foodBusinessId in listOfFoodBusinessesIds)
                 {
-                    ApplicationUserId = userId,
-                    FoodBusinessId = Guid.Parse(foodBusinessId)
-                };
-                await _context.FoodBusinessUsers.AddAsync(foodBusinessUser).ConfigureAwait(false);
-                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                    var foodBusinessUser = new FoodBusinessUser
+                    {
+                        ApplicationUserId = userId,
+                        FoodBusinessId = Guid.Parse(foodBusinessId)
+                    };
+                    await _context.FoodBusinessUsers.AddAsync(foodBusinessUser).ConfigureAwait(false);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                }
+            }
+
+            else
+            {
+                foreach (var foodBusinessId in listOfFoodBusinessesIds)
+                {
+                    var HotelUser = new HotelUser
+                    {
+                        ApplicationUserId = userId,
+                        HotelId = Guid.Parse(foodBusinessId)
+                    };
+                    await _context.hotelUsers.AddAsync(HotelUser).ConfigureAwait(false);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                }
             }
         }
 
