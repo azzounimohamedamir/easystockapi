@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
+using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Tools;
 
 namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
@@ -26,6 +27,12 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 
             RuleFor(invitedUser => invitedUser.Email).NotEmpty().Must(ValidatorHelper.ValidateEmail)
                 .WithMessage("'Email' is invalide");
+
+
+            RuleFor(invitedUser => invitedUser.Typeinvitation).NotEmpty()
+              .Must(ValidatorHelper.ValidateInvitationType).WithMessage("Invitation Type Must be not null");
+            
+             
 
             RuleFor(invitedUser => invitedUser.Roles).NotEmpty();
             RuleForEach(invitation => invitation.Roles)

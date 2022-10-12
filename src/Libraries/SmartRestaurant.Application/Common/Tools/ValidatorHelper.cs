@@ -63,6 +63,17 @@ namespace SmartRestaurant.Application.Common.Tools
             return new Regex(regex).Match(role).Success;
         }
 
+        public static bool ValidateInvitationType(string type)
+        {
+            if (type == null)
+                return false;
+            else if (type != "H" || type != "F")
+                return false;
+            else
+            return true;
+        }
+
+
         public static bool ValidateUsersRoles(string role)
         {
             if (role == null)

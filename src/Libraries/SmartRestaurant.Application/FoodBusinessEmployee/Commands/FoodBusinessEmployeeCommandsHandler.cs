@@ -16,6 +16,8 @@ using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 
+using SmartRestaurant.Application.Common.Enums;
+
 namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {
     public class FoodBusinessEmployeeCommandsHandler :
@@ -182,7 +184,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 
             var newUser = _mapper.Map<ApplicationUser>(request);
             await CreateUserAndAssignRolesToHim(request, newUser).ConfigureAwait(false);
-            await AssignUserToFoodBusinesses(request.FoodBusinessesIds,request.Typeinvitation, newUser.Id, cancellationToken)
+            await AssignUserToFoodBusinessesOrHotel(request.FoodBusinessesIds,request.Typeinvitation, newUser.Id, cancellationToken)
                 .ConfigureAwait(false);
             await SendConfirmationEmail(newUser);
             return default;
@@ -208,10 +210,10 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             foreach (var role in roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
         }
 
-        private async Task AssignUserToFoodBusinesses(List<string> listOfFoodBusinessesIds, string type, string userId,
+        private async Task AssignUserToFoodBusinessesOrHotel(List<string> listOfFoodBusinessesIds, string type, string userId,
             CancellationToken cancellationToken)
         {
-            if (type == "F")
+            if (type==TypeInvitation.foodbusinness)
 
             {
                 foreach (var foodBusinessId in listOfFoodBusinessesIds)
