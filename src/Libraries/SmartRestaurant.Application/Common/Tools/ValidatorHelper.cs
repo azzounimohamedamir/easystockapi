@@ -67,8 +67,7 @@ namespace SmartRestaurant.Application.Common.Tools
         {
             if (type == null)
                 return false;
-            else if (type != "H" || type != "F")
-                return false;
+          
             else
             return true;
         }

@@ -24,7 +24,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             var InviteUserToJoinOrganizationCommand = new InviteUserToJoinOrganizationCommand
             {
                 Email = "aissa@gmail.com",
-                FoodBusinessesIds = new List<string> {Guid.NewGuid().ToString()},
+                BusinessesIds = new List<string> {Guid.NewGuid().ToString()},
                 Roles = new List<string> {Roles.FoodBusinessManager.ToString()}
             };
 

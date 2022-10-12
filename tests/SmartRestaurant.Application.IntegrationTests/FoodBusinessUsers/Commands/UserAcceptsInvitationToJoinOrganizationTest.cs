@@ -92,7 +92,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers.Command
             return new InviteUserToJoinOrganizationCommand
             {
                 Email = "aissa@gmail.com",
-                FoodBusinessesIds = new List<string>
+                BusinessesIds = new List<string>
                     {fastFood_01.FoodBusinessId.ToString(), fastFood_02.FoodBusinessId.ToString()},
                 Roles = new List<string> {Roles.FoodBusinessManager.ToString()}
             };

@@ -9,7 +9,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {
     public class InviteUserToJoinOrganizationCommand : CreateCommand
     {
-        public List<string> FoodBusinessesIds { get; set; }
+        public List<string> BusinessesIds { get; set; }
         public string Email { get; set; }
         public List<string> Roles { get; set; }
         public string Typeinvitation { get; set; }
@@ -20,8 +20,8 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
     {
         public InviteUserToJoinOrganizationCommandValidator()
         {
-            RuleFor(invitation => invitation.FoodBusinessesIds).NotEmpty();
-            RuleForEach(invitation => invitation.FoodBusinessesIds)
+            RuleFor(invitation => invitation.BusinessesIds).NotEmpty();
+            RuleForEach(invitation => invitation.BusinessesIds)
                 .ChildRules(foodBusinessId => foodBusinessId.RuleFor(x => x).NotEmpty().NotEqual(Guid.Empty.ToString())
                     .Must(ValidatorHelper.ValidateGuid).WithMessage("'FoodBusinessId' must be a valid GUID"));
 

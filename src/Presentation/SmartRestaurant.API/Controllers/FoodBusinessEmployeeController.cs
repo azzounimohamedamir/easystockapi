@@ -86,7 +86,7 @@ namespace SmartRestaurant.API.Controllers
             var command = new RemoveEmployeeFromOrganizationCommand
             {
                 UserId = id,
-                FoodBusinessesIds = foodBusinessesIds
+                BusinessesIds = foodBusinessesIds
             };
             return await SendWithErrorsHandlingAsync(command);
         }
