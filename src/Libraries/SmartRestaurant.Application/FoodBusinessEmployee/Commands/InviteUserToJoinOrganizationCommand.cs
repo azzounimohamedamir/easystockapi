@@ -9,7 +9,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {
     public class InviteUserToJoinOrganizationCommand : CreateCommand
     {
-        public List<string> BusinessesIds { get; set; }
+        public List<string> businessesIds { get; set; }
         public string Email { get; set; }
         public List<string> Roles { get; set; }
         public string Typeinvitation { get; set; }
@@ -20,8 +20,8 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
     {
         public InviteUserToJoinOrganizationCommandValidator()
         {
-            RuleFor(invitation => invitation.BusinessesIds).NotEmpty();
-            RuleForEach(invitation => invitation.BusinessesIds)
+            RuleFor(invitation => invitation.businessesIds).NotEmpty();
+            RuleForEach(invitation => invitation.businessesIds)
                 .ChildRules(foodBusinessId => foodBusinessId.RuleFor(x => x).NotEmpty().NotEqual(Guid.Empty.ToString())
                     .Must(ValidatorHelper.ValidateGuid).WithMessage("'FoodBusinessId' must be a valid GUID"));
 
@@ -30,9 +30,10 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 
 
             RuleFor(invitedUser => invitedUser.Typeinvitation).NotEmpty()
-              .Must(ValidatorHelper.ValidateInvitationType).WithMessage("Invitation Type Must be not null");
-            
-             
+              .Must(ValidatorHelper.ValidateInvitationType).WithMessage("Invitation Type Must be not null")
+              .Must(ValidatorHelper.ValidateEntryUserForInvitation).WithMessage("Value entered is not valide ");
+
+
 
             RuleFor(invitedUser => invitedUser.Roles).NotEmpty();
             RuleForEach(invitation => invitation.Roles)

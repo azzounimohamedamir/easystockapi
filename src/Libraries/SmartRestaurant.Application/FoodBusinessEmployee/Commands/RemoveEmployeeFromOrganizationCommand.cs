@@ -10,7 +10,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
     public class RemoveEmployeeFromOrganizationCommand : IRequest<Ok>
     {
         public string UserId { get; set; }
-        public List<string> BusinessesIds { get; set; }
+        public List<string> businessesIds { get; set; }
     }
 
     public class
@@ -19,8 +19,8 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         public RemoveEmployeeFromInOrganizationCommandValidator()
         {
             RuleFor(v => v.UserId).NotEmpty().NotEqual(Guid.Empty.ToString());
-            RuleFor(v => v.BusinessesIds).NotEmpty();
-            RuleForEach(v => v.BusinessesIds)
+            RuleFor(v => v.businessesIds).NotEmpty();
+            RuleForEach(v => v.businessesIds)
                 .ChildRules(c => c.RuleFor(x => x).NotEmpty().NotEqual(Guid.Empty.ToString())
                     .Must(ValidatorHelper.ValidateGuid).WithMessage("'FoodBusinessId' must be a valid GUID"));
         }

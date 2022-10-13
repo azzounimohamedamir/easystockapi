@@ -71,7 +71,13 @@ namespace SmartRestaurant.Application.Common.Tools
             else
             return true;
         }
-
+        public static bool ValidateEntryUserForInvitation(string type)
+        {
+            if (type != TypeInvitation.hotel || type !=TypeInvitation.hotel)
+                return false;
+            else
+                return true;
+        }
 
         public static bool ValidateUsersRoles(string role)
         {
@@ -122,6 +128,7 @@ namespace SmartRestaurant.Application.Common.Tools
                 $"|{Roles.Waiter.ToString()})$";
             return new Regex(regex).Match(role).Success;
         }
+
 
         public static bool ValidateEntityNameForUploadImages(string role)
         {

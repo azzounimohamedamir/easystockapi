@@ -88,7 +88,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                foreach (var foodBusinessId in request.BusinessesIds)
+                foreach (var foodBusinessId in request.businessesIds)
                 {
                     var foodBusinessUser = _context.FoodBusinessUsers.First(b =>
                         b.FoodBusinessId == Guid.Parse(foodBusinessId) && b.ApplicationUserId == request.UserId);
@@ -184,7 +184,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 
             var newUser = _mapper.Map<ApplicationUser>(request);
             await CreateUserAndAssignRolesToHim(request, newUser).ConfigureAwait(false);
-            await AssignUserToFoodBusinessesOrHotel(request.BusinessesIds,request.Typeinvitation, newUser.Id, cancellationToken)
+            await AssignUserToFoodBusinessesOrHotel(request.businessesIds,request.Typeinvitation, newUser.Id, cancellationToken)
                 .ConfigureAwait(false);
             await SendConfirmationEmail(newUser);
             return default;
@@ -210,13 +210,13 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             foreach (var role in roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
         }
 
-        private async Task AssignUserToFoodBusinessesOrHotel(List<string> listOfBusinessesIds, string type, string userId,
+        private async Task AssignUserToFoodBusinessesOrHotel(List<string> listOfbusinessesIds, string type, string userId,
             CancellationToken cancellationToken)
         {
             if (type==TypeInvitation.foodbusinness)
 
             {
-                foreach (var foodBusinessId in listOfBusinessesIds)
+                foreach (var foodBusinessId in listOfbusinessesIds)
                 {
                     var foodBusinessUser = new FoodBusinessUser
                     {
@@ -230,7 +230,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 
             else
             {
-                foreach (var foodBusinessId in listOfBusinessesIds)
+                foreach (var foodBusinessId in listOfbusinessesIds)
                 {
                     var HotelUser = new HotelUser
                     {

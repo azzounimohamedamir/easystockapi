@@ -31,7 +31,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessEmploye.Comma
             var email = "smartrest@gmail.com";
             var SendInviteToBecomeManagerHOtelCommand = new InviteUserToJoinOrganizationCommand
             {
-              BusinessesIds = HotelsIds,
+              businessesIds = HotelsIds,
               Email=email,
               Roles = roles, 
               Typeinvitation = TypeInvitation.hotel
@@ -39,7 +39,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessEmploye.Comma
             
             await SendAsync(SendInviteToBecomeManagerHOtelCommand);
             var userid = await GetUsers(email);
-            foreach (var hotelid in SendInviteToBecomeManagerHOtelCommand.BusinessesIds)
+            foreach (var hotelid in SendInviteToBecomeManagerHOtelCommand.businessesIds)
             {
                 var result= await GetHotelByIdUser(userid,Guid.Parse(hotelid));
                 result.Should().Be(true);
