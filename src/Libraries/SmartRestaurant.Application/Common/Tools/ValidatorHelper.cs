@@ -73,7 +73,7 @@ namespace SmartRestaurant.Application.Common.Tools
         }
         public static bool ValidateEntryUserForInvitation(string type)
         {
-            if (type != TypeInvitation.hotel || type !=TypeInvitation.hotel)
+            if (type != TypeInvitation.hotel || type !=TypeInvitation.foodbusinness)              
                 return false;
             else
                 return true;
