@@ -81,12 +81,12 @@ namespace SmartRestaurant.API.Controllers
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> RemoveEmployeeFromOrganization([FromRoute] string id,
-            [FromQuery] List<string> foodbusinessesIds)
+            [FromQuery] List<string> businessesIds)
         {
             var command = new RemoveEmployeeFromOrganizationCommand
             {
                 UserId = id,
-                businessesIds = foodbusinessesIds
+                businessesIds = businessesIds
             };
             return await SendWithErrorsHandlingAsync(command);
         }
