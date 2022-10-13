@@ -30,7 +30,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(PagedListDto<FoodBusinessDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent,SuperAdmin,Diner")]
         public Task<IActionResult> Get(string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
         {
             var query = new GetFoodBusinessListQuery
@@ -62,7 +62,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{id:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent,SuperAdmin,Diner")]
         public Task<IActionResult> GetById([FromRoute] Guid id)
         {
             return SendWithErrorsHandlingAsync(new GetFoodBusinessByIdQuery {FoodBusinessId = id});
