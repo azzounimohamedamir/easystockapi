@@ -63,10 +63,26 @@ namespace SmartRestaurant.Application.Common.Tools
             return new Regex(regex).Match(role).Success;
         }
 
-        public static bool ValidateUsersRoles(string role)
+        public static bool ValidateInvitationType(string type)
         {
-            if (role == null)
+            if (type == null)
                 return false;
+          
+            else
+            return true;
+        }
+        public static bool ValidateEntryUserForInvitation(string type)
+        {
+            if (type != TypeInvitation.hotel && type !=TypeInvitation.foodbusinness)              
+                return false;
+            else
+                return true;
+        }
+
+        public static bool ValidateUsersRoles(string role)
+    {
+        if (role == null)
+            return false;
 
             var regex =
                 $"^(?:{Roles.SupportAgent.ToString()}" +
@@ -112,6 +128,7 @@ namespace SmartRestaurant.Application.Common.Tools
                 $"|{Roles.Waiter.ToString()})$";
             return new Regex(regex).Match(role).Success;
         }
+
 
         public static bool ValidateEntityNameForUploadImages(string role)
         {

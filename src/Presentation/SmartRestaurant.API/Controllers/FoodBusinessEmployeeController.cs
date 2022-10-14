@@ -59,8 +59,8 @@ namespace SmartRestaurant.API.Controllers
         ///     This endpoint is used to remove staff frome organization.
         /// </remarks>
         /// <param name="id">id of the employee</param>
-        /// <param name="foodBusinessesIds">
-        ///     foodBusinessesIds is the list of [foodBusinesses] ids where employee should be removed
+        /// <param name="foodbusinessesIds">
+        ///     foodbusinessesIds is the list of [foodBusinesses] ids where employee should be removed
         ///     from.
         /// </param>
         /// <response code="400">
@@ -81,12 +81,12 @@ namespace SmartRestaurant.API.Controllers
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> RemoveEmployeeFromOrganization([FromRoute] string id,
-            [FromQuery] List<string> foodBusinessesIds)
+            [FromQuery] List<string> businessesIds)
         {
             var command = new RemoveEmployeeFromOrganizationCommand
             {
                 UserId = id,
-                FoodBusinessesIds = foodBusinessesIds
+                businessesIds = businessesIds
             };
             return await SendWithErrorsHandlingAsync(command);
         }

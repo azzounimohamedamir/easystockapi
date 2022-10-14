@@ -44,7 +44,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<Domain.Entities.FoodBusiness, FoodBusinessDto>()
                 .AfterMap((src, dest) => dest.Tags = new List<string>((String.IsNullOrWhiteSpace(src.Tags)) ? new string[0] : src.Tags.Split(';')))
                 .ReverseMap();
-
+           
             CreateMap<CreateFoodBusinessCommand, Domain.Entities.FoodBusiness>()
                 .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.Tags, o => o.MapFrom(p => string.Join(";", p.Tags)))
@@ -121,7 +121,6 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Product.Picture)));
 
             CreateMap<SubSection, SubSectionDto>().ReverseMap();
-            CreateMap<Domain.Entities.Hotel, HotelDto>().ReverseMap();
 
             CreateMap<SubSection, ActiveSubSectionDto>()
                 .ForPath(x => x.MenuItems.Dishes, o => o.MapFrom(p => p.Dishes))
@@ -343,6 +342,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<OrderProduct, BillProductDto>();
             CreateMap<Domain.Entities.FoodBusiness, BillFoodBusinessDto>(); 
             CreateMap<Domain.Entities.FoodBusinessClient, BillFoodBusinessClientDto>();
+            CreateMap<Domain.Entities.Hotel, HotelDto>();
 
             CreateMap< UpdateOrderStatusCommand, Order>();
             
@@ -375,7 +375,9 @@ namespace SmartRestaurant.Application.Common.Mappers
                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
 
             CreateMap<Hotel, HotelDto>()
-              .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
+              .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture))).ReverseMap();
+
+          
 
             CreateMap<Domain.Entities.FoodBusinessClient, FoodBusinessClientDto>()
                .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.FoodBusinessClientId))

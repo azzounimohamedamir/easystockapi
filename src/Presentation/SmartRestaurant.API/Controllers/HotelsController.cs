@@ -48,6 +48,14 @@ namespace SmartRestaurant.API.Controllers
 
 
 
+        [Route("byFoodBusinessAdministrator")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent,SuperAdmin,FoodBusinessManager")]
+        public Task<IActionResult> GetListOfHotelsByFoodBusinessAdministratorId()
+        {
+            return SendWithErrorsHandlingAsync(new GetHotelsListByAdmin());
+        }
+
 
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
