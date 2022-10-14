@@ -73,16 +73,16 @@ namespace SmartRestaurant.Application.Common.Tools
         }
         public static bool ValidateEntryUserForInvitation(string type)
         {
-            if (type != TypeInvitation.hotel || type !=TypeInvitation.foodbusinness)              
+            if (type != TypeInvitation.hotel && type !=TypeInvitation.foodbusinness)              
                 return false;
             else
                 return true;
         }
 
         public static bool ValidateUsersRoles(string role)
-        {
-            if (role == null)
-                return false;
+    {
+        if (role == null)
+            return false;
 
             var regex =
                 $"^(?:{Roles.SupportAgent.ToString()}" +
