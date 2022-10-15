@@ -57,6 +57,21 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
+
+
+
+
+        [Route("byFoodBusinessManager")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,SuperAdmin")]
+        public Task<IActionResult> GetAllHotelsByFoodBusinessManager()
+        {
+            return SendWithErrorsHandlingAsync(new GetAllHotelsByFoodBusinessManagerQuery());
+        }
+
+
+
+
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
        [Authorize(Roles = "FoodBusinessAdministrator")]
