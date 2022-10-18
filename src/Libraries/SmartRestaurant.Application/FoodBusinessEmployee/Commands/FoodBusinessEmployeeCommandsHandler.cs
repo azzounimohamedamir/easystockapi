@@ -17,6 +17,7 @@ using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 
 using SmartRestaurant.Application.Common.Enums;
+using SmartRestaurant.Application.Email;
 
 namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {
@@ -30,22 +31,22 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         private readonly IApplicationDbContext _context;
         private readonly IOptions<EmailTemplates> _emailTemplates;
         private readonly IMapper _mapper;
-        private readonly IOptions<SmtpConfig> _smtpConfig;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IOptions<WebPortal> _webPortal;
         private readonly IUserService _userService;
+        private readonly IEmailSender _emailSender;
 
-        public FoodBusinessEmployeeCommandsHandler(IApplicationDbContext context,
-            UserManager<ApplicationUser> userManager, IMapper mapper, IOptions<SmtpConfig> smtpConfig,
+        public FoodBusinessEmployeeCommandsHandler(IApplicationDbContext context, IEmailSender emailSender,
+            UserManager<ApplicationUser> userManager, IMapper mapper,
             IOptions<WebPortal> webPortal, IOptions<EmailTemplates> emailTemplates, IUserService userService)
         {
             _context = context;
             _userManager = userManager;
             _mapper = mapper;
-            _smtpConfig = smtpConfig;
             _webPortal = webPortal;
             _emailTemplates = emailTemplates;
             _userService = userService;
+            _emailSender = emailSender;
         }
 
         public async Task<Ok> Handle(AddEmployeeInOrganizationCommand request,
@@ -256,7 +257,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             var emailSubject = _emailTemplates.Value.InvitationToJoinOrganization.SelectLanguage(userLanguage).Subject;
             var emailTemplate = _emailTemplates.Value.InvitationToJoinOrganization.SelectLanguage(userLanguage).Template
                 .Replace("{linkToAcceptInvitationWebPage}", linkToAcceptInvitationWebPage);
-            new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, emailSubject, emailTemplate);
+            _emailSender.SendEmail(user.Email, emailSubject, emailTemplate);
         }
 
         #endregion
