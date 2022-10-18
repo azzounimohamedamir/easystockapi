@@ -29,6 +29,7 @@ using SmartRestaurant.API.Middlewares;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using System.Collections.Generic;
+using SmartRestaurant.Infrastructure.Email;
 
 namespace SmartRestaurant.API
 {

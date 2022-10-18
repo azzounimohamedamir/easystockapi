@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using MimeKit.Text;
+using MimeKit;
+using SmartRestaurant.Application.Common.Interfaces;
+using System;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
-using MimeKit;
-using MimeKit.Text;
-using SmartRestaurant.Application.Common.Interfaces;
 
-namespace SmartRestaurant.Application.Common.Tools
+namespace SmartRestaurant.Infrastructure.Email
 {
     public class SmtpConfig
     {
@@ -14,12 +15,13 @@ namespace SmartRestaurant.Application.Common.Tools
         public string Pass { get; set; }
         public int Port { get; set; }
     }
-
     public class EmailHelper : IEmailSender
     {
-        private readonly SmtpConfig _smtpConfig;
 
-        public EmailHelper(SmtpConfig smtpConfig)
+
+        private readonly IOptions<SmtpConfig> _smtpConfig;
+
+        public EmailHelper(IOptions<SmtpConfig> smtpConfig)
         {
             _smtpConfig = smtpConfig;
         }
@@ -28,14 +30,14 @@ namespace SmartRestaurant.Application.Common.Tools
         {
             var message = new MimeMessage();
             message.To.Add(new MailboxAddress("", userEmail));
-            message.From.Add(new MailboxAddress("", _smtpConfig.Email));
+            message.From.Add(new MailboxAddress("", _smtpConfig.Value.Email));
             message.Subject = subject;
-            message.Body = new TextPart(TextFormat.Html) {Text = emailContent};
+            message.Body = new TextPart(TextFormat.Html) { Text = emailContent };
 
             using (var emailClient = new SmtpClient())
             {
-                emailClient.Connect(_smtpConfig.Server, _smtpConfig.Port, false);
-                emailClient.Authenticate(_smtpConfig.Email, _smtpConfig.Pass);
+                emailClient.Connect(_smtpConfig.Value.Server, _smtpConfig.Value.Port, false);
+                emailClient.Authenticate(_smtpConfig.Value.Email, _smtpConfig.Value.Pass);
                 emailClient.Send(message);
                 emailClient.Disconnect(true);
             }

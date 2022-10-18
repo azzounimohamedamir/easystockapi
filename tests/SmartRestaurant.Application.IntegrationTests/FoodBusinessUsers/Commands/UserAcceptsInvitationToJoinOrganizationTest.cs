@@ -7,6 +7,7 @@ using NUnit.Framework;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
 using SmartRestaurant.Domain.Identity.Enums;
+using SmartRestaurant.Infrastructure.Email;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers.Commands
 {
