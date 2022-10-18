@@ -1,6 +1,7 @@
 ﻿using netDumbster.smtp;
 using NUnit.Framework;
 using SmartRestaurant.Application.Common.Tools;
+using SmartRestaurant.Infrastructure.Email;
 
 namespace SmartRestaurant.Application.IntegrationTests.Helpers
 {
