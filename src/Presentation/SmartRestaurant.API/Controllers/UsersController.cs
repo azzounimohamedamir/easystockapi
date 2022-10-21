@@ -178,6 +178,32 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(query);
         }
 
+
+
+
+
+
+
+        [ProducesResponseType(typeof(PagedListDto<HotelsManagersDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("organization/hotelsManagers")]
+        [Authorize(Roles = "FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
+        [HttpGet]
+        public async Task<IActionResult> GetHotelsManagersWithinOrganization(int page, int pageSize)
+        {
+            var query = new GetHotelsManagersWithinOrganizationQuery
+            {
+                Page = page,
+                PageSize = pageSize
+            };
+            return await SendWithErrorsHandlingAsync(query);
+        }
+
+
+
+
+
+
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpPost]
         public async Task<IActionResult> Create(ApplicationUserModel model)
