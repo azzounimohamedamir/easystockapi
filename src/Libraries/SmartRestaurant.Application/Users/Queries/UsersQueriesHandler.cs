@@ -18,7 +18,7 @@ using SmartRestaurant.Domain.Identity.Enums;
 namespace SmartRestaurant.Application.Users.Queries
 {
     public class UsersQueriesHandler :
-        IRequestHandler<GetHotelEmployeesQuery, PagedListDto<HotelEmployeesDtos>>,
+        IRequestHandler<GetHotelEmployeesQuery, PagedListDto<FoodBusinessEmployeesDtos>>,
         IRequestHandler<GetFoodBusinessEmployeesQuery, PagedListDto<FoodBusinessEmployeesDtos>>,
         IRequestHandler<GetFoodBusinessManagersWithinOrganizationQuery, PagedListDto<FoodBusinessManagersDto>>,
         IRequestHandler<GetHotelsManagersWithinOrganizationQuery, PagedListDto<HotelsManagersDto>>,
@@ -105,7 +105,7 @@ namespace SmartRestaurant.Application.Users.Queries
 
 
         #region Get Hotels employees
-        public async Task<PagedListDto<HotelEmployeesDtos>> Handle(GetHotelEmployeesQuery request,
+        public async Task<PagedListDto<FoodBusinessEmployeesDtos>> Handle(GetHotelEmployeesQuery request,
             CancellationToken cancellationToken)
         {
             var validator = new GetHotelEmployeesValidator();
@@ -148,7 +148,7 @@ namespace SmartRestaurant.Application.Users.Queries
                     .Select(u => u.User)
                     .GetPaged(request.Page, request.PageSize);
             }
-            var data = _mapper.Map<List<HotelEmployeesDtos>>(await pagedUsersList.Data
+            var data = _mapper.Map<List<FoodBusinessEmployeesDtos>>(await pagedUsersList.Data
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false));
 
@@ -160,7 +160,7 @@ namespace SmartRestaurant.Application.Users.Queries
                 hotelEmployees.Roles = (List<string>)userRoles;
             }
 
-            var pagedHotelEmployees = new PagedListDto<HotelEmployeesDtos>(pagedUsersList.CurrentPage,
+            var pagedHotelEmployees = new PagedListDto<FoodBusinessEmployeesDtos>(pagedUsersList.CurrentPage,
                 pagedUsersList.PageCount, pagedUsersList.PageSize, pagedUsersList.RowCount, data);
             return pagedHotelEmployees;
         }

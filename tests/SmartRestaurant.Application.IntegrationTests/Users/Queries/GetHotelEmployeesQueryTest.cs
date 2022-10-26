@@ -15,6 +15,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Users.Queries
     public class GetHotelEmployeesQueryTest : TestBase
     {
         [Test]
+
         public async Task ShouldGetHotelEmployess()
         {
             await RolesTestTools.CreateRoles();
@@ -22,9 +23,15 @@ namespace SmartRestaurant.Application.IntegrationTests.Users.Queries
             var hotelsafir = await HotelTestTools.CreateHotel(foodBusinessAdministrator.Id,"safir") ;
 
             var SafirManager = await CreateHotelManagerUser();
+
+            var hotelhitlon = await HotelTestTools.CreateHotel(foodBusinessAdministrator.Id, "hilton");
+
+            var hiltonManager = await CreateHotelManagerUser();
             await AssignRolesToHotelManager(SafirManager);
             await AssignHotelManagerToOrganisation(SafirManager, hotelsafir);
 
+            await AssignRolesToHotelManager(hiltonManager);
+            await AssignHotelManagerToOrganisation(hiltonManager, hotelhitlon);
 
             var query = new GetHotelEmployeesQuery
             {
