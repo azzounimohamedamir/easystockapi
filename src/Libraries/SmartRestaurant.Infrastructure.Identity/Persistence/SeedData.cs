@@ -484,6 +484,19 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                 }
 
                 #endregion
+                #region add rols to organisation user
+                ,
+                new ApplicationUserRole
+                {
+                    UserId = CEVITAL_UserId,
+                    RoleId = "13"
+                },
+                new ApplicationUserRole
+                {
+                    UserId = Sonatrach_UserId,
+                    RoleId = "13"
+                }
+                #endregion
 
             );
 
