@@ -195,6 +195,8 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<ApplicationUser, FoodBusinessEmployeesDtos>()
                 .ReverseMap();
+            CreateMap<ApplicationUser, HotelEmployeesDtos>()
+                .ReverseMap();
 
             CreateMap<InviteUserToJoinOrganizationCommand, ApplicationUser>()
                 .ForMember(x => x.UserName, o => o.MapFrom(p => p.Email));

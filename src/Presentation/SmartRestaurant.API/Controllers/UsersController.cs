@@ -141,29 +141,28 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(query);
         }
 
-        /// <summary> This endpoint is used to get the list of FoodBusinessManagers in a particular Organization </summary>
-        /// <remarks>
-        ///     This endpoint will return the list of FoodBusinessManagers in a particular Organization based on
-        ///     FoodBusinessAdministratorId.
-        ///     <br></br>
-        ///     No need to provide application with FoodBusinessAdministratorId
-        /// </remarks>
-        /// <param name="page">The start position of read pointer in a request results</param>
-        /// <param name="pageSize">The max number of Reservations that should be returned</param>
-        /// <response code="400">
-        ///     The parameters sent to the backend-server in order to get the list of FoodBusinessManagers are
-        ///     invalid.
-        /// </response>
-        /// <response code="200">The the list of FoodBusinessManagers has been successfully fetched.</response>
-        /// <response code="401">
-        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
-        ///     or authentication token is invalid or expired.
-        /// </response>
-        /// <response code="403">
-        ///     The user account you used to log into the application, does not have the necessary privileges to
-        ///     execute this request.
-        /// </response>
-        [ProducesResponseType(typeof(PagedListDto<FoodBusinessManagersDto>), 200)]
+
+
+
+
+        [ProducesResponseType(typeof(PagedListDto<FoodBusinessEmployeesDtos>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("hotel/staff")]
+        [Authorize(Roles = "FoodBusinessAdministrator, FoodBusinessManager ,SuperAdmin, SupportAgent")]
+        [HttpGet]
+        public async Task<IActionResult> GetHotelStaff(string hotelId, int page, int pageSize)
+        {
+            var query = new GetHotelEmployeesQuery
+            {
+                HotelId = hotelId,
+                Page = page,
+                PageSize = pageSize
+            };
+            return await SendWithErrorsHandlingAsync(query);
+        }
+
+       
+            [ProducesResponseType(typeof(PagedListDto<FoodBusinessManagersDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("organization/foodBusinessManagers")]
         [Authorize(Roles = "FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
