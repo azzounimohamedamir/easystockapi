@@ -141,6 +141,26 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(query);
         }
 
+
+
+
+
+        [ProducesResponseType(typeof(PagedListDto<FoodBusinessEmployeesDtos>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("hotel/staff")]
+        [Authorize(Roles = "FoodBusinessAdministrator, FoodBusinessManager ,SuperAdmin, SupportAgent")]
+        [HttpGet]
+        public async Task<IActionResult> GetHotelStaff(string hotelId, int page, int pageSize)
+        {
+            var query = new GetHotelEmployeesQuery
+            {
+                HotelId = hotelId,
+                Page = page,
+                PageSize = pageSize
+            };
+            return await SendWithErrorsHandlingAsync(query);
+        }
+
         /// <summary> This endpoint is used to get the list of FoodBusinessManagers in a particular Organization </summary>
         /// <remarks>
         ///     This endpoint will return the list of FoodBusinessManagers in a particular Organization based on
