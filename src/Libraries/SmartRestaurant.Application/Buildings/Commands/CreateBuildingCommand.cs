@@ -12,7 +12,6 @@ namespace SmartRestaurant.Application.Buildings.Commands
     public class CreateBuildingCommand : CreateCommand
     {
         public string Name { get; set; }
-        //public byte[] Picture { get; set; }
         public IFormFile Picture { get; set; }
         public Guid HotelId { get; set; }
     }
@@ -21,7 +20,6 @@ namespace SmartRestaurant.Application.Buildings.Commands
     {
         public CreateBuildingCommandValidator()
         {
-            RuleFor(building => building.Picture);
 
             RuleFor(building => building.Name)
                 .Cascade(CascadeMode.StopOnFirstFailure)

@@ -352,7 +352,6 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<Domain.Entities.FoodBusiness, BillFoodBusinessDto>(); 
             CreateMap<Domain.Entities.FoodBusinessClient, BillFoodBusinessClientDto>();
             CreateMap<Hotel, HotelDto>();
-            CreateMap<Building, BuildingDto>();
 
             CreateMap< UpdateOrderStatusCommand, Order>();
             

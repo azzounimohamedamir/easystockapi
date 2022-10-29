@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SmartRestaurant.Domain.Entities
 {
-    // entity hotel
+    // Building Enteity
     public class Building: AuditableEntity
     {
       
