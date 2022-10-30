@@ -69,7 +69,14 @@ namespace SmartRestaurant.API.Controllers
             return SendWithErrorsHandlingAsync(new GetAllHotelsByFoodBusinessManagerQuery());
         }
 
-
+        [Route("{id}")]
+        [HttpPut]
+       [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
+        public async Task<IActionResult> Update([FromRoute] string id, [FromForm] UpdateHotelCommand command)
+        {
+            command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
+        }
 
 
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
