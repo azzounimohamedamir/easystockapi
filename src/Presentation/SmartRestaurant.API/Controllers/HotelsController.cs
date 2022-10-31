@@ -70,6 +70,13 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            return await SendWithErrorsHandlingAsync(new DeleteHotelCommand { Id = id });
+        }
 
 
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
