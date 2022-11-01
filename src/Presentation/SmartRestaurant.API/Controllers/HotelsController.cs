@@ -70,6 +70,15 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
+
+        /// <summary> DeleteHotel() </summary>
+        /// <remarks>This endpoint allows <b>Food Business Administrator</b> to delete hotel.</remarks>
+        /// <param name="id">id of the hotel that would be deleted</param>
+        /// <response code="204">The hotel has been successfully deleted.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to delete a hotel is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+
         [HttpDelete]
         [Route("{id:Guid}")]
         [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
