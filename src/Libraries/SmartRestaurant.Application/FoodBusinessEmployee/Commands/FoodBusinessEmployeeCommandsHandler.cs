@@ -17,7 +17,6 @@ using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 
 using SmartRestaurant.Application.Common.Enums;
-using SmartRestaurant.Application.Email;
 
 namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {
@@ -197,9 +196,13 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             }
             else
             {
-                var newapplicationUserId = _identcontext.ApplicationUser.Where(a => a.Email == newUser.Email).FirstOrDefault().Id;
+                var newapplicationUser = _identcontext.ApplicationUser.Where(a => a.Email == newUser.Email).FirstOrDefault();
+                var newapplicationUserId = newapplicationUser.Id;
+
                 await AssignUserToFoodBusinessesOrHotel(IsExist, request.businessesIds, request.Typeinvitation, newapplicationUserId, cancellationToken)
                .ConfigureAwait(false);
+                await SendConfirmationEmail(newapplicationUser);
+
                 return default;
             }
 
@@ -221,14 +224,14 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         }
 
 
-        private bool CkeckUserIfExistInApplicationUser(string username)
+        private bool CkeckUserIfExistInApplicationUser(string email)
         {
-            var checkInApplicationUser = _identcontext.ApplicationUser.Where(a => a.UserName == username).FirstOrDefault();
+            var checkInApplicationUser = _identcontext.ApplicationUser.Where(a => a.Email.ToUpper() == email.ToUpper()).FirstOrDefault();
             if (checkInApplicationUser != null)
             {
-            return true;
+                return true;
             }
-            return false;
+                return false;
 
         }
 
