@@ -55,6 +55,11 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.Tags, o => o.MapFrom(p => string.Join(";", p.Tags)))
                 .ReverseMap();
+            CreateMap<UpdateHotelCommand,Hotel>()
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.Picture, o => o.Ignore())
+
+                .ReverseMap();
             CreateMap<GeoPosition, GeoPositionDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<PhoneNumber, PhoneNumberDto>().ReverseMap();

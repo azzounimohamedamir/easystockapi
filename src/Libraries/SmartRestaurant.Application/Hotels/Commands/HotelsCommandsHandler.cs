@@ -20,10 +20,8 @@ namespace SmartRestaurant.Application.Hotels.Commands
 {
     public class HotelsCommandsHandler :
         IRequestHandler<CreateHotelCommand, Created>,
-         IRequestHandler<DeleteHotelCommand, NoContent>
-
-
-
+         IRequestHandler<DeleteHotelCommand, NoContent>,
+        IRequestHandler<UpdateHotelCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -59,6 +57,36 @@ namespace SmartRestaurant.Application.Hotels.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
+
+
+
+
+        public async Task<NoContent> Handle(UpdateHotelCommand request,
+           CancellationToken cancellationToken)
+        {
+            var validator = new UpdateHotelCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var hotel = await _context.Hotels
+                .FirstOrDefaultAsync(hotel => hotel.Id == Guid.Parse(request.Id), cancellationToken)
+                .ConfigureAwait(false);
+            if (hotel == null)
+                throw new NotFoundException(nameof(Hotels), request.Id);
+
+            _mapper.Map(request, hotel);
+            using (var ms = new MemoryStream())
+            {
+                request.Picture.CopyTo(ms);
+                hotel.Picture = ms.ToArray();
+                
+            }
+            _context.Hotels.Update(hotel);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+
 
         public async Task<NoContent> Handle(DeleteHotelCommand request,
             CancellationToken cancellationToken)

@@ -190,6 +190,33 @@ namespace SmartRestaurant.Application.IntegrationTests
             return hoteluser != null;
         }
 
+        public static async Task<bool> GetFoodByIdUser(List<string> idusers, Guid foodid)
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+            var fooduser = await context.FoodBusinessUsers
+              .Where(u => u.FoodBusinessId == foodid && idusers.Contains(u.ApplicationUserId))
+              .FirstOrDefaultAsync()
+              .ConfigureAwait(false);
+            return fooduser != null;
+        }
+
+        public static  int GetAllHotelUserCount()
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+            var count =  context.hotelUsers.Count();
+            return count;
+        }
+
+        public static int GetAllFoodBusinessUserCount()
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+            var count = context.FoodBusinessUsers.Count();
+            return count;
+        }
+
         public static async Task<Order> GetOrder(Guid orderId)
         {
             using var scope = _scopeFactory.CreateScope();
