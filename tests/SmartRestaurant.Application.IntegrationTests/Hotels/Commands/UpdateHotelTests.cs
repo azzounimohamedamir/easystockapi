@@ -54,7 +54,19 @@ namespace SmartRestaurant.Application.IntegrationTests.Hotels.Commands
                 list.Id.Should().Be(updateHotelCommand.Id);
                 list.Name.Should().Be("Safir El Madina");
                 list.PhoneNumber.Number.Should().Be(553090200);
+                list.PhoneNumber.CountryCode.Should().Be(213);
+
                 list.Email.Should().Be("newsafir@safir.com");
+                list.ImagUrl.Should().Be("new image url for hotel");
+                list.NRC.Should().Be(15152232);
+                list.NIF.Should().Be(15151523);
+                list.NIS.Should().Be(15151523);
+                list.Website.Should().Be("http://www.safir.dz");
+                list.FoodBusinessAdministratorId.Should().Be(hotelsafir.FoodBusinessAdministratorId);
+                list.Description.Should().Be("hotel 5 etoile situé au centre ville de boumerdes");
+                list.Address.StreetAddress.Should().Be("Cite 600 logement");
+                list.Address.City.Should().Be("Boumerdes");
+                list.Address.Country.Should().Be("Algerie");
             });
         }
     }
