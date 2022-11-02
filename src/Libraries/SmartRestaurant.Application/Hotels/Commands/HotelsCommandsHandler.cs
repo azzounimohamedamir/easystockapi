@@ -20,9 +20,8 @@ namespace SmartRestaurant.Application.Hotels.Commands
 {
     public class HotelsCommandsHandler :
         IRequestHandler<CreateHotelCommand, Created>,
+         IRequestHandler<DeleteHotelCommand, NoContent>,
         IRequestHandler<UpdateHotelCommand, NoContent>
-
-
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -87,6 +86,25 @@ namespace SmartRestaurant.Application.Hotels.Commands
             return default;
         }
 
+
+
+        public async Task<NoContent> Handle(DeleteHotelCommand request,
+            CancellationToken cancellationToken)
+        {
+            var validator = new DeleteHotelCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var entity = await _context.Hotels.FindAsync(request.Id).ConfigureAwait(false);
+
+            if (entity == null)
+                throw new NotFoundException(nameof(Hotels), request.Id);
+
+            _context.Hotels.Remove(entity);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return default;
+        }
 
 
     }

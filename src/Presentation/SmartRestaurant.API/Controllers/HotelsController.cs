@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using SmartRestaurant.Application.Hotels.Queries;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.API.Swagger.Exception;
+using System;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -106,13 +107,26 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
+        /// <summary> DeleteHotel() </summary>
+        /// <remarks>This endpoint allows <b>Food Business Administrator</b> to delete hotel.</remarks>
+        /// <param name="id">id of the hotel that would be deleted</param>
+        /// <response code="204">The hotel has been successfully deleted.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to delete a hotel is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
 
-
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        [Authorize(Roles = "FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            return await SendWithErrorsHandlingAsync(new DeleteHotelCommand { Id = id });
+        }
 
 
         /// <summary> CreateNewHotel() </summary>
         /// <remarks>
-        ///     This endpoint allows SM user to create a new hotel.<br></br>
+        ///     This endpoint allows user to create a new hotel.<br></br>
         ///     <b>Note 01:</b> Picture should be encoded in Base64
         /// </remarks>
         /// <param name="command">This is the payload object used to create a new hotel</param>
