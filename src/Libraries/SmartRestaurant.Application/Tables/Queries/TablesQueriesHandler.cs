@@ -25,7 +25,8 @@ namespace SmartRestaurant.Application.Tables.Queries
 
         public async Task<TableDto> Handle(GetTableByIdQuery request, CancellationToken cancellationToken)
         {
-            var query = await _context.Tables.FindAsync(request.TableId).ConfigureAwait(false);
+            var query = await _context.Tables.Include(x=>x.Zone).ThenInclude(x=>x.FoodBusiness)
+                .AsNoTracking().FirstOrDefaultAsync(table=>table.TableId.Equals(request.TableId));
             return _mapper.Map<TableDto>(query);
         }
 
