@@ -5,10 +5,8 @@ using System.Text;
 
 namespace SmartRestaurant.Domain.Entities
 {
-    // Building Enteity
     public class Building: AuditableEntity
     {
-      
         public Guid Id { get; set; }
         public string Name { get; set; }
         public byte[] Picture { get; set; }
