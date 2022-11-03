@@ -111,7 +111,7 @@ namespace SmartRestaurant.Application.Common.Tools
 
             var regex =
                 $"^(?:{Roles.FoodBusinessManager.ToString()}" +
-                $"|{Roles.Chef.ToString()}" +
+                $"|{Roles.Chef.ToString()}" + $"|{Roles.HotelServiceAdmin.ToString()}"+ $"|{Roles.HotelReceptionist.ToString()}"+
                 $"|{Roles.Cashier.ToString()}" +
                 $"|{Roles.Waiter.ToString()})$";
             return new Regex(regex).Match(role).Success;
@@ -129,6 +129,17 @@ namespace SmartRestaurant.Application.Common.Tools
             return new Regex(regex).Match(role).Success;
         }
 
+
+        public static bool ValidateRoleForHotelStaff(string role)
+        {
+            if (role == null)
+                return false;
+
+            var regex =
+                $"^(?:{Roles.HotelServiceAdmin.ToString()}" +
+                $"|{Roles.HotelReceptionist.ToString()})$";
+            return new Regex(regex).Match(role).Success;
+        }
 
         public static bool ValidateEntityNameForUploadImages(string role)
         {

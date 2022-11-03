@@ -39,6 +39,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             await CreateDinerRole();
             await CreateAnounymousRole();
             await CreateOrganizationRole();
+            await CreateHotelReceptionnisteRole();
+            await CreateHotelServiceAdminRole();
+
         }
 
         private static async Task CreateSuperAdminRole()
@@ -84,6 +87,32 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             };
             await AddIdentityAsync(roles);
         }
+
+
+
+
+        private static async Task CreateHotelReceptionnisteRole()
+        {
+            var roles = new ApplicationRole
+            {
+                Id = ((int)Roles.HotelReceptionist).ToString(),
+                Name = Roles.HotelReceptionist.ToString(),
+                NormalizedName = Roles.HotelReceptionist.ToString().ToUpper()
+            };
+            await AddIdentityAsync(roles);
+        }
+
+        private static async Task CreateHotelServiceAdminRole()
+        {
+            var roles = new ApplicationRole
+            {
+                Id = ((int)Roles.HotelServiceAdmin).ToString(),
+                Name = Roles.HotelServiceAdmin.ToString(),
+                NormalizedName = Roles.HotelServiceAdmin.ToString().ToUpper()
+            };
+            await AddIdentityAsync(roles);
+        }
+
 
         private static async Task CreateFoodBusinessAdministratorRole()
         {

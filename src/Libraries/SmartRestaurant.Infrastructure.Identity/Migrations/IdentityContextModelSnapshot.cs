@@ -20,746 +20,756 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ClaimType")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ClaimValue")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                b.Property<string>("RoleId")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
+                b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
-                });
+                b.ToTable("AspNetRoleClaims");
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ClaimType")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ClaimValue")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                b.Property<string>("UserId")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
-                });
+                b.ToTable("AspNetUserClaims");
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+            {
+                b.Property<string>("LoginProvider")
+                    .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                b.Property<string>("ProviderKey")
+                    .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ProviderDisplayName")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                b.Property<string>("UserId")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("LoginProvider", "ProviderKey");
+                b.HasKey("LoginProvider", "ProviderKey");
 
-                    b.HasIndex("UserId");
+                b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
-                });
+                b.ToTable("AspNetUserLogins");
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+            {
+                b.Property<string>("UserId")
+                    .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                b.Property<string>("LoginProvider")
+                    .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Value")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId", "LoginProvider", "Name");
+                b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
-                });
+                b.ToTable("AspNetUserTokens");
+            });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Identity.Entities.ApplicationRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+            {
+                b.Property<string>("Id")
+                    .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ConcurrencyStamp")
+                    .IsConcurrencyToken()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(256)")
+                    .HasMaxLength(256);
 
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                b.Property<string>("NormalizedName")
+                    .HasColumnType("nvarchar(256)")
+                    .HasMaxLength(256);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                b.HasIndex("NormalizedName")
+                    .IsUnique()
+                    .HasName("RoleNameIndex")
+                    .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles");
+                b.ToTable("AspNetRoles");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            ConcurrencyStamp = "88f0dec2-5364-4881-4817-1f2a135a8641",
-                            Name = "SuperAdmin",
-                            NormalizedName = "SUPERADMIN"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            ConcurrencyStamp = "emec7115-422c-487d-65b0-58cfa8e66a94",
-                            Name = "SupportAgent",
-                            NormalizedName = "SUPPORTAGENT"
-                        },
-                        new
-                        {
-                            Id = "3",
-                            ConcurrencyStamp = "emrc7115-422c-487d-75b0-58cfa8e66a94",
-                            Name = "SalesMan",
-                            NormalizedName = "SALESMAN"
-                        },
-                        new
-                        {
-                            Id = "4",
-                            ConcurrencyStamp = "emtc7115-422c-487d-85b0-58cfa8e66a94",
-                            Name = "Photograph",
-                            NormalizedName = "PHOTOGRAPH"
-                        },
-                        new
-                        {
-                            Id = "5",
-                            ConcurrencyStamp = "5719c2b8-22fd-4eee-9c21-4bfbd2ce18d2",
-                            Name = "FoodBusinessAdministrator",
-                            NormalizedName = "FOODBUSINESSADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "6",
-                            ConcurrencyStamp = "emcc7115-422c-487d-95b0-58cfa8e66a94",
-                            Name = "FoodBusinessManager",
-                            NormalizedName = "FOODBUSINESSMANAGER"
-                        },
-                        new
-                        {
-                            Id = "7",
-                            ConcurrencyStamp = "emcb7115-422c-487d-95c0-58cfa8m66a94",
-                            Name = "FoodBusinessOwner",
-                            NormalizedName = "FOODBUSINESSOWNER"
-                        },
-                        new
-                        {
-                            Id = "9",
-                            ConcurrencyStamp = "encc7115-422c-487d-95b0-58cfa8e66a95",
-                            Name = "Cashier",
-                            NormalizedName = "CASHIER"
-                        },
-                        new
-                        {
-                            Id = "8",
-                            ConcurrencyStamp = "elcc7115-422c-487d-95b0-58cfa8e66a96",
-                            Name = "Chef",
-                            NormalizedName = "CHEF"
-                        },
-                        new
-                        {
-                            Id = "10",
-                            ConcurrencyStamp = "ekcc7115-422c-487d-95b0-58cfa8e66a97",
-                            Name = "Waiter",
-                            NormalizedName = "WAITER"
-                        },
-                        new
-                        {
-                            Id = "11",
-                            ConcurrencyStamp = "edcc7115-422c-487d-95b0-58cfa8e66a98",
-                            Name = "Diner",
-                            NormalizedName = "DINER"
-                        },
-                        new
-                        {
-                            Id = "12",
-                            ConcurrencyStamp = "educ7115-422c-487d-25b0-58cfa8e66a98",
-                            Name = "Anounymous",
-                            NormalizedName = "ANOUNYMOUS"
-                        },
-                        new
-                        {
-                            Id = "13",
-                            ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98",
-                            Name = "Organization",
-                            NormalizedName = "ORGANIZATION"
-                        },
-                        new
-                        {
-                            Id = "14",
-                            ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98",
-                            Name = "HotelManager",
-                            NormalizedName = "HOTELMANAGER"
-                        },
-                        new
-                        {
-                            Id = "15",
-                            ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98",
-                            Name = "HotelReceptionist",
-                            NormalizedName = "HOTELRECEPTIONIST"
-                        },
-                        new
-                        {
-                            Id = "16",
-                            ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98",
-                            Name = "HotelServiceAdmin",
-                            NormalizedName = "HOTELSERVICEADMIN"
-                        },
-                        new
-                        {
-                            Id = "17",
-                            ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98",
-                            Name = "HotelClient",
-                            NormalizedName = "HOTELCLIENT"
-                        });
-                });
+                b.HasData(
+                    new
+                    {
+                        Id = "1",
+                        ConcurrencyStamp = "88f0dec2-5364-4881-4817-1f2a135a8641",
+                        Name = "SuperAdmin",
+                        NormalizedName = "SUPERADMIN"
+                    },
+                    new
+                    {
+                        Id = "2",
+                        ConcurrencyStamp = "emec7115-422c-487d-65b0-58cfa8e66a94",
+                        Name = "SupportAgent",
+                        NormalizedName = "SUPPORTAGENT"
+                    },
+                    new
+                    {
+                        Id = "3",
+                        ConcurrencyStamp = "emrc7115-422c-487d-75b0-58cfa8e66a94",
+                        Name = "SalesMan",
+                        NormalizedName = "SALESMAN"
+                    },
+                    new
+                    {
+                        Id = "4",
+                        ConcurrencyStamp = "emtc7115-422c-487d-85b0-58cfa8e66a94",
+                        Name = "Photograph",
+                        NormalizedName = "PHOTOGRAPH"
+                    },
+                    new
+                    {
+                        Id = "5",
+                        ConcurrencyStamp = "5719c2b8-22fd-4eee-9c21-4bfbd2ce18d2",
+                        Name = "FoodBusinessAdministrator",
+                        NormalizedName = "FOODBUSINESSADMINISTRATOR"
+                    },
+                    new
+                    {
+                        Id = "6",
+                        ConcurrencyStamp = "emcc7115-422c-487d-95b0-58cfa8e66a94",
+                        Name = "FoodBusinessManager",
+                        NormalizedName = "FOODBUSINESSMANAGER"
+                    },
+                    new
+                    {
+                        Id = "7",
+                        ConcurrencyStamp = "emcb7115-422c-487d-95c0-58cfa8m66a94",
+                        Name = "FoodBusinessOwner",
+                        NormalizedName = "FOODBUSINESSOWNER"
+                    },
+                    new
+                    {
+                        Id = "9",
+                        ConcurrencyStamp = "encc7115-422c-487d-95b0-58cfa8e66a95",
+                        Name = "Cashier",
+                        NormalizedName = "CASHIER"
+                    },
+                    new
+                    {
+                        Id = "8",
+                        ConcurrencyStamp = "elcc7115-422c-487d-95b0-58cfa8e66a96",
+                        Name = "Chef",
+                        NormalizedName = "CHEF"
+                    },
+                    new
+                    {
+                        Id = "10",
+                        ConcurrencyStamp = "ekcc7115-422c-487d-95b0-58cfa8e66a97",
+                        Name = "Waiter",
+                        NormalizedName = "WAITER"
+                    },
+                    new
+                    {
+                        Id = "11",
+                        ConcurrencyStamp = "edcc7115-422c-487d-95b0-58cfa8e66a98",
+                        Name = "Diner",
+                        NormalizedName = "DINER"
+                    },
+                    new
+                    {
+                        Id = "12",
+                        ConcurrencyStamp = "educ7115-422c-487d-25b0-58cfa8e66a98",
+                        Name = "Anounymous",
+                        NormalizedName = "ANOUNYMOUS"
+                    },
+                    new
+                    {
+                        Id = "13",
+                        ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98",
+                        Name = "Organization",
+                        NormalizedName = "ORGANIZATION"
+                    },
+                    new
+                    {
+                        Id = "14",
+                        ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98",
+                        Name = "HotelManager",
+                        NormalizedName = "HOTELMANAGER"
+                    },
+                    new
+                    {
+                        Id = "15",
+                        ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98",
+                        Name = "HotelReceptionist",
+                        NormalizedName = "HOTELRECEPTIONIST"
+                    },
+                    new
+                    {
+                        Id = "16",
+                        ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98",
+                        Name = "HotelServiceAdmin",
+                        NormalizedName = "HOTELSERVICEADMIN"
+                    },
+                    new
+                    {
+                        Id = "17",
+                        ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98",
+                        Name = "HotelClient",
+                        NormalizedName = "HOTELCLIENT"
+                    });
+            });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Identity.Entities.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+            {
+                b.Property<string>("Id")
+                    .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                b.Property<int>("AccessFailedCount")
+                    .HasColumnType("int");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ConcurrencyStamp")
+                    .IsConcurrencyToken()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                b.Property<string>("Email")
+                    .HasColumnType("nvarchar(256)")
+                    .HasMaxLength(256);
 
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                b.Property<bool>("EmailConfirmed")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("FullName")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsActive")
+                    .HasColumnType("bit");
 
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                b.Property<bool>("LockoutEnabled")
+                    .HasColumnType("bit");
 
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                b.Property<DateTimeOffset?>("LockoutEnd")
+                    .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                b.Property<string>("NormalizedEmail")
+                    .HasColumnType("nvarchar(256)")
+                    .HasMaxLength(256);
 
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                b.Property<string>("NormalizedUserName")
+                    .HasColumnType("nvarchar(256)")
+                    .HasMaxLength(256);
 
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("PasswordHash")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("PhoneNumber")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                b.Property<bool>("PhoneNumberConfirmed")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("SecurityStamp")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                b.Property<bool>("TwoFactorEnabled")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                b.Property<string>("UserName")
+                    .HasColumnType("nvarchar(256)")
+                    .HasMaxLength(256);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                b.HasIndex("NormalizedEmail")
+                    .HasName("EmailIndex");
 
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                b.HasIndex("NormalizedUserName")
+                    .IsUnique()
+                    .HasName("UserNameIndex")
+                    .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
+                b.ToTable("AspNetUsers");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = "3cbf3570-0d44-4673-8746-29b7cf568093",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "55b65889-c521-44fd-a535-ed7d26753544",
-                            Email = "SuperAdmin@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SUPERADMIN@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "SUPERADMIN@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAzFpmzMtMiw0wHV6b0aUzFLF9Pw7B2u+DswRHttAU2nH22NHBsc/hSSvKUqmRWGZA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "ae66e06d-0d30-41d7-be85-7961c3b9c82f",
-                            TwoFactorEnabled = false,
-                            UserName = "SuperAdmin@SmartRestaurant.io"
-                        },
-                        new
-                        {
-                            Id = "d466ef00-61f1-4e77-801a-b016f0f12323",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "1867d6c6-daac-46dd-ba8d-718eb4a6ff54",
-                            Email = "SupportAgent@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SUPPORTAGENT@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "SUPPORTAGENT@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "c97d16cf-107f-4343-9a0a-4c59c46f3c09",
-                            TwoFactorEnabled = false,
-                            UserName = "SupportAgent@SmartRestaurant.io"
-                        },
-                        new
-                        {
-                            Id = "d466ef00-61f1-4e77-801a-b516f0f12323",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "6e6e87e2-ffc6-4731-948c-52d44dc937d0",
-                            Email = "Waiter@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "WAITER@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "WAITER@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "339026af-bd34-49e5-b395-bdd828a800ef",
-                            TwoFactorEnabled = false,
-                            UserName = "Waiter@SmartRestaurant.io"
-                        },
-                        new
-                        {
-                            Id = "3cbf3570-4444-4444-8746-29b7cf568093",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "124d877b-610f-4f15-8a68-ff01aad8ede6",
-                            Email = "FoodAdmin@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "FOODADMIN@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "FOODADMIN@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "ddf6c560-a62d-4705-8c66-7792e5897470",
-                            TwoFactorEnabled = false,
-                            UserName = "FoodAdmin@SmartRestaurant.io"
-                        },
-                        new
-                        {
-                            Id = "44bf3570-0d44-4673-8746-29b7cf568088",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c00c8278-7044-4c64-bfde-e5f4d0b2af35",
-                            Email = "McdonaldFoodAdmin@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MCDONALDFOODADMIN@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "MCDONALDFOODADMIN@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e2b677d6-9ba9-47ac-bf60-a6bfae489e60",
-                            TwoFactorEnabled = false,
-                            UserName = "McdonaldFoodAdmin@SmartRestaurant.io"
-                        },
-                        new
-                        {
-                            Id = "08a1a626-7f8e-4b51-84fc-fc51b6302cca",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "3c3f82f3-c303-4a9c-a32e-3e6b8f08833a",
-                            Email = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "BIGMAMAFOODBUSINESSADMINISTRATOR@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "BIGMAMAFOODBUSINESSADMINISTRATOR@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "59db171f-d311-4e2a-8a51-af79e382a4e4",
-                            TwoFactorEnabled = false,
-                            UserName = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io"
-                        },
-                        new
-                        {
-                            Id = "a1997466-cedc-4850-b18d-0ac4f4102cff",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7801c133-0a6b-4d3d-a0b3-143602783f32",
-                            Email = "TajMhalFoodBusinessManager@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "TAJMHALFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "TAJMHALFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "488282f7-81b2-4331-be6c-9531b542fda8",
-                            TwoFactorEnabled = false,
-                            UserName = "TajMhalFoodBusinessManager@SmartRestaurant.io"
-                        },
-                        new
-                        {
-                            Id = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "255997c6-9c1c-46d6-9485-14bfd6a466d7",
-                            Email = "McdonaldFoodBusinessManager@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MCDONALDFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "MCDONALDFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "949c2c2b-be59-4318-9df0-4308a1a8585f",
-                            TwoFactorEnabled = false,
-                            UserName = "McdonaldFoodBusinessManager@SmartRestaurant.io"
-                        },
-                        new
-                        {
-                            Id = "64fed988-6f68-49dc-ad54-0da50ec02319",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "30782c4a-210c-480c-bdbd-66b773d52bda",
-                            Email = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "BIGMAMASALIMFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "BIGMAMASALIMFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO+ouwzSOa+AsCNZrVEhO6Su9q/fX/Q9c9havEvhs5QtXWA6tRdfmqOlemUQphqDnA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "ccc723f9-4de1-4d54-86c7-921cc8b5a753",
-                            TwoFactorEnabled = false,
-                            UserName = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io"
-                        },
-                        new
-                        {
-                            Id = "5a84cd00-59f0-4b22-bfce-07c080829118",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d451e632-5900-4b7b-80f7-f0e3d7805cec",
-                            Email = "Diner_01@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "DINER_01@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "DINER_01@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJFZbbuBIpvoyXKwrceuNsU4cXZ18LLAl8g7s48Pye4EAEXwA2hswtnLMhMS9Q7Cjw ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "3b26ceea-5a1c-41ef-a57e-d2febef7da02",
-                            TwoFactorEnabled = false,
-                            UserName = "Diner_01@SmartRestaurant.io"
-                        },
-                        new
-                        {
-                            Id = "6b14cd00-59f0-4422-bfce-07c080829987",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "829999fd-4445-4df2-a4e2-269aecbe1b54",
-                            Email = "Diner_02@SmartRestaurant.io",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "DINER_02@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "DINER_02@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJFZbbuBIpvoyXKwrceuNsU4cXZ18LLAl8g7s48Pye4EAEXwA2hswtnLMhMS9Q7Cjw ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "c33b7fe1-770a-4e27-a142-5664afeb3792",
-                            TwoFactorEnabled = false,
-                            UserName = "Diner_02@SmartRestaurant.io"
-                        },
-                        new
-                        {
-                            Id = "a3dbd500-eab0-4233-86fd-7f1a4195f9a9",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "820972b4-f134-42e3-931a-81abe4c6bf2b",
-                            Email = "manager@sonatrach.com",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MANAGER@SONATRACH.COM",
-                            NormalizedUserName = "MANAGER@SONATRACH.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e35e5b06-c21c-4a23-971b-a1cefcd96e36",
-                            TwoFactorEnabled = false,
-                            UserName = "manager@sonatrach.com"
-                        },
-                        new
-                        {
-                            Id = "ba89dc5f-dfd1-4c87-9372-233c611cc756",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "4fa1ead0-ab50-44f1-9269-c0e329068388",
-                            Email = "manager@cevital.com",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MANAGER@CEVITAL.COM",
-                            NormalizedUserName = "MANAGER@CEVITAL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "8d2d065b-cad8-4c16-a1f4-d380505d50d4",
-                            TwoFactorEnabled = false,
-                            UserName = "manager@cevital.com"
-                        },
-                        new
-                        {
-                            Id = "6d215fd5-e7b4-4afd-aa6c-334a37d3874d",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "99410dd7-84fc-42cc-bdcf-491b42b1a5a0",
-                            Email = "HotelManager@gmail.com",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "HOTELMANAGER@GMAIL.COM",
-                            NormalizedUserName = "HOTELMANAGER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "a54a4beb-8a6b-4fe9-a0f7-be613ce3f86b",
-                            TwoFactorEnabled = false,
-                            UserName = "HotelManager@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "83e72357-25b8-4e2a-8728-3e25365608e2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "2cb1c725-76bc-4c09-9ff1-12b8034f7f79",
-                            Email = "HotelReceptionist@gmail.com",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "HOTELRECEPTIONIST@GMAIL.COM",
-                            NormalizedUserName = "HOTELRECEPTIONIST@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "303db0a7-3fca-4162-941f-307cea63df47",
-                            TwoFactorEnabled = false,
-                            UserName = "HotelReceptionist@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "C4EAACBE-A5C5-47E8-8DED-508709D7A50F",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "f7fe7dc2-7c28-4cdc-9025-fab4311bc56f",
-                            Email = "HotelServiceAdmin@gmail.com",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "HOTELSERVICEADMIN@GMAIL.COM",
-                            NormalizedUserName = "HOTELSERVICEADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "8266828b-09a8-456c-abc7-ab04d9164323",
-                            TwoFactorEnabled = false,
-                            UserName = "HotelServiceAdmin@gmail.com"
-                        },
-                        new
-                        {
-                            Id = "FB8EC84D-3A8F-4FC6-B21E-7141B48A164D",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "1691d1d2-6f13-44c9-805d-991d1b9dc36f",
-                            Email = "ClientHotel@gmail.com",
-                            EmailConfirmed = true,
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "CLIENTHOTEL@GMAIL.COM",
-                            NormalizedUserName = "CLIENTHOTEL@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "0a8b78f7-d74a-4dbf-a8c7-56888bf87fb4",
-                            TwoFactorEnabled = false,
-                            UserName = "ClientHotel@gmail.com"
-                        });
-                });
+                b.HasData(
+                    new
+                    {
+                        Id = "3cbf3570-0d44-4673-8746-29b7cf568093",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "aff2cb9c-c995-460e-996f-6ab5e92e882f",
+                        Email = "SuperAdmin@SmartRestaurant.io",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "SUPERADMIN@SMARTRESTAURANT.IO",
+                        NormalizedUserName = "SUPERADMIN@SMARTRESTAURANT.IO",
+                        PasswordHash = "AQAAAAEAACcQAAAAEAzFpmzMtMiw0wHV6b0aUzFLF9Pw7B2u+DswRHttAU2nH22NHBsc/hSSvKUqmRWGZA==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "af732bf3-0292-4a37-9dba-58df75e65cad",
+                        TwoFactorEnabled = false,
+                        UserName = "SuperAdmin@SmartRestaurant.io"
+                    },
+                    new
+                    {
+                        Id = "d466ef00-61f1-4e77-801a-b016f0f12323",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "f1ad899a-8b06-4939-8338-e787a1c1d12e",
+                        Email = "SupportAgent@SmartRestaurant.io",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "SUPPORTAGENT@SMARTRESTAURANT.IO",
+                        NormalizedUserName = "SUPPORTAGENT@SMARTRESTAURANT.IO",
+                        PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "9ea64682-9652-4125-a359-a9ada6aa5e24",
+                        TwoFactorEnabled = false,
+                        UserName = "SupportAgent@SmartRestaurant.io"
+                    },
+                    new
+                    {
+                        Id = "d466ef00-61f1-4e77-801a-b516f0f12323",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "21a1d647-8aff-4135-abfc-fc1b741c9a7c",
+                        Email = "Waiter@SmartRestaurant.io",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "WAITER@SMARTRESTAURANT.IO",
+                        NormalizedUserName = "WAITER@SMARTRESTAURANT.IO",
+                        PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "7b0675bc-ba59-4e50-806a-8155cda851af",
+                        TwoFactorEnabled = false,
+                        UserName = "Waiter@SmartRestaurant.io"
+                    },
+                    new
+                    {
+                        Id = "3cbf3570-4444-4444-8746-29b7cf568093",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "59fbc085-fd79-4694-a309-587a26ff9b64",
+                        Email = "FoodAdmin@SmartRestaurant.io",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "FOODADMIN@SMARTRESTAURANT.IO",
+                        NormalizedUserName = "FOODADMIN@SMARTRESTAURANT.IO",
+                        PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "66c55844-fa86-4b88-b355-3110dbd95084",
+                        TwoFactorEnabled = false,
+                        UserName = "FoodAdmin@SmartRestaurant.io"
+                    },
+                    new
+                    {
+                        Id = "44bf3570-0d44-4673-8746-29b7cf568088",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "3e7411e4-6df1-4d9d-9d1b-3f0447a40c9b",
+                        Email = "McdonaldFoodAdmin@SmartRestaurant.io",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "MCDONALDFOODADMIN@SMARTRESTAURANT.IO",
+                        NormalizedUserName = "MCDONALDFOODADMIN@SMARTRESTAURANT.IO",
+                        PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "09233bd7-1df4-4216-bc8c-5284112f00a7",
+                        TwoFactorEnabled = false,
+                        UserName = "McdonaldFoodAdmin@SmartRestaurant.io"
+                    },
+                    new
+                    {
+                        Id = "08a1a626-7f8e-4b51-84fc-fc51b6302cca",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "ce66fecc-9afe-4ec0-a531-f7413f196d5a",
+                        Email = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "BIGMAMAFOODBUSINESSADMINISTRATOR@SMARTRESTAURANT.IO",
+                        NormalizedUserName = "BIGMAMAFOODBUSINESSADMINISTRATOR@SMARTRESTAURANT.IO",
+                        PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "36d2f55d-d564-4f25-a6fd-c45c818eca20",
+                        TwoFactorEnabled = false,
+                        UserName = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io"
+                    },
+                    new
+                    {
+                        Id = "a1997466-cedc-4850-b18d-0ac4f4102cff",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "dfeb268b-861a-4f97-861c-bd079c145a99",
+                        Email = "TajMhalFoodBusinessManager@SmartRestaurant.io",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "TAJMHALFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                        NormalizedUserName = "TAJMHALFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                        PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "d9996132-b26e-4fa4-b3ab-6010dbf6570f",
+                        TwoFactorEnabled = false,
+                        UserName = "TajMhalFoodBusinessManager@SmartRestaurant.io"
+                    },
+                    new
+                    {
+                        Id = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "aaec72da-294a-4841-be79-da4b161ada87",
+                        Email = "McdonaldFoodBusinessManager@SmartRestaurant.io",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "MCDONALDFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                        NormalizedUserName = "MCDONALDFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                        PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "70b26dd2-6c30-42cb-8d0d-f1dbf8ee037c",
+                        TwoFactorEnabled = false,
+                        UserName = "McdonaldFoodBusinessManager@SmartRestaurant.io"
+                    },
+                    new
+                    {
+                        Id = "64fed988-6f68-49dc-ad54-0da50ec02319",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "96509a78-63ea-4b65-978b-31490632c1da",
+                        Email = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "BIGMAMASALIMFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                        NormalizedUserName = "BIGMAMASALIMFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
+                        PasswordHash = "AQAAAAEAACcQAAAAEO+ouwzSOa+AsCNZrVEhO6Su9q/fX/Q9c9havEvhs5QtXWA6tRdfmqOlemUQphqDnA==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "d42612d2-e47f-4091-b841-9e765cd49216",
+                        TwoFactorEnabled = false,
+                        UserName = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io"
+                    },
+                    new
+                    {
+                        Id = "5a84cd00-59f0-4b22-bfce-07c080829118",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "cc4c9331-175d-43e3-8f1b-bee23ad96a31",
+                        Email = "Diner_01@SmartRestaurant.io",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "DINER_01@SMARTRESTAURANT.IO",
+                        NormalizedUserName = "DINER_01@SMARTRESTAURANT.IO",
+                        PasswordHash = "AQAAAAEAACcQAAAAEJFZbbuBIpvoyXKwrceuNsU4cXZ18LLAl8g7s48Pye4EAEXwA2hswtnLMhMS9Q7Cjw ==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "bb60f6a1-01ea-4426-a709-cb72bfd442eb",
+                        TwoFactorEnabled = false,
+                        UserName = "Diner_01@SmartRestaurant.io"
+                    },
+                    new
+                    {
+                        Id = "6b14cd00-59f0-4422-bfce-07c080829987",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "b81e27ef-a5b6-4e0c-8cc1-d981a88801df",
+                        Email = "Diner_02@SmartRestaurant.io",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "DINER_02@SMARTRESTAURANT.IO",
+                        NormalizedUserName = "DINER_02@SMARTRESTAURANT.IO",
+                        PasswordHash = "AQAAAAEAACcQAAAAEJFZbbuBIpvoyXKwrceuNsU4cXZ18LLAl8g7s48Pye4EAEXwA2hswtnLMhMS9Q7Cjw ==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "90ed9286-99b4-4041-a875-a9f028aaf1ea",
+                        TwoFactorEnabled = false,
+                        UserName = "Diner_02@SmartRestaurant.io"
+                    },
+                    new
+                    {
+                        Id = "a3dbd500-eab0-4233-86fd-7f1a4195f9a9",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "add9d794-6111-4588-ac2d-d530f7cf5583",
+                        Email = "manager@sonatrach.com",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "MANAGER@SONATRACH.COM",
+                        NormalizedUserName = "MANAGER@SONATRACH.COM",
+                        PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "28c1aabb-4db0-4e11-89f7-12fb863fdec5",
+                        TwoFactorEnabled = false,
+                        UserName = "manager@sonatrach.com"
+                    },
+                    new
+                    {
+                        Id = "ba89dc5f-dfd1-4c87-9372-233c611cc756",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "87c2e242-ddab-40d7-8cb9-42fd05c50227",
+                        Email = "manager@cevital.com",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "MANAGER@CEVITAL.COM",
+                        NormalizedUserName = "MANAGER@CEVITAL.COM",
+                        PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "6ce32e1b-cbd2-4e61-b948-bfa773f73bb1",
+                        TwoFactorEnabled = false,
+                        UserName = "manager@cevital.com"
+                    },
+                    new
+                    {
+                        Id = "6d215fd5-e7b4-4afd-aa6c-334a37d3874d",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "745973ee-46ad-45d3-91e7-2fe2f821413c",
+                        Email = "HotelManager@gmail.com",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "HOTELMANAGER@GMAIL.COM",
+                        NormalizedUserName = "HOTELMANAGER@GMAIL.COM",
+                        PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "236a2040-1ad3-40cc-b8ea-4c9c420c0cdf",
+                        TwoFactorEnabled = false,
+                        UserName = "HotelManager@gmail.com"
+                    },
+                    new
+                    {
+                        Id = "83e72357-25b8-4e2a-8728-3e25365608e2",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "46911091-2fb8-4b55-91d8-bf2ddbc09ed8",
+                        Email = "HotelReceptionist@gmail.com",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "HOTELRECEPTIONIST@GMAIL.COM",
+                        NormalizedUserName = "HOTELRECEPTIONIST@GMAIL.COM",
+                        PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "9a501432-fe51-4887-8224-80e48da76526",
+                        TwoFactorEnabled = false,
+                        UserName = "HotelReceptionist@gmail.com"
+                    },
+                    new
+                    {
+                        Id = "C4EAACBE-A5C5-47E8-8DED-508709D7A50F",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "23affc0d-1ba0-43b0-91a1-a865d45412c9",
+                        Email = "HotelServiceAdmin@gmail.com",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "HOTELSERVICEADMIN@GMAIL.COM",
+                        NormalizedUserName = "HOTELSERVICEADMIN@GMAIL.COM",
+                        PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "8a30ce33-7525-416d-be07-070a587fd566",
+                        TwoFactorEnabled = false,
+                        UserName = "HotelServiceAdmin@gmail.com"
+                    },
+                    new
+                    {
+                        Id = "FB8EC84D-3A8F-4FC6-B21E-7141B48A164D",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "2ab7a751-e24f-4edb-8a05-faf58f8606ea",
+                        Email = "ClientHotel@gmail.com",
+                        EmailConfirmed = true,
+                        IsActive = true,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "CLIENTHOTEL@GMAIL.COM",
+                        NormalizedUserName = "CLIENTHOTEL@GMAIL.COM",
+                        PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "a42e253a-c876-4f49-a5d3-cbeb7262bc98",
+                        TwoFactorEnabled = false,
+                        UserName = "ClientHotel@gmail.com"
+                    });
+            });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Identity.Entities.ApplicationUserRole", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+            {
+                b.Property<string>("UserId")
+                    .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                b.Property<string>("RoleId")
+                    .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("UserId", "RoleId");
+                b.HasKey("UserId", "RoleId");
 
-                    b.HasIndex("RoleId");
+                b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
+                b.ToTable("AspNetUserRoles");
 
-                    b.HasData(
-                        new
-                        {
-                            UserId = "3cbf3570-0d44-4673-8746-29b7cf568093",
-                            RoleId = "1"
-                        },
-                        new
-                        {
-                            UserId = "d466ef00-61f1-4e77-801a-b016f0f12323",
-                            RoleId = "2"
-                        },
-                        new
-                        {
-                            UserId = "d466ef00-61f1-4e77-801a-b516f0f12323",
-                            RoleId = "10"
-                        },
-                        new
-                        {
-                            UserId = "3cbf3570-4444-4444-8746-29b7cf568093",
-                            RoleId = "5"
-                        },
-                        new
-                        {
-                            UserId = "44bf3570-0d44-4673-8746-29b7cf568088",
-                            RoleId = "5"
-                        },
-                        new
-                        {
-                            UserId = "08a1a626-7f8e-4b51-84fc-fc51b6302cca",
-                            RoleId = "5"
-                        },
-                        new
-                        {
-                            UserId = "a1997466-cedc-4850-b18d-0ac4f4102cff",
-                            RoleId = "6"
-                        },
-                        new
-                        {
-                            UserId = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
-                            RoleId = "6"
-                        },
-                        new
-                        {
-                            UserId = "64fed988-6f68-49dc-ad54-0da50ec02319",
-                            RoleId = "6"
-                        },
-                        new
-                        {
-                            UserId = "5a84cd00-59f0-4b22-bfce-07c080829118",
-                            RoleId = "11"
-                        },
-                        new
-                        {
-                            UserId = "6b14cd00-59f0-4422-bfce-07c080829987",
-                            RoleId = "11"
-                        },
-                        new
-                        {
-                            UserId = "6d215fd5-e7b4-4afd-aa6c-334a37d3874d",
-                            RoleId = "14"
-                        },
-                        new
-                        {
-                            UserId = "83e72357-25b8-4e2a-8728-3e25365608e2",
-                            RoleId = "15"
-                        },
-                        new
-                        {
-                            UserId = "C4EAACBE-A5C5-47E8-8DED-508709D7A50F",
-                            RoleId = "16"
-                        },
-                        new
-                        {
-                            UserId = "FB8EC84D-3A8F-4FC6-B21E-7141B48A164D",
-                            RoleId = "17"
-                        });
-                });
+                b.HasData(
+                    new
+                    {
+                        UserId = "3cbf3570-0d44-4673-8746-29b7cf568093",
+                        RoleId = "1"
+                    },
+                    new
+                    {
+                        UserId = "d466ef00-61f1-4e77-801a-b016f0f12323",
+                        RoleId = "2"
+                    },
+                    new
+                    {
+                        UserId = "d466ef00-61f1-4e77-801a-b516f0f12323",
+                        RoleId = "10"
+                    },
+                    new
+                    {
+                        UserId = "3cbf3570-4444-4444-8746-29b7cf568093",
+                        RoleId = "5"
+                    },
+                    new
+                    {
+                        UserId = "44bf3570-0d44-4673-8746-29b7cf568088",
+                        RoleId = "5"
+                    },
+                    new
+                    {
+                        UserId = "08a1a626-7f8e-4b51-84fc-fc51b6302cca",
+                        RoleId = "5"
+                    },
+                    new
+                    {
+                        UserId = "a1997466-cedc-4850-b18d-0ac4f4102cff",
+                        RoleId = "6"
+                    },
+                    new
+                    {
+                        UserId = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
+                        RoleId = "6"
+                    },
+                    new
+                    {
+                        UserId = "64fed988-6f68-49dc-ad54-0da50ec02319",
+                        RoleId = "6"
+                    },
+                    new
+                    {
+                        UserId = "5a84cd00-59f0-4b22-bfce-07c080829118",
+                        RoleId = "11"
+                    },
+                    new
+                    {
+                        UserId = "6b14cd00-59f0-4422-bfce-07c080829987",
+                        RoleId = "11"
+                    },
+                    new
+                    {
+                        UserId = "6d215fd5-e7b4-4afd-aa6c-334a37d3874d",
+                        RoleId = "14"
+                    },
+                    new
+                    {
+                        UserId = "83e72357-25b8-4e2a-8728-3e25365608e2",
+                        RoleId = "15"
+                    },
+                    new
+                    {
+                        UserId = "C4EAACBE-A5C5-47E8-8DED-508709D7A50F",
+                        RoleId = "16"
+                    },
+                    new
+                    {
+                        UserId = "FB8EC84D-3A8F-4FC6-B21E-7141B48A164D",
+                        RoleId = "17"
+                    },
+                    new
+                    {
+                        UserId = "ba89dc5f-dfd1-4c87-9372-233c611cc756",
+                        RoleId = "13"
+                    },
+                    new
+                    {
+                        UserId = "a3dbd500-eab0-4233-86fd-7f1a4195f9a9",
+                        RoleId = "13"
+                    });
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.HasOne("SmartRestaurant.Domain.Identity.Entities.ApplicationRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            {
+                b.HasOne("SmartRestaurant.Domain.Identity.Entities.ApplicationRole", null)
+                    .WithMany()
+                    .HasForeignKey("RoleId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("SmartRestaurant.Domain.Identity.Entities.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            {
+                b.HasOne("SmartRestaurant.Domain.Identity.Entities.ApplicationUser", null)
+                    .WithMany()
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("SmartRestaurant.Domain.Identity.Entities.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            {
+                b.HasOne("SmartRestaurant.Domain.Identity.Entities.ApplicationUser", null)
+                    .WithMany()
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.HasOne("SmartRestaurant.Domain.Identity.Entities.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            {
+                b.HasOne("SmartRestaurant.Domain.Identity.Entities.ApplicationUser", null)
+                    .WithMany()
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Identity.Entities.ApplicationUserRole", b =>
-                {
-                    b.HasOne("SmartRestaurant.Domain.Identity.Entities.ApplicationRole", "Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                b.HasOne("SmartRestaurant.Domain.Identity.Entities.ApplicationRole", "Role")
+                    .WithMany("UserRoles")
+                    .HasForeignKey("RoleId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.HasOne("SmartRestaurant.Domain.Identity.Entities.ApplicationUser", "User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                b.HasOne("SmartRestaurant.Domain.Identity.Entities.ApplicationUser", "User")
+                    .WithMany("UserRoles")
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 #pragma warning restore 612, 618
         }
     }
