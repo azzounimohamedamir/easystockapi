@@ -7,6 +7,7 @@ using NUnit.Framework;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
 using SmartRestaurant.Domain.Identity.Enums;
+using SmartRestaurant.Infrastructure.Email;
 
 namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers.Commands
 {
@@ -92,7 +93,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusinessUsers.Command
             return new InviteUserToJoinOrganizationCommand
             {
                 Email = "aissa@gmail.com",
-                FoodBusinessesIds = new List<string>
+                businessesIds = new List<string>
                     {fastFood_01.FoodBusinessId.ToString(), fastFood_02.FoodBusinessId.ToString()},
                 Roles = new List<string> {Roles.FoodBusinessManager.ToString()}
             };

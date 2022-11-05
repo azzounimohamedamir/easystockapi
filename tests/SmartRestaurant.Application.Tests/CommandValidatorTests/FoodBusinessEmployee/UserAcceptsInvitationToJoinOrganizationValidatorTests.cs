@@ -44,7 +44,7 @@ namespace SmartRestaurant.Application.Tests.CommandValidatorTests.FoodBusinessEm
 
 
         [Fact]
-        public void Given_ListOfFoodBusinessesIdsIsNull_WhenValidating_ShouldGetAnError()
+        public void Given_ListOfBusinessesIdsIsNull_WhenValidating_ShouldGetAnError()
         {
             string _null = null;
             _validator.ShouldHaveValidationErrorFor(x => x.Id, _null);

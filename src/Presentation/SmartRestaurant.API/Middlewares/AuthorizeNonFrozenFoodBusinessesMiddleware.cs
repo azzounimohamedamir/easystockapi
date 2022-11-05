@@ -18,18 +18,19 @@ namespace SmartRestaurant.API.Middlewares
     public class AuthorizeNonFrozenFoodBusinessesMiddleware
     {
         private readonly RequestDelegate _next;
-     
+
         public AuthorizeNonFrozenFoodBusinessesMiddleware(RequestDelegate next)
         {
             _next = next;
         }
 
         public async Task Invoke(HttpContext context, IApplicationDbContext _context)
-        {        
-            if (    IsFoodBusinessUser(context) 
-                && !IsAnonymousEndpoint(context) 
+        {
+            if (IsFoodBusinessUser(context)
+                && !IsAnonymousEndpoint(context)
                 && !IsGetEndpoint(context)
                 && !IsFoodBusinessStaffEndpoint(context)
+                && !IshotelsEndpoint(context)
                 && !IsFoodBusinessEndpoint(context)
                 )
             {
@@ -58,7 +59,7 @@ namespace SmartRestaurant.API.Middlewares
             }
             await _next.Invoke(context);
         }
-       
+
         private async Task ReturnHttpResponse(HttpContext context, Exception exception)
         {
             if (exception.GetType().IsSubclassOf(typeof(BaseException)))
@@ -89,7 +90,10 @@ namespace SmartRestaurant.API.Middlewares
         {
             return context.Request.Path.Value.Contains("api/foodbusiness");
         }
-              
+        private bool IshotelsEndpoint(HttpContext context)
+        {
+            return context.Request.Path.Value.Contains("api/hotels");
+        }
         private bool IsGetEndpoint(HttpContext context)
         {
             return context.Request.Method == "GET";
@@ -98,7 +102,7 @@ namespace SmartRestaurant.API.Middlewares
         private bool IsFoodBusinessUser(HttpContext context)
         {
             var access_token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-            if(string.IsNullOrWhiteSpace(access_token))
+            if (string.IsNullOrWhiteSpace(access_token))
                 return false;
 
             var identity = new JwtSecurityTokenHandler().ReadJwtToken(access_token);
@@ -117,7 +121,7 @@ namespace SmartRestaurant.API.Middlewares
                     $"|{Roles.Waiter.ToString()})$";
                 return new Regex(regex).Match(role).Success;
             }
-            return false; 
+            return false;
         }
     }
 }

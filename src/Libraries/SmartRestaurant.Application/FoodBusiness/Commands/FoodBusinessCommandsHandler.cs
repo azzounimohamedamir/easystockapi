@@ -5,6 +5,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
@@ -18,7 +19,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         IRequestHandler<UpdateFourDigitCodeCommand, NoContent>,
         IRequestHandler<UpdateFoodBusinessCommand, NoContent>,
         IRequestHandler<DeleteFoodBusinessCommand, NoContent>,
-        IRequestHandler<ToggleFoodBusinessFreezingStatusCommand, NoContent>
+        IRequestHandler<ToggleFoodBusinessFreezingStatusCommand, FoodBusinessDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -111,7 +112,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             return default;
         }
 
-        public async Task<NoContent> Handle(ToggleFoodBusinessFreezingStatusCommand request, CancellationToken cancellationToken)
+        public async Task<FoodBusinessDto> Handle(ToggleFoodBusinessFreezingStatusCommand request, CancellationToken cancellationToken)
         {
             var validator = new ToggleFoodBusinessFreezingStatusCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
@@ -126,7 +127,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             foodBusinesses.IsActivityFrozen = !foodBusinesses.IsActivityFrozen;
             _context.FoodBusinesses.Update(foodBusinesses);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            return default;
+            var entity = _mapper.Map<FoodBusinessDto>(foodBusinesses);
+            return entity;
         }
     }
 }

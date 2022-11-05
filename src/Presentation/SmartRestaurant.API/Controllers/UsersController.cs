@@ -141,6 +141,26 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(query);
         }
 
+
+
+
+
+        [ProducesResponseType(typeof(PagedListDto<FoodBusinessEmployeesDtos>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("hotel/staff")]
+        [Authorize(Roles = "FoodBusinessAdministrator, FoodBusinessManager ,SuperAdmin, SupportAgent")]
+        [HttpGet]
+        public async Task<IActionResult> GetHotelStaff(string hotelId, int page, int pageSize)
+        {
+            var query = new GetHotelEmployeesQuery
+            {
+                HotelId = hotelId,
+                Page = page,
+                PageSize = pageSize
+            };
+            return await SendWithErrorsHandlingAsync(query);
+        }
+
         /// <summary> This endpoint is used to get the list of FoodBusinessManagers in a particular Organization </summary>
         /// <remarks>
         ///     This endpoint will return the list of FoodBusinessManagers in a particular Organization based on
@@ -177,6 +197,32 @@ namespace SmartRestaurant.API.Controllers
             };
             return await SendWithErrorsHandlingAsync(query);
         }
+
+
+
+
+
+
+
+        [ProducesResponseType(typeof(PagedListDto<HotelsManagersDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("organization/hotelsManagers")]
+        [Authorize(Roles = "FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
+        [HttpGet]
+        public async Task<IActionResult> GetHotelsManagersWithinOrganization(int page, int pageSize)
+        {
+            var query = new GetHotelsManagersWithinOrganizationQuery
+            {
+                Page = page,
+                PageSize = pageSize
+            };
+            return await SendWithErrorsHandlingAsync(query);
+        }
+
+
+
+
+
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpPost]
@@ -285,7 +331,15 @@ namespace SmartRestaurant.API.Controllers
             var result = await _userManager.UpdateAsync(user);
             return CheckResultStatus(result);
         }
-
+        [Authorize(Roles = "SupportAgent,SuperAdmin")]
+        [HttpPatch("{id}/forceEmailConfirmed")]
+        public async Task<IActionResult> ForceEmailConfirmed([FromRoute]string id, [FromQuery] bool stateEmailConfirmed)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            user.EmailConfirmed = stateEmailConfirmed;
+            var result = await _userManager.UpdateAsync(user);
+            return CheckResultStatus(result);
+        }
         private static bool SuperAdminCheck(IEnumerable<string> roles)
         {
             return roles.Contains("SuperAdmin", StringComparer.OrdinalIgnoreCase);

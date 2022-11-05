@@ -52,7 +52,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager,Cashier")]
+        [Authorize(Roles = "FoodBusinessManager, Cashier")]
         public async Task<IActionResult> Update([FromRoute] string id, UpdateOrderCommand command)
         {
             command.Id = id;
@@ -71,7 +71,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("addChairOrderToTableOrder")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,Diner")]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,Diner,HotelClient")]
         public async Task<IActionResult> AddChairOrderToTableOrder(AddSeatOrderToTableOrderCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -115,7 +115,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,Cashier")]
+        [Authorize(Roles = "FoodBusinessManager,Cashier, HotelClient")]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new GetOrderByIdQuery { Id = id });

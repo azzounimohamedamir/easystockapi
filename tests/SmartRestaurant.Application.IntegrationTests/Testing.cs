@@ -16,6 +16,7 @@ using Respawn;
 using SmartRestaurant.API;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
 using SmartRestaurant.Infrastructure.Identity.Persistence;
 using SmartRestaurant.Infrastructure.Identity.Services;
@@ -168,6 +169,54 @@ namespace SmartRestaurant.Application.IntegrationTests
                  .FirstOrDefaultAsync()
                  .ConfigureAwait(false);
         }
+
+       public static async Task<List<string>> GetUsers(string email)
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var identitecontext = scope.ServiceProvider.GetService<IdentityContext>();
+            var userids = identitecontext.ApplicationUser.Where(u => u.Email == email).Select(x =>x.Id).ToList();
+            return userids;
+        }
+
+
+        public static async Task<bool> GetHotelByIdUser(List<string> idusers,Guid hotelid)
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+            var hoteluser = await context.hotelUsers
+              .Where(u => u.HotelId == hotelid && idusers.Contains(u.ApplicationUserId))
+              .FirstOrDefaultAsync()
+              .ConfigureAwait(false);
+            return hoteluser != null;
+        }
+
+        public static async Task<bool> GetFoodByIdUser(List<string> idusers, Guid foodid)
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+            var fooduser = await context.FoodBusinessUsers
+              .Where(u => u.FoodBusinessId == foodid && idusers.Contains(u.ApplicationUserId))
+              .FirstOrDefaultAsync()
+              .ConfigureAwait(false);
+            return fooduser != null;
+        }
+
+        public static  int GetAllHotelUserCount()
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+            var count =  context.hotelUsers.Count();
+            return count;
+        }
+
+        public static int GetAllFoodBusinessUserCount()
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+            var count = context.FoodBusinessUsers.Count();
+            return count;
+        }
+
         public static async Task<Order> GetOrder(Guid orderId)
         {
             using var scope = _scopeFactory.CreateScope();

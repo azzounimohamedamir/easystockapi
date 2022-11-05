@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Infrastructure.Email;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure
@@ -17,7 +18,8 @@ namespace SmartRestaurant.Infrastructure
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-
+            
+            services.AddTransient<IEmailSender, EmailHelper>();
             return services;
         }
     }

@@ -23,7 +23,7 @@ namespace SmartRestaurant.Application.Email
 
         public void SendEmail(string email, string subject, string message)
         {
-            throw new NotImplementedException();
+           
         }
 
         public Task Execute(string apiKey, string subject, string message, string email)

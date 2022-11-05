@@ -19,7 +19,10 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
 
         public const string CEVITAL_UserId = "ba89dc5f-dfd1-4c87-9372-233c611cc756";
         public const string Sonatrach_UserId = "a3dbd500-eab0-4233-86fd-7f1a4195f9a9";
-
+        public const string HotelManager_userID = "6d215fd5-e7b4-4afd-aa6c-334a37d3874d";
+        public const string HotelReceptionist_UserId = "83e72357-25b8-4e2a-8728-3e25365608e2";
+        public const string HotelServiceAdmin_userId = "C4EAACBE-A5C5-47E8-8DED-508709D7A50F";
+        public const string ClientHotel_UserId = "FB8EC84D-3A8F-4FC6-B21E-7141B48A164D";
         public static void Seed(this ModelBuilder modelBuilder)
         {
             #region Create application Roles
@@ -114,6 +117,37 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     Id = ((long) Roles.Organization).ToString(),
                     Name = Roles.Organization.ToString(),
                     NormalizedName = Roles.Organization.ToString().ToUpper(),
+                    ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98"
+                },
+                new ApplicationRole
+                {
+                    Id = ((long)Roles.HotelManager).ToString(),
+                    Name = Roles.HotelManager.ToString(),
+                    NormalizedName = Roles.HotelManager.ToString().ToUpper(),
+                    ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98"
+                }
+                ,
+                new ApplicationRole
+                {
+                    Id = ((long)Roles.HotelReceptionist).ToString(),
+                    Name = Roles.HotelReceptionist.ToString(),
+                    NormalizedName = Roles.HotelReceptionist.ToString().ToUpper(),
+                    ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98"
+                }
+                ,
+                new ApplicationRole
+                {
+                    Id = ((long)Roles.HotelServiceAdmin).ToString(),
+                    Name = Roles.HotelServiceAdmin.ToString(),
+                    NormalizedName = Roles.HotelServiceAdmin.ToString().ToUpper(),
+                    ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98"
+                }
+                ,
+                new ApplicationRole
+                {
+                    Id = ((long)Roles.HotelClient).ToString(),
+                    Name = Roles.HotelClient.ToString(),
+                    NormalizedName = Roles.HotelClient.ToString().ToUpper(),
                     ConcurrencyStamp = "edpc7115-422c-487d-15b0-58cfa8e66a98"
                 }
             );
@@ -293,6 +327,57 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     PasswordHash =
                         "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                     EmailConfirmed = true
+                },
+                #endregion
+
+                #region Create Hotel Users
+                new ApplicationUser
+                {
+                    Id = HotelManager_userID,
+                    UserName = "HotelManager@gmail.com",
+                    Email = "HotelManager@gmail.com",
+                    NormalizedUserName = "HOTELMANAGER@GMAIL.COM",
+                    NormalizedEmail = "HOTELMANAGER@GMAIL.COM",
+                    // Real password is "FoodBusinessManager123@"
+                    PasswordHash =
+                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                    EmailConfirmed = true
+                },
+                new ApplicationUser
+                {
+                    Id = HotelReceptionist_UserId,
+                    UserName = "HotelReceptionist@gmail.com",
+                    Email = "HotelReceptionist@gmail.com",
+                    NormalizedUserName = "HOTELRECEPTIONIST@GMAIL.COM",
+                    NormalizedEmail = "HOTELRECEPTIONIST@GMAIL.COM",
+                    // Real password is "FoodBusinessManager123@"
+                    PasswordHash =
+                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                    EmailConfirmed = true
+                },
+                new ApplicationUser
+                {
+                    Id = HotelServiceAdmin_userId,
+                    UserName = "HotelServiceAdmin@gmail.com",
+                    Email = "HotelServiceAdmin@gmail.com",
+                    NormalizedUserName = "HOTELSERVICEADMIN@GMAIL.COM",
+                    NormalizedEmail = "HOTELSERVICEADMIN@GMAIL.COM",
+                    // Real password is "FoodBusinessManager123@"
+                    PasswordHash =
+                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                    EmailConfirmed = true
+                },
+                new ApplicationUser
+                {
+                    Id = ClientHotel_UserId,
+                    UserName = "ClientHotel@gmail.com",
+                    Email = "ClientHotel@gmail.com",
+                    NormalizedUserName = "CLIENTHOTEL@GMAIL.COM",
+                    NormalizedEmail = "CLIENTHOTEL@GMAIL.COM",
+                    // Real password is "FoodBusinessManager123@"
+                    PasswordHash =
+                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                    EmailConfirmed = true
                 }
                 #endregion
 
@@ -372,8 +457,45 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                 {
                     UserId = Diner_UserId_02,
                     RoleId = "11"
+                },
+
+                #endregion
+
+                #region Assign roles to Hotel users
+                new ApplicationUserRole
+                {
+                    UserId = HotelManager_userID,
+                    RoleId = "14"
+                },
+                new ApplicationUserRole
+                {
+                    UserId = HotelReceptionist_UserId,
+                    RoleId = "15"
+                },
+                new ApplicationUserRole
+                {
+                    UserId = HotelServiceAdmin_userId,
+                    RoleId = "16"
+                },
+                new ApplicationUserRole
+                {
+                    UserId = ClientHotel_UserId,
+                    RoleId = "17"
                 }
 
+                #endregion
+                #region add rols to organisation user
+                ,
+                new ApplicationUserRole
+                {
+                    UserId = CEVITAL_UserId,
+                    RoleId = "13"
+                },
+                new ApplicationUserRole
+                {
+                    UserId = Sonatrach_UserId,
+                    RoleId = "13"
+                }
                 #endregion
 
             );

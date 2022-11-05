@@ -18,8 +18,11 @@ using SmartRestaurant.Domain.Identity.Enums;
 namespace SmartRestaurant.Application.Users.Queries
 {
     public class UsersQueriesHandler :
+        IRequestHandler<GetHotelEmployeesQuery, PagedListDto<FoodBusinessEmployeesDtos>>,
         IRequestHandler<GetFoodBusinessEmployeesQuery, PagedListDto<FoodBusinessEmployeesDtos>>,
         IRequestHandler<GetFoodBusinessManagersWithinOrganizationQuery, PagedListDto<FoodBusinessManagersDto>>,
+        IRequestHandler<GetHotelsManagersWithinOrganizationQuery, PagedListDto<HotelsManagersDto>>,
+
         IRequestHandler<GetUsersByRoleQuery, PagedListDto<ApplicationUserDto>>
     {
         private readonly IApplicationDbContext _context;
@@ -63,8 +66,11 @@ namespace SmartRestaurant.Application.Users.Queries
             PagedResultBase<ApplicationUser> pagedUsersList = null;
             if (roles.Contains(Roles.FoodBusinessManager.ToString()) || roles.Contains(Roles.FoodBusinessAdministrator.ToString()))
             {
+
                 var employeesRoles = new List<string>
                     {Roles.Cashier.ToString(), Roles.Waiter.ToString(), Roles.Chef.ToString()};
+                var userrole = _identityContext.UserRoles.Include(u => u.Role).ToList();
+
                 pagedUsersList = _identityContext.UserRoles.Include(u => u.Role)
                     .Where(u => employeesRoles.Contains(u.Role.Name) && usersIdsList.Contains(u.User.Id))
                     .Select(u => u.User)
@@ -96,6 +102,103 @@ namespace SmartRestaurant.Application.Users.Queries
             return pagedFoodBusinessEmployees;
         }
         #endregion
+
+
+        #region Get Hotels employees
+        public async Task<PagedListDto<FoodBusinessEmployeesDtos>> Handle(GetHotelEmployeesQuery request,
+            CancellationToken cancellationToken)
+        {
+            var validator = new GetHotelEmployeesValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid)
+                throw new ValidationException(result);
+
+            var roles = _userService.GetRoles();
+            if (roles == null)
+                throw new InvalidOperationException("User role shouldn't be null or  empty");
+
+            var hotels = await _context.Hotels.FindAsync(Guid.Parse(request.HotelId))
+                .ConfigureAwait(false);
+            if (hotels == null)
+                throw new NotFoundException(nameof(Hotels), request.HotelId);
+
+            var usersIdsList = _context.hotelUsers
+                .Where(hotelUsers => hotelUsers.HotelId == Guid.Parse(request.HotelId))
+                .Select(hotelUsers => hotelUsers.ApplicationUserId).ToList();
+
+                PagedResultBase<ApplicationUser> pagedUsersList = null;
+            if (roles.Contains(Roles.FoodBusinessManager.ToString()) || roles.Contains(Roles.FoodBusinessAdministrator.ToString()))
+            {
+        var employeesRoles = new List<string>{Roles.HotelReceptionist.ToString(), Roles.HotelServiceAdmin.ToString()};
+              var userrole = _identityContext.UserRoles.Include(u => u.Role).ToList();
+             pagedUsersList = _identityContext.UserRoles.Include(u => u.Role)
+                   .Where(u => employeesRoles.Contains(u.Role.Name) && usersIdsList.Contains(u.User.Id))
+                   .Select(u => u.User)
+                  .GetPaged(request.Page, request.PageSize);
+
+
+
+            }
+            else if (roles.Contains(Roles.SuperAdmin.ToString()) || roles.Contains(Roles.SupportAgent.ToString()))
+            {
+                var employeesRoles = new List<string>
+                    {Roles.HotelServiceAdmin.ToString(), Roles.HotelReceptionist.ToString(), Roles.FoodBusinessManager.ToString()};
+                pagedUsersList = _identityContext.UserRoles.Include(u => u.Role)
+                    .Where(u => employeesRoles.Contains(u.Role.Name) && usersIdsList.Contains(u.User.Id))
+                    .Select(u => u.User)
+                    .GetPaged(request.Page, request.PageSize);
+            }
+            var data = _mapper.Map<List<FoodBusinessEmployeesDtos>>(await pagedUsersList.Data
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false));
+
+            foreach (var user in pagedUsersList.Data)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+                var hotelEmployees =
+                    data.FirstOrDefault(HotelEmployees => HotelEmployees.Id == user.Id);
+                hotelEmployees.Roles = (List<string>)userRoles;
+            }
+
+            var pagedHotelEmployees = new PagedListDto<FoodBusinessEmployeesDtos>(pagedUsersList.CurrentPage,
+                pagedUsersList.PageCount, pagedUsersList.PageSize, pagedUsersList.RowCount, data);
+            return pagedHotelEmployees;
+        }
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         #region Get FoodBusinessManagers within organization
         public async Task<PagedListDto<FoodBusinessManagersDto>> Handle(
@@ -178,6 +281,102 @@ namespace SmartRestaurant.Application.Users.Queries
             }
         }
         #endregion
+
+
+
+
+
+
+
+        #region Get HotelsManagers within organization
+        public async Task<PagedListDto<HotelsManagersDto>> Handle(
+            GetHotelsManagersWithinOrganizationQuery request, CancellationToken cancellationToken)
+        {
+            await ChecksHelper
+                .CheckValidation_ThrowExceptionIfQueryIsInvalid<GetHotelsManagersWithinOrganizationValidator,
+                    GetHotelsManagersWithinOrganizationQuery>(request, cancellationToken).ConfigureAwait(false);
+            var foodBusinessAdministratorId =
+                ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
+            await ChecksHelper
+                .CheckUserExistence_ThrowExceptionIfUserNotFound(_identityContext, foodBusinessAdministratorId)
+                .ConfigureAwait(false);
+
+            var listOfUsersIds = GetUsersIdsByFoodBusinessAdministratorIdHotel(foodBusinessAdministratorId);
+            var pagedUsersList = GetPagedUsersByRolesAndUsersIdsHotel(Roles.FoodBusinessManager.ToString(), listOfUsersIds,
+                request.Page, request.PageSize);
+           
+            var userList = await pagedUsersList.Data.ToListAsync(cancellationToken).ConfigureAwait(false);
+            var hotelManagersDto = _mapper.Map<List<HotelsManagersDto>>(userList);
+
+            await AppendRolesToListOfHotelManagers(pagedUsersList, hotelManagersDto)
+                .ConfigureAwait(false);
+            await AppendHotelsToListOfHotelManagers(pagedUsersList, hotelManagersDto)
+                .ConfigureAwait(false);
+            return ConstructPagedHotelManagers(pagedUsersList, hotelManagersDto);
+        }
+
+
+        private List<string> GetUsersIdsByFoodBusinessAdministratorIdHotel(string foodBusinessAdministratorId)
+        {
+            return _context.hotelUsers.Include(foodBusinessUsers => foodBusinessUsers.Hotel)
+                .Where(foodBusinessUsers => foodBusinessUsers.Hotel.FoodBusinessAdministratorId ==
+                                            foodBusinessAdministratorId)
+                .Select(foodBusinesses => foodBusinesses.ApplicationUserId)
+                .ToList();
+        }
+      
+        private PagedResultBase<ApplicationUser> GetPagedUsersByRolesAndUsersIdsHotel(string role,
+            List<string> listOfUsersIds, int page, int pageSize)
+        {
+            return _identityContext.UserRoles.Include(u => u.Role)
+                .Where(u => u.Role.Name == role && listOfUsersIds.Contains(u.User.Id))
+                .Select(u => u.User)
+                .GetPaged(page, pageSize);
+        }
+      
+
+
+        private static PagedListDto<HotelsManagersDto> ConstructPagedHotelManagers(
+           PagedResultBase<ApplicationUser> pagedUsersList, List<HotelsManagersDto> hotelEmployeesDto)
+        {
+            return new PagedListDto<HotelsManagersDto>(pagedUsersList.CurrentPage,
+                pagedUsersList.PageCount, pagedUsersList.PageSize, pagedUsersList.RowCount, hotelEmployeesDto);
+        }
+      
+
+
+        private async Task AppendRolesToListOfHotelManagers(PagedResultBase<ApplicationUser> pagedUsersList,
+           List<HotelsManagersDto> data)
+        {
+            foreach (var user in pagedUsersList.Data)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+                var hotelManager = data.FirstOrDefault(HotelsManager => HotelsManager.Id == user.Id);
+                hotelManager.Roles = (List<string>)userRoles;
+            }
+        }
+
+
+      
+        private async Task AppendHotelsToListOfHotelManagers(
+           PagedResultBase<ApplicationUser> pagedUsersList, List<HotelsManagersDto> data)
+        {
+            foreach (var user in pagedUsersList.Data)
+            {
+                var listOfHotels = await _context.hotelUsers.Include(x => x.Hotel)
+                    .Where(hotelUser => hotelUser.ApplicationUserId == user.Id)
+                    .Select(hotelUser => hotelUser.Hotel)
+                    .Distinct()
+                    .ToListAsync()
+                    .ConfigureAwait(false);
+
+                var hotelManager = data.FirstOrDefault(HotelManager => HotelManager.Id == user.Id);
+
+                foreach (var hotel in listOfHotels) hotelManager.Hotels.Add(hotel);
+            }
+        }
+        #endregion
+
 
         #region Get users by role
         public async Task<PagedListDto<ApplicationUserDto>> Handle(GetUsersByRoleQuery request, CancellationToken cancellationToken)

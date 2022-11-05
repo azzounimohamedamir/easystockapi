@@ -2,6 +2,7 @@
 using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using SendGrid.Helpers.Mail;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Email;
 
@@ -13,7 +14,6 @@ namespace SmartRestaurant.Application
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddTransient<IEmailSender, EmailSender>();
             return services;
         }
     }

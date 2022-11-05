@@ -17,7 +17,7 @@ namespace SmartRestaurant.API.Controllers
     {
         [Route("menu/{id:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient,Diner")]
         public async Task<IActionResult> GetByMenuId([FromRoute] Guid id, int page, int pageSize)
         {
             return await SendWithErrorsHandlingAsync(new GetSectionsListQuery
@@ -156,7 +156,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}/menu-items")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,HotelClient,Diner")]
         public async Task<IActionResult> GetSectionMenuItems([FromRoute] string id,  string searchKey, int page, int pageSize)
         {
             var query = new GetSectionMenuItemsQuery

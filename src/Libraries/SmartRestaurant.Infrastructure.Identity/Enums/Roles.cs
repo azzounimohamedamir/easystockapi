@@ -14,6 +14,10 @@
         Waiter = 10,
         Diner = 11,
         Anounymous = 12,
-        Organization = 13
+        Organization = 13,
+        HotelManager = 14,
+        HotelReceptionist = 15,
+        HotelServiceAdmin = 16,
+        HotelClient = 17,
     }
 }

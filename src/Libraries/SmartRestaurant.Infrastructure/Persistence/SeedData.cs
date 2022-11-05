@@ -11,6 +11,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public const string Mcdonald_FoodBusinessId = "66bf3570-440d-4673-8746-29b7cf568099";
         public const string BigMama_FoodBusinessId = "88bc7853-220f-9173-3246-afb7cf595022";
 
+       
+
+
         public const string TajMhal_FoodBusinessAdministrator_UserId = "3cbf3570-4444-4444-8746-29b7cf568093";
         public const string Mcdonald_FoodBusinessAdministrator_UserId = "44bf3570-0d44-4673-8746-29b7cf568088";
         public const string BigMama_FoodBusinessAdministrator_UserId = "08a1a626-7f8e-4b51-84fc-fc51b6302cca";
@@ -54,7 +57,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
         public const string Sonatrach_FoodBusinessClientId = "e6f980ba-c381-4319-8b62-da017e116692";
         public const string CEVITAL_FoodBusinessClientId = "1eb2b784-074d-4be4-afb7-9708331c0c63";
-        
+
         public const string CEVITAL_UserId = "ba89dc5f-dfd1-4c87-9372-233c611cc756";
         public const string Sonatrach_UserId = "a3dbd500-eab0-4233-86fd-7f1a4195f9a9";
 
@@ -64,7 +67,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<FoodBusiness>().HasData(
 
-                #region Create a FoodBusiness for TajMhal restaurant
+            #region Create a FoodBusiness for TajMhal restaurant
 
                 new FoodBusiness
                 {
@@ -84,9 +87,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     FoodBusinessCategory = FoodBusinessCategory.Restaurant
                 },
 
-                #endregion
+            #endregion
 
-                #region Create a FoodBusiness for Mcdonald's restaurant
+            #region Create a FoodBusiness for Mcdonald's restaurant
 
                 new FoodBusiness
                 {
@@ -105,9 +108,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     FoodBusinessCategory = FoodBusinessCategory.Restaurant
                 },
 
-                #endregion
+            #endregion
 
-                #region Create a FoodBusiness for BigMama restaurant
+            #region Create a FoodBusiness for BigMama restaurant
 
                 new FoodBusiness
                 {
@@ -130,8 +133,75 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 #endregion
 
             );
+            #region Create a Hotels
 
+            modelBuilder.Entity<Hotel>().HasData(
+
+
+
+                new Hotel
+                {
+                    Id = Guid.Parse(Mcdonald_FoodBusinessAdministrator_UserId),
+                    ImagUrl = "assets/hotels/aurassi.jpg",
+                    FoodBusinessAdministratorId = TajMhal_FoodBusinessAdministrator_UserId,
+                    Name = "Aurassi",
+                }
+                ,
+                 new Hotel
+                 {
+                     Id = Guid.Parse(TajMhal_FoodBusinessId),
+                     ImagUrl = "assets/hotels/sofitel.jpg",
+                     FoodBusinessAdministratorId = TajMhal_FoodBusinessAdministrator_UserId,
+                     Name = "Sofitel",
+                 }
+                 ,
+                  new Hotel
+                  {
+                      Id = Guid.Parse(BigMama_FoodBusinessAdministrator_UserId),
+                      ImagUrl = "assets/hotels/tulip.jpg",
+                      FoodBusinessAdministratorId = TajMhal_FoodBusinessAdministrator_UserId,
+                      Name = "Tulip",
+                  }
+
+
+
+
+            ) ;
             #endregion
+
+            #region Create a Buildings
+
+            modelBuilder.Entity<Building>().HasData(
+
+
+
+                new Building
+                {
+                    Id = Guid.NewGuid(),
+                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
+                    Name = "Building 01",
+                }
+                ,
+                new Building
+                {
+                    Id = Guid.NewGuid(),
+                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
+                    Name = "Building 02",
+                }
+                ,
+                new Building
+                {
+                    Id = Guid.NewGuid(),
+                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
+                    Name = "Building 03",
+                }
+
+
+
+
+            ) ;
+            #endregion
+
 
             #region Assigning Employees userId with FoodBusinessId (restaurant).
 
@@ -186,7 +256,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<Reservation>().HasData(
 
-                #region Create reservations for user Diner_01
+            #region Create reservations for user Diner_01
 
                 new Reservation
                 {
@@ -280,9 +350,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     CreatedAt = DateTime.Now.AddMonths(4)
                 },
 
-                #endregion
+            #endregion
 
-                #region Create reservations for user Diner_02
+            #region Create reservations for user Diner_02
 
                 new Reservation
                 {
@@ -376,9 +446,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     CreatedAt = DateTime.Now.AddMonths(3)
                 },
 
-                #endregion
+            #endregion
 
-                #region Create reservations for user TajMhal_FoodBusinessManager
+            #region Create reservations for user TajMhal_FoodBusinessManager
 
                 new Reservation
                 {
@@ -472,9 +542,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     CreatedAt = DateTime.Now.AddMonths(2)
                 },
 
-                #endregion
+            #endregion
 
-                #region Create reservations for user Mcdonald_FoodBusinessManager
+            #region Create reservations for user Mcdonald_FoodBusinessManager
 
                 new Reservation
                 {
@@ -578,7 +648,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<Zone>().HasData(
 
-                #region Create zones for TajMhal_FoodBusiness
+            #region Create zones for TajMhal_FoodBusiness
 
                 new Zone
                 {
@@ -613,9 +683,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     ZoneId = Guid.Parse(TajMhal_OutdoorZone_Id)
                 },
 
-                #endregion
+            #endregion
 
-                #region Create zones for Mcdonald_FoodBusiness
+            #region Create zones for Mcdonald_FoodBusiness
 
                 new Zone
                 {
@@ -634,9 +704,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     ZoneId = Guid.Parse(Mcdonald_OutdoorZone_Id)
                 },
 
-                #endregion
+            #endregion
 
-                #region Create zones for BigMama_FoodBusiness
+            #region Create zones for BigMama_FoodBusiness
 
                 new Zone
                 {
@@ -657,7 +727,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<Table>().HasData(
 
-                #region Create tables for TajMhal_FoodBusiness
+            #region Create tables for TajMhal_FoodBusiness
 
                 new Table
                 {
@@ -696,9 +766,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     TableId = Guid.Parse(TajMhal_OutdoorZone_TableId)
                 },
 
-                #endregion
+            #endregion
 
-                #region Create tables for Mcdonald_FoodBusiness
+            #region Create tables for Mcdonald_FoodBusiness
 
                 new Table
                 {
@@ -719,9 +789,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     TableId = Guid.Parse(Mcdonald_OutdoorZone_TableId)
                 },
 
-                #endregion
+            #endregion
 
-                #region Create tables for BigMama_FoodBusiness
+            #region Create tables for BigMama_FoodBusiness
 
                 new Table
                 {
@@ -743,7 +813,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<Menu>().HasData(
 
-                #region Create menus for TajMhal_FoodBusiness
+            #region Create menus for TajMhal_FoodBusiness
 
                 new Menu
                 {
@@ -786,9 +856,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     MenuId = Guid.Parse(TajMhal_DessertMenu_Id)
                 },
 
-                #endregion
+            #endregion
 
-                #region Create menus for Mcdonald_FoodBusiness
+            #region Create menus for Mcdonald_FoodBusiness
 
                 new Menu
                 {
@@ -815,9 +885,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     MenuId = Guid.Parse(Mcdonald_DessertMenu_Id)
                 },
 
-                #endregion
+            #endregion
 
-                #region Create menus for BigMama_FoodBusiness
+            #region Create menus for BigMama_FoodBusiness
 
                 new Menu
                 {
@@ -866,8 +936,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
                     FoodBusinessId = Guid.Parse(TajMhal_FoodBusinessId),
                     Archived = false
                 },
-                #endregion
-                #region Create CEVITAL Entreprise
+            #endregion
+            #region Create CEVITAL Entreprise
                 new FoodBusinessClient
                 {
                     FoodBusinessClientId = Guid.Parse(CEVITAL_FoodBusinessClientId),
@@ -884,3 +954,4 @@ namespace SmartRestaurant.Infrastructure.Persistence
         }
     }
 }
+#endregion

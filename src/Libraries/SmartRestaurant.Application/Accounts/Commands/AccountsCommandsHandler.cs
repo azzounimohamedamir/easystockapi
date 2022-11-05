@@ -18,6 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Linq;
+using SmartRestaurant.Application.Email;
 
 namespace SmartRestaurant.Application.Accounts.Commands
 {
@@ -29,23 +30,23 @@ namespace SmartRestaurant.Application.Accounts.Commands
         IRequestHandler<ConfirmEmailCommad, NoContent>
     {
         private readonly IOptions<EmailTemplates> _emailTemplates;
-        private readonly IOptions<SmtpConfig> _smtpConfig;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IOptions<WebPortal> _webPortal;
         private readonly IUserService _userService;
         private readonly IOptions<Authentication> _authentication;
         private readonly IMemoryCache _cache;
-        public AccountsCommandsHandler(UserManager<ApplicationUser> userManager, IOptions<SmtpConfig> smtpConfig,
+        private readonly IEmailSender _emailSender;
+        public AccountsCommandsHandler(UserManager<ApplicationUser> userManager,
             IOptions<WebPortal> webPortal, IOptions<EmailTemplates> emailTemplates, IUserService userService,
-            IOptions<Authentication> authentication, IMemoryCache cache)
+            IOptions<Authentication> authentication, IMemoryCache cache,IEmailSender emailSender)
         {
             _userManager = userManager;
-            _smtpConfig = smtpConfig;
             _webPortal = webPortal;
             _emailTemplates = emailTemplates;
             _userService = userService;
             _authentication = authentication;
             _cache = cache;
+            _emailSender = emailSender;
         }
 
         #region Forget password handler
@@ -81,7 +82,7 @@ namespace SmartRestaurant.Application.Accounts.Commands
             var emailTemplate = _emailTemplates.Value.resetPassword.SelectLanguage(userLanguage).Template
                 .Replace("{linkToResetPasswordWebPage}", linkToResetPasswordWebPage)
                 .Replace("{fullName}", user.FullName);
-            new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, emailSubject, emailTemplate);
+            _emailSender.SendEmail(user.Email, emailSubject, emailTemplate);
         }
         #endregion
 
@@ -167,7 +168,7 @@ namespace SmartRestaurant.Application.Accounts.Commands
             var emailTemplate = _emailTemplates.Value.ConfirmEmail.SelectLanguage(userLanguage).Template
                 .Replace("{linkToConfirmEmailWebPage}", linkToConfirmEmailWebPage)
                 .Replace("{fullName}", user.FullName);
-            new EmailHelper(_smtpConfig.Value).SendEmail(user.Email, emailSubject, emailTemplate);
+            _emailSender.SendEmail(user.Email, emailSubject, emailTemplate);
         }
 
         public Task<NoContent> Handle(SendEmailConfirmationCommand request, CancellationToken cancellationToken)
@@ -199,7 +200,7 @@ namespace SmartRestaurant.Application.Accounts.Commands
 
         protected Task SendPassword(string email, string password)
         {
-           new  EmailHelper(_smtpConfig.Value).SendEmail(email, "Password", $"Please use this Password: {password} to sign in to your account");
+           _emailSender.SendEmail(email, "Password", $"Please use this Password: {password} to sign in to your account");
            return default;
         }
         #endregion

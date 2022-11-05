@@ -212,7 +212,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("foodbusiness/{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin,Diner,HotelClient")]
         public Task<IActionResult> GetFoodBusinesClientListByFoodBusinessIdQuery([FromRoute]string id)
         {
             return SendWithErrorsHandlingAsync(new GetFoodBusinesClientListByFoodBusinessIdQuery { FoodBusinessId = id });
