@@ -20,6 +20,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Table> Tables { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<Listing> Listings { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<SectionDish> SectionDishes { get; set; }
         public DbSet<SectionProduct> SectionProducts { get; set; }
@@ -98,6 +99,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<Hotel>()
                 .HasKey(o => o.Id);
+
 
             modelBuilder.Seed();
         }

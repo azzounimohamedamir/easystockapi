@@ -20,7 +20,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<SectionDish> SectionDishes { get; set; }
         public DbSet<SectionProduct> SectionProducts { get; set; }
         public DbSet<Hotel> Hotels{ get; set; }
-
+        public DbSet<Listing> Listings { get; set; }
         public DbSet<SubSection> SubSections { get; set; }
         public DbSet<SubSectionDish> SubSectionDishes { get; set; }
         public DbSet<SubSectionProduct> SubSectionProducts { get; set; }
@@ -48,6 +48,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<Domain.Entities.Illness> Illnesses { get; set; }
         public DbSet<IngredientIllness> IngredientIllnesses { get; set; }
         public DbSet<MonthlyCommission> MonthlyCommission { get; set; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
