@@ -24,7 +24,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{id:guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             return await SendWithErrorsHandlingAsync(new GetTableByIdQuery {TableId = id});

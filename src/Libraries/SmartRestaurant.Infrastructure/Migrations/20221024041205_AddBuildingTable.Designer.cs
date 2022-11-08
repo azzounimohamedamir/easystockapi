@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221024041205_AddBuildingTable")]
+    partial class AddBuildingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -693,13 +695,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.HasIndex("HotelId");
 
                     b.ToTable("hotelUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            ApplicationUserId = "a1997466-cedc-4850-b18d-0ac4f4102cff",
-                            HotelId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093")
-                        });
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Illness", b =>
@@ -792,86 +787,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.HasIndex("FoodBusinessId");
 
                     b.ToTable("LinkedDevices");
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.Listing", b =>
-                {
-                    b.Property<Guid>("ListingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("HotelId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("WithImage")
-                        .HasColumnType("bit");
-
-                    b.HasKey("ListingId");
-
-                    b.ToTable("Listings");
-
-                    b.HasData(
-                        new
-                        {
-                            ListingId = new Guid("8087b4c3-b0b0-49e5-b317-85b6b43d97cf"),
-                            HotelId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
-                            WithImage = false
-                        },
-                        new
-                        {
-                            ListingId = new Guid("d9099b79-4975-48ca-894c-d92b62b037f0"),
-                            HotelId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
-                            WithImage = false
-                        },
-                        new
-                        {
-                            ListingId = new Guid("518c80ef-0dc7-4f6b-b3ba-eed11f4ca9ca"),
-                            HotelId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
-                            WithImage = false
-                        },
-                        new
-                        {
-                            ListingId = new Guid("8f98fbfc-ec30-4b71-81c8-f32ed6cd3e65"),
-                            HotelId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
-                            WithImage = false
-                        },
-                        new
-                        {
-                            ListingId = new Guid("0bfed7fb-a809-49f2-8c96-381f569abdfd"),
-                            HotelId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
-                            WithImage = false
-                        });
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.ListingDetail", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ListingId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("PictureUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ListingId");
-
-                    b.ToTable("ListingDetail");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
-                            ListingId = new Guid("8087b4c3-b0b0-49e5-b317-85b6b43d97cf")
-                        },
-                        new
-                        {
-                            Id = new Guid("0bfed7fb-a809-49f2-8c96-381f569abdfd"),
-                            ListingId = new Guid("8087b4c3-b0b0-49e5-b317-85b6b43d97cf")
-                        });
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Menu", b =>
@@ -2650,141 +2565,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         .HasForeignKey("FoodBusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.Listing", b =>
-                {
-                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
-                        {
-                            b1.Property<Guid>("ListingId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("AR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("EN")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("FR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("RU")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("TR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("ListingId");
-
-                            b1.ToTable("Listings");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ListingId");
-
-                            b1.HasData(
-                                new
-                                {
-                                    ListingId = new Guid("8087b4c3-b0b0-49e5-b317-85b6b43d97cf"),
-                                    AR = "تأجير السيارات",
-                                    EN = "Car rentals",
-                                    FR = "locations de voitures",
-                                    RU = "прокат автомобилей",
-                                    TR = "Araba kiralama"
-                                },
-                                new
-                                {
-                                    ListingId = new Guid("d9099b79-4975-48ca-894c-d92b62b037f0"),
-                                    AR = "تأجير السيارات",
-                                    EN = "Car rentals",
-                                    FR = "locations de voitures",
-                                    RU = "прокат автомобилей",
-                                    TR = "Araba kiralama"
-                                },
-                                new
-                                {
-                                    ListingId = new Guid("518c80ef-0dc7-4f6b-b3ba-eed11f4ca9ca"),
-                                    AR = "تأجير السيارات",
-                                    EN = "Car rentals",
-                                    FR = "locations de voitures",
-                                    RU = "прокат автомобилей",
-                                    TR = "Araba kiralama"
-                                },
-                                new
-                                {
-                                    ListingId = new Guid("8f98fbfc-ec30-4b71-81c8-f32ed6cd3e65"),
-                                    AR = "تأجير السيارات",
-                                    EN = "Car rentals",
-                                    FR = "locations de voitures",
-                                    RU = "прокат автомобилей",
-                                    TR = "Araba kiralama"
-                                },
-                                new
-                                {
-                                    ListingId = new Guid("0bfed7fb-a809-49f2-8c96-381f569abdfd"),
-                                    AR = "تأجير السيارات",
-                                    EN = "Car rentals",
-                                    FR = "locations de voitures",
-                                    RU = "прокат автомобилей",
-                                    TR = "Araba kiralama"
-                                });
-                        });
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.ListingDetail", b =>
-                {
-                    b.HasOne("SmartRestaurant.Domain.Entities.Listing", "Listing")
-                        .WithMany("ListingDetails")
-                        .HasForeignKey("ListingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
-                        {
-                            b1.Property<Guid>("ListingDetailId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("AR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("EN")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("FR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("RU")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("TR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("ListingDetailId");
-
-                            b1.ToTable("ListingDetail");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ListingDetailId");
-
-                            b1.HasData(
-                                new
-                                {
-                                    ListingDetailId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
-                                    AR = "بيكانتو",
-                                    EN = "Picanto",
-                                    FR = "Picanto",
-                                    RU = "прокат автомобилей",
-                                    TR = "Picanto"
-                                },
-                                new
-                                {
-                                    ListingDetailId = new Guid("0bfed7fb-a809-49f2-8c96-381f569abdfd"),
-                                    AR = "بولو",
-                                    EN = "Polo",
-                                    FR = "Polo",
-                                    RU = "прокат автомобилей",
-                                    TR = "Polo"
-                                });
-                        });
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.MonthlyCommission", b =>
