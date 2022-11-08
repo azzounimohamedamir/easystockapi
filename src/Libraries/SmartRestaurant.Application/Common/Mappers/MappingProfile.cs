@@ -475,6 +475,7 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<ListingDetail, ListingDetailDto>().ReverseMap();
 
+
             CreateMap<Names, NamesDto>()
                 .ReverseMap();
         }
