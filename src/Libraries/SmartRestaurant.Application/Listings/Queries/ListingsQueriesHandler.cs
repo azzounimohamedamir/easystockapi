@@ -13,7 +13,8 @@ using MediatR;
 
 namespace SmartRestaurant.Application.Listings.Queries
 {
-    public class ListingsQueriesHandler: IRequestHandler<GetListingsByHotelIdQuery, PagedListDto<ListingDto>>
+    public class ListingsQueriesHandler: IRequestHandler<GetListingsByHotelIdQuery, PagedListDto<ListingDto>>, 
+        IRequestHandler<GetListingByIdQuery, ListingDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -39,6 +40,25 @@ namespace SmartRestaurant.Application.Listings.Queries
             var pagedResult = new PagedListDto<ListingDto>(query.CurrentPage, query.PageCount, query.PageSize,
                 query.RowCount, data);
             return pagedResult;
+        }
+
+        public async Task<ListingDto> Handle(GetListingByIdQuery request,
+           CancellationToken cancellationToken)
+        {
+            var validator = new GetListingByIdQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var listing = await _context.Listings
+              .Include(x => x.ListingDetails)
+              .Where(u => u.ListingId == Guid.Parse(request.Id))
+              .FirstOrDefaultAsync()
+              .ConfigureAwait(false);
+            if (listing == null)
+                throw new NotFoundException(nameof(listing), request.Id);
+            var listingDto = _mapper.Map<ListingDto>(listing);
+            return listingDto;
+          
         }
     }
 }
