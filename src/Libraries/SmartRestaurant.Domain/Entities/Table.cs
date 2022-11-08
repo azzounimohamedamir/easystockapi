@@ -11,5 +11,6 @@ namespace SmartRestaurant.Domain.Entities
         public int Capacity { get; set; }
         public TableState TableState { get; set; }
         public Guid ZoneId { get; set; }
+        public Zone Zone { get; set; }
     }
 }
