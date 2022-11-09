@@ -17,7 +17,6 @@ using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 
 using SmartRestaurant.Application.Common.Enums;
-using SmartRestaurant.Application.Email;
 
 namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {
@@ -29,6 +28,8 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         IRequestHandler<UserAcceptsInvitationToJoinOrganizationCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IIdentityContext _identcontext;
+
         private readonly IOptions<EmailTemplates> _emailTemplates;
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -36,10 +37,11 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         private readonly IUserService _userService;
         private readonly IEmailSender _emailSender;
 
-        public FoodBusinessEmployeeCommandsHandler(IApplicationDbContext context, IEmailSender emailSender,
+        public FoodBusinessEmployeeCommandsHandler(IApplicationDbContext context, IIdentityContext identityContext, IEmailSender emailSender,
             UserManager<ApplicationUser> userManager, IMapper mapper,
             IOptions<WebPortal> webPortal, IOptions<EmailTemplates> emailTemplates, IUserService userService)
         {
+            _identcontext = identityContext;
             _context = context;
             _userManager = userManager;
             _mapper = mapper;
@@ -114,18 +116,18 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
                <UpdateEmployeeRoleInOrganizationCommandValidator, UpdateEmployeeRoleInOrganizationCommand>
                (request, cancellationToken).ConfigureAwait(false);
 
-           var foodBusinessUser = _context.FoodBusinessUsers.First(b =>
-                b.FoodBusinessId == Guid.Parse(request.FoodBusinessId) && b.ApplicationUserId == request.UserId);
-            if (foodBusinessUser == null) 
+            var foodBusinessUser = _context.FoodBusinessUsers.First(b =>
+                 b.FoodBusinessId == Guid.Parse(request.FoodBusinessId) && b.ApplicationUserId == request.UserId);
+            if (foodBusinessUser == null)
                 throw new NotFoundException(nameof(foodBusinessUser), request.FoodBusinessId);
 
             var user = _userManager.Users.First(u => u.Id == foodBusinessUser.ApplicationUserId);
-            if (user == null) 
+            if (user == null)
                 throw new NotFoundException(nameof(user), request.UserId);
 
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-               var removeRoleResult = await _userManager.RemoveFromRoleAsync(user, request.OldRole);
+                var removeRoleResult = await _userManager.RemoveFromRoleAsync(user, request.OldRole);
                 if (!removeRoleResult.Succeeded)
                     throw new UserManagerException(removeRoleResult.Errors);
 
@@ -182,13 +184,28 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid
                 <InviteUserToJoinOrganizationCommandValidator, InviteUserToJoinOrganizationCommand>
                 (request, cancellationToken).ConfigureAwait(false);
-
             var newUser = _mapper.Map<ApplicationUser>(request);
-            await CreateUserAndAssignRolesToHim(request, newUser).ConfigureAwait(false);
-            await AssignUserToFoodBusinessesOrHotel(request.businessesIds,request.Typeinvitation, newUser.Id, cancellationToken)
-                .ConfigureAwait(false);
-            await SendConfirmationEmail(newUser);
-            return default;
+            var IsExist = CkeckUserIfExistInApplicationUser(newUser.Email);
+            if (!IsExist)
+            {
+                await CreateUserAndAssignRolesToHim(request, newUser).ConfigureAwait(false);
+                await AssignUserToFoodBusinessesOrHotel(IsExist, request.businessesIds, request.Typeinvitation, newUser.Id, cancellationToken)
+               .ConfigureAwait(false);
+                await SendConfirmationEmail(newUser);
+                return default;
+            }
+            else
+            {
+                var newapplicationUser = _identcontext.ApplicationUser.Where(a => a.Email == newUser.Email).FirstOrDefault();
+                var newapplicationUserId = newapplicationUser.Id;
+
+                await AssignUserToFoodBusinessesOrHotel(IsExist, request.businessesIds, request.Typeinvitation, newapplicationUserId, cancellationToken)
+               .ConfigureAwait(false);
+                await SendConfirmationEmail(newapplicationUser);
+
+                return default;
+            }
+
         }
 
         private async Task CreateUserAndAssignRolesToHim(InviteUserToJoinOrganizationCommand request,
@@ -206,42 +223,95 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             }
         }
 
+
+        private bool CkeckUserIfExistInApplicationUser(string email)
+        {
+            var checkInApplicationUser = _identcontext.ApplicationUser.Where(a => a.Email.ToUpper() == email.ToUpper()).FirstOrDefault();
+            if (checkInApplicationUser != null)
+            {
+                return true;
+            }
+                return false;
+
+        }
+
         private async Task GrantRoles(List<string> roles, ApplicationUser user)
         {
             foreach (var role in roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
         }
-
-        private async Task AssignUserToFoodBusinessesOrHotel(List<string> listOfbusinessesIds, string type, string userId,
+        private async Task AssignUserToFoodBusinessesOrHotel(bool exist, List<string> listOfbusinessesIds, string type, string userId,
             CancellationToken cancellationToken)
         {
-            if (type==TypeInvitation.foodbusinness)
-
+            if (type == TypeInvitation.foodbusinness)
             {
-                foreach (var foodBusinessId in listOfbusinessesIds)
+                if (!exist)
                 {
-                    var foodBusinessUser = new FoodBusinessUser
+                    foreach (var foodBusinessId in listOfbusinessesIds)
                     {
-                        ApplicationUserId = userId,
-                        FoodBusinessId = Guid.Parse(foodBusinessId)
-                    };
-                    await _context.FoodBusinessUsers.AddAsync(foodBusinessUser).ConfigureAwait(false);
-                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                        var foodBusinessUser = new FoodBusinessUser
+                        {
+                            ApplicationUserId = userId,
+                            FoodBusinessId = Guid.Parse(foodBusinessId)
+                        };
+                        await _context.FoodBusinessUsers.AddAsync(foodBusinessUser).ConfigureAwait(false);
+                        await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                    }
+                }
+                else
+                {
+                    foreach (var foodBusinessId in listOfbusinessesIds)
+                    {
+                        var IsAssigned = IsAlreadyAssignedToCurrentUser(userId, type, foodBusinessId);
+                        if (IsAssigned == false)
+                        {
+                            var foodBusinessUser = new FoodBusinessUser
+                            {
+                                ApplicationUserId = userId,
+                                FoodBusinessId = Guid.Parse(foodBusinessId)
+                            };
+                            await _context.FoodBusinessUsers.AddAsync(foodBusinessUser).ConfigureAwait(false);
+                            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                        }
+                    }
+                }
+
+            }
+            else if (type == TypeInvitation.hotel)
+            {
+                if (!exist)
+                {
+                    foreach (var hotelId in listOfbusinessesIds)
+                    {
+                        var HotelUser = new HotelUser
+                        {
+                            ApplicationUserId = userId,
+                            HotelId = Guid.Parse(hotelId)
+                        };
+
+                        await _context.hotelUsers.AddAsync(HotelUser).ConfigureAwait(false);
+                        await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                    }
+                }
+                else
+                {
+                    foreach (var hotelId in listOfbusinessesIds)
+                    {
+                        var IsAssigned = IsAlreadyAssignedToCurrentUser(userId, type, hotelId);
+                        if (IsAssigned == false)
+                        {
+                            var HotelUser = new HotelUser
+                            {
+                                ApplicationUserId = userId,
+                                HotelId = Guid.Parse(hotelId)
+                            };
+
+                            await _context.hotelUsers.AddAsync(HotelUser).ConfigureAwait(false);
+                            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                        }
+                    }
                 }
             }
 
-            else
-            {
-                foreach (var foodBusinessId in listOfbusinessesIds)
-                {
-                    var HotelUser = new HotelUser
-                    {
-                        ApplicationUserId = userId,
-                        HotelId = Guid.Parse(foodBusinessId)
-                    };
-                    await _context.hotelUsers.AddAsync(HotelUser).ConfigureAwait(false);
-                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-                }
-            }
         }
 
         private async Task SendConfirmationEmail(ApplicationUser user)
@@ -261,5 +331,28 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         }
 
         #endregion
+
+        private bool IsAlreadyAssignedToCurrentUser(string user, string type, string businessId)
+        {
+            if (type == TypeInvitation.foodbusinness)
+            {
+                var AssignedFood = _context.FoodBusinessUsers.Where(a => a.ApplicationUserId == user && a.FoodBusinessId.ToString() == businessId).Count();
+                if (AssignedFood != 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else if (type == TypeInvitation.hotel)
+            {
+                var AssignedHotel = _context.hotelUsers.Where(a => a.ApplicationUserId == user && a.HotelId.ToString() == businessId).Count();
+                if (AssignedHotel != 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
     }
 }

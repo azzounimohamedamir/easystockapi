@@ -5,14 +5,13 @@ using System.Text;
 
 namespace SmartRestaurant.Domain.Entities
 {
-    public class Hotel: Entreprise
+    public class Building: AuditableEntity
     {
         public Guid Id { get; set; }
-        public string ImagUrl { get; set; }
+        public string Name { get; set; }
         public byte[] Picture { get; set; }
-
-        public string FoodBusinessAdministratorId { get; set; }
-        public virtual IList<Building> Buildings { get; set; }
+        public Guid? HotelId { get; set; }
+        public Hotel Hotel { get; set; }
     }
 
     

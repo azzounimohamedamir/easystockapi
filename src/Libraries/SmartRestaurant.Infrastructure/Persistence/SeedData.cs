@@ -291,6 +291,39 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
                 );
             #endregion
+            #region Create a Buildings
+
+            modelBuilder.Entity<Building>().HasData(
+
+
+
+                new Building
+                {
+                    Id = Guid.NewGuid(),
+                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
+                    Name = "Building 01",
+                }
+                ,
+                new Building
+                {
+                    Id = Guid.NewGuid(),
+                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
+                    Name = "Building 02",
+                }
+                ,
+                new Building
+                {
+                    Id = Guid.NewGuid(),
+                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
+                    Name = "Building 03",
+                }
+
+
+
+
+            ) ;
+            #endregion
+
 
             #region Assigning Employees userId with FoodBusinessId (restaurant).
 
