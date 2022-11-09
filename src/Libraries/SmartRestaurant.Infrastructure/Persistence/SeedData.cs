@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
@@ -60,6 +61,11 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
         public const string CEVITAL_UserId = "ba89dc5f-dfd1-4c87-9372-233c611cc756";
         public const string Sonatrach_UserId = "a3dbd500-eab0-4233-86fd-7f1a4195f9a9";
+        public const string listingId1 = "8087b4c3-b0b0-49e5-b317-85b6b43d97cf";
+        public const string listingId2 = "d9099b79-4975-48ca-894c-d92b62b037f0";
+        public const string listingId3 = "518c80ef-0dc7-4f6b-b3ba-eed11f4ca9ca";
+        public const string listingId4 = "8f98fbfc-ec30-4b71-81c8-f32ed6cd3e65";
+        public const string listingId5 = "0bfed7fb-a809-49f2-8c96-381f569abdfd";
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
@@ -169,6 +175,168 @@ namespace SmartRestaurant.Infrastructure.Persistence
             ) ;
             #endregion
 
+            #region Assign sofitel hotel to tajmahalfoodbusinessmanager
+            modelBuilder.Entity<HotelUser>().HasData(
+              new HotelUser
+              {
+                  ApplicationUserId = TajMhal_FoodBusinessManager_UserId,
+                  HotelId = Guid.Parse(TajMhal_FoodBusinessId)
+              }
+              );
+            #endregion
+
+            #region Create listing to sofitel hotel
+
+            modelBuilder.Entity<Listing>(l => {
+
+                l.HasData(new Listing
+                {
+                    ListingId = Guid.Parse(listingId1),
+                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
+                    WithImage = false,
+                });
+
+                l.OwnsOne(l => l.Names).HasData(
+                    new
+                    {
+                        ListingId = Guid.Parse(listingId1),
+                        AR = "تأجير السيارات",
+                        EN = "Car rentals",
+                        FR = "locations de voitures",
+                        TR = "Araba kiralama",
+                        RU = "прокат автомобилей",
+                    }
+                    );
+            });
+            modelBuilder.Entity<Listing>(l => {
+
+                l.HasData(new Listing
+                {
+                    ListingId = Guid.Parse(listingId2),
+                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
+                    WithImage = false,
+                });
+
+                l.OwnsOne(l => l.Names).HasData(
+                    new
+                    {
+                        ListingId = Guid.Parse(listingId2),
+                        AR = "تأجير السيارات",
+                        EN = "Car rentals",
+                        FR = "locations de voitures",
+                        TR = "Araba kiralama",
+                        RU = "прокат автомобилей",
+                    }
+                    );
+            });
+            modelBuilder.Entity<Listing>(l => {
+
+                l.HasData(new Listing
+                {
+                    ListingId = Guid.Parse(listingId3),
+                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
+                    WithImage = false,
+                });
+
+                l.OwnsOne(l => l.Names).HasData(
+                    new
+                    {
+                        ListingId = Guid.Parse(listingId3),
+                        AR = "تأجير السيارات",
+                        EN = "Car rentals",
+                        FR = "locations de voitures",
+                        TR = "Araba kiralama",
+                        RU = "прокат автомобилей",
+                    }
+                    );
+            });
+            modelBuilder.Entity<Listing>(l => {
+
+                l.HasData(new Listing
+                {
+                    ListingId = Guid.Parse(listingId4),
+                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
+                    WithImage = false,
+                });
+
+                l.OwnsOne(l => l.Names).HasData(
+                    new
+                    {
+                        ListingId = Guid.Parse(listingId4),
+                        AR = "تأجير السيارات",
+                        EN = "Car rentals",
+                        FR = "locations de voitures",
+                        TR = "Araba kiralama",
+                        RU = "прокат автомобилей",
+                    }
+                    );
+            });
+            modelBuilder.Entity<Listing>(l => {
+
+                l.HasData(new Listing
+                {
+                    ListingId = Guid.Parse(listingId5),
+                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
+                    WithImage = false,
+                });
+
+                l.OwnsOne(l => l.Names).HasData(
+                    new
+                    {
+                        ListingId = Guid.Parse(listingId5),
+                        AR = "تأجير السيارات",
+                        EN = "Car rentals",
+                        FR = "locations de voitures",
+                        TR = "Araba kiralama",
+                        RU = "прокат автомобилей",
+                    }
+                    );
+            });
+
+            #region creating new listing detail to listing 1
+            modelBuilder.Entity<ListingDetail>(l => {
+
+                l.HasData(new 
+                {
+                    Id = Guid.Parse(TajMhal_FoodBusinessId),
+                    ListingId = Guid.Parse(listingId1),
+                });
+
+                l.OwnsOne(l => l.Names).HasData(
+                    new
+                    {
+                        ListingDetailId = Guid.Parse(TajMhal_FoodBusinessId),
+                        AR = "بيكانتو",
+                        EN = "Picanto",
+                        FR = "Picanto",
+                        TR = "Picanto",
+                        RU = "прокат автомобилей",
+                    }
+                    );
+            });
+            modelBuilder.Entity<ListingDetail>(l => {
+
+                l.HasData(new
+                {
+                    Id = Guid.Parse(listingId5),
+                    ListingId = Guid.Parse(listingId1),
+                });
+
+                l.OwnsOne(l => l.Names).HasData(
+                    new
+                    {
+                        ListingDetailId = Guid.Parse(listingId5),
+                        AR = "بولو",
+                        EN = "Polo",
+                        FR = "Polo",
+                        TR = "Polo",
+                        RU = "прокат автомобилей",
+                    }
+                    );
+            });
+
+            #endregion
+            #endregion
             #region Create a Buildings
 
             modelBuilder.Entity<Building>().HasData(

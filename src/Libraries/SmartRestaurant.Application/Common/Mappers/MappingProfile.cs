@@ -471,6 +471,11 @@ namespace SmartRestaurant.Application.Common.Mappers
                    .ForMember(x => x.FoodBusinessName, opt => opt.MapFrom(p => p.FoodBusiness.Name))
                    .ForMember(x => x.DefaultCurrency, opt => opt.MapFrom(p => p.FoodBusiness.DefaultCurrency));
 
+            CreateMap<Listing, ListingDto>().ReverseMap();
+
+            CreateMap<ListingDetail, ListingDetailDto>().ReverseMap();
+
+
             CreateMap<Names, NamesDto>()
                 .ReverseMap();
         }

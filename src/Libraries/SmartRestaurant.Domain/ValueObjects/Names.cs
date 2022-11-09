@@ -6,7 +6,7 @@ using System.Text;
 namespace SmartRestaurant.Domain.ValueObjects
 {
     public class Names : ValueObject
-    {
+    { 
         public string AR { get; set; }
         public string EN { get; set; }
         public string FR { get; set; }
