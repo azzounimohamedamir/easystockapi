@@ -12,7 +12,7 @@ namespace SmartRestaurant.Application.HotelSections.Queries
         public int Page { get; set; }
         public int PageSize { get; set; }
         public string SearchKey { get; set; }
-        public string SortOrder { get; set; }
+        public string language { get; set; }
         public string CurrentFilter { get; set; }
     }
 

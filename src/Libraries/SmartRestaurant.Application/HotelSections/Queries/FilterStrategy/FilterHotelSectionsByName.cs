@@ -16,26 +16,59 @@ namespace SmartRestaurant.Application.HotelSections.Queries.FilterStrategy
 
 
             return hotelSections
-               .Where(Condition(request.HotelId, searchKey))
+               .Where(Condition(request.HotelId, searchKey, request.language))
                .GetPaged(request.Page, request.PageSize);
 
         }
 
-        private static Expression<Func<HotelSection, bool>> Condition(string hotelId,  string searchKey)
+        private static Expression<Func<HotelSection, bool>> Condition(string hotelId,  string searchKey, string language)
         {
-            if (hotelId == null)
-                return hotelSection => (hotelSection.Names.AR.Contains(searchKey)
-                    || hotelSection.Names.EN.Contains(searchKey)
-                    || hotelSection.Names.FR.Contains(searchKey)
-                    || hotelSection.Names.TR.Contains(searchKey)
-                    || hotelSection.Names.RU.Contains(searchKey))
-                && hotelSection.HotelId == null;
-            else
-                return hotelSection => (hotelSection.Names.AR.Contains(searchKey)
-                || hotelSection.Names.EN.Contains(searchKey)
-                || hotelSection.Names.FR.Contains(searchKey)
-                || hotelSection.Names.TR.Contains(searchKey)
-                || hotelSection.Names.RU.Contains(searchKey)) && hotelSection.HotelId == Guid.Parse(hotelId);
+            switch(language)
+            {
+                case "ar":
+                    if (hotelId == null)
+                        return hotelSection => (hotelSection.Names.AR.Contains(searchKey))
+                        && hotelSection.HotelId == null;
+                    else
+                        return hotelSection => (hotelSection.Names.AR.Contains(searchKey)) 
+                        && hotelSection.HotelId == Guid.Parse(hotelId);
+                case "en":
+                    if (hotelId == null)
+                        return hotelSection => (hotelSection.Names.EN.Contains(searchKey))
+                        && hotelSection.HotelId == null;
+                    else
+                        return hotelSection => (hotelSection.Names.EN.Contains(searchKey))
+                        && hotelSection.HotelId == Guid.Parse(hotelId);
+                case "fr":
+                    if (hotelId == null)
+                        return hotelSection => (hotelSection.Names.FR.Contains(searchKey))
+                        && hotelSection.HotelId == null;
+                    else
+                        return hotelSection => (hotelSection.Names.FR.Contains(searchKey))
+                        && hotelSection.HotelId == Guid.Parse(hotelId);
+                case "tr":
+                    if (hotelId == null)
+                        return hotelSection => (hotelSection.Names.TR.Contains(searchKey))
+                        && hotelSection.HotelId == null;
+                    else
+                        return hotelSection => (hotelSection.Names.TR.Contains(searchKey))
+                        && hotelSection.HotelId == Guid.Parse(hotelId);
+                case "ru":
+                    if (hotelId == null)
+                        return hotelSection => (hotelSection.Names.RU.Contains(searchKey))
+                        && hotelSection.HotelId == null;
+                    else
+                        return hotelSection => (hotelSection.Names.RU.Contains(searchKey))
+                        && hotelSection.HotelId == Guid.Parse(hotelId);
+                default:
+                    if (hotelId == null)
+                        return hotelSection => (hotelSection.Names.EN.Contains(searchKey))
+                        && hotelSection.HotelId == null;
+                    else
+                        return hotelSection => (hotelSection.Names.EN.Contains(searchKey))
+                        && hotelSection.HotelId == Guid.Parse(hotelId);
+
+            }
         }
 
     }
