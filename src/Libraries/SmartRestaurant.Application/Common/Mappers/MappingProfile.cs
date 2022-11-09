@@ -90,6 +90,10 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Section, SectionDto>().ReverseMap();
 
+            CreateMap<HotelSection, HotelSectionDto>()
+            .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)))
+            .ReverseMap();
+
             CreateMap<Section, ActiveSectionDto>()
                 .ForPath(x => x.MenuItems.Dishes, o => o.MapFrom(p => p.Dishes))
                 .ForPath(x => x.MenuItems.Products, o => o.MapFrom(p => p.Products))           
