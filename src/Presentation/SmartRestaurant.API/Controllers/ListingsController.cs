@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SmartRestaurant.API.Controllers
 {
-    [Route("api/listings")]
+    [Route("api/hotels/listings")]
     [ApiController]
     public class ListingsController : ApiController
     {
@@ -29,11 +29,11 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(PagedListDto<ListingDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
-        [Route("hotel/{id:Guid}")]
+        [Route("{Id:Guid}/list")]
         [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent,SuperAdmin,HotelClient")]
-        public async Task<IActionResult> GetListingsByHotelId([FromRoute]string id,int page,int pageSize)
+        public async Task<IActionResult> GetListingsByHotelId([FromRoute]string Id,int page,int pageSize)
         {
-            return await SendWithErrorsHandlingAsync(new GetListingsByHotelIdQuery { HotelId=id,Page=page,PageSize=pageSize});
+            return await SendWithErrorsHandlingAsync(new GetListingsByHotelIdQuery { HotelId=Id,Page=page,PageSize=pageSize});
         }
 
         /// <summary> GetListingById() </summary>
