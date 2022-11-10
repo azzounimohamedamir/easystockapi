@@ -43,13 +43,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
 
             selectedOrder.Type.Should().Be(order.Type);
             selectedOrder.Status.Should().Be(order.Status);
-            selectedOrder.FoodBusinessId.Should().Be(order.FoodBusinessId);
+            selectedOrder.FoodBusinessId.Should().Be(order.FoodBusinessId.ToString());
             selectedOrder.CreatedAt.Should().Be(order.CreatedAt);
             selectedOrder.TotalToPay.Should().Be(order.TotalToPay);
             selectedOrder.MoneyReceived.Should().Be(order.MoneyReceived);
             selectedOrder.MoneyReturned.Should().Be(order.MoneyReturned);
             selectedOrder.Number.Should().Be(order.Number);
-            selectedOrder.OrderId.Should().Be(order.OrderId);
+            selectedOrder.OrderId.Should().Be(order.OrderId.ToString());
             selectedOrder.TakeoutDetails.Type.Should().Be(order.TakeoutDetails.Type);
             selectedOrder.TakeoutDetails.DeliveryTime.Should().Be(order.TakeoutDetails.DeliveryTime);
 

@@ -6,7 +6,7 @@ namespace SmartRestaurant.Application.Common.Dtos.BillDtos
 {
     public class BillFoodBusinessDto
     {        
-        public Guid FoodBusinessId { get; set; }
+        public string FoodBusinessId { get; set; }
         public string Name { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }      

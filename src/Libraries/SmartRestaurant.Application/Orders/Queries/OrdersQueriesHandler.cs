@@ -49,6 +49,7 @@ namespace SmartRestaurant.Application.Orders.Queries
                 .ThenInclude(o => o.Supplements)
                 .Include(o => o.Products)
                 .Include(o => o.OccupiedTables)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
                 .ConfigureAwait(false);
             if (order == null)
@@ -84,7 +85,7 @@ namespace SmartRestaurant.Application.Orders.Queries
             foreach (var order in data)
             {
                 order.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(order.TotalToPay, foodBusiness.DefaultCurrency);
-                order.CreatedBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(queryData.Find(o => o.OrderId == order.OrderId).CreatedBy));
+                order.CreatedBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(queryData.Find(o => o.OrderId.ToString() == order.OrderId).CreatedBy));
             }
             return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
@@ -108,6 +109,7 @@ namespace SmartRestaurant.Application.Orders.Queries
                 .Where(o => o.OccupiedTables.Select(t => t.TableId).Contains(request.TableId))
                 .OrderByDescending(o=>o.CreatedAt)
                 .Take(1)
+                .AsNoTracking()
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false);
             if (orders == null || orders.Count==0)

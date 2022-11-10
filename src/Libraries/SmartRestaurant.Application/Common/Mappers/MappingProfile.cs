@@ -363,9 +363,14 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<OrderDish, BillDishDto>();
             CreateMap<OrderProduct, BillProductDto>();
+            CreateMap<Domain.Entities.FoodBusiness, BillFoodBusinessDto>()
+            .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => (p.FoodBusinessId == null) ? "" : p.FoodBusinessId.ToString())); 
             CreateMap<Domain.Entities.FoodBusiness, BillFoodBusinessDto>();
             CreateMap<Domain.Entities.FoodBusinessClient, BillFoodBusinessClientDto>();
             CreateMap<Hotel, HotelDto>();
+
+            CreateMap<Domain.Entities.FoodBusinessClient, BillFoodBusinessClientDto>()
+            .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => (p.FoodBusinessClientId == null) ? "" : p.FoodBusinessClientId.ToString()));
 
             CreateMap< UpdateOrderStatusCommand, Order>();
 
@@ -373,9 +378,12 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Order, OrderDto>()
                 .ForMember(x => x.CreatedBy, o => o.Ignore())
-                .ForMember(x => x.FoodBusiness, o => o.MapFrom(p => p.FoodBusiness))
-                .ForMember(x => x.FoodBusinessClient, o => o.MapFrom(p => p.FoodBusinessClient));
-
+              .ForMember(x => x.OrderId, o => o.MapFrom(p => p.OrderId.ToString()))
+              .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.FoodBusinessId.ToString()))
+              .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p =>
+               (p.FoodBusinessClientId==null)?"": p.FoodBusinessClientId.ToString()));
+            
+           
 
             CreateMap<CreateFoodBusinessClientCommand, Domain.Entities.FoodBusinessClient>()
                 .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.Id))
