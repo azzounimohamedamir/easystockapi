@@ -75,7 +75,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Queries
             selectedBill.Number.Should().Be(order.Number);
             selectedBill.OrderId.Should().Be(order.OrderId);
 
-            selectedBill.FoodBusiness.FoodBusinessId.Should().Be(order.FoodBusiness.FoodBusinessId);
+            selectedBill.FoodBusiness.FoodBusinessId.Should().Be(order.FoodBusiness.FoodBusinessId.ToString());
             selectedBill.FoodBusiness.Name.Should().Be(order.FoodBusiness.Name);
             selectedBill.FoodBusiness.Email.Should().Be(order.FoodBusiness.Email);
             selectedBill.FoodBusiness.Address.StreetAddress.Should().Be(order.FoodBusiness.Address.StreetAddress);
@@ -86,7 +86,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Queries
             selectedBill.FoodBusiness.Website.Should().Be(order.FoodBusiness.Website);
             selectedBill.FoodBusiness.DefaultCurrency.Should().Be(order.FoodBusiness.DefaultCurrency);
 
-            selectedBill.FoodBusinessClient.FoodBusinessClientId.Should().Be(order.FoodBusinessClient.FoodBusinessClientId);
+            selectedBill.FoodBusinessClient.FoodBusinessClientId.Should().Be(order.FoodBusinessClient.FoodBusinessClientId.ToString());
             selectedBill.FoodBusinessClient.Name.Should().Be(order.FoodBusinessClient.Name);
             selectedBill.FoodBusinessClient.Email.Should().Be(order.FoodBusinessClient.Email);
             selectedBill.FoodBusinessClient.Address.StreetAddress.Should().Be(order.FoodBusinessClient.Address.StreetAddress);

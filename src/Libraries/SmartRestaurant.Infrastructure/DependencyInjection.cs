@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Infrastructure.Email;
 using SmartRestaurant.Infrastructure.Persistence;
+using SmartRestaurant.Infrastructure.Services;
 
 namespace SmartRestaurant.Infrastructure
 {
@@ -18,6 +19,8 @@ namespace SmartRestaurant.Infrastructure
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            services.AddTransient < IFirebaseRepository, FirebaseRepository> ();
+
             
             services.AddTransient<IEmailSender, EmailHelper>();
             return services;
