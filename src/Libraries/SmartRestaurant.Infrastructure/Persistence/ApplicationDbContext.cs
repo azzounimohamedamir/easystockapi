@@ -23,6 +23,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Listing> Listings { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Section> Sections { get; set; }
+        public DbSet<HotelSection> HotelSections { get; set; }
         public DbSet<SectionDish> SectionDishes { get; set; }
         public DbSet<SectionProduct> SectionProducts { get; set; }
         public DbSet<SubSection> SubSections { get; set; }
