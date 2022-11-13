@@ -149,7 +149,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(billDto.Number, order.Number);
             Assert.Equal(billDto.OrderId, order.OrderId);
 
-            Assert.Equal(billDto.FoodBusiness.FoodBusinessId, order.FoodBusiness.FoodBusinessId);
+            Assert.Equal(billDto.FoodBusiness.FoodBusinessId, order.FoodBusiness.FoodBusinessId.ToString());
             Assert.Equal(billDto.FoodBusiness.Name, order.FoodBusiness.Name);
             Assert.Equal(billDto.FoodBusiness.Email, order.FoodBusiness.Email);
             Assert.Equal(billDto.FoodBusiness.Address.StreetAddress, order.FoodBusiness.Address.StreetAddress); 
@@ -160,7 +160,7 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(billDto.FoodBusiness.Website, order.FoodBusiness.Website);
             Assert.Equal(billDto.FoodBusiness.DefaultCurrency, order.FoodBusiness.DefaultCurrency);
 
-            Assert.Equal(billDto.FoodBusinessClient.FoodBusinessClientId, order.FoodBusinessClient.FoodBusinessClientId);
+            Assert.Equal(billDto.FoodBusinessClient.FoodBusinessClientId, order.FoodBusinessClient.FoodBusinessClientId.ToString());
             Assert.Equal(billDto.FoodBusinessClient.Name, order.FoodBusinessClient.Name);
             Assert.Equal(billDto.FoodBusinessClient.Email, order.FoodBusinessClient.Email);
             Assert.Equal(billDto.FoodBusinessClient.Address.StreetAddress, order.FoodBusinessClient.Address.StreetAddress);

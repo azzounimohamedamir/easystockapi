@@ -30,6 +30,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using System.Collections.Generic;
 using SmartRestaurant.Infrastructure.Email;
+using SmartRestaurant.Infrastructure.Services;
 
 namespace SmartRestaurant.API
 {
@@ -55,6 +56,7 @@ namespace SmartRestaurant.API
             services.Configure<WebPortal>(Configuration.GetSection("WebPortal"));
             services.Configure<EmailTemplates>(Configuration.GetSection("EmailTemplates"));
             services.Configure<Authentication>(Configuration.GetSection("Authentication"));
+            services.Configure<FirebaseConfig>(Configuration.GetSection("FirebaseConfig"));
             CORSConfiguration.AddCORSConfiguation(services);
 
             services.AddSwaggerGen(c =>

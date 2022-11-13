@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.BillDtos;
@@ -17,6 +18,7 @@ using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Application.CurrencyExchange;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
+using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Application.Orders.Commands
@@ -30,14 +32,19 @@ namespace SmartRestaurant.Application.Orders.Commands
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
+        private readonly IFirebaseRepository _fireBase;
         private readonly string CreateAction = "CreateAction";
         private readonly string UpdateAction = "UpdateAction";
 
-        public OrdersCommandsHandlers(IApplicationDbContext context, IMapper mapper, IUserService userService)
+        public OrdersCommandsHandlers(IApplicationDbContext context, 
+                                    IMapper mapper,
+                                    IUserService userService,
+                                    IFirebaseRepository fireBase)
         {
             _context = context;
             _mapper = mapper;
             _userService = userService;
+            _fireBase = fireBase;
         }
 
         public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -70,20 +77,26 @@ namespace SmartRestaurant.Application.Orders.Commands
             _context.Orders.Add(order);
             await _context.SaveChangesAsync(cancellationToken);
 
+            //var orderDto = _mapper.Map<OrderDto>(order);
+            //orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);         
+            //var path = request.FoodBusinessId + "/Orders/" + orderDto.OrderId;
+            //await _fireBase.AddAsync(path, orderDto, cancellationToken);
+                
             var newOrder = await _context.Orders.AsNoTracking()
-                 .Include(o => o.Dishes)
-                 .ThenInclude(o => o.Specifications)
-                 .ThenInclude(o => o.ComboBoxContentTranslation)
-                 .Include(o => o.Dishes)
-                 .ThenInclude(o => o.Ingredients)
-                 .Include(o => o.Dishes)
-                 .ThenInclude(o => o.Supplements)
-                 .Include(o => o.Products)
-                 .Include(o => o.OccupiedTables)
-                 .Include(o => o.FoodBusiness)
-                 .Include(o => o.FoodBusinessClient)
-                 .FirstOrDefaultAsync(o => o.OrderId == request.Id, cancellationToken)
-                 .ConfigureAwait(false);
+            .Include(o => o.Dishes)
+            .ThenInclude(o => o.Specifications)
+            .ThenInclude(o => o.ComboBoxContentTranslation)
+            .Include(o => o.Dishes)
+            .ThenInclude(o => o.Ingredients)
+            .Include(o => o.Dishes)
+            .ThenInclude(o => o.Supplements)
+            .Include(o => o.Products)
+            .Include(o => o.OccupiedTables)
+            .Include(o => o.FoodBusiness)
+            .Include(o => o.FoodBusinessClient)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(o => o.OrderId == request.Id, cancellationToken)
+            .ConfigureAwait(false);
 
             return _mapper.Map<OrderDto>(newOrder);
         }
@@ -178,7 +191,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                 .ConfigureAwait(false);
             if (order == null)
                 throw new NotFoundException(nameof(Order), request.Id);
-
+          
             if (order.Status == OrderStatuses.Billed)
                 throw new ConflictException("Sorry, you can not update a Billed Order");
 
@@ -195,6 +208,12 @@ namespace SmartRestaurant.Application.Orders.Commands
             CalculateAndSetOrderTotalPrice(order, order.FoodBusiness);
             _context.Orders.Update(order);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+           // var orderDto = _mapper.Map<OrderDto>(order);
+           // var foodBusiness = await _context.FoodBusinesses.FindAsync(order.FoodBusinessId);
+           // if (foodBusiness != null)
+           //     orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);
+           // var path = order.FoodBusinessId + "/Orders/" + order.OrderId;
+           // await _fireBase.UpdateAsync(path,orderDto, cancellationToken);
             return default;
         }
 

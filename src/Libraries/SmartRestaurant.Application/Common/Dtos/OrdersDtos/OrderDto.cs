@@ -8,7 +8,7 @@ namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
 {
     public class OrderDto
     {
-        public Guid OrderId { get; set; }
+        public string OrderId { get; set; }
         public int Number { get; set; }
         public float TotalToPay { get; set; }
         public float MoneyReceived { get; set; }
@@ -22,8 +22,8 @@ namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
         public List<CurrencyDto> CurrencyExchange { get; set; }
         public DateTime CreatedAt { get; set; }
         public ApplicationUserDto CreatedBy { get; set; }
-        public Guid FoodBusinessId { get; set; }
-        public Guid? FoodBusinessClientId { get; set; }
+        public string FoodBusinessId { get; set; }
+        public string? FoodBusinessClientId { get; set; }
         public BillFoodBusinessDto FoodBusiness { get; set; }
         public BillFoodBusinessClientDto FoodBusinessClient { get; set; }
 

@@ -39,7 +39,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
             
             var lastOrder = await SendAsync(new GetLastOrderByTableIDQuery { TableId = selectedTabelId });
             lastOrder.Should().NotBeNull();
-            Assert.AreEqual(lastOrder.OrderId, createOrderCommand2.Id);
+            Assert.AreEqual(lastOrder.OrderId, createOrderCommand2.Id.ToString());
         }
 
         private static async Task CreateTable(CreateZoneCommand createZoneCommand, string idTable)
