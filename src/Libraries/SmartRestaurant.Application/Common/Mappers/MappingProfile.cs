@@ -443,6 +443,9 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.IngredientIllnesses, o => o.MapFrom(p => p.IngredientIllnesses))
                .ReverseMap();
 
+               CreateMap<IlnessUser, IllnessUserDto>()
+               .ReverseMap();
+
             CreateMap<IngredientIllnessDto, IngredientIllness>()
                 .ForMember(x=>x.IngredientId,o=> o.MapFrom(p =>Guid.Parse( p.IngredientId)))
                 .ReverseMap();

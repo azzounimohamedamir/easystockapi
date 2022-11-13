@@ -5,6 +5,7 @@ using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.il.Queries.FilterStrategy;
 using SmartRestaurant.Application.Illness.Queries.FilterStrategy;
 using SmartRestaurant.Domain.Entities;
 using System;
@@ -15,18 +16,23 @@ using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Illness.Queries
 {
-    public class IllnessesQueriesHandler : IRequestHandler<GetIllnessesListQuery, PagedListDto<IllnessDto>>,
-        IRequestHandler<GetIllnessByIdQuery, IllnessDto>, 
+    public class IllnessesQueriesHandler :
+        IRequestHandler<GetIllnessesListQuery, PagedListDto<IllnessDto>>,
+        IRequestHandler<GetIllnessByIdQuery, IllnessDto>,
+        IRequestHandler<GetIlnessessbyUserQuery, PagedListDto<IllnessUserDto>>,
+
         IRequestHandler<GetDishesIllnessQuery, IList<DishIllnessDto>>,
         IRequestHandler<GetWarningIngredientOfOrderWithIllnessQuery, WarningIngredientOfOrder>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
-        public IllnessesQueriesHandler(IApplicationDbContext context, IMapper mapper)
+        public IllnessesQueriesHandler(IApplicationDbContext context, IMapper mapper, IUserService userService)
         {
             _context = context;
             _mapper = mapper;
+            _userService = userService;
         }
 
         public async Task<PagedListDto<IllnessDto>> Handle(GetIllnessesListQuery request, CancellationToken cancellationToken)
@@ -58,6 +64,25 @@ namespace SmartRestaurant.Application.Illness.Queries
                 throw new NotFoundException(nameof(Illness), request.Id);
             var IllnessDto = _mapper.Map<IllnessDto>(Illness);
             return IllnessDto;
+        }
+
+
+
+        public async Task<PagedListDto<IllnessUserDto>> Handle(GetIlnessessbyUserQuery request, CancellationToken cancellationToken)
+        {
+            var validator = new GetIlnessessbyUserQueryValidator();
+
+            var userconnected = _userService.GetUserId();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var filter = IllnessUserStrategies.GetFilterStrategy(request.CurrentFilter);
+            var query = filter.FetchData(_context.ilnessUsers, request);
+
+            var data = _mapper.Map<List<IllnessUserDto>>(await query.Data.Where(a=>a.ApplicationUserId==userconnected).ToListAsync(cancellationToken).ConfigureAwait(false));
+
+            return new PagedListDto<IllnessUserDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
+             
         }
 
         public async Task<IList<DishIllnessDto>> Handle(GetDishesIllnessQuery request, CancellationToken cancellationToken)
