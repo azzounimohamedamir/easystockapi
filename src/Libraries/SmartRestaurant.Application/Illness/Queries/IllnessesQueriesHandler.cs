@@ -77,7 +77,7 @@ namespace SmartRestaurant.Application.Illness.Queries
             if (!result.IsValid) throw new ValidationException(result);
 
             var filter = IllnessUserStrategies.GetFilterStrategy(request.CurrentFilter);
-            var query = filter.FetchData(_context.ilnessUsers, request);
+            var query = filter.FetchData(_context.IlnessUsers, request);
 
             var data = _mapper.Map<List<IllnessUserDto>>(await query.Data.Where(a=>a.ApplicationUserId==userconnected).ToListAsync(cancellationToken).ConfigureAwait(false));
 
