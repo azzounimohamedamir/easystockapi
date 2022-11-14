@@ -208,6 +208,15 @@ namespace SmartRestaurant.Application.IntegrationTests
             var count =  context.hotelUsers.Count();
             return count;
         }
+   
+
+        public static async Task<List<IlnessUser>> GetAllIlnessUserList()
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+            var list = context.ilnessUsers.Where(x=>x.ApplicationUserId== _authenticatedUserId).ToList();
+            return list;
+        }
 
         public static int GetAllFoodBusinessUserCount()
         {
