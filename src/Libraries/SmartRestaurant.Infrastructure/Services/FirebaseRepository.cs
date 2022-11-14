@@ -35,7 +35,7 @@ namespace SmartRestaurant.Infrastructure.Services
             {
                 throw new ArgumentNullException("fireBase Path not found in appsettings");
             }
-            var pathConfigFile = Path.Combine(AppContext.BaseDirectory, "g22project-69454-firebase-adminsdk-8girh-0cab304bea.json");
+            var pathConfigFile = Path.Combine(AppContext.BaseDirectory, "firebase.json");
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", pathConfigFile);
             _db = FirestoreDb.Create("g22project-69454");
         }

@@ -77,10 +77,10 @@ namespace SmartRestaurant.Application.Orders.Commands
             _context.Orders.Add(order);
             await _context.SaveChangesAsync(cancellationToken);
 
-            //var orderDto = _mapper.Map<OrderDto>(order);
-            //orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);         
-            //var path = request.FoodBusinessId + "/Orders/" + orderDto.OrderId;
-            //await _fireBase.AddAsync(path, orderDto, cancellationToken);
+            var orderDto = _mapper.Map<OrderDto>(order);
+            orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);         
+            var path = request.FoodBusinessId + "/Orders/" + orderDto.OrderId;
+            await _fireBase.AddAsync(path, orderDto, cancellationToken);
                 
             var newOrder = await _context.Orders.AsNoTracking()
             .Include(o => o.Dishes)
@@ -208,12 +208,12 @@ namespace SmartRestaurant.Application.Orders.Commands
             CalculateAndSetOrderTotalPrice(order, order.FoodBusiness);
             _context.Orders.Update(order);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-           // var orderDto = _mapper.Map<OrderDto>(order);
-           // var foodBusiness = await _context.FoodBusinesses.FindAsync(order.FoodBusinessId);
-           // if (foodBusiness != null)
-           //     orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);
-           // var path = order.FoodBusinessId + "/Orders/" + order.OrderId;
-           // await _fireBase.UpdateAsync(path,orderDto, cancellationToken);
+            var orderDto = _mapper.Map<OrderDto>(order);
+            var foodBusiness = await _context.FoodBusinesses.FindAsync(order.FoodBusinessId);
+            if (foodBusiness != null)
+                orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);
+            var path = order.FoodBusinessId + "/Orders/" + order.OrderId;
+            await _fireBase.UpdateAsync(path,orderDto, cancellationToken);
             return default;
         }
 

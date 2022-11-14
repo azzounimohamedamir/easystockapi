@@ -38,7 +38,7 @@
 	  <ProjectReference Include="..\..\Libraries\SmartRestaurant.Infrastructure\SmartRestaurant.Infrastructure.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Content Update="g22project-69454-firebase-adminsdk-8girh-0cab304bea.json">
+	  <Content Update="firebase.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
