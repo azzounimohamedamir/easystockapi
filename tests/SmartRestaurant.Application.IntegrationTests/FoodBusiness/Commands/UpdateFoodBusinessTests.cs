@@ -41,6 +41,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                     },
                     Description = "",
                     HasCarParking = true,
+                    AcceptDelivery = true,
                     IsHandicapFriendly = true,
                     Name = "Taj mahal Updated test",
                     OffersTakeout = true,
@@ -62,6 +63,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
 
                 list.FoodBusinessId.Should().Be(updateFoodBusinessCommand.Id);
                 list.Name.Should().Be("Taj mahal Updated test");
+                list.AcceptDelivery.Should().BeTrue();
             });
         }
     }

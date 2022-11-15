@@ -14,6 +14,7 @@ namespace SmartRestaurant.Domain.Entities
         public bool IsHandicapFriendly { get; set; }
         public bool AcceptsCreditCards { get; set; }
         public bool AcceptTakeout { get; set; }
+        public bool AcceptDelivery { get; set; }
         public bool OffersTakeout { get; set; }
         public string Tags { get; set; }
         public string FoodBusinessAdministratorId { get; set; }

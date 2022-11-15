@@ -22,6 +22,8 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public bool OffersTakeout { get; set; }
         public bool AcceptsCreditCards { get; set; }
         public bool AcceptTakeout { get; set; }
+        public bool AcceptDelivery { get; set; }
+
         public List<string> Tags { get; set; }
         public string Website { get; set; }
         public string FoodBusinessAdministratorId { get; set; }
