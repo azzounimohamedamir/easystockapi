@@ -56,6 +56,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             {              
                 AcceptsCreditCards = true,
                 AcceptTakeout = true,
+                AcceptDelivery=false,
                 Address = new AddressDto
                 {
                     City = "Algiers",
