@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.Application.Sections.Queries;
 using Swashbuckle.AspNetCore.Annotations;
 using SmartRestaurant.Application.HotelSections.Queries;
+using SmartRestaurant.Application.HotelSections.Commands;
 using System.Threading.Tasks;
-using System;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using SmartRestaurant.API.Swagger.Exception;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -42,6 +41,22 @@ namespace SmartRestaurant.API.Controllers
                 SearchKey = searchKey,
                 language = language,
             });
+        }
+
+        /// <summary> This endpoint is used to add a hotel section </summary>
+        /// <remarks>This endpoint allows hotel managers to create a new section.</remarks>
+        /// <param name="section">section object which will be added to the database.</param>
+        /// <response code="200"> section has been successfully created.<br></br><b>Note:</b> Picture will be encoded in Base64</response>
+        /// <response code="400">The payload data sent to the backend-server in order to create a new section is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [HttpPost]
+        //[Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent,SuperAdmin,HotelClient")]
+        public async Task<IActionResult> CreateListing(CreateHotelSectionCommand section)
+        {
+            return await SendWithErrorsHandlingAsync(section);
         }
     }
 }
