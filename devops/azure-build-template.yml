@@ -23,16 +23,16 @@
         displayName: Build
       
       
-  - job: Database_Migration
-    steps:
-     - checkout: none
-     - script: |
-         cd ${{ parameters.WebProjectName }}
-         dotnet ef database update --context:ApplicationDbContext
-         dotnet ef database update --context:IdentityContext
-       displayName: Database Initialization
-    dependsOn: Build_the_API
-    condition: succeeded()
+  #- job: Database_Migration
+  #  steps:
+  #   - checkout: none
+  #   - script: |
+  #       cd ${{ parameters.WebProjectName }}
+  #       dotnet ef database update --context:ApplicationDbContext
+  #       dotnet ef database update --context:IdentityContext
+  #     displayName: Database Initialization
+  #  dependsOn: Build_the_API
+  #  condition: succeeded()
 
   - job: DeployWaitingApproval
     dependsOn: Database_Migration
