@@ -102,11 +102,14 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<Section, SectionDto>().ReverseMap();
 
             CreateMap<HotelSection, HotelSectionDto>()
-            .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)))
-            .ReverseMap();
+            .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
 
             CreateMap<CreateHotelSectionCommand, HotelSection>()
                 .ForMember(x => x.HotelSectionId, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.Picture, o => o.Ignore());
+
+            CreateMap<UpdateHotelSectionCommand, HotelSection>()
+                .ForMember(x => x.HotelSectionId, o => o.MapFrom(p => p.hotelSetionId))
                 .ForMember(x => x.Picture, o => o.Ignore());
 
 
