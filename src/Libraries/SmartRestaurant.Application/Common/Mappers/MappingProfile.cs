@@ -35,6 +35,7 @@ using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.ValueObjects;
+using SmartRestaurant.Application.HotelSections.Commands;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -101,8 +102,16 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<Section, SectionDto>().ReverseMap();
 
             CreateMap<HotelSection, HotelSectionDto>()
-            .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)))
-            .ReverseMap();
+            .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
+
+            CreateMap<CreateHotelSectionCommand, HotelSection>()
+                .ForMember(x => x.HotelSectionId, o => o.MapFrom(p => p.Id))
+                .ForMember(x => x.Picture, o => o.Ignore());
+
+            CreateMap<UpdateHotelSectionCommand, HotelSection>()
+                .ForMember(x => x.HotelSectionId, o => o.MapFrom(p => p.hotelSetionId))
+                .ForMember(x => x.Picture, o => o.Ignore());
+
 
             CreateMap<Section, ActiveSectionDto>()
                 .ForPath(x => x.MenuItems.Dishes, o => o.MapFrom(p => p.Dishes))
