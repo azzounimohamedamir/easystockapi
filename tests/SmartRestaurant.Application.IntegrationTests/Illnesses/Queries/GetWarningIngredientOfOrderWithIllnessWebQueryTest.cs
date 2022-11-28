@@ -1,9 +1,7 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Illness.Queries;
-using SmartRestaurant.Application.Ingredients.Commands;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -104,23 +102,18 @@ namespace SmartRestaurant.Application.IntegrationTests.Illnesses.Queries
 
             var result = await SendAsync(query);
             result.Should().NotBeNull();
-            result.Count.Should().Be(1);
-            result[0].IngredientId.Should().Be(createIngredientCommand1.Id.ToString());
+            result.SummaryIngredientIllness.Count.Should().Be(1);
+            result.SummaryIngredientIllness[0].IngredientId.Should().Be(createIngredientCommand1.Id.ToString());
 
-            result[0].Illness[0].Quantity.Should().Equals(15);
-            result[0].Illness[0].IllnessName.AR.Should().Be(createIllnessCommand.Names.AR);
-           result[0].Illness[0].IllnessName.EN.Should().Be(createIllnessCommand.Names.EN);
-           result[0].Illness[0].IllnessName.FR.Should().Be(createIllnessCommand.Names.FR);
-           result[0].Illness[0].IllnessName.TR.Should().Be(createIllnessCommand.Names.TR);
-           result[0].Illness[0].IllnessName.RU.Should().Be(createIllnessCommand.Names.RU);
+            result.SummaryIngredientIllness[0].Illness[0].Quantity.Should().Equals(15);
+            result.SummaryIngredientIllness[0].Illness[0].IllnessName.AR.Should().Be(createIllnessCommand.Names.AR);
+            result.SummaryIngredientIllness[0].Illness[0].IllnessName.EN.Should().Be(createIllnessCommand.Names.EN);
+            result.SummaryIngredientIllness[0].Illness[0].IllnessName.FR.Should().Be(createIllnessCommand.Names.FR);
+            result.SummaryIngredientIllness[0].Illness[0].IllnessName.TR.Should().Be(createIllnessCommand.Names.TR);
+            result.SummaryIngredientIllness[0].Illness[0].IllnessName.RU.Should().Be(createIllnessCommand.Names.RU);
 
-         
+           
 
-
-           result[0].Dishes[0].IdDish.Should().Be(createDishCommand1.Id.ToString());
-           result[0].Dishes[0].InSuplement.Should().Be(false);
-           result[0].Dishes[1].IdDish.Should().Be(createDishCommand2.Id.ToString());
-           result[0].Dishes[1].InSuplement.Should().Be(false);
 
         }
     }

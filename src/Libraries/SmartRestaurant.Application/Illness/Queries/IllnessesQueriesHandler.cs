@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.DishDtos;
 using SmartRestaurant.Application.Common.Exceptions;
@@ -22,7 +23,7 @@ namespace SmartRestaurant.Application.Illness.Queries
 
         IRequestHandler<GetDishesIllnessQuery, IList<DishIllnessDto>>,
         IRequestHandler<GetWarningIngredientOfOrderWithIllnessQuery, WarningIngredientOfOrder>,
-        IRequestHandler<GetWarningIngredientOfOrderWithIllnessWebQuery, List<WarningIngredientOfOrderWithIllness>>
+        IRequestHandler<GetWarningIngredientOfOrderWithIllnessWebQuery, WarningIngredientOfOrder>
 
     {
         private readonly IApplicationDbContext _context;
@@ -125,56 +126,21 @@ namespace SmartRestaurant.Application.Illness.Queries
         }
         public async Task<WarningIngredientOfOrder> Handle(GetWarningIngredientOfOrderWithIllnessQuery request, CancellationToken cancellationToken)
         {
-            var losteElementToProcesse = getlosteElementToProcesse(request.SummaryIngredients);
+            var summaryIngredientIlnessess = GetSummaryIngredientsList(request.SummaryIllness, request.SummaryIngredients);
 
-            WarningIngredientOfOrder result = new WarningIngredientOfOrder();
-            result.SummaryIngredientIllness = losteElementToProcesse
-            .GroupBy(x => x.IdIngredient).Select(x =>
-            {
-                var SumQte = x.Sum(y => y.Quantity);
-                var warning = new WarningIngredientOfOrderWithIllness()
-                {
-                    IngredientId = x.Key,
-                    Ingredient = _mapper.Map<IngredientDto>(_context.Ingredients.AsNoTracking().FirstOrDefault(ing=>ing.IngredientId.ToString().Equals(x.Key))),
-                    Dishes = x.Select(t =>new DisheInSupplement()
-                    {
-                        IdDish= t.IdDishe,
-                        InSuplement= t.InSupplement,
-                        
-                    }).ToList(),
-                    Quantity = SumQte,
-                    Illness = _mapper.Map<List<CriticalQteIllnessIngredientDto>>(
-                    _context.IngredientIllnesses.AsNoTracking().
-                    Include(x => x.Illness).
-                    Where(
-                        y =>
-                        y.IngredientId.ToString().Equals(x.Key)&&
-                        request.SummaryIllness.Contains(y.IllnessId.ToString()) && 
-                        y.Quantity<= SumQte
-                    )
-                    .ToList())
-                };
-                return warning;
-            }
-
-            ).ToList();
-
-           result.SummaryIngredientIllness.RemoveAll(s=>s.Illness==null || s.Illness.Count==0);
-           return result;
+            return summaryIngredientIlnessess;
         }
 
-
-        public  List<ElementToProcessWarning> getlosteElementToProcesse(List<SummaryQteIngredientOfDishDto> summaryIngredients)
+        public WarningIngredientOfOrder GetSummaryIngredientsList(List<string> summaryIlnessess, List<SummaryQteIngredientOfDishDto> summaryIngredients)
         {
-
-            var losteElementToProcesse =  summaryIngredients.SelectMany(
+            var losteElementToProcesse =summaryIngredients.SelectMany(
            summaryItem =>
                    summaryItem.IngredientDishes.
                    Select(x => new ElementToProcessWarning()
                    {
                        IdDishe = summaryItem.IdDish,
                        IdIngredient = x.IdIngredient,
-                       Quantity = x.Quantity* summaryItem.QteDish,
+                       Quantity = x.Quantity * summaryItem.QteDish,
                        InSupplement = false,
                    }).Union(
                        summaryItem.IdSupplement.SelectMany(
@@ -189,33 +155,13 @@ namespace SmartRestaurant.Application.Illness.Queries
                                    IdDishe = summaryItem.IdDish,
                                    IdIngredient = x.IngredientId.ToString(),
                                    Quantity = x.InitialAmount * summaryItem.QteDish,
-                                   InSupplement=true,
+                                   InSupplement = true,
                                }).ToList();
                            }
                        ))
                    ).ToList();
-
-            return losteElementToProcesse;
-        }
-
-
-
-        public async Task<List<WarningIngredientOfOrderWithIllness>> Handle(GetWarningIngredientOfOrderWithIllnessWebQuery request, CancellationToken cancellationToken)
-        {
-            var userconnected = _userService.GetUserId();
-            List<string> summaryIlnesses = new List<string>();
-           var IlnessOfCurrentUser =   _context.ilnessUsers.Where(a=>a.ApplicationUserId==userconnected).ToList();
-            IlnessOfCurrentUser.ForEach(ilnessuser =>
-            {
-                summaryIlnesses.Add(ilnessuser.IllnessId.ToString());
-            }
-            );
-
-
-            var losteElementToProcesse = getlosteElementToProcesse(request.SummaryIngredients);
-
-            List<WarningIngredientOfOrderWithIllness> result = new List<WarningIngredientOfOrderWithIllness>();
-            result = losteElementToProcesse
+            WarningIngredientOfOrder result = new WarningIngredientOfOrder();
+            result.SummaryIngredientIllness = losteElementToProcesse
             .GroupBy(x => x.IdIngredient).Select(x =>
             {
                 var SumQte = x.Sum(y => y.Quantity);
@@ -236,7 +182,7 @@ namespace SmartRestaurant.Application.Illness.Queries
                     Where(
                         y =>
                         y.IngredientId.ToString().Equals(x.Key) &&
-                        summaryIlnesses.Contains(y.IllnessId.ToString()) &&
+                        summaryIlnessess.Contains(y.IllnessId.ToString()) &&
                         y.Quantity <= SumQte
                     )
                     .ToList())
@@ -246,8 +192,25 @@ namespace SmartRestaurant.Application.Illness.Queries
 
             ).ToList();
 
-            result.RemoveAll(s => s.Illness == null || s.Illness.Count == 0);
+            result.SummaryIngredientIllness.RemoveAll(s => s.Illness == null || s.Illness.Count == 0);
             return result;
+
+        }
+
+
+
+        public async Task<WarningIngredientOfOrder> Handle(GetWarningIngredientOfOrderWithIllnessWebQuery request, CancellationToken cancellationToken)
+        {
+            var userconnected = _userService.GetUserId();
+            List<string> summaryIlnesses = new List<string>();
+           var IlnessOfCurrentUser =   _context.ilnessUsers.Where(a=>a.ApplicationUserId==userconnected).ToList();
+            IlnessOfCurrentUser.ForEach(ilnessuser =>
+            {
+                summaryIlnesses.Add(ilnessuser.IllnessId.ToString());
+            }
+            );
+           var  summaryIngredientIlnessess=GetSummaryIngredientsList(summaryIlnesses,request.SummaryIngredients);
+           return summaryIngredientIlnessess;
         }
     }
 }

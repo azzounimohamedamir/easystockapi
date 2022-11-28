@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SmartRestaurant.Application.Illness.Queries
 {
-    public class GetWarningIngredientOfOrderWithIllnessWebQuery : IRequest<List<WarningIngredientOfOrderWithIllness>>
+    public class GetWarningIngredientOfOrderWithIllnessWebQuery : IRequest<WarningIngredientOfOrder>
     {
         public List<SummaryQteIngredientOfDishDto>  SummaryIngredients {get;set;}
     }
