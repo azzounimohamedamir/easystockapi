@@ -71,7 +71,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
         [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent,SuperAdmin,HotelClient")]
-        public async Task<IActionResult> CreateListing([FromForm] CreateHotelSectionCommand section)
+        public async Task<IActionResult> Create([FromForm] CreateHotelSectionCommand section)
         {
             return await SendWithErrorsHandlingAsync(section);  
         }
