@@ -157,6 +157,44 @@ namespace SmartRestaurant.API.Controllers
             return SendWithErrorsHandlingAsync(query);
         }
 
+
+
+        /// <summary> GetListOfOrdersOfDinerOrClientHotel() </summary>
+        /// <remarks>This endpoint allows us to fetch list of orders of current Diner or Client Hotel.</remarks>
+        /// <param name="currentFilter">Orders list can be filtred by: <b>order number</b></param>
+        /// <param name="searchKey">Search keyword</param>
+        /// <param name="sortOrder">Orders list can be sorted by: <b>acs</b> | <b>desc</b>. Default value is: <b>acs</b></param>
+        /// <param name="foodBusinessId">We will get dishes list linked to that foodBusinessId.</param>
+        /// <param name="dateInterval">We will get results within the selected interval. Default interval is: <b>ToDay</b><br></br>
+        ///     <b>Note 01:</b> This is the enum used to set Date Interval: <b>  enum DateFilter { ToDay, Last7Days, Last30Days, All } </b>
+        /// </param>
+        /// <param name="page">The start position of read pointer in a request results. Default value is: <b>1</b></param>
+        /// <param name="pageSize">The max number of Reservations that should be returned. Default value is: <b>10</b>. Max value is: <b>100</b></param>
+        /// <response code="200"> Orders list has been successfully fetched.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to fetch orders list is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(PagedListDto<OrderDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Authorize(Roles = "HotelClient,Diner")]
+        [Route("byDinerOrHotelClient")]
+        [HttpGet]
+        public Task<IActionResult> GetListOfOrdersByDinerOrClientHotel(string currentFilter, string searchKey, string sortOrder, string foodBusinessId,
+            int page, int pageSize, DateFilter dateInterval)
+        {
+            var query = new GetOrdersListByDinnerOrClientQuery
+            {
+                CurrentFilter = currentFilter,
+                SearchKey = searchKey,
+                SortOrder = sortOrder,
+                Page = page,
+                PageSize = pageSize,
+                FoodBusinessId = foodBusinessId,
+                DateInterval = dateInterval
+            };
+            return SendWithErrorsHandlingAsync(query);
+        }
+
         /// <summary> GetLastOrderByTableId() </summary>
         /// <remarks>
         ///     This endpoint allows user to fetch the last Order details in the given table <br></br>
