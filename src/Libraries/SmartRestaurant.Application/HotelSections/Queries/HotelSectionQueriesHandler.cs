@@ -8,12 +8,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 using SmartRestaurant.Application.HotelSections.Queries.FilterStrategy;
-
+using System;
+using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.HotelSections.Queries
 {
     public class HotelSectionQueriesHandler :
-        IRequestHandler<GetSectionsListByHotelIdQuery, PagedListDto<HotelSectionDto>>
+        IRequestHandler<GetSectionsListByHotelIdQuery, PagedListDto<HotelSectionDto>>,
+        IRequestHandler<GetHotelSectionByIdQuery, HotelSectionDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -39,6 +41,19 @@ namespace SmartRestaurant.Application.HotelSections.Queries
 
 
             return new PagedListDto<HotelSectionDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
+        }
+
+        public async Task<HotelSectionDto> Handle(GetHotelSectionByIdQuery request, CancellationToken cancellationToken)
+        {
+            var validator = new GetHotelSectionByIdQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var section = await _context.HotelSections.FindAsync(Guid.Parse(request.Id)).ConfigureAwait(false);
+            if (section == null)
+                throw new NotFoundException(nameof(HotelSection), request.Id);
+
+            return _mapper.Map<HotelSectionDto>(section);
         }
     }
 }
