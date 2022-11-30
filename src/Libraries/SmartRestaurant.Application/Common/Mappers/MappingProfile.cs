@@ -35,6 +35,7 @@ using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.ValueObjects;
+using SmartRestaurant.Application.Listings.Commands;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -490,6 +491,10 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<ListingDetail, ListingDetailDto>().ReverseMap();
 
+            CreateMap<CreateListingCommand,Listing>().
+                ForMember(l => l.ListingId, opt => opt.MapFrom(c =>c.Id));
+
+            CreateMap<UpdateListingCommand, Listing>().ReverseMap();
 
             CreateMap<Names, NamesDto>()
                 .ReverseMap();
