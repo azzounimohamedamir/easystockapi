@@ -164,7 +164,6 @@ namespace SmartRestaurant.API.Controllers
         /// <param name="currentFilter">Orders list can be filtred by: <b>order number</b></param>
         /// <param name="searchKey">Search keyword</param>
         /// <param name="sortOrder">Orders list can be sorted by: <b>acs</b> | <b>desc</b>. Default value is: <b>acs</b></param>
-        /// <param name="foodBusinessId">We will get dishes list linked to that foodBusinessId.</param>
         /// <param name="dateInterval">We will get results within the selected interval. Default interval is: <b>ToDay</b><br></br>
         ///     <b>Note 01:</b> This is the enum used to set Date Interval: <b>  enum DateFilter { ToDay, Last7Days, Last30Days, All } </b>
         /// </param>
@@ -179,7 +178,7 @@ namespace SmartRestaurant.API.Controllers
         [Authorize(Roles = "HotelClient,Diner")]
         [Route("byDinerOrHotelClient")]
         [HttpGet]
-        public Task<IActionResult> GetListOfOrdersByDinerOrClientHotel(string currentFilter, string searchKey, string sortOrder, string foodBusinessId,
+        public Task<IActionResult> GetListOfOrdersByDinerOrClientHotel(string currentFilter, string searchKey, string sortOrder,
             int page, int pageSize, DateFilter dateInterval)
         {
             var query = new GetOrdersListByDinnerOrClientQuery
@@ -189,7 +188,6 @@ namespace SmartRestaurant.API.Controllers
                 SortOrder = sortOrder,
                 Page = page,
                 PageSize = pageSize,
-                FoodBusinessId = foodBusinessId,
                 DateInterval = dateInterval
             };
             return SendWithErrorsHandlingAsync(query);

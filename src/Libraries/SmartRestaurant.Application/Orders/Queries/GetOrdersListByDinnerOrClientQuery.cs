@@ -15,7 +15,6 @@ namespace SmartRestaurant.Application.Orders.Queries
         public string SearchKey { get; set; }
         public string SortOrder { get; set; }
         public string CurrentFilter { get; set; }
-        public string FoodBusinessId { get; set; }
         public DateFilter DateInterval { get; set; }
     }
 
@@ -26,11 +25,7 @@ namespace SmartRestaurant.Application.Orders.Queries
             RuleFor(v => v.PageSize)
                 .LessThanOrEqualTo(100);
 
-            RuleFor(dish => dish.FoodBusinessId)
-                 .Cascade(CascadeMode.StopOnFirstFailure)
-                 .NotEmpty()
-                 .NotEqual(Guid.Empty.ToString())
-                 .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID");
+          
         }
     }
 }

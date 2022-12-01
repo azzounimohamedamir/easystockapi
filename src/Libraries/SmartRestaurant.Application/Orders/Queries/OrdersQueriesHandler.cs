@@ -98,20 +98,18 @@ namespace SmartRestaurant.Application.Orders.Queries
             var validator = new GetOrdersListByDinnerOrClientQueryValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
+            var filter = OrderStrategies.GetFilterStrategy(request.CurrentFilter);
+            var query = filter.FetchDataOfDinnerOrClient(_context.Orders, request, dinerId);
 
-            var foodBusiness = await _context.FoodBusinesses.FindAsync(Guid.Parse(request.FoodBusinessId));
-            if (foodBusiness == null)
-                throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
-
-            var filter = OrderStrategies.GetFilterStrategy2(request.CurrentFilter);
-            var query = filter.FetchDataOfDinnerOrClient(_context.Orders, request);
-
-            var queryData = await query.Data.Where(a=>a.CreatedBy== dinerId).ToListAsync(cancellationToken).ConfigureAwait(false);
+            var queryData = await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false);
             var data = _mapper.Map<List<OrderDto>>(queryData);
-
             foreach (var order in data)
             {
+                var foodBusiness = await _context.FoodBusinesses.FindAsync(Guid.Parse(order.FoodBusinessId));
+                if (foodBusiness == null)
+                    throw new NotFoundException(nameof(FoodBusiness), order.FoodBusinessId);
                 order.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(order.TotalToPay, foodBusiness.DefaultCurrency);
+
                 order.CreatedBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(queryData.Find(o => o.OrderId.ToString() == order.OrderId).CreatedBy));
             }
             return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);

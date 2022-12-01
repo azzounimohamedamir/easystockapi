@@ -14,20 +14,6 @@
                 default:
                     return new FilterOrdersByNumber();
             }
-        }
-
-        public static IOrderFilterStrategy GetFilterStrategy2(string currentFilter)
-        {
-            if (string.IsNullOrWhiteSpace(currentFilter))
-                return new FilterOrdersByNumber();
-
-            switch (currentFilter.ToLower())
-            {
-                case "number":
-                    return new FilterOrdersByNumber();
-                default:
-                    return new FilterOrdersByNumber();
-            }
-        }
+        } 
     }
 }
