@@ -20,17 +20,20 @@ namespace SmartRestaurant.Application.Orders.Queries
 {
     public class OrdersQueriesHandler : IRequestHandler<GetOrderByIdQuery, OrderDto>,
         IRequestHandler<GetOrdersListQuery, PagedListDto<OrderDto>>,
+        IRequestHandler<GetOrdersListByDinnerOrClientQuery, PagedListDto<OrderDto>>,
         IRequestHandler<GetLastOrderByTableIDQuery, OrderDto>
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
-        public OrdersQueriesHandler(IApplicationDbContext context, IMapper mapper, UserManager<ApplicationUser> userManager)
+        public OrdersQueriesHandler(IApplicationDbContext context, IUserService userService, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             _context = context;
             _mapper = mapper;
+            _userService = userService;
         }
 
         public async Task<OrderDto> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
@@ -89,7 +92,28 @@ namespace SmartRestaurant.Application.Orders.Queries
             }
             return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
+        public async Task<PagedListDto<OrderDto>> Handle(GetOrdersListByDinnerOrClientQuery request, CancellationToken cancellationToken)
+        {
+            var dinerId = _userService.GetUserId();
+            var validator = new GetOrdersListByDinnerOrClientQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+            var filter = OrderStrategies.GetFilterStrategy(request.CurrentFilter);
+            var query = filter.FetchDataOfDinnerOrClient(_context.Orders, request, dinerId);
 
+            var queryData = await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false);
+            var data = _mapper.Map<List<OrderDto>>(queryData);
+            foreach (var order in data)
+            {
+                var foodBusiness = await _context.FoodBusinesses.FindAsync(Guid.Parse(order.FoodBusinessId));
+                if (foodBusiness == null)
+                    throw new NotFoundException(nameof(FoodBusiness), order.FoodBusinessId);
+                order.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(order.TotalToPay, foodBusiness.DefaultCurrency);
+
+                order.CreatedBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(queryData.Find(o => o.OrderId.ToString() == order.OrderId).CreatedBy));
+            }
+            return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
+        }
         public async Task<OrderDto> Handle(GetLastOrderByTableIDQuery request, CancellationToken cancellationToken)
         {
             var validator = new GetLastOrderByTableIDValidator();
