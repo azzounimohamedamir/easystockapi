@@ -67,6 +67,7 @@ namespace SmartRestaurant.Application.Illness.Commands
             else
             {
                 await RemoveOldIlnessUserChoice(cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
                 foreach (var ilnessid in request.IllnessIds)
                 {
