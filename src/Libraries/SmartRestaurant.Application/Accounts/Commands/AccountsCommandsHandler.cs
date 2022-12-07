@@ -122,7 +122,8 @@ namespace SmartRestaurant.Application.Accounts.Commands
                     UserName = request.Email,
                     Email = request.Email,
                     FullName = request.Name,
-                    IsActive = true
+                    IsActive = true,
+                    EmailConfirmed = true
                 };
 
                 using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -134,9 +135,6 @@ namespace SmartRestaurant.Application.Accounts.Commands
                     var AddRolesToUserResult = await _userManager.AddToRoleAsync(user, Roles.Diner.ToString()).ConfigureAwait(false);
                     if (!AddRolesToUserResult.Succeeded)
                         throw new UserManagerException(AddRolesToUserResult.Errors);
-
-                    var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-                    SendConfirmEmail(user, emailToken);
 
                     transaction.Complete();
                 }
