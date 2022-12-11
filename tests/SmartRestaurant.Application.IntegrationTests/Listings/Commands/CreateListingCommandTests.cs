@@ -15,6 +15,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Listings.Commands
 
         public async Task CreateListing_ShouldSaveToDb()
         {
+            await RolesTestTools.CreateRoles();
             var newListing = await ListingTestTools.CreateListing();
             var expectedListing = await FindAsync<Listing>(newListing.ListingId);
 

@@ -13,7 +13,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
     {
         public static async Task<Listing> CreateListing()
         {
-            await RolesTestTools.CreateRoles();
+           
 
             var foodBusinessAdmin = await UsersTestTools.CreateFoodBusinessAdministrator();
             var hotel = await HotelTestTools.CreateHotel(foodBusinessAdmin.Id,"Marco Polo");

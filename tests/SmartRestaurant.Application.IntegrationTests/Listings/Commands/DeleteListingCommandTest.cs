@@ -16,6 +16,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Listings.Commands
 
         public async Task shouldDeleteListing()
         {
+            await RolesTestTools.CreateRoles();
             var newListing = await ListingTestTools.CreateListing();
             var checkListingExistance = await FindAsync<Listing>(newListing.ListingId);
             checkListingExistance.Should().NotBeNull();

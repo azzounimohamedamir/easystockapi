@@ -333,97 +333,13 @@ namespace SmartRestaurant.Infrastructure.Persistence
                         ListingId = Guid.Parse(listingId1),
                         AR = "تأجير السيارات",
                         EN = "Car rentals",
-                        FR = "locations de voitures",
+                        FR = "Locations de voitures",
                         TR = "Araba kiralama",
                         RU = "прокат автомобилей",
                     }
                     );
             });
-            modelBuilder.Entity<Listing>(l => {
-
-                l.HasData(new Listing
-                {
-                    ListingId = Guid.Parse(listingId2),
-                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
-                    WithImage = false,
-                });
-
-                l.OwnsOne(l => l.Names).HasData(
-                    new
-                    {
-                        ListingId = Guid.Parse(listingId2),
-                        AR = "تأجير السيارات",
-                        EN = "Car rentals",
-                        FR = "locations de voitures",
-                        TR = "Araba kiralama",
-                        RU = "прокат автомобилей",
-                    }
-                    );
-            });
-            modelBuilder.Entity<Listing>(l => {
-
-                l.HasData(new Listing
-                {
-                    ListingId = Guid.Parse(listingId3),
-                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
-                    WithImage = false,
-                });
-
-                l.OwnsOne(l => l.Names).HasData(
-                    new
-                    {
-                        ListingId = Guid.Parse(listingId3),
-                        AR = "تأجير السيارات",
-                        EN = "Car rentals",
-                        FR = "locations de voitures",
-                        TR = "Araba kiralama",
-                        RU = "прокат автомобилей",
-                    }
-                    );
-            });
-            modelBuilder.Entity<Listing>(l => {
-
-                l.HasData(new Listing
-                {
-                    ListingId = Guid.Parse(listingId4),
-                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
-                    WithImage = false,
-                });
-
-                l.OwnsOne(l => l.Names).HasData(
-                    new
-                    {
-                        ListingId = Guid.Parse(listingId4),
-                        AR = "تأجير السيارات",
-                        EN = "Car rentals",
-                        FR = "locations de voitures",
-                        TR = "Araba kiralama",
-                        RU = "прокат автомобилей",
-                    }
-                    );
-            });
-            modelBuilder.Entity<Listing>(l => {
-
-                l.HasData(new Listing
-                {
-                    ListingId = Guid.Parse(listingId5),
-                    HotelId = Guid.Parse(TajMhal_FoodBusinessId),
-                    WithImage = false,
-                });
-
-                l.OwnsOne(l => l.Names).HasData(
-                    new
-                    {
-                        ListingId = Guid.Parse(listingId5),
-                        AR = "تأجير السيارات",
-                        EN = "Car rentals",
-                        FR = "locations de voitures",
-                        TR = "Araba kiralama",
-                        RU = "прокат автомобилей",
-                    }
-                    );
-            });
-
+    
             #region creating new listing detail to listing 1
             modelBuilder.Entity<ListingDetail>(l => {
 
@@ -467,6 +383,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
             });
 
             #endregion
+         
             #endregion
             #region Create a Buildings
 
