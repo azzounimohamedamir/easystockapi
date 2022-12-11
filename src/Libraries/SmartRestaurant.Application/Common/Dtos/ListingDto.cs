@@ -19,5 +19,5 @@ public class ListingDetailDto
 {
     public Guid Id { get; set; }
     public Names Names { get; set; }
-    public string PictureUrl { get; set; }
+    public string Picture { get; set; }
 }

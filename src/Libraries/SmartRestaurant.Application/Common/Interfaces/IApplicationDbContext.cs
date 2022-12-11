@@ -24,6 +24,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<IlnessUser> ilnessUsers { get; set; }
         public DbSet<Listing> Listings { get; set; }
 
+        public DbSet<ListingDetail> ListingDetails { get; set; }
         public DbSet<Building> Buildings { get; set; }
 
         public DbSet<SubSection> SubSections { get; set; }

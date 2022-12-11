@@ -11,6 +11,7 @@ namespace SmartRestaurant.Application.Listings.Commands
         public Names Names { get; set; }
         public bool WithImage { get; set; }
         public Guid ListingId { get; set; }
+        public Guid HotelId { get; set; }
     }
 
     public class UpdateListingCommandValidator : AbstractValidator<UpdateListingCommand>
@@ -49,7 +50,9 @@ namespace SmartRestaurant.Application.Listings.Commands
                   .MaximumLength(200);
            });
 
-            RuleFor(l => l.ListingId).NotEmpty().NotEqual(Guid.Empty).WithMessage("'{PropertyName}' must be a valid GUID"); ;
+            RuleFor(l => l.HotelId).NotEmpty().NotEqual(Guid.Empty).WithMessage("'{PropertyName}' must be a valid GUID");
+
+            RuleFor(l => l.ListingId).NotEmpty().NotEqual(Guid.Empty).WithMessage("'{PropertyName}' must be a valid GUID"); 
 
         }
     }

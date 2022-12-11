@@ -37,6 +37,7 @@ using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.ValueObjects;
 using SmartRestaurant.Application.Listings.Commands;
 using SmartRestaurant.Application.HotelSections.Commands;
+using SmartRestaurant.Application.ListingDetails.Commands;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -498,12 +499,16 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Listing, ListingDto>().ReverseMap();
 
-            CreateMap<ListingDetail, ListingDetailDto>().ReverseMap();
+            CreateMap<ListingDetail, ListingDetailDto>().ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
 
             CreateMap<CreateListingCommand,Listing>().
                 ForMember(l => l.ListingId, opt => opt.MapFrom(c =>c.Id));
 
             CreateMap<UpdateListingCommand, Listing>().ReverseMap();
+
+            CreateMap<CreateListingDetailCommand, ListingDetail>().ForMember(l => l.Picture,o=>o.Ignore());
+
+            CreateMap<UpdateListingDetailCommand, ListingDetail>().ForMember(l => l.Picture, o => o.Ignore());
 
             CreateMap<Names, NamesDto>()
                 .ReverseMap();

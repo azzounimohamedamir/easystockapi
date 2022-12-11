@@ -17,7 +17,7 @@ namespace SmartRestaurant.Domain.Entities
     {
         public Guid Id { get; set; }
         public Names Names { get; set; }
-        public string PictureUrl { get; set; }
+        public byte[] Picture { get; set; }
         public Guid ListingId { get; set; }
         public Listing Listing { get; set; }
     }

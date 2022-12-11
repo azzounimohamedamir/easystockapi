@@ -17,6 +17,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Listings.Commands
 
         public async Task shouldUpdateListing()
         {
+            await RolesTestTools.CreateRoles();
             var newlisting = await ListingTestTools.CreateListing();
             var updateListingCommand = new UpdateListingCommand
             {
@@ -29,7 +30,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Listings.Commands
                     RU = "Путешествие на лодке2"
                 },
                 WithImage = true,
-                
+                HotelId = newlisting.HotelId,
             };
             await SendAsync(updateListingCommand);
             var updatedListing = await FindAsync<Listing>(newlisting.ListingId);

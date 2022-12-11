@@ -15,6 +15,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Listings.Queries
 
         public async Task shouldReturnListingById()
         {
+            await RolesTestTools.CreateRoles();
             var newListing = await ListingTestTools.CreateListing();
             var query = new GetListingByIdQuery { Id = newListing.ListingId.ToString() };
 
