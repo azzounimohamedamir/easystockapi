@@ -16,6 +16,8 @@ namespace SmartRestaurant.Application.Sections.Queries
 {
     public class SectionsQueriesHandler :
         IRequestHandler<GetSectionsListQuery, PagedListDto<SectionDto>>,
+        IRequestHandler<GetAllSectionsListQuery, PagedListDto<SectionDto>>,
+
         IRequestHandler<GetSectionByIdQuery, SectionDto>,
         IRequestHandler<GetSectionMenuItemsQuery, PagedListDto<MenuItemDto>>
     {
@@ -40,6 +42,17 @@ namespace SmartRestaurant.Application.Sections.Queries
             return pagedResult;
         }
 
+        public async Task<PagedListDto<SectionDto>> Handle(GetAllSectionsListQuery request,
+            CancellationToken cancellationToken)
+        {
+            var query = _context.Sections.OrderBy(s => s.Order)
+                .GetPaged(request.Page, request.PageSize);
+            var data = _mapper.Map<List<SectionDto>>(await query.Data.ToListAsync(cancellationToken)
+                .ConfigureAwait(false));
+            var pagedResult = new PagedListDto<SectionDto>(query.CurrentPage, query.PageCount, query.PageSize,
+                query.RowCount, data);
+            return pagedResult;
+        }
         public async Task<SectionDto> Handle(GetSectionByIdQuery request, CancellationToken cancellationToken)
         {
             var validator = new GetSectionByIdQueryValidator();

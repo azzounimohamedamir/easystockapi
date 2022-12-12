@@ -24,6 +24,15 @@ namespace SmartRestaurant.API.Controllers
                 {MenuId = id, Page = page, PageSize = pageSize});
         }
 
+        [Route("allsections")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient,Diner")]
+        public async Task<IActionResult> GetAllSections( int page, int pageSize)
+        {
+            return await SendWithErrorsHandlingAsync(new GetAllSectionsListQuery
+            { Page = page, PageSize = pageSize });
+        }
+
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Create(CreateSectionCommand command)

@@ -20,5 +20,9 @@ namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
         public List<OrderDishSpecificationDto> Specifications { get; set; }
         public List<OrderDishIngredientDto> Ingredients { get; set; }
         public List<OrderDishSupplementDto> Supplements { get; set; }
+
+        public string SectionId { get; set; }
+        public string SubSectionId { get; set; }
+
     }
 }

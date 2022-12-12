@@ -17,7 +17,9 @@ namespace SmartRestaurant.Application.SubSections.Queries
     public class SubSectionsQueriesHandler :
         IRequestHandler<GetSubSectionsListQuery, PagedListDto<SubSectionDto>>,
         IRequestHandler<GetSubSectionByIdQuery, SubSectionDto>,
-        IRequestHandler<GetSubSectionMenuItemsQuery, PagedListDto<MenuItemDto>>
+        IRequestHandler<GetSubSectionMenuItemsQuery, PagedListDto<MenuItemDto>>,
+        IRequestHandler<GetAllSubSectionsListQuery, PagedListDto<SubSectionDto>>
+
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -39,7 +41,17 @@ namespace SmartRestaurant.Application.SubSections.Queries
                 query.RowCount, data);
             return pagedResult;
         }
-
+        public async Task<PagedListDto<SubSectionDto>> Handle(GetAllSubSectionsListQuery request,
+         CancellationToken cancellationToken)
+        {
+            var query = _context.SubSections.OrderBy(s => s.Order)
+                .GetPaged(request.Page, request.PageSize);
+            var data = _mapper.Map<List<SubSectionDto>>(await query.Data.ToListAsync(cancellationToken)
+                .ConfigureAwait(false));
+            var pagedResult = new PagedListDto<SubSectionDto>(query.CurrentPage, query.PageCount, query.PageSize,
+                query.RowCount, data);
+            return pagedResult;
+        }
         public async Task<SubSectionDto> Handle(GetSubSectionByIdQuery request, CancellationToken cancellationToken)
         {
             var validator = new GetSubSectionByIdQueryValidator();

@@ -12,5 +12,8 @@ namespace SmartRestaurant.Domain.Entities
         public virtual IList<OrderDishSpecification> Specifications { get; set; }
         public virtual IList<OrderDishIngredient> Ingredients { get; set; }
         public virtual IList<OrderDishSupplement> Supplements { get; set; } 
+        public string SectionId { get; set; }
+        public string SubSectionId { get; set; }
+
     }
 }
