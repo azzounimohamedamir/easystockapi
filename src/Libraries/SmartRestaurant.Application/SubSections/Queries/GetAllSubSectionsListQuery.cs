@@ -1,12 +1,13 @@
 ﻿using System;
+using MediatR;
+using System.Collections.Generic;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Interfaces;
 
 namespace SmartRestaurant.Application.SubSections.Queries
 {
-    public class GetAllSubSectionsListQuery : IPagedListQuery<SubSectionDto>
+    public class GetAllSubSectionsListQuery : IRequest<List<SubSectionDto>>
     {
-        public int Page { get; set; }
-        public int PageSize { get; set; }
+        public string FoodBusinessId { get; set; }
     }
 }

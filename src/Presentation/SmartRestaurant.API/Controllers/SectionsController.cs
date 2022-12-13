@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.FoodBusinessClient.Queries;
 using SmartRestaurant.Application.Sections.Commands;
 using SmartRestaurant.Application.Sections.Queries;
 using Swashbuckle.AspNetCore.Annotations;
@@ -17,21 +19,37 @@ namespace SmartRestaurant.API.Controllers
     {
         [Route("menu/{id:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient")]
         public async Task<IActionResult> GetByMenuId([FromRoute] Guid id, int page, int pageSize)
         {
             return await SendWithErrorsHandlingAsync(new GetSectionsListQuery
                 {MenuId = id, Page = page, PageSize = pageSize});
         }
 
-        [Route("allsections")]
+        [Route("allsections/{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient,Diner")]
-        public async Task<IActionResult> GetAllSections( int page, int pageSize)
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient")]
+        public  Task<IActionResult> GetAllSectionsByFoodBusinessId([FromRoute] string id)
         {
-            return await SendWithErrorsHandlingAsync(new GetAllSectionsListQuery
-            { Page = page, PageSize = pageSize });
+            var query = new GetAllSectionsListQuery
+            {
+                
+                FoodBusinessId = id 
+            };
+            return SendWithErrorsHandlingAsync(query);
         }
+
+        [ProducesResponseType(typeof(IEnumerable<FoodBusinessClientDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("foodbusiness/{id}")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin,Diner,HotelClient")]
+        public Task<IActionResult> GetFoodBusinesClientListByFoodBusinessIdQuery([FromRoute] string id)
+        {
+            return SendWithErrorsHandlingAsync(new GetFoodBusinesClientListByFoodBusinessIdQuery { FoodBusinessId = id });
+        }
+
+
 
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]

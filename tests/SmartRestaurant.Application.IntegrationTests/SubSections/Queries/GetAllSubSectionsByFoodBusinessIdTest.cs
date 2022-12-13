@@ -15,35 +15,42 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections.Queries
     using static Testing;
 
     [TestFixture]
-    public class GetAllSubSectionsWithoutParamsTest : TestBase
+    public class GetAllSubSectionsByFoodBusinessIdTest : TestBase
     {
         [Test]
-        public async Task ShouldGetAllSections_FromDb()
+        public async Task ShouldGetAllSubsectionByfoodBusinessId_FromDb()
         {
             await RolesTestTools.CreateRoles();
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
+            var fastFood2 = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
             var createMenuCommand = new CreateMenuCommand
             {
                 Name = "test menu",
                 FoodBusinessId = fastFood.FoodBusinessId
             };
+
+            var createMenuCommand2 = new CreateMenuCommand
+            {
+                Name = "test menu 2",
+                FoodBusinessId = fastFood2.FoodBusinessId
+            };
             await SendAsync(createMenuCommand);
+            await SendAsync(createMenuCommand2);
 
             var createSectionCommand = await SectionTestTools.CreateSection(createMenuCommand, "section test");
-            for (var i = 0; i < 5; i++)
-              await SubSectionTestTools.CreateSubSection(createSectionCommand, "sub-section test " + i, i + 1).ConfigureAwait(false);
+            var createSectionCommand2 = await SectionTestTools.CreateSection(createMenuCommand2, "section test 2");
 
-            var query = new GetAllSubSectionsListQuery {  Page = 1, PageSize = 5};
+            await SubSectionTestTools.CreateSubSection(createSectionCommand, "sub-section test ").ConfigureAwait(false);
+              await SubSectionTestTools.CreateSubSection(createSectionCommand2, "sub-section test 2 ").ConfigureAwait(false);
+
+            var query = new GetAllSubSectionsListQuery { FoodBusinessId=fastFood.FoodBusinessId.ToString()};
             var result = await SendAsync(query);
 
-            result.Data.Should().HaveCount(5);
-            result.Data[0].Order.Should().Be(1);
-            result.Data[1].Order.Should().Be(2);
-            result.Data[2].Order.Should().Be(3);
-            result.Data[3].Order.Should().Be(4);
-            result.Data[4].Order.Should().Be(5);
+            result.Should().HaveCount(1);
+            result[0].Name.Should().Be("sub-section test ");
+            
         }
     }
 }

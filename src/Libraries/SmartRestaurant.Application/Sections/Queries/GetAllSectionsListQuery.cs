@@ -1,12 +1,14 @@
 ﻿using System;
+using MediatR;
+using System.Collections.Generic;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Interfaces;
 
 namespace SmartRestaurant.Application.Sections.Queries
 {
-    public class GetAllSectionsListQuery : IPagedListQuery<SectionDto>
+    public class GetAllSectionsListQuery : IRequest<List<SectionDto>>
     {
-        public int Page { get; set; }
-        public int PageSize { get; set; }
+        public string FoodBusinessId { get; set; }
+
     }
 }

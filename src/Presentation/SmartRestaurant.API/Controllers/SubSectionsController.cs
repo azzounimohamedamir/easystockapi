@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Sections.Queries;
 using SmartRestaurant.Application.SubSections.Commands;
 using SmartRestaurant.Application.SubSections.Queries;
 
@@ -22,13 +23,30 @@ namespace SmartRestaurant.API.Controllers
                 {SectionId = id, Page = page, PageSize = pageSize});
         }
 
-        [Route("allsubs")]
+        [Route("allsubs/{id}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,HotelClient,Diner")]
-        public async Task<IActionResult> GetAll( int page, int pageSize)
+        public  Task<IActionResult> GetAllSubsectionsByFoodBusinessId([FromRoute] string id)
         {
-            return await SendWithErrorsHandlingAsync(new GetAllSubSectionsListQuery
-            { Page = page, PageSize = pageSize });
+            var query = new GetAllSubSectionsListQuery
+            {
+                FoodBusinessId = id
+            };
+            return SendWithErrorsHandlingAsync(query);
+        }
+
+
+        [Route("allsections/{id}")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient")]
+        public Task<IActionResult> GetAllSectionsByFoodBusinessId([FromRoute] string id)
+        {
+            var query = new GetAllSectionsListQuery
+            {
+
+                FoodBusinessId = id
+            };
+            return SendWithErrorsHandlingAsync(query);
         }
 
         [HttpPost]
