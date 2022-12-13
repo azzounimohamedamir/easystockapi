@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221207134048_UpdateOrderDishTable")]
+    partial class UpdateOrderDishTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -885,6 +887,30 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             ListingId = new Guid("8087b4c3-b0b0-49e5-b317-85b6b43d97cf"),
                             HotelId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
                             WithImage = false
+                        },
+                        new
+                        {
+                            ListingId = new Guid("d9099b79-4975-48ca-894c-d92b62b037f0"),
+                            HotelId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
+                            WithImage = false
+                        },
+                        new
+                        {
+                            ListingId = new Guid("518c80ef-0dc7-4f6b-b3ba-eed11f4ca9ca"),
+                            HotelId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
+                            WithImage = false
+                        },
+                        new
+                        {
+                            ListingId = new Guid("8f98fbfc-ec30-4b71-81c8-f32ed6cd3e65"),
+                            HotelId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
+                            WithImage = false
+                        },
+                        new
+                        {
+                            ListingId = new Guid("0bfed7fb-a809-49f2-8c96-381f569abdfd"),
+                            HotelId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
+                            WithImage = false
                         });
                 });
 
@@ -897,14 +923,14 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<Guid>("ListingId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<byte[]>("Picture")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("PictureUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ListingId");
 
-                    b.ToTable("ListingDetails");
+                    b.ToTable("ListingDetail");
 
                     b.HasData(
                         new
@@ -2831,7 +2857,43 @@ namespace SmartRestaurant.Infrastructure.Migrations
                                     ListingId = new Guid("8087b4c3-b0b0-49e5-b317-85b6b43d97cf"),
                                     AR = "تأجير السيارات",
                                     EN = "Car rentals",
-                                    FR = "Locations de voitures",
+                                    FR = "locations de voitures",
+                                    RU = "прокат автомобилей",
+                                    TR = "Araba kiralama"
+                                },
+                                new
+                                {
+                                    ListingId = new Guid("d9099b79-4975-48ca-894c-d92b62b037f0"),
+                                    AR = "تأجير السيارات",
+                                    EN = "Car rentals",
+                                    FR = "locations de voitures",
+                                    RU = "прокат автомобилей",
+                                    TR = "Araba kiralama"
+                                },
+                                new
+                                {
+                                    ListingId = new Guid("518c80ef-0dc7-4f6b-b3ba-eed11f4ca9ca"),
+                                    AR = "تأجير السيارات",
+                                    EN = "Car rentals",
+                                    FR = "locations de voitures",
+                                    RU = "прокат автомобилей",
+                                    TR = "Araba kiralama"
+                                },
+                                new
+                                {
+                                    ListingId = new Guid("8f98fbfc-ec30-4b71-81c8-f32ed6cd3e65"),
+                                    AR = "تأجير السيارات",
+                                    EN = "Car rentals",
+                                    FR = "locations de voitures",
+                                    RU = "прокат автомобилей",
+                                    TR = "Araba kiralama"
+                                },
+                                new
+                                {
+                                    ListingId = new Guid("0bfed7fb-a809-49f2-8c96-381f569abdfd"),
+                                    AR = "تأجير السيارات",
+                                    EN = "Car rentals",
+                                    FR = "locations de voitures",
                                     RU = "прокат автомобилей",
                                     TR = "Araba kiralama"
                                 });
@@ -2868,7 +2930,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                             b1.HasKey("ListingDetailId");
 
-                            b1.ToTable("ListingDetails");
+                            b1.ToTable("ListingDetail");
 
                             b1.WithOwner()
                                 .HasForeignKey("ListingDetailId");

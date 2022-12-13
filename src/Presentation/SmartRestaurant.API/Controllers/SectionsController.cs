@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +18,28 @@ namespace SmartRestaurant.API.Controllers
     {
         [Route("menu/{id:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient")]
         public async Task<IActionResult> GetByMenuId([FromRoute] Guid id, int page, int pageSize)
         {
             return await SendWithErrorsHandlingAsync(new GetSectionsListQuery
                 {MenuId = id, Page = page, PageSize = pageSize});
         }
+
+        [Route("allsections/{id}")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient")]
+        public  Task<IActionResult> GetAllSectionsByFoodBusinessId([FromRoute] string id)
+        {
+            var query = new GetAllSectionsListQuery
+            {
+                
+                FoodBusinessId = id 
+            };
+            return SendWithErrorsHandlingAsync(query);
+        }
+
+     
+
 
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
