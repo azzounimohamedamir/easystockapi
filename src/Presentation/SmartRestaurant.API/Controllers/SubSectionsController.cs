@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.Sections.Queries;
 using SmartRestaurant.Application.SubSections.Commands;
 using SmartRestaurant.Application.SubSections.Queries;
 
@@ -36,18 +35,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
-        [Route("allsections/{id}")]
-        [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient")]
-        public Task<IActionResult> GetAllSectionsByFoodBusinessId([FromRoute] string id)
-        {
-            var query = new GetAllSectionsListQuery
-            {
-
-                FoodBusinessId = id
-            };
-            return SendWithErrorsHandlingAsync(query);
-        }
+      
 
         [HttpPost]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
