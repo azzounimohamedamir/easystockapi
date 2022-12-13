@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.FoodBusinessClient.Queries;
 using SmartRestaurant.Application.Sections.Commands;
 using SmartRestaurant.Application.Sections.Queries;
 using Swashbuckle.AspNetCore.Annotations;
@@ -39,16 +38,7 @@ namespace SmartRestaurant.API.Controllers
             return SendWithErrorsHandlingAsync(query);
         }
 
-        [ProducesResponseType(typeof(IEnumerable<FoodBusinessClientDto>), 200)]
-        [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Route("foodbusiness/{id}")]
-        [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin,Diner,HotelClient")]
-        public Task<IActionResult> GetFoodBusinesClientListByFoodBusinessIdQuery([FromRoute] string id)
-        {
-            return SendWithErrorsHandlingAsync(new GetFoodBusinesClientListByFoodBusinessIdQuery { FoodBusinessId = id });
-        }
-
+     
 
 
         [HttpPost]
