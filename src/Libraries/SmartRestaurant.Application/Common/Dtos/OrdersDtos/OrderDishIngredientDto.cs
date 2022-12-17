@@ -7,6 +7,8 @@ namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
     {
         public bool IsPrimary { get; set; }
         public float Amount { get; set; }
+        public float InitAmount { get; set; }
+
         public float MinimumAmount { get; set; }
         public float MaximumAmount { get; set; }
         public float AmountIncreasePerStep { get; set; }
