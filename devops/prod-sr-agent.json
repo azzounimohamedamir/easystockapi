@@ -21,6 +21,9 @@
     "Pass": "PlT20.1L!Dr",
     "Port": "587"
   },
+  "FirebaseConfig": {
+    "BasePath": "FoodBusinessProd"
+  },
   "WebPortal": {
     "host": "https://app.smartrestaurant.io",
     "pathToEmployeeAcceptInvitation": "/account/{id}/accept-invitation?token={token}",
