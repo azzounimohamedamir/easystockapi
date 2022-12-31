@@ -26,16 +26,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Buildings.Commands
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var hotel= await HotelTestTools.CreateHotel(foodBusinessAdministrator.Id, "Shiraton");
 
-            List<IFormFile> formFiles = new List<IFormFile>();
-            byte[] bytes = Convert.FromBase64String(Properties.Resources.PictureBase64_02);
-            MemoryStream stream = new MemoryStream(bytes);
-            string picture ="Building.jpeg";
-
             var createBuildingCommand = new CreateBuildingCommand
             {
                 Name = "Building 01",
                 HotelId = hotel.Id,
-                Picture = picture
+                Picture = ""
             };
             await SendAsync(createBuildingCommand);
 
