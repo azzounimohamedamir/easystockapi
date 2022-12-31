@@ -22,8 +22,7 @@ namespace SmartRestaurant.Application.Rooms.Commands
         public UpdateRoomCommandValidator()
         {
             RuleFor(room => room.BuildingId).NotEmpty().NotEqual(Guid.Empty).WithMessage("'{PropertyName}' must be a valid GUID"); ;
-            RuleFor(x => x.ClientEmail).NotEmpty().Must(ValidatorHelper.ValidateEmail)
-                .WithMessage("'Email' is invalide");
+            
         }
 
     }
