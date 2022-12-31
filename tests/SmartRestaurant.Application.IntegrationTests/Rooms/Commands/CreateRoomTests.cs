@@ -7,43 +7,45 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
-using SmartRestaurant.Application.Buildings.Commands;
+using SmartRestaurant.Application.Rooms.Commands;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Hotels.Commands;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 
-namespace SmartRestaurant.Application.IntegrationTests.Buildings.Commands
+namespace SmartRestaurant.Application.IntegrationTests.Rooms.Commands
 {
     using static Testing;
 
     [TestFixture]
-    public class CreateBuildingTests : TestBase
+    public class CreateRoomTests : TestBase
     {
         [Test]
-        public async Task CreateBuilding_ShouldSaveToDB()
+        public async Task CreateRoom_ShouldSaveToDB()
         {
             await RolesTestTools.CreateRoles();
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var hotel= await HotelTestTools.CreateHotel(foodBusinessAdministrator.Id, "Shiraton");
-
+            var building= await BuildingTestTools.CreateBuilding("building 01",hotel.Id);
             List<IFormFile> formFiles = new List<IFormFile>();
-            byte[] bytes = Convert.FromBase64String(Properties.Resources.PictureBase64_02);
-            MemoryStream stream = new MemoryStream(bytes);
+           
             string picture ="Building.jpeg";
 
-            var createBuildingCommand = new CreateBuildingCommand
+            var createRoomCommand = new CreateRoomCommand
             {
-                Name = "Building 01",
-                HotelId = hotel.Id,
-                Picture = picture
+                BuildingId = building.Id,
+                RoomNumber = 2,
+                NumberOfBeds = 1,
+                FloorNumber = 2,
+                ClientEmail = "amir@gmail.com",
+                IsBooked=true
             };
-            await SendAsync(createBuildingCommand);
+            await SendAsync(createRoomCommand);
 
-            var item = await FindAsync<Domain.Entities.Building>(createBuildingCommand.Id);
+            var item = await FindAsync<Domain.Entities.Room>(createRoomCommand.Id);
 
             item.Should().NotBeNull();
-            item.HotelId.Should().Be(hotel.Id);
-            item.Name.Should().BeEquivalentTo(createBuildingCommand.Name);
+            item.BuildingId.Should().Be(building.Id);
+            item.ClientEmail.Should().BeEquivalentTo(createRoomCommand.ClientEmail);
         }
     }
 }

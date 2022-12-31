@@ -5,6 +5,9 @@ using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Buildings.Commands;
 using Swashbuckle.AspNetCore.Annotations;
+using SmartRestaurant.Application.Buildings.Queries;
+using System;
+using SmartRestaurant.Application.Rooms.Commands;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -13,6 +16,24 @@ namespace SmartRestaurant.API.Controllers
     [SwaggerTag("List of actions that can be applied on Buildings in a building of hotel")]
     public class BuildingsController : ApiController
     {
+
+        [Route("{id:guid}")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<IActionResult> GetAllBuildingsByHotelId([FromRoute] Guid id, string currentFilter, string searchKey, int page, int pageSize)
+        {
+            return await SendWithErrorsHandlingAsync(new GetAllBuildingsByHotelId {
+               
+                HotelId = id,
+                Page = page,
+                PageSize = pageSize,
+                CurrentFilter = currentFilter,
+                SearchKey = searchKey,
+
+            });
+        }
+
+
         /// <summary> CreateNewBuilding() </summary>
         /// <remarks>
         ///     This endpoint allows <b>foodbuisness manager</b> to create a new building. 
@@ -28,6 +49,22 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> Create([FromForm] CreateBuildingCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
+        }
+
+
+        [HttpPut]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
+        public async Task<IActionResult> Update([FromForm] UpdateBuildingCommand command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+        [Route("{id:guid}")]
+        [HttpDelete]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            return await SendWithErrorsHandlingAsync(new DeleteBuildingCommand { Id = id });
         }
     }
 }
