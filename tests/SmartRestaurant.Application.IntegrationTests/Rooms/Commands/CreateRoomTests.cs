@@ -1,15 +1,9 @@
-﻿using System.Collections.Generic;
-using System;
-using System.IO;
-using System.Text;
+﻿
 using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json.Linq;
+
 using NUnit.Framework;
 using SmartRestaurant.Application.Rooms.Commands;
-using SmartRestaurant.Application.Common.Dtos.ValueObjects;
-using SmartRestaurant.Application.Hotels.Commands;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 
 namespace SmartRestaurant.Application.IntegrationTests.Rooms.Commands
@@ -26,9 +20,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Rooms.Commands
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var hotel= await HotelTestTools.CreateHotel(foodBusinessAdministrator.Id, "Shiraton");
             var building= await BuildingTestTools.CreateBuilding("building 01",hotel.Id);
-            List<IFormFile> formFiles = new List<IFormFile>();
-           
-            string picture ="Building.jpeg";
+             
 
             var createRoomCommand = new CreateRoomCommand
             {
@@ -46,6 +38,10 @@ namespace SmartRestaurant.Application.IntegrationTests.Rooms.Commands
             item.Should().NotBeNull();
             item.BuildingId.Should().Be(building.Id);
             item.ClientEmail.Should().BeEquivalentTo(createRoomCommand.ClientEmail);
+            item.IsBooked.Should().BeTrue();
+            item.RoomNumber.Should().Be(2);
+            item.FloorNumber.Should().Be(2);
+            item.NumberOfBeds.Should().Be(1);
         }
     }
 }

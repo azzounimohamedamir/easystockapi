@@ -6,6 +6,7 @@ using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Buildings.Commands;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Domain.Enums;
+using System.Text;
 
 namespace SmartRestaurant.Application.IntegrationTests.Buildings.Commands
 {
@@ -38,6 +39,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Buildings.Commands
 
                 list.Id.Should().Be(updateBuildingCommand.Id);
                 list.Name.Should().Be("Newsafirbuilding");
+                list.Picture = Encoding.ASCII.GetBytes(updateBuildingCommand.Picture);
 
             });
         }

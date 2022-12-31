@@ -15,7 +15,12 @@ namespace SmartRestaurant.API.Controllers
     public class RoomsController : ApiController
     {
 
-
+        /// <summary> GetRoomsByBuildingId() </summary>
+        /// <remarks>This endpoint allows us to fetch list of Room of Current Building </remarks>
+        /// <response code="200"> Room list has been successfully fetched.<br></br></response>
+        /// <response code="400">The payload data sent to the backend-server in order to fetch room list is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [Route("{id:guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager")]
@@ -39,13 +44,29 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(command);
         }
 
+        /// <summary> UpdateRoom() </summary>
+        /// <remarks>
+        ///     This endpoint allows SM user to update room.<br></br>
+        /// </remarks>
+        /// <param name="id">id of the room that would be updated</param>
+        /// <param name="command">This is the payload object used to update room</param>
+        /// <response code="204">The room has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to update a room is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [HttpPut]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> Update([FromForm]  UpdateRoomCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }
-
+        /// <summary> DeleteRoom() </summary>
+        /// <remarks>This endpoint allows <b>Food Business Manager</b> to delete room.</remarks>
+        /// <param name="id">id of the building that would be deleted</param>
+        /// <response code="204">The room has been successfully deleted.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to delete a room is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [Route("{id:guid}")]
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
