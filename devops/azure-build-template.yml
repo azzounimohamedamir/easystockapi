@@ -33,7 +33,7 @@
        displayName: Database Initialization
     dependsOn: Build_the_API
     condition: succeeded()
-
+    
   - job: DeployWaitingApproval
     #dependsOn: Build_the_API
     dependsOn: Database_Migration
