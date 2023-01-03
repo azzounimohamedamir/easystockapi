@@ -12,7 +12,7 @@ namespace SmartRestaurant.Application.Buildings.Commands
     public class CreateBuildingCommand : CreateCommand
     {
         public string Name { get; set; }
-        public IFormFile Picture { get; set; }
+        public string Picture { get; set; }
         public Guid HotelId { get; set; }
     }
 

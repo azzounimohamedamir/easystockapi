@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartRestaurant.Application.Common.Dtos.DishDtos;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,6 +17,7 @@ namespace SmartRestaurant.Application.Common.Dtos
     public class DisheInSupplement
     {
         public string IdDish { get; set; }
+        public DishDto Dish { get; set; }
         public  bool InSuplement { get; set; }
     }
 }

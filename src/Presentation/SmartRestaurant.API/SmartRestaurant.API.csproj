@@ -15,8 +15,9 @@
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.0" />
 		<PackageReference Include="FluentValidation" Version="8.6.2" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.25" />
-		
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0"/>
+		 
 		<PackageReference Include="Microsoft.OpenApi" Version="1.2.3" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
@@ -32,5 +33,10 @@
 	  <ProjectReference Include="..\..\Libraries\SmartRestaurant.Domain\SmartRestaurant.Domain.csproj" />
 	  <ProjectReference Include="..\..\Libraries\SmartRestaurant.Infrastructure.Identity\SmartRestaurant.Infrastructure.Identity.csproj" />
 	  <ProjectReference Include="..\..\Libraries\SmartRestaurant.Infrastructure\SmartRestaurant.Infrastructure.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="firebase.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 </Project>

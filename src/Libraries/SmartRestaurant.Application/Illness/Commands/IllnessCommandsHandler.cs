@@ -5,6 +5,7 @@ using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,16 +17,19 @@ namespace SmartRestaurant.Application.Illness.Commands
 {
     public class IllnessCommandsHandler :
         IRequestHandler<CreateIllnessCommand, Created>,
+        IRequestHandler<CreateIllnessUserCommand, Created>,
         IRequestHandler<UpdateIllnessCommand, NoContent>,
         IRequestHandler<DeleteIllnessCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
-        public IllnessCommandsHandler(IApplicationDbContext context, IMapper mapper)
+        public IllnessCommandsHandler(IApplicationDbContext context, IMapper mapper, IUserService userService)
         {
             _context = context;
             _mapper = mapper;
+            _userService = userService;
         }
 
         public async Task<Created> Handle(CreateIllnessCommand request, CancellationToken cancellationToken)
@@ -48,6 +52,62 @@ namespace SmartRestaurant.Application.Illness.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
+
+
+
+        public async Task<Created> Handle(CreateIllnessUserCommand request, CancellationToken cancellationToken)
+        {
+
+            if(request.IllnessIds.Count == 0)
+            {
+                await RemoveOldIlnessUserChoice(cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+            }
+            else
+            {
+                await RemoveOldIlnessUserChoice(cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+                foreach (var ilnessid in request.IllnessIds)
+                {
+                    var ilnessUser = new IlnessUser
+                    {
+                        ApplicationUserId = _userService.GetUserId(),
+                        IllnessId = Guid.Parse(ilnessid)
+                    };
+
+                    await _context.ilnessUsers.AddAsync(ilnessUser).ConfigureAwait(false);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                }
+            }
+            return default;
+        }
+
+
+
+
+
+
+
+
+        private async Task RemoveOldIlnessUserChoice(CancellationToken cancellationToken)
+        {
+            var user = _userService.GetUserId();
+
+            var list = await _context.ilnessUsers.Where(a=>a.ApplicationUserId == user).ToListAsync();
+            foreach (var item in list)
+            {
+                _context.ilnessUsers.Remove(item);
+            }
+        }
+
+
+
+
+
+
+
 
         public async Task<NoContent> Handle(UpdateIllnessCommand request, CancellationToken cancellationToken)
         {
@@ -93,5 +153,7 @@ namespace SmartRestaurant.Application.Illness.Commands
             await _context.SaveChangesAsync(cancellationToken);
             return default;
         }
+
+        
     }
 }

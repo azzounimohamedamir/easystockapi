@@ -20,6 +20,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
         IRequestHandler<GetFourDigitCodeFoodBusinessByIdQuery, FoodBusinessDto>,
         IRequestHandler<GetFoodBusinessListByAdmin, List<FoodBusinessDto>>,
         IRequestHandler<GetUsersByFoodBusinessIdQuery, string[]>,
+        IRequestHandler<GetAllFoodBusinessAccpetsImportationQuery, PagedListDto<FoodBusinessDto>>,
         IRequestHandler<GetAllFoodBusinessByFoodBusinessManagerQuery, List<FoodBusinessDto>>
     {
         private readonly IApplicationDbContext _applicationDbContext;
@@ -59,6 +60,21 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             var result = await PopulatDtoWithFoodBuisenessLogos(foodBusinesses, cancellationToken).ConfigureAwait(false);
             return result;
 
+        }
+        public async Task<PagedListDto<FoodBusinessDto>> Handle(GetAllFoodBusinessAccpetsImportationQuery request,
+            CancellationToken cancellationToken)
+        {
+
+            var validator = new GetAllFoodBusinessAccpetsImportationQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var filter = FoodBusinessStrategies.GetFilterStrategy(request.CurrentFilter);
+            var query = filter.FetchDataFbAcceptDelivery(_applicationDbContext.FoodBusinesses, request);
+
+            var data = _mapper.Map<List<FoodBusinessDto>>(await query.Data.Where(a=>a.AcceptDelivery==true).ToListAsync(cancellationToken).ConfigureAwait(false));
+
+            return new PagedListDto<FoodBusinessDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
 
         private async Task<List<FoodBusinessDto>> PopulatDtoWithFoodBuisenessLogos(List<Domain.Entities.FoodBusiness> foodBusinesses, CancellationToken cancellationToken)

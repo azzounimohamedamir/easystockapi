@@ -15,11 +15,18 @@ namespace SmartRestaurant.Application.Common.Interfaces
 
         public DbSet<Zone> Zones { get; set; }
         public DbSet<Table> Tables { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Section> Sections { get; set; }
+        public DbSet<HotelSection> HotelSections { get; set; }
         public DbSet<SectionDish> SectionDishes { get; set; }
         public DbSet<SectionProduct> SectionProducts { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<IlnessUser> ilnessUsers { get; set; }
+        public DbSet<Listing> Listings { get; set; }
+
+        public DbSet<ListingDetail> ListingDetails { get; set; }
         public DbSet<Building> Buildings { get; set; }
 
         public DbSet<SubSection> SubSections { get; set; }

@@ -37,6 +37,37 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(command);
         }
 
+        /// <summary> This endpoint is used to create an Illness User </summary>
+        /// <remarks>
+        ///     1- This endpoint allows <b>FoodBusinessManager</b> or  <b>Diner</b> to create IllnessUser.
+        ///     <br></br>
+        /// </remarks>
+        /// <param name="command">This is Json object user create Illness</param>
+        /// <response code="204">The IllnessUser has been successfully created.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to create an IllnessUser is invalid.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [HttpPost]
+        [Route("illnessuser")]
+
+        [Authorize(Roles = "FoodBusinessManager,Diner")]
+        public async Task<IActionResult> CreateIlnessUser(CreateIllnessUserCommand command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+
+        
+
+
+
         /// <summary> This endpoint is used to update an Illness </summary>
         /// <remarks>
         ///     1- This endpoint allows <b>Support Agent</b> to update Illness.
@@ -178,6 +209,69 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> WarningIngredentOrder(GetWarningIngredientOfOrderWithIllnessQuery command)
         {
             return await SendWithErrorsHandlingAsync(command);
+        }
+
+
+
+
+
+
+        /// <summary> This endpoint is used to Get the corresponding illness of ingridient in a liste of deshes grouping with ingredients (SmartRestaurant Web )  </summary>
+        /// <remarks>
+        ///     1- This endpoint allows <b>FoodBusinessManager ,SupportAgent,FoodBusinessAdministrator,SuperAdmin</b> to Query the Illness of dishes ingredients.
+        ///     <br></br>
+        /// </remarks>
+        /// <param name="command">This is Json object containe the ids of deshes</param>
+        /// <response code="400">The payload data sent to the backend-server in order to Query Illness is invalid.</response>
+        /// <response code="401">
+        ///     The cause of 401 error is one of two reasons: Either the user is not logged into the application
+        ///     or authentication token is invalid or expired.
+        /// </response>
+        /// <response code="403">
+        ///     The user account you used to log into the application, does not have the necessary privileges to
+        ///     execute this request.
+        /// </response>
+        [ProducesResponseType(typeof(WarningIngredientOfOrder), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [ProducesResponseType(typeof(ExceptionResponse), 401)]
+        [ProducesResponseType(typeof(ExceptionResponse), 403)]
+        [HttpPost]
+        [Route("warningingredentOrderWeb")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner")]
+        public async Task<IActionResult> WarningIngredentOrderWeb(GetWarningIngredientOfOrderWithIllnessWebQuery command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+
+        /// <summary> This endpoint is used to List of illness by logged User </summary>
+        /// <remarks>This endpoint allows us to fetch list of illness by logged User .</remarks>
+        /// <param name="currentFilter">illnesses list can be filtred by: <b>illnessId</b></param>
+        /// <param name="searchKey">Search keyword</param>
+        /// <param name="sortOrder">illnesses list can be sorted by: <b>acs</b> | <b>desc</b>. Default value is: <b>acs</b></param>
+        /// <param name="page">The start position of read pointer in a request results. Default value is: <b>1</b></param>
+        /// <param name="pageSize">The max number of Reservations that should be returned. Default value is: <b>10</b>. Max value is: <b>100</b></param>
+        /// <response code="200"> illnesses list has been successfully fetched.<br></br></response>
+        /// <response code="400">The payload data sent to the backend-server in order to fetch illnesses list is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+
+        [Route("illnessesOfuser")]
+        [ProducesResponseType(typeof(PagedListDto<IllnessUserDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Authorize(Roles = "FoodBusinessManager,Diner")]
+        [HttpGet]
+        public Task<IActionResult> GetAlreadyCheckedIlness(string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
+        {
+            var query = new GetIlnessessbyUserQuery
+            {
+                CurrentFilter = currentFilter,
+                SearchKey = searchKey,
+                SortOrder = sortOrder,
+                Page = page,
+                PageSize = pageSize,
+            };
+            return SendWithErrorsHandlingAsync(query);
         }
     }
 }

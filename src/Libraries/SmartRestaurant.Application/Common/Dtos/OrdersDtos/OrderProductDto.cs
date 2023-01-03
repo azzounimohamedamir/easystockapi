@@ -14,5 +14,9 @@ namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
         public int TableNumber { get; set; }
         public int ChairNumber { get; set; }
         public float Quantity { get; set; }
+        public string SectionId { get; set; }
+        public string SubSectionId { get; set; }
+
+
     }
 }
