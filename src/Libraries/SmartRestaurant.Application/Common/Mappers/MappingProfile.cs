@@ -39,6 +39,7 @@ using SmartRestaurant.Application.Listings.Commands;
 using SmartRestaurant.Application.HotelSections.Commands;
 using SmartRestaurant.Application.ListingDetails.Commands;
 using SmartRestaurant.Application.Rooms.Commands;
+using SmartRestaurant.Application.Checkins.Commands;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -98,7 +99,19 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
 
+            CreateMap<CreateCheckInCommand, Domain.Entities.CheckIn>()
+              .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+              .ForMember(x => x.RoomId, o => o.MapFrom(p => p.RoomId))
+              .ForMember(x => x.ClientId, o => o.MapFrom(p => p.ClientId))
+              .ForMember(x => x.hotelId, o => o.MapFrom(p => p.hotelId));
 
+            CreateMap<CheckIn, UpdateCheckInAssignRoomCommand>()
+               .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+               .ReverseMap();
+
+            CreateMap<CheckIn, ActivateCheckinCommand>()
+              .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+              .ReverseMap();
             CreateMap<CreateMenuCommand, Menu>()
                 .ForMember(x => x.MenuId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.MenuState, o => o.MapFrom(p => MenuState.Disabled));
@@ -108,6 +121,10 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Menu, MenuDto>().ReverseMap();
             CreateMap<Room, RoomDto>().ReverseMap();
+            CreateMap<CheckIn, CheckinDto>()
+            .ForMember(x => x.hotelName, o => o.Ignore())
+            .ForMember(x => x.buildingName, o => o.Ignore())
+            .ReverseMap();
 
 
             CreateMap<Menu, ActiveMenuDto>().ReverseMap();

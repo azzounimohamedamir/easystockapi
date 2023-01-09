@@ -12,6 +12,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<FoodBusinessImage> FoodBusinessImages { get; set; }
         public DbSet<FoodBusinessUser> FoodBusinessUsers { get; set; }
         public DbSet<HotelUser> hotelUsers { get; set; }
+         public DbSet<CheckIn> checkIns { get; set; }
 
         public DbSet<Zone> Zones { get; set; }
         public DbSet<Table> Tables { get; set; }
