@@ -15,6 +15,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<FoodBusinessImage> FoodBusinessImages { get; set; }
         public DbSet<FoodBusinessUser> FoodBusinessUsers { get; set; }
         public DbSet<HotelUser> hotelUsers { get; set; }
+        public DbSet<Room> Rooms { get; set; }
 
         public DbSet<Zone> Zones { get; set; }
         public DbSet<Table> Tables { get; set; }
@@ -108,6 +109,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 .HasKey(o => o.DishComboBoxItemTranslationId);
 
             modelBuilder.Entity<Hotel>()
+                .HasKey(o => o.Id);
+            modelBuilder.Entity<Room>()
                 .HasKey(o => o.Id);
 
             modelBuilder.Entity<Building>()
