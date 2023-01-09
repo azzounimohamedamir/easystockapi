@@ -61,6 +61,14 @@ namespace SmartRestaurant.Application.Rooms.Commands
                 .ConfigureAwait(false);
             if (room == null)
                 throw new NotFoundException(nameof(Room), request.Id);
+            if(room.IsBooked==true && request.isBooked==false)
+            {
+                var CheckinToUpdateRoomState = _context.checkIns.Where(c => c.RoomId == room.Id).FirstOrDefault();
+                CheckinToUpdateRoomState.RoomId = Guid.Empty;
+                CheckinToUpdateRoomState.RoomNumber = 0;
+                _context.checkIns.Update(CheckinToUpdateRoomState);
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            }
             var entity = _mapper.Map<Room>(request);
             _context.Rooms.Update(entity);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
