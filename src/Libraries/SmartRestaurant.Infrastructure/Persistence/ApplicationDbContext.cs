@@ -24,6 +24,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Listing> Listings { get; set; }
 
         public DbSet<ListingDetail> ListingDetails { get; set; }
+        public DbSet<ServiceParametre> ServiceParametres { get; set; }
+        public DbSet<HotelService> HotelServices { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<HotelSection> HotelSections { get; set; }
