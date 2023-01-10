@@ -27,8 +27,8 @@ namespace SmartRestaurant.Application.IntegrationTests.CheckIns.Commands
         public async Task ShouldActivateCheckinsByQrCode()
         {
             await RolesTestTools.CreateRoles();
-            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator(_authenticatedUserId);
-            var hotel= await HotelTestTools.CreateHotel(foodBusinessAdministrator.Id, "Shiraton");
+            var client = await UsersTestTools.CreateClient(_authenticatedUserId);
+            var hotel= await HotelTestTools.CreateHotel(client.Id, "Shiraton");
             var checkin = await CheckInsTestTools.Create_Draft_Checkin(hotel.Id);
 
 
@@ -45,15 +45,16 @@ namespace SmartRestaurant.Application.IntegrationTests.CheckIns.Commands
                 var chechkinactivated = await FindAsync<Domain.Entities.CheckIn>(checkin.Id);
 
                 chechkinactivated.Id.Should().Be(ActivateCheckin.Id);
-                chechkinactivated.Email.Should().Be("FoodBusinessAdministrator@bv.com");
-                chechkinactivated.PhoneNumber.Should().Be("077654656");
-                chechkinactivated.FullName.Should().Be("FoodBusinessAdministrator");
+                chechkinactivated.Email.Should().Be("ClientHotel@gmail.com");
+                chechkinactivated.PhoneNumber.Should().Be("0561279578");
+                chechkinactivated.FullName.Should().Be("Client");
                 chechkinactivated.hotelId.Should().Be(hotel.Id);
                 chechkinactivated.RoomNumber.Should().Be(0);
-                 chechkinactivated.ClientId = foodBusinessAdministrator.Id;
+                chechkinactivated.ClientId.Should().Be(client.Id);
+
                 chechkinactivated.RoomId.Should().Be(Guid.Empty);
                 chechkinactivated.IsActivate.Should().Be(true);
-                chechkinactivated.LengthOfStay = checkin.LengthOfStay;
+                chechkinactivated.LengthOfStay.Should().Be(checkin.LengthOfStay);
                 chechkinactivated.Startdate.Should().Be(checkin.Startdate);
             });
 

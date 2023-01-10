@@ -27,8 +27,8 @@ namespace SmartRestaurant.Application.IntegrationTests.CheckIns.Commands
         public async Task ShouldAssignRoomToClient()
         {
             await RolesTestTools.CreateRoles();
-            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator(_authenticatedUserId);
-            var hotel = await HotelTestTools.CreateHotel(foodBusinessAdministrator.Id, "Shiraton");
+            var client = await UsersTestTools.CreateClient(_authenticatedUserId);
+            var hotel = await HotelTestTools.CreateHotel(client.Id, "Shiraton");
             var checkin = await CheckInsTestTools.Create_Draft_Checkin(hotel.Id);
 
 
@@ -48,12 +48,12 @@ namespace SmartRestaurant.Application.IntegrationTests.CheckIns.Commands
                 var checkinafetassignroom = await FindAsync<Domain.Entities.CheckIn>(checkin.Id);
 
                 checkinafetassignroom.Id.Should().Be(checkinafetassignroom.Id);
-                checkinafetassignroom.Email.Should().Be("FoodBusinessAdministrator@bv.com");
-                checkinafetassignroom.PhoneNumber.Should().Be("077654656");
-                checkinafetassignroom.FullName.Should().Be("FoodBusinessAdministrator");
+                checkinafetassignroom.Email.Should().Be("ClientHotel@gmail.com");
+                checkinafetassignroom.PhoneNumber.Should().Be("0561279578");
+                checkinafetassignroom.FullName.Should().Be("Client");
                 checkinafetassignroom.hotelId.Should().Be(hotel.Id);
                 checkinafetassignroom.RoomNumber.Should().Be(2);
-                checkinafetassignroom.ClientId = foodBusinessAdministrator.Id;
+                checkinafetassignroom.ClientId.Should().Be(client.Id);
                 checkinafetassignroom.RoomId.Should().Be(assignroomcommand.RoomId.ToString());
                 checkinafetassignroom.IsActivate.Should().Be(false);
                 checkinafetassignroom.LengthOfStay = assignroomcommand.LengthOfStay.Value;

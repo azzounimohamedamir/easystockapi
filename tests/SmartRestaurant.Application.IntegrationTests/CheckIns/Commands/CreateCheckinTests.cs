@@ -36,13 +36,13 @@ namespace SmartRestaurant.Application.IntegrationTests.CheckIns.Commands
             createdcheckin.Should().NotBeNull();
             createdcheckin.hotelId.Should().Be(hotel.Id);
             createdcheckin.RoomNumber.Should().Be(0);
-            createdcheckin.ClientId="";
+            createdcheckin.ClientId.Should().Be("");
             createdcheckin.Email.Should().Be("");
             createdcheckin.RoomId.Should().Be(Guid.Empty);
             createdcheckin.IsActivate.Should().Be(false);
-            createdcheckin.LengthOfStay = 0;
-            createdcheckin.PhoneNumber = "";
-            createdcheckin.Startdate=DateTime.Now;
+            createdcheckin.LengthOfStay.Should().Be(0);
+            createdcheckin.PhoneNumber.Should().Be("");
+            createdcheckin.Startdate.Should().Be(checkin.Startdate);
 
         }
     }
