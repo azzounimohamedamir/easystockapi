@@ -53,7 +53,7 @@ namespace SmartRestaurant.Application.Checkins.Commands
                 var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
                 if (!result.IsValid) throw new ValidationException(result);
                 var checkin = _mapper.Map<Domain.Entities.CheckIn>(request);
-                _context.checkIns.Add(checkin);
+                _context.CheckIns.Add(checkin);
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             }
             
@@ -66,23 +66,25 @@ namespace SmartRestaurant.Application.Checkins.Commands
 
         public bool CheckOfAlreadyExistingDraft(Guid hotelid)
         {
-            bool isExist = _context.checkIns.Where(a=>a.hotelId==hotelid).Any(checkin => checkin.ClientId == null);
+            bool isExist = _context.CheckIns.Where(a=>a.hotelId==hotelid).Any(checkin => checkin.ClientId == null);
             return isExist;
 
         }
 
         public async Task<NoContent> Handle(UpdateCheckInAssignRoomCommand request, CancellationToken cancellationToken)
         {
-            var checkin = await _context.checkIns
+            var checkin = await _context.CheckIns
                 .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken)
                 .ConfigureAwait(false);
             if (checkin == null)
                 throw new NotFoundException(nameof(CheckIn), request.Id);
             var roomtoBook = _context.Rooms.Where(a => a.Id == request.RoomId).FirstOrDefault();
             roomtoBook.IsBooked = true;
+            roomtoBook.ClientEmail = checkin.Email;
+            roomtoBook.ClientId = checkin.Id;
             _mapper.Map(request, checkin);
             _context.Rooms.Update(roomtoBook);
-            _context.checkIns.Update(checkin);
+            _context.CheckIns.Update(checkin);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
@@ -91,7 +93,7 @@ namespace SmartRestaurant.Application.Checkins.Commands
         {
             var userconnected = _userService.GetUserId();
             var AppuserInfo=_identityContext.ApplicationUser.Where(user=>user.Id==userconnected).FirstOrDefault();
-            var checkin = await _context.checkIns
+            var checkin = await _context.CheckIns
                 .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken)
                 .ConfigureAwait(false);
             if (checkin == null)
@@ -103,7 +105,7 @@ namespace SmartRestaurant.Application.Checkins.Commands
             checkin.PhoneNumber = AppuserInfo.PhoneNumber;
             checkin.IsActivate = true;
 
-            if(checkin.RoomNumber != 0)
+            if(checkin.RoomId != Guid.Empty)
             {
                 var roomtoBook = _context.Rooms.Where(a => a.Id == checkin.RoomId).FirstOrDefault();
 
@@ -113,7 +115,7 @@ namespace SmartRestaurant.Application.Checkins.Commands
                 _context.Rooms.Update(roomtoBook);
             }
             
-            _context.checkIns.Update(checkin);
+            _context.CheckIns.Update(checkin);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }

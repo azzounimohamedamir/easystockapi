@@ -50,11 +50,11 @@ namespace SmartRestaurant.Application.IntegrationTests.CheckIns.Commands
                 chechkinactivated.FullName.Should().Be("FoodBusinessAdministrator");
                 chechkinactivated.hotelId.Should().Be(hotel.Id);
                 chechkinactivated.RoomNumber.Should().Be(0);
-                chechkinactivated.ClientId = "";
+                 chechkinactivated.ClientId = foodBusinessAdministrator.Id;
                 chechkinactivated.RoomId.Should().Be(Guid.Empty);
                 chechkinactivated.IsActivate.Should().Be(true);
-                chechkinactivated.LengthOfStay = 0;
-                chechkinactivated.Startdate = DateTime.Now;
+                chechkinactivated.LengthOfStay = checkin.LengthOfStay;
+                chechkinactivated.Startdate.Should().Be(checkin.Startdate);
             });
 
         }

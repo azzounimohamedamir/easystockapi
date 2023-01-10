@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230109133304_createHotelService")]
+    partial class createHotelService
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,47 +79,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Building 03"
                         });
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.CheckIn", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ClientId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActivate")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LengthOfStay")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("RoomId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("RoomNumber")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Startdate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("hotelId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CheckIns");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Dish", b =>
@@ -1987,9 +1948,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.Property<string>("ClientEmail")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ClientId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("FloorNumber")
                         .HasColumnType("int");

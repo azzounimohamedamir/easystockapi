@@ -37,7 +37,7 @@ namespace SmartRestaurant.Application.Checkins.Queries
             CancellationToken cancellationToken)
         {
             var query =
-                _context.checkIns
+                _context.CheckIns
                     .Where(checkin => checkin.hotelId == request.hotelId)
                     .GetPaged(request.Page, request.PageSize);
 
@@ -53,7 +53,7 @@ namespace SmartRestaurant.Application.Checkins.Queries
             CancellationToken cancellationToken)
         {
             var userconnected = _userService.GetUserId();
-            var query = from c in _context.checkIns
+            var query = from c in _context.CheckIns
                         join ro in _context.Rooms on c.RoomId equals ro.Id
                         join b in _context.Buildings on ro.BuildingId equals b.Id
                         join h in _context.Hotels on b.HotelId equals h.Id

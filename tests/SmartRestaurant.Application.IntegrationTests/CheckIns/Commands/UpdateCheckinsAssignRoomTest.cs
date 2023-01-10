@@ -24,7 +24,7 @@ namespace SmartRestaurant.Application.IntegrationTests.CheckIns.Commands
     public class UpdateCheckinsAssignRoomTest : TestBase
     {
         [Test]
-        public async Task ShouldActivateCheckinsByQrCode()
+        public async Task ShouldAssignRoomToClient()
         {
             await RolesTestTools.CreateRoles();
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator(_authenticatedUserId);
@@ -53,11 +53,11 @@ namespace SmartRestaurant.Application.IntegrationTests.CheckIns.Commands
                 checkinafetassignroom.FullName.Should().Be("FoodBusinessAdministrator");
                 checkinafetassignroom.hotelId.Should().Be(hotel.Id);
                 checkinafetassignroom.RoomNumber.Should().Be(2);
-                checkinafetassignroom.ClientId = "";
+                checkinafetassignroom.ClientId = foodBusinessAdministrator.Id;
                 checkinafetassignroom.RoomId.Should().Be(assignroomcommand.RoomId.ToString());
                 checkinafetassignroom.IsActivate.Should().Be(false);
-                checkinafetassignroom.LengthOfStay = 2;
-                checkinafetassignroom.Startdate = DateTime.Now;
+                checkinafetassignroom.LengthOfStay = assignroomcommand.LengthOfStay.Value;
+                checkinafetassignroom.Startdate.Should().Be(assignroomcommand.Startdate.Value);
             });
 
         }
