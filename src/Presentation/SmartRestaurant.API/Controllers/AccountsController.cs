@@ -66,7 +66,7 @@ namespace SmartRestaurant.API.Controllers
                 await SendEmailConfirmation(user, token).ConfigureAwait(false);
             }
 
-            return await GrantDinerRole(user, result);
+            return await GrantPublicClientsRole(user, result);
         }
 
         /// <summary> AuthenticateViaSocialMedia() </summary>
@@ -134,11 +134,12 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(command);
         }
 
-        private async Task<IActionResult> GrantDinerRole(ApplicationUser user, IdentityResult result)
+        private async Task<IActionResult> GrantPublicClientsRole(ApplicationUser user, IdentityResult result)
         {
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, Roles.Diner.ToString()).ConfigureAwait(false);
+                await _userManager.AddToRoleAsync(user, Roles.HotelClient.ToString()).ConfigureAwait(false);
 
                 return Ok(HttpResponseHelper.Respond(ResponseType.OK));
             }
