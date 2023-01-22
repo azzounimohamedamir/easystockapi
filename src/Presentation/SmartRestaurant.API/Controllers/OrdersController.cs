@@ -80,7 +80,7 @@ namespace SmartRestaurant.API.Controllers
         /// <summary> UpdateOrderStatus() </summary>
         /// <remarks>
         ///     This endpoint allows user to update Order Status.<br></br>
-        ///     <b>Note 01:</b> This is the enum used to set Order Status: <b> enum OrderStatuses { InQueue, Serving, Served, Billed, Cancelled } </b><br></br>
+        ///     <b>Note 01:</b> This is the enum used to set Order Status: <b> enum OrderStatuses { InQueue, Serving, Served, Billed, Cancelled , InProgress } </b><br></br>
         /// </remarks>        
         /// /// <param name="id">id of the order that would be updated</param>
         /// <param name="command">This is payload object used to update order status</param>

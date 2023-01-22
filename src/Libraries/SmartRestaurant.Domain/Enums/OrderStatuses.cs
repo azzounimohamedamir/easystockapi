@@ -6,6 +6,7 @@
         Serving,
         Served,
         Billed,
-        Cancelled
+        Cancelled,
+        InProgress
     }
 }
