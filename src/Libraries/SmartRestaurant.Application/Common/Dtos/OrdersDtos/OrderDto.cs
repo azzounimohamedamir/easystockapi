@@ -1,6 +1,7 @@
 ﻿using SmartRestaurant.Application.Common.Dtos.BillDtos;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Domain.Enums;
+using SmartRestaurant.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 
@@ -26,6 +27,7 @@ namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
         public string? FoodBusinessClientId { get; set; }
         public BillFoodBusinessDto FoodBusiness { get; set; }
         public BillFoodBusinessClientDto FoodBusinessClient { get; set; }
+        public CommissionConfigs CommissionConfigs { get; set; }
 
     }
 }
