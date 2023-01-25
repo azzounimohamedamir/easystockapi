@@ -522,7 +522,7 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.Status, opt => opt.MapFrom(p => CommissionStatus.Unpaid));
 
             CreateMap<Domain.Entities.FoodBusiness, CommissionConfigsDto>()
-                    //.ForMember(x => x.FoodBusinessName, opt => opt.MapFrom(p => p.Name))
+                    .ForMember(x => x.FoodBusinessName, opt => opt.MapFrom(p => p.Name))
                    .ForMember(x => x.Value, opt => opt.MapFrom(p => p.CommissionConfigs.Value))
                    .ForMember(x => x.Type, opt => opt.MapFrom(p => p.CommissionConfigs.Type))
                    .ForMember(x => x.WhoPay, opt => opt.MapFrom(p => p.CommissionConfigs.WhoPay));
