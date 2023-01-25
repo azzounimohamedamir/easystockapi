@@ -57,7 +57,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpPost]
         [Route("illnessuser")]
 
-        [Authorize(Roles = "FoodBusinessManager,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,Diner,Waiter")]
         public async Task<IActionResult> CreateIlnessUser(CreateIllnessUserCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -108,7 +108,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(PagedListDto<IllnessDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,Waiter")]
         [HttpGet]
         public Task<IActionResult> GetList(string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
         {
@@ -134,7 +134,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
         [Route("{id}")]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Waiter")]
         public Task<IActionResult> Get([FromRoute] string id)
         {
             return SendWithErrorsHandlingAsync(new GetIllnessByIdQuery { Id = id });
@@ -178,7 +178,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 403)]
         [HttpPost]
         [Route("disheillness")]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,Waiter")]
         public async Task<IActionResult> GetDeshesIllness(GetDishesIllnessQuery command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -205,7 +205,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 403)]
         [HttpPost]
         [Route("warningingredentOrder")]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,Waiter")]
         public async Task<IActionResult> WarningIngredentOrder(GetWarningIngredientOfOrderWithIllnessQuery command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -237,7 +237,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 403)]
         [HttpPost]
         [Route("warningingredentOrderWeb")]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,Waiter")]
         public async Task<IActionResult> WarningIngredentOrderWeb(GetWarningIngredientOfOrderWithIllnessWebQuery command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -259,7 +259,7 @@ namespace SmartRestaurant.API.Controllers
         [Route("illnessesOfuser")]
         [ProducesResponseType(typeof(PagedListDto<IllnessUserDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Authorize(Roles = "FoodBusinessManager,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,Diner,Waiter")]
         [HttpGet]
         public Task<IActionResult> GetAlreadyCheckedIlness(string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
         {

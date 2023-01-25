@@ -31,7 +31,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(PagedListDto<MenuDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient,Waiter")]
         public Task<IActionResult> GetList(string foodBusinessId, string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
         {
             var query = new GetMenusListQuery
@@ -58,7 +58,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
         [Route("food-business-active-menu")]
-        [Authorize(Roles = "FoodBusinessManager,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,Diner,Waiter")]
         public Task<IActionResult> GetFoodBusinessActiveMenu(string foodBusinessId)
         {
             return SendWithErrorsHandlingAsync(new GetActiveMenuQuery { FoodBusinessId = foodBusinessId });
@@ -66,7 +66,7 @@ namespace SmartRestaurant.API.Controllers
 
         [HttpGet]
         [Route("{id:Guid}")]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Waiter")]
         public Task<IActionResult> Get([FromRoute] Guid id)
         {
             return SendWithErrorsHandlingAsync(new GetMenuByIdQuery {MenuId = id});
