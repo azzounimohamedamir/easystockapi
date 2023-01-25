@@ -423,6 +423,8 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.CreatedBy, o => o.Ignore())
               .ForMember(x => x.OrderId, o => o.MapFrom(p => p.OrderId.ToString()))
               .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.FoodBusinessId.ToString()))
+              .ForMember(x => x.CommissionConfigs, o => o.MapFrom(p => p.CommissionConfigs))
+
               .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p =>
                (p.FoodBusinessClientId==null)?"": p.FoodBusinessClientId.ToString()));
             
