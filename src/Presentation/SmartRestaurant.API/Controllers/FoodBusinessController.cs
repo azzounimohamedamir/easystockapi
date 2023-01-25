@@ -30,7 +30,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(PagedListDto<FoodBusinessDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent,SuperAdmin,Diner,Organization")]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent,SuperAdmin,Diner,Organization,Waiter")]
         public Task<IActionResult> Get(string currentFilter, string searchKey, string sortOrder, int page, int pageSize)
         {
             var query = new GetFoodBusinessListQuery
@@ -64,7 +64,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [Route("byFoodBusinessManager")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,SuperAdmin,Waiter")]
         public Task<IActionResult> GetAllFoodBusinessByFoodBusinessManager()
         {
             return SendWithErrorsHandlingAsync(new GetAllFoodBusinessByFoodBusinessManagerQuery());
@@ -105,7 +105,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [Route("{id:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent,SuperAdmin,Diner,Organization")]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,FoodBusinessOwner,SupportAgent,SuperAdmin,Diner,Organization,Waiter")]
         public Task<IActionResult> GetById([FromRoute] Guid id)
         {
             return SendWithErrorsHandlingAsync(new GetFoodBusinessByIdQuery {FoodBusinessId = id});

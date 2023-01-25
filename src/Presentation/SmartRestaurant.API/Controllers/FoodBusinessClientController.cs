@@ -109,7 +109,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin,Waiter")]
         public Task<IActionResult> Get([FromRoute] string id)
         {
             return SendWithErrorsHandlingAsync(new GetFoodBusinessClientByIdQuery { FoodBusinessClientId = id });
@@ -212,7 +212,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("foodbusiness/{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin,Diner,HotelClient")]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin,Diner,HotelClient,Waiter")]
         public Task<IActionResult> GetFoodBusinesClientListByFoodBusinessIdQuery([FromRoute]string id)
         {
             return SendWithErrorsHandlingAsync(new GetFoodBusinesClientListByFoodBusinessIdQuery { FoodBusinessId = id });

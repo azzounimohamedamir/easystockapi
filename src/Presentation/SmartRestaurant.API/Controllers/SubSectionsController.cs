@@ -24,7 +24,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("allsubs/{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,HotelClient,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,HotelClient,Diner,Waiter")]
         public  Task<IActionResult> GetAllSubsectionsByFoodBusinessId([FromRoute] string id)
         {
             var query = new GetAllSubSectionsListQuery

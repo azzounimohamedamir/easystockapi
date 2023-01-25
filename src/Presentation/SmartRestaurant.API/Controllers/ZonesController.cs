@@ -16,7 +16,7 @@ namespace SmartRestaurant.API.Controllers
     {
         [Route("foodbusiness/{id:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient,Waiter")]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
             return await SendWithErrorsHandlingAsync(new GetZonesListQuery {FoodBusinessId = id});
@@ -32,7 +32,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("ZonesWithTables/{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,Waiter")]
         public async Task<IActionResult> GetListOfZonesWithTables([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new GetZonesListWithTablesQuery { FoodBusinessId = id });
@@ -40,14 +40,14 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{id:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Waiter")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             return await SendWithErrorsHandlingAsync(new GetZoneByIdQuery {ZoneId = id});
         }
 
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Waiter")]
         public async Task<IActionResult> Create(CreateZoneCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
