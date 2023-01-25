@@ -487,8 +487,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             if (table == null)
                 throw new NotFoundException(nameof(Tables), occupiedTable.TableId);
 
-            if(table.TableState == TableState.Occupied && action == CreateAction)
-                throw new ConflictException($"The table numbered with '{table.TableNumber.ToString().PadLeft(3,'0')}' already occupied");
+          
 
             if (table.TableState == TableState.Archived)
                 throw new ConflictException($"The table numbered with '{table.TableNumber.ToString().PadLeft(3, '0')}' can not be used because it is archived");
