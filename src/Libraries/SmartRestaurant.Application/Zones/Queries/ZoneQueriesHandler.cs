@@ -17,7 +17,8 @@ namespace SmartRestaurant.Application.Zones.Queries
     public class ZoneQueriesHandler :
         IRequestHandler<GetZonesListQuery, IEnumerable<ZoneDto>>,
         IRequestHandler<GetZoneByIdQuery, ZoneDto>,
-        IRequestHandler<GetZonesListWithTablesQuery, IEnumerable<ZoneWithTablesDto>>
+        IRequestHandler<GetZonesListWithTablesQuery, IEnumerable<ZoneWithTablesDto>>,
+          IRequestHandler<GetZonesListWithNumberOfOrdersQuery, IEnumerable<ZoneWithNumberOfOrdersDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;

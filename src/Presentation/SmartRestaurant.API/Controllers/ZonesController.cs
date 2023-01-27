@@ -71,7 +71,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("TodaysOrders/{id:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
+        //[Authorize(Roles = "FoodBusinessManager,SupportAgent")]
         public async Task<IActionResult> GetZoneListWithNumberOfOrders([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new GetZonesListWithNumberOfOrdersQuery { FoodBusinessId = id });

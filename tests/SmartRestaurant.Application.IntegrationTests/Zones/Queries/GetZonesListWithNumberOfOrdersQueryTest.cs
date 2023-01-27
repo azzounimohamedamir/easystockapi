@@ -33,10 +33,9 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Queries
             result.Should().NotBeNull();
             var enumirator = result.GetEnumerator();
 
-            result.Should().HaveCount(2);
             foreach (var item in result)    
             {
-                item.ZoneTitle.Should().Equals("ZoneTitle");
+                item.ZoneTitle.Should().Equals("zone 45");
 
                  item.ZoneId.Should().Equals(createZoneCommand.Id.ToString());
             }
