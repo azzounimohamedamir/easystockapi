@@ -67,5 +67,14 @@ namespace SmartRestaurant.API.Controllers
         {
             return (ActionResult) await SendWithErrorsHandlingAsync(new DeleteZoneCommand {Id = id});
         }
+         [ProducesResponseType(typeof(IEnumerable<ZoneWithNumberOfOrdersDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("TodaysOrders/{id:Guid}")]
+        [HttpGet]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent")]
+        public async Task<IActionResult> GetZoneListWithNumberOfOrders([FromRoute] string id)
+        {
+            return await SendWithErrorsHandlingAsync(new GetZonesListWithNumberOfOrdersQuery { FoodBusinessId = id });
+        }
     }
 }
