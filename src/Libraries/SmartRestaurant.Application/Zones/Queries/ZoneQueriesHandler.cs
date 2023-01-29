@@ -72,6 +72,8 @@ namespace SmartRestaurant.Application.Zones.Queries
                                 join t in _context.Tables on z.ZoneId equals t.ZoneId
                                 join oot in _context.OrderOccupiedTables on t.TableId.ToString() equals oot.TableId
                                 join o in _context.Orders on oot.OrderId equals o.OrderId
+                                //where o.CreatedAt == DateTime.Today
+                                where o.CreatedAt.Date == DateTime.Today
                                 select new
                                 {
                                     FoodBusinessId = z.FoodBusinessId,

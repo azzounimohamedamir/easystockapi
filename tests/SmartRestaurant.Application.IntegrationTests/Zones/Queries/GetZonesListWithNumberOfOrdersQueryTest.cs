@@ -31,13 +31,14 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Queries
             var query = new GetZonesListWithNumberOfOrdersQuery { FoodBusinessId = fastFood.FoodBusinessId.ToString()};
             var result = await SendAsync(query);
             result.Should().NotBeNull();
+            result.Should().HaveCount(1);
             var enumirator = result.GetEnumerator();
 
             foreach (var item in result)    
             {
                 item.ZoneTitle.Should().Equals("zone 45");
-
-                 item.ZoneId.Should().Equals(createZoneCommand.Id.ToString());
+                item.ZoneId.Should().Equals(createZoneCommand.Id.ToString());
+                item.OrderStatus.Should().Equals(1);
             }
         }
 
