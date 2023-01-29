@@ -27,6 +27,7 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
                        .ThenInclude(o => o.Supplements)
                        .Include(o => o.Products)
                        .Include(o => o.OccupiedTables)
+                       .Include(o => o.CommissionConfigs)
                        .Where(ConditionForStaff(request))
                        .OrderByDescending(orders => orders.Status)
                        .ThenByDescending(orders => orders.CreatedAt)

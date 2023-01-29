@@ -13,6 +13,7 @@ namespace SmartRestaurant.Application.Rooms.Commands
         public int NumberOfBeds { get; set; }
         public string ClientEmail { get; set; }
         public bool IsBooked { get; set; }
+        public string? ClientId { get; set; }
     }
 
     public class CreateRoomCommandValidator : AbstractValidator<CreateRoomCommand>

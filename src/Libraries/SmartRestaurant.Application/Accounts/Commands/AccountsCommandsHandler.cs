@@ -131,10 +131,13 @@ namespace SmartRestaurant.Application.Accounts.Commands
                     var userCreationResult = await _userManager.CreateAsync(user);
                     if (!userCreationResult.Succeeded)
                         throw new AccountCreationException(userCreationResult.Errors);
+                    var AddRoleDinerToUserResult = await _userManager.AddToRoleAsync(user, Roles.Diner.ToString()).ConfigureAwait(false);
+                    var AddRoleHotelClientToUserResult = await _userManager.AddToRoleAsync(user, Roles.HotelClient.ToString()).ConfigureAwait(false);
 
-                    var AddRolesToUserResult = await _userManager.AddToRoleAsync(user, Roles.Diner.ToString()).ConfigureAwait(false);
-                    if (!AddRolesToUserResult.Succeeded)
-                        throw new UserManagerException(AddRolesToUserResult.Errors);
+                    if (!AddRoleDinerToUserResult.Succeeded)
+                        throw new UserManagerException(AddRoleDinerToUserResult.Errors);
+                    if (!AddRoleHotelClientToUserResult.Succeeded)
+                        throw new UserManagerException(AddRoleHotelClientToUserResult.Errors);
 
                     transaction.Complete();
                 }

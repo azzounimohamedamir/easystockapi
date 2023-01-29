@@ -29,7 +29,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(OrderDto), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Authorize(Roles = "FoodBusinessManager,Cashier,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,Cashier,Diner,Waiter")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateOrderCommand command)
         {
@@ -52,7 +52,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager, Cashier")]
+        [Authorize(Roles = "FoodBusinessManager, Cashier,Waiter")]
         public async Task<IActionResult> Update([FromRoute] string id, UpdateOrderCommand command)
         {
             command.Id = id;
@@ -71,7 +71,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("addChairOrderToTableOrder")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,Diner,HotelClient")]
+        [Authorize(Roles = "FoodBusinessAdministrator,FoodBusinessManager,Diner,HotelClient,Waiter")]
         public async Task<IActionResult> AddChairOrderToTableOrder(AddSeatOrderToTableOrderCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -80,7 +80,7 @@ namespace SmartRestaurant.API.Controllers
         /// <summary> UpdateOrderStatus() </summary>
         /// <remarks>
         ///     This endpoint allows user to update Order Status.<br></br>
-        ///     <b>Note 01:</b> This is the enum used to set Order Status: <b> enum OrderStatuses { InQueue, Serving, Served, Billed, Cancelled } </b><br></br>
+        ///     <b>Note 01:</b> This is the enum used to set Order Status: <b> enum OrderStatuses { InQueue, Serving, Served, Billed, Cancelled , InProgress } </b><br></br>
         /// </remarks>        
         /// /// <param name="id">id of the order that would be updated</param>
         /// <param name="command">This is payload object used to update order status</param>
@@ -115,7 +115,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,Cashier, HotelClient")]
+        [Authorize(Roles = "FoodBusinessManager,Cashier, HotelClient,Waiter")]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new GetOrderByIdQuery { Id = id });
@@ -139,7 +139,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(PagedListDto<OrderDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Authorize(Roles = "FoodBusinessManager,Cashier")]
+        [Authorize(Roles = "FoodBusinessManager,Cashier,Waiter")]
         [HttpGet]
         public Task<IActionResult> GetList(string currentFilter, string searchKey, string sortOrder, string foodBusinessId, 
             int page, int pageSize,  DateFilter dateInterval)
@@ -175,7 +175,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(PagedListDto<OrderDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Authorize(Roles = "HotelClient,Diner")]
+        [Authorize(Roles = "HotelClient,Diner,Waiter")]
         [Route("byDinerOrHotelClient")]
         [HttpGet]
         public Task<IActionResult> GetListOfOrdersByDinerOrClientHotel(string currentFilter, string searchKey, string sortOrder,
@@ -209,7 +209,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("FromTable/{tableId}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,Cashier,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,Cashier,Diner,Waiter")]
         public async Task<IActionResult> GetLastOrderByTableId([FromRoute] string tableId)
         {
             return await SendWithErrorsHandlingAsync(new GetLastOrderByTableIDQuery { TableId = tableId });

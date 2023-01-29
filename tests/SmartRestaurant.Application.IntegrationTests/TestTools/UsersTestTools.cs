@@ -86,5 +86,31 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             return user;
         }
 
+        public static async Task<ApplicationUser> CreateClient(string userId)
+        {
+            var user = new ApplicationUser()
+            {
+                Id = userId,
+                FullName = "Client",
+                Email = "ClientHotel@gmail.com",
+                UserName = "ClientHotel@bv.com",
+                PhoneNumber = "0561279578",
+                IsActive = true,
+                EmailConfirmed = true,
+                // Real password is "Supportagent123@"
+                PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw=="
+            };
+            await AddIdentityAsync(user);
+
+            var userRole1 = new ApplicationUserRole()
+            {
+                UserId = user.Id,
+                RoleId = Convert.ToString((int)Roles.HotelClient)
+            };
+            await AddIdentityAsync(userRole1);
+
+            return user;
+        }
+
     }
 }

@@ -52,6 +52,7 @@ namespace SmartRestaurant.Application.Orders.Queries
                 .ThenInclude(o => o.Supplements)
                 .Include(o => o.Products)
                 .Include(o => o.OccupiedTables)
+                .Include(o => o.CommissionConfigs)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
                 .ConfigureAwait(false);

@@ -18,7 +18,7 @@ namespace SmartRestaurant.API.Controllers
     {
         [Route("menu/{id:Guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient,Waiter")]
         public async Task<IActionResult> GetByMenuId([FromRoute] Guid id, int page, int pageSize)
         {
             return await SendWithErrorsHandlingAsync(new GetSectionsListQuery
@@ -27,7 +27,7 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("allsections/{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Diner,HotelClient,Waiter")]
         public  Task<IActionResult> GetAllSectionsByFoodBusinessId([FromRoute] string id)
         {
             var query = new GetAllSectionsListQuery
@@ -74,7 +74,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,Waiter")]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new GetSectionByIdQuery { Id = id });
@@ -173,7 +173,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}/menu-items")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,HotelClient,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin,HotelClient,Diner,Waiter")]
         public async Task<IActionResult> GetSectionMenuItems([FromRoute] string id,  string searchKey, int page, int pageSize)
         {
             var query = new GetSectionMenuItemsQuery
