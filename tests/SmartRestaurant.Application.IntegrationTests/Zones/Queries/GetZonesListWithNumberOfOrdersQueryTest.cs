@@ -32,8 +32,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Zones.Queries
             var result = await SendAsync(query);
             result.Should().NotBeNull();
             result.Should().HaveCount(1);
-            var enumirator = result.GetEnumerator();
-
+          
             foreach (var item in result)    
             {
                 item.ZoneTitle.Should().Equals("zone 45");
