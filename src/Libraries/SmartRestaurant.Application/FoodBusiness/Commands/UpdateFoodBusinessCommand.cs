@@ -33,6 +33,12 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public string Email { get; set; }
         public FoodBusinessCategory FoodBusinessCategory { get; set; }
         public int FourDigitCode { get; set; }
+        public string OpeningTime { get; set; }
+        public string ClosingTime { get; set; }
+        public string NearbyLocationDescription { get; set; }
+        public decimal NearbyLocationPrice { get; set; }
+        public string FarLocationDescription { get; set; }
+        public decimal FarLocationPrice { get; set; }
     }
 
     public class UpdateFoodBusinessCommandValidator : AbstractValidator<UpdateFoodBusinessCommand>
@@ -92,7 +98,23 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             RuleFor(foodBusiness => foodBusiness.FourDigitCode)
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .GreaterThanOrEqualTo(0)
-                .LessThanOrEqualTo(9999);           
+                .LessThanOrEqualTo(9999);
+            RuleFor(foodBusiness => foodBusiness.FarLocationDescription)
+             .Cascade(CascadeMode.StopOnFirstFailure)
+             .NotEmpty()
+             .MaximumLength(300);
+            RuleFor(foodBusiness => foodBusiness.NearbyLocationDescription)
+              .Cascade(CascadeMode.StopOnFirstFailure)
+              .NotEmpty()
+              .MaximumLength(300);
+            RuleFor(foodBusiness => foodBusiness.ClosingTime)
+              .NotEmpty();
+            RuleFor(foodBusiness => foodBusiness.OpeningTime)
+             .NotEmpty();
+            RuleFor(foodBusiness => foodBusiness.NearbyLocationPrice)
+             .NotEmpty();
+            RuleFor(foodBusiness => foodBusiness.FarLocationPrice)
+            .NotEmpty();
         }
     }
 }

@@ -25,6 +25,12 @@ namespace SmartRestaurant.Domain.Entities
         public DateTime OrderNumberLastResetDateTime { get; set; }
         public CommissionConfigs CommissionConfigs { get; set; }
         public bool IsActivityFrozen { get; set; }
+        public string OpeningTime { get; set; }
+        public string ClosingTime { get; set; }
+        public string NearbyLocationDescription { get; set; }
+        public decimal NearbyLocationPrice { get; set; }
+        public string FarLocationDescription { get; set; }
+        public decimal FarLocationPrice { get; set; }
 
     }
 }
