@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.BillDtos;
 using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
+using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
@@ -60,9 +61,11 @@ namespace SmartRestaurant.Application.Orders.Commands
             if (request.Type == OrderTypes.Delivery)
             {   
                 var isOutdeliveryTime = DateTimeHelpers.CheckAvailabiliteOfOrderDeliveryInCurrentTime(foodBusiness.OpeningTime, foodBusiness.ClosingTime);
-                if (isOutdeliveryTime == true)
+                if (isOutdeliveryTime == ErrorResult.OutOfDeliveryTime)
                 {
-                    return null;
+                    var newOrder = new OrderDto();
+                    newOrder.errorDeliveryTimeAvailabilite = ErrorResult.OutOfDeliveryTime;
+                    return _mapper.Map<OrderDto>(newOrder);
                 }
                 else
                 {
@@ -75,9 +78,6 @@ namespace SmartRestaurant.Application.Orders.Commands
                 var newOrder = await ExecuteOrderOperations(request, cancellationToken, foodBusiness);
                 return _mapper.Map<OrderDto>(newOrder);
             }
-
-
-
 
         }
 
