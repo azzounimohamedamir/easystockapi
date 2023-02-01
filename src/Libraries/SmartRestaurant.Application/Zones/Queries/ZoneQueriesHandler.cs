@@ -89,12 +89,19 @@ namespace SmartRestaurant.Application.Zones.Queries
                                     Names_TR = z.Names.TR,
                                     OrderStatus = o.Status,
                                     ZoneTitle = z.ZoneTitle,
+                                    TableId =  t.TableId,
+                                       TableNumber = t.TableNumber,
+                                          TableState = t.TableState,
+
 
                                 } into s
                                 where s.FoodBusinessId.ToString() == foodBusinessId
                                 group s by new
                                 {
 
+                                    s.TableNumber,
+                                    s.TableId,
+                                    s.TableState,
                                     s.ZoneId,
                                     s.OrderStatus,
                                     s.ZoneTitle,
@@ -113,6 +120,9 @@ namespace SmartRestaurant.Application.Zones.Queries
 
                                 select new ZoneWithNumberOfOrdersDto
                                 {
+                                    TableId = g.Key.TableId,
+                                    TableNumber = g.Key.TableNumber,
+                                    TableState = g.Key.TableState,
                                     ZoneId = g.Key.ZoneId,
                                     OrderStatus = g.Key.OrderStatus,
                                     ZoneTitle = g.Key.ZoneTitle,
