@@ -1,4 +1,5 @@
 ﻿using SmartRestaurant.Application.Common.Enums;
+using SmartRestaurant.Application.Common.Interfaces;
 using System;
 
 namespace SmartRestaurant.Application.Common.Tools
@@ -11,9 +12,9 @@ namespace SmartRestaurant.Application.Common.Tools
             return new DateTime(lastMonth.Year, lastMonth.Month, 1);
         }
 
-        public static ErrorResult CheckAvailabiliteOfOrderDeliveryInCurrentTime(string openingTime,string closingTime)
+        public static ErrorResult CheckAvailabiliteOfOrderDeliveryInCurrentTime(string openingTime,string closingTime ,IDateTime datetime)
         {
-            var currentTimeString = System.DateTime.Now.ToString("HH:mm:ss"); 
+            var currentTimeString = datetime.Now().ToString("HH:mm:ss"); 
             if (DateTime.Parse(openingTime + ":00") > DateTime.Parse(closingTime + ":00"))
             {
              if ((DateTime.Parse(currentTimeString) <= DateTime.Parse("23:59:00") && DateTime.Parse(currentTimeString) > DateTime.Parse(openingTime + ":00")) || (DateTime.Parse(currentTimeString) < DateTime.Parse(closingTime + ":00") && DateTime.Parse(currentTimeString) >= DateTime.Parse("00:00:00")))

@@ -68,7 +68,10 @@ namespace SmartRestaurant.Application.IntegrationTests
                 o.HttpContext.Request.Headers == httpContext.Request.Headers
             )); 
             startup.ConfigureServices(services);
-
+            var serviceDescriptor = services.FirstOrDefault(descriptor =>
+            descriptor.ServiceType == typeof(IDateTime));
+            services.Remove(serviceDescriptor);
+            services.AddSingleton<IDateTime, DateTimeServiceMocked>();
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
             _checkpoint = new Checkpoint
@@ -128,7 +131,12 @@ namespace SmartRestaurant.Application.IntegrationTests
 
             return await context.Set<TEntity>().ToListAsync();
         }
-
+        public static void ConfigureDateTimeNow(DateTime dateTime)
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var dateTimessservice = scope.ServiceProvider.GetService<IDateTime>();
+            dateTimessservice.SetDateTimeNow(dateTime);
+        }
         public static List<TEntity> Where<TEntity>(Func<TEntity, bool> predicate) where TEntity : class
         {
             using var scope = _scopeFactory.CreateScope();

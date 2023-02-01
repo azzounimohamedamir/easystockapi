@@ -32,20 +32,25 @@ namespace SmartRestaurant.Application.Orders.Commands
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IDateTime _datetime;
+
         private readonly IUserService _userService;
         private readonly IFirebaseRepository _fireBase;
         private readonly string CreateAction = "CreateAction";
         private readonly string UpdateAction = "UpdateAction";
 
         public OrdersCommandsHandlers(IApplicationDbContext context, 
+                                
                                     IMapper mapper,
                                     IUserService userService,
-                                    IFirebaseRepository fireBase)
+                                    IFirebaseRepository fireBase,                  
+                                    IDateTime datetime)
         {
             _context = context;
             _mapper = mapper;
             _userService = userService;
             _fireBase = fireBase;
+            _datetime = datetime;
         }
 
         public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -59,8 +64,8 @@ namespace SmartRestaurant.Application.Orders.Commands
                 throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
 
             if (request.Type == OrderTypes.Delivery)
-            {   
-                var isOutdeliveryTime = DateTimeHelpers.CheckAvailabiliteOfOrderDeliveryInCurrentTime(foodBusiness.OpeningTime, foodBusiness.ClosingTime);
+            {
+                var isOutdeliveryTime = DateTimeHelpers.CheckAvailabiliteOfOrderDeliveryInCurrentTime(foodBusiness.OpeningTime, foodBusiness.ClosingTime , _datetime);
                 if (isOutdeliveryTime == ErrorResult.OutOfDeliveryTime)
                 {
                     var newOrder = new OrderDto();
