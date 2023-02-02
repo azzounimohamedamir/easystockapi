@@ -15,7 +15,8 @@ namespace SmartRestaurant.Application.Users.Commands
 {
     public class UsersCommandsHandler :
                 IRequestHandler<SetNewPasswordForFoodBusinessAdministratorCommand, NoContent>,
-                IRequestHandler<UpdateUserCommand, NoContent>
+                IRequestHandler<UpdateUserCommand, NoContent>,
+                IRequestHandler<ProfileUpdateCommand, NoContent>
 
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -81,6 +82,33 @@ namespace SmartRestaurant.Application.Users.Commands
                 }
 
                  _mapper.Map(request, user);
+                var userUpdateResult = await _userManager.UpdateAsync(user);
+                if (!userUpdateResult.Succeeded)
+                    throw new UserManagerException(userUpdateResult.Errors);
+
+                transaction.Complete();
+            }
+
+            return default;
+        }
+        #endregion
+
+
+        #region Profile Update
+        public async Task<NoContent> Handle(ProfileUpdateCommand request, CancellationToken cancellationToken)
+        {
+            await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid<ProfileUpdateCommandValidator, ProfileUpdateCommand>
+                (request, cancellationToken).ConfigureAwait(false);
+
+            var user = await _userManager.FindByIdAsync(request.Id);
+            if (user == null)
+                throw new NotFoundException(nameof(user), request.Id);
+
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var oldRoles = await _userManager.GetRolesAsync(user);
+
+                _mapper.Map(request, user);
                 var userUpdateResult = await _userManager.UpdateAsync(user);
                 if (!userUpdateResult.Succeeded)
                     throw new UserManagerException(userUpdateResult.Errors);
