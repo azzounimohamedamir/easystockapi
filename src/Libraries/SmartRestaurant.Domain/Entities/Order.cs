@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using SmartRestaurant.Domain.Common;
 using SmartRestaurant.Domain.Enums;
+using SmartRestaurant.Application.Common.Enums;
+
 using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Domain.Entities
@@ -27,6 +30,8 @@ namespace SmartRestaurant.Domain.Entities
         public virtual FoodBusiness FoodBusiness { get; set; }
         public Guid? FoodBusinessClientId { get; set; }
         public virtual FoodBusinessClient FoodBusinessClient { get; set; }
+        [NotMapped]
+        public ErrorResult ErrorDeliveryTimeAvailabilite { get; set; }
 
     }
 }

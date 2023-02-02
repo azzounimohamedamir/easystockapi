@@ -29,7 +29,7 @@ namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
         public BillFoodBusinessDto FoodBusiness { get; set; }
         public BillFoodBusinessClientDto FoodBusinessClient { get; set; }
         public CommissionConfigs CommissionConfigs { get; set; }
-        public ErrorResult errorDeliveryTimeAvailabilite { get; set; }
+        public Enums.ErrorResult errorDeliveryTimeAvailabilite { get; set; }
 
     }
 }

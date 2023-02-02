@@ -142,7 +142,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             order.CommissionConfigs.Value.Should().Be(0);
             order.CommissionConfigs.Type.Should().Be(CommissionType.PerPerson);
             order.CommissionConfigs.WhoPay.Should().Be(WhoPayCommission.FoodBusiness);
-
+            order.ErrorDeliveryTimeAvailabilite.Should().Be(ErrorResult.None);
         }
 
        

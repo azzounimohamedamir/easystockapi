@@ -66,22 +66,23 @@ namespace SmartRestaurant.Application.Orders.Commands
             if (request.Type == OrderTypes.Delivery)
             {
                 var isOutdeliveryTime = DateTimeHelpers.CheckAvailabiliteOfOrderDeliveryInCurrentTime(foodBusiness.OpeningTime, foodBusiness.ClosingTime , _datetime);
-                if (isOutdeliveryTime == ErrorResult.OutOfDeliveryTime)
+                if (isOutdeliveryTime == Common.Enums.ErrorResult.OutOfDeliveryTime)
                 {
                     var newOrder = new OrderDto();
-                    newOrder.errorDeliveryTimeAvailabilite = ErrorResult.OutOfDeliveryTime;
-                    return _mapper.Map<OrderDto>(newOrder);
+                       
+                    newOrder.errorDeliveryTimeAvailabilite = Common.Enums.ErrorResult.OutOfDeliveryTime;
+                    return newOrder;
                 }
                 else
                 {
                     var newOrder = await ExecuteOrderOperations(request, cancellationToken, foodBusiness);
-                    return _mapper.Map<OrderDto>(newOrder);
+                    return newOrder;
                 }
             }
             else
             {
                 var newOrder = await ExecuteOrderOperations(request, cancellationToken, foodBusiness);
-                return _mapper.Map<OrderDto>(newOrder);
+                return newOrder;
             }
 
         }
