@@ -131,7 +131,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
 
 
 
-        public static async Task<CreateOrderCommand> CreateOrderDelivery(Guid foodBusinessId,
+        public static async Task<OrderDto> CreateOrderDelivery(Guid foodBusinessId,
           string? foodBusinessClientId,
           CreateDishCommand dishCommand,
           CreateProductCommand procuctCommand)
@@ -236,9 +236,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             }
             };
 
-            await SendAsync(createOrderCommand);
+          var myordercommand=   await SendAsync(createOrderCommand);
 
-            return createOrderCommand;
+            return myordercommand;
         }
 
 

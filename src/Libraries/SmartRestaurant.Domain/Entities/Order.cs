@@ -30,8 +30,6 @@ namespace SmartRestaurant.Domain.Entities
         public virtual FoodBusiness FoodBusiness { get; set; }
         public Guid? FoodBusinessClientId { get; set; }
         public virtual FoodBusinessClient FoodBusinessClient { get; set; }
-        [NotMapped]
-        public ErrorResult ErrorDeliveryTimeAvailabilite { get; set; }
 
     }
 }

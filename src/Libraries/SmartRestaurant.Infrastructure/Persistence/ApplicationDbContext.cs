@@ -114,7 +114,6 @@ namespace SmartRestaurant.Infrastructure.Persistence
             modelBuilder.Entity<Room>()
                 .HasKey(o => o.Id);
 
-            modelBuilder.Entity<Order>().Ignore(c => c.ErrorDeliveryTimeAvailabilite);
 
 
             modelBuilder.Entity<Building>()

@@ -7,6 +7,7 @@ using FluentAssertions;
 using SmartRestaurant.Application.Zones.Commands;
 using SmartRestaurant.Application.Tables.Commands;
 using Newtonsoft.Json;
+using SmartRestaurant.Application.Common.Enums;
 
 namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
 {
@@ -26,9 +27,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             var createProductCommand = await ProductTestTools.CreateProduct();
             DateTime orderTime = new DateTime(2008, 3, 9, 8, 5, 7, 123); 
             ConfigureDateTimeNow(orderTime);
-            var createOrderCommand = await OrderTestTools.CreateOrderDelivery(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
-            var order = await GetOrder(createOrderCommand.Id);
-            order.Should().Be(null);
+
+            var OrderCommand = await OrderTestTools.CreateOrderDelivery(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
+
+            OrderCommand.ErrorDeliveryTimeAvailabilite.Should().Be(ErrorResult.OutOfDeliveryTime);
+            
         }
 
     
