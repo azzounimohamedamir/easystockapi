@@ -357,8 +357,6 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.OrderId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.TVA, o => o.MapFrom(p => 19));
 
-            CreateMap<OrderDishCommandDto, OrderDish>();
-
             CreateMap<OrderProductDto, OrderProduct>()
                 .ReverseMap();
 
@@ -403,6 +401,7 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(dest => dest.Tables, opt => opt.MapFrom<BillResolver>())
                 .ForMember(dest => dest.TvaPercentage, o => o.MapFrom(p => p.TVA))
                 .ForMember(dest => dest.TvaValue, o => o.MapFrom(p => BillHelpers.CalculateTVA(p.TotalToPay, p.TVA)));
+            CreateMap<OrderDishCommandDto, OrderDish>();
 
             CreateMap<OrderDish, BillDishDto>();
             CreateMap<OrderProduct, BillProductDto>();
@@ -426,9 +425,10 @@ namespace SmartRestaurant.Application.Common.Mappers
               .ForMember(x => x.CommissionConfigs, o => o.MapFrom(p => p.CommissionConfigs))
 
               .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p =>
-               (p.FoodBusinessClientId==null)?"": p.FoodBusinessClientId.ToString()));
-            
-           
+               (p.FoodBusinessClientId==null)?"": p.FoodBusinessClientId.ToString()))
+              .ForMember(x => x.ErrorDeliveryTimeAvailabilite, o => o.Ignore());
+
+
 
             CreateMap<CreateFoodBusinessClientCommand, Domain.Entities.FoodBusinessClient>()
                 .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.Id))

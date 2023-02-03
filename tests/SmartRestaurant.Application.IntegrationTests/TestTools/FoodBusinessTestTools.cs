@@ -83,7 +83,13 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 Website = "",
                 FoodBusinessAdministratorId = foodBusinessAdministratorId,
                 FoodBusinessCategory = FoodBusinessCategory.Restaurant,
-                DefaultCurrency = Currencies.USD
+                DefaultCurrency = Currencies.USD,
+                OpeningTime = "11:00",
+                ClosingTime = "23:00",
+                NearbyLocationDescription = "alger",
+                FarLocationDescription = "hors alger",
+                FarLocationPrice = 600,
+                NearbyLocationPrice = 300
             };
             await SendAsync(createFoodBusinessCommand);
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
@@ -122,7 +128,13 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 Website = "",
                 FoodBusinessAdministratorId = foodBusinessAdministratorId,
                 FoodBusinessCategory = FoodBusinessCategory.Restaurant,
-                DefaultCurrency = Currencies.USD
+                DefaultCurrency = Currencies.USD,
+                OpeningTime = "11:00",
+                ClosingTime = "23:00",
+                NearbyLocationDescription = "alger",
+                FarLocationDescription = "hors alger",
+                FarLocationPrice = 600,
+                NearbyLocationPrice = 300
             };
             await SendAsync(createFoodBusinessCommand);
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
@@ -162,7 +174,13 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 Website = "",
                 FoodBusinessAdministratorId = foodBusinessAdministratorId,
                 FoodBusinessCategory = FoodBusinessCategory.Restaurant,
-                DefaultCurrency = Currencies.USD
+                DefaultCurrency = Currencies.USD,
+                OpeningTime = "11:00",
+                ClosingTime = "23:00",
+                NearbyLocationDescription = "alger",
+                FarLocationDescription = "hors alger",
+                FarLocationPrice = 600,
+                NearbyLocationPrice = 300
             };
             await SendAsync(createFoodBusinessCommand);
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);

@@ -114,6 +114,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
             modelBuilder.Entity<Room>()
                 .HasKey(o => o.Id);
 
+
+
             modelBuilder.Entity<Building>()
                 .HasKey(o => o.Id);
 

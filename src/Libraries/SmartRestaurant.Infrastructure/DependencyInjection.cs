@@ -5,6 +5,7 @@ using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Infrastructure.Email;
 using SmartRestaurant.Infrastructure.Persistence;
 using SmartRestaurant.Infrastructure.Services;
+using System;
 
 namespace SmartRestaurant.Infrastructure
 {
@@ -20,8 +21,9 @@ namespace SmartRestaurant.Infrastructure
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
             services.AddTransient < IFirebaseRepository, FirebaseRepository> ();
+            services.AddTransient<IDateTime, DateTimeService>();
 
-            
+
             services.AddTransient<IEmailSender, EmailHelper>();
             return services;
         }

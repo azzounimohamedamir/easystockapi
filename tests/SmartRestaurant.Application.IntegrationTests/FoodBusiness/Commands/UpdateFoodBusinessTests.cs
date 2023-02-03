@@ -54,7 +54,13 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                     Email = "test@g22.com",
                     Website = "",
                     FoodBusinessAdministratorId = fastFood.FoodBusinessAdministratorId,
-                    FoodBusinessCategory = FoodBusinessCategory.Restaurant
+                    FoodBusinessCategory = FoodBusinessCategory.Restaurant,
+                    OpeningTime = "08:00",
+                    ClosingTime = "18:00",
+                    NearbyLocationDescription = "inferieur a 20km",
+                    FarLocationDescription = "superieur a 20km",
+                    FarLocationPrice = 500,
+                    NearbyLocationPrice = 200,
                 };
 
                 await SendAsync(updateFoodBusinessCommand);
@@ -64,6 +70,12 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 list.FoodBusinessId.Should().Be(updateFoodBusinessCommand.Id);
                 list.Name.Should().Be("Taj mahal Updated test");
                 list.AcceptDelivery.Should().BeTrue();
+                list.OpeningTime.Should().Be(updateFoodBusinessCommand.OpeningTime);
+                list.ClosingTime.Should().Be(updateFoodBusinessCommand.ClosingTime);
+                list.NearbyLocationDescription.Should().Be(updateFoodBusinessCommand.NearbyLocationDescription);
+                list.NearbyLocationPrice.Should().Be(updateFoodBusinessCommand.NearbyLocationPrice);
+                list.FarLocationDescription.Should().Be(updateFoodBusinessCommand.FarLocationDescription);
+                list.FarLocationPrice.Should().Be(updateFoodBusinessCommand.FarLocationPrice);
             });
         }
     }
