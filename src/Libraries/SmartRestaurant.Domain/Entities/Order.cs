@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using SmartRestaurant.Domain.Common;
 using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Application.Common.Enums;
