@@ -49,14 +49,13 @@ namespace SmartRestaurant.API.Controllers
         [Route("ProfileUpdate")]
         [AllowAnonymous]
         [HttpPut]
-        public async Task<IActionResult> ProfileUpdate(ProfileUpdateCommand command)
+        public async Task<IActionResult> ProfileUpdate(UpdateProfileCommand command)
         {
             if (!User.Identity.IsAuthenticated)
                 return Unauthorized();
             var anthenticatedUser = await _userManager.GetUserAsync(HttpContext.User);
             if (anthenticatedUser == null)
                 return NotFound("User profile not found !");
-            command.Id = anthenticatedUser.Id;
             return await SendWithErrorsHandlingAsync(command);
         }
 

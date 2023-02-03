@@ -7,16 +7,15 @@ using Newtonsoft.Json;
 
 namespace SmartRestaurant.Application.Users.Commands
 {
-    public class ProfileUpdateCommand : IRequest<NoContent>
+    public class UpdateProfileCommand : IRequest<NoContent>
     {
-        [JsonIgnore] public string Id { get; set; }
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
     }
 
-    public class ProfileUpdateCommandValidator : AbstractValidator<ProfileUpdateCommand>
+    public class UpdateProfileCommandValidator : AbstractValidator<UpdateProfileCommand>
     {
-        public ProfileUpdateCommandValidator()
+        public UpdateProfileCommandValidator()
         {
             RuleFor(updateUser => updateUser.FullName).NotEmpty();
             RuleFor(updateUser => updateUser.PhoneNumber).NotEmpty();
