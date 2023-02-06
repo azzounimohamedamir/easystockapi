@@ -277,6 +277,9 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<UpdateUserCommand, ApplicationUser>()
                .ReverseMap();
 
+            CreateMap<UpdateProfileCommand, ApplicationUser>()
+              .ReverseMap();
+
             CreateMap<ApplicationUser, ApplicationUserDto>()
                 .ForMember(x => x.EmailConfirmed, o => o.MapFrom(p => p.EmailConfirmed))
                 .ReverseMap();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
+using MailKit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,7 @@ namespace SmartRestaurant.API.Controllers
             _identityContext = identityContext;
         }
 
+        
         [Authorize(Roles = "SuperAdmin,SupportAgent")]
         [HttpGet]
         public async Task<IActionResult> GetAll(int page, int pageSize)
@@ -369,5 +371,43 @@ namespace SmartRestaurant.API.Controllers
             command.Id = id;
             return await SendWithErrorsHandlingAsync(command);
         }
+
+        [Route("GetUserProfile")]
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetUserProfile()
+        {
+            if (!User.Identity.IsAuthenticated)
+                return Unauthorized();
+            var anthenticatedUser = await _userManager.GetUserAsync(HttpContext.User);
+            if (anthenticatedUser == null)
+                return NotFound("User profile not found !");
+
+
+            var user = await _userManager.FindByIdAsync(anthenticatedUser.Id).ConfigureAwait(false);
+            if (user == null)
+                throw new NotFoundException(nameof(user), anthenticatedUser.Id);
+            var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+            return Ok(new UserWithRolesModel(user, roles == null ? new string[0] : roles.ToArray()));
+        }
+
+
+        /// <summary> Update User profile  </summary>
+        /// <remarks> This endpoint is used to update user profile.</remarks>
+        /// <param name="command"> This is the payload object used to update profile account</param>
+        /// <response code="204">User profile has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to update user profile is invalid.</response>
+        /// <response code="401"> The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request. </response>
+        [Route("ProfileUpdate")]
+        [Authorize]
+        [HttpPut]
+        public async Task<IActionResult> ProfileUpdate(UpdateProfileCommand command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+
+
     }
 }
