@@ -41,6 +41,12 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 AcceptDelivery = true,
                 IsHandicapFriendly = true,
                 Name = "Taj mahal",
+                OpeningTime = "11:00",
+                ClosingTime = "23:00",
+                NearbyLocationDescription = "alger",
+                FarLocationDescription = "hors alger",
+                FarLocationPrice = 600,
+                NearbyLocationPrice = 300,      
                 OffersTakeout = true,
                 PhoneNumber = new PhoneNumberDto {CountryCode = 213, Number = 670217536},
                 Tags = new List<string>
@@ -65,6 +71,12 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
             item.Name.Should().BeEquivalentTo(createFoodBusinessCommand.Name);
             item.Address.Should().BeEquivalentTo(createFoodBusinessCommand.Address);
             item.AcceptDelivery.Should().BeTrue();
+            item.OpeningTime.Should().Be(createFoodBusinessCommand.OpeningTime);
+            item.ClosingTime.Should().Be(createFoodBusinessCommand.ClosingTime);
+            item.NearbyLocationDescription.Should().Be(createFoodBusinessCommand.NearbyLocationDescription);
+            item.NearbyLocationPrice.Should().Be(createFoodBusinessCommand.NearbyLocationPrice);
+            item.FarLocationDescription.Should().Be(createFoodBusinessCommand.FarLocationDescription);
+            item.FarLocationPrice.Should().Be(createFoodBusinessCommand.FarLocationPrice);
         }
     }
 }
