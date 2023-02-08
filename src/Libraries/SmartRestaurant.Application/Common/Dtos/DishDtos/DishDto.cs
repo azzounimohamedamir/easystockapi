@@ -18,6 +18,8 @@ namespace SmartRestaurant.Application.Common.Dtos.DishDtos
         public List<DishIngredientDto> Ingredients { get; set; }
         public List<DishSupplementDto> Supplements { get; set; }
         public bool IsSupplement { get; set; }
+        public int Quantity { get; set; }
+        public bool IsQuantityChecked { get; set; } 
         public int EstimatedPreparationTime { get; set; }
         public List<CurrencyDto> CurrencyExchange { get; set; }
     }

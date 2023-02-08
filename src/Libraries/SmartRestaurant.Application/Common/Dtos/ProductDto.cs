@@ -15,7 +15,7 @@ namespace SmartRestaurant.Application.Common.Dtos
         public float EnergeticValue { get; set; }
         public string FoodBusinessId { get; set; }
         public List<CurrencyDto> CurrencyExchange { get; set; }
-        public int Quantity { get; set; }
-        public bool isQuantityChecked { get; set; } 
+         public int Quantity { get; set; }
+        public bool IsQuantityChecked { get; set; } 
     }
 }
