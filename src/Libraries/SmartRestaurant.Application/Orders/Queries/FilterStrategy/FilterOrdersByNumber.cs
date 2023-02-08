@@ -115,7 +115,7 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
             if (string.IsNullOrWhiteSpace(request.SearchKey))
             {
                 return order =>
-                     order.CreatedBy == dinerId &&
+                   
                      (order.CreatedAt).Date == DateTime.Today.Date
                      ;
             }
