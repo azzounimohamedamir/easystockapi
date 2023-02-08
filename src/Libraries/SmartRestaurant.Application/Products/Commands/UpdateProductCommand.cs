@@ -18,6 +18,8 @@ namespace SmartRestaurant.Application.Products.Commands
         public IFormFile Picture { get; set; }
         public float Price { get; set; }
         public float EnergeticValue { get; set; }
+        public int Quantity { get; set; }
+        public bool IsQuantityChecked { get; set; } 
     }
 
     public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
@@ -40,6 +42,9 @@ namespace SmartRestaurant.Application.Products.Commands
 
             RuleFor(product => product.Price)
                 .GreaterThanOrEqualTo(0);
+
+            RuleFor(product => product.Quantity)
+            .GreaterThanOrEqualTo(0);
 
             RuleFor(product => product.EnergeticValue)
                .GreaterThanOrEqualTo(0);

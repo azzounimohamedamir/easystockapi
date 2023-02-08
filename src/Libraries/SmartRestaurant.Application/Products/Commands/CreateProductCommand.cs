@@ -16,6 +16,8 @@ namespace SmartRestaurant.Application.Products.Commands
         public float Price { get; set; }
         public float EnergeticValue { get; set; }
         public string FoodBusinessId { get; set; }
+        public int Quantity { get; set; }
+        public bool IsQuantityChecked { get; set; }
 
     }
 
@@ -33,6 +35,8 @@ namespace SmartRestaurant.Application.Products.Commands
 
             RuleFor(product => product.Price)
                 .GreaterThanOrEqualTo(0);
+            RuleFor(product => product.Quantity)
+         .GreaterThanOrEqualTo(0);
 
             RuleFor(product => product.EnergeticValue)
                .GreaterThanOrEqualTo(0);
