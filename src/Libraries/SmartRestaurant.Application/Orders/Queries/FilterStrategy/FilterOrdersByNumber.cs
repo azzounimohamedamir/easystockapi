@@ -109,6 +109,47 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
                     && order.Number == searchKey;
             }
         }
+
+        private static Expression<Func<Order, bool>> FetchOrderListOfTodayOfDinnerConditions(GetAllTodayOrdersQueryByTableId request)
+        {
+            if (string.IsNullOrWhiteSpace(request.SearchKey))
+            {
+                return order =>
+                      
+                     (order.CreatedAt).Date == DateTime.Today.Date
+                     ;
+            }
+            else
+            {
+                var searchKey = ChecksHelper.IsFloatNumber(request.SearchKey) ? float.Parse(request.SearchKey) : -1.0;
+                return order =>
+                      order.CreatedAt == DateTime.Today &&
+                      order.Number == searchKey;
+            }
+        }
+
+
+        public PagedResultBase<Order> FetchOrderListOfTodayOfDinner(DbSet<Order> orders, GetAllTodayOrdersQueryByTableId request)
+        {
+           
+                    return orders
+                       .Include(o => o.Dishes)
+                       .ThenInclude(o => o.Specifications)
+                       .ThenInclude(o => o.ComboBoxContentTranslation)
+                       .Include(o => o.Dishes)
+                       .ThenInclude(o => o.Ingredients)
+                       .Include(o => o.Dishes)
+                       .ThenInclude(o => o.Supplements)
+                       .Include(o => o.Products)
+                       .Include(o => o.OccupiedTables)
+                       .Where(FetchOrderListOfTodayOfDinnerConditions(request))
+                       .OrderByDescending(orders => orders.Status)
+                       .ThenByDescending(orders => orders.CreatedAt)
+                       .AsNoTracking()
+                       .GetPaged(request.Page, request.PageSize);
+
+        }
+
         private static Expression<Func<Order, bool>> ConditionForClient(GetOrdersListByDinnerOrClientQuery request,string dinerId)
         {
             if (string.IsNullOrWhiteSpace(request.SearchKey))

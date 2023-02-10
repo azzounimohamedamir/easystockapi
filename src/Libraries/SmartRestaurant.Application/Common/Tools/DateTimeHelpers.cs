@@ -15,31 +15,39 @@ namespace SmartRestaurant.Application.Common.Tools
         public static ErrorResult CheckAvailabiliteOfOrderDeliveryInCurrentTime(string openingTime,string closingTime ,IDateTime datetime)
         {
             var currentTimeString = datetime.Now().ToString("HH:mm:ss"); 
-            if (DateTime.Parse(openingTime + ":00") > DateTime.Parse(closingTime + ":00"))
-            {
-             if ((DateTime.Parse(currentTimeString) <= DateTime.Parse("23:59:00") && DateTime.Parse(currentTimeString) > DateTime.Parse(openingTime + ":00")) || (DateTime.Parse(currentTimeString) < DateTime.Parse(closingTime + ":00") && DateTime.Parse(currentTimeString) >= DateTime.Parse("00:00:00")))
-                {
-                    return ErrorResult.None;
-                }
-                else
-                {
-                    return ErrorResult.OutOfDeliveryTime;
-                }
+
+            if(openingTime == null || closingTime == null) {
+                return ErrorResult.None;
             }
             else
             {
-
-                if (DateTime.Parse(currentTimeString) < DateTime.Parse(closingTime + ":00") && DateTime.Parse(currentTimeString) > DateTime.Parse(openingTime + ":00"))
+                if (DateTime.Parse(openingTime + ":00") > DateTime.Parse(closingTime + ":00"))
                 {
-
-                    return ErrorResult.None;
+                    if ((DateTime.Parse(currentTimeString) <= DateTime.Parse("23:59:00") && DateTime.Parse(currentTimeString) > DateTime.Parse(openingTime + ":00")) || (DateTime.Parse(currentTimeString) < DateTime.Parse(closingTime + ":00") && DateTime.Parse(currentTimeString) >= DateTime.Parse("00:00:00")))
+                    {
+                       return ErrorResult.None;
+                    }
+                    else
+                    {
+                        return ErrorResult.OutOfDeliveryTime;
+                    }
                 }
                 else
                 {
 
-                    return ErrorResult.OutOfDeliveryTime;
+                    if (DateTime.Parse(currentTimeString) < DateTime.Parse(closingTime + ":00") && DateTime.Parse(currentTimeString) > DateTime.Parse(openingTime + ":00"))
+                    {
+
+                        return ErrorResult.None;
+                    }
+                    else
+                    {
+
+                        return ErrorResult.OutOfDeliveryTime;
+                    }
                 }
             }
+            
         }
     }
 }
