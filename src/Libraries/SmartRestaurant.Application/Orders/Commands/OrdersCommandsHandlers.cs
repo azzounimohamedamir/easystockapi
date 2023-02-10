@@ -39,11 +39,11 @@ namespace SmartRestaurant.Application.Orders.Commands
         private readonly string CreateAction = "CreateAction";
         private readonly string UpdateAction = "UpdateAction";
 
-        public OrdersCommandsHandlers(IApplicationDbContext context, 
-                                
+        public OrdersCommandsHandlers(IApplicationDbContext context,
+
                                     IMapper mapper,
                                     IUserService userService,
-                                    IFirebaseRepository fireBase,                  
+                                    IFirebaseRepository fireBase,
                                     IDateTime datetime)
         {
             _context = context;
@@ -65,23 +65,26 @@ namespace SmartRestaurant.Application.Orders.Commands
 
             if (request.Type == OrderTypes.Delivery)
             {
-                var isOutdeliveryTime = DateTimeHelpers.CheckAvailabiliteOfOrderDeliveryInCurrentTime(foodBusiness.OpeningTime, foodBusiness.ClosingTime , _datetime);
+                var isOutdeliveryTime = DateTimeHelpers.CheckAvailabiliteOfOrderDeliveryInCurrentTime(foodBusiness.OpeningTime, foodBusiness.ClosingTime, _datetime);
                 if (isOutdeliveryTime == ErrorResult.OutOfDeliveryTime)
                 {
                     var newOrder = new OrderDto();
+
                     newOrder.ErrorDeliveryTimeAvailabilite = ErrorResult.OutOfDeliveryTime;
                     return newOrder;
                 }
                 else
                 {
                     var newOrder = await ExecuteOrderOperations(request, cancellationToken, foodBusiness);
+
                     newOrder.ErrorDeliveryTimeAvailabilite = ErrorResult.None;
                     return newOrder;
                 }
             }
             else
             {
-                var newOrder = await ExecuteOrderOperations(request, cancellationToken, foodBusiness) ;
+                var newOrder = await ExecuteOrderOperations(request, cancellationToken, foodBusiness);
+
                 return newOrder;
             }
 
@@ -111,13 +114,13 @@ namespace SmartRestaurant.Application.Orders.Commands
                 {
                     var supp = _context.Dishes.FirstOrDefault(d => d.DishId.Equals(Guid.Parse(supplement.SupplementId)));
                     supplement.Name = supp.Name;
-                    supplement.Names =new Names()
+                    supplement.Names = new Names()
                     {
-                        AR= supp.Names.AR,
-                        EN= supp.Names.EN,
-                        FR= supp.Names.FR,
-                        TR= supp.Names.TR,
-                        RU= supp.Names.RU,
+                        AR = supp.Names.AR,
+                        EN = supp.Names.EN,
+                        FR = supp.Names.FR,
+                        TR = supp.Names.TR,
+                        RU = supp.Names.RU,
                     };
                     supplement.Description = supp.Description;
                     supplement.Price = supp.Price;
@@ -149,7 +152,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             return order;
         }
 
-        public async Task<OrderDto> ExecuteOrderOperations(CreateOrderCommand request, CancellationToken cancellationToken , Domain.Entities.FoodBusiness foodBusiness)
+        public async Task<OrderDto> ExecuteOrderOperations(CreateOrderCommand request, CancellationToken cancellationToken, Domain.Entities.FoodBusiness foodBusiness)
         {
             if (request.FoodBusinessClientId != null)
             {
@@ -160,6 +163,8 @@ namespace SmartRestaurant.Application.Orders.Commands
 
             var order = _mapper.Map<Order>(request);
             order = PopulatFromLocalDishesAndProducts(order);
+            UpdateDishesAndProductQuantityOnCreateOrder(order);// gestion de stock
+
 
             order.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.CreatedAt = DateTime.Now;
@@ -223,7 +228,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                 .ConfigureAwait(false);
             if (order == null)
                 throw new NotFoundException(nameof(Order), request.Id);
-          
+
             if (order.Status == OrderStatuses.Billed)
                 throw new ConflictException("Sorry, you can not update a Billed Order");
 
@@ -245,7 +250,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             if (foodBusiness != null)
                 orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);
             var path = order.FoodBusinessId + "/Orders/" + order.OrderId;
-            await _fireBase.UpdateAsync(path,orderDto, cancellationToken);
+            await _fireBase.UpdateAsync(path, orderDto, cancellationToken);
             return default;
         }
 
@@ -274,6 +279,8 @@ namespace SmartRestaurant.Application.Orders.Commands
             if (order.Status == OrderStatuses.Billed)
                 throw new ConflictException("Sorry, you can not change the status for a Billed Order");
 
+
+
             _mapper.Map(request, order);
             order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.LastModifiedAt = DateTime.Now;
@@ -289,7 +296,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             var validator = new AddSeatOrderToTableOrderCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-            Order order = await GetOrderForUpdate(request.Id, cancellationToken).ConfigureAwait(false);       
+            Order order = await GetOrderForUpdate(request.Id, cancellationToken).ConfigureAwait(false);
             RemoveOldOrderOfChair(request, order);
             AddNewOrderOfChair(request, order);
             SetTableIsOccupedIfIsNew(request, order);
@@ -381,12 +388,12 @@ namespace SmartRestaurant.Application.Orders.Commands
                 foodBusiness.OrderNumberLastResetDateTime = DateTime.Now;
                 _context.FoodBusinesses.Update(foodBusiness);
             }
-          
+
             order.Number = maxOrderNumber + 1;
         }
 
 
-        private  void CalculateAndSetOrderTotalPrice(Order order, Domain.Entities.FoodBusiness foodBusiness)
+        private void CalculateAndSetOrderTotalPrice(Order order, Domain.Entities.FoodBusiness foodBusiness)
         {
             order.CommissionConfigs = foodBusiness.CommissionConfigs == null ? new CommissionConfigs() : foodBusiness.CommissionConfigs;
             if (foodBusiness.CommissionConfigs == null || foodBusiness.CommissionConfigs.WhoPay == WhoPayCommission.FoodBusiness)
@@ -428,7 +435,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 
                 foreach (var supplement in dish.Supplements)
                 {
-                    if(supplement.IsSelected == true)
+                    if (supplement.IsSelected == true)
                         totalDishPrice += supplement.Price;
                 }
 
@@ -468,7 +475,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                 {
                     var OrderishIngredient = ingredient;
                     var ingredientDtails = ingredient.OrderIngredient;
-                    if(ingredientDtails.EnergeticValue.Amount == 0)
+                    if (ingredientDtails.EnergeticValue.Amount == 0)
                     {
                         energeticValues.Add(0);
                     }
@@ -507,7 +514,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             if (order.Type != OrderTypes.DineIn)
                 return;
 
-            foreach(var occupiedTable in order.OccupiedTables)
+            foreach (var occupiedTable in order.OccupiedTables)
             {
                 SetTabelOccuped(action, occupiedTable);
             }
@@ -519,7 +526,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             if (table == null)
                 throw new NotFoundException(nameof(Tables), occupiedTable.TableId);
 
-          
+
 
             if (table.TableState == TableState.Archived)
                 throw new ConflictException($"The table numbered with '{table.TableNumber.ToString().PadLeft(3, '0')}' can not be used because it is archived");
@@ -529,13 +536,13 @@ namespace SmartRestaurant.Application.Orders.Commands
         }
 
         private void ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(List<string> releasedTables)
-        {           
+        {
             foreach (var tableId in releasedTables)
             {
                 var table = _context.Tables.AsNoTracking().FirstOrDefault(t => t.TableId == Guid.Parse(tableId));
                 if (table == null)
                     throw new NotFoundException(nameof(Tables), tableId);
-              
+
                 table.TableState = TableState.Available;
                 _context.Tables.Update(table);
             }
@@ -547,9 +554,9 @@ namespace SmartRestaurant.Application.Orders.Commands
                 return new List<string>();
 
             List<string> releasedTables = new List<string>();
-            foreach(var orderOccupiedTable in order.OccupiedTables)
+            foreach (var orderOccupiedTable in order.OccupiedTables)
             {
-               var result = request.OccupiedTables.Find(x => x.TableId == orderOccupiedTable.TableId);
+                var result = request.OccupiedTables.Find(x => x.TableId == orderOccupiedTable.TableId);
                 if (result == null)
                     releasedTables.Add(orderOccupiedTable.TableId);
             }
@@ -572,5 +579,129 @@ namespace SmartRestaurant.Application.Orders.Commands
             }
             return default;
         }
+
+        private async void UpdateDishesAndProductQuantityOnCreateOrder(Order order)
+        {
+            var dishes = order.Dishes.GroupBy(d => d.DishId).Select(g => new
+            {
+                DishId = g.First().DishId,
+                Count = g.Count(),
+                Quantity = g.Sum(c => c.Quantity)
+
+            }).ToList();
+
+            // var dishes = order.Dishes;
+            foreach (var dish in dishes)
+            {
+
+                // update dishes
+
+
+
+                var dishUpdated = await _context.Dishes.FindAsync(Guid.Parse(dish.DishId));
+                if (dishUpdated == null)
+                    throw new NotFoundException(nameof(Dishes), dish.DishId);
+
+                if (dishUpdated.IsQuantityChecked && dishUpdated.Quantity > 0)
+                {
+
+                    dishUpdated.Quantity = dishUpdated.Quantity - ((int)dish.Quantity);
+
+                    _context.Dishes.Update(dishUpdated);
+                }
+
+
+            }
+
+
+            // update products
+            var products = order.Products.GroupBy(d => d.ProductId).Select(g => new
+            {
+                ProductId = g.First().ProductId,
+                Count = g.Count(),
+                Quantity = g.Sum(c => c.Quantity)
+
+            }).ToList();
+            foreach (var product in products)
+            {
+
+                var productUpdated = await _context.Products.FindAsync(Guid.Parse(product.ProductId));
+                if (productUpdated == null)
+                    throw new NotFoundException(nameof(Products), product.ProductId);
+
+
+                if (productUpdated.IsQuantityChecked && productUpdated.Quantity > 0)
+                {
+
+                    productUpdated.Quantity = productUpdated.Quantity - ((int)product.Quantity);
+
+                    _context.Products.Update(productUpdated);
+                }
+
+            }
+
+
+        }
+
+
+        private void UpdateDishesAndProductQuantityOnRemoveOrder(Order order, CancellationToken cancellationToken)
+        {
+            var dishes = order.Dishes.ToList();
+
+            foreach (var dish in dishes)
+            {
+
+                // update dishes
+
+                var dishUpdated = _context.Dishes.AsNoTracking().FirstOrDefault(d => d.DishId == Guid.Parse(dish.DishId));
+                if (dishUpdated == null)
+                    throw new NotFoundException(nameof(Dishes), dish.DishId);
+
+                if (dishUpdated.IsQuantityChecked)
+                {
+
+                    dishUpdated.Quantity = dishUpdated.Quantity + (int)dish.Quantity;
+
+                    _context.Dishes.Update(dishUpdated);
+
+                }
+
+
+            }
+
+
+
+            // update products
+
+            //var oldProductId = order.Products[0].ProductId;
+            //var productIds = order.Products.GroupBy(p=>p.ProductId).Select(p=> new
+            //{
+            //    ProductId = p.Key,
+            //    Quantity = p.Sum(c=> c.Quantity)
+
+            //});
+            //foreach (var product in productIds)
+            //{
+            //    var productUpdated = await _context.Products.FindAsync(Guid.Parse(product.ProductId));
+            //    var Quantity = (int) product.Quantity;
+
+
+
+
+            //    if (productUpdated.IsQuantityChecked )
+            //    {
+
+            //        productUpdated.Quantity = productUpdated.Quantity + Quantity;
+
+            //          _context.Products.Update(productUpdated);
+            //    }
+
+            //}
+
+
+        }
+
+
+
     }
 }
