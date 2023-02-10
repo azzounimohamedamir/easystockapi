@@ -239,6 +239,10 @@ namespace SmartRestaurant.Application.Orders.Commands
             order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.LastModifiedAt = DateTime.Now;
 
+            if (order.Status == OrderStatuses.Cancelled){
+                UpdateDishesAndProductQuantityOnRemoveOrder(order);
+            }
+
             ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(releasedTables);
             ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(order, UpdateAction);
             CalculateAndSetOrderEnergeticValues(order);
@@ -284,10 +288,14 @@ namespace SmartRestaurant.Application.Orders.Commands
             _mapper.Map(request, order);
             order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.LastModifiedAt = DateTime.Now;
+           
 
             var releasedTables = order.OccupiedTables.Select(x => x.TableId).ToList();
             ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(releasedTables);
             _context.Orders.Update(order);
+             if (order.Status == OrderStatuses.Cancelled){
+                UpdateDishesAndProductQuantityOnRemoveOrder(order);
+            }
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
@@ -644,59 +652,66 @@ namespace SmartRestaurant.Application.Orders.Commands
         }
 
 
-        private void UpdateDishesAndProductQuantityOnRemoveOrder(Order order, CancellationToken cancellationToken)
+        private async void UpdateDishesAndProductQuantityOnRemoveOrder(Order order)
         {
-            var dishes = order.Dishes.ToList();
+            var dishes = order.Dishes.GroupBy(d => d.DishId).Select(g => new
+            {
+                DishId = g.First().DishId,
+                Count = g.Count(),
+                Quantity = g.Sum(c => c.Quantity)
 
+            }).ToList();
+
+            // var dishes = order.Dishes;
             foreach (var dish in dishes)
             {
 
                 // update dishes
 
-                var dishUpdated = _context.Dishes.AsNoTracking().FirstOrDefault(d => d.DishId == Guid.Parse(dish.DishId));
+
+
+                var dishUpdated = await _context.Dishes.FindAsync(Guid.Parse(dish.DishId));
                 if (dishUpdated == null)
                     throw new NotFoundException(nameof(Dishes), dish.DishId);
 
                 if (dishUpdated.IsQuantityChecked)
                 {
 
-                    dishUpdated.Quantity = dishUpdated.Quantity + (int)dish.Quantity;
+                    dishUpdated.Quantity = dishUpdated.Quantity + ((int)dish.Quantity);
 
                     _context.Dishes.Update(dishUpdated);
-
                 }
 
 
             }
 
 
-
             // update products
+            var products = order.Products.GroupBy(d => d.ProductId).Select(g => new
+            {
+                ProductId = g.First().ProductId,
+                Count = g.Count(),
+                Quantity = g.Sum(c => c.Quantity)
 
-            //var oldProductId = order.Products[0].ProductId;
-            //var productIds = order.Products.GroupBy(p=>p.ProductId).Select(p=> new
-            //{
-            //    ProductId = p.Key,
-            //    Quantity = p.Sum(c=> c.Quantity)
+            }).ToList();
+            if(products.Count()>0)
+            foreach (var product in products)
+            {
 
-            //});
-            //foreach (var product in productIds)
-            //{
-            //    var productUpdated = await _context.Products.FindAsync(Guid.Parse(product.ProductId));
-            //    var Quantity = (int) product.Quantity;
+                var productUpdated = await _context.Products.FindAsync(Guid.Parse(product.ProductId));
+                if (productUpdated == null)
+                    throw new NotFoundException(nameof(Products), product.ProductId);
 
 
+                if (productUpdated.IsQuantityChecked && productUpdated.Quantity > 0)
+                {
 
+                    productUpdated.Quantity = productUpdated.Quantity + ((int)product.Quantity);
 
-            //    if (productUpdated.IsQuantityChecked )
-            //    {
+                    _context.Products.Update(productUpdated);
+                }
 
-            //        productUpdated.Quantity = productUpdated.Quantity + Quantity;
-
-            //          _context.Products.Update(productUpdated);
-            //    }
-
-            //}
+            }
 
 
         }
