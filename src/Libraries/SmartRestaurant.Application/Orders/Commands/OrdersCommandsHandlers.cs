@@ -226,6 +226,8 @@ namespace SmartRestaurant.Application.Orders.Commands
                 .Include(o => o.FoodBusiness)
                 .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
                 .ConfigureAwait(false);
+                UpdateDishesAndProductQuantityOnRemoveOrder(order);//  old order decrease the quantity
+
             if (order == null)
                 throw new NotFoundException(nameof(Order), request.Id);
 
@@ -239,15 +241,16 @@ namespace SmartRestaurant.Application.Orders.Commands
             order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.LastModifiedAt = DateTime.Now;
 
-            if (order.Status == OrderStatuses.Cancelled){
-                UpdateDishesAndProductQuantityOnRemoveOrder(order);
-            }
+           
+            
+            
 
             ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(releasedTables);
             ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(order, UpdateAction);
             CalculateAndSetOrderEnergeticValues(order);
             CalculateAndSetOrderTotalPrice(order, order.FoodBusiness);
             _context.Orders.Update(order);
+            UpdateDishesAndProductQuantityOnCreateOrder(order); //  new order increase quantity
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             var orderDto = _mapper.Map<OrderDto>(order);
             var foodBusiness = await _context.FoodBusinesses.FindAsync(order.FoodBusinessId);
@@ -715,6 +718,72 @@ namespace SmartRestaurant.Application.Orders.Commands
 
 
         }
+
+
+  private async void UpdateDishesAndProductQuantityOnUpdateOrder(Order order)
+        {
+            var dishes = order.Dishes.GroupBy(d => d.DishId).Select(g => new
+            {
+                DishId = g.First().DishId,
+                Count = g.Count(),
+                Quantity = g.Sum(c => c.Quantity)
+
+            }).ToList();
+
+            // var dishes = order.Dishes;
+            foreach (var dish in dishes)
+            {
+
+                // update dishes
+
+
+
+                var dishUpdated = await _context.Dishes.FindAsync(Guid.Parse(dish.DishId));
+                if (dishUpdated == null)
+                    throw new NotFoundException(nameof(Dishes), dish.DishId);
+
+                if (dishUpdated.IsQuantityChecked)
+                {
+
+                    dishUpdated.Quantity = dishUpdated.Quantity + ((int)dish.Quantity);
+
+                    _context.Dishes.Update(dishUpdated);
+                }
+
+
+            }
+
+
+            // update products
+            var products = order.Products.GroupBy(d => d.ProductId).Select(g => new
+            {
+                ProductId = g.First().ProductId,
+                Count = g.Count(),
+                Quantity = g.Sum(c => c.Quantity)
+
+            }).ToList();
+            if(products.Count()>0)
+            foreach (var product in products)
+            {
+
+                var productUpdated = await _context.Products.FindAsync(Guid.Parse(product.ProductId));
+                if (productUpdated == null)
+                    throw new NotFoundException(nameof(Products), product.ProductId);
+
+
+                if (productUpdated.IsQuantityChecked && productUpdated.Quantity > 0)
+                {
+
+                    productUpdated.Quantity = productUpdated.Quantity + ((int)product.Quantity);
+
+                    _context.Products.Update(productUpdated);
+                }
+
+            }
+
+
+        }
+
 
 
 
