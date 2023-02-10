@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
@@ -216,16 +217,18 @@ namespace SmartRestaurant.API.Controllers
         [Route("tableOrders")]
         [HttpGet]
         public Task<IActionResult> GetTodayTableOrdersByDiner(string currentFilter, string searchKey, string sortOrder,
-          int page, int pageSize, DateFilter dateInterval)
+          int page, int pageSize, DateFilter dateInterval , Guid tableId)
         {
-            var query = new GetAllTodayOrdersQuery
+            var query = new GetAllTodayOrdersQueryByTableId
             {
                 CurrentFilter = currentFilter,
                 SearchKey = searchKey,
                 SortOrder = sortOrder,
                 Page = page,
                 PageSize = pageSize,
-                DateInterval = dateInterval
+                DateInterval = dateInterval,
+                TableId=tableId
+                
             };
             return SendWithErrorsHandlingAsync(query);
         }

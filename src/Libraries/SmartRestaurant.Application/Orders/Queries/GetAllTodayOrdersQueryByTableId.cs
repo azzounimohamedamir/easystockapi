@@ -8,7 +8,7 @@ using SmartRestaurant.Application.Common.Tools;
 
 namespace SmartRestaurant.Application.Orders.Queries
 {
-    public class GetAllTodayOrdersQuery : IRequest<PagedListDto<OrderDto>>
+    public class GetAllTodayOrdersQueryByTableId : IRequest<PagedListDto<OrderDto>>
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
@@ -16,16 +16,18 @@ namespace SmartRestaurant.Application.Orders.Queries
         public string SortOrder { get; set; }
         public string CurrentFilter { get; set; }
         public DateFilter DateInterval { get; set; }
+        public Guid TableId { get; set; }
 }
 
-    public class GetAllTodayOrdersQueryValidator : AbstractValidator<GetAllTodayOrdersQuery>
+    public class GetAllTodayOrdersQueryValidator : AbstractValidator<GetAllTodayOrdersQueryByTableId>
     {
         public GetAllTodayOrdersQueryValidator()
         {
             RuleFor(v => v.PageSize)
                 .LessThanOrEqualTo(100);
+            RuleFor(v => v.TableId).NotNull().NotEmpty().NotEqual(Guid.Empty);
 
-            
+
         }
     }
 }

@@ -8,7 +8,7 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
     {     
         public PagedResultBase<Order> FetchData(DbSet<Order> Dishes, GetOrdersListQuery request);
         public PagedResultBase<Order> FetchDataOfDinnerOrClient(DbSet<Order> Dishes, GetOrdersListByDinnerOrClientQuery request , string dinerId);
-        public PagedResultBase<Order> FetchOrderListOfTodayOfDinner(DbSet<Order> Dishes, GetAllTodayOrdersQuery request, string dinerId);
+        public PagedResultBase<Order> FetchOrderListOfTodayOfDinner(DbSet<Order> Dishes, GetAllTodayOrdersQueryByTableId request);
 
 
     }

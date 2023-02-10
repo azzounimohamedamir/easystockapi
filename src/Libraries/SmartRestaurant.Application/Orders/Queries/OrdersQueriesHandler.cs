@@ -21,7 +21,7 @@ namespace SmartRestaurant.Application.Orders.Queries
     public class OrdersQueriesHandler : IRequestHandler<GetOrderByIdQuery, OrderDto>,
         IRequestHandler<GetOrdersListQuery, PagedListDto<OrderDto>>,
         IRequestHandler<GetOrdersListByDinnerOrClientQuery, PagedListDto<OrderDto>>,
-        IRequestHandler<GetAllTodayOrdersQuery, PagedListDto<OrderDto>>,
+        IRequestHandler<GetAllTodayOrdersQueryByTableId, PagedListDto<OrderDto>>,
         IRequestHandler<GetLastOrderByTableIDQuery, OrderDto>
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -117,17 +117,30 @@ namespace SmartRestaurant.Application.Orders.Queries
             return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
 
-        public async Task<PagedListDto<OrderDto>> Handle(GetAllTodayOrdersQuery request, CancellationToken cancellationToken)
+        public async Task<PagedListDto<OrderDto>> Handle(GetAllTodayOrdersQueryByTableId request, CancellationToken cancellationToken)
         {
-            var dinerId = _userService.GetUserId();
             var validator = new GetAllTodayOrdersQueryValidator();
+            var datafilter=new List<OrderDto>();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
             var filter = OrderStrategies.GetFilterStrategy(request.CurrentFilter);
-            var query = filter.FetchOrderListOfTodayOfDinner(_context.Orders, request, dinerId);
+            var query = filter.FetchOrderListOfTodayOfDinner(_context.Orders, request);
+                
             var queryData = await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false);
             var data = _mapper.Map<List<OrderDto>>(queryData);
-            foreach (var order in data)
+
+            foreach (var item in data)
+            {
+                foreach (var occ in item.OccupiedTables)
+                {
+                    if (occ.TableId == request.TableId.ToString())
+                    {
+                        datafilter.Add(item);
+                    }
+                }
+            }
+
+            foreach (var order in datafilter)
             {
                 var foodBusiness = await _context.FoodBusinesses.FindAsync(Guid.Parse(order.FoodBusinessId));
                 if (foodBusiness == null)
@@ -136,7 +149,7 @@ namespace SmartRestaurant.Application.Orders.Queries
 
                 order.CreatedBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(queryData.Find(o => o.OrderId.ToString() == order.OrderId).CreatedBy));
             }
-            return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
+            return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, datafilter);
         }
 
         public async Task<OrderDto> Handle(GetLastOrderByTableIDQuery request, CancellationToken cancellationToken)

@@ -110,12 +110,12 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
             }
         }
 
-        private static Expression<Func<Order, bool>> FetchOrderListOfTodayOfDinnerConditions(GetAllTodayOrdersQuery request, string dinerId)
+        private static Expression<Func<Order, bool>> FetchOrderListOfTodayOfDinnerConditions(GetAllTodayOrdersQueryByTableId request)
         {
             if (string.IsNullOrWhiteSpace(request.SearchKey))
             {
                 return order =>
-                   
+                      
                      (order.CreatedAt).Date == DateTime.Today.Date
                      ;
             }
@@ -123,14 +123,13 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
             {
                 var searchKey = ChecksHelper.IsFloatNumber(request.SearchKey) ? float.Parse(request.SearchKey) : -1.0;
                 return order =>
-                      order.CreatedBy == dinerId &&
                       order.CreatedAt == DateTime.Today &&
                       order.Number == searchKey;
             }
         }
 
 
-        public PagedResultBase<Order> FetchOrderListOfTodayOfDinner(DbSet<Order> orders, GetAllTodayOrdersQuery request, string dinerId)
+        public PagedResultBase<Order> FetchOrderListOfTodayOfDinner(DbSet<Order> orders, GetAllTodayOrdersQueryByTableId request)
         {
            
                     return orders
@@ -143,7 +142,7 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
                        .ThenInclude(o => o.Supplements)
                        .Include(o => o.Products)
                        .Include(o => o.OccupiedTables)
-                       .Where(FetchOrderListOfTodayOfDinnerConditions(request, dinerId))
+                       .Where(FetchOrderListOfTodayOfDinnerConditions(request))
                        .OrderByDescending(orders => orders.Status)
                        .ThenByDescending(orders => orders.CreatedAt)
                        .AsNoTracking()
