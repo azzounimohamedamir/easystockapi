@@ -111,6 +111,29 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
 
             return user;
         }
+        public static async Task<ApplicationUser> CreateDinner(string fullname)
+        {
+            var user = new ApplicationUser()
+            {
+                FullName = fullname,
+                Email = fullname+"@dinner.com",
+                UserName = fullname+"@dinner.com",
+                PhoneNumber = "077654656",
+                IsActive = true,
+                EmailConfirmed = true,
+                // Real password is "Supportagent123@"
+                PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw=="
+            };
+            await AddIdentityAsync(user);
 
+            var userRole1 = new ApplicationUserRole()
+            {
+                UserId = user.Id,
+                RoleId = Convert.ToString((int)Roles.Diner)
+            };
+            await AddIdentityAsync(userRole1);
+
+            return user;
+        }
     }
 }

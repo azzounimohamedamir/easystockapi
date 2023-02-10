@@ -32,6 +32,7 @@ namespace SmartRestaurant.API.Middlewares
                 && !IsFoodBusinessStaffEndpoint(context)
                 && !IshotelsEndpoint(context)
                 && !IsFoodBusinessEndpoint(context)
+                && !IsProfileEndpoint(context)
                 )
             {
                 var foodBusinessId = context.Request.Headers["FoodBusinessId"].ToString();
@@ -93,6 +94,11 @@ namespace SmartRestaurant.API.Middlewares
         private bool IshotelsEndpoint(HttpContext context)
         {
             return context.Request.Path.Value.Contains("api/hotels");
+        }
+
+        private bool IsProfileEndpoint(HttpContext context)
+        {
+            return context.Request.Path.Value.Contains("api/users/ProfileUpdate");
         }
         private bool IsGetEndpoint(HttpContext context)
         {

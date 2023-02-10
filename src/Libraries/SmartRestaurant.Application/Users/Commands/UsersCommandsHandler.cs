@@ -5,6 +5,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using SmartRestaurant.Application.Common.Exceptions;
+using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Application.Users.Queries;
@@ -15,16 +16,19 @@ namespace SmartRestaurant.Application.Users.Commands
 {
     public class UsersCommandsHandler :
                 IRequestHandler<SetNewPasswordForFoodBusinessAdministratorCommand, NoContent>,
-                IRequestHandler<UpdateUserCommand, NoContent>
+                IRequestHandler<UpdateUserCommand, NoContent>,
+                IRequestHandler<UpdateProfileCommand, NoContent>
 
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
-        public UsersCommandsHandler(UserManager<ApplicationUser> userManager, IMapper mapper)
+        public UsersCommandsHandler(UserManager<ApplicationUser> userManager, IUserService userService, IMapper mapper)
         {
             _userManager = userManager;
             _mapper = mapper;
+            _userService = userService;
 
         }
 
@@ -81,6 +85,33 @@ namespace SmartRestaurant.Application.Users.Commands
                 }
 
                  _mapper.Map(request, user);
+                var userUpdateResult = await _userManager.UpdateAsync(user);
+                if (!userUpdateResult.Succeeded)
+                    throw new UserManagerException(userUpdateResult.Errors);
+
+                transaction.Complete();
+            }
+
+            return default;
+        }
+        #endregion
+
+
+        #region Profile Update
+        public async Task<NoContent> Handle(UpdateProfileCommand request, CancellationToken cancellationToken)
+        {
+            await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid<UpdateProfileCommandValidator, UpdateProfileCommand>
+                (request, cancellationToken).ConfigureAwait(false);
+
+            var user_id = _userService.GetUserId();
+
+            var user = await _userManager.FindByIdAsync(user_id);
+            if (user == null)
+                throw new NotFoundException(nameof(user), user_id);
+
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                _mapper.Map(request, user);
                 var userUpdateResult = await _userManager.UpdateAsync(user);
                 if (!userUpdateResult.Succeeded)
                     throw new UserManagerException(userUpdateResult.Errors);
