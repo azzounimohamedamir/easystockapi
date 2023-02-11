@@ -620,10 +620,18 @@ namespace SmartRestaurant.Application.Orders.Commands
 
                 if (dishUpdated.IsQuantityChecked && dishUpdated.Quantity > 0)
                 {
+                    if ((dishUpdated.Quantity - (int)dish.Quantity) < 0)
+                    {
+                        throw new ConflictException("Sorry, you can not take this quantity : " + dish.Quantity + " , issue quantity. ");
+                    }
+                    else
+                    {
+                        dishUpdated.Quantity = dishUpdated.Quantity - ((int)dish.Quantity);
 
-                    dishUpdated.Quantity = dishUpdated.Quantity - ((int)dish.Quantity);
+                        _context.Dishes.Update(dishUpdated);
+                    }
 
-                    _context.Dishes.Update(dishUpdated);
+                  
                 }
 
 
@@ -648,10 +656,19 @@ namespace SmartRestaurant.Application.Orders.Commands
 
                 if (productUpdated.IsQuantityChecked && productUpdated.Quantity > 0)
                 {
+                    if ((productUpdated.Quantity - (int)product.Quantity) < 0)
+                    {
+                        throw new ConflictException("Sorry, you can not take this quantity : "+product.Quantity+ " , issue quantity. ");
+                    }
+                    else
+                    {
+                        productUpdated.Quantity = productUpdated.Quantity - ((int)product.Quantity);
 
-                    productUpdated.Quantity = productUpdated.Quantity - ((int)product.Quantity);
+                        _context.Products.Update(productUpdated);
 
-                    _context.Products.Update(productUpdated);
+                    }
+
+                 
                 }
 
             }
@@ -711,7 +728,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                     throw new NotFoundException(nameof(Products), product.ProductId);
 
 
-                if (productUpdated.IsQuantityChecked && productUpdated.Quantity > 0)
+                if (productUpdated.IsQuantityChecked)
                 {
 
                     productUpdated.Quantity = productUpdated.Quantity + ((int)product.Quantity);
@@ -723,73 +740,6 @@ namespace SmartRestaurant.Application.Orders.Commands
 
 
         }
-
-
-  private async Task UpdateDishesAndProductQuantityOnUpdateOrder(Order order)
-        {
-            var dishes = order.Dishes.GroupBy(d => d.DishId).Select(g => new
-            {
-                DishId = g.First().DishId,
-                Count = g.Count(),
-                Quantity = g.Sum(c => c.Quantity)
-
-            }).ToList();
-
-            // var dishes = order.Dishes;
-            foreach (var dish in dishes)
-            {
-
-                // update dishes
-
-
-
-                var dishUpdated = await _context.Dishes.FindAsync(Guid.Parse(dish.DishId));
-                if (dishUpdated == null)
-                    throw new NotFoundException(nameof(Dishes), dish.DishId);
-
-                if (dishUpdated.IsQuantityChecked)
-                {
-
-                    dishUpdated.Quantity = dishUpdated.Quantity + ((int)dish.Quantity);
-
-                    _context.Dishes.Update(dishUpdated);
-                }
-
-
-            }
-
-
-            // update products
-            var products = order.Products.GroupBy(d => d.ProductId).Select(g => new
-            {
-                ProductId = g.First().ProductId,
-                Count = g.Count(),
-                Quantity = g.Sum(c => c.Quantity)
-
-            }).ToList();
-            if(products.Count()>0)
-            foreach (var product in products)
-            {
-
-                var productUpdated = await _context.Products.FindAsync(Guid.Parse(product.ProductId));
-                if (productUpdated == null)
-                    throw new NotFoundException(nameof(Products), product.ProductId);
-
-
-                if (productUpdated.IsQuantityChecked && productUpdated.Quantity > 0)
-                {
-
-                    productUpdated.Quantity = productUpdated.Quantity + ((int)product.Quantity);
-
-                    _context.Products.Update(productUpdated);
-                }
-
-            }
-
-
-        }
-
-
 
 
     }
