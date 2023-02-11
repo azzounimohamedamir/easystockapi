@@ -17,7 +17,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                 migrationBuilder.AddColumn<bool>(
                 name: "IsQuantityChecked",
                 table: "Dishes",
-                defaultValue: false);
+                defaultValue: true);
 
                 migrationBuilder.AddColumn<int>(
                 name: "Quantity",
@@ -28,7 +28,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                 migrationBuilder.AddColumn<bool>(
                 name: "IsQuantityChecked",
                 table: "Products",
-                defaultValue: false);
+                defaultValue: true);
 
 
         }

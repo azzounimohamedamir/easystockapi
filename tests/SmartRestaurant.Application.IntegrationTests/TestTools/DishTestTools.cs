@@ -24,6 +24,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 FoodBusinessId = foodBusinessId.ToString(),
                 IsSupplement = true,
                 EstimatedPreparationTime = 600
+               
             };
             await SendAsync(createDishSupplement);
 
@@ -35,6 +36,8 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 Picture = Properties.Resources.PictureBase64_01,
                 Price = 280,
                 FoodBusinessId = foodBusinessId.ToString(),
+                IsQuantityChecked=true,
+                Quantity = 200,
                 Specifications = new List<DishSpecificationDto>() {
                     new  DishSpecificationDto()   
                     {ContentType =  ContentType.CheckBox,
@@ -92,6 +95,8 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 Picture = Properties.Resources.PictureBase64_01,
                 Price = 280,
                 FoodBusinessId = foodBusinessId.ToString(),
+                IsQuantityChecked=true,
+                Quantity = 200,
                 Specifications = new List<DishSpecificationDto>() {
                     new  DishSpecificationDto()
                     {ContentType =  ContentType.CheckBox,
@@ -147,6 +152,8 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 FoodBusinessId = foodBusinessId.ToString(),
                 IsSupplement = true,
                 EstimatedPreparationTime = 600,
+                IsQuantityChecked=true,
+                Quantity = 200,
                 Ingredients = new List<DishIngredientCreateDto>() {
                     new  DishIngredientCreateDto()   {
                         InitialAmount = 20,
@@ -169,6 +176,8 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 Picture = Properties.Resources.PictureBase64_01,
                 Price = 280,
                 FoodBusinessId = foodBusinessId.ToString(),
+                IsQuantityChecked=true,
+                Quantity = 200,
                 Specifications = new List<DishSpecificationDto>() 
                 {
                     new  DishSpecificationDto()
