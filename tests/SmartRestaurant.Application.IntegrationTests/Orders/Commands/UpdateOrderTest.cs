@@ -103,7 +103,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
             var createProductCommand = await ProductTestTools.CreateProduct();
             var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
-
+            
 
             var createIngredientCommandToUpdate = await IngredientTestTools.CreateIngredient();
             var createDishCommandToUpdate = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommandToUpdate.Id);
@@ -113,7 +113,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
                 createDishCommandToUpdate, createProductCommandToUpdated);
 
             var order = await GetOrder(Guid.Parse(updateOrderCommand.Id));
-            
+
+            var dish = await GetDish(Guid.Parse(order.Dishes[0].DishId));
+            dish.Quantity.Should().Be(199);
+
+          
             var UsedSupplimentInCommand = await GetDish(Guid.Parse(createDishCommandToUpdate.Supplements[0].SupplementId));
 
             order.OrderId.Should().Be(createOrderCommand.Id);
@@ -313,6 +317,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
                 }
             };
             await SendAsync(updateOrderCommand);
+            
             return updateOrderCommand;
         }
     }

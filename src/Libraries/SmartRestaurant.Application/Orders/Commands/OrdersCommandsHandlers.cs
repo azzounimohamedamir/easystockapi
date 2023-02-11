@@ -163,7 +163,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 
             var order = _mapper.Map<Order>(request);
             order = PopulatFromLocalDishesAndProducts(order);
-            UpdateDishesAndProductQuantityOnCreateOrder(order);// gestion de stock
+           await UpdateDishesAndProductQuantityOnCreateOrder(order);// gestion de stock
 
 
             order.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
@@ -226,7 +226,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                 .Include(o => o.FoodBusiness)
                 .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
                 .ConfigureAwait(false);
-                UpdateDishesAndProductQuantityOnRemoveOrder(order);//  old order decrease the quantity
+               await UpdateDishesAndProductQuantityOnRemoveOrder(order);//  old order decrease the quantity
 
             if (order == null)
                 throw new NotFoundException(nameof(Order), request.Id);
@@ -250,7 +250,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             CalculateAndSetOrderEnergeticValues(order);
             CalculateAndSetOrderTotalPrice(order, order.FoodBusiness);
             _context.Orders.Update(order);
-            UpdateDishesAndProductQuantityOnCreateOrder(order); //  new order increase quantity
+           await  UpdateDishesAndProductQuantityOnCreateOrder(order); //  new order increase quantity
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             var orderDto = _mapper.Map<OrderDto>(order);
             var foodBusiness = await _context.FoodBusinesses.FindAsync(order.FoodBusinessId);
@@ -295,11 +295,16 @@ namespace SmartRestaurant.Application.Orders.Commands
 
             var releasedTables = order.OccupiedTables.Select(x => x.TableId).ToList();
             ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(releasedTables);
+
             _context.Orders.Update(order);
+
              if (order.Status == OrderStatuses.Cancelled){
-                UpdateDishesAndProductQuantityOnRemoveOrder(order);
+
+            await UpdateDishesAndProductQuantityOnRemoveOrder(order);
             }
+
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
             return default;
         }
         public async Task<NoContent> Handle(AddSeatOrderToTableOrderCommand request, CancellationToken cancellationToken)
@@ -591,7 +596,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             return default;
         }
 
-        private async void UpdateDishesAndProductQuantityOnCreateOrder(Order order)
+        private async Task UpdateDishesAndProductQuantityOnCreateOrder(Order order)
         {
             var dishes = order.Dishes.GroupBy(d => d.DishId).Select(g => new
             {
@@ -655,7 +660,7 @@ namespace SmartRestaurant.Application.Orders.Commands
         }
 
 
-        private async void UpdateDishesAndProductQuantityOnRemoveOrder(Order order)
+        private async Task UpdateDishesAndProductQuantityOnRemoveOrder(Order order)
         {
             var dishes = order.Dishes.GroupBy(d => d.DishId).Select(g => new
             {
@@ -720,7 +725,7 @@ namespace SmartRestaurant.Application.Orders.Commands
         }
 
 
-  private async void UpdateDishesAndProductQuantityOnUpdateOrder(Order order)
+  private async Task UpdateDishesAndProductQuantityOnUpdateOrder(Order order)
         {
             var dishes = order.Dishes.GroupBy(d => d.DishId).Select(g => new
             {

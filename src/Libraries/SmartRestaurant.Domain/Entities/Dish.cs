@@ -18,8 +18,7 @@ namespace SmartRestaurant.Domain.Entities
         public virtual IList<DishIngredient> Ingredients { get; set; }
         public virtual IList<DishSupplement> Supplements { get; set; }
         public bool IsSupplement { get; set; }
-         public int Quantity { get; set; }
-        public bool IsQuantityChecked { get; set; } 
+ 
         public int EstimatedPreparationTime { get; set; }
         public virtual IList<SectionDish> Sections { get; set; }
         public virtual IList<SubSectionDish> SubSections { get; set; }
