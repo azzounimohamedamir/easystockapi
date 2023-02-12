@@ -72,7 +72,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             var filter = FoodBusinessStrategies.GetFilterStrategy(request.CurrentFilter);
             var query = filter.FetchDataFbAcceptDelivery(_applicationDbContext.FoodBusinesses, request);
 
-            var data = _mapper.Map<List<FoodBusinessDto>>(await query.Data.Where(a=>a.AcceptDelivery==true).ToListAsync(cancellationToken).ConfigureAwait(false));
+            var data = _mapper.Map<List<FoodBusinessDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
 
             return new PagedListDto<FoodBusinessDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
