@@ -24,6 +24,11 @@ namespace SmartRestaurant.Application.Dishes.Commands
         public List<DishIngredientCreateDto> Ingredients { get; set; }
         public List<DishSupplementCreateDto> Supplements { get; set; }
         public bool IsSupplement { get; set; }
+        public int Quantity { get; set; }
+        public bool IsQuantityChecked { get; set; }
+
+
+
         public int EstimatedPreparationTime { get; set; }
     }
 
@@ -75,6 +80,9 @@ namespace SmartRestaurant.Application.Dishes.Commands
             RuleFor(x => x.IsSupplement)
                 .Must(x => false).WithMessage("Supplement dish can not have supplements")
                 .When(x => x.IsSupplement == true && x.Supplements.Count > 0);
+                   RuleFor(dish => dish.Quantity)
+                .GreaterThanOrEqualTo(0);
+            
             RuleFor(v => v.Names)
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotNull()

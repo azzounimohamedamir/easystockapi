@@ -62,6 +62,8 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                     new  DishSupplementCreateDto()   {SupplementId =  Guid.NewGuid().ToString()},
                 },
                 IsSupplement = true,
+                 IsQuantityChecked = true,
+                 Quantity =200,
                 EstimatedPreparationTime = 1200
             };
 
@@ -147,6 +149,8 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                     new  DishSupplement()   {SupplementId =  Guid.NewGuid()},
                 },
                 IsSupplement = true,
+                 IsQuantityChecked = true,
+                 Quantity =200,
                 EstimatedPreparationTime = 1200
             };
 
@@ -186,6 +190,8 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                     new  DishSupplementCreateDto()   {SupplementId =  Guid.NewGuid().ToString()},
                 },
                 IsSupplement = true,
+                 IsQuantityChecked = true,
+                 Quantity =200,
                 EstimatedPreparationTime = 1200
             };
 
@@ -289,6 +295,8 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                     } 
                 },
                 IsSupplement = true,
+                IsQuantityChecked = true,
+                Quantity = 200,
                 EstimatedPreparationTime = 1200
             };
 
@@ -305,6 +313,8 @@ namespace SmartRestaurant.Application.Tests.MappingTests
             Assert.Equal(dishDto.Price, dish.Price);
             Assert.Equal(dishDto.FoodBusinessId, dish.FoodBusinessId);
             Assert.Equal(dishDto.IsSupplement, dish.IsSupplement);
+            Assert.Equal(dishDto.IsSupplement, dish.IsQuantityChecked);
+            Assert.Equal(dishDto.Quantity, dish.Quantity);
             Assert.Equal(dishDto.EstimatedPreparationTime, dish.EstimatedPreparationTime);
             Assert.Equal(dishDto.Picture, Convert.ToBase64String(dish.Picture));
 

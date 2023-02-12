@@ -128,6 +128,8 @@ namespace SmartRestaurant.Application.Tests.MappingTests
                     new  DishSupplement()   {SupplementId =  Guid.NewGuid()},
                 },
                 IsSupplement = true,
+                IsQuantityChecked = true,
+                Quantity = 200,
                 EstimatedPreparationTime = 1200
             };
 
