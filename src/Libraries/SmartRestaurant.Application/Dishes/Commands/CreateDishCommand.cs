@@ -16,12 +16,14 @@ namespace SmartRestaurant.Application.Dishes.Commands
         public NamesDto Names { get; set; }
         public string Description { get; set; }
         public string Picture { get; set; }
-        public float Price { get; set; } 
+        public float Price { get; set; }
         public string FoodBusinessId { get; set; }
         public List<DishSpecificationDto> Specifications { get; set; }
         public List<DishIngredientCreateDto> Ingredients { get; set; }
         public List<DishSupplementCreateDto> Supplements { get; set; }
         public bool IsSupplement { get; set; }
+        public int Quantity { get; set; }
+        public bool IsQuantityChecked { get; set; }
         public int EstimatedPreparationTime { get; set; }
     }
 
@@ -39,6 +41,9 @@ namespace SmartRestaurant.Application.Dishes.Commands
 
             RuleFor(dish => dish.Price)
                 .GreaterThanOrEqualTo(0);
+                
+            RuleFor(dish => dish.Quantity)
+           .GreaterThanOrEqualTo(0);
 
             RuleFor(dish => dish.EstimatedPreparationTime)
                 .GreaterThanOrEqualTo(0);
@@ -77,7 +82,8 @@ namespace SmartRestaurant.Application.Dishes.Commands
             RuleFor(v => v.Names)
            .Cascade(CascadeMode.StopOnFirstFailure)
            .NotNull()
-           .DependentRules(() => {
+           .DependentRules(() =>
+           {
                RuleFor(v => v.Names.AR)
                   .Cascade(CascadeMode.StopOnFirstFailure)
                   .NotEmpty()
@@ -104,5 +110,5 @@ namespace SmartRestaurant.Application.Dishes.Commands
                 .MaximumLength(200);
            });
         }
-    }  
+    }
 }

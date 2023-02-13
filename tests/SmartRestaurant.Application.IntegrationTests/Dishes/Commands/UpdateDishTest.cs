@@ -120,6 +120,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Dishes.Commands
                 Price = 100,
                 FoodBusinessId = foodBusinessId.ToString(),
                 IsSupplement = true,
+                 IsQuantityChecked = true,
+                 Quantity =200,
                 EstimatedPreparationTime = 600
             };
             await SendAsync(createDishSupplement);
@@ -133,6 +135,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Dishes.Commands
                 Picture = Properties.Resources.PictureBase64_02,
                 Price = 330,
                 IsSupplement = false,
+                 IsQuantityChecked = true,
+                 Quantity =200,
                 EstimatedPreparationTime = 600,
                 Specifications = new List<DishSpecificationDto>() {
                     new  DishSpecificationDto()
