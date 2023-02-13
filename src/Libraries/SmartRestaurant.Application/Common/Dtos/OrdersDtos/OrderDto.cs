@@ -31,5 +31,7 @@ namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
         public CommissionConfigs CommissionConfigs { get; set; }
         public ErrorResult ErrorDeliveryTimeAvailabilite { get; set; }
 
+         public GeoPosition GeoPosition { get; set; }
+
     }
 }
