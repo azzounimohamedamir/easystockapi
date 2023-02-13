@@ -42,6 +42,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<DishSpecification> DishSpecifications { get; set; }
         public DbSet<DishComboBoxItemTranslation> DishComboBoxItemTranslations { get; set; }
         public DbSet<DishIngredient> DishIngredients { get; set; }
+        public DbSet<FoodBusinessUserRating> FoodBusinessUserRatings { get; set; }
         public DbSet<DishSupplement> DishSupplements { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Specification> Specifications { get; set; }

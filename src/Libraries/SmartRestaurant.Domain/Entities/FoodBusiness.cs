@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SmartRestaurant.Domain.Common;
 using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.ValueObjects;
@@ -31,6 +32,7 @@ namespace SmartRestaurant.Domain.Entities
         public decimal NearbyLocationPrice { get; set; }
         public string FarLocationDescription { get; set; }
         public decimal FarLocationPrice { get; set; }
+        public virtual IList<FoodBusinessUserRating> Ratings { get; set; }
 
     }
 }

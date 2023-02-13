@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -19,18 +20,21 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         IRequestHandler<UpdateFourDigitCodeCommand, NoContent>,
         IRequestHandler<UpdateFoodBusinessCommand, NoContent>,
         IRequestHandler<DeleteFoodBusinessCommand, NoContent>,
-        IRequestHandler<ToggleFoodBusinessFreezingStatusCommand, FoodBusinessDto>
+        IRequestHandler<ToggleFoodBusinessFreezingStatusCommand, FoodBusinessDto>,
+        IRequestHandler<UpdateFoodBusinessRatingCommand, FoodBusinessDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserService _userService;
 
-        public FoodBusinessCommandHandler(IApplicationDbContext context, IMapper mapper,
+        public FoodBusinessCommandHandler(IApplicationDbContext context, IUserService userService, IMapper mapper,
             UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
+            _userService = userService;
         }
 
         public async Task<Created> Handle(CreateFoodBusinessCommand request,
@@ -130,5 +134,72 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
             var entity = _mapper.Map<FoodBusinessDto>(foodBusinesses);
             return entity;
         }
+
+
+        public async Task<FoodBusinessDto> Handle(UpdateFoodBusinessRatingCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new UpdateFoodBusinessRatingCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var foodBusinesses = await _context.FoodBusinesses.AsNoTracking()
+                .FirstOrDefaultAsync(foodBusinesses => foodBusinesses.FoodBusinessId == Guid.Parse(request.FoodBusinessId), cancellationToken)
+                .ConfigureAwait(false);
+            if (foodBusinesses == null)
+                throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
+
+            var user_id = _userService.GetUserId();
+
+            var user = await _userManager.FindByIdAsync(user_id);
+            if (user == null)
+                throw new NotFoundException(nameof(user), user_id);
+
+
+            var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+            if (roles.Contains(Roles.Diner.ToString()))
+            {
+                var rating = await _context.FoodBusinessUserRatings.AsNoTracking()
+                .FirstOrDefaultAsync(rating => rating.FoodBusinessId == Guid.Parse(request.FoodBusinessId) && rating.ApplicationUserId == Guid.Parse(user_id), cancellationToken)
+                .ConfigureAwait(false);
+
+                request.ApplicationUserId = user_id;
+                if (rating == null)
+                {
+                    var r = _mapper.Map<Domain.Entities.FoodBusinessUserRating>(request);
+                    _context.FoodBusinessUserRatings.Add(r);
+                }
+                else
+                {
+                    _mapper.Map(request, rating);
+                    _context.FoodBusinessUserRatings.Update(rating);
+                }
+
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+            }
+            else
+            {
+                throw new RolesCheckException("The user must have the role of Diner");
+            }
+
+            foodBusinesses.AverageRating = CalculateFoodBusinessRating(foodBusinesses.FoodBusinessId);
+            _context.FoodBusinesses.Update(foodBusinesses);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            var entity = _mapper.Map<FoodBusinessDto>(foodBusinesses);
+            entity.CurrentUserRating = request.Rating;
+            return entity;
+        }
+
+        public double CalculateFoodBusinessRating(Guid FoodBusinessId)
+        {
+            double averageRating = 0;
+           var foodBusinessRatings = _context.FoodBusinessUserRatings.Where(ratings => ratings.FoodBusinessId == FoodBusinessId);
+            if (foodBusinessRatings.Any())
+            {
+                averageRating = foodBusinessRatings.Average(ratings => ratings.Rating);
+            }
+            return averageRating;
+        }
+
     }
 }
