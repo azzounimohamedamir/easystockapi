@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230213070700_AddFoodBusinessUserRating")]
+    partial class AddFoodBusinessUserRating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,9 +146,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<Guid?>("FoodBusinessId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsQuantityChecked")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsSupplement")
                         .HasColumnType("bit");
 
@@ -164,9 +163,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.HasKey("DishId");
 
@@ -1565,9 +1561,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<Guid?>("FoodBusinessId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsQuantityChecked")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("LastModifiedAt")
                         .HasColumnType("datetime2");
 
@@ -1582,9 +1575,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.HasKey("ProductId");
 
