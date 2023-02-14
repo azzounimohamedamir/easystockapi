@@ -100,6 +100,29 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
+         /// <summary> UpdateOrderGeoLocalisation() </summary>
+        /// <remarks>
+        ///     This endpoint allows user to update Order GeoLocalistion.<br></br>
+        ///     <b>Note 01:</b> This is the enum used to set Order GeoLocalistion: <b>  OrderGeoLocalistiones {  Latitude;Longitude } </b><br></br>
+        /// </remarks>        
+        /// /// <param name="id">id of the order that would be updated</param>
+        /// <param name="command">This is payload object used to update order geolocalistion</param>
+        /// <response code="204">The order has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in-order to update order geolocalistion is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}/geolocalistion")]
+        [HttpPatch]
+        [Authorize(Roles = "FoodBusinessManager,Cashier,Diner")]
+        public async Task<IActionResult> UpdateOrderGeoLocalisation([FromRoute] string id, UpdateOrderGeoLocalisationCommand command)
+        {
+            command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
+        }
+        
+
+
         /// <summary> GetOrderDetails() </summary>
         /// <remarks>
         ///     This endpoint allows user to fetch order details..<br></br>

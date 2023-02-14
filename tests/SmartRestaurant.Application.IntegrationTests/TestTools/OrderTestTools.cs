@@ -504,5 +504,19 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             return updateStatusOrderCommand;
         }
 
+         public static  async Task<UpdateOrderGeoLocalisationCommand> UpdateOrderGeoLocalisation(CreateOrderCommand createOrderCommand)
+        {
+            var updateStatusOrderCommand = new UpdateOrderGeoLocalisationCommand
+            {
+                Id = createOrderCommand.Id.ToString(),
+                GeoPosition = new GeoPositionDto{
+                    Latitude ="0",
+                    Longitude ="0"
+                }
+            };
+            await SendAsync(updateStatusOrderCommand);
+            return updateStatusOrderCommand;
+        }
+
     }
 }
