@@ -329,6 +329,11 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             };
             var createOrderCommand = new CreateOrderCommand
             {
+                GeoPosition = new GeoPositionDto
+                {
+                    Latitude = "0",
+                    Longitude = "0",
+                },
                 Type = OrderTypes.Delivery,
                 FoodBusinessId = foodBusinessId.ToString(),
                 FoodBusinessClientId = foodBusinessClientId,
