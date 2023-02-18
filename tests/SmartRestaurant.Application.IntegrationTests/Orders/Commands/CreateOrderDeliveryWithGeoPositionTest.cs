@@ -4,6 +4,7 @@ using NUnit.Framework;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
 using SmartRestaurant.Domain.Enums;
 using FluentAssertions;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Enums;
 
 namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
@@ -24,7 +25,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             var createProductCommand = await ProductTestTools.CreateProduct();
             DateTime orderTime = new DateTime(2008, 3, 9, 16, 5, 7, 123);
             ConfigureDateTimeNow(orderTime);
-            var OrderCommand = await OrderTestTools.CreateOrderDelivery(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
+           
+            var OrderCommand = await OrderTestTools.CreateOrderDeliveryWithGeoPostion(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
 
             OrderCommand.ErrorDeliveryTimeAvailabilite.Should().Be(ErrorResult.None);
 
@@ -35,8 +37,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             order.Status.Should().Be(OrderStatuses.InQueue);
             order.FoodBusinessId.Should().Be(Guid.Parse(OrderCommand.FoodBusinessId));
             order.FoodBusinessClientId.Should().BeNull();
-            order.GeoPosition.Longitude.Should().Be("0");
-            order.GeoPosition.Latitude.Should().Be("0");
+            order.GeoPosition.Longitude.Should().Be(OrderCommand.GeoPosition.Longitude);
+            order.GeoPosition.Latitude.Should().Be(OrderCommand.GeoPosition.Latitude);
 
         }
 
