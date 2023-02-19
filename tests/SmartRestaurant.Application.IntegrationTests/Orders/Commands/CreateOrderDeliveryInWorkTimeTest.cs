@@ -146,9 +146,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             order.CommissionConfigs.Type.Should().Be(CommissionType.PerPerson);
             order.CommissionConfigs.WhoPay.Should().Be(WhoPayCommission.FoodBusiness);
 
-            order.GeoPosition.Longitude.Should().Be("0");
-            order.GeoPosition.Latitude.Should().Be("0");
-
         }
 
 

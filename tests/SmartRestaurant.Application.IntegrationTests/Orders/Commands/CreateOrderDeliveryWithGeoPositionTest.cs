@@ -42,8 +42,8 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             order.FoodBusinessId.Should().Be(Guid.Parse(OrderCommand.FoodBusinessId));
             order.FoodBusinessClientId.Should().BeNull();
            
-            order.GeoPosition.Latitude.Should().Be("48.8582");
-             order.GeoPosition.Longitude.Should().Be("2.2945");
+            order.GeoPosition.Latitude.Should().Be(OrderCommand.GeoPosition.Latitude);
+             order.GeoPosition.Longitude.Should().Be(OrderCommand.GeoPosition.Longitude);
 
         }
 

@@ -186,52 +186,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
             return fastFood;
         }
-        public static async Task<Domain.Entities.FoodBusiness> CreateFoodBusinessWithMenuItemDetailed(string foodBusinessAdministratorId, string foodBusinessName)
-        {
-            var createFoodBusinessCommand = new CreateFoodBusinessCommand
-            {
-                AcceptsCreditCards = true,
-                AcceptTakeout = true,
-                AcceptDelivery= true,
-                isMenuItemDetailed= true,
-                Address = new AddressDto
-                {
-                    City = "Algiers",
-                    Country = "Algeria",
-                    GeoPosition = new GeoPositionDto
-                    {
-                        Latitude = "0",
-                        Longitude = "0"
-                    },
-                    StreetAddress = "Didouche Mourad"
-                },
-                Description = "",
-                HasCarParking = true,
-                IsHandicapFriendly = true,
-                Name = foodBusinessName,
-                OffersTakeout = true,
-                PhoneNumber = new PhoneNumberDto { CountryCode = 213, Number = 670217536 },
-                Tags = new List<string>
-                {
-                    "pizza",
-                    "halal"
-                },
-                Email = "test@g22.com",
-                Website = "",
-                FoodBusinessAdministratorId = foodBusinessAdministratorId,
-                FoodBusinessCategory = FoodBusinessCategory.Restaurant,
-                DefaultCurrency = Currencies.USD,
-                OpeningTime = "11:00",
-                ClosingTime = "23:00",
-                NearbyLocationDescription = "alger",
-                FarLocationDescription = "hors alger",
-                FarLocationPrice = 600,
-                NearbyLocationPrice = 300
-            };
-            await SendAsync(createFoodBusinessCommand);
-            var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
-            return fastFood;
-        }
+     
     }
     }
 
