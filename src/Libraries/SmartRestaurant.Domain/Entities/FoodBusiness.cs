@@ -31,7 +31,7 @@ namespace SmartRestaurant.Domain.Entities
         public decimal NearbyLocationPrice { get; set; }
         public string FarLocationDescription { get; set; }
         public decimal FarLocationPrice { get; set; }
-         public bool isMenuItemDetailed { get; set; }
+     
 
     }
 }
