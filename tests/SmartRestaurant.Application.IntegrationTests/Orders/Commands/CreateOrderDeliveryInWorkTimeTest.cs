@@ -28,7 +28,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             var createProductCommand = await ProductTestTools.CreateProduct();
             DateTime orderTime = new DateTime(2008, 3, 9, 16, 5, 7, 123);
             ConfigureDateTimeNow(orderTime);
-            var OrderCommand = await OrderTestTools.CreateOrderDelivery(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
+            var OrderCommand = await OrderTestTools.CreateOrderDelivery(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand,null,null);
 
             OrderCommand.ErrorDeliveryTimeAvailabilite.Should().Be(ErrorResult.None);
 
