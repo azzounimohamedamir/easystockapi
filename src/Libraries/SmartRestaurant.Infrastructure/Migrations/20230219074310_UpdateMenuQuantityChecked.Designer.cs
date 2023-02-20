@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230219074310_UpdateMenuQuantityChecked")]
+    partial class UpdateMenuQuantityChecked
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -3312,25 +3314,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                             b1.Property<int>("WhoPay")
                                 .HasColumnType("int");
-
-                            b1.HasKey("OrderId");
-
-                            b1.ToTable("Orders");
-
-                            b1.WithOwner()
-                                .HasForeignKey("OrderId");
-                        });
-
-                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.GeoPosition", "GeoPosition", b1 =>
-                        {
-                            b1.Property<Guid>("OrderId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Latitude")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("Longitude")
-                                .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("OrderId");
 
