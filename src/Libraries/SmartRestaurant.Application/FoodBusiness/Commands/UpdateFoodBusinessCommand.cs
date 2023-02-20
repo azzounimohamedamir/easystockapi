@@ -39,7 +39,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public decimal NearbyLocationPrice { get; set; }
         public string FarLocationDescription { get; set; }
         public decimal FarLocationPrice { get; set; }
-     
+     public bool IsMenuItemDetailed { get; set; }
 
     }
 
