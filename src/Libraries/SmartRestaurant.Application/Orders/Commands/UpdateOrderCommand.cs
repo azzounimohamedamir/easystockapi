@@ -21,6 +21,7 @@ namespace SmartRestaurant.Application.Orders.Commands
         public List<OrderProductDto> Products { get; set; }
         public List<OrderOccupiedTableDto> OccupiedTables { get; set; }
         public string FoodBusinessClientId { get; set; }
+         public GeoPositionDto GeoPosition { get; set; }
     }
 
     public class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderCommand>

@@ -257,7 +257,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         public static async Task<OrderDto> CreateOrderDelivery(Guid foodBusinessId,
           string? foodBusinessClientId,
           CreateDishCommand dishCommand,
-          CreateProductCommand procuctCommand)
+          CreateProductCommand procuctCommand,string? language="0",string? longitude="0" )
         {
             OrderDishSpecificationDto CheckBox = new OrderDishSpecificationDto()
             {
@@ -329,6 +329,10 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             };
             var createOrderCommand = new CreateOrderCommand
             {
+                GeoPosition = new GeoPositionDto{
+                    Latitude=language,
+                    Longitude=longitude
+                } ,
                 Type = OrderTypes.Delivery,
                 FoodBusinessId = foodBusinessId.ToString(),
                 FoodBusinessClientId = foodBusinessClientId,
@@ -363,11 +367,6 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
 
             return myordercommand;
         }
-
-
-
-
-
 
 
 
@@ -499,6 +498,20 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             {
                 Id = createOrderCommand.Id.ToString(),
                 Status = OrderStatuses.Cancelled
+            };
+            await SendAsync(updateStatusOrderCommand);
+            return updateStatusOrderCommand;
+        }
+
+         public static  async Task<UpdateOrderGeoLocalisationCommand> UpdateOrderGeoLocalisation(CreateOrderCommand createOrderCommand)
+        {
+            var updateStatusOrderCommand = new UpdateOrderGeoLocalisationCommand
+            {
+                Id = createOrderCommand.Id.ToString(),
+                GeoPosition = new GeoPositionDto{
+                    Latitude ="0",
+                    Longitude ="0"
+                }
             };
             await SendAsync(updateStatusOrderCommand);
             return updateStatusOrderCommand;
