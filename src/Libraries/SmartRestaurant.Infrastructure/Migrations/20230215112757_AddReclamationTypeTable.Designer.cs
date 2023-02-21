@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230215112757_AddReclamationTypeTable")]
+    partial class AddReclamationTypeTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,6 +145,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.Property<Guid?>("FoodBusinessId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsQuantityChecked")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsSupplement")
                         .HasColumnType("bit");
@@ -1588,35 +1593,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.HasIndex("FoodBusinessId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reclamation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CheckinId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ClientId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<byte[]>("Picture")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<Guid>("RoomId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Reclamations");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reservation", b =>
@@ -3669,37 +3645,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("ProductId");
-                        });
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reclamation", b =>
-                {
-                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "ReclamationDescription", b1 =>
-                        {
-                            b1.Property<Guid>("ReclamationId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("AR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("EN")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("FR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("RU")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("TR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("ReclamationId");
-
-                            b1.ToTable("Reclamations");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ReclamationId");
                         });
                 });
 
