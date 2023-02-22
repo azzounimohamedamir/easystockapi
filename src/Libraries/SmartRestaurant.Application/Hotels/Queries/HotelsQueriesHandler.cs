@@ -18,7 +18,8 @@ namespace SmartRestaurant.Application.Hotels.Queries
     public class HotelsQueriesHandler :
         IRequestHandler<GetHotelsListQuery, PagedListDto<HotelDto>>,
         IRequestHandler<GetHotelsListByAdmin, List<HotelDto>>,
-        IRequestHandler<GetAllHotelsByFoodBusinessManagerQuery, List<HotelDto>>
+        IRequestHandler<GetAllHotelsByFoodBusinessManagerQuery, List<HotelDto>>,
+         IRequestHandler<GetHotelByIdQuery, HotelDto>
 
     {
         private readonly IApplicationDbContext _context;
@@ -92,6 +93,16 @@ namespace SmartRestaurant.Application.Hotels.Queries
 
 
             return new PagedListDto<HotelDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
+        }
+
+            public async Task<HotelDto> Handle(GetHotelByIdQuery request, CancellationToken cancellationToken)
+        {
+            var entity = await _applicationDbContext.Hotels.Where(u => u.Id == request.Id)
+                 .FirstOrDefaultAsync().ConfigureAwait(false);
+
+            var foodBusinessDto = _mapper.Map<HotelDto>(entity);
+          
+            return foodBusinessDto;
         }
     }
 }
