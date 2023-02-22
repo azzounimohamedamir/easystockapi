@@ -136,7 +136,7 @@ namespace SmartRestaurant.Application.Reclamation.Commands
         {
 
             var checkin = await _context.CheckIns
-            .FirstOrDefaultAsync(u => u.ClientId==UserId && u.Id==Guid.Parse(CeckinId), cancellation)
+            .FirstOrDefaultAsync(u => u.ClientId==UserId && u.Id==Guid.Parse(CeckinId) && u.IsActivate==true, cancellation)
             .ConfigureAwait(false); 
 
             if (checkin == null)

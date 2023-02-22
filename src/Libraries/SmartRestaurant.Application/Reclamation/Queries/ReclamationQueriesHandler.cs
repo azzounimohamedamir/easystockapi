@@ -10,8 +10,6 @@ using SmartRestaurant.Application.Common.Extensions;
 using System.Threading.Tasks;
 using System.Threading;
 using MediatR;
-using SmartRestaurant.Application.Orders.Queries.FilterStrategy;
-using SmartRestaurant.Application.Hotels.Queries.FilterStrategy;
 
 namespace SmartRestaurant.Application.Reclamation.Queries
 {
@@ -68,8 +66,8 @@ namespace SmartRestaurant.Application.Reclamation.Queries
 
 
             var querypaged = query.GetPaged(request.Page, request.PageSize);
-            var data = _mapper.Map<List<ReclamationDto>>(await querypaged.Data.AsNoTracking().ToListAsync(cancellationToken)
-                       .ConfigureAwait(false));
+            var data = await querypaged.Data.AsNoTracking().ToListAsync(cancellationToken)
+                       .ConfigureAwait(false);
 
             if(searchKey != "")
             {
@@ -135,8 +133,8 @@ namespace SmartRestaurant.Application.Reclamation.Queries
             
 
             var querypaged = query.GetPaged(request.Page, request.PageSize);
-            var data = _mapper.Map<List<ReclamationDto>>(await querypaged.Data.AsNoTracking().ToListAsync(cancellationToken)
-                       .ConfigureAwait(false));
+            var data = await querypaged.Data.AsNoTracking().ToListAsync(cancellationToken)
+                       .ConfigureAwait(false);
 
             if (searchKey != "")
             {
