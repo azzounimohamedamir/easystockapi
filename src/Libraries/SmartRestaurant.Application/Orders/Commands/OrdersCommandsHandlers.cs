@@ -27,7 +27,8 @@ namespace SmartRestaurant.Application.Orders.Commands
     public class OrdersCommandsHandlers : IRequestHandler<CreateOrderCommand, OrderDto>,
         IRequestHandler<UpdateOrderCommand, NoContent>,
         IRequestHandler<UpdateOrderStatusCommand, NoContent>,
-        IRequestHandler<AddSeatOrderToTableOrderCommand, NoContent>
+        IRequestHandler<AddSeatOrderToTableOrderCommand, NoContent>,
+        IRequestHandler<UpdateOrderGeoLocalisationCommand, Order>
 
     {
         private readonly IApplicationDbContext _context;
@@ -307,6 +308,53 @@ namespace SmartRestaurant.Application.Orders.Commands
 
             return default;
         }
+
+
+            public async Task<Order> Handle(UpdateOrderGeoLocalisationCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new UpdateOrderGeoLocalisationCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var order = await _context.Orders
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Specifications)
+                .ThenInclude(o => o.ComboBoxContentTranslation)
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Ingredients)
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Supplements)
+                .Include(o => o.Products)
+                .Include(o => o.OccupiedTables)
+                .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
+                .ConfigureAwait(false);
+            if (order == null)
+                throw new NotFoundException(nameof(Order), request.Id);
+                 
+                 
+                 if (order.Type != OrderTypes.Delivery)
+                throw new ConflictException("Sorry,This order type not delivery");
+
+
+            _mapper.Map(request, order);
+            order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
+            order.LastModifiedAt = DateTime.Now;
+            order.GeoPosition.Latitude = request.GeoPosition.Latitude;
+            order.GeoPosition.Longitude = request.GeoPosition.Longitude;
+            _context.Orders.Update(order);
+            
+           
+
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+            return order;
+        }
+
+       
+       
+       
+       
+       
         public async Task<NoContent> Handle(AddSeatOrderToTableOrderCommand request, CancellationToken cancellationToken)
         {
             var validator = new AddSeatOrderToTableOrderCommandValidator();

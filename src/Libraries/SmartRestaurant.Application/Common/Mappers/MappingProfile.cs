@@ -448,6 +448,8 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap< UpdateOrderStatusCommand, Order>();
 
+            CreateMap<UpdateOrderGeoLocalisationCommand, Order>();
+
             CreateMap<AddSeatOrderToTableOrderCommand, Order>();
 
             CreateMap<Order, OrderDto>()

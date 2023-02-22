@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230219074310_UpdateMenuQuantityChecked")]
+    partial class UpdateMenuQuantityChecked
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,6 +145,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.Property<Guid?>("FoodBusinessId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsQuantityChecked")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsSupplement")
                         .HasColumnType("bit");
@@ -333,9 +338,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<bool>("IsHandicapFriendly")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsMenuItemDetailed")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("LastModifiedAt")
                         .HasColumnType("datetime2");
 
@@ -401,7 +403,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             HasCarParking = true,
                             IsActivityFrozen = false,
                             IsHandicapFriendly = false,
-                            IsMenuItemDetailed = false,
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NIF = 0,
                             NIS = 0,
@@ -432,7 +433,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             HasCarParking = true,
                             IsActivityFrozen = false,
                             IsHandicapFriendly = true,
-                            IsMenuItemDetailed = false,
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NIF = 0,
                             NIS = 0,
@@ -463,7 +463,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             HasCarParking = false,
                             IsActivityFrozen = false,
                             IsHandicapFriendly = false,
-                            IsMenuItemDetailed = false,
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NIF = 0,
                             NIS = 0,
@@ -1567,6 +1566,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.Property<Guid?>("FoodBusinessId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsQuantityChecked")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("LastModifiedAt")
                         .HasColumnType("datetime2");
@@ -3312,25 +3314,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                             b1.Property<int>("WhoPay")
                                 .HasColumnType("int");
-
-                            b1.HasKey("OrderId");
-
-                            b1.ToTable("Orders");
-
-                            b1.WithOwner()
-                                .HasForeignKey("OrderId");
-                        });
-
-                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.GeoPosition", "GeoPosition", b1 =>
-                        {
-                            b1.Property<Guid>("OrderId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Latitude")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("Longitude")
-                                .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("OrderId");
 

@@ -19,6 +19,7 @@ namespace SmartRestaurant.Domain.Entities
         public float MoneyReceived { get; set; }
         public float MoneyReturned { get; set; }
         public OrderTypes Type { get; set; }
+        public GeoPosition GeoPosition { get; set; }
         public OrderStatuses Status { get; set; }
         public TakeoutDetails TakeoutDetails { get; set; }      
         public virtual List<OrderDish> Dishes { get; set; }

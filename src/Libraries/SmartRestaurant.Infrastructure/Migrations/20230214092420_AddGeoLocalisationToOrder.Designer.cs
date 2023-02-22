@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230214092420_AddGeoLocalisationToOrder")]
+    partial class AddGeoLocalisationToOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,6 +146,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<Guid?>("FoodBusinessId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsQuantityChecked")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsSupplement")
                         .HasColumnType("bit");
 
@@ -162,7 +167,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int?>("Quantity")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("DishId");
@@ -333,9 +338,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<bool>("IsHandicapFriendly")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsMenuItemDetailed")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("LastModifiedAt")
                         .HasColumnType("datetime2");
 
@@ -401,7 +403,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             HasCarParking = true,
                             IsActivityFrozen = false,
                             IsHandicapFriendly = false,
-                            IsMenuItemDetailed = false,
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NIF = 0,
                             NIS = 0,
@@ -432,7 +433,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             HasCarParking = true,
                             IsActivityFrozen = false,
                             IsHandicapFriendly = true,
-                            IsMenuItemDetailed = false,
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NIF = 0,
                             NIS = 0,
@@ -463,7 +463,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             HasCarParking = false,
                             IsActivityFrozen = false,
                             IsHandicapFriendly = false,
-                            IsMenuItemDetailed = false,
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NIF = 0,
                             NIS = 0,
@@ -635,22 +634,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             ApplicationUserId = "64fed988-6f68-49dc-ad54-0da50ec02319",
                             FoodBusinessId = new Guid("88bc7853-220f-9173-3246-afb7cf595022")
                         });
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.FoodBusinessUserRating", b =>
-                {
-                    b.Property<Guid>("FoodBusinessId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.HasKey("FoodBusinessId", "ApplicationUserId");
-
-                    b.ToTable("FoodBusinessUserRatings");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Globalisation.Currency", b =>
@@ -1568,6 +1551,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<Guid?>("FoodBusinessId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsQuantityChecked")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LastModifiedAt")
                         .HasColumnType("datetime2");
 
@@ -1583,7 +1569,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int?>("Quantity")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("ProductId");
@@ -2763,15 +2749,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                 {
                     b.HasOne("SmartRestaurant.Domain.Entities.FoodBusiness", "FoodBusiness")
                         .WithMany()
-                        .HasForeignKey("FoodBusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.FoodBusinessUserRating", b =>
-                {
-                    b.HasOne("SmartRestaurant.Domain.Entities.FoodBusiness", null)
-                        .WithMany("Ratings")
                         .HasForeignKey("FoodBusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

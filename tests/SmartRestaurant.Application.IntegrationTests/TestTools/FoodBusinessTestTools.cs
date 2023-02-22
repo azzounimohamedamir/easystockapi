@@ -186,5 +186,8 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             var fastFood = await FindAsync<Domain.Entities.FoodBusiness>(createFoodBusinessCommand.Id);
             return fastFood;
         }
+     
     }
-}
+    }
+
+    
