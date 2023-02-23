@@ -139,12 +139,32 @@ namespace SmartRestaurant.API.Controllers
         [Route("{id}/status")]
         [HttpPatch]
         [Authorize(Roles = "FoodBusinessManager,HotelClient")]
-        public async Task<IActionResult> UpdateReclamationStatus([FromRoute] string id, UpdateReclamationStatusCommand command)
+        public async Task<IActionResult> UpdateReclamationStatusFromNotResolvedToResolvedViceArea([FromRoute] string id, UpdateReclamationStatusCommand command)
         {
             command.Id = id;
             return await SendWithErrorsHandlingAsync(command);
         }
 
+        /// <summary> UpdateReclamationStatusAsInprogress() </summary>
+        /// <remarks>
+        ///     This endpoint allows FoodBusinessManager to update reclamation status.<br></br>
+        ///     <b>Note 01:</b> Picture should be encoded in Base64
+        /// </remarks>
+        /// <param name="id">id of the reclamation that would be updated</param>
+        /// <param name="command">This is the payload object used to update reclamation status</param>
+        /// <response code="204"> reclamation status has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to update a reclamation status is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}/InProgressstatus")]
+        [HttpPatch]
+        [Authorize(Roles = "FoodBusinessManager")]
+        public async Task<IActionResult> UpdateReclamationStatusToInProgress([FromRoute] string id, UpdateReclamationStatusCommand command)
+        {
+            command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
+        }
 
         /// <summary> DeleteReclamation() </summary>
         /// <remarks>This endpoint allows <b>Food Business Administrator</b> to delete reclamation.</remarks>
