@@ -27,10 +27,12 @@ namespace SmartRestaurant.Application.IntegrationTests.Reclamations.Queries
             var checkin = await CheckInsTestTools.CreateCheckinForClient(hotel.Id, client.Id, room.Id);
             var checkin2 = await CheckInsTestTools.CreateCheckinForClient(hotel2.Id, client.Id, room2.Id);
 
-            DateTime reclamationTime = new DateTime(2023, 3, 9, 16, 5, 7, 123);
-            ConfigureDateTimeNow(reclamationTime);
-            var reclamationFromHotel1 = await ReclamationTestTools.CreateReclamation(checkin.Id.ToString(),client.Id, hotel.Id, room.Id.ToString(),reclamationTime);
-            var reclamationFromHotel2 = await ReclamationTestTools.CreateReclamation(checkin2.Id.ToString(),client.Id, hotel2.Id, room2.Id.ToString(),reclamationTime) ;
+            DateTime reclamationTime1 = new DateTime(2023, 3, 9, 16, 10, 7, 123);
+            ConfigureDateTimeNow(reclamationTime1);
+            var reclamationFromHotel1 = await ReclamationTestTools.CreateReclamation(checkin.Id.ToString(),client.Id, hotel.Id, room.Id.ToString(),reclamationTime1);
+            DateTime reclamationTime2 = new DateTime(2023, 3, 9, 16, 5, 7, 123);
+            ConfigureDateTimeNow(reclamationTime2);
+            var reclamationFromHotel2 = await ReclamationTestTools.CreateReclamation(checkin2.Id.ToString(),client.Id, hotel2.Id, room2.Id.ToString(),reclamationTime2) ;
 
 
             var query = new GetAllReclamationOfClientQuery
