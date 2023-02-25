@@ -21,7 +21,11 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 {
                     City = "Algiers",
                     Country = "Algeria",
-                    StreetAddress = "Didouche Mourad"
+                    StreetAddress = "Didouche Mourad",
+                   GeoPosition=   new GeoPositionDto {
+                        Latitude="233",
+                        Longitude="232"
+                    }
                 },
                 Description = "",
 
