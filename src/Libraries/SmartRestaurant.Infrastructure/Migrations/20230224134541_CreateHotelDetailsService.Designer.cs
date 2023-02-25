@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230224134541_CreateHotelDetailsService")]
+    partial class CreateHotelDetailsService
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -734,9 +736,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Website")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("YoutubeLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -2874,7 +2873,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.HotelDetailsSection", b =>
                 {
                     b.HasOne("SmartRestaurant.Domain.Entities.Hotel", "Hotel")
-                        .WithMany("DetailsSections")
+                        .WithMany()
                         .HasForeignKey("HotelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

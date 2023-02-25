@@ -47,7 +47,7 @@ namespace SmartRestaurant.Application.Hotels.Queries
                 .CheckUserExistence_ThrowExceptionIfUserNotFound(_identityContext, foodBusinessAdministratorId)
                 .ConfigureAwait(false);
 
-            var hotels = await _applicationDbContext.Hotels
+            var hotels = await _applicationDbContext.Hotels.Include(o => o.DetailsSections)
                 .Where(x => x.FoodBusinessAdministratorId == foodBusinessAdministratorId)
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false);
@@ -65,12 +65,14 @@ namespace SmartRestaurant.Application.Hotels.Queries
 
 
             var listOfHotelsIds = _applicationDbContext.hotelUsers
+                
                 .Where(hotelUser => hotelUser.ApplicationUserId == foodBusinessManagerUserId)
                 .Select(hotelUser => hotelUser.HotelId)
                 .Distinct()
                 .ToList();
 
             var hotels = await _applicationDbContext.Hotels
+                .Include(o => o.DetailsSections)
                 .Where(hotel => listOfHotelsIds.Contains(hotel.Id))
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false);
@@ -89,7 +91,7 @@ namespace SmartRestaurant.Application.Hotels.Queries
 
             var query = filter.FetchData(_applicationDbContext.Hotels, request);
 
-            var data = _mapper.Map<List<HotelDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
+            var data = _mapper.Map<List<HotelDto>>(await query.Data.Include(o => o.DetailsSections).ToListAsync(cancellationToken).ConfigureAwait(false));
 
 
             return new PagedListDto<HotelDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
@@ -97,7 +99,7 @@ namespace SmartRestaurant.Application.Hotels.Queries
 
             public async Task<HotelDto> Handle(GetHotelByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _applicationDbContext.Hotels.Where(u => u.Id == request.Id)
+            var entity = await _applicationDbContext.Hotels.Include(o => o.DetailsSections).Where(u => u.Id == request.Id)
                  .FirstOrDefaultAsync().ConfigureAwait(false);
 
             var foodBusinessDto = _mapper.Map<HotelDto>(entity);

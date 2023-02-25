@@ -1,4 +1,5 @@
-﻿using SmartRestaurant.Domain.ValueObjects;
+﻿using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
+using SmartRestaurant.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,8 +19,11 @@ namespace SmartRestaurant.Application.Common.Dtos
         public int NIS { get; set; }
         public string Email { get; set; }
         public string Description { get; set; }
+        public string? YoutubeLink { get; set; }
         public Address Address { get; set; }
         public PhoneNumber PhoneNumber { get; set; }
+        public List<HotelDetailsSectionDto> DetailsSections { get; set; }
         public string Website { get; set; }
+        
     }
 }
