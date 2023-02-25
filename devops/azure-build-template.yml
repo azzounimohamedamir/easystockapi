@@ -8,7 +8,7 @@
       - script: |
          cp devops/$(Agent.Name).json ${{ parameters.WebProjectName }}/appsettings.json
          cd ${{ parameters.WebProjectName }}
-         dotnet clean SmartRestaurant.API.csproj
+         ##dotnet clean SmartRestaurant.API.csproj
          dotnet restore SmartRestaurant.API.csproj
         displayName: Restore Common Packages
       - script: |
