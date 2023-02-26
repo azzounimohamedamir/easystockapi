@@ -82,8 +82,9 @@ namespace SmartRestaurant.Application.Hotels.Commands
                 .Must(ValidatorHelper.ValidateUrl).WithMessage("'{PropertyName}: {PropertyValue}' is invalide")
                 .When(hotel => !String.IsNullOrWhiteSpace(hotel.Website));
             RuleFor(hotel => hotel.YoutubeLink)
-                 .Must(ValidatorHelper.ValidateUrl).WithMessage("'{PropertyName}: {PropertyValue}' is invalide")
-                 .When(hotel => !String.IsNullOrWhiteSpace(hotel.YoutubeLink));
+                      .Cascade(CascadeMode.StopOnFirstFailure)
+                      .NotEmpty()
+                      .MaximumLength(200);
 
 
 
