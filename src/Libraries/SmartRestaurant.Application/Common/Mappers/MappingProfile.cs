@@ -41,6 +41,8 @@ using SmartRestaurant.Application.ListingDetails.Commands;
 using SmartRestaurant.Application.Rooms.Commands;
 using SmartRestaurant.Application.Checkins.Commands;
 using SmartRestaurant.Application.HotelServices.Commands;
+using SmartRestaurant.Application.TypeReclamation.Commands;
+using SmartRestaurant.Application.Reclamation.Commands;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -222,6 +224,14 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.Picture, o => o.Ignore()).
                  ForMember(x => x.FoodBusinessAdministratorId, o => o.MapFrom(p => p.FoodBusinessAdministratorId));
 
+
+
+            CreateMap<CreateReclamationCommand, Domain.Entities.Reclamation>()
+              .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+              .ForMember(x => x.Picture, o => o.Ignore());
+            CreateMap<UpdateReclamationCommand, Domain.Entities.Reclamation>()
+             .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+             .ForMember(x => x.Picture, o => o.Ignore());
             CreateMap<CreateBuildingCommand, Building>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.FromBase64String(p.Picture)))
@@ -244,10 +254,21 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<UpdateReservationCommand, Reservation>(MemberList.Destination)
                 .ForMember(x => x.ReservationId, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
+
+            CreateMap<CreateTypeReclamationCommand, Domain.Entities.TypeReclamation>()
+              .ForMember(x => x.TypeReclamationId, o => o.MapFrom(p => p.Id))
+              .ReverseMap();
+
+            CreateMap<UpdateTypeReclamationCommand, Domain.Entities.TypeReclamation>()
+                .ForMember(x => x.TypeReclamationId, o => o.MapFrom(p => p.Id))
+                .ReverseMap();
+            CreateMap<UpdateReclamationStatusCommand, Domain.Entities.Reclamation>();
             CreateMap<UpdateSubSectionCommand, SubSection>()
                 .ForMember(x => x.SubSectionId, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
             CreateMap<Reservation, ReservationDto>()
+                .ReverseMap();
+            CreateMap<Domain.Entities.TypeReclamation, TypeReclamationDto>()
                 .ReverseMap();
             CreateMap<Reservation, ReservationClientDto>()
                 .ForMember(x => x.FoodBusinessName, o => o.MapFrom(p => p.FoodBusiness.Name));
@@ -420,6 +441,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<Domain.Entities.FoodBusiness, BillFoodBusinessDto>();
             CreateMap<Domain.Entities.FoodBusinessClient, BillFoodBusinessClientDto>();
             CreateMap<Hotel, HotelDto>();
+            CreateMap<Domain.Entities.Reclamation, ReclamationDto>();
 
             CreateMap<Domain.Entities.FoodBusinessClient, BillFoodBusinessClientDto>()
             .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => (p.FoodBusinessClientId == null) ? "" : p.FoodBusinessClientId.ToString()));

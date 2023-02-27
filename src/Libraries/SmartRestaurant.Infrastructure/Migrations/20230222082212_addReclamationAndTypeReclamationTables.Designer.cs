@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230222082212_addReclamationAndTypeReclamationTables")]
+    partial class addReclamationAndTypeReclamationTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,6 +145,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.Property<Guid?>("FoodBusinessId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsQuantityChecked")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsSupplement")
                         .HasColumnType("bit");
@@ -1568,6 +1573,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<Guid?>("FoodBusinessId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsQuantityChecked")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LastModifiedAt")
                         .HasColumnType("datetime2");
 
@@ -1591,6 +1599,35 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.HasIndex("FoodBusinessId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reclamation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CheckinId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("Picture")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<Guid>("RoomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reclamations");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reservation", b =>
@@ -2361,6 +2398,23 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             TableState = (short)0,
                             ZoneId = new Guid("f60d55e2-4e54-4896-9632-98d36d7680c3")
                         });
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.TypeReclamation", b =>
+                {
+                    b.Property<Guid>("TypeReclamationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("HotelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TypeReclamationId");
+
+                    b.ToTable("TypeReclamations");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Zone", b =>
@@ -3648,6 +3702,37 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reclamation", b =>
+                {
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "ReclamationDescription", b1 =>
+                        {
+                            b1.Property<Guid>("ReclamationId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("ReclamationId");
+
+                            b1.ToTable("Reclamations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ReclamationId");
+                        });
+                });
+
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reservation", b =>
                 {
                     b.HasOne("SmartRestaurant.Domain.Entities.FoodBusiness", "FoodBusiness")
@@ -3846,6 +3931,37 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         .HasForeignKey("ZoneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.TypeReclamation", b =>
+                {
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("TypeReclamationId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("TypeReclamationId");
+
+                            b1.ToTable("TypeReclamations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TypeReclamationId");
+                        });
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Zone", b =>
