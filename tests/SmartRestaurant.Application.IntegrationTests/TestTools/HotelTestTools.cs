@@ -37,6 +37,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 NRC = 485844,
                 Email = "madina@hotel.dz",
                 Website = "",
+                YoutubeLink="23422",
                 FoodBusinessAdministratorId = foodBusinessAdministratorId,
             };
 
