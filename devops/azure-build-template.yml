@@ -28,8 +28,8 @@
      - checkout: none
      - script: |
          cd ${{ parameters.WebProjectName }}
-         dotnet ef database update --context:ApplicationDbContext
-         dotnet ef database update --context:IdentityContext
+         dotnet-ef database update --context:ApplicationDbContext
+         dotnet-ef database update --context:IdentityContext
        displayName: Database Initialization
     dependsOn: Build_the_API
     condition: succeeded()
