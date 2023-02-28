@@ -17,6 +17,7 @@ namespace SmartRestaurant.Application.Hotels.Commands
 
         public string FoodBusinessAdministratorId { get; set; }
         public string ImagUrl { get; set; }
+
         public IFormFile Picture { get; set; }
 
         public string Name { get; set; }
@@ -28,6 +29,8 @@ namespace SmartRestaurant.Application.Hotels.Commands
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
         public string Website { get; set; }
+        public string YoutubeLink { get; set; }
+
     }
 
     public class UpdateHotelCommandValidator : AbstractValidator<UpdateHotelCommand>
@@ -68,9 +71,16 @@ namespace SmartRestaurant.Application.Hotels.Commands
                 RuleFor(hotel => hotel.Address.Country)
                    .Cascade(CascadeMode.StopOnFirstFailure)
                    .MaximumLength(200);
+            RuleFor(hotel => hotel.Address.GeoPosition.Longitude)
+                     .Cascade(CascadeMode.StopOnFirstFailure)
+                     .NotEmpty()
+                     .MaximumLength(200);
+            RuleFor(hotel => hotel.Address.GeoPosition.Latitude)
+                      .Cascade(CascadeMode.StopOnFirstFailure)
+                      .NotEmpty()
+                      .MaximumLength(200);
 
-
-                RuleFor(hotel => hotel.Description)
+            RuleFor(hotel => hotel.Description)
                    .MaximumLength(500);
 
                 RuleFor(hotel => hotel.Website)
@@ -78,6 +88,12 @@ namespace SmartRestaurant.Application.Hotels.Commands
                     .When(hotel => !String.IsNullOrWhiteSpace(hotel.Website));
 
 
-            }
+            RuleFor(hotel => hotel.YoutubeLink)
+                      .Cascade(CascadeMode.StopOnFirstFailure)
+                      .NotEmpty()
+                      .MaximumLength(200);
+
+
+        }
         }
 }
