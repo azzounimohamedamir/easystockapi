@@ -3,10 +3,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
-    public partial class CreateHotelDetailsService : Migration
+    public partial class AddHotelDetailsTableAndUpdateTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<string>(
+                name: "YoutubeLink",
+                table: "Hotels",
+                nullable: true);
+
             migrationBuilder.CreateTable(
                 name: "HotelDetailsSections",
                 columns: table => new
@@ -37,6 +42,10 @@ namespace SmartRestaurant.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "HotelDetailsSections");
+
+            migrationBuilder.DropColumn(
+                name: "YoutubeLink",
+                table: "Hotels");
         }
     }
 }
