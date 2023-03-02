@@ -8,7 +8,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Common.Dtos.BillDtos;
 using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Enums;
@@ -40,18 +40,22 @@ namespace SmartRestaurant.Application.Orders.Commands
         private readonly string CreateAction = "CreateAction";
         private readonly string UpdateAction = "UpdateAction";
 
+        private readonly ISaleOrderRepository _saleOrderRepository;
+
         public OrdersCommandsHandlers(IApplicationDbContext context,
 
                                     IMapper mapper,
                                     IUserService userService,
                                     IFirebaseRepository fireBase,
-                                    IDateTime datetime)
+                                    IDateTime datetime
+                                    ,ISaleOrderRepository saleOrderRepository)
         {
             _context = context;
             _mapper = mapper;
             _userService = userService;
             _fireBase = fireBase;
             _datetime = datetime;
+            _saleOrderRepository = saleOrderRepository;
         }
 
         public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -86,7 +90,25 @@ namespace SmartRestaurant.Application.Orders.Commands
             {
                 var newOrder = await ExecuteOrderOperations(request, cancellationToken, foodBusiness);
 
-                return newOrder;
+                
+                    var saleOrder = new SaleOrderDto
+                    {
+                        PartnerId = 1,
+                        OrderLines = new List<SaleOrderLineDto>
+                        {
+                            new SaleOrderLineDto { ProductId = 1, Quantity = 2, PriceUnit = 10.0 },
+                            new SaleOrderLineDto { ProductId = 2, Quantity = 3, PriceUnit = 15.0 }
+                        }
+                    }; 
+                var r = await _saleOrderRepository.CreateAsync(saleOrder);
+//  if (r)
+//         {
+//             return newOrder;
+//         }
+       
+       
+
+               return newOrder;
             }
 
         }
