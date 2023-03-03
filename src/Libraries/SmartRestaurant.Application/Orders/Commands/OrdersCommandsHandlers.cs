@@ -167,6 +167,7 @@ namespace SmartRestaurant.Application.Orders.Commands
            await UpdateDishesAndProductQuantityOnCreateOrder(order);// gestion de stock
 
 
+
             order.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.CreatedAt = DateTime.Now;
 
