@@ -18,7 +18,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
         public async Task ShouldReturnFoodBusiness()
         {
             await RolesTestTools.CreateRoles();
-            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator(_authenticatedUserId);
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
             
             var createVipZone = await CreateVipZone(fastFood);

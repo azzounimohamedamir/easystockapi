@@ -165,7 +165,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("DishId");
@@ -336,6 +336,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<bool>("IsHandicapFriendly")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsMenuItemDetailed")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LastModifiedAt")
                         .HasColumnType("datetime2");
 
@@ -401,6 +404,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             HasCarParking = true,
                             IsActivityFrozen = false,
                             IsHandicapFriendly = false,
+                            IsMenuItemDetailed = false,
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NIF = 0,
                             NIS = 0,
@@ -431,6 +435,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             HasCarParking = true,
                             IsActivityFrozen = false,
                             IsHandicapFriendly = true,
+                            IsMenuItemDetailed = false,
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NIF = 0,
                             NIS = 0,
@@ -461,6 +466,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             HasCarParking = false,
                             IsActivityFrozen = false,
                             IsHandicapFriendly = false,
+                            IsMenuItemDetailed = false,
                             LastModifiedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NIF = 0,
                             NIS = 0,
@@ -634,6 +640,22 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.FoodBusinessUserRating", b =>
+                {
+                    b.Property<Guid>("FoodBusinessId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ApplicationUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.HasKey("FoodBusinessId", "ApplicationUserId");
+
+                    b.ToTable("FoodBusinessUserRatings");
+                });
+
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Globalisation.Currency", b =>
                 {
                     b.Property<Guid>("CurrencyId")
@@ -714,6 +736,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<string>("Website")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("YoutubeLink")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Hotels");
@@ -755,6 +780,28 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             NRC = 0,
                             Name = "Tulip"
                         });
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.HotelDetailsSection", b =>
+                {
+                    b.Property<Guid>("HotelDetailsSectionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("HotelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("Picture")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("HotelDetailsSectionId");
+
+                    b.HasIndex("HotelId");
+
+                    b.ToTable("HotelDetailsSections");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.HotelSection", b =>
@@ -1567,7 +1614,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("ProductId");
@@ -1575,6 +1622,35 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.HasIndex("FoodBusinessId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reclamation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CheckinId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("Picture")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<Guid>("RoomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reclamations");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reservation", b =>
@@ -2347,6 +2423,23 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.TypeReclamation", b =>
+                {
+                    b.Property<Guid>("TypeReclamationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("HotelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TypeReclamationId");
+
+                    b.ToTable("TypeReclamations");
+                });
+
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Zone", b =>
                 {
                     b.Property<Guid>("ZoneId")
@@ -2752,6 +2845,15 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.FoodBusinessUserRating", b =>
+                {
+                    b.HasOne("SmartRestaurant.Domain.Entities.FoodBusiness", null)
+                        .WithMany("Ratings")
+                        .HasForeignKey("FoodBusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Hotel", b =>
                 {
                     b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Address", "Address", b1 =>
@@ -2813,6 +2915,15 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("HotelId");
                         });
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.HotelDetailsSection", b =>
+                {
+                    b.HasOne("SmartRestaurant.Domain.Entities.Hotel", "Hotel")
+                        .WithMany("DetailsSections")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.HotelSection", b =>
@@ -3296,6 +3407,25 @@ namespace SmartRestaurant.Infrastructure.Migrations
                                 .HasForeignKey("OrderId");
                         });
 
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.GeoPosition", "GeoPosition", b1 =>
+                        {
+                            b1.Property<Guid>("OrderId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Latitude")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Longitude")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
                     b.OwnsOne("SmartRestaurant.Domain.ValueObjects.TakeoutDetails", "TakeoutDetails", b1 =>
                         {
                             b1.Property<Guid>("OrderId")
@@ -3604,6 +3734,37 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reclamation", b =>
+                {
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "ReclamationDescription", b1 =>
+                        {
+                            b1.Property<Guid>("ReclamationId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("ReclamationId");
+
+                            b1.ToTable("Reclamations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ReclamationId");
+                        });
+                });
+
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reservation", b =>
                 {
                     b.HasOne("SmartRestaurant.Domain.Entities.FoodBusiness", "FoodBusiness")
@@ -3802,6 +3963,37 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         .HasForeignKey("ZoneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.TypeReclamation", b =>
+                {
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("TypeReclamationId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("TypeReclamationId");
+
+                            b1.ToTable("TypeReclamations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TypeReclamationId");
+                        });
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Zone", b =>

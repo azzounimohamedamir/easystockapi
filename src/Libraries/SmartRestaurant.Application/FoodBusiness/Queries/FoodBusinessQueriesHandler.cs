@@ -5,12 +5,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.FoodBusiness.Queries.FilterStrategy;
+using SmartRestaurant.Domain.Identity.Entities;
+using SmartRestaurant.Domain.Identity.Enums;
 
 namespace SmartRestaurant.Application.FoodBusiness.Queries
 {
@@ -27,14 +30,16 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
         private readonly IIdentityContext _identityContext;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public FoodBusinessQueriesHandler(IApplicationDbContext applicationDbContext, IMapper mapper,
-            IUserService userService, IIdentityContext identityContext)
+            IUserService userService, IIdentityContext identityContext,UserManager<ApplicationUser> userManager)
         {
             _applicationDbContext = applicationDbContext;
             _userService = userService;
             _mapper = mapper;
             _identityContext = identityContext;
+            _userManager = userManager;
         }
 
         public async Task<List<FoodBusinessDto>> Handle(GetAllFoodBusinessByFoodBusinessManagerQuery request,
@@ -72,7 +77,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             var filter = FoodBusinessStrategies.GetFilterStrategy(request.CurrentFilter);
             var query = filter.FetchDataFbAcceptDelivery(_applicationDbContext.FoodBusinesses, request);
 
-            var data = _mapper.Map<List<FoodBusinessDto>>(await query.Data.Where(a=>a.AcceptDelivery==true).ToListAsync(cancellationToken).ConfigureAwait(false));
+            var data = _mapper.Map<List<FoodBusinessDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
 
             return new PagedListDto<FoodBusinessDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
@@ -95,10 +100,13 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
 
         public async Task<FoodBusinessDto> Handle(GetFoodBusinessByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _applicationDbContext.FoodBusinesses.FindAsync(request.FoodBusinessId)
-                .ConfigureAwait(false);
+            var entity = await _applicationDbContext.FoodBusinesses.Where(u => u.FoodBusinessId == request.FoodBusinessId)
+                 .FirstOrDefaultAsync().ConfigureAwait(false);
+
+            
             if (entity == null) throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
             var foodBusinessDto = _mapper.Map<FoodBusinessDto>(entity);
+            foodBusinessDto.CurrentUserRating = await getCurrentUserRating(request.FoodBusinessId);
             await GetFoodBusinessImagesAsync(foodBusinessDto, cancellationToken).ConfigureAwait(false);
             await GetCountOfZonesTablesAndMenus(foodBusinessDto, cancellationToken).ConfigureAwait(false);
             return foodBusinessDto;
@@ -183,6 +191,33 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries
             foodBusinessDto.zonesCount = zonesIds.Count;
             foodBusinessDto.tablesCount = tablesCount;
             foodBusinessDto.menusCount = menusCount;
+        }
+
+
+        public async Task<int> getCurrentUserRating(Guid FoodBusinessId)
+        {
+            var user_id = _userService.GetUserId();
+
+            var user = await _userManager.FindByIdAsync(user_id);
+            if (user == null)
+                throw new NotFoundException(nameof(user), user_id);
+
+
+            var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+            if (roles.Contains(Roles.Diner.ToString()))
+            {
+                var ratingObject =await  _applicationDbContext.FoodBusinessUserRatings.Where(ratings => ratings.FoodBusinessId == FoodBusinessId && ratings.ApplicationUserId == Guid.Parse(user_id)).FirstOrDefaultAsync();
+                if (ratingObject==null)
+                {
+                    return 0;
+                }
+                return ratingObject.Rating;
+            }
+            else
+            {
+                return 0;
+            }
+                
         }
     }
 }

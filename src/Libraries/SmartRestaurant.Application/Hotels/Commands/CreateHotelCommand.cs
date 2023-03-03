@@ -23,6 +23,7 @@ namespace SmartRestaurant.Application.Hotels.Commands
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
         public string? Website { get; set; }
+        public string? YoutubeLink { get; set; }
     }
 
     public class CreateHotelCommandValidator : AbstractValidator<CreateHotelCommand>
@@ -64,7 +65,15 @@ namespace SmartRestaurant.Application.Hotels.Commands
                        .Cascade(CascadeMode.StopOnFirstFailure)
                        .NotEmpty()
                        .MaximumLength(200);
-               
+            RuleFor(hotel => hotel.Address.GeoPosition.Longitude)
+                       .Cascade(CascadeMode.StopOnFirstFailure)
+                       .NotEmpty()
+                       .MaximumLength(200);
+            RuleFor(hotel => hotel.Address.GeoPosition.Latitude)
+                      .Cascade(CascadeMode.StopOnFirstFailure)
+                      .NotEmpty()
+                      .MaximumLength(200);
+
 
             RuleFor(hotel => hotel.Description)
                .MaximumLength(500);
@@ -72,8 +81,11 @@ namespace SmartRestaurant.Application.Hotels.Commands
             RuleFor(hotel => hotel.Website)
                 .Must(ValidatorHelper.ValidateUrl).WithMessage("'{PropertyName}: {PropertyValue}' is invalide")
                 .When(hotel => !String.IsNullOrWhiteSpace(hotel.Website));
+            RuleFor(hotel => hotel.YoutubeLink)
+                      .Cascade(CascadeMode.StopOnFirstFailure)
+                      .NotEmpty()
+                      .MaximumLength(200);
 
-             
 
 
         }

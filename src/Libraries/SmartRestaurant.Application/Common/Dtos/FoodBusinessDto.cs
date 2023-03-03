@@ -50,6 +50,11 @@ namespace SmartRestaurant.Application.Common.Dtos
         public string FarLocationDescription { get; set; }
         public decimal FarLocationPrice { get; set; }
         public bool IsActivityFrozen { get; set; }
+        public bool IsMenuItemDetailed { get; set; }
+
+
         public string Logo { get; set; }
+        public List<FoodBusinessUserRatingDto> Ratings { get; set; }
+        public int CurrentUserRating { get; set; }
     }
 }

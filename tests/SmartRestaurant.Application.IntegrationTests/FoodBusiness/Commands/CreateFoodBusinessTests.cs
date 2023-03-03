@@ -25,6 +25,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
             {
                 AcceptsCreditCards = true,
                 AcceptTakeout = true,
+                IsMenuItemDetailed= false,
                 Address = new AddressDto
                 {
                     City = "Algiers",

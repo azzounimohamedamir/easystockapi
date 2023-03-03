@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.BillDtos;
@@ -27,7 +26,8 @@ namespace SmartRestaurant.Application.Orders.Commands
     public class OrdersCommandsHandlers : IRequestHandler<CreateOrderCommand, OrderDto>,
         IRequestHandler<UpdateOrderCommand, NoContent>,
         IRequestHandler<UpdateOrderStatusCommand, NoContent>,
-        IRequestHandler<AddSeatOrderToTableOrderCommand, NoContent>
+        IRequestHandler<AddSeatOrderToTableOrderCommand, NoContent>,
+        IRequestHandler<UpdateOrderGeoLocalisationCommand, Order>
 
     {
         private readonly IApplicationDbContext _context;
@@ -76,14 +76,15 @@ namespace SmartRestaurant.Application.Orders.Commands
                 else
                 {
                     var newOrder = await ExecuteOrderOperations(request, cancellationToken, foodBusiness);
-
                     newOrder.ErrorDeliveryTimeAvailabilite = ErrorResult.None;
+                    await addOrderNotifications(newOrder.OrderId.ToString(), newOrder.FoodBusinessId.ToString(), OrderNotificationType.Create, cancellationToken);
                     return newOrder;
                 }
             }
             else
             {
                 var newOrder = await ExecuteOrderOperations(request, cancellationToken, foodBusiness);
+                await addOrderNotifications(newOrder.OrderId.ToString(), newOrder.FoodBusinessId.ToString(), OrderNotificationType.Create, cancellationToken);
 
                 return newOrder;
             }
@@ -164,6 +165,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             var order = _mapper.Map<Order>(request);
             order = PopulatFromLocalDishesAndProducts(order);
            await UpdateDishesAndProductQuantityOnCreateOrder(order);// gestion de stock
+
 
 
             order.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
@@ -254,10 +256,9 @@ namespace SmartRestaurant.Application.Orders.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             var orderDto = _mapper.Map<OrderDto>(order);
             var foodBusiness = await _context.FoodBusinesses.FindAsync(order.FoodBusinessId);
-            if (foodBusiness != null)
+            if (foodBusiness != null)            
                 orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);
-            var path = order.FoodBusinessId + "/Orders/" + order.OrderId;
-            await _fireBase.UpdateAsync(path, orderDto, cancellationToken);
+            await addOrderNotifications(order.OrderId.ToString(), order.FoodBusinessId.ToString(), OrderNotificationType.Update, cancellationToken);
             return default;
         }
 
@@ -299,14 +300,61 @@ namespace SmartRestaurant.Application.Orders.Commands
             _context.Orders.Update(order);
 
              if (order.Status == OrderStatuses.Cancelled){
-
-            await UpdateDishesAndProductQuantityOnRemoveOrder(order);
+                await addOrderNotifications(order.OrderId.ToString(), order.FoodBusinessId.ToString(), OrderNotificationType.Cancel, cancellationToken);
+                await UpdateDishesAndProductQuantityOnRemoveOrder(order);
             }
 
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
             return default;
         }
+
+
+            public async Task<Order> Handle(UpdateOrderGeoLocalisationCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new UpdateOrderGeoLocalisationCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var order = await _context.Orders
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Specifications)
+                .ThenInclude(o => o.ComboBoxContentTranslation)
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Ingredients)
+                .Include(o => o.Dishes)
+                .ThenInclude(o => o.Supplements)
+                .Include(o => o.Products)
+                .Include(o => o.OccupiedTables)
+                .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
+                .ConfigureAwait(false);
+            if (order == null)
+                throw new NotFoundException(nameof(Order), request.Id);
+                 
+                 
+                 if (order.Type != OrderTypes.Delivery)
+                throw new ConflictException("Sorry,This order type not delivery");
+
+
+            _mapper.Map(request, order);
+            order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
+            order.LastModifiedAt = DateTime.Now;
+            order.GeoPosition.Latitude = request.GeoPosition.Latitude;
+            order.GeoPosition.Longitude = request.GeoPosition.Longitude;
+            _context.Orders.Update(order);
+            
+           
+
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+            return order;
+        }
+
+       
+       
+       
+       
+       
         public async Task<NoContent> Handle(AddSeatOrderToTableOrderCommand request, CancellationToken cancellationToken)
         {
             var validator = new AddSeatOrderToTableOrderCommandValidator();
@@ -735,11 +783,22 @@ namespace SmartRestaurant.Application.Orders.Commands
 
                     _context.Products.Update(productUpdated);
                 }
-
             }
-
-
         }
+
+        private async Task addOrderNotifications(string orderId,string foodBusinessId, OrderNotificationType type, CancellationToken cancellationToken)
+        {
+            var foodBusiness = await _context.FoodBusinesses.Where(u => u.FoodBusinessId == Guid.Parse(foodBusinessId))
+                 .FirstOrDefaultAsync().ConfigureAwait(false);
+
+            if (foodBusiness == null) throw new NotFoundException(nameof(foodBusiness), foodBusinessId);
+
+            var orderNotificationDto = new OrderNotificationDto() { OrderId = orderId, Type = type, Read = null, CreatedAt = DateTime.Now, FoodBusinessId = foodBusinessId};
+
+            var pathNotification = foodBusinessId + "/OrderNotifications";
+            await _fireBase.AddCollectionAsync(pathNotification, orderNotificationDto, cancellationToken);
+
+        } 
 
 
     }

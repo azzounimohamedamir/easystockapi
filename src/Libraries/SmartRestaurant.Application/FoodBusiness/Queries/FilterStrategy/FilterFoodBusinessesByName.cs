@@ -43,18 +43,21 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries.FilterStrategy
                 case "acs":
                     return foodBusinesses
                        .Where(foodBusiness => foodBusiness.Name.Contains(searchKey))
+                       .Where(foodBusinesses=>foodBusinesses.AcceptDelivery==true)
                        .OrderBy(foodBusiness => foodBusiness.Name)
                        .GetPaged(request.Page, request.PageSize);
 
                 case "desc":
                     return foodBusinesses
                        .Where(foodBusiness => foodBusiness.Name.Contains(searchKey))
+                       .Where(foodBusinesses => foodBusinesses.AcceptDelivery == true)
                        .OrderByDescending(foodBusiness => foodBusiness.Name)
                        .GetPaged(request.Page, request.PageSize);
 
                 default:
                     return foodBusinesses
                        .Where(foodBusiness => foodBusiness.Name.Contains(searchKey))
+                       .Where(foodBusinesses => foodBusinesses.AcceptDelivery == true)
                        .OrderBy(foodBusiness => foodBusiness.Name)
                        .GetPaged(request.Page, request.PageSize);
             }

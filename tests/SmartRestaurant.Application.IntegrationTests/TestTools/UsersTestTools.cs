@@ -61,6 +61,31 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             return user;
         }
 
+        public static async Task<ApplicationUser> CreateFoodBusinessManager()
+        {
+            var user = new ApplicationUser()
+            {
+                FullName = "FoodBusinessManager",
+                Email = "FoodBusinessManager@bv.com",
+                UserName = "FoodBusinessManager@bv.com",
+                PhoneNumber = "077654656",
+                IsActive = true,
+                EmailConfirmed = true,
+                // Real password is "Supportagent123@"
+                PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw=="
+            };
+            await AddIdentityAsync(user);
+
+            var userRole1 = new ApplicationUserRole()
+            {
+                UserId = user.Id,
+                RoleId = Convert.ToString((int)Roles.FoodBusinessManager)
+            };
+            await AddIdentityAsync(userRole1);
+
+            return user;
+        }
+
         public static async Task<ApplicationUser> CreateFoodBusinessClientManager()
         {
             var user = new ApplicationUser()

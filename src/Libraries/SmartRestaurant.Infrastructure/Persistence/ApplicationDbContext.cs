@@ -30,9 +30,13 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<HotelSection> HotelSections { get; set; }
+         public DbSet<HotelDetailsSection> HotelDetailsSections { get; set; }
         public DbSet<SectionDish> SectionDishes { get; set; }
         public DbSet<SectionProduct> SectionProducts { get; set; }
         public DbSet<SubSection> SubSections { get; set; }
+        public DbSet<TypeReclamation> TypeReclamations { get; set; }
+        public DbSet<Reclamation> Reclamations { get; set; }
+
         public DbSet<SubSectionDish> SubSectionDishes { get; set; }
         public DbSet<SubSectionProduct> SubSectionProducts { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
@@ -42,6 +46,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<DishSpecification> DishSpecifications { get; set; }
         public DbSet<DishComboBoxItemTranslation> DishComboBoxItemTranslations { get; set; }
         public DbSet<DishIngredient> DishIngredients { get; set; }
+        public DbSet<FoodBusinessUserRating> FoodBusinessUserRatings { get; set; }
         public DbSet<DishSupplement> DishSupplements { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Specification> Specifications { get; set; }
@@ -73,6 +78,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
                .HasKey(o => new { o.ApplicationUserId, o.IllnessId });
             modelBuilder.Entity<DishIngredient>()
                 .HasKey(o => new { o.DishId, o.IngredientId });
+            modelBuilder.Entity<FoodBusinessUserRating>()
+               .HasKey(o => new { o.FoodBusinessId, o.ApplicationUserId });
 
             modelBuilder.Entity<DishSupplement>()
                 .HasKey(o => new { o.DishId, o.SupplementId});
@@ -113,7 +120,10 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 .HasKey(o => o.Id);
             modelBuilder.Entity<Room>()
                 .HasKey(o => o.Id);
-
+            modelBuilder.Entity<TypeReclamation>()
+             .HasKey(o => o.TypeReclamationId);
+            modelBuilder.Entity<Reclamation>()
+           .HasKey(o => o.Id);
 
 
             modelBuilder.Entity<Building>()
