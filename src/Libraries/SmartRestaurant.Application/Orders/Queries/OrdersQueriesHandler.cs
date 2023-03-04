@@ -260,6 +260,7 @@ namespace SmartRestaurant.Application.Orders.Queries
         }
 
 
+
         public async Task<PagedListDto<OrderDto>> Handle(GetAllTodayOrdersQueryByTableId request, CancellationToken cancellationToken)
         {
             var validator = new GetAllTodayOrdersQueryValidator();

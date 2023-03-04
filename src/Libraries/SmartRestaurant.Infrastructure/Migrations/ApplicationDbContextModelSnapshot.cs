@@ -3028,6 +3028,93 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.HotelOrder", b =>
                 {
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "FailureMessage", b1 =>
+                        {
+                            b1.Property<Guid>("HotelOrderId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("HotelOrderId");
+
+                            b1.ToTable("HotelOrders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("HotelOrderId");
+                        });
+
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("HotelOrderId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("HotelOrderId");
+
+                            b1.ToTable("HotelOrders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("HotelOrderId");
+                        });
+
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "SuccesMessage", b1 =>
+                        {
+                            b1.Property<Guid>("HotelOrderId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("HotelOrderId");
+
+                            b1.ToTable("HotelOrders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("HotelOrderId");
+                        });
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.HotelOrder", b =>
+                {
                     b.HasOne("SmartRestaurant.Domain.Entities.CheckIn", "CheckIn")
                         .WithMany()
                         .HasForeignKey("CheckinId")
