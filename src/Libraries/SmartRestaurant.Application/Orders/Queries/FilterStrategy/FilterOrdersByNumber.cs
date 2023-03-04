@@ -150,6 +150,19 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
 
         }
 
+
+        public PagedResultBase<HotelOrder> FetchDataOfClientSH(DbSet<HotelOrder> hotelOrders, GetAllClientSHOrdersQuery request , string clientId)
+        {
+
+            return hotelOrders
+               .Include(ho => ho.ParametreValueClient)
+               .Where(ho=>ho.UserId==Guid.Parse(clientId))
+               .OrderByDescending(ho => ho.DateOrder)
+               .AsNoTracking()
+               .GetPaged(request.Page, request.PageSize);
+
+        }
+
         private static Expression<Func<Order, bool>> ConditionForClient(GetOrdersListByDinnerOrClientQuery request,string dinerId)
         {
             if (string.IsNullOrWhiteSpace(request.SearchKey))
@@ -167,5 +180,6 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
                     && order.Number == searchKey;
             }
         }
+
     }
 }

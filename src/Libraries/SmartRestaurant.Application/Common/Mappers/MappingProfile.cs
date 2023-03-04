@@ -400,6 +400,10 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.OrderId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.TVA, o => o.MapFrom(p => 19));
 
+            CreateMap<CreateOrderSHCommand, Order>()
+               .ForMember(x => x.OrderId, o => o.MapFrom(p => p.Id))
+               .ForMember(x => x.TVA, o => o.MapFrom(p => 19));
+
             CreateMap<OrderProductDto, OrderProduct>()
                 .ReverseMap();
 

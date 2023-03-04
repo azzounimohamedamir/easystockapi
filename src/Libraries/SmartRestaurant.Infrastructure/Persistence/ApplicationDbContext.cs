@@ -51,6 +51,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Specification> Specifications { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<ParametresValue> ParametresValues { get; set; }
+
         public DbSet<OrderOccupiedTable> OrderOccupiedTables { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }
         public DbSet<OrderDish> OrderDishes { get; set; }
@@ -65,6 +67,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
         public DbSet<IngredientIllness> IngredientIllnesses { get; set; }
         public DbSet<MonthlyCommission> MonthlyCommission { get; set; }
+        public DbSet<HotelOrder> HotelOrders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -118,6 +121,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<Hotel>()
                 .HasKey(o => o.Id);
+            modelBuilder.Entity<HotelOrder>()
+              .HasKey(o => o.Id);
             modelBuilder.Entity<Room>()
                 .HasKey(o => o.Id);
             modelBuilder.Entity<TypeReclamation>()
@@ -128,7 +133,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<Building>()
                 .HasKey(o => o.Id);
-
+            modelBuilder.Entity<ParametresValue>()
+            .HasKey(o => o.Id);
             modelBuilder.Seed();
         }
     }

@@ -18,8 +18,10 @@ using SmartRestaurant.Domain.Identity.Entities;
 
 namespace SmartRestaurant.Application.Orders.Queries
 {
-    public class OrdersQueriesHandler : IRequestHandler<GetOrderByIdQuery, OrderDto>,
+    public class OrdersQueriesHandler : 
+        IRequestHandler<GetOrderByIdQuery, OrderDto>,
         IRequestHandler<GetOrdersListQuery, PagedListDto<OrderDto>>,
+        IRequestHandler<GetAllClientSHOrdersQuery, PagedListDto<HotelOrder>>,
         IRequestHandler<GetOrdersListByDinnerOrClientQuery, PagedListDto<OrderDto>>,
         IRequestHandler<GetAllTodayOrdersQueryByTableId, PagedListDto<OrderDto>>,
         IRequestHandler<GetLastOrderByTableIDQuery, OrderDto>
@@ -116,6 +118,22 @@ namespace SmartRestaurant.Application.Orders.Queries
             }
             return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
+
+
+        public async Task<PagedListDto<HotelOrder>> Handle(GetAllClientSHOrdersQuery request, CancellationToken cancellationToken)
+        {
+            var clientId = _userService.GetUserId();
+            var validator = new GetAllClientSHOrdersQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+            var filter = OrderStrategies.GetFilterStrategy(request.CurrentFilter);
+            var query = filter.FetchDataOfClientSH(_context.HotelOrders, request, clientId);
+
+            var queryData = await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false);
+            
+            return new PagedListDto<HotelOrder>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, queryData);
+        }
+
 
         public async Task<PagedListDto<OrderDto>> Handle(GetAllTodayOrdersQueryByTableId request, CancellationToken cancellationToken)
         {
