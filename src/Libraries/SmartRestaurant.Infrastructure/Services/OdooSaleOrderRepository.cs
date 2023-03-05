@@ -11,7 +11,6 @@ using OdooRpc.CoreCLR.Client.Models;
 using OdooRpc.CoreCLR.Client;
 
 
-
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 
 namespace SmartRestaurant.Infrastructure.Services
@@ -50,6 +49,7 @@ namespace SmartRestaurant.Infrastructure.Services
                 Password = _password
             };
             _client = new OdooRpcClient(odooConnectionInfo);
+            
 
 
             // if (string.IsNullOrEmpty(_DataBaseBasepath))
@@ -65,35 +65,54 @@ namespace SmartRestaurant.Infrastructure.Services
 
         }
 
-  
+
 
         public async Task<long> CreateAsync(SaleOrderDto saleOrder)
         {
-              var orderLineList = new List<Dictionary<string, object>>();
+            await _client.Authenticate();
+            var orderLineList = new List<Dictionary<string, object>>();
 
-        foreach (var orderLine in saleOrder.OrderLines)
-        {
-            var orderLineDict = new Dictionary<string, object>
+            foreach (var orderLine in saleOrder.OrderLines)
+            {
+                var orderLineDict = new Dictionary<string, object>
             {
                 { "product_id", orderLine.ProductId },
                 { "product_quantity", orderLine.Quantity },
                 { "price_unit", orderLine.PriceUnit }
             };
 
-            orderLineList.Add(orderLineDict);
-        }
+                orderLineList.Add(orderLineDict);
+            }
 
-        var saleOrderDict = new Dictionary<string, object>
+            var saleOrderDict = new Dictionary<string, object>
         {
-            { "partner_id", saleOrder.PartnerId },
-            { "order_line", orderLineList }
-        };
+                {"name", "Order 1"},
+                { "date_order", "2023-03-04 13:44:27"},
+                {"session_id", 1},
+                { "amount_total", 232.0},
+                {"amount_tax", 10.0},
+                {"amount_paid",12.0},
+                {"amount_return",33.0}
 
-      
 
-         long saleOrderId = await _client.Create("sale.order", saleOrderDict);
 
-        return saleOrderId;
+
+
+
+
+    };
+
+
+
+            //await _client.Authenticate();
+         long saleOrderId = await _client.Create("pos.order", saleOrderDict);
+
+            if (saleOrderId == 0)
+            {
+                throw new Exception("Failed to create sales order in Odoo");
+            }
+
+            return saleOrderId;
         }
     }
 
