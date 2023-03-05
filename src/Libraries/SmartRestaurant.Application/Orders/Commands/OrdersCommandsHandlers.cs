@@ -90,25 +90,9 @@ namespace SmartRestaurant.Application.Orders.Commands
             {
                 var newOrder = await ExecuteOrderOperations(request, cancellationToken, foodBusiness);
 
-                
-                    var saleOrder = new SaleOrderDto
-                    {
-                        PartnerId = 1,
-                        OrderLines = new List<SaleOrderLineDto>
-                        {
-                            new SaleOrderLineDto { ProductId = 1, Quantity = 2, PriceUnit = 10.0 },
-                            new SaleOrderLineDto { ProductId = 2, Quantity = 3, PriceUnit = 15.0 }
-                        }
-                    }; 
-                var r = await _saleOrderRepository.CreateAsync(saleOrder);
-//  if (r)
-//         {
-//             return newOrder;
-//         }
-       
-       
 
-               return newOrder;
+
+                return newOrder;
             }
 
         }
@@ -273,7 +257,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             CalculateAndSetOrderEnergeticValues(order);
             CalculateAndSetOrderTotalPrice(order, order.FoodBusiness);
             _context.Orders.Update(order);
-           await  UpdateDishesAndProductQuantityOnCreateOrder(order); //  new order increase quantity
+            await  UpdateDishesAndProductQuantityOnCreateOrder(order); //  new order increase quantity
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             var orderDto = _mapper.Map<OrderDto>(order);
             var foodBusiness = await _context.FoodBusinesses.FindAsync(order.FoodBusinessId);
