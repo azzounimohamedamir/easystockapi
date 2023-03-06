@@ -10,6 +10,7 @@ namespace SmartRestaurant.Application.Common.Interfaces
     public interface IFirebaseRepository
     {
         Task<T> AddAsync<T>(string path,T data,CancellationToken cancellationToken);
+        Task<T> AddCollectionAsync<T>(string path,T data,CancellationToken cancellationToken);
         Task<T> UpdateAsync<T>(string path,T data, CancellationToken cancellationToken);
         Task<T> GetAsync<T>(string path, CancellationToken cancellationToken);
         Task<T> GetByIdAsync<T>(string path, string id, T data, CancellationToken cancellationToken);
