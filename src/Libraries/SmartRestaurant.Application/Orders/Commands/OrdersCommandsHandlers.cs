@@ -39,6 +39,7 @@ namespace SmartRestaurant.Application.Orders.Commands
         private readonly string CreateAction = "CreateAction";
         private readonly string UpdateAction = "UpdateAction";
 
+
         public OrdersCommandsHandlers(IApplicationDbContext context,
 
                                     IMapper mapper,
@@ -51,6 +52,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             _userService = userService;
             _fireBase = fireBase;
             _datetime = datetime;
+    
         }
 
         public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -85,6 +87,8 @@ namespace SmartRestaurant.Application.Orders.Commands
             {
                 var newOrder = await ExecuteOrderOperations(request, cancellationToken, foodBusiness);
                 await addOrderNotifications(newOrder.OrderId.ToString(), newOrder.FoodBusinessId.ToString(), OrderNotificationType.Create, cancellationToken);
+
+
 
                 return newOrder;
             }
@@ -252,7 +256,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             CalculateAndSetOrderEnergeticValues(order);
             CalculateAndSetOrderTotalPrice(order, order.FoodBusiness);
             _context.Orders.Update(order);
-           await  UpdateDishesAndProductQuantityOnCreateOrder(order); //  new order increase quantity
+            await  UpdateDishesAndProductQuantityOnCreateOrder(order); //  new order increase quantity
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             var orderDto = _mapper.Map<OrderDto>(order);
             var foodBusiness = await _context.FoodBusinesses.FindAsync(order.FoodBusinessId);
