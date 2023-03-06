@@ -21,6 +21,7 @@ using SmartRestaurant.Domain.Identity.Enums;
 using SmartRestaurant.Infrastructure.Identity.Persistence;
 using SmartRestaurant.Infrastructure.Identity.Services;
 using SmartRestaurant.Infrastructure.Persistence;
+using SmartRestaurant.Infrastructure.Services;
 
 namespace SmartRestaurant.Application.IntegrationTests
 {
@@ -72,6 +73,7 @@ namespace SmartRestaurant.Application.IntegrationTests
             descriptor.ServiceType == typeof(IDateTime));
             services.Remove(serviceDescriptor);
             services.AddSingleton<IDateTime, DateTimeServiceMocked>();
+            services.AddSingleton<ISaleOrderRepository, OdooSaleOrderRepository>();
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
             _checkpoint = new Checkpoint
