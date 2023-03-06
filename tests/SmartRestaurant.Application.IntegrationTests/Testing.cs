@@ -73,7 +73,6 @@ namespace SmartRestaurant.Application.IntegrationTests
             descriptor.ServiceType == typeof(IDateTime));
             services.Remove(serviceDescriptor);
             services.AddSingleton<IDateTime, DateTimeServiceMocked>();
-            services.AddSingleton<ISaleOrderRepository, OdooSaleOrderRepository>();
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
             _checkpoint = new Checkpoint

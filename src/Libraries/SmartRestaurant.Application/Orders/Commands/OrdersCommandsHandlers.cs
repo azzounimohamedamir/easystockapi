@@ -40,22 +40,20 @@ namespace SmartRestaurant.Application.Orders.Commands
         private readonly string CreateAction = "CreateAction";
         private readonly string UpdateAction = "UpdateAction";
 
-        private readonly ISaleOrderRepository _saleOrderRepository;
 
         public OrdersCommandsHandlers(IApplicationDbContext context,
 
                                     IMapper mapper,
                                     IUserService userService,
                                     IFirebaseRepository fireBase,
-                                    IDateTime datetime
-                                    ,ISaleOrderRepository saleOrderRepository)
+                                    IDateTime datetime)
         {
             _context = context;
             _mapper = mapper;
             _userService = userService;
             _fireBase = fireBase;
             _datetime = datetime;
-            _saleOrderRepository = saleOrderRepository;
+    
         }
 
         public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
