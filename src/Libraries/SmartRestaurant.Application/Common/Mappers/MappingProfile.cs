@@ -77,6 +77,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<GeoPosition, GeoPositionDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<PhoneNumber, PhoneNumberDto>().ReverseMap();
+             CreateMap<Odoo, OdooDto>().ReverseMap();
             CreateMap<Zone, CreateZoneCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.ZoneId))
                 .ReverseMap();
