@@ -136,6 +136,18 @@ namespace SmartRestaurant.Infrastructure.Services
 
             return dataId;
         }
+
+        public async Task<long> UpdateAsync(string model,long odooId, Dictionary<string, object> data)
+        {
+            try
+            {
+                await _client.Update(model, odooId, data);
+                return odooId;
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 
 
