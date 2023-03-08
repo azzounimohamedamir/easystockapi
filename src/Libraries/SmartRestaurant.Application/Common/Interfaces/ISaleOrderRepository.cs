@@ -1,12 +1,13 @@
-using SmartRestaurant.Domain.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Application.Common.Interfaces
 {
  public interface ISaleOrderRepository
 {
-     Task<long> CreateAsync(Order saleOrder);
+        Task<bool> Authenticate(Odoo info);
+        Task<long> CreateAsync(string model,Dictionary<string,object> data);
 }
 
 }
