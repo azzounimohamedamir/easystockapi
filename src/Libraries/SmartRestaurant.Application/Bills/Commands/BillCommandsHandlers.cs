@@ -81,7 +81,7 @@ namespace SmartRestaurant.Application.Bills.Commands
 
             order.Status = OrderStatuses.Billed;
 
-               await _saleOrderRepository.CreateAsync(order);
+               //await _saleOrderRepository.CreateAsync(order);
 
             order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.LastModifiedAt = DateTime.Now;
