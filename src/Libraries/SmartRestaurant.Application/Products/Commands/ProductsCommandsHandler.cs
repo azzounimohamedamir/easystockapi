@@ -116,6 +116,10 @@ namespace SmartRestaurant.Application.Products.Commands
 
         private async Task<long> CreateOdooProduct(CreateProductCommand request, SmartRestaurant.Domain.Entities.FoodBusiness foodBusiness)
         {
+            await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+
+            long categoryId = await getProductCategoryId();
+
             var product_pic = new byte[0];
             using (var ms = new MemoryStream())
             {
@@ -127,17 +131,20 @@ namespace SmartRestaurant.Application.Products.Commands
                 { "name", request.Name},
                 { "detailed_type", "consu"},
                 { "list_price", request.Price},
-                { "pos_categ_id", 2},
+                { "pos_categ_id", categoryId},
                 { "available_in_pos", 1},
                 { "image_1920",product_pic }
             };
 
-            await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+            
             return await _saleOrderRepository.CreateAsync("product.template", data);
         }
 
         private async Task<long> UpdateOdooProduct(UpdateProductCommand request, SmartRestaurant.Domain.Entities.FoodBusiness foodBusiness,long odooId)
         {
+            await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+            long categoryId =await getProductCategoryId();
+
             var product_pic = new byte[0];
             using (var ms = new MemoryStream())
             {
@@ -149,13 +156,32 @@ namespace SmartRestaurant.Application.Products.Commands
                 { "name", request.Name},
                 { "detailed_type", "consu"},
                 { "list_price", request.Price},
-                { "pos_categ_id", 2},
+                { "pos_categ_id", categoryId},
                 { "available_in_pos", 1},
                 { "image_1920",product_pic }
             };
 
-            await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
             return await _saleOrderRepository.UpdateAsync("product.template",odooId, data);
+        }
+
+        private async Task<long> getProductCategoryId()
+        {
+            var result = await _saleOrderRepository.Search<List<int>>("pos.category", "name", "produit", 1);
+            long categoryId;
+            if (result.Count > 0)
+            {
+                categoryId = result[0];
+            }
+            else
+            {
+                var categoryData = new Dictionary<string, object>
+                {
+                    { "name", "produit"}
+                };
+                categoryId = await _saleOrderRepository.CreateAsync("pos.category", categoryData);
+            }
+
+            return categoryId;
         }
     }
 }

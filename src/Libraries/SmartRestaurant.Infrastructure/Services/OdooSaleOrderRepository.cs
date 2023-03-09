@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using OdooRpc.CoreCLR.Client.Models;
 using OdooRpc.CoreCLR.Client;
 using SmartRestaurant.Domain.ValueObjects;
+using OdooRpc.CoreCLR.Client.Models.Parameters;
 
 namespace SmartRestaurant.Infrastructure.Services
 {
@@ -148,6 +149,23 @@ namespace SmartRestaurant.Infrastructure.Services
                 throw ex;
             }
         }
+
+        public async Task<T> Search<T>(string model ,string attribute,string value,int limit)
+        {
+            try {
+                var filter = new OdooDomainFilter().Filter(attribute, "=",value);
+                var searchParams =new OdooSearchParameters(model,filter);
+                var pagination = new OdooPaginationParameters()
+                {
+                    Limit = limit,
+                };
+                return await _client.Search<T>(searchParams,pagination);
+            }       
+            catch (Exception exe)
+            {
+                throw exe;
+            }
+}
     }
 
 
