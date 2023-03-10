@@ -118,6 +118,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                 od.Name = orderDish.Name;
                 od.EstimatedPreparationTime = orderDish.EstimatedPreparationTime;
                 od.InitialPrice = orderDish.Price;
+                od.OdooId = orderDish.OdooId;
                 od.Supplements = od.Supplements.Select((supplement) =>
                 {
                     var supp = _context.Dishes.FirstOrDefault(d => d.DishId.Equals(Guid.Parse(supplement.SupplementId)));
@@ -150,6 +151,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                     TR = orderProduct.Names.TR,
                     RU = orderProduct.Names.RU,
                 };
+                p.OdooId = orderProduct.OdooId;
                 p.Description = orderProduct.Description;
                 p.Name = orderProduct.Name;
                 p.EnergeticValue = orderProduct.EnergeticValue;
@@ -908,7 +910,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                { "qty", dishLine.Quantity },
                { "price_unit", dishLine.UnitPrice },
                { "discount", 0.0 },
-               {"product_id",24 },
+               {"product_id",dishLine.OdooId },
                { "price_subtotal", dishLine.UnitPrice*dishLine.Quantity },
                { "price_subtotal_incl", dishLine.UnitPrice*dishLine.Quantity }
 
@@ -935,7 +937,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                { "discount", 0.0 },
                { "price_subtotal", productLine.UnitPrice*productLine.Quantity },
                 { "price_subtotal_incl",  productLine.UnitPrice*productLine.Quantity },
-                {"product_id",24 }
+                {"product_id",productLine.OdooId }
 
 
             };
