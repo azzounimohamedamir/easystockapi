@@ -17,5 +17,6 @@ namespace SmartRestaurant.Domain.Common
         public int ChairNumber { get; set; }
         public float Quantity { get; set; }
         public Guid OrderId { get; set; }
+        public long OdooId { get; set; }
     }
 }
