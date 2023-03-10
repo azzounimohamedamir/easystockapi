@@ -69,71 +69,12 @@ namespace SmartRestaurant.Infrastructure.Services
         {
             await _client.Authenticate();
 
-    //        var saleOrderDict = new Dictionary<string, object>
-    //    {
-    //            {"name", order.OrderId.ToString() },
-    //            { "date_order", order.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")},
-    //            {"session_id", 1},
-    //            { "amount_total", order.TotalToPay},
-    //            {"amount_tax", 0.0},
-    //            {"amount_paid",order.TotalToPay},
-    //            {"amount_return",0.0},
-    //            {"pos_reference",order.OrderId.ToString()},
-
-    //};        // create order odoo
-
-
-
-
             long dataId = await _client.Create(model, data); // send order to odoo
 
             if (dataId == 0)
             {
                 throw new Exception("Failed to create sales order in Odoo");
             }
-            //var orderLineList = new List<Dictionary<string, object>>();
-
-            //if (order.Dishes.Count > 0)
-            //    foreach (var dishLine in order.Dishes)
-            //    {
-            //        var orderLineDict = new Dictionary<string, object>
-            //{
-            //     { "order_id", saleOrderId },
-            //    { "full_product_name",dishLine.Name},
-            //    { "qty", dishLine.Quantity },
-            //    { "price_unit", dishLine.UnitPrice },
-            //    { "discount", 0.0 },
-            //    {"product_id",1 },
-            //    { "price_subtotal", dishLine.UnitPrice*dishLine.Quantity },
-            //     { "price_subtotal_incl", dishLine.UnitPrice*dishLine.Quantity }
-
-            //};
-
-            //        await _client.Create("pos.order.line", orderLineDict); // add dish in odoo order
-
-            //    }
-
-            //if (order.Products.Count > 0)
-
-            //    foreach (var productLine in order.Products)
-            //    {
-            //        var orderLineDict = new Dictionary<string, object>
-            //{
-            //    { "order_id", saleOrderId },
-            //    { "full_product_name",productLine.Name },
-            //    { "qty", productLine.Quantity },
-            //    { "price_unit", productLine.UnitPrice } ,
-            //    { "discount", 0.0 },
-            //    { "price_subtotal", productLine.UnitPrice*productLine.Quantity },
-            //     { "price_subtotal_incl",  productLine.UnitPrice*productLine.Quantity },
-            //     {"product_id",1 }
-
-
-            //};
-            //        await _client.Create("pos.order.line", orderLineDict); // add product in odoo order
-            //    }
-
-
 
             return dataId;
         }
