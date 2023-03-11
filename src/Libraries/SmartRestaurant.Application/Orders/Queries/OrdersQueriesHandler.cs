@@ -17,6 +17,7 @@ using SmartRestaurant.Application.CurrencyExchange;
 using SmartRestaurant.Application.Orders.Queries.FilterStrategy;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
+using SmartRestaurant.Domain.Identity.Enums;
 
 namespace SmartRestaurant.Application.Orders.Queries
 {
@@ -128,7 +129,7 @@ namespace SmartRestaurant.Application.Orders.Queries
             var searchKey = (string.IsNullOrWhiteSpace(request.SearchKey) ? "" : request.SearchKey).ToLower();
             var roles = _userService.GetRoles();
 
-            if(roles.Contains("Diner"))
+            if(roles.Contains(Roles.Diner.ToString()))
             {
                 var clientId = _userService.GetUserId();
 
@@ -189,7 +190,7 @@ namespace SmartRestaurant.Application.Orders.Queries
                 }
 
             }
-            if (roles.Contains("FoodBusinessManager") || roles.Contains("HotelServiceAdmin"))
+            if (roles.Contains(Roles.FoodBusinessManager.ToString()) || roles.Contains(Roles.HotelServiceAdmin.ToString()))
             {
 
                 var validator = new GetAllClientSHOrdersQueryValidator();
