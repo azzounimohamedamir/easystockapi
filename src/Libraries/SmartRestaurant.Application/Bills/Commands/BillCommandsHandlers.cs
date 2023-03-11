@@ -22,12 +22,13 @@ namespace SmartRestaurant.Application.Bills.Commands
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-
-        public BillCommandsHandlers(IApplicationDbContext context, IMapper mapper, IUserService userService)
+        private readonly ISaleOrderRepository _saleOrderRepository;
+        public BillCommandsHandlers(IApplicationDbContext context, IMapper mapper, IUserService userService ,ISaleOrderRepository saleOrderRepository)
         {
             _context = context;
             _mapper = mapper;
             _userService = userService;
+               _saleOrderRepository = saleOrderRepository;
         }
         
         public async Task<NoContent> Handle(UpdateBillCommand request, CancellationToken cancellationToken)
@@ -66,7 +67,10 @@ namespace SmartRestaurant.Application.Bills.Commands
             if (!result.IsValid) throw new ValidationException(result);
 
             var order = await _context.Orders
-              .Include(o => o.OccupiedTables)
+             .Include(o => o.OccupiedTables)
+              .Include(o => o.Dishes)
+             .Include(o => o.Products)
+                 
               .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
               .ConfigureAwait(false);
             if (order == null)
@@ -76,6 +80,9 @@ namespace SmartRestaurant.Application.Bills.Commands
                 throw new ConflictException("Bill has been already paid");
 
             order.Status = OrderStatuses.Billed;
+
+               await _saleOrderRepository.CreateAsync(order);
+
             order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.LastModifiedAt = DateTime.Now;
 

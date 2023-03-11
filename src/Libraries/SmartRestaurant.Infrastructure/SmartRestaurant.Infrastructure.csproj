@@ -16,6 +16,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0" />
+    <PackageReference Include="OdooRpc.CoreCLR.Client" Version="1.0.0" />
+    <PackageReference Include="xmlrpcnet" Version="3.0.0.266" />
   </ItemGroup>
 
   <ItemGroup>
