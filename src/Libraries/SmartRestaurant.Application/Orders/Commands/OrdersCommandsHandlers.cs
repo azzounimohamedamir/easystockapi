@@ -209,10 +209,12 @@ namespace SmartRestaurant.Application.Orders.Commands
                         CheckinId = Guid.Parse(request.CheckinId),
                         SmartRestaurentOrderId = Guid.Parse(newOrder.OrderId),
                         Names = service.Names,
+                        HotelId= Guid.Parse(request.HotelId),
+                        RoomId=clientCheckin.RoomId ,
                         DateOrder = newOrder.CreatedAt,
                         ParametreValueClient=null,
                         ChairNumber = newOrder.Dishes[0].ChairNumber,
-                        TableId = Guid.Parse(newOrder.Dishes[0].TableId),
+                        TableId = Guid.Parse(newOrder.OccupiedTables[0].TableId),
                         FailureMessage = service.TitelFailureResponce,
                         SuccesMessage = service.TitelSeccesResponce,
                         FoodBusinessId = service.FoodBusinessID,
@@ -222,6 +224,9 @@ namespace SmartRestaurant.Application.Orders.Commands
                         Type = OrderTypes.DineIn
                     };
                     _context.HotelOrders.Add(orderSH);
+                    await _context.SaveChangesAsync(cancellationToken);
+
+                    return orderSH;
                 }
 
                 if (service.isSmartrestaurantMenue == true && request.Type==OrderTypes.InRoom)
@@ -237,6 +242,8 @@ namespace SmartRestaurant.Application.Orders.Commands
                         CheckinId = Guid.Parse(request.CheckinId),
                         SmartRestaurentOrderId = Guid.Parse(newOrder.OrderId),
                         Names = service.Names,
+                        HotelId = Guid.Parse(request.HotelId),
+                        RoomId = clientCheckin.RoomId,
                         DateOrder = newOrder.CreatedAt,
                         ParametreValueClient = null,
                         ChairNumber = 0,
@@ -250,6 +257,9 @@ namespace SmartRestaurant.Application.Orders.Commands
                         Type = OrderTypes.InRoom
                     };
                     _context.HotelOrders.Add(orderSH);
+                    await _context.SaveChangesAsync(cancellationToken);
+
+                    return orderSH;
                 }
                 if(service.isSmartrestaurantMenue == false)
                 {
@@ -259,6 +269,8 @@ namespace SmartRestaurant.Application.Orders.Commands
                         CheckinId = Guid.Parse(request.CheckinId),
                         SmartRestaurentOrderId = Guid.Empty,
                         Names = service.Names,
+                        HotelId = Guid.Parse(request.HotelId),
+                        RoomId = clientCheckin.RoomId,
                         DateOrder = DateTime.Now,
                         ChairNumber = 0,
                         TableId = Guid.Empty,
@@ -272,9 +284,11 @@ namespace SmartRestaurant.Application.Orders.Commands
                         Type = 0
                     };
                     _context.HotelOrders.Add(orderSH);
+                    await _context.SaveChangesAsync(cancellationToken);
+
+                    return orderSH;
                 }
 
-                await _context.SaveChangesAsync(cancellationToken);
             }
             else
             {

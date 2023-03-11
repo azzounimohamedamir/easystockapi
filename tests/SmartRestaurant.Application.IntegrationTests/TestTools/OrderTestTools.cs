@@ -123,6 +123,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                     new OrderProductDto {
                     ProductId =procuctCommand.Id.ToString(),
                     TableNumber =  4,
+                    TableId="44aecd78-59bb-7504-bfff-07c07129ab00",
                     ChairNumber =  1,
                     Quantity =  1
                 }

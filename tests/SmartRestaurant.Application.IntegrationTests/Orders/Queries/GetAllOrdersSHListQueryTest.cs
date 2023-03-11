@@ -45,6 +45,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
 
             var orderListOfClientSH = await SendAsync(new GetAllClientSHOrdersQuery { HotelId=OrderSHForRestauranthotelDinIn.HotelId.ToString() });
             orderListOfClientSH.Data.Should().HaveCount(1);
+
         }
         private static async Task CreateTable(CreateZoneCommand createZoneCommand)
         {

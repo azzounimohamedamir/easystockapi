@@ -14,6 +14,7 @@ namespace SmartRestaurant.Application.IntegrationTests
             User = httpContextAccessor.HttpContext.User;
             Headers = httpContextAccessor.HttpContext.Request.Headers;
         }
+        public string oldrole { get; set; }
 
         private ClaimsPrincipal User { get; }
         private IHeaderDictionary Headers { get; }
@@ -27,12 +28,15 @@ namespace SmartRestaurant.Application.IntegrationTests
         {
             return Headers["Accept-Language"];
         }
-        public string oldrole { get; set; }
       
 
         public string GetRoles()
         {
+            if (oldrole!=null)
             return oldrole;
+            else           
+            return User.FindFirst(ClaimTypes.Role).Value;
+
         }
 
         public void SetNewRole(string role)
