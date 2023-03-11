@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230305091256_addColumnHotelIdAndRoomIdToHotelOrderTable")]
+    partial class addColumnHotelIdAndRoomIdToHotelOrderTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1386,20 +1388,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.HasIndex("OrderDishSpecificationId");
 
                     b.ToTable("OrderComboBoxItemTranslations");
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.OrderDestination", b =>
-                {
-                    b.Property<Guid>("OrderDestinationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("HotelId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("OrderDestinationId");
-
-                    b.ToTable("OrderDestinations");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.OrderDish", b =>
@@ -3685,37 +3673,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderComboBoxItemTranslationId");
-                        });
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.OrderDestination", b =>
-                {
-                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
-                        {
-                            b1.Property<Guid>("OrderDestinationId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("AR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("EN")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("FR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("RU")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("TR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("OrderDestinationId");
-
-                            b1.ToTable("OrderDestinations");
-
-                            b1.WithOwner()
-                                .HasForeignKey("OrderDestinationId");
                         });
                 });
 

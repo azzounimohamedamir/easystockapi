@@ -14,7 +14,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SmartRestaurant.Application.Orders.Commands
 {
-    public class CreateOrderSHCommand : CreateCommand
+    public class CreateOrderSHCommand : IRequest<HotelOrder>
     {
         public CreateOrderSHCommand()
         {
@@ -34,6 +34,9 @@ namespace SmartRestaurant.Application.Orders.Commands
         public string FoodBusinessClientId { get; set; }
          public GeoPositionDto GeoPosition { get; set; }
         public string CheckinId { get; set; }
+        public string RoomId { get; set; }
+        public string HotelId { get; set; }
+
         public List<ParametresValue> ParametreValueClient { get; set; }
         public string ServiceId { get; set;}
     }

@@ -10,12 +10,14 @@ using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.Orders.Queries
 {
-    public class GetAllClientSHOrdersQuery : IRequest<PagedListDto<HotelOrder>>
+    public class GetAllClientSHOrdersQuery : IRequest<PagedListDto<HotelOrderDto>>
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
         public string SearchKey { get; set; }
         public string SortOrder { get; set; }
+        public string HotelId { get; set; }
+        public string OrderDestinationId { get; set; }
         public string CurrentFilter { get; set; }
         public DateFilter DateInterval { get; set; }
     }

@@ -35,6 +35,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<SectionProduct> SectionProducts { get; set; }
         public DbSet<SubSection> SubSections { get; set; }
         public DbSet<TypeReclamation> TypeReclamations { get; set; }
+        public DbSet<OrderDestination> OrderDestinations { get; set; }
+
         public DbSet<Reclamation> Reclamations { get; set; }
 
         public DbSet<SubSectionDish> SubSectionDishes { get; set; }
@@ -115,6 +117,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
             modelBuilder.Entity<OrderComboBoxItemTranslation>()
                 .HasKey(o => o.OrderComboBoxItemTranslationId);
+            modelBuilder.Entity<OrderDestination>()
+              .HasKey(o => o.OrderDestinationId);
 
             modelBuilder.Entity<DishComboBoxItemTranslation>()
                 .HasKey(o => o.DishComboBoxItemTranslationId);

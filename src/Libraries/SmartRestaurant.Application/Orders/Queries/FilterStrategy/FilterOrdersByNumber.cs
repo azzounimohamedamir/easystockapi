@@ -3,6 +3,7 @@ using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Domain.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -151,15 +152,23 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
         }
 
 
-        public PagedResultBase<HotelOrder> FetchDataOfClientSH(DbSet<HotelOrder> hotelOrders, GetAllClientSHOrdersQuery request , string clientId)
+        public List<HotelOrder> FetchDataOfClientSH(DbSet<HotelOrder> hotelOrders, GetAllClientSHOrdersQuery request , string clientId)
         {
 
             return hotelOrders
                .Include(ho => ho.ParametreValueClient)
-               .Where(ho=>ho.UserId==Guid.Parse(clientId))
+               .Where(ho => ho.UserId == Guid.Parse(clientId))
+               .OrderByDescending(ho => ho.DateOrder).AsNoTracking().ToList();
+
+        }
+
+        public List<HotelOrder> FetchDataOfManagerSH(DbSet<HotelOrder> hotelOrders, GetAllClientSHOrdersQuery request)
+        {
+
+            return hotelOrders
+               .Include(ho => ho.ParametreValueClient)
                .OrderByDescending(ho => ho.DateOrder)
-               .AsNoTracking()
-               .GetPaged(request.Page, request.PageSize);
+               .AsNoTracking().ToList();
 
         }
 

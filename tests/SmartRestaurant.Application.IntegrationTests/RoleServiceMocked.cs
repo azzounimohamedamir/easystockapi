@@ -1,13 +1,15 @@
-using System;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using SmartRestaurant.Application.Common.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Text;
 
-namespace SmartRestaurant.Infrastructure.Identity.Services
+namespace SmartRestaurant.Application.IntegrationTests
 {
-    public class UserService : IUserService
+    public class RoleServiceMocked : IUserService
     {
-        public UserService(IHttpContextAccessor httpContextAccessor)
+        public RoleServiceMocked(IHttpContextAccessor httpContextAccessor)
         {
             User = httpContextAccessor.HttpContext.User;
             Headers = httpContextAccessor.HttpContext.Request.Headers;
@@ -25,14 +27,18 @@ namespace SmartRestaurant.Infrastructure.Identity.Services
         {
             return Headers["Accept-Language"];
         }
+        public string oldrole { get; set; }
+      
+
         public string GetRoles()
         {
-            return User.FindFirst(ClaimTypes.Role).Value;
+            return oldrole;
         }
 
-       public void SetNewRole(string role)
+        public void SetNewRole(string role)
         {
-
+            oldrole = role;
         }
+
     }
 }

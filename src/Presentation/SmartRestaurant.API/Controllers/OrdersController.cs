@@ -126,7 +126,51 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
-         /// <summary> UpdateOrderGeoLocalisation() </summary>
+
+        /// <summary> UpdateOrderSHStatus() </summary>
+        /// <remarks>
+        ///     This endpoint allows user to update Order SH Status.<br></br>
+        ///     <b>Note 01:</b> This is the enum used to set Order Status: <b> enum OrderStatuses { DeniedByClient, Response success, Response Failed } </b><br></br>
+        /// </remarks>        
+        /// /// <param name="id">id of the order that would be updated</param>
+        /// <param name="command">This is payload object used to update order status</param>
+        /// <response code="204">The order has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in-order to update order status is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}/SHStatus")]
+        [HttpPatch]
+        [Authorize(Roles = "FoodBusinessManager,HotelClient,HotelServiceAdmin")]
+        public async Task<IActionResult> UpdateOrderSHStatus([FromRoute] string id, UpdateOrderSHStatusCommand command)
+        {
+            command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+
+        /// <summary> AcceptOrderSHStatus() </summary>
+        /// <remarks>
+        ///     This endpoint allows HotelserviceAdmin to ACCEPT Order SH Status to .<br></br>
+        ///     <b>Note 01:</b> This is the enum used to set Order Status: <b> enum OrderStatuses { DeniedByClient, Response success, Response Failed } </b><br></br>
+        /// </remarks>        
+        /// /// <param name="id">id of the order that would be updated</param>
+        /// <param name="command">This is payload object used to update order status</param>
+        /// <response code="204">The order has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in-order to update order status is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}/AcceptOrderSH")]
+        [HttpPatch]
+        [Authorize(Roles = "HotelServiceAdmin")]
+        public async Task<IActionResult> AcceptOrderSH([FromRoute] string id, AcceptOrderSHCommand command)
+        {
+            command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+        /// <summary> UpdateOrderGeoLocalisation() </summary>
         /// <remarks>
         ///     This endpoint allows user to update Order GeoLocalistion.<br></br>
         ///     <b>Note 01:</b> This is the enum used to set Order GeoLocalistion: <b>  OrderGeoLocalistiones {  Latitude;Longitude } </b><br></br>
@@ -165,7 +209,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,Cashier, HotelClient,Waiter,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,Cashier, HotelClient,Waiter,Diner,HotelServiceAdmin")]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new GetOrderByIdQuery { Id = id });
@@ -262,17 +306,19 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(PagedListDto<HotelOrder>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Authorize(Roles = "HotelClient,Diner")]
+        [Authorize(Roles = "HotelClient,Diner,FoodBusinessManager,HotelServiceAdmin")]
         [Route("SHClientOrders")]
         [HttpGet]
         public Task<IActionResult> GetListOfOrdersSHByClientHotel(string currentFilter, string searchKey, string sortOrder,
-            int page, int pageSize, DateFilter dateInterval)
+            int page, int pageSize, DateFilter dateInterval , string hotelId ,string orderDestinationId)
         {
             var query = new GetAllClientSHOrdersQuery
             {
                 CurrentFilter = currentFilter,
                 SearchKey = searchKey,
                 SortOrder = sortOrder,
+                HotelId=hotelId,
+                OrderDestinationId = orderDestinationId,
                 Page = page,
                 PageSize = pageSize,
                 DateInterval = dateInterval
