@@ -108,8 +108,13 @@ namespace SmartRestaurant.Application.Products.Commands
             var product = await _context.Products.AsNoTracking().FirstOrDefaultAsync(r => r.ProductId == Guid.Parse(request.Id), cancellationToken).ConfigureAwait(false);
             if (product == null)
                 throw new NotFoundException(nameof(Product), request.Id);
-
+            
             _context.Products.Remove(product);
+            var foodBusiness = await _context.FoodBusinesses.AsNoTracking()
+                    .FirstOrDefaultAsync(r => r.FoodBusinessId == product.FoodBusinessId, cancellationToken).ConfigureAwait(false);
+            if (foodBusiness == null)
+                throw new NotFoundException(nameof(FoodBusiness), product.FoodBusinessId);
+            await DeleteOdooProduct(foodBusiness,product.OdooId);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
@@ -164,9 +169,16 @@ namespace SmartRestaurant.Application.Products.Commands
             return await _saleOrderRepository.UpdateAsync("product.template",odooId, data);
         }
 
+        private async Task<long> DeleteOdooProduct(SmartRestaurant.Domain.Entities.FoodBusiness foodBusiness, long odooId)
+        {
+            await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+
+            return await _saleOrderRepository.DeleteAsync("product.template", odooId);
+        }
+
         private async Task<long> getProductCategoryId()
         {
-            var result = await _saleOrderRepository.Search<List<int>>("pos.category", "name", "produit", 1);
+            var result = await _saleOrderRepository.Search<List<int>>("pos.category", "name", "product", 1);
             long categoryId;
             if (result.Count > 0)
             {
@@ -176,7 +188,7 @@ namespace SmartRestaurant.Application.Products.Commands
             {
                 var categoryData = new Dictionary<string, object>
                 {
-                    { "name", "produit"}
+                    { "name", "product"}
                 };
                 categoryId = await _saleOrderRepository.CreateAsync("pos.category", categoryData);
             }

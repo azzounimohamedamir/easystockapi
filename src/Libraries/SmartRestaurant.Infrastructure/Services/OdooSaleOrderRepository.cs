@@ -150,6 +150,20 @@ namespace SmartRestaurant.Infrastructure.Services
             }
         }
 
+        public async Task<long> DeleteAsync(string model, long odooId)
+        {
+            try
+            {
+                await _client.Delete(model, odooId);
+                return odooId;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         public async Task<T> Search<T>(string model ,string attribute,string value,int limit)
         {
             try {
@@ -165,7 +179,9 @@ namespace SmartRestaurant.Infrastructure.Services
             {
                 throw exe;
             }
-}
+
+            
+        }
     }
 
 
