@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Application.Products.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
 
@@ -23,12 +25,14 @@ namespace SmartRestaurant.Application.Dishes.Commands
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
+        private readonly ISaleOrderRepository _saleOrderRepository;
 
-        public DishesCommandsHandler(IApplicationDbContext context, IMapper mapper, IUserService userService)
+        public DishesCommandsHandler(IApplicationDbContext context, IMapper mapper, IUserService userService, ISaleOrderRepository saleOrderRepository)
         {
             _context = context;
             _mapper = mapper;
             _userService = userService;
+            _saleOrderRepository = saleOrderRepository;
         }
 
         public async Task<Created> Handle(CreateDishCommand request, CancellationToken cancellationToken)
@@ -48,7 +52,8 @@ namespace SmartRestaurant.Application.Dishes.Commands
             dish.EnergeticValue = await CalculateEnergeticValue(request.Ingredients).ConfigureAwait(false);
             dish.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             dish.CreatedAt = DateTime.Now;
-
+            var odooId = await CreateOdooDish(request, foodBusiness);
+            dish.OdooId= odooId;
             _context.Dishes.Add(dish);
             await _context.SaveChangesAsync(cancellationToken);
             return default;
@@ -94,7 +99,10 @@ namespace SmartRestaurant.Application.Dishes.Commands
             dish.EnergeticValue = await CalculateEnergeticValue(request.Ingredients).ConfigureAwait(false);
             dish.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             dish.LastModifiedAt = DateTime.Now;
-
+            var foodBusiness = await _context.FoodBusinesses.FindAsync(dish.FoodBusinessId);
+            if (foodBusiness == null)
+                throw new NotFoundException(nameof(FoodBusiness), dish.FoodBusinessId);
+            var odooId = await UpdateOdooDish(request, foodBusiness, dish.OdooId);
             _context.Dishes.Update(dish);
             await _context.SaveChangesAsync(cancellationToken);
             return default;
@@ -144,6 +152,71 @@ namespace SmartRestaurant.Application.Dishes.Commands
                 return energeticValues.Sum(x => x);
             }
             return 0;
+        }
+
+        private async Task<long> CreateOdooDish(CreateDishCommand request, SmartRestaurant.Domain.Entities.FoodBusiness foodBusiness)
+        {
+            await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+
+            long categoryId = await getDishCategoryId();
+
+            var dish_pic = Convert.FromBase64String(request.Picture);
+            //using (var ms = new MemoryStream())
+            //{
+            //    request.Picture.CopyTo(ms);
+            //    dish_pic = ms.ToArray();
+            //}
+            var data = new Dictionary<string, object>
+            {
+                { "name", request.Name},
+                { "detailed_type", "consu"},
+                { "list_price", request.Price},
+                { "pos_categ_id", categoryId},
+                { "available_in_pos", 1},
+                { "image_1920",dish_pic }
+            };
+
+
+            return await _saleOrderRepository.CreateAsync("product.template", data);
+        }
+
+        private async Task<long> UpdateOdooDish(UpdateDishCommand request, SmartRestaurant.Domain.Entities.FoodBusiness foodBusiness, long odooId)
+        {
+            await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+            long categoryId = await getDishCategoryId();
+
+            var dish_pic = Convert.FromBase64String(request.Picture);
+            var data = new Dictionary<string, object>
+            {
+                { "name", request.Name},
+                { "detailed_type", "consu"},
+                { "list_price", request.Price},
+                { "pos_categ_id", categoryId},
+                { "available_in_pos", 1},
+                { "image_1920",dish_pic }
+            };
+
+            return await _saleOrderRepository.UpdateAsync("product.template", odooId, data);
+        }
+
+        private async Task<long> getDishCategoryId()
+        {
+            var result = await _saleOrderRepository.Search<List<int>>("pos.category", "name", "dish", 1);
+            long categoryId;
+            if (result.Count > 0)
+            {
+                categoryId = result[0];
+            }
+            else
+            {
+                var categoryData = new Dictionary<string, object>
+                {
+                    { "name", "dish"}
+                };
+                categoryId = await _saleOrderRepository.CreateAsync("pos.category", categoryData);
+            }
+
+            return categoryId;
         }
     }
 }
