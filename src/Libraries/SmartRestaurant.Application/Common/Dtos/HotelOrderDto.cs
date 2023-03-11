@@ -31,7 +31,6 @@ namespace SmartRestaurant.Application.Common.Dtos
         public Names FailureMessage { get; set; }
 
         public CheckIn Checkin { get; set; }
-        public Room Room { get; set; }
        
         public string ServiceManagerName { get; set; }
     }
