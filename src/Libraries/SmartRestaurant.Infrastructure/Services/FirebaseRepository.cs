@@ -55,6 +55,23 @@ namespace SmartRestaurant.Infrastructure.Services
             }
              
         }
+
+        public async Task<T> AddCollectionAsync<T>(string path, T data, CancellationToken cancellationToken)
+        {
+            try
+            {
+                CollectionReference doc = _db.Collection(_DataBaseBasepath + "/" + path);
+                var objectTosend = getOrderToDictionary(data);
+                await doc.AddAsync(objectTosend, cancellationToken);
+                return data;
+            }
+            catch (Exception exe)
+            {
+                throw exe;
+            }
+
+        }
+
         public Dictionary<string, object>  getOrderToDictionary<T>(T orderDto)
         {
            var result = orderDto.GetType()

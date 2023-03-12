@@ -21,6 +21,7 @@ using SmartRestaurant.Domain.Identity.Enums;
 using SmartRestaurant.Infrastructure.Identity.Persistence;
 using SmartRestaurant.Infrastructure.Identity.Services;
 using SmartRestaurant.Infrastructure.Persistence;
+using SmartRestaurant.Infrastructure.Services;
 
 namespace SmartRestaurant.Application.IntegrationTests
 {
