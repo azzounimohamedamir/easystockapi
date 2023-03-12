@@ -29,7 +29,6 @@ namespace SmartRestaurant.API.Middlewares
             if (IsFoodBusinessUser(context)
                 && !IsAnonymousEndpoint(context)
                 && !IsGetEndpoint(context)
-                && !IsordersEndpoint(context)
                 && !IsFoodBusinessStaffEndpoint(context)
                 && !IshotelsEndpoint(context)
                 && !IsFoodBusinessEndpoint(context)
@@ -97,10 +96,7 @@ namespace SmartRestaurant.API.Middlewares
             return context.Request.Path.Value.Contains("api/hotels");
         }
 
-        private bool IsordersEndpoint(HttpContext context)
-        {
-            return context.Request.Path.Value.Contains("api/orders");
-        }
+     
         private bool IsProfileEndpoint(HttpContext context)
         {
             return context.Request.Path.Value.Contains("api/users/ProfileUpdate");

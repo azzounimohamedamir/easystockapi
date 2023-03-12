@@ -7,14 +7,14 @@ using System.Text;
 
 namespace SmartRestaurant.Application.IntegrationTests
 {
-    public class RoleServiceMocked : IUserService
+    public class IdentityServiceMocked : IUserService
     {
-        public RoleServiceMocked(IHttpContextAccessor httpContextAccessor)
+        public IdentityServiceMocked(IHttpContextAccessor httpContextAccessor)
         {
             User = httpContextAccessor.HttpContext.User;
             Headers = httpContextAccessor.HttpContext.Request.Headers;
         }
-        public string oldrole { get; set; }
+        public string oldrole { get; set; } = null;
 
         private ClaimsPrincipal User { get; }
         private IHeaderDictionary Headers { get; }

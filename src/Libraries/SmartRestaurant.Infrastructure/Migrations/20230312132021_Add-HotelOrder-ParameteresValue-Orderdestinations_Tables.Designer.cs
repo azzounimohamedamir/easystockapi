@@ -10,8 +10,8 @@ using SmartRestaurant.Infrastructure.Persistence;
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230305091256_addColumnHotelIdAndRoomIdToHotelOrderTable")]
-    partial class addColumnHotelIdAndRoomIdToHotelOrderTable
+    [Migration("20230312132021_Add-HotelOrder-ParameteresValue-Orderdestinations_Tables")]
+    partial class AddHotelOrderParameteresValueOrderdestinations_Tables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1388,6 +1388,20 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.HasIndex("OrderDishSpecificationId");
 
                     b.ToTable("OrderComboBoxItemTranslations");
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.OrderDestination", b =>
+                {
+                    b.Property<Guid>("OrderDestinationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("HotelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("OrderDestinationId");
+
+                    b.ToTable("OrderDestinations");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.OrderDish", b =>
@@ -3673,6 +3687,37 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderComboBoxItemTranslationId");
+                        });
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.OrderDestination", b =>
+                {
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("OrderDestinationId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("OrderDestinationId");
+
+                            b1.ToTable("OrderDestinations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderDestinationId");
                         });
                 });
 

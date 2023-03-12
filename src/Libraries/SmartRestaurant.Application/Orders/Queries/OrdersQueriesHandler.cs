@@ -129,7 +129,7 @@ namespace SmartRestaurant.Application.Orders.Queries
             var searchKey = (string.IsNullOrWhiteSpace(request.SearchKey) ? "" : request.SearchKey).ToLower();
             var roles = _userService.GetRoles();
 
-            if(roles.Contains(Roles.Diner.ToString()))
+            if(roles.Contains(Roles.Diner.ToString()) || roles.Contains(Roles.HotelClient.ToString()))
             {
                 var clientId = _userService.GetUserId();
 

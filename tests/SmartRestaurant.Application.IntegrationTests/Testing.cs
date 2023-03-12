@@ -62,7 +62,6 @@ namespace SmartRestaurant.Application.IntegrationTests
                 w.ApplicationName == "SmartRestaurant.API"));
             services.AddLogging();
             services.AddHttpContextAccessor();
-            services.AddScoped<IUserService, UserService>();
             services.AddSingleton(Mock.Of<IHttpContextAccessor>(o =>
                 o.HttpContext.User == httpContext.User &&
                 o.HttpContext.Request.Headers == httpContext.Request.Headers
@@ -75,7 +74,7 @@ namespace SmartRestaurant.Application.IntegrationTests
             services.Remove(serviceDescriptor);
             services.Remove(serviceDescriptor2);
 
-            services.AddSingleton<IUserService, RoleServiceMocked>();
+            services.AddSingleton<IUserService, IdentityServiceMocked>();
             services.AddSingleton<IDateTime, DateTimeServiceMocked>();
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
@@ -146,8 +145,8 @@ namespace SmartRestaurant.Application.IntegrationTests
         public static void ConfigureRoleClient(string role)
         {
             using var scope = _scopeFactory.CreateScope();
-            var roleservice = scope.ServiceProvider.GetService<IUserService>();
-            roleservice.SetNewRole(role);
+            var dateTimessservice = scope.ServiceProvider.GetService<IUserService>();
+            dateTimessservice.SetNewRole(role);
         }
         public static List<TEntity> Where<TEntity>(Func<TEntity, bool> predicate) where TEntity : class
         {

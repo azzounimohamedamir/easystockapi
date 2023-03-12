@@ -151,11 +151,6 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 ServiceId = service.Id.ToString(),
                 FoodBusinessClientId = null,
                 SectionId = service.SectionId,
-                TakeoutDetails = new TakeoutDetailsDto()
-                {
-                    DeliveryTime = DateTime.Now,
-                    Type = TakeoutType.Delayed
-                },
                 OccupiedTables = new List<OrderOccupiedTableDto>() {
                     new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab00" }
                 },
@@ -207,7 +202,6 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 ServiceId = service.Id.ToString(),
                 FoodBusinessClientId = null,
                 SectionId = service.SectionId,
-                TakeoutDetails = null,
                 OccupiedTables = new List<OrderOccupiedTableDto>() {},
                 Dishes = new List<OrderDishCommandDto>() {
                      new OrderDishCommandDto {
@@ -256,7 +250,6 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 ServiceId = service.Id.ToString(),
                 FoodBusinessClientId = null,
                 SectionId = service.SectionId,
-                TakeoutDetails = null,
                 OccupiedTables = new List<OrderOccupiedTableDto>() { },
                 Dishes = null,
                 Products = null,

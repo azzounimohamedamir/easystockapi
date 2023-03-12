@@ -85,7 +85,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                 }
                 else
                 {
-                    var newOrder = await ExecuteOrderOperations(request, cancellationToken, foodBusiness);
+                    var newOrder = await ExecuteOrderOperations<CreateOrderCommand>(request, cancellationToken, foodBusiness);
 
                     newOrder.ErrorDeliveryTimeAvailabilite = ErrorResult.None;
                     return newOrder;
@@ -93,7 +93,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             }
             else
             {
-                var newOrder = await ExecuteOrderOperations(request, cancellationToken, foodBusiness);
+                var newOrder = await ExecuteOrderOperations<CreateOrderCommand>(request, cancellationToken, foodBusiness);
 
                 return newOrder;
             }
@@ -201,7 +201,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                     var foodBusiness = await _context.FoodBusinesses.FindAsync(Guid.Parse(request.FoodBusinessId));
                     if (foodBusiness == null)
                         throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
-                    var newOrder = await ExecuteOrderOperationsForSH(request, cancellationToken, foodBusiness);
+                    var newOrder = await ExecuteOrderOperations<CreateOrderSHCommand>(request, cancellationToken, foodBusiness);
 
                     HotelOrder orderSH = new HotelOrder()
                     {
@@ -209,7 +209,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                         CheckinId = Guid.Parse(request.CheckinId),
                         SmartRestaurentOrderId = Guid.Parse(newOrder.OrderId),
                         Names = service.Names,
-                        HotelId= Guid.Parse(request.HotelId),
+                        HotelId= clientCheckin.hotelId,
                         RoomId=clientCheckin.RoomId ,
                         DateOrder = newOrder.CreatedAt,
                         ParametreValueClient=null,
@@ -234,7 +234,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                     var foodBusiness = await _context.FoodBusinesses.FindAsync(Guid.Parse(request.FoodBusinessId));
                     if (foodBusiness == null)
                         throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
-                    var newOrder = await ExecuteOrderOperationsForSH(request, cancellationToken, foodBusiness);
+                    var newOrder = await ExecuteOrderOperations<CreateOrderSHCommand>(request, cancellationToken, foodBusiness);
 
                     HotelOrder orderSH = new HotelOrder()
                     {
@@ -242,7 +242,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                         CheckinId = Guid.Parse(request.CheckinId),
                         SmartRestaurentOrderId = Guid.Parse(newOrder.OrderId),
                         Names = service.Names,
-                        HotelId = Guid.Parse(request.HotelId),
+                        HotelId = clientCheckin.hotelId,
                         RoomId = clientCheckin.RoomId,
                         DateOrder = newOrder.CreatedAt,
                         ParametreValueClient = null,
@@ -269,7 +269,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                         CheckinId = Guid.Parse(request.CheckinId),
                         SmartRestaurentOrderId = Guid.Empty,
                         Names = service.Names,
-                        HotelId = Guid.Parse(request.HotelId),
+                        HotelId = clientCheckin.hotelId,
                         RoomId = clientCheckin.RoomId,
                         DateOrder = DateTime.Now,
                         ChairNumber = 0,
@@ -301,18 +301,36 @@ namespace SmartRestaurant.Application.Orders.Commands
 
 
 
-
-        public async Task<OrderDto> ExecuteOrderOperations(CreateOrderCommand request, CancellationToken cancellationToken, Domain.Entities.FoodBusiness foodBusiness)
+            public async Task<OrderDto> ExecuteOrderOperations<T>(T request, CancellationToken cancellationToken, Domain.Entities.FoodBusiness foodBusiness)
         {
-            if (request.FoodBusinessClientId != null)
+
+            Order order = null;
+            if (request.GetType() == typeof(CreateOrderSHCommand))
             {
-                var foodBusinessClient = await _context.FoodBusinessClients.FindAsync(Guid.Parse(request.FoodBusinessClientId));
-                if (foodBusinessClient == null)
-                    throw new NotFoundException(nameof(FoodBusinessClient), request.FoodBusinessClientId);
+                var newrequest = (request as CreateOrderSHCommand);
+                if (newrequest.FoodBusinessClientId != null)
+                {
+                    var foodBusinessClient = await _context.FoodBusinessClients.FindAsync(Guid.Parse(newrequest.FoodBusinessClientId));
+                    if (foodBusinessClient == null)
+                        throw new NotFoundException(nameof(FoodBusinessClient), newrequest.FoodBusinessClientId);
+                }
+
+                order = _mapper.Map<Order>(newrequest);
+            }
+            else
+            {
+                var newrequest = (request as CreateOrderCommand);
+                if (newrequest.FoodBusinessClientId != null)
+                {
+                    var foodBusinessClient = await _context.FoodBusinessClients.FindAsync(Guid.Parse(newrequest.FoodBusinessClientId));
+                    if (foodBusinessClient == null)
+                        throw new NotFoundException(nameof(FoodBusinessClient), newrequest.FoodBusinessClientId);
+                }
+
+                order = _mapper.Map<Order>(newrequest);
             }
 
-            var order = _mapper.Map<Order>(request);
-            order = PopulatFromLocalDishesAndProducts(order);
+           order = PopulatFromLocalDishesAndProducts(order);
            await UpdateDishesAndProductQuantityOnCreateOrder(order);// gestion de stock
 
 
@@ -328,7 +346,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 
             var orderDto = _mapper.Map<OrderDto>(order);
             orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);
-            var path = request.FoodBusinessId + "/Orders/" + orderDto.OrderId;
+            var path = foodBusiness.FoodBusinessId + "/Orders/" + orderDto.OrderId;
             await _fireBase.AddAsync(path, orderDto, cancellationToken);
 
             var newOrder = await _context.Orders.AsNoTracking()
@@ -344,58 +362,12 @@ namespace SmartRestaurant.Application.Orders.Commands
             .Include(o => o.FoodBusiness)
             .Include(o => o.FoodBusinessClient)
             .AsNoTracking()
-            .FirstOrDefaultAsync(o => o.OrderId == request.Id, cancellationToken)
+            .FirstOrDefaultAsync(o => o.OrderId == order.OrderId, cancellationToken)
             .ConfigureAwait(false);
             return _mapper.Map<OrderDto>(newOrder);
         }
 
-        public async Task<OrderDto> ExecuteOrderOperationsForSH(CreateOrderSHCommand request, CancellationToken cancellationToken, Domain.Entities.FoodBusiness foodBusiness)
-        {
-            if (request.FoodBusinessClientId != null)
-            {
-                var foodBusinessClient = await _context.FoodBusinessClients.FindAsync(Guid.Parse(request.FoodBusinessClientId));
-                if (foodBusinessClient == null)
-                    throw new NotFoundException(nameof(FoodBusinessClient), request.FoodBusinessClientId);
-            }
-
-           
-            var order = _mapper.Map<Order>(request);
-            order = PopulatFromLocalDishesAndProducts(order);
-            await UpdateDishesAndProductQuantityOnCreateOrder(order);// gestion de stock
-
-
-            order.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
-            order.CreatedAt = DateTime.Now;
-
-            ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(order, CreateAction);
-            CalculateAndSetOrderEnergeticValues(order);
-            CalculateAndSetOrderTotalPrice(order, foodBusiness);
-            CalculateAndSetOrderNumber(order, foodBusiness);
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync(cancellationToken);
-
-            var orderDto = _mapper.Map<OrderDto>(order);
-            orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);
-            var path = request.FoodBusinessId + "/Orders/" + orderDto.OrderId;
-            await _fireBase.AddAsync(path, orderDto, cancellationToken);
-
-            var newOrder = await _context.Orders.AsNoTracking()
-            .Include(o => o.Dishes)
-            .ThenInclude(o => o.Specifications)
-            .ThenInclude(o => o.ComboBoxContentTranslation)
-            .Include(o => o.Dishes)
-            .ThenInclude(o => o.Ingredients)
-            .Include(o => o.Dishes)
-            .ThenInclude(o => o.Supplements)
-            .Include(o => o.Products)
-            .Include(o => o.OccupiedTables)
-            .Include(o => o.FoodBusiness)
-            .Include(o => o.FoodBusinessClient)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(o => o.OrderId == request.Id, cancellationToken)
-            .ConfigureAwait(false);
-            return _mapper.Map<OrderDto>(newOrder);   
-        }
+       
 
         public async Task<NoContent> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
