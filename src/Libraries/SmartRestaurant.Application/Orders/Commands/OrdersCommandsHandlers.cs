@@ -83,7 +83,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                     newOrder.ErrorDeliveryTimeAvailabilite = ErrorResult.None;
                     await addOrderNotifications(newOrder.OrderId.ToString(), newOrder.FoodBusinessId.ToString(), OrderNotificationType.Create, cancellationToken);
 
-                    
+
                     return newOrder;
                 }
             }
@@ -256,9 +256,9 @@ namespace SmartRestaurant.Application.Orders.Commands
             order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.LastModifiedAt = DateTime.Now;
 
-           
-            
-            
+
+
+
 
             ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(releasedTables);
             ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(order, UpdateAction);
@@ -702,7 +702,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                         _context.Dishes.Update(dishUpdated);
                     }
 
-                  
+
                 }
 
 
@@ -858,7 +858,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                 { "state", state}
 
             };
-          
+
                 await _saleOrderRepository.UpdateAsync("pos.order", Id, data);
             }
             else
@@ -878,15 +878,15 @@ namespace SmartRestaurant.Application.Orders.Commands
             if (result.Count > 0)
             {
                 Id = result[0];
-                var orderR =  await _saleOrderRepository.Read<List<Dictionary<string, object>>>("pos.order",Id);
+                var orderR = await _saleOrderRepository.Read<List<Dictionary<string, object>>>("pos.order", Id);
                 var linesIds = orderR[0]["lines"]; // get lines 
 
 
 
-                if(linesIds != null)
+                if (linesIds != null)
                 {
 
-                JArray jArray = JArray.Parse(linesIds.ToString());
+                    JArray jArray = JArray.Parse(linesIds.ToString());
 
 
                     foreach (int line in jArray)
