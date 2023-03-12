@@ -9,21 +9,9 @@ using OdooRpc.CoreCLR.Client.Models.Parameters;
 
 namespace SmartRestaurant.Infrastructure.Services
 {
-    //public class Odoo
-    //{
-    //    public string Url { get; set; }
-    //    public string Db { get; set; }
-    //    public string Username { get; set; }
-    //    public string Password { get; set; }
-
-    //}
 
     public class OdooSaleOrderRepository : ISaleOrderRepository
     {
-        //readonly string _url;
-        //readonly string _db;
-        //readonly string _username;
-        //readonly string _password;
         private OdooRpcClient _client;
 
 
@@ -31,20 +19,6 @@ namespace SmartRestaurant.Infrastructure.Services
 
         public OdooSaleOrderRepository()
         {
-            //_url = conf.Value.Url;
-            //_db = conf.Value.Db;
-            //_username = conf.Value.Username;
-            //_password = conf.Value.Password;
-            //var odooConnectionInfo = new OdooConnectionInfo
-            //{
-            //    Host = _url,
-            //    Database = _db,
-            //    Username = _username,
-            //    Password = _password
-            //};
-            //_client = new OdooRpcClient(odooConnectionInfo);
-            
-
         }
 
         public async Task<bool> Authenticate(Odoo info)
@@ -65,7 +39,7 @@ namespace SmartRestaurant.Infrastructure.Services
             return _client.SessionInfo.IsLoggedIn;
         }
 
-        public async Task<long> CreateAsync(string model,Dictionary<string, object> data)
+        public async Task<long> CreateAsync(string model, Dictionary<string, object> data)
         {
             await _client.Authenticate();
 
@@ -79,13 +53,14 @@ namespace SmartRestaurant.Infrastructure.Services
             return dataId;
         }
 
-        public async Task<long> UpdateAsync(string model,long odooId, Dictionary<string, object> data)
+        public async Task<long> UpdateAsync(string model, long odooId, Dictionary<string, object> data)
         {
             try
             {
                 await _client.Update(model, odooId, data);
                 return odooId;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -105,31 +80,33 @@ namespace SmartRestaurant.Infrastructure.Services
         }
 
 
-        public async Task<T> Search<T>(string model ,string attribute,object value,int limit)
+        public async Task<T> Search<T>(string model, string attribute, object value, int limit)
         {
-            try {
-                var filter = new OdooDomainFilter().Filter(attribute, "=",value);
-                var searchParams =new OdooSearchParameters(model,filter);
+            try
+            {
+                var filter = new OdooDomainFilter().Filter(attribute, "=", value);
+                var searchParams = new OdooSearchParameters(model, filter);
                 var pagination = new OdooPaginationParameters()
                 {
                     Limit = limit,
                 };
-                return await _client.Search<T>(searchParams,pagination);
-            }       
+                return await _client.Search<T>(searchParams, pagination);
+            }
             catch (Exception exe)
             {
                 throw exe;
             }
 
-            
+
         }
 
 
-         public async Task<T> Read<T>(string model,long id){
-         return   await _client.Get<T>(model,id);
-         }
+        public async Task<T> Read<T>(string model, long id)
+        {
+            return await _client.Get<T>(model, id);
+        }
 
-       
+
     }
 
 
