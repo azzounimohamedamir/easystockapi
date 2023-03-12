@@ -105,7 +105,7 @@ namespace SmartRestaurant.Infrastructure.Services
         }
 
 
-        public async Task<T> Search<T>(string model ,string attribute,string value,int limit)
+        public async Task<T> Search<T>(string model ,string attribute,object value,int limit)
         {
             try {
                 var filter = new OdooDomainFilter().Filter(attribute, "=",value);
@@ -123,6 +123,13 @@ namespace SmartRestaurant.Infrastructure.Services
 
             
         }
+
+
+         public async Task<T> Read<T>(string model,long id){
+         return   await _client.Get<T>(model,id);
+         }
+
+       
     }
 
 
