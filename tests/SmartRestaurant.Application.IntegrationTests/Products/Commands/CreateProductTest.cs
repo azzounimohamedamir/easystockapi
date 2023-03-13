@@ -14,7 +14,10 @@ namespace SmartRestaurant.Application.IntegrationTests.Products.Commands
         [Test]
         public async Task CreateProductWithSectionAsParent_ShouldSaveToDB()
         {
-            var createProductCommand = await ProductTestTools.CreateProduct();
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator(_authenticatedUserId);
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
+            var createProductCommand = await ProductTestTools.CreateProduct(fastFood.FoodBusinessId);
             var createdProduct = await FindAsync<Product>(createProductCommand.Id);
             createdProduct.Should().NotBeNull();
             createdProduct.ProductId.Should().Be(createProductCommand.Id);

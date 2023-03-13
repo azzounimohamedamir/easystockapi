@@ -29,7 +29,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
             
             var createIngredientCommand = await IngredientTestTools.CreateIngredient();
             var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
-            var createProductCommand = await ProductTestTools.CreateProduct();
+            var createProductCommand = await ProductTestTools.CreateProduct(fastFood.FoodBusinessId);
             
             var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
             
