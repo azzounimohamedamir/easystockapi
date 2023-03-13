@@ -28,10 +28,10 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 IsMenuItemDetailed= false,
                 Odoo = new OdooDto
                 {
-                    Url = "smartrestaurantdb.odoo.com",
+                    Url = "testsmartrestaurant.odoo.com",
                     Username = "g22riecredential@gmail.com",
                     Password = "g22rie23032022",
-                    Db = "smartrestaurantdb"
+                    Db = "testsmartrestaurant"
                 },
                 Address = new AddressDto
                 {

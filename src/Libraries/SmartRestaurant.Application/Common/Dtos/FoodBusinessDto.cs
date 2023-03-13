@@ -43,6 +43,7 @@ namespace SmartRestaurant.Application.Common.Dtos
         public int FourDigitCode { get; set; }
         public Currencies DefaultCurrency { get; set; }
         public CommissionConfigs CommissionConfigs { get; set; }
+        public Odoo Odoo { get; set; }
         public string OpeningTime { get; set; }
         public string ClosingTime { get; set; }
         public string NearbyLocationDescription { get; set; }

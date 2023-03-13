@@ -15,7 +15,10 @@ namespace SmartRestaurant.Application.IntegrationTests.Products.Commands
         [Test]
         public async Task GetProductById_ShouldReturnSelectedProduct()
         {
-            var product = await ProductTestTools.CreateProduct_2();
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator(_authenticatedUserId);
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
+            var product = await ProductTestTools.CreateProduct_2(fastFood.FoodBusinessId);
             var selectedProduct = await SendAsync(new GetProductByIdQuery { Id = product.ProductId.ToString() });
             selectedProduct.Should().NotBeNull();
             selectedProduct.ProductId.Should().Be(product.ProductId);

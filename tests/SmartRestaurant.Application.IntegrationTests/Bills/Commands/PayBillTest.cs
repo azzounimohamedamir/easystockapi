@@ -33,7 +33,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Commands
             await CreateTable(createZoneCommand);
             var createIngredientCommand = await IngredientTestTools.CreateIngredient();
             var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
-            var createProductCommand = await ProductTestTools.CreateProduct();
+            var createProductCommand = await ProductTestTools.CreateProduct(fastFood.FoodBusinessId);
             var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, foodBusinessClient.FoodBusinessClientId.ToString(), createDishCommand, createProductCommand);
 
             var orderBeforPayment = await GetOrder(createOrderCommand.Id);

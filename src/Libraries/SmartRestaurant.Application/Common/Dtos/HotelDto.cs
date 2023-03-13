@@ -21,6 +21,7 @@ namespace SmartRestaurant.Application.Common.Dtos
         public string Description { get; set; }
         public string? YoutubeLink { get; set; }
         public Address Address { get; set; }
+        public Odoo Odoo { get; set; }
         public PhoneNumber PhoneNumber { get; set; }
         public List<HotelDetailsSectionDto> DetailsSections { get; set; }
         public string Website { get; set; }

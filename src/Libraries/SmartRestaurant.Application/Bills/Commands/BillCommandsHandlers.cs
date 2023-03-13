@@ -12,10 +12,11 @@ using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
+using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Application.Bills.Commands
 {
-    public class BillCommandsHandlers : 
+    public class BillCommandsHandlers :
         IRequestHandler<UpdateBillCommand, NoContent>,
         IRequestHandler<PayBillCommand, NoContent>
     {
@@ -23,20 +24,20 @@ namespace SmartRestaurant.Application.Bills.Commands
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly ISaleOrderRepository _saleOrderRepository;
-        public BillCommandsHandlers(IApplicationDbContext context, IMapper mapper, IUserService userService ,ISaleOrderRepository saleOrderRepository)
+        public BillCommandsHandlers(IApplicationDbContext context, IMapper mapper, IUserService userService, ISaleOrderRepository saleOrderRepository)
         {
             _context = context;
             _mapper = mapper;
             _userService = userService;
-               _saleOrderRepository = saleOrderRepository;
+            _saleOrderRepository = saleOrderRepository;
         }
-        
+
         public async Task<NoContent> Handle(UpdateBillCommand request, CancellationToken cancellationToken)
         {
             var validator = new UpdateBillCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-           
+
             var order = await _context.Orders
                 .Include(o => o.Dishes)
                 .ThenInclude(o => o.Specifications)
@@ -70,7 +71,8 @@ namespace SmartRestaurant.Application.Bills.Commands
              .Include(o => o.OccupiedTables)
               .Include(o => o.Dishes)
              .Include(o => o.Products)
-                 
+             .Include(o => o.FoodBusiness)
+
               .FirstOrDefaultAsync(o => o.OrderId == Guid.Parse(request.Id), cancellationToken)
               .ConfigureAwait(false);
             if (order == null)
@@ -81,7 +83,8 @@ namespace SmartRestaurant.Application.Bills.Commands
 
             order.Status = OrderStatuses.Billed;
 
-               //await _saleOrderRepository.CreateAsync(order);
+
+
 
             order.LastModifiedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             order.LastModifiedAt = DateTime.Now;
@@ -89,7 +92,56 @@ namespace SmartRestaurant.Application.Bills.Commands
             ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(order);
             _context.Orders.Update(order);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            await CreatePaymentInOdoo(order); // create paiment in odoo
             return default;
+        }
+
+
+        private async Task CreatePaymentInOdoo(Order order)
+        {
+            await _saleOrderRepository.Authenticate(order.FoodBusiness.Odoo);// auth in odoo
+            var Id = await UpdateOrderInOdoo(order.OrderId.ToString(), "paid");// set odoo order paid
+
+                var saleOrderDict = new Dictionary<string, object>
+       {
+
+            
+               {"pos_order_id", Id},
+               {"amount", order.TotalToPay},
+               {"payment_method_id",1}
+
+         };        // create pyment odoo
+
+                var saleOrderId = await _saleOrderRepository.CreateAsync("pos.payment", saleOrderDict);
+           
+
+
+
+
+
+
+        }
+
+        private async Task<long> UpdateOrderInOdoo(String orderId, string state)
+        {
+            var result = await _saleOrderRepository.Search<List<int>>("pos.order", "name", orderId, 1);
+            long Id;
+            if (result.Count > 0)
+            {
+                Id = result[0];
+                var data = new Dictionary<string, object>
+            {
+                { "state", state}
+
+            };
+                await _saleOrderRepository.UpdateAsync("pos.order", Id, data);
+                return Id;
+            }
+            else
+            {
+                throw new ConflictException("Sorry,this order not exist in odoo for updated it");
+            }
+
         }
 
         private void ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(Order order)
@@ -114,7 +166,7 @@ namespace SmartRestaurant.Application.Bills.Commands
             order.Discount = request.Discount;
             foreach (var dish in order.Dishes)
             {
-                dish.Discount = request.Dishes.Find(d => d.OrderDishId == dish.OrderDishId.ToString()).Discount;   
+                dish.Discount = request.Dishes.Find(d => d.OrderDishId == dish.OrderDishId.ToString()).Discount;
             }
 
             foreach (var product in order.Products)
@@ -123,7 +175,7 @@ namespace SmartRestaurant.Application.Bills.Commands
             }
         }
 
-        private  void CalculateAndSetOrderTotalPrice(Order order)
+        private void CalculateAndSetOrderTotalPrice(Order order)
         {
             float totalToPay = 0;
 
@@ -133,7 +185,7 @@ namespace SmartRestaurant.Application.Bills.Commands
 
                 foreach (var supplement in dish.Supplements)
                 {
-                    if(supplement.IsSelected == true)
+                    if (supplement.IsSelected == true)
                         totalDishPrice += supplement.Price;
                 }
 

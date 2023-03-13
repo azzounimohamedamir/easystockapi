@@ -42,28 +42,26 @@ namespace SmartRestaurant.Application.Products.Commands
 
             var userId = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
             
-            if (request.FoodBusinessId != null)
+          
+            var foodBusiness = await _context.FoodBusinesses.AsNoTracking()
+                .FirstOrDefaultAsync(r => r.FoodBusinessId == Guid.Parse(request.FoodBusinessId), cancellationToken).ConfigureAwait(false);
+            if (foodBusiness == null)
+                throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
+
+            var odooId= await CreateOdooProduct(request, foodBusiness);
+
+            var product = _mapper.Map<Product>(request);
+            using (var ms = new MemoryStream())
             {
-                var foodBusiness = await _context.FoodBusinesses.AsNoTracking()
-                    .FirstOrDefaultAsync(r => r.FoodBusinessId == Guid.Parse(request.FoodBusinessId), cancellationToken).ConfigureAwait(false);
-                if (foodBusiness == null)
-                    throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
-
-                var odooId= await CreateOdooProduct(request, foodBusiness);
-
-                var product = _mapper.Map<Product>(request);
-                using (var ms = new MemoryStream())
-                {
-                    request.Picture.CopyTo(ms);
-                    product.Picture = ms.ToArray();
-                    product.CreatedBy = userId;
-                    product.CreatedAt = DateTime.Now;
-                    product.OdooId = odooId;
-                }
-                _context.Products.Add(product);
-                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                request.Picture.CopyTo(ms);
+                product.Picture = ms.ToArray();
+                product.CreatedBy = userId;
+                product.CreatedAt = DateTime.Now;
+                product.OdooId = odooId;
             }
-            
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+           
             return default;
         }
 

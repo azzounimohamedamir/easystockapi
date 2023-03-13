@@ -15,7 +15,10 @@ namespace SmartRestaurant.Application.IntegrationTests.Products.Commands
         [Test]
         public async Task DeleteProduct_ShouldBeRemovedFromDB()
         {
-            var product = await ProductTestTools.CreateProduct();
+            await RolesTestTools.CreateRoles();
+            var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator(_authenticatedUserId);
+            var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
+            var product = await ProductTestTools.CreateProduct(fastFood.FoodBusinessId);
             var checkProductExistance = await FindAsync<Product>(product.Id);
             checkProductExistance.Should().NotBeNull();
 
