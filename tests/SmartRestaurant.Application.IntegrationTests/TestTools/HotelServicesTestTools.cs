@@ -16,37 +16,43 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
     {
         public static async Task<HotelService> createHotelService()
         {
-            var command = new CreateHotelServiceCommand { SectionId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
-                Names=new Names() {
+            var command = new CreateHotelServiceCommand
+            {
+                SectionId = new Guid("3cbf3570-4444-4673-8746-29b7cf568093"),
+                Names = new Names()
+                {
 
-                AR = "maintenanceService AR",
-                EN = "maintenanceService EN",
-                FR = "maintenanceService FR",
-                TR = "maintenanceService TR",
-                RU = "maintenanceService RU"
-            },
-                isSmartrestaurantMenue= false,
-                DetailServce= new Names(){
-                AR= "رحلة بالقارب",
-                EN= "Boat trip",
-                FR= "francais",
-                TR= "Picanto",
-                RU= "прокат автомобилей"
+                    AR = "maintenanceService AR",
+                    EN = "maintenanceService EN",
+                    FR = "maintenanceService FR",
+                    TR = "maintenanceService TR",
+                    RU = "maintenanceService RU"
                 },
-            TitelSeccesResponce= new Names() {
-                 AR= "رحلة بالقارب",
-                 EN= "sss55",
-                FR= "Balade en mer premiere classe",
-                TR= "Araba kiralama",
-                RU= "Picanto"
-            },
-            TitelFailureResponce= new Names(){
-                 AR= "azz",
-                EN = "Boat trip",
-                FR= "Balade en mer",
-                TR= "turque",
-                RU= "Picanto"
-            },
+                isSmartrestaurantMenue = false,
+                DetailServce = new Names()
+                {
+                    AR = "رحلة بالقارب",
+                    EN = "Boat trip",
+                    FR = "francais",
+                    TR = "Picanto",
+                    RU = "прокат автомобилей"
+                },
+                TitelSeccesResponce = new Names()
+                {
+                    AR = "رحلة بالقارب",
+                    EN = "sss55",
+                    FR = "Balade en mer premiere classe",
+                    TR = "Araba kiralama",
+                    RU = "Picanto"
+                },
+                TitelFailureResponce = new Names()
+                {
+                    AR = "azz",
+                    EN = "Boat trip",
+                    FR = "Balade en mer",
+                    TR = "turque",
+                    RU = "Picanto"
+                },
                 Parametres = new List<CreateServiceParametreDto>()
             };
 
@@ -71,7 +77,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             return await FindAsync<HotelService>(command.Id);
         }
 
-        public static async Task CreateHotelServicesList(int numberOfElems,Guid sectionId)
+        public static async Task CreateHotelServicesList(int numberOfElems, Guid sectionId)
         {
 
             for (var i = 0; i < numberOfElems; i++)
@@ -134,7 +140,126 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 command.Parametres.Add(parametre);
                 await SendAsync(command);
             }
-            
+
         }
+        public static async Task<HotelService> CreateHotelServiceBySectionId(Guid sectionId, string foodBusinessId)
+        {
+
+            var command = new CreateHotelServiceCommand
+            {
+                SectionId = sectionId,
+                MenuID = null,
+                FoodBusinessID = foodBusinessId,
+                Names = new Names()
+                {
+
+                    AR = "مطعم مول شيراطون",
+                    EN = "Mall Sheraton Restaurant",
+                    FR = "Mall Sheraton Restaurant",
+                    TR = "Mall Sheraton Restaurant",
+                    RU = "Mall Sheraton Restaurant"
+                },
+                isSmartrestaurantMenue = true,
+                DetailServce = new Names()
+                {
+                    AR = "متوفر",
+                    EN = "available",
+                    FR = "disponible",
+                    TR = "available",
+                    RU = "available"
+                },
+                TitelSeccesResponce = new Names()
+                {
+                    AR = "نعم",
+                    EN = "Yes",
+                    FR = "Oui",
+                    TR = "Yes",
+                    RU = "Yes"
+                },
+                TitelFailureResponce = new Names()
+                {
+                    AR = "لا",
+                    EN = "No",
+                    FR = "Non",
+                    TR = "No",
+                    RU = "No"
+                },
+                Parametres = null
+            };
+
+
+            await SendAsync(command);
+
+            return await FindAsync<HotelService>(command.Id);
+        }
+
+        public static async Task<HotelService> CreateHotelParkingServiceBySectionId(Guid sectionId, string foodBusinessId)
+        {
+
+            var command = new CreateHotelServiceCommand
+            {
+                SectionId = sectionId,
+                MenuID = null,
+                FoodBusinessID = foodBusinessId,
+                Names = new Names()
+                {
+
+                    AR = "باركينغ",
+                    EN = "Parking",
+                    FR = "Parking",
+                    TR = "Parking",
+                    RU = "Parking"
+                },
+                isSmartrestaurantMenue = false,
+                DetailServce = new Names()
+                {
+                    AR = "متوفر",
+                    EN = "available",
+                    FR = "disponible",
+                    TR = "available",
+                    RU = "available"
+                },
+                TitelSeccesResponce = new Names()
+                {
+                    AR = "نعم",
+                    EN = "Yes",
+                    FR = "Oui",
+                    TR = "Yes",
+                    RU = "Yes"
+                },
+                TitelFailureResponce = new Names()
+                {
+                    AR = "لا",
+                    EN = "No",
+                    FR = "Non",
+                    TR = "No",
+                    RU = "No"
+                },
+                Parametres = new List<CreateServiceParametreDto>()
+            };
+            var parametre = new CreateServiceParametreDto()
+            {
+                IsRequired = true,
+                IsShowing = true,
+                Names = new Names()
+                {
+                    AR = "عدد الساعات",
+                    FR = "nombre de heures",
+                    EN = "nombre de heures",
+                    TR = "nombre de heures",
+                    RU = "nombre de heures"
+                },
+                ServiceParametreType = ServiceParametreType.NumericValue
+            };
+
+            command.Parametres.Add(parametre);
+
+            await SendAsync(command);
+
+            return await FindAsync<HotelService>(command.Id);
+        }
+
     }
+
 }
+

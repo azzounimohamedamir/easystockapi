@@ -44,6 +44,7 @@ using SmartRestaurant.Application.Checkins.Commands;
 using SmartRestaurant.Application.HotelServices.Commands;
 using SmartRestaurant.Application.TypeReclamation.Commands;
 using SmartRestaurant.Application.Reclamation.Commands;
+using SmartRestaurant.Application.OrderDestination.Commands;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -103,9 +104,16 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<CreateRoomCommand, Room>()
                .ForMember(x => x.Id, o => o.MapFrom(p => p.Id));
 
+            CreateMap<CreateOrderDestinationCommand, Domain.Entities.OrderDestination>()
+              .ForMember(x => x.OrderDestinationId, o => o.MapFrom(p => p.Id));
+
+            CreateMap<UpdateOrderDestinationCommand, Domain.Entities.OrderDestination>()
+              .ForMember(x => x.OrderDestinationId, o => o.MapFrom(p => p.Id));
+
             CreateMap<Room, UpdateRoomCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
+
 
             CreateMap<CreateCheckInCommand, Domain.Entities.CheckIn>()
               .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
@@ -129,6 +137,8 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Menu, MenuDto>().ReverseMap();
             CreateMap<Room, RoomDto>().ReverseMap();
+            CreateMap<Domain.Entities.OrderDestination, OrderDestinationDto>().ReverseMap();
+
             CreateMap<CheckIn, CheckinDto>()
             .ForMember(x => x.hotelName, o => o.Ignore())
             .ForMember(x => x.buildingName, o => o.Ignore())
@@ -399,6 +409,10 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<CreateOrderCommand, Order>()
                 .ForMember(x => x.OrderId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.TVA, o => o.MapFrom(p => 19));
+
+            CreateMap<CreateOrderSHCommand, Order>()
+               .ForMember(x => x.OrderId, o => o.MapFrom(p => p.Id))
+               .ForMember(x => x.TVA, o => o.MapFrom(p => 19));
 
             CreateMap<OrderProductDto, OrderProduct>()
                 .ReverseMap();
