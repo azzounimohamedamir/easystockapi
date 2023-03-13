@@ -8,6 +8,7 @@ using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Application.Orders.Commands;
 using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -108,10 +109,11 @@ namespace SmartRestaurant.Application.Products.Commands
                 throw new NotFoundException(nameof(Product), request.Id);
             
             _context.Products.Remove(product);
-            var foodBusiness = await _context.FoodBusinesses.AsNoTracking()
-                    .FirstOrDefaultAsync(r => r.FoodBusinessId == product.FoodBusinessId, cancellationToken).ConfigureAwait(false);
-            if (foodBusiness == null)
-                throw new NotFoundException(nameof(FoodBusiness), product.FoodBusinessId);
+
+            //var foodBusiness = await _context.FoodBusinesses.AsNoTracking()
+            //        .FirstOrDefaultAsync(r => r.FoodBusinessId == product.FoodBusinessId, cancellationToken).ConfigureAwait(false);
+            //if (foodBusiness == null)
+            //    throw new NotFoundException(nameof(FoodBusiness), product.FoodBusinessId);
             //await DeleteOdooProduct(foodBusiness,product.OdooId);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
@@ -132,7 +134,7 @@ namespace SmartRestaurant.Application.Products.Commands
             var data = new Dictionary<string, object>
             {
                 { "name", request.Name},
-                { "detailed_type", "consu"},
+                { "detailed_type", request.IsQuantityChecked ? "product" : "consu"},
                 { "list_price", request.Price},
                 { "pos_categ_id", categoryId},
                 { "available_in_pos", 1},
@@ -140,7 +142,9 @@ namespace SmartRestaurant.Application.Products.Commands
             };
 
             
-            return await _saleOrderRepository.CreateAsync("product.template", data);
+            var odooId = await _saleOrderRepository.CreateAsync("product.template", data);
+
+            return odooId;
         }
 
         private async Task<long> UpdateOdooProduct(UpdateProductCommand request, SmartRestaurant.Domain.Entities.FoodBusiness foodBusiness,long odooId)
@@ -157,7 +161,7 @@ namespace SmartRestaurant.Application.Products.Commands
             var data = new Dictionary<string, object>
             {
                 { "name", request.Name},
-                { "detailed_type", "consu"},
+                { "detailed_type", request.IsQuantityChecked ? "product" : "consu"},
                 { "list_price", request.Price},
                 { "pos_categ_id", categoryId},
                 { "available_in_pos", 1},
@@ -167,12 +171,12 @@ namespace SmartRestaurant.Application.Products.Commands
             return await _saleOrderRepository.UpdateAsync("product.template",odooId, data);
         }
 
-        private async Task<long> DeleteOdooProduct(SmartRestaurant.Domain.Entities.FoodBusiness foodBusiness, long odooId)
-        {
-            await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+        //private async Task<long> DeleteOdooProduct(SmartRestaurant.Domain.Entities.FoodBusiness foodBusiness, long odooId)
+        //{
+        //    await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
 
-            return await _saleOrderRepository.DeleteAsync("product.template", odooId);
-        }
+        //    return await _saleOrderRepository.DeleteAsync("product.template", odooId);
+        //}
 
         private async Task<long> getProductCategoryId()
         {

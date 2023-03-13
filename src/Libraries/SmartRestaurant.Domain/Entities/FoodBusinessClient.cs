@@ -10,5 +10,6 @@ namespace SmartRestaurant.Domain.Entities
         public Boolean Archived { get; set; }
         public Guid FoodBusinessId { get; set; }
         public FoodBusiness FoodBusiness { get; set; }
+        public long OdooId { get; set; }
     }
 }

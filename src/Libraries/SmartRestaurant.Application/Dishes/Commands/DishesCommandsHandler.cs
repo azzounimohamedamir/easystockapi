@@ -69,6 +69,11 @@ namespace SmartRestaurant.Application.Dishes.Commands
             if (dish == null) throw new NotFoundException(nameof(Dish), request.Id);
 
             _context.Dishes.Remove(dish);
+            //var foodBusiness = await _context.FoodBusinesses.AsNoTracking()
+            //      .FirstOrDefaultAsync(r => r.FoodBusinessId == dish.FoodBusinessId, cancellationToken).ConfigureAwait(false);
+            //if (foodBusiness == null)
+            //    throw new NotFoundException(nameof(FoodBusiness), dish.FoodBusinessId);
+            //await DeleteOdooDish(foodBusiness, dish.OdooId);
             await _context.SaveChangesAsync(cancellationToken);
             return default;
         }
@@ -198,6 +203,13 @@ namespace SmartRestaurant.Application.Dishes.Commands
 
             return await _saleOrderRepository.UpdateAsync("product.template", odooId, data);
         }
+
+        //private async Task<long> DeleteOdooDish(SmartRestaurant.Domain.Entities.FoodBusiness foodBusiness, long odooId)
+        //{
+        //    await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+
+        //    return await _saleOrderRepository.DeleteAsync("product.template", odooId);
+        //}
 
         private async Task<long> getDishCategoryId()
         {
