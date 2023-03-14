@@ -927,8 +927,9 @@ namespace SmartRestaurant.Application.Orders.Commands
                 await _saleOrderRepository.UpdateAsync(model, Id, data); // update order amouunt
 
                   if(order.FoodBusinessClientId== null){
-               
-                  }else{
+                    await CreateOdooOrderLines(order, Id);// create new lines in order posales
+                }
+                else{
                    await CreateOdooOrderSaleLines(order, Id);// create new lines in order posales
                   }
 
@@ -982,7 +983,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                                     };        // create order odoo
 
                  var saleOrderId = await _saleOrderRepository.CreateAsync("pos.order", saleOrderDict);
-                 await CreateOdooOrderSaleLines(order, saleOrderId);
+                 await CreateOdooOrderLines(order, saleOrderId);
             }
 
         }
@@ -1027,8 +1028,8 @@ namespace SmartRestaurant.Application.Orders.Commands
                { "price_unit", productLine.UnitPrice } ,
                { "discount", 0.0 },
                { "price_subtotal", productLine.UnitPrice*productLine.Quantity },
-                { "price_subtotal_incl",  productLine.UnitPrice*productLine.Quantity },
-                {"product_id",productLine.OdooId }
+               { "price_subtotal_incl",  productLine.UnitPrice*productLine.Quantity },
+               {"product_id",productLine.OdooId }
 
 
             };
