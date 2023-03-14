@@ -41,7 +41,6 @@ namespace SmartRestaurant.Infrastructure.Services
 
         public async Task<long> CreateAsync(string model, Dictionary<string, object> data)
         {
-            await _client.Authenticate();
 
             long dataId = await _client.Create(model, data); // send order to odoo
 

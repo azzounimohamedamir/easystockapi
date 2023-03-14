@@ -8,6 +8,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
+using Org.BouncyCastle.Asn1.Ocsp;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.BillDtos;
 using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
@@ -871,15 +872,41 @@ namespace SmartRestaurant.Application.Orders.Commands
 
         private async Task UpdateOrderInOdoo(Order order)
         {
+            string model ="pos.order";
+            string orderlineAttr = "lines";
+            var data = new Dictionary<string, object>
+                {
+                   {"amount_total", order.TotalToPay},
+                   {"amount_paid",order.TotalToPay}
+
+                };
+
+              if(order.FoodBusinessClientId!= null){
+                model ="sale.order";
+                orderlineAttr = "order_line";
+
+
+                data = new Dictionary<string, object>
+                {
+                   {"amount_total", order.TotalToPay}
+                
+
+                };
+
+                }
+
             await _saleOrderRepository.Authenticate(order.FoodBusiness.Odoo);// auth in odoo
-            var result = await _saleOrderRepository.Search<List<int>>("pos.order", "name", order.OrderId.ToString(), 1);
+            var result = await _saleOrderRepository.Search<List<int>>(model, "name", order.OrderId.ToString(), 1);
 
             long Id;
             if (result.Count > 0)
             {
                 Id = result[0];
-                var orderR = await _saleOrderRepository.Read<List<Dictionary<string, object>>>("pos.order", Id);
-                var linesIds = orderR[0]["lines"]; // get lines 
+                var orderR = await _saleOrderRepository.Read<List<Dictionary<string, object>>>(model, Id);
+
+              
+                
+                var linesIds = orderR[0][orderlineAttr]; // get lines 
 
 
 
@@ -891,23 +918,19 @@ namespace SmartRestaurant.Application.Orders.Commands
 
                     foreach (int line in jArray)
                     {
-                        await _saleOrderRepository.DeleteAsync("pos.order.line", line); // delete line
+                        await _saleOrderRepository.DeleteAsync(model+".line", line); // delete line
 
                     }
                 }
 
 
+                await _saleOrderRepository.UpdateAsync(model, Id, data); // update order amouunt
 
-                var data = new Dictionary<string, object>
-                {
-               {"amount_total", order.TotalToPay},
-               {"amount_paid",order.TotalToPay},
-
-                };
-
-                await _saleOrderRepository.UpdateAsync("pos.order", Id, data); // update order amouunt
-
-                await CreateOdooOrderLines(order, Id);// create new lines in order
+                  if(order.FoodBusinessClientId== null){
+               
+                  }else{
+                   await CreateOdooOrderSaleLines(order, Id);// create new lines in order posales
+                  }
 
             }
             else
@@ -921,28 +944,46 @@ namespace SmartRestaurant.Application.Orders.Commands
 
         private async Task CreateOrderInOdoo(Order order)
         {
+
+
+
             await _saleOrderRepository.Authenticate(order.FoodBusiness.Odoo);// auth in odoo
             long sessionId = await getOpnedSessionInOdooId();// get opned session id
+       
+
+        if(order.FoodBusinessClientId!= null){
+
+                var foodBusinessClient = await _context.FoodBusinessClients.FindAsync(order.FoodBusinessClientId);
 
 
-
-
-            var saleOrderDict = new Dictionary<string, object>
-       {
+                Dictionary<string, object> saleOrderDict = new Dictionary<string, object>
+               {
                {"name", order.OrderId.ToString() },
-               { "date_order", order.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")},
-               {"session_id", sessionId},
+               {"partner_id",foodBusinessClient.OdooId },
                {"amount_total", order.TotalToPay},
-               {"amount_tax", 0.0},
-               {"amount_paid",order.TotalToPay},
-               {"amount_return",0.0},
-               {"pos_reference",order.OrderId.ToString()},
+              }; 
 
-         };        // create order odoo
+          var saleOrderId = await _saleOrderRepository.CreateAsync("sale.order", saleOrderDict);
+          await CreateOdooOrderSaleLines(order, saleOrderId);
 
-            var saleOrderId = await _saleOrderRepository.CreateAsync("pos.order", saleOrderDict);
+            }
+            else{
+                             Dictionary<string, object> saleOrderDict = new Dictionary<string, object>
+                                {
+                                        {"name", order.OrderId.ToString() },
+                                        { "date_order", order.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")},
+                                        {"session_id", sessionId},
+                                        {"amount_total", order.TotalToPay},
+                                        {"amount_tax", 0.0},
+                                        {"amount_paid",order.TotalToPay},
+                                        {"amount_return",0.0},
+                                        {"pos_reference", order.OrderId.ToString()},
 
-            await CreateOdooOrderLines(order, saleOrderId);
+                                    };        // create order odoo
+
+                 var saleOrderId = await _saleOrderRepository.CreateAsync("pos.order", saleOrderDict);
+                 await CreateOdooOrderSaleLines(order, saleOrderId);
+            }
 
         }
 
@@ -987,7 +1028,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                { "discount", 0.0 },
                { "price_subtotal", productLine.UnitPrice*productLine.Quantity },
                 { "price_subtotal_incl",  productLine.UnitPrice*productLine.Quantity },
-                {"product_id", productLine.OdooId }
+                {"product_id",productLine.OdooId }
 
 
             };
@@ -998,6 +1039,55 @@ namespace SmartRestaurant.Application.Orders.Commands
             }
         }
 
+  private async Task CreateOdooOrderSaleLines(Order order, long saleOrderId)
+        {
+            if (order.Dishes.Count > 0)
+            {
+
+                foreach (var dishLine in order.Dishes)
+                {
+                    var orderLineDish = new Dictionary<string, object>
+            {
+               { "order_id", saleOrderId },
+               { "name",dishLine.Name},
+               { "product_uom_qty", dishLine.Quantity },
+               { "price_unit", dishLine.UnitPrice },
+               { "product_id",dishLine.OdooId },
+             
+
+
+             
+
+            };
+                    await _saleOrderRepository.CreateAsync("sale.order.line", orderLineDish);
+                    // add dish in odoo order
+
+                }
+
+
+            }
+
+            if (order.Products.Count > 0)
+            {
+
+                foreach (var productLine in order.Products)
+                {
+                    var orderLineProduct = new Dictionary<string, object>
+            {
+               { "order_id", saleOrderId },
+               { "name",productLine.Name},
+               { "product_uom_qty", productLine.Quantity },
+               { "price_unit", productLine.UnitPrice },
+               {"product_id",productLine.OdooId },
+
+
+            };
+                    await _saleOrderRepository.CreateAsync("sale.order.line", orderLineProduct); // add product in odoo order
+                }
+
+
+            }
+        }
 
 
 
