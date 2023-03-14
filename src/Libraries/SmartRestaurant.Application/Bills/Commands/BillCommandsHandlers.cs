@@ -13,6 +13,8 @@ using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.ValueObjects;
+using System.Diagnostics;
+
 
 namespace SmartRestaurant.Application.Bills.Commands
 {
@@ -23,8 +25,8 @@ namespace SmartRestaurant.Application.Bills.Commands
 		private readonly IApplicationDbContext _context;
 		private readonly IMapper _mapper;
 		private readonly IUserService _userService;
-		private readonly ISaleOrderRepository _saleOrderRepository;
-		public BillCommandsHandlers(IApplicationDbContext context, IMapper mapper, IUserService userService, ISaleOrderRepository saleOrderRepository)
+		private readonly IOdooRepository _saleOrderRepository;
+		public BillCommandsHandlers(IApplicationDbContext context, IMapper mapper, IUserService userService, IOdooRepository saleOrderRepository)
 		{
 			_context = context;
 			_mapper = mapper;
@@ -92,18 +94,37 @@ namespace SmartRestaurant.Application.Bills.Commands
 			ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(order);
 			_context.Orders.Update(order);
 			await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+			if(order.FoodBusiness.Odoo != null)
+			{
 			await CreatePaymentInOdoo(order); // create paiment in odoo
+			}else
+			{
+				// Create a new instance of the logger
+				TraceSource logger = new TraceSource("odoo");
+				 // Log an error
+				logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
+				
+				   // Flush the log to ensure all messages are written
+                logger.Flush();
+
+				// Dispose of the logger
+				logger.Close();
+			}
 			return default;
 		}
 
 
 		private async Task CreatePaymentInOdoo(Order order)
 		{
+			if(order.FoodBusiness.Odoo != null)
+			{
+				
+			
 			await _saleOrderRepository.Authenticate(order.FoodBusiness.Odoo);// auth in odoo
 			
 			if(order.FoodBusinessClientId != null)
 			{
-				var Id = await UpdateOrderInOdoo(order.OrderId.ToString(),"sale.order" ,"sale");// set odoo order paid bon de commande
+				await UpdateOrderInOdoo(order.OrderId.ToString(),"sale.order" ,"sale");// set odoo order paid bon de commande
 			}else
 			
 			{
@@ -111,14 +132,12 @@ namespace SmartRestaurant.Application.Bills.Commands
 				var Id = await UpdateOrderInOdoo(order.OrderId.ToString(),"pos.order", "paid");// set odoo order paid
 
 				var saleOrderDict = new Dictionary<string, object>
-	   {
+						{	
+							{"pos_order_id", Id},
+							{"amount", order.TotalToPay},
+							{"payment_method_id",1}// cash
 
-			
-			   {"pos_order_id", Id},
-			   {"amount", order.TotalToPay},
-			   {"payment_method_id",1}
-
-		 };        // create pyment odoo
+						};        // create pyment odoo
 
 				var saleOrderId = await _saleOrderRepository.CreateAsync("pos.payment", saleOrderDict);
 		   
@@ -127,11 +146,20 @@ namespace SmartRestaurant.Application.Bills.Commands
 
 			}
 			
-			
+		   }
+            else
+            {
+                // Create a new instance of the logger
+                TraceSource logger = new TraceSource("odoo");
+                // Log an error
+                logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
+
+                // Dispose of the logger
+                logger.Close();
+            }
 
 
-
-		}
+        }
 
 		private async Task<long> UpdateOrderInOdoo(String orderId,string model , string state)
 		{

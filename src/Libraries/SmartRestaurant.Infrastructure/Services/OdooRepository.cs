@@ -10,14 +10,14 @@ using OdooRpc.CoreCLR.Client.Models.Parameters;
 namespace SmartRestaurant.Infrastructure.Services
 {
 
-    public class OdooSaleOrderRepository : ISaleOrderRepository
+    public class OdooRepository : IOdooRepository
     {
         private OdooRpcClient _client;
 
 
 
 
-        public OdooSaleOrderRepository()
+        public OdooRepository()
         {
         }
 

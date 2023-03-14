@@ -25,9 +25,9 @@ namespace SmartRestaurant.Application.Products.Commands
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        private readonly ISaleOrderRepository _saleOrderRepository;
+        private readonly IOdooRepository _saleOrderRepository;
 
-        public ProductsCommandsHandler(IApplicationDbContext context, IMapper mapper, IUserService userService, ISaleOrderRepository saleOrderRepository)
+        public ProductsCommandsHandler(IApplicationDbContext context, IMapper mapper, IUserService userService, IOdooRepository saleOrderRepository)
         {
             _context = context;
             _mapper = mapper;

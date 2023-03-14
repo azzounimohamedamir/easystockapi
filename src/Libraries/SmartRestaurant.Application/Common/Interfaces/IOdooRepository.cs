@@ -4,7 +4,7 @@ using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Application.Common.Interfaces
 {
-    public interface ISaleOrderRepository
+    public interface IOdooRepository
     {
         Task<bool> Authenticate(Odoo info);
         Task<long> CreateAsync(string model, Dictionary<string, object> data);
