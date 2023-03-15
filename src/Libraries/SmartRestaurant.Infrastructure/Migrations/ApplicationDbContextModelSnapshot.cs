@@ -171,6 +171,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<bool>("SyncFromOdoo")
+                        .HasColumnType("bit");
+
                     b.HasKey("DishId");
 
                     b.HasIndex("FoodBusinessId");
@@ -1733,6 +1736,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.Property<int?>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<bool>("SyncFromOdoo")
+                        .HasColumnType("bit");
 
                     b.HasKey("ProductId");
 

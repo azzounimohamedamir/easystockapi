@@ -2,10 +2,34 @@
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
-    public partial class AddOdooConfigAttributeToHotelAndFoodBusiness : Migration
+    public partial class AddAllOdooMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<long>(
+                name: "OdooId",
+                table: "Products",
+                nullable: false,
+                defaultValue: 0L);
+
+            migrationBuilder.AddColumn<bool>(
+                name: "SyncFromOdoo",
+                table: "Products",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.AddColumn<long>(
+                name: "OdooId",
+                table: "OrderProducts",
+                nullable: false,
+                defaultValue: 0L);
+
+            migrationBuilder.AddColumn<long>(
+                name: "OdooId",
+                table: "OrderDishes",
+                nullable: false,
+                defaultValue: 0L);
+
             migrationBuilder.AddColumn<string>(
                 name: "Odoo_Db",
                 table: "Hotels",
@@ -46,6 +70,12 @@ namespace SmartRestaurant.Infrastructure.Migrations
                 table: "FoodBusinesses",
                 nullable: true);
 
+            migrationBuilder.AddColumn<long>(
+                name: "OdooId",
+                table: "FoodBusinessClients",
+                nullable: false,
+                defaultValue: 0L);
+
             migrationBuilder.AddColumn<string>(
                 name: "Odoo_Db",
                 table: "FoodBusinessClients",
@@ -65,11 +95,39 @@ namespace SmartRestaurant.Infrastructure.Migrations
                 name: "Odoo_Username",
                 table: "FoodBusinessClients",
                 nullable: true);
+
+            migrationBuilder.AddColumn<long>(
+                name: "OdooId",
+                table: "Dishes",
+                nullable: false,
+                defaultValue: 0L);
+
+            migrationBuilder.AddColumn<bool>(
+                name: "SyncFromOdoo",
+                table: "Dishes",
+                nullable: false,
+                defaultValue: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
+                name: "OdooId",
+                table: "Products");
+
+            migrationBuilder.DropColumn(
+                name: "SyncFromOdoo",
+                table: "Products");
+
+            migrationBuilder.DropColumn(
+                name: "OdooId",
+                table: "OrderProducts");
+
+            migrationBuilder.DropColumn(
+                name: "OdooId",
+                table: "OrderDishes");
+
+            migrationBuilder.DropColumn(
                 name: "Odoo_Db",
                 table: "Hotels");
 
@@ -102,6 +160,10 @@ namespace SmartRestaurant.Infrastructure.Migrations
                 table: "FoodBusinesses");
 
             migrationBuilder.DropColumn(
+                name: "OdooId",
+                table: "FoodBusinessClients");
+
+            migrationBuilder.DropColumn(
                 name: "Odoo_Db",
                 table: "FoodBusinessClients");
 
@@ -116,6 +178,14 @@ namespace SmartRestaurant.Infrastructure.Migrations
             migrationBuilder.DropColumn(
                 name: "Odoo_Username",
                 table: "FoodBusinessClients");
+
+            migrationBuilder.DropColumn(
+                name: "OdooId",
+                table: "Dishes");
+
+            migrationBuilder.DropColumn(
+                name: "SyncFromOdoo",
+                table: "Dishes");
         }
     }
 }
