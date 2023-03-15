@@ -88,29 +88,7 @@ namespace SmartRestaurant.Application.Hotels.Commands
                       .NotEmpty()
                       .MaximumLength(200);
 
-                        RuleFor(foodBusiness => foodBusiness.Odoo)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotNull()
-                .DependentRules(() => {
-                    RuleFor(foodBusiness => foodBusiness.Odoo.Url)
-                       .Cascade(CascadeMode.StopOnFirstFailure)
-                       .NotEmpty()
-                       .MaximumLength(200);
-
-                    RuleFor(foodBusiness => foodBusiness.Odoo.Username)
-                       .Cascade(CascadeMode.StopOnFirstFailure)
-                       .NotEmpty()
-                       .MaximumLength(200);
-
-                    RuleFor(foodBusiness => foodBusiness.Odoo.Password)
-                       .Cascade(CascadeMode.StopOnFirstFailure)
-                       .NotEmpty()
-                       .MaximumLength(200);
-                          RuleFor(foodBusiness => foodBusiness.Odoo.Db)
-                       .Cascade(CascadeMode.StopOnFirstFailure)
-                       .NotEmpty()
-                       .MaximumLength(200);
-                });
+                    
 
 
 

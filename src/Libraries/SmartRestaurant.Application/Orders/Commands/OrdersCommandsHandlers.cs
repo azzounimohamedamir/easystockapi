@@ -1157,7 +1157,14 @@ namespace SmartRestaurant.Application.Orders.Commands
 			}
 			else
 			{
-				throw new ConflictException("Sorry,this order not exist in odoo for updated it");
+                // Create a new instance of the logger
+                TraceSource logger = new TraceSource("odoo");
+                // Log an error
+                logger.TraceEvent(TraceEventType.Error, 0, "Sorry,this order not exist in odoo for updated it");
+
+                // Dispose of the logger
+                logger.Close();
+               
 			}
 		}
 
