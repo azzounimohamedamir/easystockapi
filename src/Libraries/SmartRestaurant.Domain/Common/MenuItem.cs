@@ -18,5 +18,6 @@ namespace SmartRestaurant.Domain.Common
 
         public FoodBusiness FoodBusiness { get; set; }
         public long OdooId { get; set; }
+        public bool SyncFromOdoo { get; set; }
     }
 }
