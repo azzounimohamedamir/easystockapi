@@ -109,7 +109,6 @@ namespace SmartRestaurant.Application.Products.Commands
                 throw new NotFoundException(nameof(Product), request.Id);
             
             _context.Products.Remove(product);
-
             //var foodBusiness = await _context.FoodBusinesses.AsNoTracking()
             //        .FirstOrDefaultAsync(r => r.FoodBusinessId == product.FoodBusinessId, cancellationToken).ConfigureAwait(false);
             //if (foodBusiness == null)
