@@ -6,20 +6,25 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Exceptions;
+using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.CurrencyExchange;
 using SmartRestaurant.Application.Orders.Queries.FilterStrategy;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
+using SmartRestaurant.Domain.Identity.Enums;
 
 namespace SmartRestaurant.Application.Orders.Queries
 {
-    public class OrdersQueriesHandler : IRequestHandler<GetOrderByIdQuery, OrderDto>,
+    public class OrdersQueriesHandler : 
+        IRequestHandler<GetOrderByIdQuery, OrderDto>,
         IRequestHandler<GetOrdersListQuery, PagedListDto<OrderDto>>,
+        IRequestHandler<GetAllClientSHOrdersQuery, PagedListDto<HotelOrderDto>>,
         IRequestHandler<GetOrdersListByDinnerOrClientQuery, PagedListDto<OrderDto>>,
         IRequestHandler<GetAllTodayOrdersQueryByTableId, PagedListDto<OrderDto>>,
         IRequestHandler<GetLastOrderByTableIDQuery, OrderDto>
@@ -29,7 +34,8 @@ namespace SmartRestaurant.Application.Orders.Queries
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
 
-        public OrdersQueriesHandler(IApplicationDbContext context, IUserService userService, IMapper mapper, UserManager<ApplicationUser> userManager)
+
+        public OrdersQueriesHandler( IApplicationDbContext context, IUserService userService, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             _context = context;
@@ -116,6 +122,145 @@ namespace SmartRestaurant.Application.Orders.Queries
             }
             return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
+
+
+        public async Task<PagedListDto<HotelOrderDto>> Handle(GetAllClientSHOrdersQuery request, CancellationToken cancellationToken)
+        {
+            var searchKey = (string.IsNullOrWhiteSpace(request.SearchKey) ? "" : request.SearchKey).ToLower();
+            var roles = _userService.GetRoles();
+
+            if(roles.Contains(Roles.Diner.ToString()) || roles.Contains(Roles.HotelClient.ToString()))
+            {
+                var clientId = _userService.GetUserId();
+
+                var validator = new GetAllClientSHOrdersQueryValidator();
+                var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+                if (!result.IsValid) throw new ValidationException(result);
+                var filter = OrderStrategies.GetFilterStrategy(request.CurrentFilter);
+                var list = filter.FetchDataOfClientSH(_context.HotelOrders, request, clientId);
+                var hotelOrderdtoData = (from ho in list
+                                         join check in _context.CheckIns on
+                                        ho.CheckinId equals check.Id
+                                         join ro in _context.Rooms on check.RoomId equals ro.Id
+                                         join hotel in _context.Hotels on check.hotelId equals hotel.Id
+                                         where check.ClientId == clientId
+                                         select new HotelOrderDto
+                                         {
+                                             DateOrder = ho.DateOrder,
+                                             ChairNumber = ho.ChairNumber,
+                                             Checkin = check,
+                                             Room = ro,
+                                             Hotel = hotel,
+                                             FailureMessage = ho.FailureMessage,
+                                             SuccesMessage = ho.SuccesMessage,
+                                             ServiceManagerName = ho.ServiceManagerName,
+                                             FoodBusinessId = ho.FoodBusinessId,
+                                             IsSmartrestaurantMenue = ho.IsSmartrestaurantMenue,
+                                             Names = ho.Names,
+                                             SmartRestaurentOrderId = ho.SmartRestaurentOrderId,
+                                             ParametreValueClient = ho.ParametreValueClient,
+                                             TableId = ho.TableId,
+                                             OrderStat = ho.OrderStat,
+                                             Type = ho.Type,
+                                             UserId = ho.UserId,
+                                             Id = ho.Id
+                                         });
+                var query = hotelOrderdtoData.AsQueryable().GetPaged(request.Page, request.PageSize);
+                var data = query.Data.AsNoTracking().ToList();
+                if (searchKey != "")
+                {
+                    var dataFiltered = hotelOrderdtoData.Where(
+                      a => a.Hotel.Name.ToLower().Contains(searchKey) ||
+                      a.Names.AR.ToLower().Contains(searchKey) ||
+                      a.Names.FR.ToLower().Contains(searchKey) ||
+                      a.Names.EN.ToLower().Contains(searchKey) ||
+                      a.Names.RU.ToLower().Contains(searchKey) ||
+                      a.Names.TR.ToLower().Contains(searchKey) ||
+                      a.Type.ToString().ToLower().Contains(searchKey) ||
+                       a.OrderStat.ToString().ToLower().Contains(searchKey) ||
+                      a.Room.RoomNumber.ToString().Contains(searchKey)
+                       ).ToList();
+                    var pagedResult = new PagedListDto<HotelOrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, dataFiltered);
+                    return pagedResult;
+                }
+                else
+                {
+                    return new PagedListDto<HotelOrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
+
+                }
+
+            }
+            if (roles.Contains(Roles.FoodBusinessManager.ToString()) || roles.Contains(Roles.HotelServiceAdmin.ToString()))
+            {
+
+                var validator = new GetAllClientSHOrdersQueryValidator();
+                var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+                if (!result.IsValid) throw new ValidationException(result);
+                var filter = OrderStrategies.GetFilterStrategy(request.CurrentFilter);
+                var list = filter.FetchDataOfManagerSH(_context.HotelOrders, request);
+                var hotelOrderdtoData = (from ho in list
+                                         join check in _context.CheckIns on
+                                        ho.CheckinId equals check.Id
+                                         join ro in _context.Rooms on check.RoomId equals ro.Id
+                                         join hotel in _context.Hotels on check.hotelId equals hotel.Id
+                                         where hotel.Id == Guid.Parse(request.HotelId)
+                                         select new HotelOrderDto
+                                         {
+                                             DateOrder = ho.DateOrder,
+                                             ChairNumber = ho.ChairNumber,
+                                             Checkin = check,
+                                             Room = ro,
+                                             Hotel = hotel,
+                                             FailureMessage = ho.FailureMessage,
+                                             SuccesMessage = ho.SuccesMessage,
+                                             ServiceManagerName = ho.ServiceManagerName,
+                                             FoodBusinessId = ho.FoodBusinessId,
+                                             IsSmartrestaurantMenue = ho.IsSmartrestaurantMenue,
+                                             Names = ho.Names,
+                                             SmartRestaurentOrderId = ho.SmartRestaurentOrderId,
+                                             ParametreValueClient = ho.ParametreValueClient,
+                                             TableId = ho.TableId,
+                                             OrderStat = ho.OrderStat,
+                                             Type = ho.Type,
+                                             UserId = ho.UserId,
+                                             Id = ho.Id
+                                         });
+                                if (request.OrderDestinationId!= null)
+                {
+                    hotelOrderdtoData = hotelOrderdtoData.Where(o => o.ServiceManagerName == request.OrderDestinationId);
+                }
+               var query=hotelOrderdtoData.AsQueryable().GetPaged(request.Page,request.PageSize);
+                var data = query.Data.AsNoTracking().ToList();
+
+                if (searchKey != "")
+                {
+                    var dataFiltered = data.Where(
+                      a => 
+                      a.Checkin.FullName.ToLower().Contains(searchKey) ||
+                      a.Checkin.Email.ToLower().Contains(searchKey) ||
+                      a.Checkin.PhoneNumber.ToLower().Contains(searchKey) ||
+                      a.Names.AR.ToLower().Contains(searchKey) ||
+                      a.Names.FR.ToLower().Contains(searchKey) ||
+                      a.Names.EN.ToLower().Contains(searchKey) ||
+                      a.Names.RU.ToLower().Contains(searchKey) ||
+                      a.Names.TR.ToLower().Contains(searchKey) ||
+                      a.Type.ToString().ToLower().Contains(searchKey) ||
+                       a.OrderStat.ToString().ToLower().Contains(searchKey) ||
+                      a.Room.RoomNumber.ToString().Contains(searchKey)
+                       ).ToList();
+                    var pagedResult = new PagedListDto<HotelOrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, dataFiltered);
+                    return pagedResult;
+                }
+                else
+                {
+                    return new PagedListDto<HotelOrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
+                }
+            }
+
+                return default;
+        }
+
+
 
         public async Task<PagedListDto<OrderDto>> Handle(GetAllTodayOrdersQueryByTableId request, CancellationToken cancellationToken)
         {

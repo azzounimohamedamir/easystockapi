@@ -96,6 +96,7 @@ namespace SmartRestaurant.API.Middlewares
             return context.Request.Path.Value.Contains("api/hotels");
         }
 
+     
         private bool IsProfileEndpoint(HttpContext context)
         {
             return context.Request.Path.Value.Contains("api/users/ProfileUpdate");

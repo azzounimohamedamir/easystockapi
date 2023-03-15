@@ -180,7 +180,7 @@ namespace SmartRestaurant.Application.Products.Commands
         private async Task<long> getProductCategoryId()
         {
             var result = await _saleOrderRepository.Search<List<int>>("pos.category", "name", "product", 1);
-            long categoryId;
+            long categoryId = 0;
             if (result.Count > 0)
             {
                 categoryId = result[0];

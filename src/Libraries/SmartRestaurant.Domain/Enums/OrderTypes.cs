@@ -4,6 +4,7 @@ namespace SmartRestaurant.Domain.Enums
     {
         DineIn,
         Takeout,
-        Delivery
+        Delivery,
+        InRoom
     }
 }

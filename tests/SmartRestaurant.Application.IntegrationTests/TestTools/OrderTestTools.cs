@@ -4,7 +4,11 @@ using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.Dishes.Commands;
 using SmartRestaurant.Application.Orders.Commands;
 using SmartRestaurant.Application.Products.Commands;
+using SmartRestaurant.Application.Reclamation.Commands;
+using SmartRestaurant.Domain.Common.Enums;
+using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
+using SmartRestaurant.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -109,6 +113,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                       TableNumber =  4,
                       ChairNumber =  1,
                       Quantity =  2,
+                      TableId="44aecd78-59bb-7504-bfff-07c07129ab00",
                       Specifications = new List<OrderDishSpecificationDto>() { CheckBox, ComboBox },
                       Ingredients =  new List<OrderDishIngredientDto>() { Ingredient },
                       Supplements = new List<OrderDishSupplementDto>() { Supplement },
@@ -118,6 +123,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                     new OrderProductDto {
                     ProductId =procuctCommand.Id.ToString(),
                     TableNumber =  4,
+                    TableId="44aecd78-59bb-7504-bfff-07c07129ab00",
                     ChairNumber =  1,
                     Quantity =  1
                 }
@@ -128,6 +134,144 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
 
             return createOrderCommand;
         }
+
+
+
+        public static async Task<HotelOrder> CreateOrderSH(CreateDishCommand createDishCommand,CreateProductCommand createProductCommand, Domain.Entities.FoodBusiness foodBusiness, HotelService service , CheckIn checkin , Hotel hotel )
+           
+        {
+
+
+
+            var createOrderSh = new CreateOrderSHCommand
+            {
+                HotelId = hotel.Id.ToString(),
+                CheckinId = checkin.Id.ToString(),
+                FoodBusinessId = foodBusiness.FoodBusinessId.ToString(),
+                ServiceId = service.Id.ToString(),
+                FoodBusinessClientId = null,
+                SectionId = service.SectionId,
+                OccupiedTables = new List<OrderOccupiedTableDto>() {
+                    new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab00" }
+                },
+                Dishes = new List<OrderDishCommandDto>() {
+                     new OrderDishCommandDto {
+                      DishId =createDishCommand.Id.ToString(),
+                      EnergeticValue =  0,
+                      TableNumber =  4,
+                      ChairNumber =  1,
+                      Quantity =  2,
+                      Specifications = new List<OrderDishSpecificationDto>() {  },
+                      Ingredients =  new List<OrderDishIngredientDto>() {  },
+                      Supplements = new List<OrderDishSupplementDto>() {  },
+                    }
+                },
+                Products = new List<OrderProductDto>() {
+                    new OrderProductDto {
+                    ProductId =createProductCommand.Id.ToString(),
+                    TableNumber =  4,
+                    ChairNumber =  1,
+                    Quantity =  1
+                } },
+                GeoPosition = null,
+                ParametreValueClient = null,
+                RoomId = null
+            };
+
+            var hotelOrder =  await SendAsync(createOrderSh);
+
+
+            return hotelOrder;
+        }
+
+
+
+
+
+        public static async Task<HotelOrder> CreateOrderSHInRoom(CreateDishCommand createDishCommand, CreateProductCommand createProductCommand, Domain.Entities.FoodBusiness foodBusiness, HotelService service, CheckIn checkin, Hotel hotel)
+
+        {
+
+
+
+            var createOrderShForRoom = new CreateOrderSHCommand
+            {
+                HotelId = hotel.Id.ToString(),
+                CheckinId = checkin.Id.ToString(),
+                FoodBusinessId = foodBusiness.FoodBusinessId.ToString(),
+                ServiceId = service.Id.ToString(),
+                FoodBusinessClientId = null,
+                SectionId = service.SectionId,
+                OccupiedTables = new List<OrderOccupiedTableDto>() {},
+                Dishes = new List<OrderDishCommandDto>() {
+                     new OrderDishCommandDto {
+                      DishId =createDishCommand.Id.ToString(),
+                      EnergeticValue =  0,
+                      TableNumber =  4,
+                      ChairNumber =  1,
+                      Quantity =  2,
+                      Specifications = new List<OrderDishSpecificationDto>() {  },
+                      Ingredients =  new List<OrderDishIngredientDto>() {  },
+                      Supplements = new List<OrderDishSupplementDto>() {  },
+                    }
+                },
+                Products = new List<OrderProductDto>() {
+                    new OrderProductDto {
+                    ProductId =createProductCommand.Id.ToString(),
+                    TableNumber =  4,
+                    ChairNumber =  1,
+                    Quantity =  1
+                } },
+                GeoPosition = null,
+                ParametreValueClient = null,
+                RoomId = checkin.RoomId.ToString(),
+                Type=OrderTypes.InRoom
+            };
+            var hotelOrderInRoom = await SendAsync(createOrderShForRoom);
+
+
+            return hotelOrderInRoom;
+        }
+
+
+
+
+        public static async Task<HotelOrder> CreateOrderSHwithparamvalue( Domain.Entities.FoodBusiness foodBusiness, HotelService service, CheckIn checkin, Hotel hotel)
+
+        {
+
+
+
+            var createOrderShForServiceWithParam = new CreateOrderSHCommand
+            {
+                HotelId = hotel.Id.ToString(),
+                CheckinId = checkin.Id.ToString(),
+                FoodBusinessId = service.FoodBusinessID.ToString(),
+                ServiceId = service.Id.ToString(),
+                FoodBusinessClientId = null,
+                SectionId = service.SectionId,
+                OccupiedTables = new List<OrderOccupiedTableDto>() { },
+                Dishes = null,
+                Products = null,
+                GeoPosition = null,
+                ParametreValueClient = new List< ParametresValue > () {
+                 new ParametresValue {
+                Names = new Names() { AR = "عدد الحصص", EN = "number of seance", FR = "nombre de seance", TR = "number of seance", RU = "number of seance" },
+                    ServiceParametreType = ServiceParametreType.NumericValue,
+                    NumberValue =  1,
+                    Date =  null,
+                    SelectedValue = null,
+                }
+                },
+                RoomId = null
+            };
+            var hotelOrderWithParamsService = await SendAsync(createOrderShForServiceWithParam);
+
+
+            return hotelOrderWithParamsService;
+        }
+
+
 
 
 
