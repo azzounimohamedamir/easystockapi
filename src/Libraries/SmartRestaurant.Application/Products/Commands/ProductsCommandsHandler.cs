@@ -1,24 +1,20 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Asn1.Ocsp;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Application.CurrencyExchange;
-using SmartRestaurant.Application.Orders.Commands;
 using SmartRestaurant.Application.Products.Queries;
 using SmartRestaurant.Application.Products.Queries.FilterStrategy;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 //using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -131,44 +127,59 @@ namespace SmartRestaurant.Application.Products.Commands
 
         private async Task<long> CreateOdooProduct(Product product, SmartRestaurant.Domain.Entities.FoodBusiness foodBusiness)
         {
-            await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
-
-            long categoryId = await getProductCategoryId();
-            var data = new Dictionary<string, object>
+            var odooId = (long)0;
+            if (foodBusiness.Odoo != null)
             {
-                { "name", product.Name},
-                { "detailed_type", product.IsQuantityChecked ? "product" : "consu"},
-                { "list_price", product.Price},
-                { "pos_categ_id", categoryId},
-                { "available_in_pos", 1},
-                { "image_1920",product.Picture },
-                { "taxes_id",null }
-            };
+                var loggedIn = await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+                if (loggedIn)
+                {
+
+                    long categoryId = await getProductCategoryId();
+                    var data = new Dictionary<string, object>
+                    {
+                        { "name", product.Name},
+                        { "detailed_type", product.IsQuantityChecked ? "product" : "consu"},
+                        { "list_price", product.Price},
+                        { "pos_categ_id", categoryId},
+                        { "available_in_pos", 1},
+                        { "image_1920",product.Picture },
+                        { "taxes_id",null }
+                    };
 
 
-            var odooId = await _saleOrderRepository.CreateAsync("product.template", data);
-
+                    odooId = await _saleOrderRepository.CreateAsync("product.template", data);
+                }
+            }
             return odooId;
         }
 
         private async Task<long> UpdateOdooProduct(Product product, SmartRestaurant.Domain.Entities.FoodBusiness foodBusiness, long odooId)
         {
-            await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
-            long categoryId = await getProductCategoryId();
-
-
-            var data = new Dictionary<string, object>
+            if (foodBusiness.Odoo != null)
             {
-                { "name", product.Name},
-                { "detailed_type", product.IsQuantityChecked ? "product" : "consu"},
-                { "list_price", product.Price},
-                { "pos_categ_id", categoryId},
-                { "available_in_pos", 1},
-                { "image_1920",product.Picture },
-                { "taxes_id",null }
-            };
+                var loggedIn = await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+                if (loggedIn)
+                {
+                    long categoryId = await getProductCategoryId();
 
-            return await _saleOrderRepository.UpdateAsync("product.template", odooId, data);
+
+                    var data = new Dictionary<string, object>
+                    {
+                        { "name", product.Name},
+                        { "detailed_type", product.IsQuantityChecked ? "product" : "consu"},
+                        { "list_price", product.Price},
+                        { "pos_categ_id", categoryId},
+                        { "available_in_pos", 1},
+                        { "image_1920",product.Picture },
+                        { "taxes_id",null }
+                    };
+
+                    return await _saleOrderRepository.UpdateAsync("product.template", odooId, data);
+                }
+
+            }
+
+            return (long)0;
         }
 
         //private async Task<long> DeleteOdooProduct(SmartRestaurant.Domain.Entities.FoodBusiness foodBusiness, long odooId)
@@ -182,7 +193,7 @@ namespace SmartRestaurant.Application.Products.Commands
         {
             var result = await _saleOrderRepository.Search<List<int>>("pos.category", "name", "product", 1);
             long categoryId = 0;
-            if (result.Count > 0)
+            if (result != null && result.Count > 0)
             {
                 categoryId = result[0];
             }
@@ -209,85 +220,94 @@ namespace SmartRestaurant.Application.Products.Commands
             if (foodBusiness == null)
                 throw new NotFoundException(nameof(FoodBusiness), request.FoodBusinessId);
 
-            var products = _context.Products.Where(r => r.FoodBusinessId == Guid.Parse(request.FoodBusinessId));
-
-            foreach (var product in products)
+            if (foodBusiness.Odoo != null)
             {
-                if (product.SyncFromOdoo)
+                var loggedIn = await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+                if (loggedIn)
                 {
-                    if (product.OdooId != 0)
-                    {
-                        var p = await _saleOrderRepository.Read<List<Dictionary<string, object>>>("product.template", product.OdooId);
-                        product.Name = p[0]["name"].ToString();
-                        product.Price = float.Parse(p[0]["list_price"].ToString());
-                        product.IsQuantityChecked = p[0]["detailed_type"].ToString() == "product" ? true : false;
-                        //product.Picture = (byte[])p[0]["image_1920"];
-                        product.Picture = Convert.FromBase64String(p[0]["image_512"].ToString());
-                        _context.Products.Update(product);
-                    }
-                    else
-                    {
-                        var productOdooIds = await _saleOrderRepository.Search<List<int>>("product.template", "name", product.Name, 1);
-                        long productOdooId;
-                        if (productOdooIds.Count > 0)
-                        {
-                            productOdooId = productOdooIds[0];
-                            var p = await _saleOrderRepository.Read<List<Dictionary<string, object>>>("product.template", productOdooId);
-                            product.Name = p[0]["name"].ToString();
-                            product.Price = float.Parse(p[0]["list_price"].ToString());
-                            product.IsQuantityChecked = p[0]["detailed_type"].ToString() == "product" ? true : false;
-                            product.Picture = Convert.FromBase64String(p[0]["image_512"].ToString());
-                            _context.Products.Update(product);
-                        }
+                    var products = _context.Products.Where(r => r.FoodBusinessId == Guid.Parse(request.FoodBusinessId));
 
+                    foreach (var product in products)
+                    {
+                        if (product.SyncFromOdoo)
+                        {
+                            if (product.OdooId != 0)
+                            {
+                                var p = await _saleOrderRepository.Read<List<Dictionary<string, object>>>("product.template", product.OdooId);
+                                product.Name = p[0]["name"].ToString();
+                                product.Price = float.Parse(p[0]["list_price"].ToString());
+                                product.IsQuantityChecked = p[0]["detailed_type"].ToString() == "product" ? true : false;
+                                product.Picture = Convert.FromBase64String(p[0]["image_512"].ToString());
+                                _context.Products.Update(product);
+                            }
+                            else
+                            {
+                                var productOdooIds = await _saleOrderRepository.Search<List<int>>("product.template", "name", product.Name, 1);
+                                long productOdooId;
+                                if (productOdooIds.Count > 0)
+                                {
+                                    productOdooId = productOdooIds[0];
+                                    var p = await _saleOrderRepository.Read<List<Dictionary<string, object>>>("product.template", productOdooId);
+                                    product.Name = p[0]["name"].ToString();
+                                    product.Price = float.Parse(p[0]["list_price"].ToString());
+                                    product.IsQuantityChecked = p[0]["detailed_type"].ToString() == "product" ? true : false;
+                                    product.Picture = Convert.FromBase64String(p[0]["image_512"].ToString());
+                                    _context.Products.Update(product);
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            if (product.OdooId != 0)
+                            {
+                                await UpdateOdooProduct(product, foodBusiness, product.OdooId);
+                            }
+                            else
+                            {
+                                var productOdooIds = await _saleOrderRepository.Search<List<int>>("product.template", "name", product.Name, 1);
+                                long productOdooId;
+                                if (productOdooIds != null && productOdooIds.Count > 0)
+                                {
+                                    productOdooId = productOdooIds[0];
+                                    await UpdateOdooProduct(product, foodBusiness, productOdooId);
+                                }
+                                else
+                                {
+                                    productOdooId = await CreateOdooProduct(product, foodBusiness);
+                                }
+                                product.OdooId = productOdooId;
+                                _context.Products.Update(product);
+                            }
+                        }
                     }
                 }
                 else
                 {
-                    if (product.OdooId != 0)
-                    {
-                        await UpdateOdooProduct(product, foodBusiness, product.OdooId);
-                    }
-                    else
-                    {
-                        var productOdooIds = await _saleOrderRepository.Search<List<int>>("product.template", "name", product.Name, 1);
-                        long productOdooId;
-                        if (productOdooIds.Count > 0)
-                        {
-                            productOdooId = productOdooIds[0];                            
-                            await UpdateOdooProduct(product, foodBusiness, productOdooId);
-                        }
-                        else
-                        {
-                            productOdooId = await CreateOdooProduct(product, foodBusiness);
-                        }
-                        product.OdooId = productOdooId;
-                        _context.Products.Update(product);
-                    }
-                }  
+                    throw new ConflictException("Sorry,Could not synchronize with Odoo, verify your food business Odoo login informations.");
+                }
+            }
+            else
+            {
+                throw new ConflictException("Sorry, Could not synchronize with Odoo, verify your food business Odoo login informations.");
             }
 
+
+
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            
+
 
             var filter = ProductStrategies.GetFilterStrategy(request.CurrentFilter);
-            var newQuery= _mapper.Map<GetProductListQuery>(request);
+            var newQuery = _mapper.Map<GetProductListQuery>(request);
             var query = filter.FetchData(_context.Products, newQuery);
 
             var data = _mapper.Map<List<ProductDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
 
-            
-            
             foreach (var product in data)
             {
                 product.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(product.Price, foodBusiness.DefaultCurrency);
             }
-
-            
-            
-
             return new PagedListDto<ProductDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
-
         }
     }
 }
