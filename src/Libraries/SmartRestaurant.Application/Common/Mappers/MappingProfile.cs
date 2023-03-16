@@ -44,6 +44,8 @@ using SmartRestaurant.Application.Checkins.Commands;
 using SmartRestaurant.Application.HotelServices.Commands;
 using SmartRestaurant.Application.TypeReclamation.Commands;
 using SmartRestaurant.Application.Reclamation.Commands;
+using SmartRestaurant.Application.Products.Queries;
+using SmartRestaurant.Application.Dishes.Queries;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -493,6 +495,10 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<UpdateProductCommand, Product>()
                .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Id))
                .ForMember(x => x.Picture, o => o.Ignore());
+
+            CreateMap<SynchronizeOdooProductsCommand, GetProductListQuery>().ReverseMap();
+
+            CreateMap<SynchronizeOdooDishesCommand, GetDishesListQuery>().ReverseMap();
 
             CreateMap<Product, ProductDto>()
                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));

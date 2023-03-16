@@ -118,5 +118,23 @@ namespace SmartRestaurant.API.Controllers
             };
             return await SendWithErrorsHandlingAsync(query);
         }
+
+
+        /// <summary> SynchronizeOdooProducts() </summary>
+        /// <remarks>This endpoint allows <b>restaurant manager</b> to synchronize products with odoo. The product is a menu item that can be a drink, dessert, snack...etc. </remarks>
+        /// <param name="command">This is payload object used to update a product</param>
+        /// <response code="204">The product has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to synchronize products is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(PagedListDto<ProductDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("synchronizeOdooProducts")]
+        [HttpPost]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
+        public async Task<IActionResult> SynchronizeOdooProducts([FromForm] SynchronizeOdooProductsCommand command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
+        }
     }
 }
