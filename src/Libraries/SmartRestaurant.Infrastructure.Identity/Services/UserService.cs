@@ -1,6 +1,8 @@
+using System;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Infrastructure.Identity.Enums;
 
 namespace SmartRestaurant.Infrastructure.Identity.Services
 {
@@ -14,7 +16,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Services
 
         private ClaimsPrincipal User { get; }
         private IHeaderDictionary Headers { get; }
-
+        private string oldrole { get; set; }
         public string GetUserId()
         {
             return User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -24,10 +26,19 @@ namespace SmartRestaurant.Infrastructure.Identity.Services
         {
             return Headers["Accept-Language"];
         }
-
         public string GetRoles()
         {
-            return User.FindFirst(ClaimTypes.Role).Value;
+            if (oldrole == null)
+            {
+                return User.FindFirst(ClaimTypes.Role).Value;
+            }
+            else
+                return oldrole;
+        }
+
+       public void SetNewRole(string role)
+        {
+            oldrole = role;
         }
     }
 }

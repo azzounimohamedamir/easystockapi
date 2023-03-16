@@ -30,9 +30,9 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ISaleOrderRepository _saleOrderRepository;
+        private readonly IOdooRepository _saleOrderRepository;
         public FoodBusinessClientCommandHandler(IApplicationDbContext context, IMapper mapper,
-            UserManager<ApplicationUser> userManager, ISaleOrderRepository saleOrderRepository)
+            UserManager<ApplicationUser> userManager, IOdooRepository saleOrderRepository)
         {
             _context = context;
             _mapper = mapper;

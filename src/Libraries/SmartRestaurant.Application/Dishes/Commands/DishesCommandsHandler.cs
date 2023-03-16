@@ -32,9 +32,9 @@ namespace SmartRestaurant.Application.Dishes.Commands
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        private readonly ISaleOrderRepository _saleOrderRepository;
+        private readonly IOdooRepository _saleOrderRepository;
 
-        public DishesCommandsHandler(IApplicationDbContext context, IMapper mapper, IUserService userService, ISaleOrderRepository saleOrderRepository)
+        public DishesCommandsHandler(IApplicationDbContext context, IMapper mapper, IUserService userService, IOdooRepository saleOrderRepository)
         {
             _context = context;
             _mapper = mapper;
@@ -209,17 +209,12 @@ namespace SmartRestaurant.Application.Dishes.Commands
             return await _saleOrderRepository.UpdateAsync("product.template", odooId, data);
         }
 
-        //private async Task<long> DeleteOdooDish(SmartRestaurant.Domain.Entities.FoodBusiness foodBusiness, long odooId)
-        //{
-        //    await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
-
-        //    return await _saleOrderRepository.DeleteAsync("product.template", odooId);
-        //}
+       
 
         private async Task<long> getDishCategoryId()
         {
             var result = await _saleOrderRepository.Search<List<int>>("pos.category", "name", "dish", 1);
-            long categoryId;
+            long categoryId=0;
             if (result.Count > 0)
             {
                 categoryId = result[0];

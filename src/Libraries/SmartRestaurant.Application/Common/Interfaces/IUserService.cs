@@ -1,3 +1,5 @@
+using System;
+
 namespace SmartRestaurant.Application.Common.Interfaces
 {
     public interface IUserService
@@ -5,5 +7,6 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public string GetUserLanguage();
         public string GetUserId();
         public string GetRoles();
+        public void SetNewRole(string role);
     }
 }

@@ -86,7 +86,7 @@ namespace SmartRestaurant.API.Controllers
         /// </response>
         [ProducesResponseType(typeof(FoodBusinessClientDto), 200)]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin,Diner")]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SupportAgent,SuperAdmin,Diner,HotelServiceAdmin")]
         public Task<IActionResult> GetFoodBusinesClientList(int page, int pageSize)
         {
             return SendWithErrorsHandlingAsync(new GetFoodBusinesClientListQuery { Page = page, PageSize = pageSize });

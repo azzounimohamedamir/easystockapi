@@ -25,8 +25,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
             var createZoneCommand = await ZoneTestTools.CreateZone(fastFood);
             var selectedTabelId = "44aecd78-59bb-7504-bfff-07c07129ab00";
-            await CreateTable(createZoneCommand, selectedTabelId);
-            
+            await TablesTestTools.CreateTableWithId(createZoneCommand, selectedTabelId);
             var createIngredientCommand = await IngredientTestTools.CreateIngredient();
             var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
             var createProductCommand = await ProductTestTools.CreateProduct(fastFood.FoodBusinessId);
@@ -42,15 +41,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
             Assert.AreEqual(lastOrder.OrderId, createOrderCommand2.Id.ToString());
         }
 
-        private static async Task CreateTable(CreateZoneCommand createZoneCommand, string idTable)
-        {
-            var createTableCommand01 = new CreateTableCommand
-            {
-                Id = Guid.Parse(idTable),
-                Capacity = 4,
-                ZoneId = createZoneCommand.Id.ToString()
-            };
-            await SendAsync(createTableCommand01);
-        }
+       
     }
 }
