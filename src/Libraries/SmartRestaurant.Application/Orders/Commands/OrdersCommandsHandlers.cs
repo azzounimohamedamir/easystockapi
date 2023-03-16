@@ -375,20 +375,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			.AsNoTracking()
 			.FirstOrDefaultAsync(o => o.OrderId == order.OrderId, cancellationToken)
 			.ConfigureAwait(false);
-			if (order.FoodBusiness.Odoo != null)
-			{
-				await CreateOrderInOdoo(newOrder); // create order odoo
-			}
-			else
-			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-				// Dispose of the logger
-				logger.Close();
-			}
+			
 			return _mapper.Map<OrderDto>(newOrder);
 		}
 
@@ -476,6 +463,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			if (!result.IsValid) throw new ValidationException(result);
 
 			var order = await _context.Orders
+				.Include(o => o.FoodBusiness)
 				.Include(o => o.Dishes)
 				.ThenInclude(o => o.Specifications)
 				.ThenInclude(o => o.ComboBoxContentTranslation)
@@ -508,7 +496,10 @@ namespace SmartRestaurant.Application.Orders.Commands
 			 if (order.Status == OrderStatuses.Cancelled){
 				await addOrderNotifications(order.OrderId.ToString(), order.FoodBusinessId.ToString(), OrderNotificationType.Cancel, cancellationToken);
 				await UpdateDishesAndProductQuantityOnRemoveOrder(order);
-				if (order.FoodBusiness.Odoo != null)
+				
+			}
+			if (order.Status == OrderStatuses.InQueue){
+			if (order.FoodBusiness.Odoo != null)
 				{
 					await _saleOrderRepository.Authenticate(order.FoodBusiness.Odoo); // auth in odoo
 					await UpdateOrderStateInOdoo(order.OrderId.ToString(), "cancel",order);
@@ -523,7 +514,24 @@ namespace SmartRestaurant.Application.Orders.Commands
 					// Dispose of the logger
 					logger.Close();
 				}
+			 }
+			 
+			 if (order.Status == OrderStatuses.InProgress){
+		if (order.FoodBusiness.Odoo != null)
+			{
+				await CreateOrderInOdoo(order); // create order odoo
 			}
+			else
+			{
+				// Create a new instance of the logger
+				TraceSource logger = new TraceSource("odoo");
+				// Log an error
+				logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
+
+				// Dispose of the logger
+				logger.Close();
+			}
+			 }
 
 			await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
@@ -1269,6 +1277,8 @@ namespace SmartRestaurant.Application.Orders.Commands
 					saleOrderDict
 				);
 				await CreateOdooOrderSaleLines(order, saleOrderId);
+				await UpdateOrderStateInOdoo(order.OrderId.ToString(),"sale.order" ,"sale");// set odoo order paid bon de commande
+				
 			}
 			else
 			{
@@ -1289,6 +1299,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 					saleOrderDict
 				);
 				await CreateOdooOrderLines(order, saleOrderId);
+			
 			}
 		}
 
@@ -1347,7 +1358,8 @@ namespace SmartRestaurant.Application.Orders.Commands
 						{ "product_uom_qty", dishLine.Quantity },
 						{ "price_unit", dishLine.UnitPrice },
 						{ "product_id", dishLine.OdooId },
-						 {"tax_id", null}
+						 {"tax_id", null},
+						 
 						
 					};
 					await _saleOrderRepository.CreateAsync("sale.order.line", orderLineDish);
@@ -1371,6 +1383,28 @@ namespace SmartRestaurant.Application.Orders.Commands
 					await _saleOrderRepository.CreateAsync("sale.order.line", orderLineProduct); // add product in odoo order
 				}
 			}
+		}
+		
+		private async Task<long> UpdateOrderStateInOdoo(String orderId,string model , string state)
+		{
+			var result = await _saleOrderRepository.Search<List<int>>(model, "name", orderId, 1);
+			long Id;
+			if (result.Count > 0)
+			{
+				Id = result[0];
+				var data = new Dictionary<string, object>
+			{
+				{ "state", state}
+
+			};
+				await _saleOrderRepository.UpdateAsync(model, Id, data);
+				return Id;
+			}
+			else
+			{
+				throw new ConflictException("Sorry,this order not exist in odoo for updated it");
+			}
+
 		}
 	
 	

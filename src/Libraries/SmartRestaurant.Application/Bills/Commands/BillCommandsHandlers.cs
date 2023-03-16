@@ -124,12 +124,12 @@ namespace SmartRestaurant.Application.Bills.Commands
 			
 			if(order.FoodBusinessClientId != null)
 			{
-				await UpdateOrderInOdoo(order.OrderId.ToString(),"sale.order" ,"sale");// set odoo order paid bon de commande
+				await UpdateOrderStateInOdoo(order.OrderId.ToString(),"sale.order" ,"sale");// set odoo order paid bon de commande
 			}else
 			
 			{
 				
-				var Id = await UpdateOrderInOdoo(order.OrderId.ToString(),"pos.order", "paid");// set odoo order paid
+				var Id = await UpdateOrderStateInOdoo(order.OrderId.ToString(),"pos.order", "paid");// set odoo order paid
 
 				var saleOrderDict = new Dictionary<string, object>
 						{	
@@ -161,7 +161,7 @@ namespace SmartRestaurant.Application.Bills.Commands
 
         }
 
-		private async Task<long> UpdateOrderInOdoo(String orderId,string model , string state)
+		private async Task<long> UpdateOrderStateInOdoo(String orderId,string model , string state)
 		{
 			var result = await _saleOrderRepository.Search<List<int>>(model, "name", orderId, 1);
 			long Id;
@@ -178,7 +178,16 @@ namespace SmartRestaurant.Application.Bills.Commands
 			}
 			else
 			{
-				throw new ConflictException("Sorry,this order not exist in odoo for updated it");
+                // Create a new instance of the logger
+                TraceSource logger = new TraceSource("odoo");
+                // Log an error
+                logger.TraceEvent(TraceEventType.Error, 0, "Sorry,this order not exist in odoo for updated it");
+
+                // Dispose of the logger
+                logger.Close();
+
+				return 0;
+             
 			}
 
 		}
