@@ -25,6 +25,8 @@ using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
 using SmartRestaurant.Domain.ValueObjects;
 using Newtonsoft.Json.Linq;
+using EllipticCurve.Utils;
+
 namespace SmartRestaurant.Application.Orders.Commands
 {
 	public class OrdersCommandsHandlers :
@@ -1160,7 +1162,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			return Id;
 		}
 
-		private async Task UpdateOrderStateInOdoo(String orderId, string state,Order order)
+		private async Task UpdateOrderStateInOdoo(string orderId, string state,Order order)
 		{
 			string model = "pos.order";
 
@@ -1385,7 +1387,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			}
 		}
 		
-		private async Task<long> UpdateOrderStateInOdoo(String orderId,string model , string state)
+		private async Task<long> UpdateOrderStateInOdoo(string orderId,string model , string state)
 		{
 			var result = await _saleOrderRepository.Search<List<int>>(model, "name", orderId, 1);
 			long Id;
