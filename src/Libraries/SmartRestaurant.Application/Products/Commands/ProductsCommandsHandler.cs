@@ -238,6 +238,10 @@ namespace SmartRestaurant.Application.Products.Commands
                                 product.Price = float.Parse(p[0]["list_price"].ToString());
                                 product.IsQuantityChecked = p[0]["detailed_type"].ToString() == "product" ? true : false;
                                 product.Picture = Convert.FromBase64String(p[0]["image_512"].ToString());
+                                if (p[0]["detailed_type"].ToString() == "product")
+                                {
+                                    product.Quantity = int.Parse(p[0]["virtual_available"].ToString());
+                                }
                                 _context.Products.Update(product);
                             }
                             else
@@ -252,6 +256,10 @@ namespace SmartRestaurant.Application.Products.Commands
                                     product.Price = float.Parse(p[0]["list_price"].ToString());
                                     product.IsQuantityChecked = p[0]["detailed_type"].ToString() == "product" ? true : false;
                                     product.Picture = Convert.FromBase64String(p[0]["image_512"].ToString());
+                                    if (p[0]["detailed_type"].ToString() == "product")
+                                    {
+                                        product.Quantity = int.Parse(p[0]["virtual_available"].ToString());
+                                    }
                                     _context.Products.Update(product);
                                 }
 
