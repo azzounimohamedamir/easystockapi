@@ -24,21 +24,18 @@ namespace SmartRestaurant.Infrastructure.Services
 		public async Task<bool> Authenticate(Odoo info)
 		{
 			try
-	{
-			var odooConnectionInfo = new OdooConnectionInfo
 			{
-				Host = info.Url,
-				Database = info.Db,
-				Username = info.Username,
-				Password = info.Password
-			};
-			_client = new OdooRpcClient(odooConnectionInfo);
-			await _client.Authenticate();
-			if (!_client.SessionInfo.IsLoggedIn)
-			{
-				throw new Exception("Failed to login with to Odoo");
-			}
-			return _client.SessionInfo.IsLoggedIn;
+				var odooConnectionInfo = new OdooConnectionInfo
+				{
+					Host = info.Url,
+					Database = info.Db,
+					Username = info.Username,
+					Password = info.Password
+				};
+				_client = new OdooRpcClient(odooConnectionInfo);
+				await _client.Authenticate();
+
+				return _client.SessionInfo.IsLoggedIn;
 			}
 			catch (Exception ex)
 			{
@@ -110,7 +107,8 @@ namespace SmartRestaurant.Infrastructure.Services
 				{
 					Limit = limit,
 				};
-				return await _client.Search<T>(searchParams, pagination);
+                var result = await _client.Search<T>(searchParams, pagination);
+                return result;
 			}
 			catch (Exception exe)
 			{

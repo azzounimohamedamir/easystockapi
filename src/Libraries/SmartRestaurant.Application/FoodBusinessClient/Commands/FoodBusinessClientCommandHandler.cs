@@ -188,7 +188,7 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
             }
             else
             {
-                return -1;
+                return 0;
             }
 
             
