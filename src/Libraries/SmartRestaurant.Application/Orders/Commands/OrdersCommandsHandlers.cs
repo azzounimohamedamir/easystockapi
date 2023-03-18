@@ -25,6 +25,9 @@ using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
 using SmartRestaurant.Domain.ValueObjects;
 using Newtonsoft.Json.Linq;
+using EllipticCurve.Utils;
+using MailKit.Search;
+
 namespace SmartRestaurant.Application.Orders.Commands
 {
 	public class OrdersCommandsHandlers :
@@ -340,12 +343,13 @@ namespace SmartRestaurant.Application.Orders.Commands
 				order = _mapper.Map<Order>(newrequest);
 			}
 
-		   order = PopulatFromLocalDishesAndProducts(order);
-		   await UpdateDishesAndProductQuantityOnCreateOrder(order);// gestion de stock
+		    order = PopulatFromLocalDishesAndProducts(order);
+            await UpdateDishesAndProductQuantityOnCreateOrder(order, foodBusiness);// gestion de stock
 
 
 
-			order.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
+
+            order.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
 			order.CreatedAt = DateTime.Now;
 
 			ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(order, CreateAction);
@@ -375,8 +379,8 @@ namespace SmartRestaurant.Application.Orders.Commands
 			.AsNoTracking()
 			.FirstOrDefaultAsync(o => o.OrderId == order.OrderId, cancellationToken)
 			.ConfigureAwait(false);
-			
-			return _mapper.Map<OrderDto>(newOrder);
+        
+            return _mapper.Map<OrderDto>(newOrder);
 		}
 
 	   
@@ -431,7 +435,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			CalculateAndSetOrderEnergeticValues(order);
 			CalculateAndSetOrderTotalPrice(order, order.FoodBusiness);
 			_context.Orders.Update(order);
-			await  UpdateDishesAndProductQuantityOnCreateOrder(order); //  new order increase quantity
+			await  UpdateDishesAndProductQuantityOnCreateOrder(order, order.FoodBusiness); //  new order increase quantity
 			await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 			var orderDto = _mapper.Map<OrderDto>(order);
 			if (order.FoodBusiness.Odoo != null)
@@ -975,8 +979,9 @@ namespace SmartRestaurant.Application.Orders.Commands
 			return default;
 		}
 
-		private async Task UpdateDishesAndProductQuantityOnCreateOrder(Order order)
+		private async Task UpdateDishesAndProductQuantityOnCreateOrder(Order order , Domain.Entities.FoodBusiness foodBusiness )
 		{
+			await _saleOrderRepository.Authenticate(foodBusiness.Odoo); // auth in odoo
 			var dishes = order.Dishes.GroupBy(d => d.DishId).Select(g => new
 			{
 				DishId = g.First().DishId,
@@ -996,6 +1001,25 @@ namespace SmartRestaurant.Application.Orders.Commands
 				var dishUpdated = await _context.Dishes.FindAsync(Guid.Parse(dish.DishId));
 				if (dishUpdated == null)
 					throw new NotFoundException(nameof(Dishes), dish.DishId);
+					
+					if (dishUpdated.SyncFromOdoo) // if SyncFromOdoo
+				{
+					var result = await _saleOrderRepository.Read<List<Dictionary<string, object>>>(
+						"product.template",
+						dishUpdated.OdooId
+					); // get product quantity availale
+				 
+					int quantity = 0;
+					if (result.Count > 0)
+					{
+						quantity = (int) result[0]["virtual_available"];
+					}
+
+						if ((quantity - (int) dish.Quantity) < 0) // trow if execption if not availibe
+					{
+						throw new ConflictException("Sorry, you can not take this quantity : " + dish.Quantity + " , issue quantity ( odoo ). ");
+					}
+				}else
 
 				if (dishUpdated.IsQuantityChecked && dishUpdated.Quantity > 0)
 				{
@@ -1031,6 +1055,27 @@ namespace SmartRestaurant.Application.Orders.Commands
 				var productUpdated = await _context.Products.FindAsync(Guid.Parse(product.ProductId));
 				if (productUpdated == null)
 					throw new NotFoundException(nameof(Products), product.ProductId);
+
+				if (productUpdated.SyncFromOdoo) // if SyncFromOdoo
+				{
+					var result = await _saleOrderRepository.Read<List<Dictionary<string, object>>>(
+						"product.template",
+						productUpdated.OdooId
+					); // get product quantity availale
+				 
+					
+					if (result.Count > 0)
+					{
+                        int quantity = 0;
+                        quantity = (int)int.Parse(result[0]["virtual_available"].ToString());
+                        if ((quantity - (int)product.Quantity) < 0) // trow if execption if not availibe
+                        {
+                            throw new ConflictException("Sorry, you can not take this quantity : " + product.Quantity + " , issue quantity ( odoo ). ");
+                        }
+                    }
+
+					
+				}
 
 
 				if (productUpdated.IsQuantityChecked && productUpdated.Quantity > 0)
@@ -1160,7 +1205,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			return Id;
 		}
 
-		private async Task UpdateOrderStateInOdoo(String orderId, string state,Order order)
+		private async Task UpdateOrderStateInOdoo(string orderId, string state,Order order)
 		{
 			string model = "pos.order";
 
@@ -1277,7 +1322,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 					saleOrderDict
 				);
 				await CreateOdooOrderSaleLines(order, saleOrderId);
-				await UpdateOrderStateInOdoo(order.OrderId.ToString(),"sale.order" ,"sale");// set odoo order paid bon de commande
+				await UpdateOrderStateInOdoo(order.OrderId.ToString(),"sale.order" ,"sale");// set odoo order " bon de commande "
 				
 			}
 			else
@@ -1385,7 +1430,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			}
 		}
 		
-		private async Task<long> UpdateOrderStateInOdoo(String orderId,string model , string state)
+		private async Task<long> UpdateOrderStateInOdoo(string orderId,string model , string state)
 		{
 			var result = await _saleOrderRepository.Search<List<int>>(model, "name", orderId, 1);
 			long Id;
