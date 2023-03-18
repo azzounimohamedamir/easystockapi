@@ -22,7 +22,7 @@ namespace SmartRestaurant.Infrastructure
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
             services.AddTransient < IFirebaseRepository, FirebaseRepository> ();
             services.AddTransient<IDateTime, DateTimeService>();
-            services.AddTransient<ISaleOrderRepository, OdooSaleOrderRepository>();
+            services.AddTransient<IOdooRepository, OdooRepository>();
             services.AddTransient<IEmailSender, EmailHelper>();
             return services;
         }

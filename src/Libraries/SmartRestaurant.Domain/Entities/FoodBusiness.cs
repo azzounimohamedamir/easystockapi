@@ -33,7 +33,7 @@ namespace SmartRestaurant.Domain.Entities
         public string FarLocationDescription { get; set; }
         public decimal FarLocationPrice { get; set; }
         public virtual IList<FoodBusinessUserRating> Ratings { get; set; }
-  public bool IsMenuItemDetailed { get; set; }
+        public bool IsMenuItemDetailed { get; set; }
 
     }
 }

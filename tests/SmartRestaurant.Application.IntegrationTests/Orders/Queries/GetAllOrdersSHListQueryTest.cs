@@ -41,7 +41,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
             var createRestaurantMallService = await HotelServicesTestTools.CreateHotelServiceBySectionId(createSheratonMallSection.Id, fastFood.FoodBusinessId.ToString());
             var checkin = await CheckInsTestTools.CreateCheckinForClient(hotel.Id, client.Id, room.Id);
             var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
-            var createProductCommand = await ProductTestTools.CreateProduct();
+            var createProductCommand = await ProductTestTools.CreateProduct(fastFood.FoodBusinessId);
 
             var OrderSHForRestauranthotelDinIn = await OrderTestTools.CreateOrderSH(createDishCommand, createProductCommand, fastFood, createRestaurantMallService, checkin, hotel);
             ConfigureRoleClient(Roles.Diner.ToString());
