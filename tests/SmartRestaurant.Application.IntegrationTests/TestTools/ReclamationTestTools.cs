@@ -17,29 +17,33 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
     using static Testing;
     public class ReclamationTestTools
     {
-        public static async Task<CreateTypeReclamationCommand> CreateTypeReclamation(string name,Guid hotelId)
+        public static async Task<CreateTypeReclamationCommand> CreateTypeReclamation(string name,Guid hotelId,Guid serviceTechniqueId)
         {
 
             var createtypereclamationcommand = new CreateTypeReclamationCommand
             {
                 HotelId=hotelId,
                 Names = new NamesDto() { AR = "عطل", EN = "panne", FR = "panne", TR = "panne", RU = "panne" },
-                Name = name
+                Name = name,
+                Delai=5,
+                ServiceTechniqueId=serviceTechniqueId
             };
             await SendAsync(createtypereclamationcommand);
             return createtypereclamationcommand;
         }
 
-        public static async Task<Domain.Entities.Reclamation> CreateReclamation(string checkinId ,string clientId , Guid hotelId , string roomId , DateTime reclamationTime)
+        public static async Task<Domain.Entities.Reclamation> CreateReclamation(string checkinId ,string clientId , Guid hotelId , string roomId , DateTime reclamationTime , Guid typereclamationId)
         {
 
 
             var createreclamationcommand = new CreateReclamationCommand
             {
-                ClientId=clientId,
-                CheckinId=checkinId,
-                RoomId=roomId,
-                CreatedAt= reclamationTime,
+                ClientId = clientId,
+                CheckinId = checkinId,
+                RoomId = roomId,
+                CreatedAt = reclamationTime,
+                TypeReclamationId = typereclamationId.ToString(),
+                
                 ReclamationDescription = new NamesDto() { AR = "عطل", EN = "panne", FR = "panne", TR = "panne", RU = "panne" },
                 Status=ReclamationStatus.NotResolved
     };

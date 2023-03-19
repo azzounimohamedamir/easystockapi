@@ -20,8 +20,9 @@ namespace SmartRestaurant.Application.IntegrationTests.type
             var foodbusinessManager = await UsersTestTools.CreateFoodBusinessManager();
 
             var hotel = await HotelTestTools.CreateHotel(foodbusinessManager.Id, "Sofitel");
+            var serviceTechnique = await ServiceTechniqueTestTools.CreateServiceTechnique(hotel.Id);
 
-            var createTypeReclamationCommand = await ReclamationTestTools.CreateTypeReclamation("panne",hotel.Id);
+            var createTypeReclamationCommand = await ReclamationTestTools.CreateTypeReclamation("panne",hotel.Id,serviceTechnique.Id);
             var item = await FindAsync<Domain.Entities.TypeReclamation>(createTypeReclamationCommand.Id);
 
             item.Should().NotBeNull();

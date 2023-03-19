@@ -5,20 +5,18 @@ using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 
 namespace SmartRestaurant.Application.TypeReclamation.Commands
 {
-    public class CreateTypeReclamationCommand : CreateCommand
+    public class UpdateServiceTechniqueCommand : UpdateCommand
     {
         public Guid HotelId { get; set; }
-        public Guid ServiceTechniqueId { get; set; }
         public string Name { get; set; }
-        public int Delai { get; set; }
         public NamesDto Names { get; set; }
     }
 
-    public class CreateTypeReclamationCommandValidator : AbstractValidator<CreateTypeReclamationCommand>
+    public class UpdateServiceTechniqueCommandValidator : AbstractValidator<UpdateServiceTechniqueCommand>
     {
-        public CreateTypeReclamationCommandValidator()
+        public UpdateServiceTechniqueCommandValidator()
         {
-            RuleFor(m => m.Name).NotEmpty().MaximumLength(200);
+
             RuleFor(v => v.Names)
               .Cascade(CascadeMode.StopOnFirstFailure)
               .NotNull()
@@ -48,8 +46,9 @@ namespace SmartRestaurant.Application.TypeReclamation.Commands
                    .NotEmpty()
                    .MaximumLength(200);
               });
-            RuleFor(l => l.HotelId).NotEmpty().NotEqual(Guid.Empty).WithMessage("'{PropertyName}' must be a valid GUID"); ;
+            RuleFor(l => l.HotelId).NotEmpty().NotEqual(Guid.Empty).WithMessage("'{PropertyName}' must be a valid GUID");
 
         }
+
     }
 }

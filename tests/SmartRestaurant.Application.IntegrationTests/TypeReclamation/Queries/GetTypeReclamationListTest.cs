@@ -9,7 +9,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TypeReclamation.Queries
 {
     using static Testing;
 
-    public class GetTypeReclamationListTest : TestBase
+    public class GetAllReclamationTypeListTest : TestBase
     {
         [Test]
         public async Task ShouldReturnAllReclamationTypeListTest()
@@ -18,8 +18,9 @@ namespace SmartRestaurant.Application.IntegrationTests.TypeReclamation.Queries
             var foodbusinessManager = await UsersTestTools.CreateFoodBusinessManager();
 
             var hotel = await HotelTestTools.CreateHotel(foodbusinessManager.Id, "Sofitel");
+            var serviceTechnique = await ServiceTechniqueTestTools.CreateServiceTechnique(hotel.Id);
 
-            var createTypeReclamationCommand = await ReclamationTestTools.CreateTypeReclamation("panne", hotel.Id);
+            var createTypeReclamationCommand = await ReclamationTestTools.CreateTypeReclamation("panne", hotel.Id, serviceTechnique.Id);
 
             var query = new GetTypeReclamationListQuery { HotelId = hotel.Id.ToString(), Page = 1 , PageSize=10 };
 

@@ -111,7 +111,7 @@ namespace SmartRestaurant.Application.Common.Tools
 
             var regex =
                 $"^(?:{Roles.FoodBusinessManager.ToString()}" +
-                $"|{Roles.Chef.ToString()}" + $"|{Roles.HotelServiceAdmin.ToString()}"+ $"|{Roles.HotelReceptionist.ToString()}"+
+                $"|{Roles.Chef.ToString()}" + $"|{Roles.HotelServiceAdmin.ToString()}"+ $"|{Roles.HotelReceptionist.ToString()}"+ $"|{Roles.HotelServiceTechnique.ToString()}"+
                 $"|{Roles.Cashier.ToString()}" +
                 $"|{Roles.Waiter.ToString()})$";
             return new Regex(regex).Match(role).Success;

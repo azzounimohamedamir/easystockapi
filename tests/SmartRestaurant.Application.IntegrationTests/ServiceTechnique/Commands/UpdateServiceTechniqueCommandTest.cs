@@ -11,35 +11,31 @@ namespace SmartRestaurant.Application.IntegrationTests.TypeReclamation
     using static Testing;
 
     [TestFixture]
-    public class UpdateTypeReclamationCommandTest : TestBase
+    public class UpdateServiceTechniqueCommandTest : TestBase
     {
         [Test]
-        public async Task UpdateTypeReclamationCommand_ShouldUpdateInDB()
+        public async Task UpdateServiceTechniqueCommandTest_ShouldUpdateInDB()
         {
             await RolesTestTools.CreateRoles();
             var foodbusinessManager = await UsersTestTools.CreateFoodBusinessManager();
 
             var hotel = await HotelTestTools.CreateHotel(foodbusinessManager.Id, "Sofitel");
-            var serviceTechnique = await ServiceTechniqueTestTools.CreateServiceTechnique(hotel.Id);
-
-            var createtypeReclamationCommand = await ReclamationTestTools.CreateTypeReclamation("panne",hotel.Id,serviceTechnique.Id); ;
-            await SendAsync(new UpdateTypeReclamationCommand
+            var createserviceTech = await ServiceTechniqueTestTools.CreateServiceTechnique(hotel.Id); ;
+            await SendAsync(new UpdateServiceTechniqueCommand
             {
-                Id = createtypeReclamationCommand.Id,
+                Id = createserviceTech.Id,
                 HotelId=hotel.Id,
-                Names = new Common.Dtos.ValueObjects.NamesDto() { AR = "AR", EN = "EN", FR = "FR", TR = "TR", RU = "RU" },
-                Name = "Panne 2"
+                Names = new Common.Dtos.ValueObjects.NamesDto() { AR = "AR", EN = "EN", FR = "FR", TR = "TR", RU = "RU" }
             });
-            var item = await FindAsync<Domain.Entities.TypeReclamation>(createtypeReclamationCommand.Id);
+            var item = await FindAsync<Domain.Entities.ServiceTechnique>(createserviceTech.Id);
 
             item.Should().NotBeNull();
-            item.Name.Should().Be("Panne 2");
             item.Names.AR.Should().Be("AR");
             item.Names.EN.Should().Be("EN");
             item.Names.FR.Should().Be("FR");
             item.Names.TR.Should().Be("TR");
             item.Names.RU.Should().Be("RU");
-            item.TypeReclamationId.Should().Be(createtypeReclamationCommand.Id);
+            item.HotelId.Should().Be(hotel.Id);
         }
     }
 }

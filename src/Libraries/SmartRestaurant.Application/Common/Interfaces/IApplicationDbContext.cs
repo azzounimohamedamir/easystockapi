@@ -29,6 +29,8 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<SectionDish> SectionDishes { get; set; }
         public DbSet<SectionProduct> SectionProducts { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<ServiceTechnique> ServiceTechniques { get; set; }
+
         public DbSet<IlnessUser> ilnessUsers { get; set; }
         public DbSet<Domain.Entities.TypeReclamation> TypeReclamations { get; set; }
 
