@@ -26,7 +26,7 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections.Queries
             var createSubSectionCommand = await SubSectionTestTools.CreateSubSection(createSectionCommand);
 
             var createDishCommand = await CreateDish(fastFood);
-            var createProductCommand = await ProductTestTools.CreateProduct();
+            var createProductCommand = await ProductTestTools.CreateProduct(fastFood.FoodBusinessId);
 
             await AddDishToSubSection(createSubSectionCommand, createDishCommand);
             await AddProductToSubSection(createSubSectionCommand, createProductCommand);

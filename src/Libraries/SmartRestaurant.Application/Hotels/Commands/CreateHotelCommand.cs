@@ -22,6 +22,8 @@ namespace SmartRestaurant.Application.Hotels.Commands
         public string Description { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
+
+          public OdooDto Odoo { get; set; }
         public string? Website { get; set; }
         public string? YoutubeLink { get; set; }
     }
@@ -85,6 +87,8 @@ namespace SmartRestaurant.Application.Hotels.Commands
                       .Cascade(CascadeMode.StopOnFirstFailure)
                       .NotEmpty()
                       .MaximumLength(200);
+
+                    
 
 
 

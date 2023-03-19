@@ -102,9 +102,9 @@ namespace SmartRestaurant.Application.Hotels.Queries
             var entity = await _applicationDbContext.Hotels.Include(o => o.DetailsSections).Where(u => u.Id == request.Id)
                  .FirstOrDefaultAsync().ConfigureAwait(false);
 
-            var foodBusinessDto = _mapper.Map<HotelDto>(entity);
+            var hotelDto = _mapper.Map<HotelDto>(entity);
           
-            return foodBusinessDto;
+            return hotelDto;
         }
     }
 }

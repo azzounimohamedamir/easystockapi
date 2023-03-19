@@ -13,6 +13,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public string Name { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
+        public OdooDto Odoo { get; set; }
         public string Description { get; set; }
         public bool HasCarParking { get; set; }
         public bool IsHandicapFriendly { get; set; }
@@ -37,7 +38,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
         public decimal NearbyLocationPrice { get; set; }
         public string FarLocationDescription { get; set; }
         public decimal FarLocationPrice { get; set; }
-    public bool IsMenuItemDetailed { get; set; }
+        public bool IsMenuItemDetailed { get; set; }
 
         
     }
@@ -119,6 +120,9 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
              .NotEmpty();
             RuleFor(foodBusiness => foodBusiness.FarLocationPrice)
             .NotEmpty();
+
+
+             
         }
     }
 }
