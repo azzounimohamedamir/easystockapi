@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using NUnit.Framework;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
+using SmartRestaurant.Application.Orders.Commands;
 using SmartRestaurant.Application.Reclamation.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
@@ -15,11 +16,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Reclamations
     using static Testing;
 
     [TestFixture]
-    public class UpdateReclamationCommandTest : TestBase
+    public class HideReclamationCommandTest : TestBase
     {
 
         [Test]
-        public async Task UpdateReclamationCommand_ShouldUpdateInDB()
+        public async Task HideReclamationCommand_ShouldUpdateInDB()
         {
             await RolesTestTools.CreateRoles();
             var client = await UsersTestTools.CreateClient(_authenticatedUserId);
@@ -34,27 +35,20 @@ namespace SmartRestaurant.Application.IntegrationTests.Reclamations
 
             var typereclamation = await ReclamationTestTools.CreateTypeReclamation("no wifi", hotel.Id, serviceTechnique.Id);
             ConfigureDateTimeNow(reclamationTime);
-            var reclamation = await ReclamationTestTools.CreateReclamation(checkin.Id.ToString(), client.Id, hotel.Id, room.Id.ToString(),reclamationTime,typereclamation.Id);
+            var reclamation = await ReclamationTestTools.CreateReclamation(checkin.Id.ToString(), client.Id, hotel.Id, room.Id.ToString(), reclamationTime, typereclamation.Id);
 
 
-            var updatereclamationcommand = new UpdateReclamationCommand
+            var hidereclamationcommand = new HideReclamationCommand
             {
-               Id= reclamation.Id,
-                ReclamationDescription = new NamesDto() { AR = "AR", EN = "EN", FR = "FR", TR = "TR", RU = "RU" },
+                Id = reclamation.Id.ToString()
             };
+            await SendAsync(hidereclamationcommand);
 
-            byte[] imageBytes = Properties.Resources.food;
-            using (var castStream = new MemoryStream(imageBytes))
-            {
-                updatereclamationcommand.Picture = new FormFile(castStream, 0, imageBytes.Length, "logo", "climatiseur.png");
-                await SendAsync(updatereclamationcommand);
-            };
-
-            var item = await FindAsync<Domain.Entities.Reclamation>(updatereclamationcommand.Id);
+            var item = await FindAsync<Domain.Entities.Reclamation>(Guid.Parse(hidereclamationcommand.Id));
 
             item.Should().NotBeNull();
-          
-            item.Id.Should().Be(updatereclamationcommand.Id);
+            item.IsHidden.Should().BeTrue();
+            item.Id.Should().Be(hidereclamationcommand.Id);
         }
     }
 }

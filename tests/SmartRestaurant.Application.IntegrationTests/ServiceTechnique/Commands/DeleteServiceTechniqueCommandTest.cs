@@ -2,6 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 using SmartRestaurant.Application.IntegrationTests.TestTools;
+using SmartRestaurant.Application.ServiceTechniqueDestination.Commands;
 using SmartRestaurant.Application.TypeReclamation.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
@@ -11,20 +12,18 @@ namespace SmartRestaurant.Application.IntegrationTests.TypeReclamation
     using static Testing;
 
     [TestFixture]
-    public class DeleteTypeReclamationCommandTest : TestBase
+    public class DeleteServiceTechniqueCommandTest : TestBase
     {
         [Test]
-        public async Task DeleteTypeReclamation_ShouldRemoveFromDb()
+        public async Task DeleteServiceTechniqueCommandTest_ShouldRemoveFromDb()
         {
             await RolesTestTools.CreateRoles();
             var foodbusinessManager = await UsersTestTools.CreateFoodBusinessManager();
 
             var hotel = await HotelTestTools.CreateHotel(foodbusinessManager.Id, "Sofitel");
-            var serviceTechnique = await ServiceTechniqueTestTools.CreateServiceTechnique(hotel.Id);
-
-            var createTypeReclamation = await ReclamationTestTools.CreateTypeReclamation("Panne",hotel.Id, serviceTechnique.Id);
-            await SendAsync(new DeleteTypeReclamationCommand {Id = createTypeReclamation.Id});
-            var item = await FindAsync<Section>(createTypeReclamation.Id);
+            var createServiceTech = await ServiceTechniqueTestTools.CreateServiceTechnique(hotel.Id);
+            await SendAsync(new DeleteServiceTechniqueCommand {Id = createServiceTech.Id});
+            var item = await FindAsync<Section>(createServiceTech.Id);
             item.Should().BeNull();
         }
     }

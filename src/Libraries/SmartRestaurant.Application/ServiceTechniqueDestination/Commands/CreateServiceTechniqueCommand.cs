@@ -3,22 +3,18 @@ using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos.ValueObjects;
 
-namespace SmartRestaurant.Application.TypeReclamation.Commands
+namespace SmartRestaurant.Application.ServiceTechniqueDestination.Commands
 {
-    public class CreateTypeReclamationCommand : CreateCommand
+    public class CreateServiceTechniqueCommand : CreateCommand
     {
         public Guid HotelId { get; set; }
-        public Guid ServiceTechniqueId { get; set; }
-        public string Name { get; set; }
-        public int Delai { get; set; }
         public NamesDto Names { get; set; }
     }
 
-    public class CreateTypeReclamationCommandValidator : AbstractValidator<CreateTypeReclamationCommand>
+    public class CreateServiceTechniqueCommandValidator : AbstractValidator<CreateServiceTechniqueCommand>
     {
-        public CreateTypeReclamationCommandValidator()
+        public CreateServiceTechniqueCommandValidator()
         {
-            RuleFor(m => m.Name).NotEmpty().MaximumLength(200);
             RuleFor(v => v.Names)
               .Cascade(CascadeMode.StopOnFirstFailure)
               .NotNull()

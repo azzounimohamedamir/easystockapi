@@ -11,6 +11,8 @@ namespace SmartRestaurant.Application.Reclamation.Commands
     public class UpdateReclamationCommand : UpdateCommand
     {
         public NamesDto ReclamationDescription { get; set; }
+        public string TypeReclamationId { get; set; }
+
         public IFormFile Picture { get; set; }
     }
     public class UpdateReclamationCommandValidator : AbstractValidator<UpdateReclamationCommand>

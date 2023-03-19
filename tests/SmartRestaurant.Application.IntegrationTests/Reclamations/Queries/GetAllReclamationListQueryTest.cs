@@ -26,13 +26,16 @@ namespace SmartRestaurant.Application.IntegrationTests.Reclamations.Queries
             var room2 = await RoomTestTools.CreateRoomForClient(5, building2.Id, client.Id);
             var checkin = await CheckInsTestTools.CreateCheckinForClient(hotel.Id, client.Id, room.Id);
             var checkin2 = await CheckInsTestTools.CreateCheckinForClient(hotel2.Id, client.Id, room2.Id);
+            var serviceTechnique = await ServiceTechniqueTestTools.CreateServiceTechnique(hotel.Id);
+
+            var typereclamation = await ReclamationTestTools.CreateTypeReclamation("no wifi", hotel.Id, serviceTechnique.Id);
 
             DateTime reclamationTime1 = new DateTime(2023, 3, 9, 16, 10, 7, 123);
             ConfigureDateTimeNow(reclamationTime1);
-            var reclamationFromHotel1 = await ReclamationTestTools.CreateReclamation(checkin.Id.ToString(),client.Id, hotel.Id, room.Id.ToString(),reclamationTime1);
+            var reclamationFromHotel1 = await ReclamationTestTools.CreateReclamation(checkin.Id.ToString(),client.Id, hotel.Id, room.Id.ToString(),reclamationTime1,typereclamation.Id);
             DateTime reclamationTime2 = new DateTime(2023, 3, 9, 16, 5, 7, 123);
             ConfigureDateTimeNow(reclamationTime2);
-            var reclamationFromHotel2 = await ReclamationTestTools.CreateReclamation(checkin2.Id.ToString(),client.Id, hotel2.Id, room2.Id.ToString(),reclamationTime2) ;
+            var reclamationFromHotel2 = await ReclamationTestTools.CreateReclamation(checkin2.Id.ToString(),client.Id, hotel2.Id, room2.Id.ToString(),reclamationTime2,typereclamation.Id) ;
 
 
             var query = new GetAllReclamationOfClientQuery
