@@ -14,6 +14,7 @@ namespace SmartRestaurant.Application.Common.Dtos
 
         public string FoodBusinessAdministratorId { get; set; }
         public string Name { get; set; }
+        public Names Names { get; set; }
         public int NRC { get; set; }
         public int NIF { get; set; }
         public int NIS { get; set; }
