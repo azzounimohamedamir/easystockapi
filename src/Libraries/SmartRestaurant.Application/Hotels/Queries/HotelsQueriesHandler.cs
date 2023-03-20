@@ -19,6 +19,8 @@ namespace SmartRestaurant.Application.Hotels.Queries
         IRequestHandler<GetHotelsListQuery, PagedListDto<HotelDto>>,
         IRequestHandler<GetHotelsListByAdmin, List<HotelDto>>,
         IRequestHandler<GetAllHotelsByFoodBusinessManagerQuery, List<HotelDto>>,
+        IRequestHandler<GetAllHotelsByHotelReceptionistQuery, List<HotelDto>>,
+
          IRequestHandler<GetHotelByIdQuery, HotelDto>
 
     {
@@ -67,6 +69,35 @@ namespace SmartRestaurant.Application.Hotels.Queries
             var listOfHotelsIds = _applicationDbContext.hotelUsers
                 
                 .Where(hotelUser => hotelUser.ApplicationUserId == foodBusinessManagerUserId)
+                .Select(hotelUser => hotelUser.HotelId)
+                .Distinct()
+                .ToList();
+
+            var hotels = await _applicationDbContext.Hotels
+                .Include(o => o.DetailsSections)
+                .Where(hotel => listOfHotelsIds.Contains(hotel.Id))
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            var result = _mapper.Map<List<HotelDto>>(hotels);
+
+            return result;
+
+        }
+
+
+        public async Task<List<HotelDto>> Handle(GetAllHotelsByHotelReceptionistQuery request,
+          CancellationToken cancellationToken)
+        {
+            var hotelReceptionistId = _userService.GetUserId();
+
+            if (hotelReceptionistId == string.Empty || string.IsNullOrWhiteSpace(hotelReceptionistId))
+                throw new InvalidOperationException("HotelReceptionist UserId shouldn't be null or  empty");
+
+
+            var listOfHotelsIds = _applicationDbContext.hotelUsers
+
+                .Where(hotelUser => hotelUser.ApplicationUserId == hotelReceptionistId)
                 .Select(hotelUser => hotelUser.HotelId)
                 .Distinct()
                 .ToList();
