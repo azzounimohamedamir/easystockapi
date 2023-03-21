@@ -1302,7 +1302,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 		private async Task CreateOrderInOdoo(Order order)
 		{
 			await _saleOrderRepository.Authenticate(order.FoodBusiness.Odoo); // auth in odoo
-			long sessionId = await getOpnedSessionInOdooId(); // get opned session id
+			
 
 			if (order.FoodBusinessClientId != null)
 			{
@@ -1327,7 +1327,8 @@ namespace SmartRestaurant.Application.Orders.Commands
 			}
 			else
 			{
-				Dictionary<string, object> saleOrderDict = new Dictionary<string, object>
+                long sessionId = await getOpnedSessionInOdooId(); // get opned session id
+                Dictionary<string, object> saleOrderDict = new Dictionary<string, object>
 				{
 					{ "name", order.OrderId.ToString() },
 					{ "date_order", order.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") },
