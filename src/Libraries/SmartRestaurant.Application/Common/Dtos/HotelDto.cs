@@ -14,6 +14,7 @@ namespace SmartRestaurant.Application.Common.Dtos
 
         public string FoodBusinessAdministratorId { get; set; }
         public string Name { get; set; }
+        public Names Names { get; set; }
         public int NRC { get; set; }
         public int NIF { get; set; }
         public int NIS { get; set; }
@@ -21,6 +22,7 @@ namespace SmartRestaurant.Application.Common.Dtos
         public string Description { get; set; }
         public string? YoutubeLink { get; set; }
         public Address Address { get; set; }
+        public Odoo Odoo { get; set; }
         public PhoneNumber PhoneNumber { get; set; }
         public List<HotelDetailsSectionDto> DetailsSections { get; set; }
         public string Website { get; set; }

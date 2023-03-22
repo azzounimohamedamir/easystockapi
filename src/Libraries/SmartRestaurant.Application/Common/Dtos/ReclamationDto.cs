@@ -19,9 +19,15 @@ namespace SmartRestaurant.Application.Common.Dtos
         public int RoomNumber { get; set; }
         public int  FloorNumber { get; set; }
         public ReclamationStatus Status { get; set; }
+        public Names ServiceTechniqueOfReclamation { get; set; }
 
         public Names ReclamationDescription { get; set; }
+
+        public Guid ServiceTechniqueId { get; set; }
         public byte[] Picture { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        public DateTime DelaiFinishedAt { get; set; }
+        public bool IsHidden { get; set; }
     }
 }

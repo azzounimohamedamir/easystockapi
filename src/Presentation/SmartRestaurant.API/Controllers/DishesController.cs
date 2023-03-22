@@ -7,6 +7,7 @@ using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Dtos.DishDtos;
 using SmartRestaurant.Application.Dishes.Commands;
 using SmartRestaurant.Application.Dishes.Queries;
+using SmartRestaurant.Application.Products.Commands;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace SmartRestaurant.API.Controllers
@@ -60,7 +61,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
         [Route("{id}")]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,Diner,HotelClient,Waiter")]
+        [Authorize(Roles = "FoodBusinessManager,SupportAgent,Diner,HotelClient,Waiter,HotelServiceAdmin")]
         public Task<IActionResult> Get([FromRoute] string id)
         {
             return SendWithErrorsHandlingAsync(new GetDishByIdQuery {Id = id});
@@ -127,6 +128,23 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new DeleteDishCommand {Id = id});
+        }
+
+        /// <summary> SynchronizeOdooDishes() </summary>
+        /// <remarks>This endpoint allows <b>restaurant manager</b> to synchronize dishes with odoo. The dish is a menu item that can be a dish, sandwich, desert...etc. </remarks>
+        /// <param name="command">This is payload object used to synchronize the dishes with odoo</param>
+        /// <response code="204">The dishes has been successfully synchronized.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to synchronize dishes is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(PagedListDto<DishDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("synchronizeOdooDishes")]
+        [HttpPost]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
+        public async Task<IActionResult> SynchronizeOdooDishes([FromForm] SynchronizeOdooDishesCommand command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
         }
     }
 }

@@ -16,6 +16,8 @@ namespace SmartRestaurant.Application.Reclamation.Commands
         public string RoomId { get; set; }
         public string CheckinId { get; set; }
         public NamesDto ReclamationDescription { get; set; }
+        public string TypeReclamationId { get; set; }
+
         public IFormFile Picture { get; set; }
         public DateTime ? CreatedAt { get; set; }
         public ReclamationStatus Status { get; set; }

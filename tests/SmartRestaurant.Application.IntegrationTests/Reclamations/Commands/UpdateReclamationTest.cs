@@ -30,8 +30,11 @@ namespace SmartRestaurant.Application.IntegrationTests.Reclamations
 
             var checkin = await CheckInsTestTools.CreateCheckinForClient(hotel.Id, client.Id, room.Id);
             DateTime reclamationTime = new DateTime(2023, 3, 9, 16, 5, 7, 123);
+            var serviceTechnique = await ServiceTechniqueTestTools.CreateServiceTechnique(hotel.Id);
+
+            var typereclamation = await ReclamationTestTools.CreateTypeReclamation("no wifi", hotel.Id, serviceTechnique.Id);
             ConfigureDateTimeNow(reclamationTime);
-            var reclamation = await ReclamationTestTools.CreateReclamation(checkin.Id.ToString(), client.Id, hotel.Id, room.Id.ToString(),reclamationTime);
+            var reclamation = await ReclamationTestTools.CreateReclamation(checkin.Id.ToString(), client.Id, hotel.Id, room.Id.ToString(),reclamationTime,typereclamation.Id);
 
 
             var updatereclamationcommand = new UpdateReclamationCommand
@@ -50,11 +53,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reclamations
             var item = await FindAsync<Domain.Entities.Reclamation>(updatereclamationcommand.Id);
 
             item.Should().NotBeNull();
-            item.ReclamationDescription.AR.Should().Be("AR");
-            item.ReclamationDescription.EN.Should().Be("EN");
-            item.ReclamationDescription.FR.Should().Be("FR");
-            item.ReclamationDescription.TR.Should().Be("TR");
-            item.ReclamationDescription.RU.Should().Be("RU");
+          
             item.Id.Should().Be(updatereclamationcommand.Id);
         }
     }

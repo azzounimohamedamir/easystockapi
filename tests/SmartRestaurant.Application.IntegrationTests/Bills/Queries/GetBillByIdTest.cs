@@ -57,7 +57,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Queries
             await CreateTable(createZoneCommand);
             var createIngredientCommand = await IngredientTestTools.CreateIngredient();
             var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
-            var createProductCommand = await ProductTestTools.CreateProduct();
+            var createProductCommand = await ProductTestTools.CreateProduct(fastFood.FoodBusinessId);
             var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, createFoodBusinessClientCommand.Id.ToString(), createDishCommand, createProductCommand);
 
             var order = await GetOrder(createOrderCommand.Id);
@@ -96,7 +96,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Bills.Queries
             selectedBill.FoodBusinessClient.PhoneNumber.Number.Should().Be(order.FoodBusinessClient.PhoneNumber.Number);
             selectedBill.FoodBusinessClient.Website.Should().Be(order.FoodBusinessClient.Website);
 
-            selectedBill.Tables[0].TableId.Should().Be(order.Products[0].TableId);
+            selectedBill.Tables[0].TableId.Should().Be(order.Dishes[0].TableId);
             selectedBill.Tables[0].TableNumber.Should().Be(order.Products[0].TableNumber);
             selectedBill.Tables[0].Chairs[0].Products[0].Name.Should().Be(order.Products[0].Name);
             selectedBill.Tables[0].Chairs[0].Products[0].InitialPrice.Should().Be(order.Products[0].InitialPrice);

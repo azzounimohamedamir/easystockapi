@@ -63,7 +63,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(PagedListDto<ApplicationUserDto>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("role/{role}")]
-        [Authorize(Roles = "SuperAdmin,SupportAgent")]
+        [Authorize(Roles = "SuperAdmin,SupportAgent,HotelClient")]
         [HttpGet]
         public async Task<IActionResult> GetAllByRole([FromRoute] string role, int page, int pageSize)
         {                   

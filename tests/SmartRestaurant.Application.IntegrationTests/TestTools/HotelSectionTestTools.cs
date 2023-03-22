@@ -33,6 +33,25 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             return createHotelSectionCommand;
         }
 
+
+        public static async Task<CreateHotelSectionCommand> CreateHotelSectionByHotelid(Guid hotelid)
+        {
+            var createHotelSectionCommand = new CreateHotelSectionCommand
+            {
+                Names = new NamesDto() { AR = "شيراطون مول", EN = "Sheraton Mall", FR = "Centre Commercial Sheraton", TR = "Sheraton Mall", RU = "Sheraton Mall" },
+                HotelId = hotelid
+            };
+
+            byte[] imageBytes = Properties.Resources.food;
+            using (var castStream = new MemoryStream(imageBytes))
+            {
+                createHotelSectionCommand.Picture = new FormFile(castStream, 0, imageBytes.Length, "logo", "food.png");
+                await SendAsync(createHotelSectionCommand);
+            };
+
+            return createHotelSectionCommand;
+        }
+
         public static async Task<HotelSection> CreatetHotelSection_2()
         {
             await RolesTestTools.CreateRoles();

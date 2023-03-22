@@ -63,7 +63,6 @@ namespace SmartRestaurant.Application.IntegrationTests
                 w.ApplicationName == "SmartRestaurant.API"));
             services.AddLogging();
             services.AddHttpContextAccessor();
-            services.AddScoped<IUserService, UserService>();
             services.AddSingleton(Mock.Of<IHttpContextAccessor>(o =>
                 o.HttpContext.User == httpContext.User &&
                 o.HttpContext.Request.Headers == httpContext.Request.Headers
@@ -71,7 +70,12 @@ namespace SmartRestaurant.Application.IntegrationTests
             startup.ConfigureServices(services);
             var serviceDescriptor = services.FirstOrDefault(descriptor =>
             descriptor.ServiceType == typeof(IDateTime));
+            var serviceDescriptor2 = services.FirstOrDefault(descriptor =>
+            descriptor.ServiceType == typeof(IUserService));
             services.Remove(serviceDescriptor);
+            services.Remove(serviceDescriptor2);
+
+            services.AddSingleton<IUserService, IdentityServiceMocked>();
             services.AddSingleton<IDateTime, DateTimeServiceMocked>();
             _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
@@ -138,6 +142,13 @@ namespace SmartRestaurant.Application.IntegrationTests
             var dateTimessservice = scope.ServiceProvider.GetService<IDateTime>();
             dateTimessservice.SetDateTimeNow(dateTime);
         }
+
+        public static void ConfigureRoleClient(string role)
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var dateTimessservice = scope.ServiceProvider.GetService<IUserService>();
+            dateTimessservice.SetNewRole(role);
+        }
         public static List<TEntity> Where<TEntity>(Func<TEntity, bool> predicate) where TEntity : class
         {
             using var scope = _scopeFactory.CreateScope();
@@ -179,7 +190,10 @@ namespace SmartRestaurant.Application.IntegrationTests
                  .ConfigureAwait(false);
         }
 
-       public static async Task<List<string>> GetUsers(string email)
+
+    
+
+        public static async Task<List<string>> GetUsers(string email)
         {
             using var scope = _scopeFactory.CreateScope();
             var identitecontext = scope.ServiceProvider.GetService<IdentityContext>();

@@ -15,6 +15,8 @@ namespace SmartRestaurant.Application.Hotels.Commands
         public IFormFile Picture { get; set; }
 
         public string Name { get; set; }
+        public Names Names { get; set; }
+
         public int? NRC { get; set; } 
         public int? NIF { get; set; }
         public int? NIS { get; set; }
@@ -22,6 +24,8 @@ namespace SmartRestaurant.Application.Hotels.Commands
         public string Description { get; set; }
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
+
+          public OdooDto Odoo { get; set; }
         public string? Website { get; set; }
         public string? YoutubeLink { get; set; }
     }
@@ -85,6 +89,8 @@ namespace SmartRestaurant.Application.Hotels.Commands
                       .Cascade(CascadeMode.StopOnFirstFailure)
                       .NotEmpty()
                       .MaximumLength(200);
+
+                    
 
 
 

@@ -39,7 +39,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
         [Route("{HotelId:Guid}/list")]
-        [Authorize(Roles = "FoodBusinessManager , FoodBusinessAdministrator , HotelServiceAdmin")]
+        [Authorize(Roles = "FoodBusinessManager , FoodBusinessAdministrator")]
         public async Task<IActionResult> GetReclamationList([FromRoute] string HotelId, int page, int pageSize, string searchKey, string currentFilter, string sortOrder)
         {
             return await SendWithErrorsHandlingAsync(new GetAllReclamationListQuery
@@ -49,6 +49,40 @@ namespace SmartRestaurant.API.Controllers
               CurrentFilter= currentFilter,
               SortOrder = sortOrder,
               SearchKey = searchKey
+            });
+        }
+
+
+
+        /// <summary> GetListOfReclamationsForHotelServiceTechnique() </summary>
+        /// <remarks>This endpoint allows us to fetch list of reclamations for service technique by hotel.</remarks>
+        /// <param name="currentFilter">hotels list can be filtred by: <b>name</b></param>
+        /// <param name="searchKey">Search keyword</param>
+        /// <param name="sortOrder">reclamation list can be sorted by: <b>acs</b> | <b>desc</b>. Default value is: <b>acs</b></param>
+        /// <param name="Id"> we will get reclamation list linked to that Id else we will get an empty list.</param>
+        /// <param name="page">The start position of read pointer in a request results. Default value is: <b>1</b></param>
+        /// <param name="pageSize">The max number of Reservations that should be returned. Default value is: <b>10</b>. Max value is: <b>100</b></param>
+        /// <response code="200"> hotels list has been successfully fetched.<br></br><b>Note:</b> Picture will be encoded in Base64</response>
+        /// <response code="400">The payload data sent to the backend-server in order to fetch reclamation list is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+
+
+        [ProducesResponseType(typeof(PagedListDto<ReclamationDto>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [HttpGet]
+        [Route("{HotelId:Guid}/servicetechniquelist")]
+        [Authorize(Roles = "HotelServiceTechnique")]
+        public async Task<IActionResult> GetReclamationListOfServiceTechnique([FromRoute] string HotelId, int page, int pageSize, string searchKey, string currentFilter, string sortOrder)
+        {
+            return await SendWithErrorsHandlingAsync(new GetAllReclamationListOfServiceTechniqueQuery
+            {
+                HotelId = HotelId,
+                Page = page,
+                PageSize = pageSize,
+                CurrentFilter = currentFilter,
+                SortOrder = sortOrder,
+                SearchKey = searchKey
             });
         }
 
@@ -70,7 +104,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
         [Route("reclamationsOfClient")]
-        [Authorize(Roles = "HotelClient")]
+        [Authorize(Roles = "HotelClient,HotelServiceTechnique")]
         public async Task<IActionResult> GetReclamationOfClientList( int page, int pageSize,string searchKey , string currentFilter, string sortOrder)
         {
             return await SendWithErrorsHandlingAsync(new GetAllReclamationOfClientQuery
@@ -82,6 +116,10 @@ namespace SmartRestaurant.API.Controllers
                 CurrentFilter=currentFilter 
             });
         }
+
+
+
+
         /// <summary> CreateNewReclamation() </summary>
         /// <remarks>
         ///     This endpoint allows user to create a new reclamation.<br></br>
@@ -138,8 +176,32 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}/status")]
         [HttpPatch]
-        [Authorize(Roles = "FoodBusinessManager,HotelClient")]
+        [Authorize(Roles = "HotelClient,HotelServiceTechnique")]
         public async Task<IActionResult> UpdateReclamationStatusFromNotResolvedToResolvedViceArea([FromRoute] string id, UpdateReclamationStatusCommand command)
+        {
+            command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+
+
+
+        /// <summary> HideReclamation()</summary>
+        /// <remarks>
+        ///     This endpoint allows Service Technique to hide reclamation.<br></br>
+        ///     <b>Note 01:</b> Picture should be encoded in Base64
+        /// </remarks>
+        /// <param name="id">id of the reclamation that would be hidden</param>
+        /// <param name="command">This is the payload object used to hide reclamation</param>
+        /// <response code="204"> reclamation status has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to update a reclamation status is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}/hide")]
+        [HttpPatch]
+        [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator")]
+        public async Task<IActionResult> HideReclamation([FromRoute] string id, HideReclamationCommand command)
         {
             command.Id = id;
             return await SendWithErrorsHandlingAsync(command);
@@ -159,7 +221,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}/InProgressstatus")]
         [HttpPatch]
-        [Authorize(Roles = "FoodBusinessManager")]
+        [Authorize(Roles = "HotelServiceTechnique")]
         public async Task<IActionResult> UpdateReclamationStatusToInProgress([FromRoute] string id, UpdateReclamationStatusCommand command)
         {
             command.Id = id;

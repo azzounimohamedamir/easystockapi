@@ -9,46 +9,48 @@ using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.IntegrationTests.TestTools
 {
-    using static Testing;
+	using static Testing;
 
-    public class RoomTestTools
-    {
-        public static async Task<Domain.Entities.Room> CreateRoom(int roomnumber, Guid buildingId)
-        {
-            var roomComand = new CreateRoomCommand()
-            {
-                BuildingId = buildingId,
-                RoomNumber = roomnumber,
-                FloorNumber = 2,
-                ClientEmail = "test@gmail.com",
-                IsBooked = false
-          
+	public class RoomTestTools
+	{
+		public static async Task<Domain.Entities.Room> CreateRoom(int roomnumber, Guid buildingId)
+		{
+			var roomComand = new CreateRoomCommand()
+			{
+				BuildingId = buildingId,
+				RoomNumber = roomnumber,
+				FloorNumber = 2,
+				ClientEmail = "test@gmail.com",
+				IsBooked = false,
+				Price = 400
+		  
 
-            };
+			};
 
-            await SendAsync(roomComand);
+			await SendAsync(roomComand);
 
-            var room = await FindAsync<Domain.Entities.Room>(roomComand.Id);
-            return room;
-        }
-        public static async Task<Domain.Entities.Room> CreateRoomForClient(int roomnumber, Guid buildingId ,string clientId)
-        {
-            var roomComand = new CreateRoomCommand()
-            {
-                BuildingId = buildingId,
-                RoomNumber = roomnumber,
-                FloorNumber = 2,
-                ClientEmail = "test@gmail.com",
-                IsBooked = false,
-                ClientId= clientId
+			var room = await FindAsync<Domain.Entities.Room>(roomComand.Id);
+			return room;
+		}
+		public static async Task<Domain.Entities.Room> CreateRoomForClient(int roomnumber, Guid buildingId ,string clientId)
+		{
+			var roomComand = new CreateRoomCommand()
+			{
+				BuildingId = buildingId,
+				RoomNumber = roomnumber,
+				FloorNumber = 2,
+				ClientEmail = "test@gmail.com",
+				IsBooked = false,
+				Price = 400,
+				ClientId= clientId
 
-            };
+			};
 
-            await SendAsync(roomComand);
+			await SendAsync(roomComand);
 
-            var room = await FindAsync<Domain.Entities.Room>(roomComand.Id);
-            return room;
-        }
+			var room = await FindAsync<Domain.Entities.Room>(roomComand.Id);
+			return room;
+		}
 
-    }
+	}
 }

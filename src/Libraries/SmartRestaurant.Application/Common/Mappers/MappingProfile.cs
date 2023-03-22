@@ -44,6 +44,10 @@ using SmartRestaurant.Application.Checkins.Commands;
 using SmartRestaurant.Application.HotelServices.Commands;
 using SmartRestaurant.Application.TypeReclamation.Commands;
 using SmartRestaurant.Application.Reclamation.Commands;
+using SmartRestaurant.Application.Products.Queries;
+using SmartRestaurant.Application.Dishes.Queries;
+using SmartRestaurant.Application.OrderDestination.Commands;
+using SmartRestaurant.Application.ServiceTechniqueDestination.Commands;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -77,6 +81,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<GeoPosition, GeoPositionDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<PhoneNumber, PhoneNumberDto>().ReverseMap();
+             CreateMap<Odoo, OdooDto>().ReverseMap();
             CreateMap<Zone, CreateZoneCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.ZoneId))
                 .ReverseMap();
@@ -103,9 +108,16 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<CreateRoomCommand, Room>()
                .ForMember(x => x.Id, o => o.MapFrom(p => p.Id));
 
+            CreateMap<CreateOrderDestinationCommand, Domain.Entities.OrderDestination>()
+              .ForMember(x => x.OrderDestinationId, o => o.MapFrom(p => p.Id));
+
+            CreateMap<UpdateOrderDestinationCommand, Domain.Entities.OrderDestination>()
+              .ForMember(x => x.OrderDestinationId, o => o.MapFrom(p => p.Id));
+
             CreateMap<Room, UpdateRoomCommand>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
+
 
             CreateMap<CreateCheckInCommand, Domain.Entities.CheckIn>()
               .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
@@ -124,11 +136,24 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.MenuId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.MenuState, o => o.MapFrom(p => MenuState.Disabled));
 
+            CreateMap<CreateServiceTechniqueCommand, ServiceTechnique>()
+               .ForMember(x => x.ServiceTechniqueId, o => o.MapFrom(p => p.Id));
+
+            CreateMap<UpdateServiceTechniqueCommand, ServiceTechnique>()
+             .ForMember(x => x.ServiceTechniqueId, o => o.MapFrom(p => p.Id));
+
+            CreateMap<HideReclamationCommand, Domain.Entities.Reclamation>()
+            .ForMember(x => x.Id, o => o.MapFrom(p => p.Id));
+
             CreateMap<UpdateMenuCommand, Menu>()
                 .ForMember(x => x.MenuId, o => o.MapFrom(p => p.Id));
 
             CreateMap<Menu, MenuDto>().ReverseMap();
             CreateMap<Room, RoomDto>().ReverseMap();
+            CreateMap<ServiceTechnique, ServiceTechniqueDto>().ReverseMap();
+
+            CreateMap<Domain.Entities.OrderDestination, OrderDestinationDto>().ReverseMap();
+
             CreateMap<CheckIn, CheckinDto>()
             .ForMember(x => x.hotelName, o => o.Ignore())
             .ForMember(x => x.buildingName, o => o.Ignore())
@@ -400,6 +425,10 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.OrderId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.TVA, o => o.MapFrom(p => 19));
 
+            CreateMap<CreateOrderSHCommand, Order>()
+               .ForMember(x => x.OrderId, o => o.MapFrom(p => p.Id))
+               .ForMember(x => x.TVA, o => o.MapFrom(p => 19));
+
             CreateMap<OrderProductDto, OrderProduct>()
                 .ReverseMap();
 
@@ -492,6 +521,10 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<UpdateProductCommand, Product>()
                .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Id))
                .ForMember(x => x.Picture, o => o.Ignore());
+
+            CreateMap<SynchronizeOdooProductsCommand, GetProductListQuery>().ReverseMap();
+
+            CreateMap<SynchronizeOdooDishesCommand, GetDishesListQuery>().ReverseMap();
 
             CreateMap<Product, ProductDto>()
                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));

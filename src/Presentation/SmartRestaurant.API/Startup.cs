@@ -57,7 +57,7 @@ namespace SmartRestaurant.API
             services.Configure<EmailTemplates>(Configuration.GetSection("EmailTemplates"));
             services.Configure<Authentication>(Configuration.GetSection("Authentication"));
             services.Configure<FirebaseConfig>(Configuration.GetSection("FirebaseConfig"));
-            services.Configure<Odoo>(Configuration.GetSection("Odoo"));
+            //services.Configure<Odoo>(Configuration.GetSection("Odoo"));
             CORSConfiguration.AddCORSConfiguation(services);
 
             services.AddSwaggerGen(c =>

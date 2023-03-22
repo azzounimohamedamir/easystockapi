@@ -23,26 +23,17 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Queries
             var Diner02 = await UsersTestTools.CreateFoodBusinessAdministrator(_authenticatedUserId);
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(Diner02.Id);
             var createZoneCommand = await ZoneTestTools.CreateZone(fastFood);
-            await CreateTable(createZoneCommand);
+            await TablesTestTools.CreateTable(createZoneCommand);
             var createIngredientCommand = await IngredientTestTools.CreateIngredient();
             var createDishCommand = await DishTestTools.CreateDish(fastFood.FoodBusinessId, createIngredientCommand.Id);
-            var createProductCommand = await ProductTestTools.CreateProduct();
+            var createProductCommand = await ProductTestTools.CreateProduct(fastFood.FoodBusinessId);
             var createOrderCommand = await OrderTestTools.CreateOrder(fastFood.FoodBusinessId, null, createDishCommand, createProductCommand);
             var orderListOfDiner = await SendAsync(new GetOrdersListByDinnerOrClientQuery { });
             orderListOfDiner.Data.Should().HaveCount(1);
            
         }
 
-        private static async Task CreateTable(CreateZoneCommand createZoneCommand)
-        {
-            var createTableCommand = new CreateTableCommand
-            {
-                Id = Guid.Parse("44aecd78-59bb-7504-bfff-07c07129ab00"),
-                Capacity = 4,
-                ZoneId = createZoneCommand.Id.ToString()
-            };
-            await SendAsync(createTableCommand);
-        }
+       
 
 
     }

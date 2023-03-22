@@ -4,16 +4,17 @@ using System.Text;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
-    public class RoomDto 
-    {
-    
-          public Guid Id { get; set; }
-          public Guid BuildingId { get; set; }
-          public Guid ClientId { get; set; }
-          public int  RoomNumber { get; set; }
-          public int  FloorNumber { get; set; }
-          public int NumberOfBeds { get; set; }
-          public string ClientEmail { get; set; }
-          public bool IsBooked { get; set; }
-    }  
+	public class RoomDto 
+	{
+	
+		  public Guid Id { get; set; }
+		  public Guid BuildingId { get; set; }
+		  public Guid ClientId { get; set; }
+		  public int  RoomNumber { get; set; }
+		  public int  FloorNumber { get; set; }
+		  public int NumberOfBeds { get; set; }
+		  public string ClientEmail { get; set; }
+		  public bool IsBooked { get; set; }
+		  public int Price { get; set; }
+	}  
 }
