@@ -12,10 +12,12 @@ namespace SmartRestaurant.Domain.Entities
         public Guid CheckinId { get; set; }
         public Guid ClientId { get; set; } 
         public Guid RoomId { get; set; }
-        
-        public Names ReclamationDescription { get; set; }
+        public Guid TypeReclamationId { get; set; }
         public byte[] Picture { get; set; }
         public ReclamationStatus Status { get; set; }
+        public DateTime InProgressBeginAt { get; set; }
+        public DateTime DelaiExpiredAt { get; set; }
+        public bool IsHidden { get; set; }
         public DateTime CreatedAt { get; set; }
 
     }

@@ -8,6 +8,8 @@ namespace SmartRestaurant.Application.TypeReclamation.Commands
     public class UpdateTypeReclamationCommand : UpdateCommand
     {
         public Guid HotelId { get; set; }
+        public Guid ServiceTechniqueId { get; set; }
+        public int Delai { get; set; }
         public string Name { get; set; }
         public NamesDto Names { get; set; }
     }

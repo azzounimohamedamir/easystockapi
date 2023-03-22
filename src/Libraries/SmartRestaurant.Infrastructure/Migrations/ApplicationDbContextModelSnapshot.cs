@@ -1762,6 +1762,15 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("DelaiExpiredAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("InProgressBeginAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsHidden")
+                        .HasColumnType("bit");
+
                     b.Property<byte[]>("Picture")
                         .HasColumnType("varbinary(max)");
 
@@ -1770,6 +1779,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("TypeReclamationId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -2349,6 +2361,20 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.ServiceTechnique", b =>
+                {
+                    b.Property<Guid>("ServiceTechniqueId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("HotelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ServiceTechniqueId");
+
+                    b.ToTable("ServiceTechniques");
+                });
+
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Specification", b =>
                 {
                     b.Property<Guid>("SpecificationId")
@@ -2555,11 +2581,17 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Delai")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("HotelId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ServiceTechniqueId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("TypeReclamationId");
 
@@ -2873,6 +2905,34 @@ namespace SmartRestaurant.Infrastructure.Migrations
                                 .HasForeignKey("FoodBusinessId");
                         });
 
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("FoodBusinessId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("FoodBusinessId");
+
+                            b1.ToTable("FoodBusinesses");
+
+                            b1.WithOwner()
+                                .HasForeignKey("FoodBusinessId");
+                        });
+
                     b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Odoo", "Odoo", b1 =>
                         {
                             b1.Property<Guid>("FoodBusinessId")
@@ -2965,6 +3025,34 @@ namespace SmartRestaurant.Infrastructure.Migrations
                                     b2.WithOwner()
                                         .HasForeignKey("AddressFoodBusinessClientId");
                                 });
+                        });
+
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("FoodBusinessClientId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("FoodBusinessClientId");
+
+                            b1.ToTable("FoodBusinessClients");
+
+                            b1.WithOwner()
+                                .HasForeignKey("FoodBusinessClientId");
                         });
 
                     b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Odoo", "Odoo", b1 =>
@@ -3071,6 +3159,34 @@ namespace SmartRestaurant.Infrastructure.Migrations
                                     b2.WithOwner()
                                         .HasForeignKey("AddressHotelId");
                                 });
+                        });
+
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("HotelId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("HotelId");
+
+                            b1.ToTable("Hotels");
+
+                            b1.WithOwner()
+                                .HasForeignKey("HotelId");
                         });
 
                     b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Odoo", "Odoo", b1 =>
@@ -4110,37 +4226,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reclamation", b =>
-                {
-                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "ReclamationDescription", b1 =>
-                        {
-                            b1.Property<Guid>("ReclamationId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("AR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("EN")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("FR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("RU")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("TR")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("ReclamationId");
-
-                            b1.ToTable("Reclamations");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ReclamationId");
-                        });
-                });
-
             modelBuilder.Entity("SmartRestaurant.Domain.Entities.Reservation", b =>
                 {
                     b.HasOne("SmartRestaurant.Domain.Entities.FoodBusiness", "FoodBusiness")
@@ -4262,6 +4347,37 @@ namespace SmartRestaurant.Infrastructure.Migrations
                                     RU = "date and time in ru",
                                     TR = "date and time in tu"
                                 });
+                        });
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Entities.ServiceTechnique", b =>
+                {
+                    b.OwnsOne("SmartRestaurant.Domain.ValueObjects.Names", "Names", b1 =>
+                        {
+                            b1.Property<Guid>("ServiceTechniqueId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("AR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EN")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RU")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TR")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("ServiceTechniqueId");
+
+                            b1.ToTable("ServiceTechniques");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ServiceTechniqueId");
                         });
                 });
 

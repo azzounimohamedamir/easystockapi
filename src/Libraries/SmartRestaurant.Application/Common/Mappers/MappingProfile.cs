@@ -47,6 +47,7 @@ using SmartRestaurant.Application.Reclamation.Commands;
 using SmartRestaurant.Application.Products.Queries;
 using SmartRestaurant.Application.Dishes.Queries;
 using SmartRestaurant.Application.OrderDestination.Commands;
+using SmartRestaurant.Application.ServiceTechniqueDestination.Commands;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -135,11 +136,22 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.MenuId, o => o.MapFrom(p => p.Id))
                 .ForMember(x => x.MenuState, o => o.MapFrom(p => MenuState.Disabled));
 
+            CreateMap<CreateServiceTechniqueCommand, ServiceTechnique>()
+               .ForMember(x => x.ServiceTechniqueId, o => o.MapFrom(p => p.Id));
+
+            CreateMap<UpdateServiceTechniqueCommand, ServiceTechnique>()
+             .ForMember(x => x.ServiceTechniqueId, o => o.MapFrom(p => p.Id));
+
+            CreateMap<HideReclamationCommand, Domain.Entities.Reclamation>()
+            .ForMember(x => x.Id, o => o.MapFrom(p => p.Id));
+
             CreateMap<UpdateMenuCommand, Menu>()
                 .ForMember(x => x.MenuId, o => o.MapFrom(p => p.Id));
 
             CreateMap<Menu, MenuDto>().ReverseMap();
             CreateMap<Room, RoomDto>().ReverseMap();
+            CreateMap<ServiceTechnique, ServiceTechniqueDto>().ReverseMap();
+
             CreateMap<Domain.Entities.OrderDestination, OrderDestinationDto>().ReverseMap();
 
             CreateMap<CheckIn, CheckinDto>()

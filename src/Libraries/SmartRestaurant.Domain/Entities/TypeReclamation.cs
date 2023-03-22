@@ -10,8 +10,10 @@ namespace SmartRestaurant.Domain.Entities
     {
         public TypeReclamation() { }
         public Guid TypeReclamationId { get; set; }
+        public Guid ServiceTechniqueId { get; set; }
         public Guid HotelId { get; set; }
         public string Name { get; set; }
+        public int Delai { get; set; }
         public Names Names { get; set; }
     }
 

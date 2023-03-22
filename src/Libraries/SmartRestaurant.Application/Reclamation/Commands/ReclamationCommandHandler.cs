@@ -21,6 +21,8 @@ namespace SmartRestaurant.Application.Reclamation.Commands
         IRequestHandler<CreateReclamationCommand, Created>,
         IRequestHandler<UpdateReclamationCommand, NoContent>,
         IRequestHandler<DeleteReclamationCommand, NoContent>,
+        IRequestHandler<HideReclamationCommand, NoContent>,
+
         IRequestHandler<UpdateReclamationStatusCommand, NoContent>
 
     {
@@ -51,6 +53,9 @@ namespace SmartRestaurant.Application.Reclamation.Commands
             }
             else
             {
+                var typereclamation = await _context.TypeReclamations
+               .FirstOrDefaultAsync(o => o.TypeReclamationId == Guid.Parse(request.TypeReclamationId), cancellationToken)
+               .ConfigureAwait(false);
                 var reclamation = _mapper.Map<Domain.Entities.Reclamation>(request);
                 using (var ms = new MemoryStream())
                 {
@@ -61,6 +66,9 @@ namespace SmartRestaurant.Application.Reclamation.Commands
                 reclamation.RoomId = checkin.RoomId;
                 reclamation.CreatedAt = _datetime.Now();
                 reclamation.CheckinId = Guid.Parse(request.CheckinId);
+                reclamation.IsHidden = false;
+                reclamation.InProgressBeginAt= _datetime.Now();
+                reclamation.DelaiExpiredAt = _datetime.Now().AddMinutes(typereclamation.Delai);
                 _context.Reclamations.Add(reclamation);
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             }
@@ -77,13 +85,11 @@ namespace SmartRestaurant.Application.Reclamation.Commands
             var reclamation = await _context.Reclamations
                 .FirstOrDefaultAsync(o => o.Id == Guid.Parse(request.Id), cancellationToken)
                 .ConfigureAwait(false);
+            
             if (reclamation == null)
                 throw new NotFoundException(nameof(Domain.Entities.Reclamation), request.Id);
 
             reclamation.Status = request.Status;
-
-
-
             _mapper.Map(request, reclamation);
            
 
@@ -95,6 +101,31 @@ namespace SmartRestaurant.Application.Reclamation.Commands
 
             return default;
         }
+
+
+
+        public async Task<NoContent> Handle(HideReclamationCommand request, CancellationToken cancellationToken)
+        {
+            var validator = new HideReclamationCommandValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var reclamation = await _context.Reclamations
+                .FirstOrDefaultAsync(o => o.Id == Guid.Parse(request.Id), cancellationToken)
+                .ConfigureAwait(false);
+
+            if (reclamation == null)
+                throw new NotFoundException(nameof(Domain.Entities.Reclamation), request.Id);
+
+            reclamation.IsHidden = true;
+            _mapper.Map(request, reclamation);
+            _context.Reclamations.Update(reclamation);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            return default;
+        }
+
+
+
 
         public async Task<NoContent> Handle(DeleteReclamationCommand request, CancellationToken cancellationToken)
         {
