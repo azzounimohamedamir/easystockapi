@@ -344,7 +344,21 @@ namespace SmartRestaurant.Application.Orders.Commands
 			}
 
 		    order = PopulatFromLocalDishesAndProducts(order);
-            await UpdateDishesAndProductQuantityOnCreateOrder(order, foodBusiness);// gestion de stock
+            if (foodBusiness.Odoo != null)
+            {
+                await UpdateDishesAndProductQuantityOnCreateOrder(order, foodBusiness);// gestion de stock
+            }
+            else
+            {
+                // Create a new instance of the logger
+                TraceSource logger = new TraceSource("odoo");
+                // Log an error
+                logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
+
+                // Dispose of the logger
+                logger.Close();
+            }
+
 
 
 
