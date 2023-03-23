@@ -180,9 +180,6 @@ namespace SmartRestaurant.Application.Checkins.Commands
 
 					};
 			await _saleOrderRepository.CreateAsync("sale.order.line", chekinOrder);
-			await UpdateOrderStateInOdoo(checkIn.Id.ToString(), "sale.order", "sale");// set odoo order " bon de commande "
-
-		   
 		
 		}
 
@@ -300,27 +297,6 @@ namespace SmartRestaurant.Application.Checkins.Commands
 			return categoryId;
 		}
 
-		private async Task<long> UpdateOrderStateInOdoo(string orderId, string model, string state)
-		{
-			var result = await _saleOrderRepository.Search<List<int>>(model, "name", orderId, 1);
-			long Id;
-			if (result.Count > 0)
-			{
-				Id = result[0];
-				var data = new Dictionary<string, object>
-			{
-				{ "state", state}
-
-			};
-				await _saleOrderRepository.UpdateAsync(model, Id, data);
-				return Id;
-			}
-			else
-			{
-				throw new ConflictException("Sorry,this order not exist in odoo for updated it");
-			}
-
-		}
 
 	}
 }
