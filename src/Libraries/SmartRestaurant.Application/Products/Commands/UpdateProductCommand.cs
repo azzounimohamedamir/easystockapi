@@ -20,6 +20,7 @@ namespace SmartRestaurant.Application.Products.Commands
         public float EnergeticValue { get; set; }
         public int Quantity { get; set; }
         public bool IsQuantityChecked { get; set; } 
+        public bool SyncFromOdoo { get; set; } 
     }
 
     public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
