@@ -25,6 +25,7 @@ namespace SmartRestaurant.Application.Dishes.Commands
         public int Quantity { get; set; }
         public bool IsQuantityChecked { get; set; }
         public int EstimatedPreparationTime { get; set; }
+        public bool SyncFromOdoo { get; set; }
     }
 
     public class CreateDishCommandValidator : AbstractValidator<CreateDishCommand>
