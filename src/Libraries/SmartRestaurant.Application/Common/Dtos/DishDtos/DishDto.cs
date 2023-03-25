@@ -22,5 +22,6 @@ namespace SmartRestaurant.Application.Common.Dtos.DishDtos
         public bool IsQuantityChecked { get; set; } 
         public int EstimatedPreparationTime { get; set; }
         public List<CurrencyDto> CurrencyExchange { get; set; }
+        public bool SyncFromOdoo { get; set; }
     }
 }
