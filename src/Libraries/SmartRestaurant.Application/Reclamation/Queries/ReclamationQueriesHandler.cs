@@ -216,6 +216,7 @@ namespace SmartRestaurant.Application.Reclamation.Queries
                             RoomNumber = room.RoomNumber,
                             FloorNumber = room.FloorNumber,
                             ReclamationDescription = t.Names,
+                            TypeReclamationId=t.TypeReclamationId,
                             ServiceTechniqueOfReclamation = servicetech.Names,
                             CreatedAt = r.CreatedAt,
                             Picture = r.Picture,

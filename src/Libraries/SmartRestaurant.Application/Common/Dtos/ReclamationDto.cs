@@ -9,7 +9,7 @@ namespace SmartRestaurant.Application.Common.Dtos
     public class ReclamationDto
     {
         public Guid Id { get; set; }
-
+        public Guid TypeReclamationId { get; set; }
         public string HotelName { get; set; }
         public string HotelId { get; set; }
         public string ClientName { get; set; }
