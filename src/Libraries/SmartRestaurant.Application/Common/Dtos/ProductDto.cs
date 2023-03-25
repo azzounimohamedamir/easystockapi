@@ -16,6 +16,8 @@ namespace SmartRestaurant.Application.Common.Dtos
         public string FoodBusinessId { get; set; }
         public List<CurrencyDto> CurrencyExchange { get; set; }
          public int Quantity { get; set; }
-        public bool IsQuantityChecked { get; set; } 
+        public bool IsQuantityChecked { get; set; }
+        public long OdooId { get; set; }
+        public bool SyncFromOdoo { get; set; }
     }
 }

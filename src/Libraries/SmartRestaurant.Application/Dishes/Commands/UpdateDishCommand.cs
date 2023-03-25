@@ -26,9 +26,7 @@ namespace SmartRestaurant.Application.Dishes.Commands
         public bool IsSupplement { get; set; }
         public int Quantity { get; set; }
         public bool IsQuantityChecked { get; set; }
-
-
-
+        public bool SyncFromOdoo { get; set; }
         public int EstimatedPreparationTime { get; set; }
     }
 

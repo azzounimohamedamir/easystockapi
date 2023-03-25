@@ -18,6 +18,7 @@ namespace SmartRestaurant.Application.Products.Commands
         public string FoodBusinessId { get; set; }
         public int Quantity { get; set; }
         public bool IsQuantityChecked { get; set; }
+        public bool SyncFromOdoo { get; set; }
 
     }
 

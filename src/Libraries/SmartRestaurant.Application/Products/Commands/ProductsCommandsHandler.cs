@@ -55,15 +55,16 @@ namespace SmartRestaurant.Application.Products.Commands
             
 
             var product = _mapper.Map<Product>(request);
-            var odooId = await CreateOdooProduct(product, foodBusiness);
+            
             using (var ms = new MemoryStream())
             {
                 request.Picture.CopyTo(ms);
                 product.Picture = ms.ToArray();
                 product.CreatedBy = userId;
                 product.CreatedAt = DateTime.Now;
-                product.OdooId = odooId;
             }
+            var odooId = await CreateOdooProduct(product, foodBusiness);
+            product.OdooId = odooId;
             _context.Products.Add(product);
             
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
