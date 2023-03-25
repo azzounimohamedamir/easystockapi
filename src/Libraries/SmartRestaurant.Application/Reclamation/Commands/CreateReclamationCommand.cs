@@ -27,36 +27,7 @@ namespace SmartRestaurant.Application.Reclamation.Commands
     {
         public CreateReclamationCommandValidator()
         {
-            RuleFor(v => v.ReclamationDescription)
-              .Cascade(CascadeMode.StopOnFirstFailure)
-              .NotNull()
-              .DependentRules(() =>
-              {
-                  RuleFor(v => v.ReclamationDescription.AR)
-                     .Cascade(CascadeMode.StopOnFirstFailure)
-                     .NotEmpty()
-                     .MaximumLength(200);
-
-                  RuleFor(v => v.ReclamationDescription.EN)
-                     .Cascade(CascadeMode.StopOnFirstFailure)
-                     .NotEmpty()
-                     .MaximumLength(200);
-
-                  RuleFor(v => v.ReclamationDescription.FR)
-                     .Cascade(CascadeMode.StopOnFirstFailure)
-                     .NotEmpty()
-                     .MaximumLength(200);
-
-                  RuleFor(v => v.ReclamationDescription.TR)
-                     .Cascade(CascadeMode.StopOnFirstFailure)
-                     .NotEmpty()
-                     .MaximumLength(200);
-
-                  RuleFor(v => v.ReclamationDescription.RU)
-                   .Cascade(CascadeMode.StopOnFirstFailure)
-                   .NotEmpty()
-                   .MaximumLength(200);
-              });
+          
             RuleFor(l => l.Picture).NotEmpty();
 
         }
