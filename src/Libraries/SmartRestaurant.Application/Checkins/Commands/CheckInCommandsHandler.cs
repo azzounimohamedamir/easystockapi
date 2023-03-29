@@ -206,6 +206,8 @@ namespace SmartRestaurant.Application.Checkins.Commands
 					checkIn.Email,
 					1
 				);
+			if (result == null)
+				return 0;
 
 			if (result.Count > 0)
 			{

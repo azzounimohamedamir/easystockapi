@@ -165,6 +165,8 @@ namespace SmartRestaurant.Application.Bills.Commands
 		{
 			var result = await _saleOrderRepository.Search<List<int>>(model, "name", orderId, 1);
 			long Id;
+			if (result == null)
+				return 0;
 			if (result.Count > 0)
 			{
 				Id = result[0];
