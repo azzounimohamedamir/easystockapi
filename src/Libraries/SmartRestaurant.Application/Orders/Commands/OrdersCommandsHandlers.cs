@@ -486,7 +486,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 
                         { "product_id", productId },
                         { "price_unit", order.UnitePrice },
-                        { "product_uom_qty", order.Quantity },
+                        { "product_uom_qty", order.Quantity>0 ? order.Quantity : 1 },
                          {"tax_id", null},
 
 
