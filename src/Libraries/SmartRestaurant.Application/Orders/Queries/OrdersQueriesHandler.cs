@@ -163,7 +163,10 @@ namespace SmartRestaurant.Application.Orders.Queries
                                              OrderStat = ho.OrderStat,
                                              Type = ho.Type,
                                              UserId = ho.UserId,
-                                             Id = ho.Id
+                                             Id = ho.Id,
+                                             Quantity=ho.Quantity,
+                                             TotalToPay=ho.TotalToPay,
+                                             UnitePrice=ho.UnitePrice,
                                          });
                 var query = hotelOrderdtoData.AsQueryable().GetPaged(request.Page, request.PageSize);
                 var data = query.Data.AsNoTracking().ToList();
