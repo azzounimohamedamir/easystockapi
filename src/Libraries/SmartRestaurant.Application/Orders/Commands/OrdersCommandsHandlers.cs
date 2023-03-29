@@ -276,6 +276,17 @@ namespace SmartRestaurant.Application.Orders.Commands
 				}
 				if(service.isSmartrestaurantMenue == false)
 				{
+					float totalToPay = 0;
+					if (!service.IsIncludeQuantity)
+					{
+						totalToPay = service.Price;
+
+					}
+					else
+					{
+                        totalToPay = (float)request.Quantity * service.Price;
+
+                    }
 					HotelOrder orderSH = new HotelOrder()
 					{
 						UserId = Guid.Parse(clientCheckin.ClientId),
@@ -294,12 +305,43 @@ namespace SmartRestaurant.Application.Orders.Commands
 						IsSmartrestaurantMenue = service.isSmartrestaurantMenue,
 						OrderStat = SHOrderStat.IsNew,
 						ServiceManagerName = null,
-						Type = 0
-					};
+						Type = 0,
+						Quantity= request.Quantity,
+						UnitePrice=service.Price,
+						TotalToPay= totalToPay
+
+
+                    };
 					_context.HotelOrders.Add(orderSH);
 					await _context.SaveChangesAsync(cancellationToken);
 
-					return orderSH;
+                    var hotel = _context.Hotels.Where(a => a.Id == clientCheckin.hotelId).FirstOrDefault();// get hotel
+                    var checkin = _context.CheckIns.Where(a => a.Id.ToString() == request.CheckinId).FirstOrDefault();// get checkin
+
+                    // create hotel order service in odoo
+
+                    // read service hotel if existe else create one
+
+                    if (hotel.Odoo != null)
+                    {
+                        long productId = await CreateOdooProductOfTypeChekin(hotel, service); // get order chekin id 
+                        long clientId = await CreateOdooClient(checkin, hotel); // get odoo client id
+                        await CreateOrderHotelServiceInOdoo(checkin, clientId, orderSH, productId); // create order in odoo
+                    }
+                    else
+                    {
+                        // Create a new instance of the logger
+                        TraceSource logger = new TraceSource("odoo");
+                        // Log an error
+                        logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
+
+                        // Dispose of the logger
+                        logger.Close();
+                    }
+
+
+
+                    return orderSH;
 				}
 
 			}
@@ -314,7 +356,150 @@ namespace SmartRestaurant.Application.Orders.Commands
 
 
 
-			public async Task<OrderDto> ExecuteOrderOperations<T>(T request, CancellationToken cancellationToken, Domain.Entities.FoodBusiness foodBusiness)
+        private async Task<long> CreateOdooClient(CheckIn checkIn, Hotel hotel)
+        {
+            await _saleOrderRepository.Authenticate(hotel.Odoo);
+
+
+            long odooId;
+
+            var result = await _saleOrderRepository.Search<List<int>>(
+                    "res.partner",
+                    "email",
+                    checkIn.Email,
+                    1
+                );
+
+			if (result == null)
+				return 0;
+
+            if (result.Count > 0)
+            {
+                odooId = result[0];
+            }
+            else
+            {
+
+                var data = new Dictionary<string, object>
+            {
+                { "name", checkIn.FullName},
+                { "phone", checkIn.PhoneNumber},
+
+                { "email",  checkIn.Email }
+
+                };
+
+
+
+                odooId = await _saleOrderRepository.CreateAsync("res.partner", data);
+            }
+
+
+            return odooId;
+        }
+
+        private async Task<long> CreateOdooProductOfTypeChekin(SmartRestaurant.Domain.Entities.Hotel hotel, HotelService hotelService)
+        {
+            var odooId = (long)0;
+            if (hotel.Odoo != null)
+            {
+                var loggedIn = await _saleOrderRepository.Authenticate(hotel.Odoo);
+
+
+
+                if (loggedIn)
+                {
+
+                    var result = await _saleOrderRepository.Search<List<int>>(
+                            "product.template",
+                            "name",
+                           "HS/" + hotelService.Names.EN.ToString()+"/"+ hotelService.Id.ToString(),
+                            1
+                        );
+
+                    if (result.Count > 0)
+                    {
+                        odooId = result[0];
+                    }
+                    else
+                    {
+
+                        long categoryId = await getProductServiceId();
+                        var data = new Dictionary<string, object>
+                    {
+                        { "name","HS/" + hotelService.Names.EN.ToString()+"/"+ hotelService.Id.ToString()},
+                        { "detailed_type", "service"},
+                        { "pos_categ_id", categoryId},
+                        { "available_in_pos", 1},
+                        { "taxes_id",null }
+                    };
+
+
+                        odooId = await _saleOrderRepository.CreateAsync("product.template", data);
+                    }
+                }
+            }
+            return odooId;
+        }
+
+        private async Task<long> getProductServiceId()
+        {
+
+            var result = await _saleOrderRepository.Search<List<int>>("pos.category", "name", "service", 1);
+            long categoryId = 0;
+            if (result != null && result.Count > 0)
+            {
+                categoryId = result[0];
+            }
+            else
+            {
+                var categoryData = new Dictionary<string, object>
+                {
+                    { "name", "service"}
+                };
+                categoryId = await _saleOrderRepository.CreateAsync("pos.category", categoryData);
+            }
+
+            return categoryId;
+        }
+
+
+        private async Task CreateOrderHotelServiceInOdoo(CheckIn checkIn, long clientId, HotelOrder order, long productId)
+        {
+
+
+
+            Dictionary<string, object> saleOrderDict = new Dictionary<string, object>
+                {
+                    { "name", "HS/"+checkIn.Id.ToString() },
+                    { "partner_id", clientId }
+
+                };
+
+            var saleOrderId = await _saleOrderRepository.CreateAsync(
+                "sale.order",
+                saleOrderDict
+            );
+            var chekinOrder = new Dictionary<string, object>
+                    {
+                        { "order_id", saleOrderId },
+
+                        { "product_id", productId },
+                        { "price_unit", order.UnitePrice },
+                        { "product_uom_qty", order.Quantity },
+                         {"tax_id", null},
+
+
+                    };
+            await _saleOrderRepository.CreateAsync("sale.order.line", chekinOrder);
+
+        }
+
+
+
+
+
+        public async Task<OrderDto> ExecuteOrderOperations<T>(T request, CancellationToken cancellationToken, Domain.Entities.FoodBusiness foodBusiness)
 		{
 
 			Order order = null;
@@ -1275,7 +1460,10 @@ namespace SmartRestaurant.Application.Orders.Commands
 			);
 
 			long Id;
-			if (result.Count > 0)
+			
+
+
+			if (result != null && result.Count > 0)
 			{
 				Id = result[0];
 				var orderR = await _saleOrderRepository.Read<List<Dictionary<string, object>>>(
