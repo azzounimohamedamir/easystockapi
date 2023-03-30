@@ -534,7 +534,8 @@ namespace SmartRestaurant.Application.Orders.Commands
 				}
 			 }
 			 
-			 if (order.Status == OrderStatuses.InProgress){
+			 if (order.Status == OrderStatuses.InProgress || order.Status == OrderStatuses.SalesOrderInOdoo)
+            {
 		if (order.FoodBusiness.Odoo != null)
 			{
 				await CreateOrderInOdoo(order); // create order odoo
