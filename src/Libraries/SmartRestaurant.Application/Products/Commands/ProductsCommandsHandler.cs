@@ -248,8 +248,8 @@ namespace SmartRestaurant.Application.Products.Commands
                             else
                             {
                                 var productOdooIds = await _saleOrderRepository.Search<List<int>>("product.template", "name", product.Name, 1);
-                                long productOdooId;
-                                if (productOdooIds.Count > 0)
+                                long productOdooId = 0;
+                                if (productOdooIds != null && productOdooIds.Count > 0)
                                 {
                                     productOdooId = productOdooIds[0];
                                     var p = await _saleOrderRepository.Read<List<Dictionary<string, object>>>("product.template", productOdooId);
@@ -275,7 +275,7 @@ namespace SmartRestaurant.Application.Products.Commands
                             else
                             {
                                 var productOdooIds = await _saleOrderRepository.Search<List<int>>("product.template", "name", product.Name, 1);
-                                long productOdooId;
+                                long productOdooId = 0;
                                 if (productOdooIds != null && productOdooIds.Count > 0)
                                 {
                                     productOdooId = productOdooIds[0];

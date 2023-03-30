@@ -198,7 +198,7 @@ namespace SmartRestaurant.Application.Checkins.Commands
 			await _saleOrderRepository.Authenticate(hotel.Odoo);
 			
 
-			long odooId;
+			long odooId=0;
 
 			var result = await _saleOrderRepository.Search<List<int>>(
 					"res.partner",
@@ -206,10 +206,9 @@ namespace SmartRestaurant.Application.Checkins.Commands
 					checkIn.Email,
 					1
 				);
-			if (result == null)
-				return 0;
+		
 
-			if (result.Count > 0)
+			if (result != null && result.Count > 0)
 			{
 				odooId = result[0];
 			}
@@ -253,7 +252,7 @@ namespace SmartRestaurant.Application.Checkins.Commands
 								1
 							);
 			
-			if (result.Count > 0)
+		if (result != null && result.Count > 0)
 			{
 				odooId = result[0];
 			}

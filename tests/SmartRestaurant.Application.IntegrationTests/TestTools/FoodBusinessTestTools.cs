@@ -17,13 +17,6 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             {             
                 AcceptsCreditCards = true,
                 AcceptTakeout = true,
-                Odoo = new OdooDto
-                {
-                    Url = "testsmartrestaurant.odoo.com",
-                    Username = "g22riecredential@gmail.com",
-                    Password = "g22rie23032022",
-                    Db = "testsmartrestaurant"
-                },
                 Address = new AddressDto
                 {
                     City = "Algiers",
@@ -64,12 +57,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 AcceptsCreditCards = true,
                 AcceptTakeout = true,
                 AcceptDelivery=false,
-                Odoo= new OdooDto {
-                     Url= "testsmartrestaurant.odoo.com",
-                    Username = "g22riecredential@gmail.com",
-                    Password= "g22rie23032022",
-                    Db= "testsmartrestaurant"
-                  },
+             
                 Address = new AddressDto
                 {
                     City = "Algiers",
@@ -115,13 +103,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             {
                 AcceptsCreditCards = true,
                 AcceptTakeout = true,
-                Odoo = new OdooDto
-                {
-                    Url = "testsmartrestaurant.odoo.com",
-                    Username = "g22riecredential@gmail.com",
-                    Password = "g22rie23032022",
-                    Db = "testsmartrestaurant"
-                },
+               
                 Address = new AddressDto
                 {
                     City = "Algiers",
@@ -168,13 +150,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 AcceptsCreditCards = true,
                 AcceptTakeout = true,
                 AcceptDelivery= acceptDelivery,
-                Odoo = new OdooDto
-                {
-                    Url = "testsmartrestaurant.odoo.com",
-                    Username = "g22riecredential@gmail.com",
-                    Password = "g22rie23032022",
-                    Db = "testsmartrestaurant"
-                },
+              
                 Address = new AddressDto
                 {
                     City = "Algiers",

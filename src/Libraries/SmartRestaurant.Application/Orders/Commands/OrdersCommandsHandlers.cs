@@ -361,7 +361,7 @@ namespace SmartRestaurant.Application.Orders.Commands
             await _saleOrderRepository.Authenticate(hotel.Odoo);
 
 
-            long odooId;
+            long odooId=0;
 
             var result = await _saleOrderRepository.Search<List<int>>(
                     "res.partner",
@@ -370,10 +370,9 @@ namespace SmartRestaurant.Application.Orders.Commands
                     1
                 );
 
-			if (result == null)
-				return 0;
+		
 
-            if (result.Count > 0)
+           if (result != null && result.Count > 0)
             {
                 odooId = result[0];
             }
@@ -417,7 +416,7 @@ namespace SmartRestaurant.Application.Orders.Commands
                             1
                         );
 
-                    if (result.Count > 0)
+                    if (result != null && result.Count > 0)
                     {
                         odooId = result[0];
                     }
@@ -531,10 +530,11 @@ namespace SmartRestaurant.Application.Orders.Commands
 		    order = PopulatFromLocalDishesAndProducts(order);
             if (foodBusiness.Odoo != null)
             {
-                await UpdateDishesAndProductQuantityOnCreateOrder(order, foodBusiness);// gestion de stock
+                await UpdateDishesAndProductQuantityOnCreateOrderWithOdoo(order, foodBusiness);// gestion de stock
             }
             else
             {
+                await UpdateDishesAndProductQuantityOnCreateOrder(order, foodBusiness);// gestion de stock
                 // Create a new instance of the logger
                 TraceSource logger = new TraceSource("odoo");
                 // Log an error
@@ -1178,7 +1178,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			return default;
 		}
 
-		private async Task UpdateDishesAndProductQuantityOnCreateOrder(Order order , Domain.Entities.FoodBusiness foodBusiness )
+		private async Task UpdateDishesAndProductQuantityOnCreateOrderWithOdoo(Order order , Domain.Entities.FoodBusiness foodBusiness )
 		{
 			await _saleOrderRepository.Authenticate(foodBusiness.Odoo); // auth in odoo
 			var dishes = order.Dishes.GroupBy(d => d.DishId).Select(g => new
@@ -1209,12 +1209,12 @@ namespace SmartRestaurant.Application.Orders.Commands
 					); // get product quantity availale
 				 
 					int quantity = 0;
-					if (result.Count > 0)
+					if (result != null && result.Count > 0)
 					{
 						quantity = (int) result[0]["virtual_available"];
 					}
-
-						if ((quantity - (int) dish.Quantity) < 0) // trow if execption if not availibe
+                    if ((quantity > 0) && ((quantity - (int)dish.Quantity) < 0))
+                                // trow if execption if not availibe
 					{
 						throw new ConflictException("Sorry, you can not take this quantity : " + dish.Quantity + " , issue quantity ( odoo ). ");
 					}
@@ -1262,19 +1262,19 @@ namespace SmartRestaurant.Application.Orders.Commands
 						productUpdated.OdooId
 					); // get product quantity availale
 				 
-					
-					if (result.Count > 0)
+			
+					if (result != null && result.Count > 0)
 					{
                         int quantity = 0;
                         quantity = (int)int.Parse(result[0]["virtual_available"].ToString());
-                        if ((quantity - (int)product.Quantity) < 0) // trow if execption if not availibe
+                        if ((quantity>0)&&((quantity - (int)product.Quantity) < 0)) // trow if execption if not availibe
                         {
                             throw new ConflictException("Sorry, you can not take this quantity : " + product.Quantity + " , issue quantity ( odoo ). ");
                         }
                     }
 
 					
-				}
+				}else
 
 
 				if (productUpdated.IsQuantityChecked && productUpdated.Quantity > 0)
@@ -1298,9 +1298,92 @@ namespace SmartRestaurant.Application.Orders.Commands
 
 
 		}
+        private async Task UpdateDishesAndProductQuantityOnCreateOrder(Order order, Domain.Entities.FoodBusiness foodBusiness)
+        {
+  
+            var dishes = order.Dishes.GroupBy(d => d.DishId).Select(g => new
+            {
+                DishId = g.First().DishId,
+                Count = g.Count(),
+                Quantity = g.Sum(c => c.Quantity)
+
+            }).ToList();
+
+            // var dishes = order.Dishes;
+            foreach (var dish in dishes)
+            {
+
+                // update dishes
 
 
-		private async Task UpdateDishesAndProductQuantityOnRemoveOrder(Order order)
+
+                var dishUpdated = await _context.Dishes.FindAsync(Guid.Parse(dish.DishId));
+                if (dishUpdated == null)
+                    throw new NotFoundException(nameof(Dishes), dish.DishId);
+
+               
+
+            if (dishUpdated.IsQuantityChecked && dishUpdated.Quantity > 0)
+                {
+                    if ((dishUpdated.Quantity - (int)dish.Quantity) < 0)
+                    {
+                        throw new ConflictException("Sorry, you can not take this quantity : " + dish.Quantity + " , issue quantity. ");
+                    }
+                    else
+                    {
+                        dishUpdated.Quantity = dishUpdated.Quantity - ((int)dish.Quantity);
+
+                        _context.Dishes.Update(dishUpdated);
+                    }
+
+
+                }
+
+
+            }
+
+
+            // update products
+            var products = order.Products.GroupBy(d => d.ProductId).Select(g => new
+            {
+                ProductId = g.First().ProductId,
+                Count = g.Count(),
+                Quantity = g.Sum(c => c.Quantity)
+
+            }).ToList();
+            foreach (var product in products)
+            {
+
+                var productUpdated = await _context.Products.FindAsync(Guid.Parse(product.ProductId));
+                if (productUpdated == null)
+                    throw new NotFoundException(nameof(Products), product.ProductId);
+
+               
+                if (productUpdated.IsQuantityChecked && productUpdated.Quantity > 0)
+                {
+                    if ((productUpdated.Quantity - (int)product.Quantity) < 0)
+                    {
+                        throw new ConflictException("Sorry, you can not take this quantity : " + product.Quantity + " , issue quantity. ");
+                    }
+                    else
+                    {
+                        productUpdated.Quantity = productUpdated.Quantity - ((int)product.Quantity);
+
+                        _context.Products.Update(productUpdated);
+
+                    }
+
+
+                }
+
+            }
+
+
+        }
+
+
+
+        private async Task UpdateDishesAndProductQuantityOnRemoveOrder(Order order)
 		{
 			var dishes = order.Dishes.GroupBy(d => d.DishId).Select(g => new
 			{
@@ -1385,8 +1468,8 @@ namespace SmartRestaurant.Application.Orders.Commands
 				"opened",
 				1
 			);
-			long Id;
-			if (result.Count > 0)
+			long Id=0;
+			if (result != null && result.Count > 0)
 			{
 				Id = result[0];
 			}
@@ -1413,8 +1496,8 @@ namespace SmartRestaurant.Application.Orders.Commands
 				model = "sale.order";
 			}
 			var result = await _saleOrderRepository.Search<List<int>>(model, "name", orderId, 1);
-			long Id;
-			if (result.Count > 0)
+			long Id=0;
+			if (result != null && result.Count > 0)
 			{
 				Id = result[0];
 				var data = new Dictionary<string, object> { { "state", state } };
@@ -1459,7 +1542,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 				1
 			);
 
-			long Id;
+			long Id=0;
 			
 
 
@@ -1642,8 +1725,8 @@ namespace SmartRestaurant.Application.Orders.Commands
 		private async Task<long> UpdateOrderStateInOdoo(string orderId,string model , string state)
 		{
 			var result = await _saleOrderRepository.Search<List<int>>(model, "name", orderId, 1);
-			long Id;
-			if (result.Count > 0)
+			long Id=0;
+			if (result != null && result.Count > 0)
 			{
 				Id = result[0];
 				var data = new Dictionary<string, object>

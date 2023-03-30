@@ -26,13 +26,6 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Commands
                 AcceptsCreditCards = true,
                 AcceptTakeout = true,
                 IsMenuItemDetailed= false,
-                Odoo = new OdooDto
-                {
-                    Url = "testsmartrestaurant.odoo.com",
-                    Username = "g22riecredential@gmail.com",
-                    Password = "g22rie23032022",
-                    Db = "testsmartrestaurant"
-                },
                 Address = new AddressDto
                 {
                     City = "Algiers",

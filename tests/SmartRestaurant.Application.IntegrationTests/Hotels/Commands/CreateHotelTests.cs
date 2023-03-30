@@ -36,13 +36,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Hotels.Commands
                     },
                     StreetAddress = "Didouche Mourad"
                 },
-                Odoo = new OdooDto
-                {
-                    Url = "smartrestaurantdb.odoo.com",
-                    Username = "g22riecredential@gmail.com",
-                    Password = "g22rie23032022",
-                    Db = "smartrestaurantdb"
-                },
                 Description = "",
 
                 Name = "MADINA HOTEL",
