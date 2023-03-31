@@ -36,7 +36,10 @@ namespace SmartRestaurant.Application.Orders.Commands
         public string RoomId { get; set; }
         public string HotelId { get; set; }
 
-        public List<ParametresValue> ParametreValueClient { get; set; }
+        public List<ParametresValue>? ParametreValueClient { get; set; }
+
+        public int? Quantity { get; set; }
+        
         public string ServiceId { get; set;}
     }
 

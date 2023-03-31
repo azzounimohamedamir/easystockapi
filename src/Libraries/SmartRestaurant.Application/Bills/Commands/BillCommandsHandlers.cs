@@ -164,8 +164,9 @@ namespace SmartRestaurant.Application.Bills.Commands
 		private async Task<long> UpdateOrderStateInOdoo(String orderId,string model , string state)
 		{
 			var result = await _saleOrderRepository.Search<List<int>>(model, "name", orderId, 1);
-			long Id;
-			if (result.Count > 0)
+			long Id=0;
+			
+			if (result != null && result.Count > 0)
 			{
 				Id = result[0];
 				var data = new Dictionary<string, object>

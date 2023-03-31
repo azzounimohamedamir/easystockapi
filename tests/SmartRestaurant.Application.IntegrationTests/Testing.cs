@@ -25,290 +25,294 @@ using SmartRestaurant.Infrastructure.Services;
 
 namespace SmartRestaurant.Application.IntegrationTests
 {
-    [SetUpFixture]
-    public class Testing
-    {
-        private static IConfigurationRoot _configuration;
-        private static IServiceScopeFactory _scopeFactory;
-        private static Checkpoint _checkpoint;
-        public static string _authenticatedUserId = "3cbf3570-4444-4444-8746-29b7cf568898";
-        public static string _defaultRole = Roles.FoodBusinessAdministrator.ToString();
-        private static Checkpoint _checkpointIdentity;
+	[SetUpFixture]
+	public class Testing
+	{
+		private static IConfigurationRoot _configuration;
+		private static IServiceScopeFactory _scopeFactory;
+		private static Checkpoint _checkpoint;
+		public static string _authenticatedUserId = "3cbf3570-4444-4444-8746-29b7cf568898";
+		public static string _defaultRole = Roles.FoodBusinessAdministrator.ToString();
+		private static Checkpoint _checkpointIdentity;
 
-        [OneTimeSetUp]
-        public void RunBeforeAnyTests()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true)
-                .AddEnvironmentVariables();
+		[OneTimeSetUp]
+		public void RunBeforeAnyTests()
+		{
+			var builder = new ConfigurationBuilder()
+				.SetBasePath(Directory.GetCurrentDirectory())
+				.AddJsonFile("appsettings.json", true, true)
+				.AddEnvironmentVariables();
 
-            _configuration = builder.Build();
+			_configuration = builder.Build();
 
-            var startup = new Startup(_configuration);
+			var startup = new Startup(_configuration);
 
-            var services = new ServiceCollection();
+			var services = new ServiceCollection();
 
-            var claimsIdentity = new ClaimsIdentity();
-            claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, "test user name"));
-            claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, _authenticatedUserId));
-            claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, _defaultRole));
-            var claimsPrincipal = new ClaimsPrincipal(new[] {claimsIdentity});
+			var claimsIdentity = new ClaimsIdentity();
+			claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, "test user name"));
+			claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, _authenticatedUserId));
+			claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, _defaultRole));
+			var claimsPrincipal = new ClaimsPrincipal(new[] {claimsIdentity});
 
-            var httpContext = new DefaultHttpContext {User = claimsPrincipal};
-            httpContext.Request.Headers.Add("Accept-Language", "en");
+			var httpContext = new DefaultHttpContext {User = claimsPrincipal};
+			httpContext.Request.Headers.Add("Accept-Language", "en");
 
-            services.AddSingleton(Mock.Of<IWebHostEnvironment>(w =>
-                w.EnvironmentName == "Development" &&
-                w.ApplicationName == "SmartRestaurant.API"));
-            services.AddLogging();
-            services.AddHttpContextAccessor();
-            services.AddSingleton(Mock.Of<IHttpContextAccessor>(o =>
-                o.HttpContext.User == httpContext.User &&
-                o.HttpContext.Request.Headers == httpContext.Request.Headers
-            )); 
-            startup.ConfigureServices(services);
-            var serviceDescriptor = services.FirstOrDefault(descriptor =>
-            descriptor.ServiceType == typeof(IDateTime));
-            var serviceDescriptor2 = services.FirstOrDefault(descriptor =>
-            descriptor.ServiceType == typeof(IUserService));
-            services.Remove(serviceDescriptor);
-            services.Remove(serviceDescriptor2);
+			services.AddSingleton(Mock.Of<IWebHostEnvironment>(w =>
+				w.EnvironmentName == "Development" &&
+				w.ApplicationName == "SmartRestaurant.API"));
+			services.AddLogging();
+			services.AddHttpContextAccessor();
+			services.AddSingleton(Mock.Of<IHttpContextAccessor>(o =>
+				o.HttpContext.User == httpContext.User &&
+				o.HttpContext.Request.Headers == httpContext.Request.Headers
+			)); 
+			startup.ConfigureServices(services);
+			var serviceDescriptor = services.FirstOrDefault(descriptor =>
+			descriptor.ServiceType == typeof(IDateTime));
+			 var serviceDescriptorOdoo = services.FirstOrDefault(descriptor =>
+			descriptor.ServiceType == typeof(IOdooRepository)); // get odoo serivce
+			var serviceDescriptor2 = services.FirstOrDefault(descriptor =>
+			descriptor.ServiceType == typeof(IUserService));
+			services.Remove(serviceDescriptorOdoo);// remove odoo service
+			services.Remove(serviceDescriptor);
+			services.Remove(serviceDescriptor2);
 
-            services.AddSingleton<IUserService, IdentityServiceMocked>();
-            services.AddSingleton<IDateTime, DateTimeServiceMocked>();
-            _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
+			services.AddSingleton<IUserService, IdentityServiceMocked>();
+			services.AddSingleton<IDateTime, DateTimeServiceMocked>();
+			services.AddSingleton<IOdooRepository, OdooServiceMocked>(); // add odoo service moked
+			_scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
-            _checkpoint = new Checkpoint
-            {
-                TablesToIgnore = new[] {"__EFMigrationsHistory"}
-            };
+			_checkpoint = new Checkpoint
+			{
+				TablesToIgnore = new[] {"__EFMigrationsHistory"}
+			};
 
-            _checkpointIdentity = new Checkpoint
-            {
-                TablesToIgnore = new[] {"__EFMigrationsHistory"}
-            };
-            EnsureDatabase();
-        }
+			_checkpointIdentity = new Checkpoint
+			{
+				TablesToIgnore = new[] {"__EFMigrationsHistory"}
+			};
+			EnsureDatabase();
+		}
 
-        private static void EnsureDatabase()
-        {
-            using var scope = _scopeFactory.CreateScope();
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-            context.Database.Migrate();
+		private static void EnsureDatabase()
+		{
+			using var scope = _scopeFactory.CreateScope();
+			var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+			context.Database.Migrate();
 
-            using var scopeIdentity = _scopeFactory.CreateScope();
-            var identityContext = scopeIdentity.ServiceProvider.GetService<IdentityContext>();
-            identityContext.Database.Migrate();
-        }
+			using var scopeIdentity = _scopeFactory.CreateScope();
+			var identityContext = scopeIdentity.ServiceProvider.GetService<IdentityContext>();
+			identityContext.Database.Migrate();
+		}
 
-        public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
-        {
-            using var scope = _scopeFactory.CreateScope();
+		public static async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
+		{
+			using var scope = _scopeFactory.CreateScope();
 
-            var mediator = scope.ServiceProvider.GetService<IMediator>();
+			var mediator = scope.ServiceProvider.GetService<IMediator>();
 
-            return await mediator.Send(request).ConfigureAwait(false);
-        }
+			return await mediator.Send(request).ConfigureAwait(false);
+		}
 
-        public static async Task ResetState()
-        {
-            await _checkpoint.Reset(_configuration.GetConnectionString("DefaultConnection"));
-            await _checkpointIdentity.Reset(_configuration.GetConnectionString("IdentityConnection"));
-        }
+		public static async Task ResetState()
+		{
+			await _checkpoint.Reset(_configuration.GetConnectionString("DefaultConnection"));
+			await _checkpointIdentity.Reset(_configuration.GetConnectionString("IdentityConnection"));
+		}
 
-        public static async Task<TEntity> FindAsync<TEntity>(Guid id)
-            where TEntity : class
-        {
-            using var scope = _scopeFactory.CreateScope();
+		public static async Task<TEntity> FindAsync<TEntity>(Guid id)
+			where TEntity : class
+		{
+			using var scope = _scopeFactory.CreateScope();
 
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+			var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-            return await context.FindAsync<TEntity>(id);
-        }
+			return await context.FindAsync<TEntity>(id);
+		}
 
-        public static async Task<List<TEntity>> GetAll<TEntity>()
-            where TEntity : class
-        {
-            using var scope = _scopeFactory.CreateScope();
+		public static async Task<List<TEntity>> GetAll<TEntity>()
+			where TEntity : class
+		{
+			using var scope = _scopeFactory.CreateScope();
 
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+			var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-            return await context.Set<TEntity>().ToListAsync();
-        }
-        public static void ConfigureDateTimeNow(DateTime dateTime)
-        {
-            using var scope = _scopeFactory.CreateScope();
-            var dateTimessservice = scope.ServiceProvider.GetService<IDateTime>();
-            dateTimessservice.SetDateTimeNow(dateTime);
-        }
+			return await context.Set<TEntity>().ToListAsync();
+		}
+		public static void ConfigureDateTimeNow(DateTime dateTime)
+		{
+			using var scope = _scopeFactory.CreateScope();
+			var dateTimessservice = scope.ServiceProvider.GetService<IDateTime>();
+			dateTimessservice.SetDateTimeNow(dateTime);
+		}
 
-        public static void ConfigureRoleClient(string role)
-        {
-            using var scope = _scopeFactory.CreateScope();
-            var dateTimessservice = scope.ServiceProvider.GetService<IUserService>();
-            dateTimessservice.SetNewRole(role);
-        }
-        public static List<TEntity> Where<TEntity>(Func<TEntity, bool> predicate) where TEntity : class
-        {
-            using var scope = _scopeFactory.CreateScope();
+		public static void ConfigureRoleClient(string role)
+		{
+			using var scope = _scopeFactory.CreateScope();
+			var dateTimessservice = scope.ServiceProvider.GetService<IUserService>();
+			dateTimessservice.SetNewRole(role);
+		}
+		public static List<TEntity> Where<TEntity>(Func<TEntity, bool> predicate) where TEntity : class
+		{
+			using var scope = _scopeFactory.CreateScope();
 
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+			var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-            return context.Set<TEntity>().Where(predicate).ToList();
-        }
+			return context.Set<TEntity>().Where(predicate).ToList();
+		}
 
-        public static async Task<Dish> GetDish(Guid dishId)
-        {
-            using var scope = _scopeFactory.CreateScope();
+		public static async Task<Dish> GetDish(Guid dishId)
+		{
+			using var scope = _scopeFactory.CreateScope();
 
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+			var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-            return await context.Set<Dish>()
-                 .Include(x => x.Ingredients)
-                 .ThenInclude(x => x.Ingredient)
-                 .Include(x => x.Supplements)
-                 .ThenInclude(x => x.Supplement)
-                 .Include(x => x.Specifications)
-                 .ThenInclude(x=>x.ComboBoxContentTranslation)
-                 .Where(u => u.DishId == dishId)
-                 .FirstOrDefaultAsync()
-                 .ConfigureAwait(false); 
-        }
+			return await context.Set<Dish>()
+				 .Include(x => x.Ingredients)
+				 .ThenInclude(x => x.Ingredient)
+				 .Include(x => x.Supplements)
+				 .ThenInclude(x => x.Supplement)
+				 .Include(x => x.Specifications)
+				 .ThenInclude(x=>x.ComboBoxContentTranslation)
+				 .Where(u => u.DishId == dishId)
+				 .FirstOrDefaultAsync()
+				 .ConfigureAwait(false); 
+		}
 
-        public static async Task<Domain.Entities.Illness> GetIllness(Guid illnessId)
-        {
-            using var scope = _scopeFactory.CreateScope();
+		public static async Task<Domain.Entities.Illness> GetIllness(Guid illnessId)
+		{
+			using var scope = _scopeFactory.CreateScope();
 
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+			var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-            return await context.Set<Domain.Entities.Illness>()
-                 .Include(x => x.IngredientIllnesses)
-                 .ThenInclude(x => x.Ingredient)
-                 .Where(u => u.IllnessId == illnessId)
-                 .FirstOrDefaultAsync()
-                 .ConfigureAwait(false);
-        }
-
-
-    
-
-        public static async Task<List<string>> GetUsers(string email)
-        {
-            using var scope = _scopeFactory.CreateScope();
-            var identitecontext = scope.ServiceProvider.GetService<IdentityContext>();
-            var userids = identitecontext.ApplicationUser.Where(u => u.Email == email).Select(x =>x.Id).ToList();
-            return userids;
-        }
+			return await context.Set<Domain.Entities.Illness>()
+				 .Include(x => x.IngredientIllnesses)
+				 .ThenInclude(x => x.Ingredient)
+				 .Where(u => u.IllnessId == illnessId)
+				 .FirstOrDefaultAsync()
+				 .ConfigureAwait(false);
+		}
 
 
-        public static async Task<bool> GetHotelByIdUser(List<string> idusers,Guid hotelid)
-        {
-            using var scope = _scopeFactory.CreateScope();
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-            var hoteluser = await context.hotelUsers
-              .Where(u => u.HotelId == hotelid && idusers.Contains(u.ApplicationUserId))
-              .FirstOrDefaultAsync()
-              .ConfigureAwait(false);
-            return hoteluser != null;
-        }
+	
 
-        public static async Task<bool> GetFoodByIdUser(List<string> idusers, Guid foodid)
-        {
-            using var scope = _scopeFactory.CreateScope();
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-            var fooduser = await context.FoodBusinessUsers
-              .Where(u => u.FoodBusinessId == foodid && idusers.Contains(u.ApplicationUserId))
-              .FirstOrDefaultAsync()
-              .ConfigureAwait(false);
-            return fooduser != null;
-        }
+		public static async Task<List<string>> GetUsers(string email)
+		{
+			using var scope = _scopeFactory.CreateScope();
+			var identitecontext = scope.ServiceProvider.GetService<IdentityContext>();
+			var userids = identitecontext.ApplicationUser.Where(u => u.Email == email).Select(x =>x.Id).ToList();
+			return userids;
+		}
 
-        public static  int GetAllHotelUserCount()
-        {
-            using var scope = _scopeFactory.CreateScope();
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-            var count =  context.hotelUsers.Count();
-            return count;
-        }
+
+		public static async Task<bool> GetHotelByIdUser(List<string> idusers,Guid hotelid)
+		{
+			using var scope = _scopeFactory.CreateScope();
+			var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+			var hoteluser = await context.hotelUsers
+			  .Where(u => u.HotelId == hotelid && idusers.Contains(u.ApplicationUserId))
+			  .FirstOrDefaultAsync()
+			  .ConfigureAwait(false);
+			return hoteluser != null;
+		}
+
+		public static async Task<bool> GetFoodByIdUser(List<string> idusers, Guid foodid)
+		{
+			using var scope = _scopeFactory.CreateScope();
+			var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+			var fooduser = await context.FoodBusinessUsers
+			  .Where(u => u.FoodBusinessId == foodid && idusers.Contains(u.ApplicationUserId))
+			  .FirstOrDefaultAsync()
+			  .ConfigureAwait(false);
+			return fooduser != null;
+		}
+
+		public static  int GetAllHotelUserCount()
+		{
+			using var scope = _scopeFactory.CreateScope();
+			var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+			var count =  context.hotelUsers.Count();
+			return count;
+		}
    
 
-        public static async Task<List<IlnessUser>> GetAllIlnessUserList()
-        {
-            using var scope = _scopeFactory.CreateScope();
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-            var list = context.ilnessUsers.Where(x=>x.ApplicationUserId== _authenticatedUserId).ToList();
-            return list;
-        }
+		public static async Task<List<IlnessUser>> GetAllIlnessUserList()
+		{
+			using var scope = _scopeFactory.CreateScope();
+			var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+			var list = context.ilnessUsers.Where(x=>x.ApplicationUserId== _authenticatedUserId).ToList();
+			return list;
+		}
 
-        public static int GetAllFoodBusinessUserCount()
-        {
-            using var scope = _scopeFactory.CreateScope();
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-            var count = context.FoodBusinessUsers.Count();
-            return count;
-        }
+		public static int GetAllFoodBusinessUserCount()
+		{
+			using var scope = _scopeFactory.CreateScope();
+			var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+			var count = context.FoodBusinessUsers.Count();
+			return count;
+		}
 
-        public static async Task<Order> GetOrder(Guid orderId)
-        {
-            using var scope = _scopeFactory.CreateScope();
+		public static async Task<Order> GetOrder(Guid orderId)
+		{
+			using var scope = _scopeFactory.CreateScope();
 
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+			var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-            return await context.Set<Order>()
-                    .Include(o => o.FoodBusiness)
-                    .Include(o => o.FoodBusinessClient)
-                    .Include(o => o.Dishes)
-                    .ThenInclude(o => o.Specifications)
-                    .ThenInclude(o=>o.ComboBoxContentTranslation)
-                    .Include(o => o.Dishes)
-                    .ThenInclude(o => o.Ingredients)
-                    .Include(o => o.Dishes)
-                    .ThenInclude(o => o.Supplements)
-                    .Include(o => o.Products)
-                    .Include(o => o.OccupiedTables)
-                    .Where(o => o.OrderId == orderId)
-                    .FirstOrDefaultAsync()
-                    .ConfigureAwait(false);
-        }
+			return await context.Set<Order>()
+					.Include(o => o.FoodBusiness)
+					.Include(o => o.FoodBusinessClient)
+					.Include(o => o.Dishes)
+					.ThenInclude(o => o.Specifications)
+					.ThenInclude(o=>o.ComboBoxContentTranslation)
+					.Include(o => o.Dishes)
+					.ThenInclude(o => o.Ingredients)
+					.Include(o => o.Dishes)
+					.ThenInclude(o => o.Supplements)
+					.Include(o => o.Products)
+					.Include(o => o.OccupiedTables)
+					.Where(o => o.OrderId == orderId)
+					.FirstOrDefaultAsync()
+					.ConfigureAwait(false);
+		}
 
-        public static async Task AddAsync<TEntity>(TEntity entity)
-            where TEntity : class
-        {
-            using var scope = _scopeFactory.CreateScope();
+		public static async Task AddAsync<TEntity>(TEntity entity)
+			where TEntity : class
+		{
+			using var scope = _scopeFactory.CreateScope();
 
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+			var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-            context.Add(entity);
+			context.Add(entity);
 
-            await context.SaveChangesAsync();
-        }
+			await context.SaveChangesAsync();
+		}
 
-        public static async Task AddIdentityAsync<TEntity>(TEntity entity)
-            where TEntity : class
-        {
-            using var scope = _scopeFactory.CreateScope();
+		public static async Task AddIdentityAsync<TEntity>(TEntity entity)
+			where TEntity : class
+		{
+			using var scope = _scopeFactory.CreateScope();
 
-            var context = scope.ServiceProvider.GetService<IdentityContext>();
+			var context = scope.ServiceProvider.GetService<IdentityContext>();
 
-            context.Add(entity);
+			context.Add(entity);
 
-            await context.SaveChangesAsync();
-        }
+			await context.SaveChangesAsync();
+		}
 
-        public static async Task<TEntity> FindIdentityAsync<TEntity>(object[] id)
-            where TEntity : class
-        {
-            using var scope = _scopeFactory.CreateScope();
+		public static async Task<TEntity> FindIdentityAsync<TEntity>(object[] id)
+			where TEntity : class
+		{
+			using var scope = _scopeFactory.CreateScope();
 
-            var context = scope.ServiceProvider.GetService<IdentityContext>();
+			var context = scope.ServiceProvider.GetService<IdentityContext>();
 
-            return await context.FindAsync<TEntity>(id);
-        }
+			return await context.FindAsync<TEntity>(id);
+		}
 
-        [OneTimeTearDown]
-        public void RunAfterAnyTests()
-        {
-        }
-    }
+		[OneTimeTearDown]
+		public void RunAfterAnyTests()
+		{
+		}
+	}
 }
