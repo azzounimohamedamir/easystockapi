@@ -29,6 +29,8 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                     RU = "maintenanceService RU"
                 },
                 isSmartrestaurantMenue = false,
+                IsIncludeQuantity= true,
+                Price=500,
                 DetailServce = new Names()
                 {
                     AR = "رحلة بالقارب",
@@ -60,6 +62,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
             {
                 IsRequired = true,
                 IsShowing = true,
+              
                 Names = new Names()
                 {
                     AR = "paramAr",
@@ -201,6 +204,76 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 SectionId = sectionId,
                 MenuID = null,
                 FoodBusinessID = foodBusinessId,
+                Price=100,
+                Names = new Names()
+                {
+
+                    AR = "باركينغ",
+                    EN = "Parking",
+                    FR = "Parking",
+                    TR = "Parking",
+                    RU = "Parking"
+                },
+                isSmartrestaurantMenue = false,
+                DetailServce = new Names()
+                {
+                    AR = "متوفر",
+                    EN = "available",
+                    FR = "disponible",
+                    TR = "available",
+                    RU = "available"
+                },
+                TitelSeccesResponce = new Names()
+                {
+                    AR = "نعم",
+                    EN = "Yes",
+                    FR = "Oui",
+                    TR = "Yes",
+                    RU = "Yes"
+                },
+                TitelFailureResponce = new Names()
+                {
+                    AR = "لا",
+                    EN = "No",
+                    FR = "Non",
+                    TR = "No",
+                    RU = "No"
+                },
+                Parametres = new List<CreateServiceParametreDto>()
+            };
+            var parametre = new CreateServiceParametreDto()
+            {
+                IsRequired = true,
+                IsShowing = true,
+                Names = new Names()
+                {
+                    AR = "عدد الساعات",
+                    FR = "nombre de heures",
+                    EN = "nombre de heures",
+                    TR = "nombre de heures",
+                    RU = "nombre de heures"
+                },
+                ServiceParametreType = ServiceParametreType.NumericValue
+            };
+
+            command.Parametres.Add(parametre);
+
+            await SendAsync(command);
+
+            return await FindAsync<HotelService>(command.Id);
+        }
+
+
+        public static async Task<HotelService> CreateHotelParkingServiceWithQuantityBySectionId(Guid sectionId, string foodBusinessId, int? price, bool? isIncludeQuantity)
+        {
+
+            var command = new CreateHotelServiceCommand
+            {
+                SectionId = sectionId,
+                MenuID = null,
+                FoodBusinessID = foodBusinessId,
+                Price = price,
+                IsIncludeQuantity = isIncludeQuantity,
                 Names = new Names()
                 {
 

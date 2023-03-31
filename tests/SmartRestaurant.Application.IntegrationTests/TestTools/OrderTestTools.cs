@@ -272,6 +272,45 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
         }
 
 
+        public static async Task<HotelOrder> CreateOrderSHwithQuantity(Domain.Entities.FoodBusiness foodBusiness, HotelService service, CheckIn checkin, Hotel hotel,int quantity)
+
+        {
+
+
+
+            var createOrderShForServiceWithQuantity = new CreateOrderSHCommand
+            {
+                HotelId = hotel.Id.ToString(),
+                CheckinId = checkin.Id.ToString(),
+                FoodBusinessId = service.FoodBusinessID.ToString(),
+                ServiceId = service.Id.ToString(),
+                FoodBusinessClientId = null,
+                SectionId = service.SectionId,
+                OccupiedTables = new List<OrderOccupiedTableDto>() { },
+                Dishes = null,
+                Products = null,
+                GeoPosition = null,
+                Quantity= quantity,     
+                ParametreValueClient = new List<ParametresValue>() {
+                 new ParametresValue {
+                Names = new Names() { AR = "عدد الحصص", EN = "number of seance", FR = "nombre de seance", TR = "number of seance", RU = "number of seance" },
+                    ServiceParametreType = ServiceParametreType.NumericValue,
+                    NumberValue =  1,
+                    Date =  null,
+                    SelectedValue = null,
+                }
+                },
+                RoomId = null
+            };
+            var hotelOrderWithQuantityService = await SendAsync(createOrderShForServiceWithQuantity);
+
+
+            return hotelOrderWithQuantityService;
+        }
+
+
+
+
 
 
 
