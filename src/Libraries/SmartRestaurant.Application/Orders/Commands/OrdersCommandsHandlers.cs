@@ -200,12 +200,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 				var validator = new CreateOrderSHCommandValidator();
 				var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
 				if (!result.IsValid) throw new ValidationException(result);
-
-			  
-
 				var service = await _context.HotelServices.FindAsync(Guid.Parse(request.ServiceId));
-
-
 				if (service == null)
 					throw new NotFoundException(nameof(HotelServices), request.ServiceId);
 
