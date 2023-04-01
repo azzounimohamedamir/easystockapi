@@ -7,6 +7,7 @@
         Served,
         Billed,
         Cancelled,
-        InProgress
+        InProgress,
+        SalesOrderInOdoo
     }
 }

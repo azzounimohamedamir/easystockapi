@@ -200,12 +200,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 				var validator = new CreateOrderSHCommandValidator();
 				var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
 				if (!result.IsValid) throw new ValidationException(result);
-
-			  
-
 				var service = await _context.HotelServices.FindAsync(Guid.Parse(request.ServiceId));
-
-
 				if (service == null)
 					throw new NotFoundException(nameof(HotelServices), request.ServiceId);
 
@@ -719,7 +714,8 @@ namespace SmartRestaurant.Application.Orders.Commands
 				}
 			 }
 			 
-			 if (order.Status == OrderStatuses.InProgress){
+			 if (order.Status == OrderStatuses.InProgress || order.Status == OrderStatuses.SalesOrderInOdoo)
+            {
 		if (order.FoodBusiness.Odoo != null)
 			{
 				await CreateOrderInOdoo(order); // create order odoo
