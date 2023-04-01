@@ -19,7 +19,7 @@
         HotelReceptionist = 15,
         HotelServiceAdmin = 16,
         HotelClient = 17,
-        HotelServiceTechnique = 18
-
+        HotelServiceTechnique = 18,
+        HotelMaid =19
     }
 }

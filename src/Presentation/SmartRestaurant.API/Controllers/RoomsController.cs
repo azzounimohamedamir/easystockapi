@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
+using SmartRestaurant.Application.Orders.Commands;
 using SmartRestaurant.Application.Rooms.Commands;
 using SmartRestaurant.Application.Rooms.Queries;
 using Swashbuckle.AspNetCore.Annotations;
@@ -23,7 +24,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [Route("{id:guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,HotelReceptionist")]
+        [Authorize(Roles = "FoodBusinessManager,HotelReceptionist,HotelMaid")]
         public async Task<IActionResult> GetRoomsByBuildingId([FromRoute] Guid id)
         {
             return await SendWithErrorsHandlingAsync(new GetAllRoomsByBuildingId { BuildingId = id });
@@ -73,6 +74,27 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             return await SendWithErrorsHandlingAsync(new DeleteRoomCommand { Id = id });
+        }
+
+
+        /// <summary> UpdateRoomStatus() </summary>
+        /// <remarks>
+        ///     This endpoint allows user to update Room Status To Available.<br></br>
+        /// </remarks>        
+        /// /// <param name="id">id of the room that would be updated</param>
+        /// <param name="command">This is payload object used to update room status</param>
+        /// <response code="204">The room has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in-order to update room status is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("{id}/status")]
+        [HttpPatch]
+        [Authorize(Roles = "HotelMaid")]
+        public async Task<IActionResult> UpdateRoomStatusToAvailable([FromRoute] string id, UpdateRoomStatusCommand command)
+        {
+            command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
         }
     }
 }
