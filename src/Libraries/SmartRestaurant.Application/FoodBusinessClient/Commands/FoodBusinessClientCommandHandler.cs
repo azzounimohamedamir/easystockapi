@@ -182,7 +182,8 @@ namespace SmartRestaurant.Application.FoodBusinessClient.Commands
         private async Task<long> getCountryId(string countryName)
         {
             var result = await _saleOrderRepository.Search<List<int>>("res.country", "name", countryName, 1);
-            if (result.Count > 0)
+            
+           if (result != null && result.Count > 0)
             {
                 return result[0];
             }

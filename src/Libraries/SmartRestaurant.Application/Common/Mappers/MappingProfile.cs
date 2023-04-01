@@ -150,6 +150,8 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Menu, MenuDto>().ReverseMap();
             CreateMap<Room, RoomDto>().ReverseMap();
+            CreateMap<UpdateRoomStatusCommand, Room>().ReverseMap();
+
             CreateMap<ServiceTechnique, ServiceTechniqueDto>().ReverseMap();
 
             CreateMap<Domain.Entities.OrderDestination, OrderDestinationDto>().ReverseMap();

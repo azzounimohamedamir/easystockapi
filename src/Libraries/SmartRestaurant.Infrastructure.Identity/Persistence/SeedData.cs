@@ -24,6 +24,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
         public const string HotelServiceAdmin_userId = "C4EAACBE-A5C5-47E8-8DED-508709D7A50F";
         public const string ClientHotel_UserId = "FB8EC84D-3A8F-4FC6-B21E-7141B48A164D";
         public const string HotelServiceTechnique_UserId = "acd04fc6-99da-436f-a011-191b7e92aa23";
+        public const string HotelMaid_UserId = "7d33ae49-68a8-4c10-bc57-b09da6f9f016";
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
@@ -158,7 +159,14 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     Name = Roles.HotelServiceTechnique.ToString(),
                     NormalizedName = Roles.HotelServiceTechnique.ToString().ToUpper(),
                     ConcurrencyStamp = "270b4553-f9b8-48e0-b244-af2ce4bc5ca9"
-                }
+                },
+                 new ApplicationRole
+                 {
+                     Id = ((long)Roles.HotelMaid).ToString(),
+                     Name = Roles.HotelMaid.ToString(),
+                     NormalizedName = Roles.HotelMaid.ToString().ToUpper(),
+                     ConcurrencyStamp = "2622be83-085c-4339-ae68-ffa9d5cd2fa8"
+                 }
             );
 
             #endregion
@@ -399,8 +407,20 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                      PasswordHash =
                         "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
                      EmailConfirmed = true
-                 }
-                 #endregion
+                 },
+                  new ApplicationUser
+                  {
+                      Id = HotelMaid_UserId,
+                      UserName = "HotelMaid@gmail.com",
+                      Email = "HotelMaid@gmail.com",
+                      NormalizedUserName = "HOTELMAID@GMAIL.COM",
+                      NormalizedEmail = "HOTELMAID@GMAIL.COM",
+                      // Real password is "FoodBusinessManager123@"
+                      PasswordHash =
+                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                      EmailConfirmed = true
+                  }
+                  #endregion
 
             );
 
@@ -507,10 +527,15 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                 {
                     UserId = HotelServiceTechnique_UserId,
                     RoleId = "18"
-                }
+                },
+                 new ApplicationUserRole
+                 {
+                     UserId = HotelMaid_UserId,
+                     RoleId = "19"
+                 }
 
-                #endregion
-                #region add rols to organisation user
+                 #endregion
+                 #region add rols to organisation user
                 ,
                 new ApplicationUserRole
                 {
