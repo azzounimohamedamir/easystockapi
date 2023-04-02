@@ -7,11 +7,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Hotels.Queries.FilterStrategy;
+using SmartRestaurant.Domain.Identity.Entities;
+using SmartRestaurant.Domain.Identity.Enums;
 
 namespace SmartRestaurant.Application.Hotels.Queries
 {
@@ -29,15 +33,17 @@ namespace SmartRestaurant.Application.Hotels.Queries
         private readonly IUserService _userService;
         private readonly IIdentityContext _identityContext;
         private readonly IApplicationDbContext _applicationDbContext;
-       
+        private readonly UserManager<ApplicationUser> _userManager;
 
 
-        public HotelsQueriesHandler(IIdentityContext identityContext, IApplicationDbContext context, IMapper mapper,IUserService userService)
+
+        public HotelsQueriesHandler(IIdentityContext identityContext, IApplicationDbContext context, IMapper mapper,IUserService userService, UserManager<ApplicationUser> userManager)
         {
             _mapper = mapper;
             _userService = userService;
             _identityContext = identityContext;
             _applicationDbContext=context;
+            _userManager = userManager;
         }
 
         public async Task<List<HotelDto>> Handle(GetHotelsListByAdmin request,
@@ -134,8 +140,35 @@ namespace SmartRestaurant.Application.Hotels.Queries
                  .FirstOrDefaultAsync().ConfigureAwait(false);
 
             var hotelDto = _mapper.Map<HotelDto>(entity);
-          
+            hotelDto.CurrentUserRating = await getCurrentUserRating(request.Id);
             return hotelDto;
+        }
+
+
+        public async Task<int> getCurrentUserRating(Guid HotelId)
+        {
+            var user_id = _userService.GetUserId();
+
+            var user = await _userManager.FindByIdAsync(user_id);
+            if (user == null)
+                throw new NotFoundException(nameof(user), user_id);
+
+
+            var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+            if (roles.Contains(Roles.HotelClient.ToString()))
+            {
+                var ratingObject = await _applicationDbContext.HotelUserRatings.Where(ratings => ratings.HotelId == HotelId && ratings.ApplicationUserId == Guid.Parse(user_id)).FirstOrDefaultAsync();
+                if (ratingObject == null)
+                {
+                    return 0;
+                }
+                return ratingObject.Rating;
+            }
+            else
+            {
+                return 0;
+            }
+
         }
     }
 }

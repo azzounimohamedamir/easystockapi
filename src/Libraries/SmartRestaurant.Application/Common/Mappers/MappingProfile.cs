@@ -71,6 +71,9 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ReverseMap();
 
             CreateMap<UpdateFoodBusinessRatingCommand,FoodBusinessUserRating>()
+                .ReverseMap()
+                ;
+            CreateMap<UpdateHotelRatingCommand, HotelUserRating>()
                 .ReverseMap();
 
             CreateMap<UpdateHotelCommand,Hotel>()
@@ -409,6 +412,8 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ReverseMap();
             
             CreateMap<FoodBusinessUserRatingDto, FoodBusinessUserRating>()
+                .ReverseMap();
+            CreateMap<HotelUserRatingDto, HotelUserRating>()
                 .ReverseMap();
 
             CreateMap<DishSupplement, DishSupplementDto>()

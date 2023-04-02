@@ -26,6 +26,9 @@ namespace SmartRestaurant.Application.Common.Dtos
         public PhoneNumber PhoneNumber { get; set; }
         public List<HotelDetailsSectionDto> DetailsSections { get; set; }
         public string Website { get; set; }
-        
+        public float AverageRating { get; set; }
+        public List<HotelUserRatingDto> Ratings { get; set; }
+        public int CurrentUserRating { get; set; }
+
     }
 }
