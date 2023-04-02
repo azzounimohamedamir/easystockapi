@@ -384,7 +384,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 					var result = await _saleOrderRepository.Search<List<int>>(
 							"product.template",
 							"name",
-						   "HS/" + hotelOrder.Names.EN.ToString()+"/"+ hotelOrder.CheckinId.ToString(),
+						   "HS/" + hotelOrder.Names.EN.ToString(),
 							1
 						);
 
@@ -398,7 +398,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 						long categoryId = await getProductServiceId();
 						var data = new Dictionary<string, object>
 					{
-						{ "name","HS/" + hotelOrder.Names.EN.ToString()+"/"+ hotelOrder.CheckinId.ToString()},
+						{ "name", "HS/" + hotelOrder.Names.EN.ToString()},
 						{ "detailed_type", "service"},
 						{ "pos_categ_id", categoryId},
 						{ "available_in_pos", 1},
