@@ -81,7 +81,12 @@ namespace SmartRestaurant.Application.IntegrationTests
 			services.AddSingleton<IUserService, IdentityServiceMocked>();
 			services.AddSingleton<IDateTime, DateTimeServiceMocked>();
 			services.AddSingleton<IOdooRepository, OdooServiceMocked>(); // add odoo service moked
-			_scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
+
+            var serviceDescriptorFirebase = services.FirstOrDefault(descriptor =>
+            descriptor.ServiceType == typeof(IFirebaseRepository)); // get firebase serivce
+            services.Remove(serviceDescriptorFirebase);// remove firebase service
+            services.AddSingleton<IFirebaseRepository, FirebaseServiceMocked>(); // add firebase service moked
+            _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
 			_checkpoint = new Checkpoint
 			{
