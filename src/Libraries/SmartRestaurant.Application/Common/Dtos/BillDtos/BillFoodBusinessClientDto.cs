@@ -11,5 +11,6 @@ namespace SmartRestaurant.Application.Common.Dtos.BillDtos
         public AddressDto Address { get; set; }
         public PhoneNumberDto PhoneNumber { get; set; }
         public string Website { get; set; }
+        public long OdooId { get; set; }
     }
 }
