@@ -180,8 +180,40 @@ namespace SmartRestaurant.Application.Checkins.Commands
 
 					};
 			await _saleOrderRepository.CreateAsync("sale.order.line", chekinOrder);
-		
-		}
+            await UpdateOrderStateInOdoo(saleOrderId.ToString(), "sale.order", "sale");// set odoo order " bon de commande "
+
+
+
+        }
+
+        private async Task<long> UpdateOrderStateInOdoo(string orderId, string model, string state)
+        {
+            var result = await _saleOrderRepository.Search<List<int>>(model, "name", orderId, 1);
+            long Id = 0;
+            if (result != null && result.Count > 0)
+            {
+                Id = result[0];
+                var data = new Dictionary<string, object>
+            {
+                { "state", state}
+
+            };
+                await _saleOrderRepository.UpdateAsync(model, Id, data);
+                return Id;
+            }
+            else
+            {
+                // Create a new instance of the logger
+                TraceSource logger = new TraceSource("odoo");
+                // Log an error
+                logger.TraceEvent(TraceEventType.Error, 0, "Sorry,this order not exist in odoo for updated it");
+
+                // Dispose of the logger
+                logger.Close();
+                return 0;
+            }
+
+        }
 
 
 
@@ -193,7 +225,7 @@ namespace SmartRestaurant.Application.Checkins.Commands
 
 
 
-		private async Task<long> CreateOdooClient(CheckIn checkIn , Hotel hotel)
+        private async Task<long> CreateOdooClient(CheckIn checkIn , Hotel hotel)
 		{
 			await _saleOrderRepository.Authenticate(hotel.Odoo);
 			
