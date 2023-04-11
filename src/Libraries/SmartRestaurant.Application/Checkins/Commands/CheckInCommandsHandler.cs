@@ -180,7 +180,7 @@ namespace SmartRestaurant.Application.Checkins.Commands
 
 					};
 			await _saleOrderRepository.CreateAsync("sale.order.line", chekinOrder);
-            await UpdateOrderStateInOdoo(saleOrderId.ToString(), "sale.order", "sale");// set odoo order " bon de commande "
+            await UpdateOrderStateInOdoo("H"+checkIn.Id.ToString(), "sale.order", "sale");// set odoo order " bon de commande "
 
 
 
