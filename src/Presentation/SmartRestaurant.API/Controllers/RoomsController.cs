@@ -90,7 +90,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}/status")]
         [HttpPatch]
-        [Authorize(Roles = "HotelMaid")]
+        [Authorize(Roles = "HotelMaid,HotelReceptionist")]
         public async Task<IActionResult> UpdateRoomStatusToAvailable([FromRoute] string id, UpdateRoomStatusCommand command)
         {
             command.Id = id;

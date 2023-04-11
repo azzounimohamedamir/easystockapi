@@ -39,6 +39,7 @@ namespace SmartRestaurant.Application.Checkins.Queries
             var query =
                 _context.CheckIns
                     .Where(checkin => checkin.hotelId == request.hotelId)
+                    .OrderByDescending(checkin => checkin.IsActivate == false && checkin.RoomNumber==0)
                     .GetPaged(request.Page, request.PageSize);
 
             var data = _mapper.Map<List<CheckinDto>>(await query.Data.ToListAsync(cancellationToken)
