@@ -40,7 +40,6 @@ namespace SmartRestaurant.Application.IntegrationTests.Reclamations
             var updatereclamationcommand = new UpdateReclamationCommand
             {
                Id= reclamation.Id,
-                ReclamationDescription = new NamesDto() { AR = "AR", EN = "EN", FR = "FR", TR = "TR", RU = "RU" },
             };
 
             byte[] imageBytes = Properties.Resources.food;
