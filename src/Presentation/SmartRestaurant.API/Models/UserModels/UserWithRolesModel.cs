@@ -15,6 +15,7 @@ namespace SmartRestaurant.API.Models.UserModels
             PhoneNumber = user.PhoneNumber;
             UserName = user.UserName;
             Roles = roles.ToList();
+            IsShowPhoneNumberInOdoo = user.IsShowPhoneNumberInOdoo;
         }
 
         [JsonProperty(PropertyName = "id")] public string Id { get; set; }
@@ -24,5 +25,6 @@ namespace SmartRestaurant.API.Models.UserModels
         public string UserName { get; set; }
         public List<string> Roles { get; set; }
         public string PhoneNumber { get; set; }
+        public bool? IsShowPhoneNumberInOdoo { get; set; }
     }
 }
