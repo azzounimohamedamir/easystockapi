@@ -374,17 +374,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			{
 				await UpdateDishesAndProductQuantityOnCreateOrderWithOdoo(order, foodBusiness);// gestion de stock
 			}
-			else
-			{
-				await UpdateDishesAndProductQuantityOnCreateOrder(order, foodBusiness);// gestion de stock
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-				// Dispose of the logger
-				logger.Close();
-			}
+			
 
 
 
@@ -483,16 +473,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			{
 				await UpdateOrderInOdoo(order); // update order in odoo
 			}
-			else
-			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-				// Dispose of the logger
-				logger.Close();
-			}
+			
 			var foodBusiness = await _context.FoodBusinesses.FindAsync(order.FoodBusinessId);
 			if (foodBusiness != null)            
 				orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);
@@ -549,16 +530,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 					await _saleOrderRepository.Authenticate(order.FoodBusiness.Odoo); // auth in odoo
 					await UpdateOrderStateInOdoo(order.OrderId.ToString(), "cancel",order);
 				}
-				else
-				{
-					// Create a new instance of the logger
-					TraceSource logger = new TraceSource("odoo");
-					// Log an error
-					logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-					// Dispose of the logger
-					logger.Close();
-				}
+				
 			 }
 			 
 			 if (order.Status == OrderStatuses.InProgress || order.Status == OrderStatuses.SalesOrderInOdoo)
@@ -567,16 +539,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			{
 				await CreateOrderInOdoo(order); // create order odoo
 			}
-			else
-			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-				// Dispose of the logger
-				logger.Close();
-			}
+			
 			 }
 
 			await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -747,21 +710,12 @@ namespace SmartRestaurant.Application.Orders.Commands
 					if (hotel.Odoo != null)
 					{
 					// get client diner or hotel client
-                      ApplicationUserDto createdBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(checkin.ClientId));
-                    long productId = await CreateOdooProductOfTypeChekin(hotel, hotelOrder); // get order chekin id 
+                        ApplicationUserDto createdBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(checkin.ClientId));
+                        long productId = await CreateOdooProductOfTypeChekin(hotel, hotelOrder); // get order chekin id 
 						long clientId = await CreateOdooClient(checkin.FullName,checkin.Email,checkin.PhoneNumber, createdBy.IsShowPhoneNumberInOdoo); // get odoo client id
 						await CreateOrderHotelServiceInOdoo(checkin, clientId, hotelOrder, productId); // create order in odoo
 					}
-					else
-					{
-						// Create a new instance of the logger
-						TraceSource logger = new TraceSource("odoo");
-						// Log an error
-						logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-						// Dispose of the logger
-						logger.Close();
-					}
+					
 
 				
 				
@@ -1373,17 +1327,10 @@ namespace SmartRestaurant.Application.Orders.Commands
 				var data = new Dictionary<string, object> { { "state", state } };
 
 				await _saleOrderRepository.UpdateAsync(model, Id, data);
-			}
-			else
+			}else
+			
 			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "Sorry,this order not exist in odoo for updated it");
-
-				// Dispose of the logger
-				logger.Close();
-			}
+				throw new ConflictException("Sorry,this order not exist in odoo for updated it");			}
 		}
 
 		private async Task UpdateOrderInOdoo(Order order)
@@ -1447,17 +1394,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 					await CreateOdooOrderSaleLines(order, Id); // create new lines in order posales
 				}
 			}
-			else
-			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "Sorry,this order not exist in odoo for updated it");
-
-				// Dispose of the logger
-				logger.Close();
-			   
-			}
+			
 		}
 
 		private async Task CreateOrderInOdoo(Order order)
@@ -1623,13 +1560,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			}
 			else
 			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "Sorry,this order not exist in odoo for updated it");
-
-				// Dispose of the logger
-				logger.Close();
+				
 				return 0;
 			}
 

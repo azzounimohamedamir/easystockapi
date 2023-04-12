@@ -97,18 +97,6 @@ namespace SmartRestaurant.Application.Bills.Commands
 			if(order.FoodBusiness.Odoo != null)
 			{
 			await CreatePaymentInOdoo(order); // create paiment in odoo
-			}else
-			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				 // Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-				
-				   // Flush the log to ensure all messages are written
-				logger.Flush();
-
-				// Dispose of the logger
-				logger.Close();
 			}
 			return default;
 		}
@@ -147,16 +135,6 @@ namespace SmartRestaurant.Application.Bills.Commands
 			}
 			
 		   }
-			else
-			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-				// Dispose of the logger
-				logger.Close();
-			}
 
 
 		}
@@ -179,13 +157,6 @@ namespace SmartRestaurant.Application.Bills.Commands
 			}
 			else
 			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "Sorry,this order not exist in odoo for updated it");
-
-				// Dispose of the logger
-				logger.Close();
 
 				return 0;
 			 

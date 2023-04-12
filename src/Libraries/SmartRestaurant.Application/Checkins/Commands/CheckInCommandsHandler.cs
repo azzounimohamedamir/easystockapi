@@ -96,21 +96,11 @@ namespace SmartRestaurant.Application.Checkins.Commands
 
 			// read product hotel if existe else create one
 			
-				if (hotel.Odoo != null)
+			if (hotel.Odoo != null)
 			{
 				long productId = await CreateOdooProductOfTypeChekin(hotel, roomtoBook); // get order chekin id 
 			long clientId = await CreateOdooClient(checkin, hotel); // get odoo client id
 			await CreateOrderInOdoo(checkin, clientId, roomtoBook, productId); // create order in odoo
-			}
-			else
-			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-				// Dispose of the logger
-				logger.Close();
 			}
 
 			
@@ -203,13 +193,6 @@ namespace SmartRestaurant.Application.Checkins.Commands
             }
             else
             {
-                // Create a new instance of the logger
-                TraceSource logger = new TraceSource("odoo");
-                // Log an error
-                logger.TraceEvent(TraceEventType.Error, 0, "Sorry,this order not exist in odoo for updated it");
-
-                // Dispose of the logger
-                logger.Close();
                 return 0;
             }
 
