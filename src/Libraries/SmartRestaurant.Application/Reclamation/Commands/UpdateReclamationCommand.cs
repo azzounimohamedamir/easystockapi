@@ -20,6 +20,7 @@ namespace SmartRestaurant.Application.Reclamation.Commands
         {
             
             RuleFor(l => l.Picture).NotEmpty();
+            RuleFor(l => l.TypeReclamationId).NotEmpty();
 
         }
     }
