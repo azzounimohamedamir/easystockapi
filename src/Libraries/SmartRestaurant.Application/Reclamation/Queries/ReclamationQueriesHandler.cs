@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using MediatR;
 using SmartRestaurant.Domain.Enums;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace SmartRestaurant.Application.Reclamation.Queries
 {
@@ -225,12 +226,13 @@ namespace SmartRestaurant.Application.Reclamation.Queries
             
 
             var querypaged = query.GetPaged(request.Page, request.PageSize);
-            var data = await querypaged.Data.AsNoTracking().ToListAsync(cancellationToken)
+            var data = await querypaged.Data.AsNoTracking().Distinct().ToListAsync()
+
                        .ConfigureAwait(false);
 
             if (searchKey != "")
             {
-                var dataFiltered = querypaged.Data.AsNoTracking().Where(
+                var dataFiltered = querypaged.Data.AsNoTracking().Distinct().Where(
                   a => a.HotelName.Contains(searchKey) ||
                   a.ReclamationDescription.AR.Contains(searchKey) ||
                   a.ReclamationDescription.FR.Contains(searchKey) ||

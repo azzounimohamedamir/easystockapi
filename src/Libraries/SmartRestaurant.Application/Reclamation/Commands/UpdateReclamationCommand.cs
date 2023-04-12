@@ -10,7 +10,6 @@ namespace SmartRestaurant.Application.Reclamation.Commands
 {
     public class UpdateReclamationCommand : UpdateCommand
     {
-        public NamesDto ReclamationDescription { get; set; }
         public string TypeReclamationId { get; set; }
 
         public IFormFile Picture { get; set; }
@@ -19,37 +18,9 @@ namespace SmartRestaurant.Application.Reclamation.Commands
     {
         public UpdateReclamationCommandValidator()
         {
-            RuleFor(v => v.ReclamationDescription)
-              .Cascade(CascadeMode.StopOnFirstFailure)
-              .NotNull()
-              .DependentRules(() =>
-              {
-                  RuleFor(v => v.ReclamationDescription.AR)
-                     .Cascade(CascadeMode.StopOnFirstFailure)
-                     .NotEmpty()
-                     .MaximumLength(200);
-
-                  RuleFor(v => v.ReclamationDescription.EN)
-                     .Cascade(CascadeMode.StopOnFirstFailure)
-                     .NotEmpty()
-                     .MaximumLength(200);
-
-                  RuleFor(v => v.ReclamationDescription.FR)
-                     .Cascade(CascadeMode.StopOnFirstFailure)
-                     .NotEmpty()
-                     .MaximumLength(200);
-
-                  RuleFor(v => v.ReclamationDescription.TR)
-                     .Cascade(CascadeMode.StopOnFirstFailure)
-                     .NotEmpty()
-                     .MaximumLength(200);
-
-                  RuleFor(v => v.ReclamationDescription.RU)
-                   .Cascade(CascadeMode.StopOnFirstFailure)
-                   .NotEmpty()
-                   .MaximumLength(200);
-              });
+            
             RuleFor(l => l.Picture).NotEmpty();
+            RuleFor(l => l.TypeReclamationId).NotEmpty();
 
         }
     }
