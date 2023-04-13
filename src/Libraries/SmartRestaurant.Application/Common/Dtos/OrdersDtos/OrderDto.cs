@@ -32,6 +32,9 @@ namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
         public ErrorResult ErrorDeliveryTimeAvailabilite { get; set; }
 
          public GeoPosition? GeoPosition { get; set; }
+        public long? OdooClientId { get; set; }
+        public string? OdooUrl { get; set; }
+        public string? OrderedBy { get; set; }
 
     }
 }

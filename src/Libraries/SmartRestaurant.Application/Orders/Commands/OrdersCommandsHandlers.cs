@@ -27,6 +27,9 @@ using SmartRestaurant.Domain.ValueObjects;
 using Newtonsoft.Json.Linq;
 using EllipticCurve.Utils;
 using MailKit.Search;
+using Microsoft.AspNetCore.Identity;
+using System.Data;
+using Org.BouncyCastle.Asn1.X509;
 
 namespace SmartRestaurant.Application.Orders.Commands
 {
@@ -51,7 +54,8 @@ namespace SmartRestaurant.Application.Orders.Commands
 		private readonly string CreateAction = "CreateAction";
 		private readonly string UpdateAction = "UpdateAction";
 		private readonly IOdooRepository _saleOrderRepository;
-
+		private readonly UserManager<ApplicationUser> _userManager;
+ 
 		public OrdersCommandsHandlers(IApplicationDbContext context,
 									IIdentityContext identityContext,
 									IMapper mapper,
@@ -59,6 +63,9 @@ namespace SmartRestaurant.Application.Orders.Commands
 									IFirebaseRepository fireBase,
 									IDateTime datetime ,
 									IOdooRepository saleOrderRepository
+								   , UserManager<ApplicationUser> userManager
+								  
+
 		)
 		{
 			_context = context;
@@ -68,6 +75,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			_fireBase = fireBase;
 			_datetime = datetime;
 		   _saleOrderRepository = saleOrderRepository;
+			_userManager = userManager;
 		}
 
 		public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -328,146 +336,8 @@ namespace SmartRestaurant.Application.Orders.Commands
 
 
 
-		private async Task<long> CreateOdooClient(CheckIn checkIn, Hotel hotel)
-		{
-			await _saleOrderRepository.Authenticate(hotel.Odoo);
 
-
-			long odooId=0;
-
-			var result = await _saleOrderRepository.Search<List<int>>(
-					"res.partner",
-					"email",
-					checkIn.Email,
-					1
-				);
-
-		
-
-		   if (result != null && result.Count > 0)
-			{
-				odooId = result[0];
-			}
-			else
-			{
-
-				var data = new Dictionary<string, object>
-			{
-				{ "name", checkIn.FullName},
-				{ "phone", checkIn.PhoneNumber},
-
-				{ "email",  checkIn.Email }
-
-				};
-
-
-
-				odooId = await _saleOrderRepository.CreateAsync("res.partner", data);
-			}
-
-
-			return odooId;
-		}
-
-		private async Task<long> CreateOdooProductOfTypeChekin(SmartRestaurant.Domain.Entities.Hotel hotel, HotelOrder hotelOrder)
-		{
-			var odooId = (long)0;
-			if (hotel.Odoo != null)
-			{
-				var loggedIn = await _saleOrderRepository.Authenticate(hotel.Odoo);
-
-
-
-				if (loggedIn)
-				{
-
-					var result = await _saleOrderRepository.Search<List<int>>(
-							"product.template",
-							"name",
-						   "HS/" + hotelOrder.Names.EN.ToString(),
-							1
-						);
-
-					if (result != null && result.Count > 0)
-					{
-						odooId = result[0];
-					}
-					else
-					{
-
-						long categoryId = await getProductServiceId();
-						var data = new Dictionary<string, object>
-					{
-						{ "name", "HS/" + hotelOrder.Names.EN.ToString()},
-						{ "detailed_type", "service"},
-						{ "pos_categ_id", categoryId},
-						{ "available_in_pos", 1},
-						{ "taxes_id",null }
-					};
-
-
-						odooId = await _saleOrderRepository.CreateAsync("product.template", data);
-					}
-				}
-			}
-			return odooId;
-		}
-
-		private async Task<long> getProductServiceId()
-		{
-
-			var result = await _saleOrderRepository.Search<List<int>>("pos.category", "name", "service", 1);
-			long categoryId = 0;
-			if (result != null && result.Count > 0)
-			{
-				categoryId = result[0];
-			}
-			else
-			{
-				var categoryData = new Dictionary<string, object>
-				{
-					{ "name", "service"}
-				};
-				categoryId = await _saleOrderRepository.CreateAsync("pos.category", categoryData);
-			}
-
-			return categoryId;
-		}
-
-
-		private async Task CreateOrderHotelServiceInOdoo(CheckIn checkIn, long clientId, HotelOrder order, long productId)
-		{
-
-
-
-			Dictionary<string, object> saleOrderDict = new Dictionary<string, object>
-				{
-					{ "name", "HS/"+checkIn.Id.ToString() },
-					{ "partner_id", clientId }
-
-				};
-
-			var saleOrderId = await _saleOrderRepository.CreateAsync(
-				"sale.order",
-				saleOrderDict
-			);
-			var chekinOrder = new Dictionary<string, object>
-					{
-						{ "order_id", saleOrderId },
-
-						{ "product_id", productId },
-						{ "price_unit", order.UnitePrice },
-						{ "product_uom_qty", order.Quantity>0 ? order.Quantity : 1 },
-						 {"tax_id", null},
-
-
-					};
-			await _saleOrderRepository.CreateAsync("sale.order.line", chekinOrder);
-
-		}
-
-
-
+	
 
 
 		public async Task<OrderDto> ExecuteOrderOperations<T>(T request, CancellationToken cancellationToken, Domain.Entities.FoodBusiness foodBusiness)
@@ -504,17 +374,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			{
 				await UpdateDishesAndProductQuantityOnCreateOrderWithOdoo(order, foodBusiness);// gestion de stock
 			}
-			else
-			{
-				await UpdateDishesAndProductQuantityOnCreateOrder(order, foodBusiness);// gestion de stock
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-				// Dispose of the logger
-				logger.Close();
-			}
+			
 
 
 
@@ -613,16 +473,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			{
 				await UpdateOrderInOdoo(order); // update order in odoo
 			}
-			else
-			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-				// Dispose of the logger
-				logger.Close();
-			}
+			
 			var foodBusiness = await _context.FoodBusinesses.FindAsync(order.FoodBusinessId);
 			if (foodBusiness != null)            
 				orderDto.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(orderDto.TotalToPay, foodBusiness.DefaultCurrency);
@@ -679,16 +530,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 					await _saleOrderRepository.Authenticate(order.FoodBusiness.Odoo); // auth in odoo
 					await UpdateOrderStateInOdoo(order.OrderId.ToString(), "cancel",order);
 				}
-				else
-				{
-					// Create a new instance of the logger
-					TraceSource logger = new TraceSource("odoo");
-					// Log an error
-					logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-					// Dispose of the logger
-					logger.Close();
-				}
+				
 			 }
 			 
 			 if (order.Status == OrderStatuses.InProgress || order.Status == OrderStatuses.SalesOrderInOdoo)
@@ -697,16 +539,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			{
 				await CreateOrderInOdoo(order); // create order odoo
 			}
-			else
-			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-				// Dispose of the logger
-				logger.Close();
-			}
+			
 			 }
 
 			await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -823,8 +656,6 @@ namespace SmartRestaurant.Application.Orders.Commands
 			return default;
 		}
 
-
-
 		public async Task<NoContent> Handle(AcceptOrderSHCommand request, CancellationToken cancellationToken)
 		{
 			var validator = new AcceptOrderSHCommandValidator();
@@ -870,28 +701,21 @@ namespace SmartRestaurant.Application.Orders.Commands
 				_context.HotelOrders.Update(hotelOrder);
 				await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 				 var hotel = _context.Hotels.Where(a => a.Id == hotelOrder.HotelId).FirstOrDefault();// get hotel
-                    var checkin = _context.CheckIns.Where(a => a.Id == hotelOrder.CheckinId).FirstOrDefault();// get checkin
+					var checkin = _context.CheckIns.Where(a => a.Id == hotelOrder.CheckinId).FirstOrDefault();// get checkin
 
-                    // create hotel order service in odoo
+					// create hotel order service in odoo
 
-                    // read service hotel if existe else create one
+					// read service hotel if existe else create one
 
-                    if (hotel.Odoo != null)
-                    {
+					if (hotel.Odoo != null)
+					{
+					// get client diner or hotel client
+                        ApplicationUserDto createdBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(checkin.ClientId));
                         long productId = await CreateOdooProductOfTypeChekin(hotel, hotelOrder); // get order chekin id 
-                        long clientId = await CreateOdooClient(checkin, hotel); // get odoo client id
-                        await CreateOrderHotelServiceInOdoo(checkin, clientId, hotelOrder, productId); // create order in odoo
-                    }
-                    else
-                    {
-                        // Create a new instance of the logger
-                        TraceSource logger = new TraceSource("odoo");
-                        // Log an error
-                        logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-                        // Dispose of the logger
-                        logger.Close();
-                    }
+						long clientId = await CreateOdooClient(checkin.FullName,checkin.Email,checkin.PhoneNumber, createdBy.IsShowPhoneNumberInOdoo); // get odoo client id
+						await CreateOrderHotelServiceInOdoo(checkin, clientId, hotelOrder, productId); // create order in odoo
+					}
+					
 
 				
 				
@@ -1503,17 +1327,10 @@ namespace SmartRestaurant.Application.Orders.Commands
 				var data = new Dictionary<string, object> { { "state", state } };
 
 				await _saleOrderRepository.UpdateAsync(model, Id, data);
-			}
-			else
+			}else
+			
 			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "Sorry,this order not exist in odoo for updated it");
-
-				// Dispose of the logger
-				logger.Close();
-			}
+				throw new ConflictException("Sorry,this order not exist in odoo for updated it");			}
 		}
 
 		private async Task UpdateOrderInOdoo(Order order)
@@ -1577,17 +1394,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 					await CreateOdooOrderSaleLines(order, Id); // create new lines in order posales
 				}
 			}
-			else
-			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "Sorry,this order not exist in odoo for updated it");
-
-				// Dispose of the logger
-				logger.Close();
-			   
-			}
+			
 		}
 
 		private async Task CreateOrderInOdoo(Order order)
@@ -1600,12 +1407,18 @@ namespace SmartRestaurant.Application.Orders.Commands
 				var foodBusinessClient = await _context.FoodBusinessClients.FindAsync(
 					order.FoodBusinessClientId
 				);
+				long odooId=0;
+				
+			
+
+                odooId = await CreateOdooClient(foodBusinessClient.Name, foodBusinessClient.Email, foodBusinessClient.PhoneNumber.Number.ToString(),false);
+                
 
 				Dictionary<string, object> saleOrderDict = new Dictionary<string, object>
 				{
 					{ "name", order.OrderId.ToString() },
-					{ "partner_id", foodBusinessClient.OdooId },
-					{ "amount_total", order.TotalToPay },
+					{ "partner_id", odooId }
+					
 				};
 
 				var saleOrderId = await _saleOrderRepository.CreateAsync(
@@ -1618,6 +1431,13 @@ namespace SmartRestaurant.Application.Orders.Commands
 			}
 			else
 			{
+
+				// get client diner or hotel client
+				ApplicationUserDto createdBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(order.CreatedBy));
+
+
+
+				long clientId = await CreateOdooClient(createdBy.FullName,createdBy.Email,createdBy.PhoneNumber,createdBy.IsShowPhoneNumberInOdoo); // get odoo client id
 				long sessionId = await getOpnedSessionInOdooId(); // get opned session id
 				Dictionary<string, object> saleOrderDict = new Dictionary<string, object>
 				{
@@ -1628,6 +1448,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 					{ "amount_tax", 0.0 },
 					{ "amount_paid", order.TotalToPay },
 					{ "amount_return", 0.0 },
+					{ "partner_id", clientId },
 					{ "pos_reference", order.OrderId.ToString() },
 				}; // create order odoo
 
@@ -1739,21 +1560,220 @@ namespace SmartRestaurant.Application.Orders.Commands
 			}
 			else
 			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "Sorry,this order not exist in odoo for updated it");
-
-				// Dispose of the logger
-				logger.Close();
+				
 				return 0;
 			}
 
 		}
-	
-	
+		
+		private async Task<long> CreateOdooClientHotel(CheckIn checkIn, Hotel hotel)
+		{
+			await _saleOrderRepository.Authenticate(hotel.Odoo);
+
+
+			long odooId=0;
+
+			var result = await _saleOrderRepository.Search<List<int>>(
+					"res.partner",
+					"email",
+					checkIn.Email,
+					1
+				);
+
+		
+
+		   if (result != null && result.Count > 0)
+			{
+				odooId = result[0];
+			}
+			else
+			{
+
+				var data = new Dictionary<string, object>
+			{
+				{ "name", checkIn.FullName},
+				{ "phone", checkIn.PhoneNumber},
+
+				{ "email",  checkIn.Email }
+
+				};
 
 
 
-	}
+				odooId = await _saleOrderRepository.CreateAsync("res.partner", data);
+			}
+
+
+			return odooId;
+		}
+
+
+		private async Task<long> CreateOdooClient(string fullName,string email,string phone,bool isShowPhoneNumberInOdoo)
+		{
+		   
+
+
+			long odooId = 0;
+
+			var result = await _saleOrderRepository.Search<List<int>>(
+					"res.partner",
+					"email",
+					email,
+					1
+				);
+
+
+
+			if (result != null && result.Count > 0)
+			{
+				odooId = result[0];
+			}
+			else
+			{
+				var data = new Dictionary<string, object> { } ;
+
+                if (isShowPhoneNumberInOdoo)
+				{
+				 data = new Dictionary<string, object>
+			    {
+				{ "name", fullName},
+				{ "phone", phone},
+				{ "email",  email }
+
+				};
+
+				}
+				else
+				{
+                    data = new Dictionary<string, object>
+                {
+                { "name", fullName},
+              
+                { "email",  email }
+
+                };
+
+                }
+
+
+
+
+				odooId = await _saleOrderRepository.CreateAsync("res.partner", data);
+			}
+
+
+			return odooId;
+		}
+
+		private async Task<long> CreateOdooProductOfTypeChekin(SmartRestaurant.Domain.Entities.Hotel hotel, HotelOrder hotelOrder)
+		{
+			var odooId = (long)0;
+			if (hotel.Odoo != null)
+			{
+				var loggedIn = await _saleOrderRepository.Authenticate(hotel.Odoo);
+
+
+
+				if (loggedIn)
+				{
+
+					var result = await _saleOrderRepository.Search<List<int>>(
+							"product.template",
+							"name",
+						   "HS/" + hotelOrder.Names.EN.ToString(),
+							1
+						);
+
+					if (result != null && result.Count > 0)
+					{
+						odooId = result[0];
+					}
+					else
+					{
+
+						long categoryId = await getProductServiceId();
+						var data = new Dictionary<string, object>
+					{
+						{ "name", "HS/" + hotelOrder.Names.EN.ToString()},
+						{ "detailed_type", "service"},
+						{ "pos_categ_id", categoryId},
+						{ "available_in_pos", 1},
+						{ "taxes_id",null }
+					};
+
+
+						odooId = await _saleOrderRepository.CreateAsync("product.template", data);
+					}
+				}
+			}
+			return odooId;
+		}
+
+		private async Task<long> getProductServiceId()
+		{
+
+			var result = await _saleOrderRepository.Search<List<int>>("pos.category", "name", "service", 1);
+			long categoryId = 0;
+			if (result != null && result.Count > 0)
+			{
+				categoryId = result[0];
+			}
+			else
+			{
+				var categoryData = new Dictionary<string, object>
+				{
+					{ "name", "service"}
+				};
+				categoryId = await _saleOrderRepository.CreateAsync("pos.category", categoryData);
+			}
+
+			return categoryId;
+		}
+
+
+		private async Task CreateOrderHotelServiceInOdoo(CheckIn checkIn, long clientId, HotelOrder order, long productId)
+		{
+
+
+
+			Dictionary<string, object> saleOrderDict = new Dictionary<string, object>
+				{
+					{ "name", "HS/"+checkIn.Id.ToString() },
+					{ "partner_id", clientId }
+
+				};
+
+			var saleOrderId = await _saleOrderRepository.CreateAsync(
+				"sale.order",
+				saleOrderDict
+			);
+			var chekinOrder = new Dictionary<string, object>
+					{
+						{ "order_id", saleOrderId },
+
+						{ "product_id", productId },
+						{ "price_unit", order.UnitePrice },
+						{ "product_uom_qty", order.Quantity>0 ? order.Quantity : 1 },
+						 {"tax_id", null},
+
+
+					};
+			await _saleOrderRepository.CreateAsync("sale.order.line", chekinOrder);
+            await UpdateOrderStateInOdoo("HS/"+checkIn.Id.ToString(), "sale.order", "sale");// set odoo order " bon de commande "
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+    }
 }

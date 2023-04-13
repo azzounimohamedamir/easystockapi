@@ -29,6 +29,7 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
                        .Include(o => o.Products)
                        .Include(o => o.OccupiedTables)
                        .Include(o => o.CommissionConfigs)
+                       .Include(o => o.FoodBusinessClient)
                        .Where(ConditionForStaff(request))
                        .OrderByDescending(orders => orders.Status)
                        .ThenByDescending(orders => orders.CreatedAt)
@@ -46,6 +47,7 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
                        .ThenInclude(o => o.Supplements)
                        .Include(o => o.Products)
                        .Include(o => o.OccupiedTables)
+                       .Include(o => o.FoodBusinessClient)
                        .Where(ConditionForStaff(request))
                        .OrderBy(orders => orders.Status)
                        .ThenByDescending(orders => orders.CreatedAt)
@@ -69,6 +71,7 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
                        .ThenInclude(o => o.Supplements)
                        .Include(o => o.Products)
                        .Include(o => o.OccupiedTables)
+                       
                        .Where(ConditionForClient(request,dinerId))
                        .OrderByDescending(orders => orders.Status)
                        .ThenByDescending(orders => orders.CreatedAt)

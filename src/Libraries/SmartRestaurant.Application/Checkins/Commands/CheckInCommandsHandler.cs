@@ -96,21 +96,11 @@ namespace SmartRestaurant.Application.Checkins.Commands
 
 			// read product hotel if existe else create one
 			
-				if (hotel.Odoo != null)
+			if (hotel.Odoo != null)
 			{
 				long productId = await CreateOdooProductOfTypeChekin(hotel, roomtoBook); // get order chekin id 
 			long clientId = await CreateOdooClient(checkin, hotel); // get odoo client id
 			await CreateOrderInOdoo(checkin, clientId, roomtoBook, productId); // create order in odoo
-			}
-			else
-			{
-				// Create a new instance of the logger
-				TraceSource logger = new TraceSource("odoo");
-				// Log an error
-				logger.TraceEvent(TraceEventType.Error, 0, "odoo dont config");
-
-				// Dispose of the logger
-				logger.Close();
 			}
 
 			
@@ -180,8 +170,33 @@ namespace SmartRestaurant.Application.Checkins.Commands
 
 					};
 			await _saleOrderRepository.CreateAsync("sale.order.line", chekinOrder);
-		
-		}
+            await UpdateOrderStateInOdoo("H"+checkIn.Id.ToString(), "sale.order", "sale");// set odoo order " bon de commande "
+
+
+
+        }
+
+        private async Task<long> UpdateOrderStateInOdoo(string orderId, string model, string state)
+        {
+            var result = await _saleOrderRepository.Search<List<int>>(model, "name", orderId, 1);
+            long Id = 0;
+            if (result != null && result.Count > 0)
+            {
+                Id = result[0];
+                var data = new Dictionary<string, object>
+            {
+                { "state", state}
+
+            };
+                await _saleOrderRepository.UpdateAsync(model, Id, data);
+                return Id;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
 
 
 
@@ -193,7 +208,7 @@ namespace SmartRestaurant.Application.Checkins.Commands
 
 
 
-		private async Task<long> CreateOdooClient(CheckIn checkIn , Hotel hotel)
+        private async Task<long> CreateOdooClient(CheckIn checkIn , Hotel hotel)
 		{
 			await _saleOrderRepository.Authenticate(hotel.Odoo);
 			

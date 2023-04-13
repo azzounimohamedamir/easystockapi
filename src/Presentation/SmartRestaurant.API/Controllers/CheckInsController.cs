@@ -24,9 +24,13 @@ namespace SmartRestaurant.API.Controllers
         [Route("{id:guid}")]
         [HttpGet]
         [Authorize(Roles = "FoodBusinessManager,HotelReceptionist")]
-        public async Task<IActionResult> GetCheckInsByHotelId([FromRoute] Guid id)
+        public async Task<IActionResult> GetCheckInsByHotelId([FromRoute] Guid id , int page, int pageSize)
         {
-            return await SendWithErrorsHandlingAsync(new GetCheckinsListQuery { hotelId = id });
+            return await SendWithErrorsHandlingAsync(new GetCheckinsListQuery {
+                hotelId = id,
+                Page = page,
+                PageSize = pageSize
+            });
         }
 
         /// <summary> GetCheckInsListOfClient() </summary>

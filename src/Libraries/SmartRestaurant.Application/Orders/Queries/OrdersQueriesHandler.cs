@@ -13,6 +13,7 @@ using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Application.CurrencyExchange;
 using SmartRestaurant.Application.Orders.Queries.FilterStrategy;
 using SmartRestaurant.Domain.Entities;
@@ -33,14 +34,16 @@ namespace SmartRestaurant.Application.Orders.Queries
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
+        private readonly IOdooRepository _saleOrderRepository;
 
 
-        public OrdersQueriesHandler( IApplicationDbContext context, IUserService userService, IMapper mapper, UserManager<ApplicationUser> userManager)
+        public OrdersQueriesHandler( IApplicationDbContext context, IUserService userService, IMapper mapper, UserManager<ApplicationUser> userManager, IOdooRepository saleOrderRepository)
         {
             _userManager = userManager;
             _context = context;
             _mapper = mapper;
             _userService = userService;
+            _saleOrderRepository = saleOrderRepository;
         }
 
         public async Task<OrderDto> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
@@ -97,9 +100,86 @@ namespace SmartRestaurant.Application.Orders.Queries
             {
                 order.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(order.TotalToPay, foodBusiness.DefaultCurrency);
                 order.CreatedBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(queryData.Find(o => o.OrderId.ToString() == order.OrderId).CreatedBy));
+                if (foodBusiness.Odoo != null)
+                {
+                    var loggedIn = await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+                    order.OdooUrl = foodBusiness.Odoo.Url;
+                    if (order.FoodBusinessClientId != "")
+                    { 
+
+                        order.OdooClientId = await CreateOdooClient(order.FoodBusinessClient.Name, order.FoodBusinessClient.Email, order.FoodBusinessClient.PhoneNumber.Number.ToString(),true);
+                        order.OrderedBy = order.FoodBusinessClient.Name;
+                    }
+                    else
+                    {
+                       order.OrderedBy = order.CreatedBy.FullName;
+                       order.OdooClientId = await CreateOdooClient(order.CreatedBy.FullName, order.CreatedBy.Email, order.CreatedBy.PhoneNumber, order.CreatedBy.IsShowPhoneNumberInOdoo); // get odoo client id
+
+                    }
+
+                }
             }
             return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
+
+
+        private async Task<long> CreateOdooClient(string fullName, string email, string phone, bool isShowPhoneNumberInOdoo)
+        {
+
+
+
+            long odooId = 0;
+
+            var result = await _saleOrderRepository.Search<List<int>>(
+                    "res.partner",
+                    "email",
+                    email,
+                    1
+                );
+
+
+
+            if (result != null && result.Count > 0)
+            {
+                odooId = result[0];
+            }
+            else
+            {
+                var data = new Dictionary<string, object> { };
+
+                if (isShowPhoneNumberInOdoo)
+                {
+                    data = new Dictionary<string, object>
+                {
+                { "name", fullName},
+                { "phone", phone},
+                { "email",  email }
+
+                };
+
+                }
+                else
+                {
+                    data = new Dictionary<string, object>
+                {
+                { "name", fullName},
+
+                { "email",  email }
+
+                };
+
+                }
+
+
+
+
+                odooId = await _saleOrderRepository.CreateAsync("res.partner", data);
+            }
+
+
+            return odooId;
+        }
+
         public async Task<PagedListDto<OrderDto>> Handle(GetOrdersListByDinnerOrClientQuery request, CancellationToken cancellationToken)
         {
             var dinerId = _userService.GetUserId();
