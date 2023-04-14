@@ -1035,7 +1035,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 					int quantity = 0;
 					if (result != null && result.Count > 0)
 					{
-						quantity = (int) result[0]["virtual_available"];
+						quantity = Convert.ToInt32(result[0]["virtual_available"]);
 					}
 					if ((quantity > 0) && ((quantity - (int)dish.Quantity) < 0))
 								// trow if execption if not availibe
@@ -1090,7 +1090,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 					if (result != null && result.Count > 0)
 					{
 						int quantity = 0;
-						quantity = (int)int.Parse(result[0]["virtual_available"].ToString());
+						quantity = Convert.ToInt32(result[0]["virtual_available"]);
 						if ((quantity>0)&&((quantity - (int)product.Quantity) < 0)) // trow if execption if not availibe
 						{
 							throw new ConflictException("Sorry, you can not take this quantity : " + product.Quantity + " , issue quantity ( odoo ). ");
