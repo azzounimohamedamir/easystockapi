@@ -19,6 +19,7 @@ using SmartRestaurant.Application.Orders.Queries.FilterStrategy;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
+using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Application.Orders.Queries
 {
@@ -109,18 +110,41 @@ namespace SmartRestaurant.Application.Orders.Queries
 
                         order.OdooClientId = await CreateOdooClient(order.FoodBusinessClient.Name, order.FoodBusinessClient.Email, order.FoodBusinessClient.PhoneNumber.Number.ToString(),true);
                         order.OrderedBy = order.FoodBusinessClient.Name;
+                        order.OdooContactMenuId = await getOdooClientMenuId();
                     }
                     else
                     {
                        order.OrderedBy = order.CreatedBy.FullName;
                        order.OdooClientId = await CreateOdooClient(order.CreatedBy.FullName, order.CreatedBy.Email, order.CreatedBy.PhoneNumber, order.CreatedBy.IsShowPhoneNumberInOdoo); // get odoo client id
-
+                        order.OdooContactMenuId = await getOdooClientMenuId();
                     }
 
                 }
             }
             return new PagedListDto<OrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
+
+        private async Task<long> getOdooClientMenuId()
+        {
+            long menuId = 0;
+            var result = await _saleOrderRepository.Search<List<int>>(
+                  "ir.ui.menu",
+                  "name",
+                  "Contacts",
+                  1
+              );
+
+
+
+            if (result != null && result.Count > 0)
+            {
+                menuId = result[0];
+            }
+
+            return menuId;
+
+        }
+
 
 
         private async Task<long> CreateOdooClient(string fullName, string email, string phone, bool isShowPhoneNumberInOdoo)

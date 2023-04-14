@@ -36,5 +36,7 @@ namespace SmartRestaurant.Application.Common.Dtos.OrdersDtos
         public string? OdooUrl { get; set; }
         public string? OrderedBy { get; set; }
 
+        public long? OdooContactMenuId { get; set; }
+
     }
 }
