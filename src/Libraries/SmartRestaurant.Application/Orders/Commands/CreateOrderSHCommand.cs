@@ -26,6 +26,8 @@ namespace SmartRestaurant.Application.Orders.Commands
         public Guid Id { get; set; }
         public Guid SectionId { get; set; }
         public OrderTypes Type { get; set; }
+        public TakeoutDetailsDto TakeoutDetails { get; set; }
+
         public List<OrderDishCommandDto> Dishes { get; set; }
         public List<OrderProductDto> Products { get; set; }
         public List<OrderOccupiedTableDto> OccupiedTables { get; set; }

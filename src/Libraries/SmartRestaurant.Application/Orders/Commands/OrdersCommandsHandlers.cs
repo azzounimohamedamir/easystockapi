@@ -345,7 +345,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 
 			Order order = null;
 			if (request.GetType() == typeof(CreateOrderSHCommand))
-			{
+			{                 
 				var newrequest = (request as CreateOrderSHCommand);
 				if (newrequest.FoodBusinessClientId != null)
 				{
@@ -354,9 +354,14 @@ namespace SmartRestaurant.Application.Orders.Commands
 						throw new NotFoundException(nameof(FoodBusinessClient), newrequest.FoodBusinessClientId);
 				}
 
-				order = _mapper.Map<Order>(newrequest);
-			}
-			else
+				if(newrequest.Type==OrderTypes.DineIn)
+				{
+					newrequest.TakeoutDetails.Type = TakeoutType.Instant;
+					newrequest.TakeoutDetails.DeliveryTime = null;
+                }
+                order = _mapper.Map<Order>(newrequest);
+            }
+            else
 			{
 				var newrequest = (request as CreateOrderCommand);
 				if (newrequest.FoodBusinessClientId != null)
@@ -365,11 +370,11 @@ namespace SmartRestaurant.Application.Orders.Commands
 					if (foodBusinessClient == null)
 						throw new NotFoundException(nameof(FoodBusinessClient), newrequest.FoodBusinessClientId);
 				}
+                order = _mapper.Map<Order>(newrequest);
 
-				order = _mapper.Map<Order>(newrequest);
-			}
+            }
 
-			order = PopulatFromLocalDishesAndProducts(order);
+            order = PopulatFromLocalDishesAndProducts(order);
 			if (foodBusiness.Odoo != null)
 			{
 				await UpdateDishesAndProductQuantityOnCreateOrderWithOdoo(order, foodBusiness);// gestion de stock
@@ -382,7 +387,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 
 			order.CreatedBy = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
 			order.CreatedAt = DateTime.Now;
-
+			
 			ChangeStatusForOccupiedTablesOnlyIfOrderTypeIsDineIn(order, CreateAction);
 			CalculateAndSetOrderEnergeticValues(order);
 			CalculateAndSetOrderTotalPrice(order, foodBusiness);
