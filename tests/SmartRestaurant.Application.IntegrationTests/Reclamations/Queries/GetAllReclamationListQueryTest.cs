@@ -13,7 +13,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Reclamations.Queries
     public class GetAllReclamationListQueryTest : TestBase
     {
         [Test]
-        public async Task ShouldGetAllReclamationListTestShouldHaveBothOfHotelsreclamations()
+        public async Task ShouldGetCreatedReclamationFromDatabaseTest()
         {
             await RolesTestTools.CreateRoles();
             var client = await UsersTestTools.CreateClient(_authenticatedUserId);
