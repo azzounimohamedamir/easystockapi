@@ -43,7 +43,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Orders.Commands
             var createProductCommand = await ProductTestTools.CreateProduct(fastFood.FoodBusinessId);
 
 
-            var OrderSHForRestauranthotelDinIn = await OrderTestTools.CreateOrderSH(createDishCommand,createProductCommand, fastFood, createRestaurantMallService, checkin, hotel); 
+            var OrderSHForRestauranthotelDinIn = await OrderTestTools.CreateOrderSHForDineIn(createDishCommand,createProductCommand, fastFood, createRestaurantMallService, checkin, hotel); 
             
 
             // GET Orders data from Order Table with SmartRestaurantOrderId in DineIn and InRoom 

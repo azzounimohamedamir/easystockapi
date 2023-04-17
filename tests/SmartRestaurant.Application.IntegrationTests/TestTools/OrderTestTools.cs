@@ -137,7 +137,7 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
 
 
 
-        public static async Task<HotelOrder> CreateOrderSH(CreateDishCommand createDishCommand,CreateProductCommand createProductCommand, Domain.Entities.FoodBusiness foodBusiness, HotelService service , CheckIn checkin , Hotel hotel )
+        public static async Task<HotelOrder> CreateOrderSHForDineIn(CreateDishCommand createDishCommand,CreateProductCommand createProductCommand, Domain.Entities.FoodBusiness foodBusiness, HotelService service , CheckIn checkin , Hotel hotel )
            
         {
 
@@ -151,6 +151,11 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
                 ServiceId = service.Id.ToString(),
                 FoodBusinessClientId = null,
                 SectionId = service.SectionId,
+                TakeoutDetails = new TakeoutDetailsDto()
+                {
+                    DeliveryTime = DateTime.Now,
+                    Type = TakeoutType.Instant
+                },
                 OccupiedTables = new List<OrderOccupiedTableDto>() {
                     new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab00" }
                 },
@@ -232,6 +237,62 @@ namespace SmartRestaurant.Application.IntegrationTests.TestTools
 
             return hotelOrderInRoom;
         }
+
+
+        public static async Task<HotelOrder> CreateOrderSH(CreateDishCommand createDishCommand, CreateProductCommand createProductCommand, Domain.Entities.FoodBusiness foodBusiness, HotelService service, CheckIn checkin, Hotel hotel)
+
+        {
+
+
+
+            var createOrderSh = new CreateOrderSHCommand
+            {
+                HotelId = hotel.Id.ToString(),
+                CheckinId = checkin.Id.ToString(),
+                FoodBusinessId = foodBusiness.FoodBusinessId.ToString(),
+                ServiceId = service.Id.ToString(),
+                FoodBusinessClientId = null,
+                SectionId = service.SectionId,
+                TakeoutDetails = new TakeoutDetailsDto()
+                {
+                    DeliveryTime = null,
+                    Type = TakeoutType.Delayed
+                },
+                OccupiedTables = new List<OrderOccupiedTableDto>() {
+                    new OrderOccupiedTableDto { TableId = "44aecd78-59bb-7504-bfff-07c07129ab00" }
+                },
+                Dishes = new List<OrderDishCommandDto>() {
+                     new OrderDishCommandDto {
+                      DishId =createDishCommand.Id.ToString(),
+                      EnergeticValue =  0,
+                      TableNumber =  4,
+                      ChairNumber =  1,
+                      Quantity =  2,
+                      Specifications = new List<OrderDishSpecificationDto>() {  },
+                      Ingredients =  new List<OrderDishIngredientDto>() {  },
+                      Supplements = new List<OrderDishSupplementDto>() {  },
+                    }
+                },
+                Products = new List<OrderProductDto>() {
+                    new OrderProductDto {
+                    ProductId =createProductCommand.Id.ToString(),
+                    TableNumber =  4,
+                    ChairNumber =  1,
+                    Quantity =  1
+                } },
+                GeoPosition = null,
+                ParametreValueClient = null,
+                RoomId = null
+            };
+
+            var hotelOrder = await SendAsync(createOrderSh);
+
+
+            return hotelOrder;
+        }
+
+
+
 
 
 
