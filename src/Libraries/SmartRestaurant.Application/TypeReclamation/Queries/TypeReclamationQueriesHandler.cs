@@ -10,12 +10,15 @@ using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Sections.Queries;
 using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.TypeReclamation.Queries
 {
     public class TypeReclamationQueriesHandler :
-        IRequestHandler<GetTypeReclamationListQuery, PagedListDto<TypeReclamationDto>>
+        IRequestHandler<GetTypeReclamationListQuery, PagedListDto<TypeReclamationDto>>,
+                IRequestHandler<GetTypeReclamationByIdQuery, TypeReclamationDto>
+
 
     {
         private readonly IApplicationDbContext _context;
@@ -39,6 +42,19 @@ namespace SmartRestaurant.Application.TypeReclamation.Queries
             return pagedResult;
         }
 
-       
+        public async Task<TypeReclamationDto> Handle(GetTypeReclamationByIdQuery request, CancellationToken cancellationToken)
+        {
+            var validator = new GetTypeReclamationByIdQueryValidator();
+            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+            if (!result.IsValid) throw new ValidationException(result);
+
+            var typereclamation = await _context.TypeReclamations.FindAsync(Guid.Parse(request.TypeReclamationId)).ConfigureAwait(false);
+            if (typereclamation == null)
+                throw new NotFoundException(nameof(TypeReclamation), request.TypeReclamationId);
+
+            return _mapper.Map<TypeReclamationDto>(typereclamation);
+        }
+
+
     }
 }
