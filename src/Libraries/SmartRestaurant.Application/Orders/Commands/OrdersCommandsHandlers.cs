@@ -236,7 +236,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 						FoodBusinessId = service.FoodBusinessID,
 						IsSmartrestaurantMenue = service.isSmartrestaurantMenue,
 						OrderStat = SHOrderStat.IsNew,
-						ServiceManagerName = service.OrderDestinationId.ToString(),
+						OrderDestinationId = service.OrderDestinationId.ToString(),
 						Type = OrderTypes.DineIn
 					};
 					_context.HotelOrders.Add(orderSH);
@@ -269,7 +269,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 						FoodBusinessId = service.FoodBusinessID,
 						IsSmartrestaurantMenue = service.isSmartrestaurantMenue,
 						OrderStat = SHOrderStat.IsNew,
-                        ServiceManagerName = service.OrderDestinationId.ToString(),
+                        OrderDestinationId = service.OrderDestinationId.ToString(),
                         Type = OrderTypes.InRoom
 					};
 					_context.HotelOrders.Add(orderSH);
@@ -307,7 +307,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 						FoodBusinessId = Guid.Empty,
 						IsSmartrestaurantMenue = service.isSmartrestaurantMenue,
 						OrderStat = SHOrderStat.IsNew,
-                        ServiceManagerName = service.OrderDestinationId.ToString(),
+                        OrderDestinationId = service.OrderDestinationId.ToString(),
                         Type = 0,
 						Quantity= request.Quantity,
 						UnitePrice=service.Price,

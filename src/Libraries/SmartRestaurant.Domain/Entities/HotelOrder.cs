@@ -37,7 +37,7 @@ namespace SmartRestaurant.Domain.Entities
 		public Names SuccesMessage { get; set; }
 		public Names FailureMessage { get; set; }
 
-		public string ServiceManagerName { get; set; }
+		public string OrderDestinationId { get; set; }
 		public int? Quantity {get; set;}
 		public float? TotalToPay { get; set; }
 		
