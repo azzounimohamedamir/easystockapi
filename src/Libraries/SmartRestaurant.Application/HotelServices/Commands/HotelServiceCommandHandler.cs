@@ -67,9 +67,9 @@ namespace SmartRestaurant.Application.HotelServices.Commands
                .ConfigureAwait(false);
                 if (entity == null)
                     throw new NotFoundException(nameof(HotelSection), request.Id);
+            _mapper.Map(request, entity);
 
-            var editedService= _mapper.Map<HotelService>(request);
-            _context.HotelServices.Update(editedService);
+            _context.HotelServices.Update(entity);
             await _context.SaveChangesAsync(cancellationToken);
 
             var oldParams = _context.ServiceParametres.Where(p => p.HotelServiceId == request.Id);

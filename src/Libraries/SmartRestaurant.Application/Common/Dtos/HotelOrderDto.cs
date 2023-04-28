@@ -32,7 +32,7 @@ namespace SmartRestaurant.Application.Common.Dtos
 
 		public CheckIn Checkin { get; set; }
 
-		public string ServiceManagerName { get; set; }
+		public string OrderDestinationId { get; set; }
 		public int? Quantity {get; set;}
 		public float? TotalToPay { get; set; }
 		public float? UnitePrice { get; set; }

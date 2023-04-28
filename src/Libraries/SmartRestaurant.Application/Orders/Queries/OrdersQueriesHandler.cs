@@ -257,7 +257,7 @@ namespace SmartRestaurant.Application.Orders.Queries
                                              Hotel = hotel,
                                              FailureMessage = ho.FailureMessage,
                                              SuccesMessage = ho.SuccesMessage,
-                                             ServiceManagerName = ho.ServiceManagerName,
+                                             OrderDestinationId = ho.OrderDestinationId,
                                              FoodBusinessId = ho.FoodBusinessId,
                                              IsSmartrestaurantMenue = ho.IsSmartrestaurantMenue,
                                              Names = ho.Names,
@@ -320,7 +320,7 @@ namespace SmartRestaurant.Application.Orders.Queries
                                              Hotel = hotel,
                                              FailureMessage = ho.FailureMessage,
                                              SuccesMessage = ho.SuccesMessage,
-                                             ServiceManagerName = ho.ServiceManagerName,
+                                             OrderDestinationId = ho.OrderDestinationId,
                                              FoodBusinessId = ho.FoodBusinessId,
                                              IsSmartrestaurantMenue = ho.IsSmartrestaurantMenue,
                                              Names = ho.Names,
@@ -334,7 +334,7 @@ namespace SmartRestaurant.Application.Orders.Queries
                                          });
                                 if (request.OrderDestinationId!= null)
                 {
-                    hotelOrderdtoData = hotelOrderdtoData.Where(o => o.ServiceManagerName == request.OrderDestinationId);
+                    hotelOrderdtoData = hotelOrderdtoData.Where(o => o.OrderDestinationId == request.OrderDestinationId);
                 }
                var query=hotelOrderdtoData.AsQueryable().GetPaged(request.Page,request.PageSize);
                 var data = query.Data.AsNoTracking().ToList();
