@@ -529,7 +529,8 @@ namespace SmartRestaurant.Application.Orders.Commands
 				await UpdateDishesAndProductQuantityOnRemoveOrder(order);
 				
 			}
-			if (order.Status == OrderStatuses.InQueue){
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            if (order.Status == OrderStatuses.InQueue){
 			if (order.FoodBusiness.Odoo != null)
 				{
 					await _saleOrderRepository.Authenticate(order.FoodBusiness.Odoo); // auth in odoo
@@ -547,7 +548,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			
 			 }
 
-			await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+		
 
 			return default;
 		}
