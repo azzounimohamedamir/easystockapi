@@ -24,7 +24,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
         public const string HotelServiceAdmin_userId = "C4EAACBE-A5C5-47E8-8DED-508709D7A50F";
         public const string ClientHotel_UserId = "FB8EC84D-3A8F-4FC6-B21E-7141B48A164D";
         public const string HotelServiceTechnique_UserId = "acd04fc6-99da-436f-a011-191b7e92aa23";
-        public const string HotelMaid_UserId = "7d33ae49-68a8-4c10-bc57-b09da6f9f016";
+        public const string HouseKeeping_UserId = "7d33ae49-68a8-4c10-bc57-b09da6f9f016";
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
@@ -162,9 +162,9 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                 },
                  new ApplicationRole
                  {
-                     Id = ((long)Roles.HotelMaid).ToString(),
-                     Name = Roles.HotelMaid.ToString(),
-                     NormalizedName = Roles.HotelMaid.ToString().ToUpper(),
+                     Id = ((long)Roles.HouseKeeping).ToString(),
+                     Name = Roles.HouseKeeping.ToString(),
+                     NormalizedName = Roles.HouseKeeping.ToString().ToUpper(),
                      ConcurrencyStamp = "2622be83-085c-4339-ae68-ffa9d5cd2fa8"
                  }
             );
@@ -410,7 +410,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                  },
                   new ApplicationUser
                   {
-                      Id = HotelMaid_UserId,
+                      Id = HouseKeeping_UserId,
                       UserName = "HotelMaid@gmail.com",
                       Email = "HotelMaid@gmail.com",
                       NormalizedUserName = "HOTELMAID@GMAIL.COM",
@@ -530,7 +530,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                 },
                  new ApplicationUserRole
                  {
-                     UserId = HotelMaid_UserId,
+                     UserId = HouseKeeping_UserId,
                      RoleId = "19"
                  }
 
