@@ -53,6 +53,7 @@ namespace SmartRestaurant.Application.Checkins.Queries
         public async Task<PagedListDto<CheckinDto>> Handle(GetCheckinsListOfClientQuery request,
             CancellationToken cancellationToken)
         {
+            DateTime currentDate = DateTime.Now;
             var userconnected = _userService.GetUserId();
             var query = from c in _context.CheckIns
                         join ro in _context.Rooms on c.RoomId equals ro.Id
@@ -74,8 +75,9 @@ namespace SmartRestaurant.Application.Checkins.Queries
                             RoomId = c.RoomId,
                             RoomNumber = c.RoomNumber,
                             LengthOfStay = c.LengthOfStay,
-                            Startdate=c.Startdate
-                        };
+                            Startdate=c.Startdate,
+                            IsValid = (currentDate < c.Startdate.AddDays(c.LengthOfStay))
+        };
             
             var pagedquery= query.GetPaged(request.Page, request.PageSize);
 
