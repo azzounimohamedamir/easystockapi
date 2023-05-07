@@ -20,6 +20,8 @@ namespace SmartRestaurant.Application.Common.Dtos
         public Guid RoomId { get; set; }
         public int RoomNumber { get; set; }
         public int LengthOfStay { get; set; }
+
+        public bool IsValid { get; set; }
         public DateTime Startdate { get; set; }
     }
 }

@@ -190,7 +190,14 @@ namespace SmartRestaurant.Application.Orders.Commands
 			.FirstOrDefaultAsync(u => u.ClientId == UserId && u.Id == Guid.Parse(CeckinId) && u.IsActivate == true, cancellation)
 			.ConfigureAwait(false);
 
-			if (checkin == null)
+            DateTime currentDate = DateTime.Now;
+			var isValid = (currentDate < checkin.Startdate.AddDays(checkin.LengthOfStay));
+			if (!isValid)
+			{
+                throw new ConflictException("Sorry,Expired checkin");
+            }
+
+            if (checkin == null)
 			{
 				return null;
 			}
@@ -203,6 +210,10 @@ namespace SmartRestaurant.Application.Orders.Commands
 		{
 			string user = ChecksHelper.GetUserIdFromToken_ThrowExceptionIfUserIdIsNullOrEmpty(_userService);
 			CheckIn clientCheckin = await GetCheckinInfo(user, request.CheckinId , cancellationToken);
+			if(request.HotelId != clientCheckin.hotelId.ToString())
+			{
+                throw new ConflictException("Sorry,The provided hotel ID is not valid for this client check-in");
+            }
 			if(clientCheckin != null)
 			{
 				var validator = new CreateOrderSHCommandValidator();

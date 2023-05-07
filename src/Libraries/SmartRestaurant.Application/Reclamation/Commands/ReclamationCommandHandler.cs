@@ -47,12 +47,20 @@ namespace SmartRestaurant.Application.Reclamation.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
             CheckIn checkin = await GetCheckinInfo(_userService.GetUserId(),request.CheckinId, cancellationToken);
+
             if(checkin == null)
             {
                 throw new NotFoundException(nameof(checkin),checkin);
+              
             }
             else
             {
+                DateTime currentDate = DateTime.Now;
+                var isValid = (currentDate < checkin.Startdate.AddDays(checkin.LengthOfStay));
+                if (!isValid)
+                {
+                    throw new ConflictException("Sorry,Expired checkin");
+                }
                 var typereclamation = await _context.TypeReclamations
                .FirstOrDefaultAsync(o => o.TypeReclamationId == Guid.Parse(request.TypeReclamationId), cancellationToken)
                .ConfigureAwait(false);
