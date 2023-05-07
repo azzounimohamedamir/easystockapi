@@ -20,6 +20,6 @@
         HotelServiceAdmin = 16,
         HotelClient = 17,
         HotelServiceTechnique = 18,
-        HotelMaid =19
+        HouseKeeping = 19
     }
 }

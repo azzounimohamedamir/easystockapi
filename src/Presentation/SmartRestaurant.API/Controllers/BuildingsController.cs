@@ -24,7 +24,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [Route("{id:guid}")]
         [HttpGet]
-        [Authorize(Roles = "FoodBusinessManager,HotelReceptionist,HotelMaid")]
+        [Authorize(Roles = "FoodBusinessManager,HotelReceptionist,HouseKeeping")]
         public async Task<IActionResult> GetAllBuildingsByHotelId([FromRoute] Guid id, string currentFilter, string searchKey, int page, int pageSize)
         {
             return await SendWithErrorsHandlingAsync(new GetAllBuildingsByHotelId {
