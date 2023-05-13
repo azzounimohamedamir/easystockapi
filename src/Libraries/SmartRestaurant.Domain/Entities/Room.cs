@@ -15,5 +15,9 @@ namespace SmartRestaurant.Domain.Entities
 		  public string ClientEmail { get; set; }
 		  public bool IsBooked { get; set; }
 		  public int Price { get; set; }
+		  public bool Cleaned { get; set; }
+		  public DateTime StartDayOfCheckin { get; set; } 
+		  public int DurationOfCheckin { get; set; }
+		  public DateTime DateCheckout { get; set; }
 	}  
 }
