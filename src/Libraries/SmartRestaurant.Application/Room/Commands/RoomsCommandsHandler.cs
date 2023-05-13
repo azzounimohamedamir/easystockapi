@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
@@ -21,7 +22,7 @@ namespace SmartRestaurant.Application.Rooms.Commands
         IRequestHandler<CreateRoomCommand, Created>,
         IRequestHandler<UpdateRoomCommand, NoContent>,
         IRequestHandler<DeleteRoomCommand, NoContent>,
-        IRequestHandler<UpdateRoomStatusCommand, NoContent>
+        IRequestHandler<UpdateRoomStatusCommand, Room>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -83,7 +84,7 @@ namespace SmartRestaurant.Application.Rooms.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
-        public async Task<NoContent> Handle(UpdateRoomStatusCommand request, CancellationToken cancellationToken)
+        public async Task<Room> Handle(UpdateRoomStatusCommand request, CancellationToken cancellationToken)
         {
             var validator = new UpdateRoomStatusCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
@@ -97,14 +98,13 @@ namespace SmartRestaurant.Application.Rooms.Commands
                 throw new NotFoundException(nameof(Order), request.Id);
 
 
-            if (room.IsBooked == false)
-                throw new ConflictException("Sorry,This Room is Already Available");
-
+            room.Cleaned = true;
             room.IsBooked = false;
+            room.DateCheckout = DateTime.Now;
             _mapper.Map(request, room);
             _context.Rooms.Update(room);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            return default;
+            return room;
         }
     }
 }
