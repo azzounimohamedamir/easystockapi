@@ -78,7 +78,12 @@ namespace SmartRestaurant.Application.Checkins.Commands
 
 		public async Task<NoContent> Handle(UpdateCheckInAssignRoomCommand request, CancellationToken cancellationToken)
 		{
-			var checkin = await _context.CheckIns
+         if(request.Startdate < DateTime.Today)
+			{
+               
+                throw new ConflictException("Sorry,Startdate must be a date after or equal today");
+            }
+            var checkin = await _context.CheckIns
 				.FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken)
 				.ConfigureAwait(false);
 			if (checkin == null)
@@ -88,7 +93,11 @@ namespace SmartRestaurant.Application.Checkins.Commands
 			roomtoBook.IsBooked = true;
 			roomtoBook.ClientEmail = checkin.Email;
 			roomtoBook.ClientId = checkin.Id;
-			_mapper.Map(request, checkin);
+            roomtoBook.StartDayOfCheckin = request.Startdate?? DateTime.Now;
+            roomtoBook.DurationOfCheckin = request.LengthOfStay??1;
+            roomtoBook.Cleaned = false;
+			roomtoBook.DateCheckout = roomtoBook.StartDayOfCheckin.AddDays(roomtoBook.DurationOfCheckin);
+            _mapper.Map(request, checkin);
 			_context.Rooms.Update(roomtoBook);
 			_context.CheckIns.Update(checkin);
 			await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -122,17 +131,22 @@ namespace SmartRestaurant.Application.Checkins.Commands
 			checkin.Email = AppuserInfo.Email;
 			checkin.PhoneNumber = AppuserInfo.PhoneNumber;
 			checkin.IsActivate = true;
-		   
-			var hotel = _context.Hotels.Where(a => a.Id == checkin.hotelId).FirstOrDefault();// get hotel
+        
+
+            var hotel = _context.Hotels.Where(a => a.Id == checkin.hotelId).FirstOrDefault();// get hotel
 
 			if(checkin.RoomId != Guid.Empty)
 			{
 				var roomtoBook = _context.Rooms.Where(a => a.Id == checkin.RoomId).FirstOrDefault();
 
 				roomtoBook.IsBooked = true;
+				roomtoBook.Cleaned = false;
 				roomtoBook.ClientEmail = AppuserInfo.Email;
 				roomtoBook.ClientId = Guid.Parse(AppuserInfo.Id);
-				_context.Rooms.Update(roomtoBook);
+				roomtoBook.StartDayOfCheckin = checkin.Startdate;
+				roomtoBook.DurationOfCheckin = checkin.LengthOfStay;
+                roomtoBook.DateCheckout = roomtoBook.StartDayOfCheckin.AddDays(roomtoBook.DurationOfCheckin);
+                _context.Rooms.Update(roomtoBook);
 			}
 			
 			_context.CheckIns.Update(checkin);       
