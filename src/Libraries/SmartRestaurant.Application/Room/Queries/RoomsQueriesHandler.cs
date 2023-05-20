@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,10 +30,18 @@ namespace SmartRestaurant.Application.Rooms.Queries
         public async Task<PagedListDto<RoomDto>> Handle(GetAllRoomsByBuildingId request, CancellationToken cancellationToken)
         {
             var filter = RoomStrategies.GetFilterStrategy(request.CurrentFilter);
+            DateTime currentDate = DateTime.Now;
 
             var query = filter.FetchData(_context.Rooms, request);
 
             var data = _mapper.Map<List<RoomDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
+
+            foreach (RoomDto room in data)
+            {
+                var isBooked = (currentDate < room.DateCheckout);
+                room.AvailableForCheckin = (!isBooked && room.Cleaned); // check if room available for checkin
+                room.IsBooked = isBooked;
+            }
 
 
             return new PagedListDto<RoomDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);

@@ -3,12 +3,13 @@ using FluentValidation;
 using MediatR;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace SmartRestaurant.Application.Rooms.Commands
 {
-    public class UpdateRoomStatusCommand : IRequest<NoContent>
+    public class UpdateRoomStatusCommand : IRequest<Room>
     {
         [SwaggerSchema(ReadOnly = true)] public string Id { get; set; }
     }
