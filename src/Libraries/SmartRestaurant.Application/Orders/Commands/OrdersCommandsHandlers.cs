@@ -534,7 +534,10 @@ namespace SmartRestaurant.Application.Orders.Commands
 			ChangeStatusForReleasedTablesOnlyIfOrderTypeIsDineIn(releasedTables);
 
 			_context.Orders.Update(order);
-
+			if (order.Status == OrderStatuses.InProgress)
+			{ 
+                await addClientNotifications(order.CreatedBy,order.FoodBusinessId.ToString(), order.OrderId.ToString(),ClientNotificationType.FoodBusinessOrder, "Your order is being prepared", cancellationToken);
+			}
 			 if (order.Status == OrderStatuses.Cancelled){
 				await addOrderNotifications(order.OrderId.ToString(), order.FoodBusinessId.ToString(), OrderNotificationType.Cancel, cancellationToken);
 				await UpdateDishesAndProductQuantityOnRemoveOrder(order);
@@ -630,7 +633,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
 			if (!result.IsValid) throw new ValidationException(result);
 
-			var hotelOrder = await _context.HotelOrders.FirstOrDefaultAsync(o => o.Id == Guid.Parse(request.Id), cancellationToken)
+			var hotelOrder = await _context.HotelOrders.Include(o => o.CheckIn).FirstOrDefaultAsync(o => o.Id == Guid.Parse(request.Id), cancellationToken)
 				.ConfigureAwait(false);
 			if (hotelOrder == null)
 				throw new NotFoundException(nameof(HotelOrder), request.Id);
@@ -669,8 +672,12 @@ namespace SmartRestaurant.Application.Orders.Commands
 				_context.HotelOrders.Update(hotelOrder);
 				await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 			}
-		   
-			return default;
+			if (hotelOrder.OrderStat ==SHOrderStat.DeniedByClient)
+			{
+				await addClientNotifications(hotelOrder.CheckIn.ClientId, hotelOrder.CheckinId.ToString(), hotelOrder.Id.ToString(), ClientNotificationType.HotelOrder, "your Order has been denied", cancellationToken);
+			}
+
+            return default;
 		}
 
 		public async Task<NoContent> Handle(AcceptOrderSHCommand request, CancellationToken cancellationToken)
@@ -679,7 +686,7 @@ namespace SmartRestaurant.Application.Orders.Commands
 			var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
 			if (!result.IsValid) throw new ValidationException(result);
 
-			var hotelOrder = await _context.HotelOrders.FirstOrDefaultAsync(o => o.Id == Guid.Parse(request.Id), cancellationToken)
+			var hotelOrder = await _context.HotelOrders.Include(o => o.CheckIn).FirstOrDefaultAsync(o => o.Id == Guid.Parse(request.Id), cancellationToken)
 				.ConfigureAwait(false);
 			if (hotelOrder == null)
 				throw new NotFoundException(nameof(HotelOrder), request.Id);
@@ -738,7 +745,9 @@ namespace SmartRestaurant.Application.Orders.Commands
 				
 			}
 
-			return default;
+            await addClientNotifications(hotelOrder.CheckIn.ClientId, hotelOrder.CheckinId.ToString(), hotelOrder.Id.ToString(),ClientNotificationType.HotelOrder, "your Order has been accepted", cancellationToken);
+
+            return default;
 		}
 
 
@@ -1297,11 +1306,21 @@ namespace SmartRestaurant.Application.Orders.Commands
 			var pathNotification = foodBusinessId + "/OrderNotifications";
 			await _fireBase.AddCollectionAsync(pathNotification, orderNotificationDto, cancellationToken);
 
-		} 
-		
-		
-		
-		private async Task<long> getOpnedSessionInOdooId()
+		}
+
+        private async Task addClientNotifications(string clientId, string parentId, string orderId,ClientNotificationType type, string message, CancellationToken cancellationToken)
+        {
+            clientId = clientId.ToUpper();
+            var clientNotificationDto = new ClientNotificationDto() { Type = type ,Message = message, Read = false, CreatedAt = DateTime.Now ,ParentId = parentId, ChildId = orderId};
+
+            var pathNotification = clientId + "/Notifications";
+            await _fireBase.AddUserCollectionAsync(pathNotification, clientNotificationDto, cancellationToken);
+
+        }
+
+
+
+        private async Task<long> getOpnedSessionInOdooId()
 		{
 			var result = await _saleOrderRepository.Search<List<int>>(
 				"pos.session",

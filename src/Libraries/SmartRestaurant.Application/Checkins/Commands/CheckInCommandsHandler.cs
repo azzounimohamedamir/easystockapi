@@ -17,6 +17,7 @@ using SmartRestaurant.Domain.Identity.Entities;
 using System.Collections.Generic;
 using SmartRestaurant.Application.FoodBusinessClient.Commands;
 using Org.BouncyCastle.Asn1.Ocsp;
+using SmartRestaurant.Application.Common.Enums;
 
 namespace SmartRestaurant.Application.Checkins.Commands
 {
@@ -33,16 +34,18 @@ namespace SmartRestaurant.Application.Checkins.Commands
 		private readonly IMapper _mapper;
 		private readonly IUserService _userService;
 		private readonly IOdooRepository _saleOrderRepository;
+        private readonly IFirebaseRepository _fireBase;
 
-		public CheckInCommandsHandler(IUserService userService, IApplicationDbContext context, IIdentityContext identityContext,IOdooRepository saleOrderRepository,
-			IMapper mapper)
+        public CheckInCommandsHandler(IUserService userService, IApplicationDbContext context, IIdentityContext identityContext,IOdooRepository saleOrderRepository, IFirebaseRepository fireBase,
+            IMapper mapper)
 		{
 			_context = context;
 			_identityContext = identityContext;
 			_mapper = mapper;
 			_userService = userService;
 			_saleOrderRepository = saleOrderRepository;
-		}
+            _fireBase = fireBase;
+        }
 
 
 
@@ -87,7 +90,10 @@ namespace SmartRestaurant.Application.Checkins.Commands
 			var hotel = _context.Hotels.Where(a => a.Id == checkin.hotelId).FirstOrDefault();// get hotel
 			roomtoBook.IsBooked = true;
 			roomtoBook.ClientEmail = checkin.Email;
-			roomtoBook.ClientId = checkin.Id;
+			if (checkin.ClientId != null)
+			{
+				roomtoBook.ClientId = Guid.Parse(checkin.ClientId);
+			}
 			_mapper.Map(request, checkin);
 			_context.Rooms.Update(roomtoBook);
 			_context.CheckIns.Update(checkin);
@@ -103,8 +109,29 @@ namespace SmartRestaurant.Application.Checkins.Commands
 			await CreateOrderInOdoo(checkin, clientId, roomtoBook, productId); // create order in odoo
 			}
 
-			
-			return default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			if (checkin.ClientId != "null")
+			{
+				await addClientNotifications(checkin.ClientId.ToString(), "You have booked a room", cancellationToken);
+			}
+            return default;
 		}
 
 		public async Task<NoContent> Handle(ActivateCheckinCommand request, CancellationToken cancellationToken)
@@ -314,5 +341,54 @@ namespace SmartRestaurant.Application.Checkins.Commands
 		}
 
 
-	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private async Task addClientNotifications(string clientId, string message, CancellationToken cancellationToken)
+        {
+            clientId = clientId.ToUpper();
+            var clientNotificationDto = new ClientNotificationDto() { Type = ClientNotificationType.HotelCheckin, Message = message, Read = false, CreatedAt = DateTime.Now };
+
+            var pathNotification = clientId + "/Notifications";
+            await _fireBase.AddUserCollectionAsync(pathNotification, clientNotificationDto, cancellationToken);
+
+        }
+
+
+    }
 }

@@ -96,27 +96,30 @@ namespace SmartRestaurant.Application.Orders.Queries
 
             var queryData = await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false);
             var data = _mapper.Map<List<OrderDto>>(queryData);
-
-            foreach (var order in data)
+            long contactMenuId = 0;
+            if (foodBusiness.Odoo != null)
+            {
+                var loggedIn = await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+                contactMenuId = await getOdooClientMenuId();
+            }
+                foreach (var order in data)
             {
                 order.CurrencyExchange = CurrencyConverter.GetDefaultCurrencyExchangeList(order.TotalToPay, foodBusiness.DefaultCurrency);
                 order.CreatedBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(queryData.Find(o => o.OrderId.ToString() == order.OrderId).CreatedBy));
-                if (foodBusiness.Odoo != null)
+                if (foodBusiness.Odoo != null && contactMenuId != 0)
                 {
-                    var loggedIn = await _saleOrderRepository.Authenticate(foodBusiness.Odoo);
+                    order.OdooContactMenuId = contactMenuId;
                     order.OdooUrl = foodBusiness.Odoo.Url;
                     if (order.FoodBusinessClientId != "")
                     { 
 
                         order.OdooClientId = await CreateOdooClient(order.FoodBusinessClient.Name, order.FoodBusinessClient.Email, order.FoodBusinessClient.PhoneNumber.Number.ToString(),true);
                         order.OrderedBy = order.FoodBusinessClient.Name;
-                        order.OdooContactMenuId = await getOdooClientMenuId();
                     }
                     else
                     {
                        order.OrderedBy = order.CreatedBy.FullName;
                        order.OdooClientId = await CreateOdooClient(order.CreatedBy.FullName, order.CreatedBy.Email, order.CreatedBy.PhoneNumber, order.CreatedBy.IsShowPhoneNumberInOdoo); // get odoo client id
-                        order.OdooContactMenuId = await getOdooClientMenuId();
                     }
 
                 }

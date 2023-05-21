@@ -15,6 +15,10 @@ namespace SmartRestaurant.Application.IntegrationTests
         public Task<T> AddCollectionAsync<T>(string path, T data, CancellationToken cancellationToken) 
         {
             return Task.FromResult(data);
+        } 
+        public Task<T> AddUserCollectionAsync<T>(string path, T data, CancellationToken cancellationToken) 
+        {
+            return Task.FromResult(data);
         }
         public Task<T> UpdateAsync<T>(string path, T data, CancellationToken cancellationToken) 
         {
