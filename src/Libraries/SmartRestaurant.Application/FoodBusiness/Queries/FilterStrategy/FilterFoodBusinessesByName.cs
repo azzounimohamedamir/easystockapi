@@ -43,7 +43,7 @@ namespace SmartRestaurant.Application.FoodBusiness.Queries.FilterStrategy
                 case "acs":
                     return foodBusinesses
                        .Where(foodBusiness => foodBusiness.Name.Contains(searchKey))
-                       .Where(foodBusinesses=>foodBusinesses.AcceptDelivery==true)
+                       .Where(foodBusinesses=>foodBusinesses.AcceptDelivery==true && foodBusinesses.IsActivityFrozen == false)
                        .OrderBy(foodBusiness => foodBusiness.Name)
                        .GetPaged(request.Page, request.PageSize);
 
