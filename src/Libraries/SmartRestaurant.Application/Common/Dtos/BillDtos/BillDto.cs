@@ -26,5 +26,8 @@ namespace SmartRestaurant.Application.Common.Dtos.BillDtos
         public BillFoodBusinessDto FoodBusiness { get; set; }
         public BillFoodBusinessClientDto FoodBusinessClient { get; set; }
 
+        public double TotalRevenue { get; set; }
+
+
     }
 }
