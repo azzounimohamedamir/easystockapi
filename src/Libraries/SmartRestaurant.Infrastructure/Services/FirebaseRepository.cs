@@ -20,12 +20,14 @@ namespace SmartRestaurant.Infrastructure.Services
     public class FirebaseConfig
     {
         public string BasePath { get; set; }
+        public string UserBasePath { get; set; }
    
     }
 
     public class FirebaseRepository : IFirebaseRepository
     {
         readonly string _DataBaseBasepath;
+        readonly string _DataBaseUserBasepath;
         readonly FirestoreDb _db;
         public FirebaseRepository(IOptions<FirebaseConfig> conf)
         {
@@ -34,6 +36,12 @@ namespace SmartRestaurant.Infrastructure.Services
             if (string.IsNullOrEmpty(_DataBaseBasepath))
             {
                 throw new ArgumentNullException("fireBase Path not found in appsettings");
+            }
+
+            _DataBaseUserBasepath = conf.Value.UserBasePath;
+            if (string.IsNullOrEmpty(_DataBaseUserBasepath))
+            {
+                throw new ArgumentNullException("fireBase Client Path not found in appsettings");
             }
             var pathConfigFile = Path.Combine(AppContext.BaseDirectory, "firebase.json");
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", pathConfigFile);
@@ -71,6 +79,21 @@ namespace SmartRestaurant.Infrastructure.Services
             }
 
         }
+        public async Task<T> AddUserCollectionAsync<T>(string path, T data, CancellationToken cancellationToken)
+        {
+            try
+            {
+                CollectionReference doc = _db.Collection(_DataBaseUserBasepath + "/" + path);
+                var objectTosend = getOrderToDictionary(data);
+                await doc.AddAsync(objectTosend, cancellationToken);
+                return data;
+            }
+            catch (Exception exe)
+            {
+                throw exe;
+            }
+
+        }
 
         public Dictionary<string, object>  getOrderToDictionary<T>(T orderDto)
         {
@@ -91,6 +114,10 @@ namespace SmartRestaurant.Infrastructure.Services
                     || type == typeof(float)|| type == typeof(double))
                     {
                         return valueToConvert;
+                    }
+                    if (type == typeof(bool))
+                    {
+                        return Convert.ToBoolean(valueToConvert) == true ? 1 : 0;
                     }
                     else if (type == typeof(DateTime) || type == typeof(DateTime?))
                     {

@@ -6,6 +6,8 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
+using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
@@ -30,14 +32,16 @@ namespace SmartRestaurant.Application.Reclamation.Commands
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IDateTime _datetime;
+        private readonly IFirebaseRepository _fireBase;
 
 
-        public ReclamationCommandsHandler(IApplicationDbContext context, IMapper mapper , IUserService userService, IDateTime datetime)
+        public ReclamationCommandsHandler(IApplicationDbContext context, IMapper mapper , IUserService userService, IFirebaseRepository fireBase, IDateTime datetime)
         {
             _context = context;
             _mapper = mapper;
             _userService = userService;
             _datetime = datetime;
+            _fireBase = fireBase;
         }
 
         public async Task<Created> Handle(CreateReclamationCommand request, CancellationToken cancellationToken)
@@ -106,6 +110,16 @@ namespace SmartRestaurant.Application.Reclamation.Commands
 
            
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+            if (reclamation.Status == ReclamationStatus.InProgress)
+            {
+                await addClientNotifications(reclamation.ClientId.ToString(), "Your complaint is being handled", cancellationToken);
+            }
+
+            if (reclamation.Status == ReclamationStatus.NotResolved)
+            {
+                await addClientNotifications(reclamation.ClientId.ToString(), "Your complaint has not been resolved", cancellationToken);
+            }
 
             return default;
         }
@@ -186,6 +200,16 @@ namespace SmartRestaurant.Application.Reclamation.Commands
             {
                 return checkin;
             }
+        }
+
+        private async Task addClientNotifications(string clientId, string message, CancellationToken cancellationToken)
+        {
+            clientId = clientId.ToUpper();
+            var clientNotificationDto = new ClientNotificationDto() { Type = ClientNotificationType.HotelComplaint, Message = message, Read = false, CreatedAt = DateTime.Now };
+
+            var pathNotification = clientId + "/Notifications";
+            await _fireBase.AddUserCollectionAsync(pathNotification, clientNotificationDto, cancellationToken);
+
         }
 
 

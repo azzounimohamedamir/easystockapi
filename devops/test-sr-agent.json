@@ -22,7 +22,8 @@
     "Port": "587"
   },
   "FirebaseConfig": {
-    "BasePath": "FoodBusinessTest"
+    "BasePath": "FoodBusinessTest",
+    "UserBasePath": "UserTest"
   },
   "WebPortal": {
     "host": "https://test.smartrestaurant.io",
