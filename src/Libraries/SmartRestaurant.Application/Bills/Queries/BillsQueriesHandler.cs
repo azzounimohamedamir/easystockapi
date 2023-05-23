@@ -43,11 +43,12 @@ namespace SmartRestaurant.Application.Orders.Queries
 
             var filter = BillStrategies.GetFilterStrategy(request.CurrentFilter);
             var query = filter.FetchData(_context.Orders, request);
+            var totalRevenueQuery = filter.FetchTotalRevenue(_context.Orders, request);
+            totalRevenue = totalRevenueQuery.Where(a => a.Status == Domain.Enums.OrderStatuses.Billed).Select(a => a.TotalToPay).Sum();         
             var data = _mapper.Map<List<BillDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
-            totalRevenue = data.Where(a => a.Status == Domain.Enums.OrderStatuses.Billed).Select(a => a.TotalToPay).Sum();
-            data.ForEach(data =>
+            data.ForEach(item =>
             {
-                data.TotalRevenue = totalRevenue;
+                item.TotalRevenue = totalRevenue;
             });
             return new PagedListDto<BillDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
