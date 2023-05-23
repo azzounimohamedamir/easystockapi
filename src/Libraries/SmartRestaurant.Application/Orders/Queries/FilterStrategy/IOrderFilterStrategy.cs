@@ -11,6 +11,8 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
         public List<HotelOrder> FetchDataOfClientSH(DbSet<HotelOrder> hotelOrders, GetAllClientSHOrdersQuery request, string clientId);
         public List<HotelOrder> FetchDataOfManagerSH(DbSet<HotelOrder> hotelOrders, GetAllClientSHOrdersQuery request);
 
+        public float FetchDataOfManagerSHTotal(DbSet<HotelOrder> hotelOrders, GetAllClientSHOrdersTotalQuery request);
+
         public PagedResultBase<Order> FetchDataOfDinnerOrClient(DbSet<Order> Dishes, GetOrdersListByDinnerOrClientQuery request , string dinerId);
         public PagedResultBase<Order> FetchOrderListOfTodayOfDinner(DbSet<Order> Dishes, GetAllTodayOrdersQueryByTableId request);
 

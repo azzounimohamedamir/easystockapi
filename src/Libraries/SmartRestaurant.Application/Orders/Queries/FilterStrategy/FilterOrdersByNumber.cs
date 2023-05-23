@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Tools;
+using SmartRestaurant.Domain.Common.Enums;
 using SmartRestaurant.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -170,9 +171,22 @@ namespace SmartRestaurant.Application.Orders.Queries.FilterStrategy
 
             return hotelOrders
                .Include(ho => ho.ParametreValueClient)
+               .Where(ho => ho.DateOrder >= FiltersHelpers.GetDateFilter(request.DateInterval))
                .OrderByDescending(ho => ho.DateOrder)
                .AsNoTracking().ToList();
 
+        }
+
+
+        public float FetchDataOfManagerSHTotal(DbSet<HotelOrder> hotelOrders, GetAllClientSHOrdersTotalQuery request)
+        {
+
+          
+            return hotelOrders
+    .Where(ho => ho.DateOrder >= FiltersHelpers.GetDateFilter(request.DateInterval) && ho.OrderStat == SHOrderStat.ResponseSucces)
+    .OrderByDescending(ho => ho.DateOrder)
+    .AsNoTracking()
+    .Sum(ho => ho.TotalToPay);
         }
 
         private static Expression<Func<Order, bool>> ConditionForClient(GetOrdersListByDinnerOrClientQuery request,string dinerId)

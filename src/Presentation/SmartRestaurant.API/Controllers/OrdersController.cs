@@ -308,7 +308,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(PagedListDto<HotelOrder>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Authorize(Roles = "HotelClient,Diner,FoodBusinessManager,HotelServiceAdmin")]
+        [Authorize(Roles = "HotelClient,Diner,FoodBusinessManager,HotelServiceAdmin,FoodBusinessAdministrator")]
         [Route("SHClientOrders")]
         [HttpGet]
         public Task<IActionResult> GetListOfOrdersSHByClientHotel(string currentFilter, string searchKey, string sortOrder,
@@ -327,6 +327,44 @@ namespace SmartRestaurant.API.Controllers
             };
             return SendWithErrorsHandlingAsync(query);
         }
+
+
+        /// <summary> GetListOfOrdersSmartHotelClient </summary>
+        /// <remarks>This endpoint allows us to fetch list of orders of current Diner or Client Hotel.</remarks>
+        /// <param name="currentFilter">Orders list can be filtred by: <b>order number</b></param>
+        /// <param name="searchKey">Search keyword</param>
+        /// <param name="sortOrder">Orders list can be sorted by: <b>acs</b> | <b>desc</b>. Default value is: <b>acs</b></param>
+        /// <param name="dateInterval">We will get results within the selected interval. Default interval is: <b>ToDay</b><br></br>
+        ///     <b>Note 01:</b> This is the enum used to set Date Interval: <b>  enum DateFilter { ToDay, Last7Days, Last30Days, All } </b>
+        /// </param>
+        /// <param name="page">The start position of read pointer in a request results. Default value is: <b>1</b></param>
+        /// <param name="pageSize">The max number of Reservations that should be returned. Default value is: <b>10</b>. Max value is: <b>100</b></param>
+        /// <response code="200"> Orders list has been successfully fetched.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to fetch orders list is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [ProducesResponseType(typeof(PagedListDto<HotelOrder>), 200)]
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Authorize(Roles = "FoodBusinessAdministrator")]
+        [Route("TotalSHClientOrders")]
+        [HttpGet]
+        public Task<IActionResult> GetTotalOfOrdersSHByHotel(string currentFilter, string searchKey, string sortOrder,
+            int page, int pageSize, DateFilter dateInterval, string hotelId, string orderDestinationId)
+        {
+            var query = new GetAllClientSHOrdersTotalQuery
+            {
+                CurrentFilter = currentFilter,
+                SearchKey = searchKey,
+                SortOrder = sortOrder,
+                HotelId = hotelId,
+                OrderDestinationId = orderDestinationId,
+                Page = page,
+                PageSize = pageSize,
+                DateInterval = dateInterval
+            };
+            return SendWithErrorsHandlingAsync(query);
+        }
+
 
 
 

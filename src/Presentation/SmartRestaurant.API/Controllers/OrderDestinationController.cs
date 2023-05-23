@@ -31,7 +31,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
         [Route("{HotelId:Guid}/list")]
-        [Authorize(Roles = "FoodBusinessManager,HotelClient,HotelServiceAdmin")]
+        [Authorize(Roles = "FoodBusinessManager,HotelClient,HotelServiceAdmin,FoodBusinessAdministrator")]
         public async Task<IActionResult> GetOrderDestinationList([FromRoute] string HotelId,int page, int pageSize)
         {
             return await SendWithErrorsHandlingAsync(new GetAllOrderDestinationListByHotelId
