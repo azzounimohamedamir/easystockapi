@@ -4,6 +4,7 @@ using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -36,6 +37,31 @@ namespace SmartRestaurant.Application.Bills.Queries.FilterStrategy
                        .Where(Condition(request))
                        .OrderBy(orders => orders.Status)
                        .GetPaged(request.Page, request.PageSize);
+            }
+        }
+
+        public List<Order> FetchTotalRevenue(DbSet<Order> orders, GetBillsListQuery request)
+        {
+            var sortOrder = string.IsNullOrWhiteSpace(request.SortOrder) ? "acs" : request.SortOrder;
+
+            switch (sortOrder)
+            {
+                case "desc":
+                    return orders
+                       .Include(o => o.Dishes)
+                       .Include(o => o.Products)
+                       .Include(o => o.FoodBusiness)
+                       .Include(o => o.FoodBusinessClient)
+                       .Where(Condition(request)).ToList();
+
+                default:
+                    return orders
+                       .Include(o => o.Dishes)
+                       .Include(o => o.Products)
+                       .Include(o => o.FoodBusiness)
+                       .Include(o => o.FoodBusinessClient)
+                       .Where(Condition(request))
+                       .OrderBy(orders => orders.Status).ToList();
             }
         }
 
