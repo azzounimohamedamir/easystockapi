@@ -99,7 +99,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("{id}/pay")]
         [HttpPatch]
-        [Authorize(Roles = "FoodBusinessManager,Cashier,SupportAgent")]
+        [Authorize(Roles = "FoodBusinessManager,Cashier,SupportAgent,FoodBusinessAdministrator")]
         public async Task<IActionResult> PayBill([FromRoute] string id)
         {
             return await SendWithErrorsHandlingAsync(new PayBillCommand { Id = id });

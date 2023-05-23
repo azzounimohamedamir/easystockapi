@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -30,6 +32,7 @@ namespace SmartRestaurant.Application.Orders.Queries
 
         public async Task<PagedListDto<BillDto>> Handle(GetBillsListQuery request, CancellationToken cancellationToken)
         {
+            var totalRevenue = 0.0 ;
             var validator = new GetBillsListQueryValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
@@ -40,8 +43,12 @@ namespace SmartRestaurant.Application.Orders.Queries
 
             var filter = BillStrategies.GetFilterStrategy(request.CurrentFilter);
             var query = filter.FetchData(_context.Orders, request);
-
             var data = _mapper.Map<List<BillDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
+            totalRevenue = data.Where(a => a.Status == Domain.Enums.OrderStatuses.Billed).Select(a => a.TotalToPay).Sum();
+            data.ForEach(data =>
+            {
+                data.TotalRevenue = totalRevenue;
+            });
             return new PagedListDto<BillDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
 
