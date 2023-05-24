@@ -34,7 +34,7 @@ namespace SmartRestaurant.Application.Common.Dtos
 
 		public string OrderDestinationId { get; set; }
 		public int? Quantity {get; set;}
-		public float? TotalToPay { get; set; }
+		public float TotalToPay { get; set; }
 		public float? UnitePrice { get; set; }
 	}
 }

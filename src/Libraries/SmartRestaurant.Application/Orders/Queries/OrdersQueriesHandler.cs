@@ -16,6 +16,7 @@ using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Application.CurrencyExchange;
 using SmartRestaurant.Application.Orders.Queries.FilterStrategy;
+using SmartRestaurant.Domain.Common.Enums;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
@@ -29,7 +30,8 @@ namespace SmartRestaurant.Application.Orders.Queries
         IRequestHandler<GetAllClientSHOrdersQuery, PagedListDto<HotelOrderDto>>,
         IRequestHandler<GetOrdersListByDinnerOrClientQuery, PagedListDto<OrderDto>>,
         IRequestHandler<GetAllTodayOrdersQueryByTableId, PagedListDto<OrderDto>>,
-        IRequestHandler<GetLastOrderByTableIDQuery, OrderDto>
+        IRequestHandler<GetLastOrderByTableIDQuery, OrderDto>,
+        IRequestHandler<GetAllClientSHOrdersTotalQuery, float>
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IApplicationDbContext _context;
@@ -247,7 +249,7 @@ namespace SmartRestaurant.Application.Orders.Queries
                 var list = filter.FetchDataOfClientSH(_context.HotelOrders, request, clientId);
                 var hotelOrderdtoData = (from ho in list
                                          join check in _context.CheckIns on
-                                        ho.CheckinId equals check.Id
+                                          ho.CheckinId equals check.Id
                                          join ro in _context.Rooms on check.RoomId equals ro.Id
                                          join hotel in _context.Hotels on check.hotelId equals hotel.Id
                                          where check.ClientId == clientId
@@ -300,7 +302,7 @@ namespace SmartRestaurant.Application.Orders.Queries
                 }
 
             }
-            if (roles.Contains(Roles.FoodBusinessManager.ToString()) || roles.Contains(Roles.HotelServiceAdmin.ToString()))
+            if (roles.Contains(Roles.FoodBusinessManager.ToString()) || roles.Contains(Roles.HotelServiceAdmin.ToString()) || roles.Contains(Roles.FoodBusinessAdministrator.ToString()))
             {
 
                 var validator = new GetAllClientSHOrdersQueryValidator();
@@ -333,18 +335,25 @@ namespace SmartRestaurant.Application.Orders.Queries
                                              OrderStat = ho.OrderStat,
                                              Type = ho.Type,
                                              UserId = ho.UserId,
-                                             Id = ho.Id
+                                             Id = ho.Id,
+                                             TotalToPay= ho.TotalToPay,
+
                                          });
                                 if (request.OrderDestinationId!= null)
                 {
                     hotelOrderdtoData = hotelOrderdtoData.Where(o => o.OrderDestinationId == request.OrderDestinationId);
+                }
+                                if (roles.Contains(Roles.FoodBusinessAdministrator.ToString()))
+                {
+                    hotelOrderdtoData = hotelOrderdtoData.Where(o => o.OrderStat == SHOrderStat.ResponseSucces);
+
                 }
                var query=hotelOrderdtoData.AsQueryable().GetPaged(request.Page,request.PageSize);
                 var data = query.Data.AsNoTracking().ToList();
 
                 if (searchKey != "")
                 {
-                    var dataFiltered = data.Where(
+                     data = data.Where(
                       a => 
                       a.Checkin.FullName.ToLower().Contains(searchKey) ||
                       a.Checkin.Email.ToLower().Contains(searchKey) ||
@@ -358,13 +367,10 @@ namespace SmartRestaurant.Application.Orders.Queries
                        a.OrderStat.ToString().ToLower().Contains(searchKey) ||
                       a.Room.RoomNumber.ToString().Contains(searchKey)
                        ).ToList();
-                    var pagedResult = new PagedListDto<HotelOrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, dataFiltered);
-                    return pagedResult;
+                   
                 }
-                else
-                {
                     return new PagedListDto<HotelOrderDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
-                }
+              
             }
 
                 return default;
@@ -441,5 +447,25 @@ namespace SmartRestaurant.Application.Orders.Queries
             orderDto.CreatedBy = _mapper.Map<ApplicationUserDto>(await _userManager.FindByIdAsync(orders[0].CreatedBy));
             return orderDto;
         }
+
+
+
+        public async Task<float> Handle(GetAllClientSHOrdersTotalQuery request, CancellationToken cancellationToken)
+        {
+          
+
+                var validator = new GetAllClientSHOrdersTotalQueryValidator();
+                var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
+                if (!result.IsValid) throw new ValidationException(result);
+                var filter = OrderStrategies.GetFilterStrategy(request.CurrentFilter);
+                return    filter.FetchDataOfManagerSHTotal(_context.HotelOrders, request);
+             
+              
+           
+
+          
+        }
+
+
     }
 }
