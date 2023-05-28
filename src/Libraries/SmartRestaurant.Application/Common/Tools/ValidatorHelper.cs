@@ -20,7 +20,7 @@ namespace SmartRestaurant.Application.Common.Tools
         public static bool ValidateEmail(string email)
         {
             if (email == null)
-                return false;
+                return true;
 
             return new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$").Match(email).Success;
         }

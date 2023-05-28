@@ -59,38 +59,14 @@ namespace SmartRestaurant.Application.FoodBusiness.Commands
                 .NotEqual(Guid.Empty.ToString())
                 .Must(ValidatorHelper.ValidateGuid).WithMessage("'{PropertyName}' must be a valid GUID");
 
-            RuleFor(foodBusiness => foodBusiness.Email)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty()
-                .MaximumLength(200)
-                .Must(ValidatorHelper.ValidateEmail).WithMessage("'{PropertyName}: {PropertyValue}' is invalide");
+           
 
-            RuleFor(foodBusiness => foodBusiness.Address)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotNull()
-                .DependentRules(() => {
-                    RuleFor(foodBusiness => foodBusiness.Address.StreetAddress)
-                       .Cascade(CascadeMode.StopOnFirstFailure)
-                       .NotEmpty()
-                       .MaximumLength(200);
-
-                    RuleFor(foodBusiness => foodBusiness.Address.City)
-                       .Cascade(CascadeMode.StopOnFirstFailure)
-                       .NotEmpty()
-                       .MaximumLength(200);
-
-                    RuleFor(foodBusiness => foodBusiness.Address.Country)
-                       .Cascade(CascadeMode.StopOnFirstFailure)
-                       .NotEmpty()
-                       .MaximumLength(200);
-                });
+          
           
             RuleFor(foodBusiness => foodBusiness.Description)
                .MaximumLength(500);
 
-            RuleFor(foodBusiness => foodBusiness.Website)
-                .Must(ValidatorHelper.ValidateUrl).WithMessage("'{PropertyName}: {PropertyValue}' is invalide")
-                .When(foodBusiness => !String.IsNullOrWhiteSpace(foodBusiness.Website));
+          
 
             RuleFor(foodBusiness => foodBusiness.FourDigitCode)
                 .Cascade(CascadeMode.StopOnFirstFailure)
