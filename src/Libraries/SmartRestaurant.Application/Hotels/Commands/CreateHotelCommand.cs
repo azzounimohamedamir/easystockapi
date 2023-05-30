@@ -53,21 +53,19 @@ namespace SmartRestaurant.Application.Hotels.Commands
               .Must(ValidatorHelper.ValidateEmail).WithMessage("'{PropertyName}: {PropertyValue}' is invalide");
 
             RuleFor(hotel => hotel.Address)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotNull();
+                .Cascade(CascadeMode.StopOnFirstFailure);
+
                     RuleFor(hotel => hotel.Address.StreetAddress)
                        .Cascade(CascadeMode.StopOnFirstFailure)
-                       .NotEmpty()
+                       
                        .MaximumLength(200);
 
                     RuleFor(hotel => hotel.Address.City)
                        .Cascade(CascadeMode.StopOnFirstFailure)
-                       .NotEmpty()
                        .MaximumLength(200);
 
                     RuleFor(hotel => hotel.Address.Country)
                        .Cascade(CascadeMode.StopOnFirstFailure)
-                       .NotEmpty()
                        .MaximumLength(200);
             RuleFor(hotel => hotel.Address.GeoPosition.Longitude)
                        .Cascade(CascadeMode.StopOnFirstFailure)
@@ -87,7 +85,6 @@ namespace SmartRestaurant.Application.Hotels.Commands
                 .When(hotel => !String.IsNullOrWhiteSpace(hotel.Website));
             RuleFor(hotel => hotel.YoutubeLink)
                       .Cascade(CascadeMode.StopOnFirstFailure)
-                      .NotEmpty()
                       .MaximumLength(200);
 
                     
