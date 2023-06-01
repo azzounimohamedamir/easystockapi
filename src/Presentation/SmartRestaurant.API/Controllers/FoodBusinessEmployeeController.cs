@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
+using SmartRestaurant.Domain.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace SmartRestaurant.API.Controllers
@@ -81,12 +82,13 @@ namespace SmartRestaurant.API.Controllers
         [HttpDelete]
         [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
         public async Task<IActionResult> RemoveEmployeeFromOrganization([FromRoute] string id,
-            [FromQuery] List<string> businessesIds)
+            [FromQuery] List<string> businessesIds , [FromQuery] EmployeesType employeesType)
         {
             var command = new RemoveEmployeeFromOrganizationCommand
             {
                 UserId = id,
-                businessesIds = businessesIds
+                businessesIds = businessesIds,
+                EmployeesType= employeesType
             };
             return await SendWithErrorsHandlingAsync(command);
         }

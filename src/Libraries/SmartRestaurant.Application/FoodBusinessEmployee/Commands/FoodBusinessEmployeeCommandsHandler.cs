@@ -17,6 +17,7 @@ using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 
 using SmartRestaurant.Application.Common.Enums;
+using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {
@@ -89,22 +90,43 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            if (request.EmployeesType == EmployeesType.FoodBusinessEmploye)
             {
-                foreach (var foodBusinessId in request.businessesIds)
+                using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    var foodBusinessUser = _context.FoodBusinessUsers.First(b =>
-                        b.FoodBusinessId == Guid.Parse(foodBusinessId) && b.ApplicationUserId == request.UserId);
-                    if (foodBusinessUser == null)
-                        throw new NotFoundException(nameof(foodBusinessUser), foodBusinessId);
+                    foreach (var foodBusinessId in request.businessesIds)
+                    {
+                        var foodBusinessUser = _context.FoodBusinessUsers.First(b =>
+                            b.FoodBusinessId == Guid.Parse(foodBusinessId) && b.ApplicationUserId == request.UserId);
+                        if (foodBusinessUser == null)
+                            throw new NotFoundException(nameof(foodBusinessUser), foodBusinessId);
 
-                    _context.FoodBusinessUsers.Remove(foodBusinessUser);
-                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                        _context.FoodBusinessUsers.Remove(foodBusinessUser);
+                        await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                    }
+
+                    transaction.Complete();
                 }
-
-                transaction.Complete();
             }
+             if (request.EmployeesType == EmployeesType.HotelEmploye)
+            {
+                using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    foreach (var hotelId in request.businessesIds)
+                    {
+                        var hotelUser = _context.hotelUsers.First(b =>
+                            b.HotelId == Guid.Parse(hotelId) && b.ApplicationUserId == request.UserId);
+                        if (hotelUser == null)
+                            throw new NotFoundException(nameof(hotelUser), hotelId);
 
+                        _context.hotelUsers.Remove(hotelUser);
+                        await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                    }
+
+                    transaction.Complete();
+                }
+            }
+            
             return default;
         }
 

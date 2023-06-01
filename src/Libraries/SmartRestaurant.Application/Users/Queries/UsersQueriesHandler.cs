@@ -129,7 +129,7 @@ namespace SmartRestaurant.Application.Users.Queries
                 PagedResultBase<ApplicationUser> pagedUsersList = null;
             if (roles.Contains(Roles.FoodBusinessManager.ToString()) || roles.Contains(Roles.FoodBusinessAdministrator.ToString()))
             {
-        var employeesRoles = new List<string>{Roles.HotelReceptionist.ToString(), Roles.HotelServiceAdmin.ToString()};
+        var employeesRoles = new List<string>{Roles.HotelReceptionist.ToString(), Roles.HotelServiceAdmin.ToString(), Roles.HotelServiceTechnique.ToString(),Roles.HouseKeeping.ToString()};
               var userrole = _identityContext.UserRoles.Include(u => u.Role).ToList();
              pagedUsersList = _identityContext.UserRoles.Include(u => u.Role)
                    .Where(u => employeesRoles.Contains(u.Role.Name) && usersIdsList.Contains(u.User.Id))
