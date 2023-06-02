@@ -102,9 +102,8 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
                             throw new NotFoundException(nameof(foodBusinessUser), foodBusinessId);
 
                         _context.FoodBusinessUsers.Remove(foodBusinessUser);
-                        await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
                     }
-
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
                     transaction.Complete();
                 }
             }
@@ -120,9 +119,8 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
                             throw new NotFoundException(nameof(hotelUser), hotelId);
 
                         _context.hotelUsers.Remove(hotelUser);
-                        await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
                     }
-
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
                     transaction.Complete();
                 }
             }
