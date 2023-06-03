@@ -33,7 +33,7 @@ namespace SmartRestaurant.Application.TypeReclamation.Queries
         public async Task<PagedListDto<TypeReclamationDto>> Handle(GetTypeReclamationListQuery request,
             CancellationToken cancellationToken)
         {
-            var query = _context.TypeReclamations.OrderBy(s => s.Name)
+            var query = _context.TypeReclamations.Where(t=>t.HotelId==Guid.Parse(request.HotelId)).OrderBy(s => s.Name)
                 .GetPaged(request.Page, request.PageSize);
             var data = _mapper.Map<List<TypeReclamationDto>>(await query.Data.ToListAsync(cancellationToken)
                 .ConfigureAwait(false));

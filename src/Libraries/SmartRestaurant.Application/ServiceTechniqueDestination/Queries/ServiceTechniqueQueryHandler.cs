@@ -30,7 +30,7 @@ namespace SmartRestaurant.Application.ServiceTechniqueDestination.Queries
         public async Task<PagedListDto<ServiceTechniqueDto>> Handle(GetAllServiceTechniquesDestinationByHotelIdQuery request,
             CancellationToken cancellationToken)
         {
-            var query = _context.ServiceTechniques.OrderBy(s => s.Names.EN)
+            var query = _context.ServiceTechniques.Where(s=>s.HotelId==Guid.Parse(request.HotelId)).OrderBy(s => s.Names.EN)
                 .GetPaged(request.Page, request.PageSize);
             var data = _mapper.Map<List<ServiceTechniqueDto>>(await query.Data.ToListAsync(cancellationToken)
                 .ConfigureAwait(false));

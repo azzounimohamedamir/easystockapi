@@ -69,11 +69,9 @@ namespace SmartRestaurant.Application.Hotels.Commands
                        .MaximumLength(200);
             RuleFor(hotel => hotel.Address.GeoPosition.Longitude)
                        .Cascade(CascadeMode.StopOnFirstFailure)
-                       .NotEmpty()
                        .MaximumLength(200);
             RuleFor(hotel => hotel.Address.GeoPosition.Latitude)
                       .Cascade(CascadeMode.StopOnFirstFailure)
-                      .NotEmpty()
                       .MaximumLength(200);
 
 
