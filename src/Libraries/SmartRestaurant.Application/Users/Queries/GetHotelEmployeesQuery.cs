@@ -10,6 +10,8 @@ namespace SmartRestaurant.Application.Users.Queries
         public string HotelId { get; set; }
         public int Page { get; set; }
         public int PageSize { get; set; }
+
+        public bool IsAgency { get; set; }
     }
 
 
@@ -19,6 +21,7 @@ namespace SmartRestaurant.Application.Users.Queries
         {
             RuleFor(v => v.HotelId).NotEmpty().NotEqual(Guid.Empty.ToString()).Must(ValidateGuid);
             RuleFor(v => v.PageSize).LessThanOrEqualTo(100);
+            RuleFor(v => v.IsAgency).NotNull().WithMessage("IsAgency must not be null.");
         }
 
         private bool ValidateGuid(string input)

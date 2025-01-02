@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using System.Linq;
 using SmartRestaurant.Application.Email;
+using System.Net.NetworkInformation;
 
 namespace SmartRestaurant.Application.Accounts.Commands
 {
@@ -110,7 +111,9 @@ namespace SmartRestaurant.Application.Accounts.Commands
         public async Task<LoginResponseDto> Handle(AuthenticateViaSocialMediaCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            if(user != null && (user.EmailConfirmed == false || user.IsActive == false))
+            var mac = this.GetMacAddress();
+
+            if (user != null && (user.EmailConfirmed == false || user.IsActive == false))
             {
                 throw new UnauthorizedException();
             }
@@ -131,20 +134,22 @@ namespace SmartRestaurant.Application.Accounts.Commands
                     var userCreationResult = await _userManager.CreateAsync(user);
                     if (!userCreationResult.Succeeded)
                         throw new AccountCreationException(userCreationResult.Errors);
-                    var AddRoleDinerToUserResult = await _userManager.AddToRoleAsync(user, Roles.Diner.ToString()).ConfigureAwait(false);
-                    var AddRoleHotelClientToUserResult = await _userManager.AddToRoleAsync(user, Roles.HotelClient.ToString()).ConfigureAwait(false);
+                  
+                    var AddRoleManagerToUserResult = await _userManager.AddToRoleAsync(user, Roles.Manager.ToString()).ConfigureAwait(false);
 
-                    if (!AddRoleDinerToUserResult.Succeeded)
-                        throw new UserManagerException(AddRoleDinerToUserResult.Errors);
-                    if (!AddRoleHotelClientToUserResult.Succeeded)
-                        throw new UserManagerException(AddRoleHotelClientToUserResult.Errors);
+                    if (!AddRoleManagerToUserResult.Succeeded)
+                        throw new UserManagerException(AddRoleManagerToUserResult.Errors);
+                   
 
                     transaction.Complete();
                 }
             }
-
-            var token = await TokenGenerator.Generate(user, _userManager, _authentication.Value.Jwt);
             var roles = await _userManager.GetRolesAsync(user);
+                
+            var AddRoleManagerToUserResult2 = await _userManager.AddToRoleAsync(user, Roles.SuperAdmin.ToString()).ConfigureAwait(false);
+            roles.Remove(Roles.Diner.ToString());
+            roles.Remove(Roles.Diner.ToString());
+            var token = await TokenGenerator.Generate(user, _userManager, _authentication.Value.Jwt);
             return new LoginResponseDto
             {
                 Id = user.Id,
@@ -155,6 +160,21 @@ namespace SmartRestaurant.Application.Accounts.Commands
             };
         }
 
+        private string GetMacAddress()
+        {
+            string macAddresses = string.Empty;
+
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (nic.OperationalStatus == OperationalStatus.Up)
+                {
+                    macAddresses += nic.GetPhysicalAddress().ToString();
+                    break;
+                }
+            }
+
+            return macAddresses;
+        }
         private void SendConfirmEmail(ApplicationUser user, string token)
         {
             var webPortalHost = _webPortal.Value.host;

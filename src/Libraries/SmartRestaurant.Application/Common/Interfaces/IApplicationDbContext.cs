@@ -1,75 +1,79 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Entities.Globalisation;
 
 namespace SmartRestaurant.Application.Common.Interfaces
 {
-    public interface IApplicationDbContext
-    {
-        public DbSet<Domain.Entities.FoodBusiness> FoodBusinesses { get; set; }
-        public DbSet<FoodBusinessImage> FoodBusinessImages { get; set; }
-        public DbSet<FoodBusinessUser> FoodBusinessUsers { get; set; }
-        public DbSet<HotelUser> hotelUsers { get; set; }
-         public DbSet<CheckIn> CheckIns { get; set; }
+	public interface IApplicationDbContext
+	{
+        
+        public DbSet<Domain.Entities.Stock> Stocks { get; set; }
+        public DbSet<Inventaire> Inventaires { get; set; }
+        public DbSet<NiveauFidelite> NiveauFidelites { get; set; }
+        public DbSet<ClientFidelite> ClientFidelites { get; set; }
+        public DbSet<LignesInventaireEquipe> LignesInventaireEquipes { get; set; }
+        public DbSet<InventaireEquipe> InventaireEquipes { get; set; }
+        public DbSet<LignesInventaireFinal> LignesInventaireFinals { get; set; }
 
-        public DbSet<Zone> Zones { get; set; }
-        public DbSet<Table> Tables { get; set; }
-        public DbSet<Room> Rooms { get; set; }
+        public DbSet<MouvementStock> MouvementStocks { get; set; }
 
-        public DbSet<Menu> Menus { get; set; }
-        public DbSet<Section> Sections { get; set; }
-        public DbSet<HotelSection> HotelSections { get; set; }
-        public DbSet<HotelOrder> HotelOrders { get; set; }
-        public DbSet<Domain.Entities.OrderDestination> OrderDestinations { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<CreanceAssainie> CreanceAssainies { get; set; }
 
-        public DbSet<HotelDetailsSection> HotelDetailsSections { get; set; }
-        public DbSet<Domain.Entities.Reclamation> Reclamations { get; set; }
-        public DbSet<SectionDish> SectionDishes { get; set; }
-        public DbSet<SectionProduct> SectionProducts { get; set; }
-        public DbSet<Hotel> Hotels { get; set; }
-        public DbSet<ServiceTechnique> ServiceTechniques { get; set; }
+        public DbSet<Fournisseur> Fournisseurs { get; set; }
 
-        public DbSet<IlnessUser> ilnessUsers { get; set; }
-        public DbSet<Domain.Entities.TypeReclamation> TypeReclamations { get; set; }
+        public DbSet<CreditClients> CreditClients { get; set; }
+        public DbSet<AvanceClients> AvanceClients { get; set; }
+        public DbSet<DefaultConfigLog> DefaultConfigLogs { get; set; }
 
-        public DbSet<Listing> Listings { get; set; }
+      
+        public DbSet<Reglement_Acompte_Facture_Client> Reglement_Acompte_Facture_Clients { get; set; }
+        public DbSet<Reglement_Acompte_BA_Fournisseur> Reglement_Acompte_BA_Fournisseurs { get; set; }
+        public DbSet<VenteComptoir> VenteComptoirs { get; set; }
+     
 
-        public DbSet<ListingDetail> ListingDetails { get; set; }
-        public DbSet<ServiceParametre> ServiceParametres { get; set; }
-        public DbSet<HotelService> HotelServices { get; set; }
-        public DbSet<Building> Buildings { get; set; }
+        public DbSet<RetourProduitClient> RetourProduitClients { get; set; }
+        public DbSet<RetourProducts> RetourProducts { get; set; }
 
-        public DbSet<SubSection> SubSections { get; set; }
-        public DbSet<SubSectionDish> SubSectionDishes { get; set; }
-        public DbSet<SubSectionProduct> SubSectionProducts { get; set; }
-        public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<Domain.Entities.LinkedDevice> LinkedDevices { get; set; }
-        public DbSet<Currency> Currencies { get; set; }
-        public DbSet<Dish> Dishes { get; set; }
-        public DbSet<DishSpecification> DishSpecifications { get; set; }
-        public DbSet<DishComboBoxItemTranslation> DishComboBoxItemTranslations { get; set; }
-        public DbSet<DishIngredient> DishIngredients { get; set; }
-        public DbSet<FoodBusinessUserRating> FoodBusinessUserRatings { get; set; }
-        public DbSet<HotelUserRating> HotelUserRatings { get; set; }
-        public DbSet<DishSupplement> DishSupplements { get; set; }
-        public DbSet<Ingredient> Ingredients { get; set; }
-        public DbSet<Specification> Specifications { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderOccupiedTable> OrderOccupiedTables { get; set; }
-        public DbSet<OrderProduct> OrderProducts { get; set; }
-        public DbSet<OrderDish> OrderDishes { get; set; }
-        public DbSet<OrderDishIngredient> OrderDishIngredients { get; set; }
+        public DbSet<FactureAvoir> FactureAvoirs { get; set; }
+        public DbSet<RetourProductsAvoir> RetourProductsAvoirs { get; set; }
+        public DbSet<AjoutProductsAvoir> AjoutProductsAvoirs { get; set; }
 
-        public DbSet<OrderDishSpecification> OrderDishSpecifications { get; set; }
-        public DbSet<OrderComboBoxItemTranslation> OrderComboBoxItemTranslations { get; set; }
-        public DbSet<OrderDishSupplement> OrderDishSupplements { get; set; }
-        public DbSet<Domain.Entities.FoodBusinessClient> FoodBusinessClients { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Domain.Entities.Illness> Illnesses { get; set; }
-        public DbSet<IngredientIllness> IngredientIllnesses { get; set; }
-        public DbSet<MonthlyCommission> MonthlyCommission { get; set; }
+        public DbSet<MotifModification> MotifModifications { get; set; }
+        public DbSet<Bl> Bls { get; set; }
+        public DbSet<BlProducts> BlProducts { get; set; }
+        public DbSet<SocieteInfo> SocieteInfos { get; set; }
+
+        public DbSet<FactureProformat> factureProformats { get; set; }
+
+        public DbSet<Facture> Factures { get; set; }
+        public DbSet<BonCommandeClient> BonCommandeClients { get; set; }
+        public DbSet<BonCommandeFournisseur> BonCommandeFournisseurs { get; set; }
+        public DbSet<BonAchats> BonAchats { get; set; }
+        public DbSet<BAProducts> BAProducts { get; set; }
+
+        public DbSet<FacProducts> FacProducts { get; set; }
+        public DbSet<FacProProducts> FacProProducts { get; set; }
+        public DbSet<BcProducts> BcProducts { get; set; }
+        public DbSet<AbcProducts> AbcProducts { get; set; }
+        public DbSet<Depense> Depenses { get; set; }
+        public DbSet<Caisses> Caisses { get; set; }
+
+        public DbSet<VenteComptoirProducts> VenteComptoirProducts { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryAttribute> CategoryAttribute { get; set; }
+
+        public DbSet<ProductAttribute> ProductAttributes { get; set; }
+        public DbSet<AttributeValue> AttributeValues { get; set; }
+        public DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
+        public EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
+        {
+            return Entry(entity);
+        }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-    }
+	}
 }

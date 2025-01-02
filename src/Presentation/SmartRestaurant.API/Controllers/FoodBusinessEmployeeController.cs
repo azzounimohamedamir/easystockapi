@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
+using SmartRestaurant.Application.GestionEmployees.Employees.Clients.Commands;
 using SmartRestaurant.Domain.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -16,8 +18,10 @@ namespace SmartRestaurant.API.Controllers
     public class FoodBusinessEmployeeController : ApiController
     {
         [HttpPost]
+        [Route("addPermission")]
+
         [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
-        public async Task<IActionResult> AddEmployeeInOrganization(AddEmployeeInOrganizationCommand command)
+        public async Task<IActionResult> AddPermissionToEmployeeInOrganization(AjouterPermRoleCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }
@@ -44,15 +48,19 @@ namespace SmartRestaurant.API.Controllers
         ///     execute this request.
         /// </response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Route("{id}")]
+        [Route("updatePermissionRole")]
         [HttpPut]
-        [Authorize(Roles = "FoodBusinessManager, SuperAdmin, SupportAgent")]
-        public async Task<IActionResult> UpdateEmployeeRoleInOrganization([FromRoute] string id,
-            UpdateEmployeeRoleInOrganizationCommand command)
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<IActionResult> UpdateEmployeeRoleInOrganization(
+            UpdatePermRoleCommand command)
         {
-            command.UserId = id;
             return await SendWithErrorsHandlingAsync(command);
         }
+
+
+
+
+
 
 
         /// <summary> This endpoint is used to remove staff frome organization</summary>
@@ -77,21 +85,21 @@ namespace SmartRestaurant.API.Controllers
         ///     The user account you used to log into the application, does not have the necessary privileges to
         ///     execute this request.
         /// </response>
-        [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        [Route("{id}")]
-        [HttpDelete]
-        [Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
-        public async Task<IActionResult> RemoveEmployeeFromOrganization([FromRoute] string id,
-            [FromQuery] List<string> businessesIds , [FromQuery] EmployeesType employeesType)
-        {
-            var command = new RemoveEmployeeFromOrganizationCommand
-            {
-                UserId = id,
-                businessesIds = businessesIds,
-                EmployeesType= employeesType
-            };
-            return await SendWithErrorsHandlingAsync(command);
-        }
+        //[ProducesResponseType(typeof(ExceptionResponse), 400)]
+        //[Route("{id}")]
+        //[HttpDelete]
+        //[Authorize(Roles = "FoodBusinessManager,SupportAgent,FoodBusinessAdministrator,SuperAdmin")]
+        //public async Task<IActionResult> RemoveEmployeeFromOrganization([FromRoute] string id,
+        //    [FromQuery] List<string> businessesIds , [FromQuery] EmployeesType employeesType)
+        //{
+        //    var command = new RemoveEmployeeFromOrganizationCommand
+        //    {
+        //        UserId = id,
+        //        businessesIds = businessesIds,
+        //        EmployeesType= employeesType
+        //    };
+        //    return await SendWithErrorsHandlingAsync(command);
+        //}
 
 
         /// <summary> This endpoint is used to invite staff to join an organization </summary>
@@ -114,7 +122,6 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [Route("invite")]
         [HttpPost]
-        [Authorize(Roles = "FoodBusinessAdministrator, FoodBusinessManager ,SuperAdmin, SupportAgent")]
         public async Task<IActionResult> InviteUserToJoinOrganization(InviteUserToJoinOrganizationCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -139,6 +146,17 @@ namespace SmartRestaurant.API.Controllers
             UserAcceptsInvitationToJoinOrganizationCommand command)
         {
             command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("updateProfile/{id}")]
+        [HttpPut]
+        [AllowAnonymous]
+        public async Task<IActionResult> UpdateProfile([FromRoute] string id,
+           UpdateProfilUserCommand command)
+        {
+            command.Id = Guid.Parse(id);
             return await SendWithErrorsHandlingAsync(command);
         }
     }

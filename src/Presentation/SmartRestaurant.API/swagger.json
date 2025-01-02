@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Smart Restaurant api v1",
+    "title": "GC Pro Gestion Commerciale",
     "version": "v1"
   },
   "paths": {

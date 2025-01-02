@@ -54,7 +54,7 @@ namespace SmartRestaurant.Application.IntegrationTests.FoodBusiness.Queries
 
         private static async Task CreateMenu(Guid foodBusinessId)
         {
-            await SendAsync(new CreateMenuCommand
+            await SendAsync(new CreateProductOnStockCommand
             {
                 FoodBusinessId = foodBusinessId,
                 Name = "Pizza Zone"

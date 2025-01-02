@@ -2,52 +2,30 @@
 using System.Collections.Generic;
 using AutoMapper;
 using Newtonsoft.Json;
-using SmartRestaurant.Application.commisiones.Commands;
+using SmartRestaurant.Application.AdminArea.Commands;
+using SmartRestaurant.Application.Clients.Commands;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.Common.Dtos.BillDtos;
-using SmartRestaurant.Application.Common.Dtos.CommissionsDtos;
-using SmartRestaurant.Application.Common.Dtos.DishDtos;
-using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
-using SmartRestaurant.Application.Common.Dtos.ValueObjects;
-using SmartRestaurant.Application.Common.Enums;
-using SmartRestaurant.Application.Common.Extensions;
-using SmartRestaurant.Application.Common.Tools;
-using SmartRestaurant.Application.Dishes.Commands;
-using SmartRestaurant.Application.FoodBusiness.Commands;
-using SmartRestaurant.Application.FoodBusinessClient.Commands;
+using SmartRestaurant.Application.Depenses.Commands;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
-using SmartRestaurant.Application.Hotels.Commands;
-using SmartRestaurant.Application.Buildings.Commands;
-
-using SmartRestaurant.Application.Illness.Commands;
-using SmartRestaurant.Application.Ingredients.Commands;
-using SmartRestaurant.Application.LinkedDevice.Commands;
-using SmartRestaurant.Application.Menus.Commands;
-using SmartRestaurant.Application.Orders.Commands;
-using SmartRestaurant.Application.Products.Commands;
-using SmartRestaurant.Application.Reservations.Commands;
-using SmartRestaurant.Application.Sections.Commands;
-using SmartRestaurant.Application.SubSections.Commands;
-using SmartRestaurant.Application.Tables.Commands;
-using SmartRestaurant.Application.Users.Commands;
-using SmartRestaurant.Application.Zones.Commands;
+using SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Commands;
+using SmartRestaurant.Application.GestionAchats.BonsAchat.Commands;
+using SmartRestaurant.Application.GestionEmployees.Employees.Clients.Commands;
+using SmartRestaurant.Application.GestionEmployees.Employees.Fournisseurs.Commands;
+using SmartRestaurant.Application.GestionStock.Inventaire.Commands;
+using SmartRestaurant.Application.GestionStock.Stock.Commands;
+using SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands;
+using SmartRestaurant.Application.GestionVentes.Caisses.Commands;
+using SmartRestaurant.Application.GestionVentes.FactureProformat.Commands;
+using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
+using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
+using SmartRestaurant.Application.GestionVentes.VenteParFac.Commands;
+using SmartRestaurant.Application.Parametres.ConfigurationLogiciel.Commands;
+using SmartRestaurant.Application.Parametres.SocieteInfo.Commands;
+using SmartRestaurant.Application.ProgrammeFidelite.Commands;
+using SmartRestaurant.Application.Stock.Commands;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.ValueObjects;
-using SmartRestaurant.Application.Listings.Commands;
-using SmartRestaurant.Application.HotelSections.Commands;
-using SmartRestaurant.Application.HotelDetailsSections.Commands;
-using SmartRestaurant.Application.ListingDetails.Commands;
-using SmartRestaurant.Application.Rooms.Commands;
-using SmartRestaurant.Application.Checkins.Commands;
-using SmartRestaurant.Application.HotelServices.Commands;
-using SmartRestaurant.Application.TypeReclamation.Commands;
-using SmartRestaurant.Application.Reclamation.Commands;
-using SmartRestaurant.Application.Products.Queries;
-using SmartRestaurant.Application.Dishes.Queries;
-using SmartRestaurant.Application.OrderDestination.Commands;
-using SmartRestaurant.Application.ServiceTechniqueDestination.Commands;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -55,596 +33,315 @@ namespace SmartRestaurant.Application.Common.Mappers
     {
         public MappingProfile()
         {
-            CreateMap<Domain.Entities.FoodBusiness, FoodBusinessDto>()
-                .AfterMap((src, dest) => dest.Tags = new List<string>((String.IsNullOrWhiteSpace(src.Tags)) ? new string[0] : src.Tags.Split(';')))
+            CreateMap<Domain.Entities.Stock, StockDto>()
+                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category)) // Map Category to CategoryDto
+            .ForMember(dest => dest.ProductAttributeValues, opt => opt.MapFrom(src => src.ProductAttributeValues)) // Map collection
+                    
                 .ReverseMap();
-
-            CreateMap<CreateFoodBusinessCommand, Domain.Entities.FoodBusiness>()
-                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.Tags, o => o.MapFrom(p => string.Join(";", p.Tags)))
-                .ForMember(x => x.CommissionConfigs, o => o.MapFrom(p => new CommissionConfigs()))
-                .ReverseMap();
-
-            CreateMap<UpdateFoodBusinessCommand, Domain.Entities.FoodBusiness>()
-                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.Tags, o => o.MapFrom(p => string.Join(";", p.Tags)))
-                .ReverseMap();
-
-            CreateMap<UpdateFoodBusinessRatingCommand,FoodBusinessUserRating>()
-                .ReverseMap()
-                ;
-            CreateMap<UpdateHotelRatingCommand, HotelUserRating>()
-                .ReverseMap();
-
-            CreateMap<UpdateHotelCommand,Hotel>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.Picture, o => o.Ignore())
-
-                .ReverseMap();
-            CreateMap<GeoPosition, GeoPositionDto>().ReverseMap();
-            CreateMap<Address, AddressDto>().ReverseMap();
-            CreateMap<PhoneNumber, PhoneNumberDto>().ReverseMap();
-             CreateMap<Odoo, OdooDto>().ReverseMap();
-            CreateMap<Zone, CreateZoneCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.ZoneId))
-                .ReverseMap();
-            CreateMap<Zone, UpdateZoneCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.ZoneId))
-                .ReverseMap();
-            CreateMap<ZoneDto, Zone>().ReverseMap();
-            CreateMap<TableDto, Table>()
-                .ForPath(x => x.Zone.Names, o => o.MapFrom(p => p.ZoneNames))
-                .ForPath(x => x.Zone.FoodBusiness.Name, o => o.MapFrom(p => p.FoodBuisnesName))
-                .ForPath(x => x.Zone.FoodBusinessId, o => o.MapFrom(p => p.FoodBuisnessId))
-                .ReverseMap();
-            CreateMap<ZoneWithTablesDto, Zone>()
-                .ForMember(x => x.Tables, o => o.MapFrom(p => p.Tables))
-                .ReverseMap();
-            CreateMap<CreateTableCommand, Table>()
-                .ForMember(x => x.TableId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.TableState, o => o.MapFrom(p => (short)TableState.Available));
-            CreateMap<Table, UpdateTableCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.TableId))
-                .ForMember(x => x.TableState, o => o.MapFrom(p => (short)p.TableState))
-                .ReverseMap();
-
-            CreateMap<CreateRoomCommand, Room>()
-               .ForMember(x => x.Id, o => o.MapFrom(p => p.Id));
-
-            CreateMap<CreateOrderDestinationCommand, Domain.Entities.OrderDestination>()
-              .ForMember(x => x.OrderDestinationId, o => o.MapFrom(p => p.Id));
-
-            CreateMap<UpdateOrderDestinationCommand, Domain.Entities.OrderDestination>()
-              .ForMember(x => x.OrderDestinationId, o => o.MapFrom(p => p.Id));
-
-            CreateMap<Room, UpdateRoomCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
-                .ReverseMap();
-
-
-            CreateMap<CreateCheckInCommand, Domain.Entities.CheckIn>()
-              .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
-              .ForMember(x => x.RoomId, o => o.MapFrom(p => p.RoomId))
-              .ForMember(x => x.ClientId, o => o.MapFrom(p => p.ClientId))
-              .ForMember(x => x.hotelId, o => o.MapFrom(p => p.hotelId));
-
-            CreateMap<CheckIn, UpdateCheckInAssignRoomCommand>()
-               .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+            CreateMap<FactureAvoir, FactureAvoirDto>()
                .ReverseMap();
-
-            CreateMap<CheckIn, ActivateCheckinCommand>()
-              .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+            CreateMap<Facture, FactureDto>()
               .ReverseMap();
-            CreateMap<CreateMenuCommand, Menu>()
-                .ForMember(x => x.MenuId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.MenuState, o => o.MapFrom(p => MenuState.Disabled));
-
-            CreateMap<CreateServiceTechniqueCommand, ServiceTechnique>()
-               .ForMember(x => x.ServiceTechniqueId, o => o.MapFrom(p => p.Id));
-
-            CreateMap<UpdateServiceTechniqueCommand, ServiceTechnique>()
-             .ForMember(x => x.ServiceTechniqueId, o => o.MapFrom(p => p.Id));
-
-            CreateMap<HideReclamationCommand, Domain.Entities.Reclamation>()
-            .ForMember(x => x.Id, o => o.MapFrom(p => p.Id));
-
-            CreateMap<UpdateMenuCommand, Menu>()
-                .ForMember(x => x.MenuId, o => o.MapFrom(p => p.Id));
-
-            CreateMap<Menu, MenuDto>().ReverseMap();
-            CreateMap<Room, RoomDto>().ReverseMap();
-            CreateMap<UpdateRoomStatusCommand, Room>().ReverseMap();
-
-            CreateMap<ServiceTechnique, ServiceTechniqueDto>().ReverseMap();
-
-            CreateMap<Domain.Entities.OrderDestination, OrderDestinationDto>().ReverseMap();
-
-            CreateMap<CheckIn, CheckinDto>()
-            .ForMember(x => x.hotelName, o => o.Ignore())
-            .ForMember(x => x.buildingName, o => o.Ignore())
-            .ReverseMap();
-
-
-            CreateMap<Menu, ActiveMenuDto>().ReverseMap();
-
-            CreateMap<Section, SectionDto>().ReverseMap();
-
-            CreateMap<HotelSection, HotelSectionDto>()
-            .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
-
-            CreateMap<CreateHotelSectionCommand, HotelSection>()
-                .ForMember(x => x.HotelSectionId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.Picture, o => o.Ignore());
-
-            CreateMap<UpdateHotelSectionCommand, HotelSection>()
-                .ForMember(x => x.HotelSectionId, o => o.MapFrom(p => p.hotelSetionId))
-                .ForMember(x => x.Picture, o => o.Ignore());
-
-           CreateMap<HotelDetailsSection, HotelDetailsSectionDto>()
-            .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
-
-
-            CreateMap<CreateHotelDetailsSectionCommand, HotelDetailsSection>()
-                .ForMember(x => x.HotelDetailsSectionId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.Picture, o => o.Ignore());
-
-            CreateMap<UpdateHotelDetailsSectionCommand, HotelDetailsSection>()
-                .ForMember(x => x.HotelDetailsSectionId, o => o.MapFrom(p => p.hotelSetionId))
-                .ForMember(x => x.Picture, o => o.Ignore());
-
-            CreateMap<Section, ActiveSectionDto>()
-                .ForPath(x => x.MenuItems.Dishes, o => o.MapFrom(p => p.Dishes))
-                .ForPath(x => x.MenuItems.Products, o => o.MapFrom(p => p.Products))
-                .ReverseMap();
-
-            CreateMap<SectionDish, DishDto>()
-                .ForMember(x => x.DishId, o => o.MapFrom(p => p.Dish.DishId))
-                .ForMember(x => x.Name, o => o.MapFrom(p => p.Dish.Name))
-                .ForMember(x => x.Names, o => o.MapFrom(p => p.Dish.Names))
-                .ForMember(x => x.Description, o => o.MapFrom(p => p.Dish.Description))
-                .ForMember(x => x.Price, o => o.MapFrom(p => p.Dish.Price))
-                .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Dish.EnergeticValue))
-                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Dish.FoodBusinessId))
-                .ForMember(x => x.Ingredients, o => o.MapFrom(p => p.Dish.Ingredients))
-                .ForMember(x => x.Supplements, o => o.MapFrom(p => p.Dish.Supplements))
-                .ForMember(x => x.Specifications, o => o.MapFrom(p => p.Dish.Specifications))
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Dish.Picture)))
-                .ForMember(x => x.EstimatedPreparationTime, o => o.MapFrom(p => p.Dish.EstimatedPreparationTime));
-
-
-            CreateMap<SectionProduct, ProductDto>()
-                .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Product.ProductId))
-                .ForMember(x => x.Name, o => o.MapFrom(p => p.Product.Name))
-                .ForMember(x => x.Names, o => o.MapFrom(p => p.Product.Names))
-                .ForMember(x => x.Description, o => o.MapFrom(p => p.Product.Description))
-                .ForMember(x => x.Price, o => o.MapFrom(p => p.Product.Price))
-                .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Product.EnergeticValue))
-                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Product.FoodBusinessId))
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Product.Picture)));
-
-            CreateMap<SubSection, SubSectionDto>().ReverseMap();
-
-            CreateMap<SubSection, ActiveSubSectionDto>()
-                .ForPath(x => x.MenuItems.Dishes, o => o.MapFrom(p => p.Dishes))
-                .ForPath(x => x.MenuItems.Products, o => o.MapFrom(p => p.Products))
-                .ReverseMap();
-
-            CreateMap<SubSectionDish, DishDto>()
-                .ForMember(x => x.DishId, o => o.MapFrom(p => p.Dish.DishId))
-                .ForMember(x => x.Name, o => o.MapFrom(p => p.Dish.Name))
-                .ForMember(x => x.Names, o => o.MapFrom(p => p.Dish.Names))
-                .ForMember(x => x.Description, o => o.MapFrom(p => p.Dish.Description))
-                .ForMember(x => x.Price, o => o.MapFrom(p => p.Dish.Price))
-                .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Dish.EnergeticValue))
-                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Dish.FoodBusinessId))
-                .ForMember(x => x.Ingredients, o => o.MapFrom(p => p.Dish.Ingredients))
-                .ForMember(x => x.Supplements, o => o.MapFrom(p => p.Dish.Supplements))
-                .ForMember(x => x.Specifications, o => o.MapFrom(p => p.Dish.Specifications))
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Dish.Picture)))
-                .ForMember(x => x.EstimatedPreparationTime, o => o.MapFrom(p => p.Dish.EstimatedPreparationTime));
-
-
-            CreateMap<SubSectionProduct, ProductDto>()
-                .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Product.ProductId))
-                .ForMember(x => x.Name, o => o.MapFrom(p => p.Product.Name))
-                .ForMember(x => x.Names, o => o.MapFrom(p => p.Product.Names))
-                .ForMember(x => x.Description, o => o.MapFrom(p => p.Product.Description))
-                .ForMember(x => x.Price, o => o.MapFrom(p => p.Product.Price))
-                .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Product.EnergeticValue))
-                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Product.FoodBusinessId))
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Product.Picture)));
-
-
-
-            CreateMap<SubSection, CreateSubSectionCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.SubSectionId))
-                .ReverseMap();
-
-
-            CreateMap<CreateHotelCommand, Hotel>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.Picture, o => o.Ignore()).
-                 ForMember(x => x.FoodBusinessAdministratorId, o => o.MapFrom(p => p.FoodBusinessAdministratorId));
-
-
-
-            CreateMap<CreateReclamationCommand, Domain.Entities.Reclamation>()
-              .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
-              .ForMember(x => x.Picture, o => o.Ignore());
-            CreateMap<UpdateReclamationCommand, Domain.Entities.Reclamation>()
-             .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
-             .ForMember(x => x.Picture, o => o.Ignore());
-            CreateMap<CreateBuildingCommand, Building>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.FromBase64String(p.Picture)))
-                .ForMember(x => x.HotelId, o => o.MapFrom(p => p.HotelId));
-            CreateMap<UpdateBuildingCommand, Building>()
-               .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.FromBase64String(p.Picture)))
-               .ReverseMap();
-
-            CreateMap<Section, CreateSectionCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.SectionId))
-                .ReverseMap();
-            CreateMap<Section, UpdateSectionCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.SectionId))
-                .ReverseMap();
-            CreateMap<CreateReservationCommand, Reservation>()
-                .ForMember(x => x.ReservationId, o => o.MapFrom(p => p.Id))
-                .ReverseMap();
-
-            CreateMap<UpdateReservationCommand, Reservation>(MemberList.Destination)
-                .ForMember(x => x.ReservationId, o => o.MapFrom(p => p.Id))
-                .ReverseMap();
-
-            CreateMap<CreateTypeReclamationCommand, Domain.Entities.TypeReclamation>()
-              .ForMember(x => x.TypeReclamationId, o => o.MapFrom(p => p.Id))
+            CreateMap<ProductAttributeValue, ProductAttributeValueDto>()
+             .ReverseMap();
+            CreateMap<FactureAvoirDto, FactureDto>()
+              .ReverseMap();
+            CreateMap<RetourProductsAvoir, RetourProductsAvoirDto>()
+              .ReverseMap();
+            CreateMap<AjoutProductsAvoir, AjoutProductsAvoirDto>()
+             .ReverseMap();
+            CreateMap<MotifModification, MotifModificationDto>()
+              .ReverseMap();
+            CreateMap<FacProducts, FacProductsDto>()
               .ReverseMap();
 
-            CreateMap<UpdateTypeReclamationCommand, Domain.Entities.TypeReclamation>()
-                .ForMember(x => x.TypeReclamationId, o => o.MapFrom(p => p.Id))
-                .ReverseMap();
-            CreateMap<UpdateReclamationStatusCommand, Domain.Entities.Reclamation>();
-            CreateMap<UpdateSubSectionCommand, SubSection>()
-                .ForMember(x => x.SubSectionId, o => o.MapFrom(p => p.Id))
-                .ReverseMap();
-            CreateMap<Reservation, ReservationDto>()
-                .ReverseMap();
-            CreateMap<Domain.Entities.TypeReclamation, TypeReclamationDto>()
-                .ReverseMap();
-            CreateMap<Reservation, ReservationClientDto>()
-                .ForMember(x => x.FoodBusinessName, o => o.MapFrom(p => p.FoodBusiness.Name));
-            CreateMap<CreateLinkedDeviceCommand, Domain.Entities.LinkedDevice>()
-                .ForMember(x => x.LinkedDeviceId, o => o.MapFrom(p => p.Id));
-            CreateMap<Domain.Entities.LinkedDevice, LinkedDeviceDto>()
-                .ForMember(x => x.IdentifierDevice, o => o.MapFrom(p => p.IdentifierDevice)).ReverseMap();
 
-            CreateMap<UpdateLinkedDeviceCommand, Domain.Entities.LinkedDevice>()
-                .ReverseMap();
+            CreateMap<FacProProducts, FacProProductsDto>()
+             .ReverseMap();
+            CreateMap<ClientFidelite, ClientFideliteDto>()
+          .ReverseMap();
+            CreateMap<NiveauFidelite, NiveauFideliteDto>()
+.ReverseMap();
 
-            CreateMap<ApplicationUser, FoodBusinessEmployeesDtos>()
-                .ReverseMap();
+            CreateMap<Domain.Entities.BlProducts, RetourProducts>()
+             .ForMember(x => x.DocumentId, o => o.MapFrom(p => p.BlId))
+                            .ReverseMap();
+
+            CreateMap<AjoutProductsAvoir, FacProducts>()
+       .ForMember(x => x.FactureId, o => o.MapFrom(p => p.DocumentId))
+       .ReverseMap();
+            CreateMap<CreateClientAppCommand, MyClients>()
+     .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+     .ReverseMap();
+            CreateMap<CreateLicenceCommand, LicenceKeys>()
+   .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+   .ReverseMap();
+            CreateMap<UpdateClientAppCommand, MyClients>()
+  .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+  .ReverseMap();
+            CreateMap<UpdateLicenceCommand, LicenceKeys>()
+  .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+  .ReverseMap();
+            CreateMap<ResetLicenceCommand, LicenceKeys>()
+  .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+  .ReverseMap();
+            CreateMap<CreateInventaireParEquipeCommand, InventaireEquipe>()
+    .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+    .ReverseMap();
+
+            CreateMap<CreateSocieteInfoCommand, SocieteInfo>()
+   .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+   .ReverseMap();
 
 
+
+
+            CreateMap<AjouterNivFideliteCommand, NiveauFidelite>()
+  .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+  .ReverseMap();
+
+            CreateMap<UpdateNivFideliteCommand, NiveauFidelite>()
+  .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+  .ReverseMap();
+
+            CreateMap<UpdatePointFideliteClientCommand, ClientFidelite>()
+.ReverseMap();
+
+
+
+            CreateMap<UpdateSocieteInfoCommand, SocieteInfo>()
+   .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+   .ReverseMap();
+
+            CreateMap<CreateDefaultConfigCommand, DefaultConfigLog>()
+.ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+.ReverseMap();
+
+            CreateMap<UpdateDefaultConfigCommand, DefaultConfigLog>()
+   .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+   .ReverseMap();
             CreateMap<InviteUserToJoinOrganizationCommand, ApplicationUser>()
-                .ForMember(x => x.UserName, o => o.MapFrom(p => p.Email));
+                            .ForMember(x => x.UserName, o => o.MapFrom(p => p.Email));
 
             CreateMap<UserAcceptsInvitationToJoinOrganizationCommand, ApplicationUser>()
                 .ForMember(x => x.Email, o => o.Ignore());
 
-            CreateMap<ApplicationUser, FoodBusinessManagersDto>()
-                .ForMember(x => x.FoodBusinesses, o => o.MapFrom(p => new List<Domain.Entities.FoodBusiness>()))
-                .ReverseMap();
-            CreateMap<ApplicationUser, HotelsManagersDto>()
-              .ForMember(x => x.Hotels, o => o.MapFrom(p => new List<Domain.Entities.Hotel>()))
-              .ReverseMap();
-            CreateMap<UpdateFourDigitCodeCommand, Domain.Entities.FoodBusiness>()
-                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.Id)).ReverseMap();
 
-            CreateMap<UpdateUserCommand, ApplicationUser>()
+            CreateMap<ApplicationUser, EmployeDto>()
+                .ReverseMap();
+
+            CreateMap<ReglerEcartsInventaireCommand, LignesInventaireFinal>()
+   .ReverseMap();
+
+            CreateMap<Inventaire, InventaireDto>()
+ .ReverseMap();
+
+
+            CreateMap<BonCommandeClient, BonCommandeClientDto>()
+ .ReverseMap();
+            CreateMap<BcProducts, BcProductsDto>()
+.ReverseMap();
+            CreateMap<LignesInventaireFinal, LignesInventaireFinalDto>()
+                    .ForMember(x => x.CodeProduit, o => o.MapFrom(p => p.CodeProduit))
+                    .ForMember(x => x.CodeBar, o => o.MapFrom(p => p.CodeBar))
+
+.ReverseMap();
+            CreateMap<RetourProductsAvoir, FacProducts>()
+      .ForMember(x => x.FactureId, o => o.MapFrom(p => p.DocumentId))
+      .ReverseMap();
+
+            CreateMap<RetourProducts, VenteComptoirProducts>()
+    .ForMember(x => x.VenteComptoirId, o => o.MapFrom(p => p.DocumentId))
+    .ReverseMap();
+
+
+
+
+            CreateMap<Domain.Entities.FactureProformat, FactureProformatDto>()
+               .ReverseMap();
+            CreateMap<Domain.Entities.AttributeValue, AttributeValueDto>()
+              .ReverseMap();
+            CreateMap<Domain.Entities.ProductAttribute, ProductAttributeDto>()
+              .ReverseMap();
+
+            CreateMap<Domain.Entities.Category, CategoryDto>()
+              .ReverseMap();
+
+            CreateMap<AttributsNew, ProductAttributeValue>()
+              .ReverseMap();
+
+
+            CreateMap<CreateProductOnStockCommand, Domain.Entities.Stock>()
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+                .ReverseMap();
+            CreateMap<ImportStockFromExcelCommand, Domain.Entities.Stock>()
                .ReverseMap();
 
-            CreateMap<UpdateProfileCommand, ApplicationUser>()
-              .ReverseMap();
-
-            CreateMap<ApplicationUser, ApplicationUserDto>()
-                .ForMember(x => x.EmailConfirmed, o => o.MapFrom(p => p.EmailConfirmed))
+            CreateMap<UpdateProductOnStockCommand, Domain.Entities.Stock>()
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
 
 
-            CreateMap<CreateIngredientCommand, Ingredient>()
-                .ForMember(x => x.IngredientId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.Names, o => o.MapFrom(p => p.Names))
-                .ForMember(x => x.Picture, o => o.Ignore());
-
-
-            CreateMap<UpdateIngredientCommand, Ingredient>()
-                .ForMember(x => x.IngredientId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.Names, o => o.MapFrom(p => p.Names))
-                .ForMember(x => x.Picture, o => o.Ignore());
-
-            CreateMap<Ingredient, IngredientDto>()
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)))
-                .ForMember(x => x.Names, o => o.MapFrom(p => JsonConvert.DeserializeObject<List<IngredientNameDto>>(p.Names)));
-
-            CreateMap<PagedResultBase<Ingredient>, PagedListDto<IngredientDto>>().ReverseMap();
-
-            CreateMap<CreateDishCommand, Dish>()
-                .ForMember(x => x.DishId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.Ingredients, o => o.MapFrom(p => p.Ingredients))
-                .ForMember(x => x.Supplements, o => o.MapFrom(p => p.Supplements))
-                .ForMember(x => x.Specifications, o => o.MapFrom(p => p.Specifications))
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.FromBase64String(p.Picture)));
-
-
-            CreateMap<UpdateDishCommand, Dish>()
-                .ForMember(x => x.DishId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.Ingredients, o => o.MapFrom(p => p.Ingredients))
-                .ForMember(x => x.Supplements, o => o.MapFrom(p => p.Supplements))
-                .ForMember(x => x.Specifications, o => o.MapFrom(p => p.Specifications))
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.FromBase64String(p.Picture)));
-
-            CreateMap<Dish, DishDto>()
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)))
-                .ReverseMap();
-
-            CreateMap<DurationDto, Duration>()
-                .ReverseMap();
-
-            CreateMap<Quantity, QuantityDto>()
-                .ForMember(x => x.MeasurementUnit, o => o.MapFrom(p => p.MeasurementUnits.ToString()))
-                .ReverseMap();
-
-            CreateMap<PagedResultBase<Dish>, PagedListDto<DishDto>>()
-                .ReverseMap();
-
-            CreateMap<DishSpecification, DishSpecificationDto>()
-                .AfterMap((src, dest) => dest.ComboBoxContent = new List<string>((String.IsNullOrWhiteSpace(src.ComboBoxContent)) ? new string[0] : src.ComboBoxContent.Split(';')));
-
-            CreateMap<DishSpecificationDto, DishSpecification>()
-                .ForMember(x => x.ComboBoxContent, o => o.MapFrom(p => string.Join(";", p.ComboBoxContent)));
-
-            CreateMap<DishIngredientCreateDto, DishIngredient>()
-                .ReverseMap();
-
-            CreateMap<DishSupplementCreateDto, DishSupplement>()
-                .ReverseMap();
-
-            CreateMap<DishIngredientDto, DishIngredient>()
-                .ReverseMap();
-            
-            CreateMap<FoodBusinessUserRatingDto, FoodBusinessUserRating>()
-                .ReverseMap();
-            CreateMap<HotelUserRatingDto, HotelUserRating>()
-                .ReverseMap();
-
-            CreateMap<DishSupplement, DishSupplementDto>()
-                .ForMember(x => x.DishId, o => o.MapFrom(p => p.Supplement.DishId))
-                .ForMember(x => x.Name, o => o.MapFrom(p => p.Supplement.Name))
-                .ForMember(x => x.Names, o => o.MapFrom(p => p.Supplement.Names))
-                .ForMember(x => x.Description, o => o.MapFrom(p => p.Supplement.Description))
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Supplement.Picture)))
-                .ForMember(x => x.Price, o => o.MapFrom(p => p.Supplement.Price))
-                .ForMember(x => x.EnergeticValue, o => o.MapFrom(p => p.Supplement.EnergeticValue))
-                .ReverseMap();
-
-            CreateMap<CreateOrderCommand, Order>()
-                .ForMember(x => x.OrderId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.TVA, o => o.MapFrom(p => 19));
-
-            CreateMap<CreateOrderSHCommand, Order>()
-               .ForMember(x => x.OrderId, o => o.MapFrom(p => p.Id))
-               .ForMember(x => x.TVA, o => o.MapFrom(p => 19));
-
-            CreateMap<OrderProductDto, OrderProduct>()
-                .ReverseMap();
-
-            CreateMap<OrderDishDto, OrderDish>()
-                .ReverseMap();
-
-            CreateMap<OrderProductDto, OrderProduct>()
-                .ReverseMap();
-
-            CreateMap<OrderDishIngredient, OrderDishIngredientDto>()
+         
+            CreateMap<CreateDepenseCommand, Domain.Entities.Depense>()
+            .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
             .ReverseMap();
 
-            CreateMap<OrderDishSpecification, OrderDishSpecificationDto>()
-                .AfterMap((src, dest) => dest.ComboBoxContent = new List<string>((string.IsNullOrWhiteSpace(src.ComboBoxContent)) ? new string[0] : src.ComboBoxContent.Split(';')));
-
-            CreateMap<OrderDishSpecificationDto, OrderDishSpecification>()
-                .ForMember(x => x.ComboBoxContent, o => o.MapFrom(p => string.Join(";", p.ComboBoxContent)));
-
-            CreateMap<OrderDishSupplementDto, OrderDishSupplement>()
+            CreateMap<UpdateDepenseCommand, Domain.Entities.Depense>()
+                .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
 
-            CreateMap<OrderOccupiedTableDto, OrderOccupiedTable>()
-                .ReverseMap();
-
-            CreateMap<OrderIngredient, OrderIngredientDto>()
-                .ForMember(x => x.Names, o => o.MapFrom(p => JsonConvert.DeserializeObject<List<IngredientNameDto>>(p.Names)));
-
-            CreateMap<OrderIngredientDto, OrderIngredient>()
-               .ForMember(x => x.Names, o => o.MapFrom(p => JsonConvert.SerializeObject(p.Names)));
-
-            CreateMap<EnergeticValueDto, EnergeticValue>()
-                .ReverseMap();
-
-            CreateMap<TakeoutDetailsDto, TakeoutDetails>()
-                .ReverseMap();
-
-            CreateMap<Order, UpdateOrderCommand>()
-                .ForMember(x => x.Id, o => o.MapFrom(p => p.OrderId))
-                .ReverseMap();
-
-            CreateMap<Order, BillDto>()
-                .ForMember(dest => dest.Tables, opt => opt.MapFrom<BillResolver>())
-                .ForMember(dest => dest.TvaPercentage, o => o.MapFrom(p => p.TVA))
-                .ForMember(dest => dest.TvaValue, o => o.MapFrom(p => BillHelpers.CalculateTVA(p.TotalToPay, p.TVA)));
-            CreateMap<OrderDishCommandDto, OrderDish>();
-
-            CreateMap<OrderDish, BillDishDto>();
-            CreateMap<OrderProduct, BillProductDto>();
-            CreateMap<Domain.Entities.FoodBusiness, BillFoodBusinessDto>()
-            .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => (p.FoodBusinessId == null) ? "" : p.FoodBusinessId.ToString())); 
-            CreateMap<Domain.Entities.FoodBusiness, BillFoodBusinessDto>();
-            CreateMap<Domain.Entities.FoodBusinessClient, BillFoodBusinessClientDto>();
-            CreateMap<Hotel, HotelDto>();
-            CreateMap<Domain.Entities.Reclamation, ReclamationDto>();
-
-            CreateMap<Domain.Entities.FoodBusinessClient, BillFoodBusinessClientDto>()
-            .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => (p.FoodBusinessClientId == null) ? "" : p.FoodBusinessClientId.ToString()));
-
-            CreateMap< UpdateOrderStatusCommand, Order>();
-
-            CreateMap<UpdateOrderGeoLocalisationCommand, Order>();
-
-            CreateMap<AddSeatOrderToTableOrderCommand, Order>();
-
-            CreateMap<Order, OrderDto>()
-                .ForMember(x => x.CreatedBy, o => o.Ignore())
-              .ForMember(x => x.OrderId, o => o.MapFrom(p => p.OrderId.ToString()))
-              .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.FoodBusinessId.ToString()))
-              .ForMember(x => x.CommissionConfigs, o => o.MapFrom(p => p.CommissionConfigs))
-
-              .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p =>
-               (p.FoodBusinessClientId==null)?"": p.FoodBusinessClientId.ToString()))
-              .ForMember(x => x.ErrorDeliveryTimeAvailabilite, o => o.Ignore());
-
-
-
-            CreateMap<CreateFoodBusinessClientCommand, Domain.Entities.FoodBusinessClient>()
-                .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.Id))
-                .ReverseMap();
-
-            CreateMap<UpdateFoodBusinessClientCommand, Domain.Entities.FoodBusinessClient>()
-                .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.Id))
-                .ReverseMap();
-
-            CreateMap<CreateProductCommand, Product>()
-                .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.FoodBusinessId, o => o.MapFrom(p => p.FoodBusinessId))
-                .ForMember(x => x.Picture, o => o.Ignore());
-
-            CreateMap<UpdateProductCommand, Product>()
-               .ForMember(x => x.ProductId, o => o.MapFrom(p => p.Id))
-               .ForMember(x => x.Picture, o => o.Ignore());
-
-            CreateMap<SynchronizeOdooProductsCommand, GetProductListQuery>().ReverseMap();
-
-            CreateMap<SynchronizeOdooDishesCommand, GetDishesListQuery>().ReverseMap();
-
-            CreateMap<Product, ProductDto>()
-               .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
-
-            CreateMap<Hotel, HotelDto>()
-              .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture))).ReverseMap();
-
-            CreateMap<Building, BuildingDto>()
-              .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
-              .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture))).ReverseMap();
            
 
-            CreateMap<Domain.Entities.FoodBusinessClient, FoodBusinessClientDto>()
-               .ForMember(x => x.FoodBusinessClientId, o => o.MapFrom(p => p.FoodBusinessClientId))
-               .ReverseMap();
+            
 
-            CreateMap<AddProductToSectionCommand, SectionProduct>();
-
-            CreateMap<AddDishToSectionCommand, SectionDish>();
-
-            CreateMap<Product, MenuItemDto>()
-                .ForMember(x => x.MenuItemId, o => o.MapFrom(p => p.ProductId))
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)))
-                .ForMember(x => x.Type, o => o.MapFrom(p => MenuItemType.Product));
-
-            CreateMap<Dish, MenuItemDto>()
-                .ForMember(x => x.MenuItemId, o => o.MapFrom(p => p.DishId))
-                .ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)))
-                .ForMember(x => x.Type, o => o.MapFrom(p => MenuItemType.Dish));
-
-            CreateMap<OrderComboBoxItemTranslation, TranslationItemDto>()
-             .ForMember(x => x.Name, o => o.MapFrom(p => p.Name))
-             .ForMember(x => x.Names, o => o.MapFrom(p => p.Names)).ReverseMap();
-
-            CreateMap<DishComboBoxItemTranslation, TranslationItemDto>()
-            .ForMember(x => x.Name, o => o.MapFrom(p => p.Name))
-            .ForMember(x => x.Names, o => o.MapFrom(p => p.Names)).ReverseMap();
-
-            CreateMap<AddProductToSubSectionCommand, SubSectionProduct>();
-
-            CreateMap<AddDishToSubSectionCommand, SubSectionDish>();
-
-            CreateMap<CreateIllnessCommand, Domain.Entities.Illness>()
-                .ForMember(x => x.IllnessId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.IngredientIllnesses, o=> o.MapFrom(p => p.Ingredients));
-            CreateMap<UpdateIllnessCommand, Domain.Entities.Illness>()
-                .ForMember(x => x.IllnessId, o => o.MapFrom(p => p.Id))
-                .ForMember(x => x.IngredientIllnesses, o => o.MapFrom(p => p.Ingredients))
-                .ReverseMap();
-
-            CreateMap<Domain.Entities.Illness, IllnessDto>()
-               .ForMember(x => x.IllnessId, o => o.MapFrom(p => p.IllnessId))
-                .ForMember(x => x.IngredientIllnesses, o => o.MapFrom(p => p.IngredientIllnesses))
-               .ReverseMap();
-
-               CreateMap<IlnessUser, IllnessUserDto>()
-               .ReverseMap();
-
-            CreateMap<IngredientIllnessDto, IngredientIllness>()
-                .ForMember(x=>x.IngredientId,o=> o.MapFrom(p =>Guid.Parse( p.IngredientId)))
-                .ReverseMap();
-            CreateMap<CriticalQteIllnessIngredientDto,IngredientIllness>()
-                                .ForPath(x => x.Illness.Names, o => o.MapFrom(p => p.IllnessName))
-                                .ForPath(x => x.Quantity, o => o.MapFrom(p => p.Quantity))
-                                .ReverseMap();
-            CreateMap<SetFoodBusinessCommissionCommand, Domain.Entities.FoodBusiness>()
-                .ForMember(x => x.CommissionConfigs, opt => opt.MapFrom<SetFoodBusinessCommissionResolver>());
-
-            CreateMap<Domain.Entities.FoodBusiness, MonthlyCommission>()
-                .ForMember(x => x.CommissionConfigs, opt => opt.MapFrom(p => p.CommissionConfigs))
-                .ForMember(x => x.FoodBusinessId, opt => opt.MapFrom(p => p.FoodBusinessId))
-                .ForMember(x => x.Month, opt => opt.MapFrom(p => DateTimeHelpers.GetLastMonth(DateTime.Now)))
-                .ForMember(x => x.MonthlyCommissionId, opt => opt.MapFrom(p => Guid.NewGuid()))
-                .ForMember(x => x.Status, opt => opt.MapFrom(p => CommissionStatus.Unpaid));
-
-            CreateMap<Domain.Entities.FoodBusiness, CommissionConfigsDto>()
-                    .ForMember(x => x.FoodBusinessName, opt => opt.MapFrom(p => p.Name))
-                   .ForMember(x => x.Value, opt => opt.MapFrom(p => p.CommissionConfigs.Value))
-                   .ForMember(x => x.Type, opt => opt.MapFrom(p => p.CommissionConfigs.Type))
-                   .ForMember(x => x.WhoPay, opt => opt.MapFrom(p => p.CommissionConfigs.WhoPay));
-
-            CreateMap<MonthlyCommission, MonthlyCommissionDto>()
-                   .ForMember(x => x.FoodBusinessId, opt => opt.MapFrom(p => p.FoodBusiness.FoodBusinessId))
-                   .ForMember(x => x.FoodBusinessName, opt => opt.MapFrom(p => p.FoodBusiness.Name))
-                   .ForMember(x => x.DefaultCurrency, opt => opt.MapFrom(p => p.FoodBusiness.DefaultCurrency));
-
-            CreateMap<Listing, ListingDto>().ReverseMap();
-
-            CreateMap<ListingDetail, ListingDetailDto>().ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
-
-            CreateMap<CreateListingCommand,Listing>().
-                ForMember(l => l.ListingId, opt => opt.MapFrom(c =>c.Id));
-
-            CreateMap<UpdateListingCommand, Listing>().ReverseMap();
-
-            CreateMap<CreateListingDetailCommand, ListingDetail>().ForMember(l => l.Picture,o=>o.Ignore());
-
-            CreateMap<UpdateListingDetailCommand, ListingDetail>().ForMember(l => l.Picture, o => o.Ignore());
-
-            CreateMap<HotelService, HotelServiceDto>().ForMember(x => x.Picture, o => o.MapFrom(p => Convert.ToBase64String(p.Picture)));
+          
 
 
-            CreateMap<ServiceParametre, ServiceParametreDto>();
 
-            CreateMap<CreateHotelServiceCommand, HotelService>().ForMember(x => x.Picture, o => o.MapFrom(p => Convert.FromBase64String(p.Picture)))
-                .ForMember(x => x.Parametres, o => o.Ignore());
-            CreateMap<CreateServiceParametreDto, ServiceParametre>();
+            CreateMap<AjouterPermRoleCommand, Domain.Identity.Entities.Permissions>()
+      .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+      .ReverseMap();
+            CreateMap<UpdatePermRoleCommand, Domain.Identity.Entities.Permissions>()
+     .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+     .ReverseMap();
 
-            CreateMap<UpdateHotelServiceCommand, HotelService>().ForMember(x => x.Picture, o => o.MapFrom(p => Convert.FromBase64String(p.Picture)))
-             .ForMember(x => x.Parametres, o => o.Ignore());
 
-            CreateMap<Names, NamesDto>()
-                .ReverseMap();
+
+            CreateMap<CreateCaisseCommand, Caisses>()
+     .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+     .ReverseMap();
+            CreateMap<UpdateCaisseCommand, Caisses>()
+     .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+     .ReverseMap();
+
+            CreateMap<UpdateProfilUserCommand, ApplicationUser>()
+ .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+ .ReverseMap();
+
+
+            CreateMap<CreateVenteComptoirCommand, Domain.Entities.VenteComptoir>()
+              .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+              .ReverseMap();
+            CreateMap<UpdateVenteComptoirCommand, Domain.Entities.VenteComptoir>()
+             .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+           
+             .ReverseMap();
+
+
+
+
+
+            CreateMap<CreateBlCommand, Bl>()
+            .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+            .ReverseMap();
+            CreateMap<UpdateBlCommand, Bl>()
+             .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+            
+             .ReverseMap();
+
+            CreateMap<CreateFactureCommand, Facture>()
+         .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+         .ReverseMap();
+            CreateMap<UpdateFactureCommand, Facture>()
+             .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+             .ReverseMap();
+
+
+            CreateMap<CreateBCCommand, BonCommandeClient>()
+       .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+       .ReverseMap();
+            CreateMap<UpdateBCCommand, BonCommandeClient>()
+             .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+             .ForMember(x => x.Numero, o => o.Ignore())
+             .ReverseMap();
+
+
+
+            CreateMap<CreateBCFCommand, BonCommandeFournisseur>()
+     .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+     .ReverseMap();
+            CreateMap<UpdateBCFCommand, BonCommandeFournisseur>()
+             .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+             .ForMember(x => x.Numero, o => o.Ignore())
+             .ReverseMap();
+
+
+
+            CreateMap<CreateBACommand, BonAchats>()
+     .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+     .ReverseMap();
+            CreateMap<UpdateBACommand, BonAchats>()
+             .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+             .ForMember(x => x.Numero, o => o.Ignore())
+             .ReverseMap();
+
+
+            CreateMap<AjouterRegAcompteBACommand, Domain.Entities.Reglement_Acompte_BA_Fournisseur>()
+           .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+           .ReverseMap();
+
+            CreateMap<AjouterRegAcompteFactureCommand, Domain.Entities.Reglement_Acompte_Facture_Client>()
+            .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+            .ReverseMap();
+
+            CreateMap<CreateClientCommand, Domain.Entities.Client>()
+             .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+             .ReverseMap();
+           
+            CreateMap<UpdateClientCommand, Domain.Entities.Client>()
+             .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+             .ReverseMap();
+
+            CreateMap<AssainirClientCommand, Domain.Entities.Client>()
+            .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+            .ReverseMap();
+
+            CreateMap<CreateFournisseurCommand, Fournisseur>()
+            .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+            .ReverseMap();
+
+            CreateMap<UpdateFournisseurCommand, Fournisseur>()
+             .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+             .ReverseMap();
+            CreateMap<Domain.Entities.VenteComptoir, VenteComptoirDto>()
+           .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+           .ReverseMap();
+
+
+            CreateMap<CreateFactureProformatCommand, Facture>()
+      .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+      .ReverseMap();
+            CreateMap<UpdateFactureProformatCommand, Facture>()
+             .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+             .ReverseMap();
+
+          
+
+
+
+            CreateMap<Domain.Entities.Client, ClientDto>().ReverseMap();
+            CreateMap<Reglement_Acompte_Facture_Client, Reglement_Acompte_Facture_Client_Dto>();
+
+
+            CreateMap<Domain.Entities.CreditClients, CreditDto>();
+            CreateMap<Domain.Entities.AvanceClients, AvanceDto>();
+
+
+
+            CreateMap<Domain.Entities.CreditClients, CreditDto>()
+        .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+        .ReverseMap();
+            CreateMap<Domain.Entities.AvanceClients, AvanceDto>()
+        .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+        .ReverseMap();
+
+
+          
         }
+
+
+
+
     }
 }

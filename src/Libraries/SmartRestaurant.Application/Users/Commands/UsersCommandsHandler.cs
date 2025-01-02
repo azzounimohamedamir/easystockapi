@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.IO;
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
 using AutoMapper;
@@ -9,6 +11,7 @@ using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Application.Users.Queries;
+using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
 
@@ -17,7 +20,8 @@ namespace SmartRestaurant.Application.Users.Commands
     public class UsersCommandsHandler :
                 IRequestHandler<SetNewPasswordForFoodBusinessAdministratorCommand, NoContent>,
                 IRequestHandler<UpdateUserCommand, NoContent>,
-                IRequestHandler<UpdateProfileCommand, NoContent>
+                IRequestHandler<UpdateProfileCommand, NoContent>,
+                IRequestHandler<UpdateProfileImageCommand, NoContent>
 
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -112,6 +116,38 @@ namespace SmartRestaurant.Application.Users.Commands
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 _mapper.Map(request, user);
+                var userUpdateResult = await _userManager.UpdateAsync(user);
+                if (!userUpdateResult.Succeeded)
+                    throw new UserManagerException(userUpdateResult.Errors);
+
+                transaction.Complete();
+            }
+
+            return default;
+        }
+        #endregion
+
+        #region Profile Image Update
+        public async Task<NoContent> Handle(UpdateProfileImageCommand request, CancellationToken cancellationToken)
+        {
+            await ChecksHelper.CheckValidation_ThrowExceptionIfQueryIsInvalid<UpdateProfileImageCommandValidator, UpdateProfileImageCommand>
+                (request, cancellationToken).ConfigureAwait(false);
+
+            var user_id = _userService.GetUserId();
+
+            var user = await _userManager.FindByIdAsync(user_id);
+            if (user == null)
+                throw new NotFoundException(nameof(user), user_id);
+
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                _mapper.Map(request, user);
+                //user.Picture = request.Picture;
+                //using (var ms = new MemoryStream())
+                //{
+                //    request.Picture.CopyTo(ms);
+                //    user.Picture = ms.ToArray();
+                //}
                 var userUpdateResult = await _userManager.UpdateAsync(user);
                 if (!userUpdateResult.Succeeded)
                     throw new UserManagerException(userUpdateResult.Errors);

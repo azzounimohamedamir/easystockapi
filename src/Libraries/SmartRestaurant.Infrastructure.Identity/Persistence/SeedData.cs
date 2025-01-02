@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
+using System;
 
 namespace SmartRestaurant.Infrastructure.Identity.Persistence
 {
@@ -38,6 +40,51 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                     NormalizedName = Roles.SuperAdmin.ToString().ToUpper(),
                     ConcurrencyStamp = "88f0dec2-5364-4881-4817-1f2a135a8641"
                 },
+
+                new ApplicationRole
+                {
+                    Id = ((long)Roles.Manager).ToString(),
+                    Name = Roles.Manager.ToString(),
+                    NormalizedName = Roles.Manager.ToString().ToUpper(),
+                    ConcurrencyStamp = "1933aad7-120c-414f-a575-5681df13732f"
+                },
+                  new ApplicationRole
+                  {
+                      Id = ((long)Roles.GestionnaireVente).ToString(),
+                      Name = Roles.GestionnaireVente.ToString(),
+                      NormalizedName = Roles.GestionnaireVente.ToString().ToUpper(),
+                      ConcurrencyStamp = "b9182488-5482-4051-af9d-5fea22182944"
+                  },
+                   new ApplicationRole
+                   {
+                       Id = ((long)Roles.GestionnaireStock).ToString(),
+                       Name = Roles.GestionnaireStock.ToString(),
+                       NormalizedName = Roles.GestionnaireStock.ToString().ToUpper(),
+                       ConcurrencyStamp = "6f3d452f-28a5-42be-b474-716985d97820"
+                   },
+                    new ApplicationRole
+                    {
+                        Id = ((long)Roles.GestionnaireAchat).ToString(),
+                        Name = Roles.GestionnaireAchat.ToString(),
+                        NormalizedName = Roles.GestionnaireAchat.ToString().ToUpper(),
+                        ConcurrencyStamp = "5050daa0-8870-4450-8004-23d11aa0cc4a"
+                    },
+                    new ApplicationRole
+                    {
+                        Id = ((long)Roles.CaissierFacturier).ToString(),
+                        Name = Roles.CaissierFacturier.ToString(),
+                        NormalizedName = Roles.CaissierFacturier.ToString().ToUpper(),
+                        ConcurrencyStamp = "0c845a63-6573-488a-9c89-a50484707e88"
+                    },
+
+                     new ApplicationRole
+                     {
+                         Id = ((long)Roles.Caissier).ToString(),
+                         Name = Roles.Caissier.ToString(),
+                         NormalizedName = Roles.Caissier.ToString().ToUpper(),
+                         ConcurrencyStamp = "27dcec7a-0048-4e46-9cf5-292a4a59c171"
+                     },
+
                 new ApplicationRole
                 {
                     Id = ((long) Roles.SupportAgent).ToString(),
@@ -171,19 +218,19 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
 
             #endregion
 
-
+         
             #region Create applications users
 
             modelBuilder.Entity<ApplicationUser>().HasData(
                 new ApplicationUser
                 {
                     Id = "3cbf3570-0d44-4673-8746-29b7cf568093",
-                    UserName = "SuperAdmin@SmartRestaurant.io",
-                    Email = "SuperAdmin@SmartRestaurant.io",
-                    NormalizedUserName = "SUPERADMIN@SMARTRESTAURANT.IO",
-                    NormalizedEmail = "SUPERADMIN@SMARTRESTAURANT.IO",
+                    UserName = "admin@easystock.com",
+                    Email = "admin@easystock.com",
+                    NormalizedUserName = "admin@EASYSTOCK.COM",
+                    NormalizedEmail = "admin@EASYSTOCK.COM",
                     PasswordHash =
-                        "AQAAAAEAACcQAAAAEAzFpmzMtMiw0wHV6b0aUzFLF9Pw7B2u+DswRHttAU2nH22NHBsc/hSSvKUqmRWGZA==",
+                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                     EmailConfirmed = true
                 },
                 new ApplicationUser

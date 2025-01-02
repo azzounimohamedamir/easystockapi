@@ -1,7 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Google.Api;
+using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Entities.Globalisation;
+using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Infrastructure.Persistence
 {
@@ -10,141 +15,283 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            // Enable sensitive data logging
+            optionsBuilder.EnableSensitiveDataLogging();
 
-        public DbSet<FoodBusiness> FoodBusinesses { get; set; }
-        public DbSet<FoodBusinessImage> FoodBusinessImages { get; set; }
-        public DbSet<FoodBusinessUser> FoodBusinessUsers { get; set; }
-        public DbSet<HotelUser> hotelUsers { get; set; }
-        public DbSet<Room> Rooms { get; set; }
-        public DbSet<CheckIn> CheckIns { get; set; }
+            // Other configurations...
+        }
 
-        public DbSet<Zone> Zones { get; set; }
-        public DbSet<Table> Tables { get; set; }
-        public DbSet<Menu> Menus { get; set; }
-        public DbSet<Hotel> Hotels { get; set; }
-        public DbSet<Listing> Listings { get; set; }
+        public EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
+        {
+            return base.Entry(entity);
+        }
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Inventaire> Inventaires { get; set; }
+        public DbSet<NiveauFidelite> NiveauFidelites { get; set; }
+        public DbSet<ClientFidelite> ClientFidelites { get; set; }
 
-        public DbSet<ListingDetail> ListingDetails { get; set; }
-        public DbSet<ServiceParametre> ServiceParametres { get; set; }
-        public DbSet<HotelService> HotelServices { get; set; }
-        public DbSet<Building> Buildings { get; set; }
-        public DbSet<Section> Sections { get; set; }
-        public DbSet<HotelSection> HotelSections { get; set; }
-         public DbSet<HotelDetailsSection> HotelDetailsSections { get; set; }
-        public DbSet<SectionDish> SectionDishes { get; set; }
-        public DbSet<SectionProduct> SectionProducts { get; set; }
-        public DbSet<SubSection> SubSections { get; set; }
-        public DbSet<TypeReclamation> TypeReclamations { get; set; }
-        public DbSet<OrderDestination> OrderDestinations { get; set; }
+        public DbSet<LignesInventaireEquipe> LignesInventaireEquipes { get; set; }
+        public DbSet<InventaireEquipe> InventaireEquipes { get; set; }
+        public DbSet<LignesInventaireFinal> LignesInventaireFinals { get; set; }
+       
 
-        public DbSet<Reclamation> Reclamations { get; set; }
+        public DbSet<MouvementStock> MouvementStocks { get; set; }
 
-        public DbSet<SubSectionDish> SubSectionDishes { get; set; }
-        public DbSet<SubSectionProduct> SubSectionProducts { get; set; }
-        public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<LinkedDevice> LinkedDevices { get; set; }
-        public DbSet<Currency> Currencies { get; set; }
-        public DbSet<Dish> Dishes { get; set; }
-        public DbSet<DishSpecification> DishSpecifications { get; set; }
-        public DbSet<DishComboBoxItemTranslation> DishComboBoxItemTranslations { get; set; }
-        public DbSet<DishIngredient> DishIngredients { get; set; }
-        public DbSet<FoodBusinessUserRating> FoodBusinessUserRatings { get; set; }
-        public DbSet<HotelUserRating> HotelUserRatings { get; set; }
-        public DbSet<DishSupplement> DishSupplements { get; set; }
-        public DbSet<Ingredient> Ingredients { get; set; }
-        public DbSet<Specification> Specifications { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<ParametresValue> ParametresValues { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<CreanceAssainie> CreanceAssainies { get; set; }
 
-        public DbSet<OrderOccupiedTable> OrderOccupiedTables { get; set; }
-        public DbSet<OrderProduct> OrderProducts { get; set; }
-        public DbSet<OrderDish> OrderDishes { get; set; }
-        public DbSet<OrderDishIngredient> OrderDishIngredients { get; set; }
-        public DbSet<OrderDishSpecification> OrderDishSpecifications { get; set; }
-        public DbSet<OrderComboBoxItemTranslation> OrderComboBoxItemTranslations { get; set; }
-        public DbSet<OrderDishSupplement> OrderDishSupplements { get; set; }
-        public DbSet<FoodBusinessClient> FoodBusinessClients { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Illness> Illnesses { get; set; }
-        public DbSet<IlnessUser> ilnessUsers { get; set; }
-        public DbSet<ServiceTechnique> ServiceTechniques { get; set; }
+        public DbSet<Fournisseur> Fournisseurs { get; set; }
 
-        public DbSet<IngredientIllness> IngredientIllnesses { get; set; }
-        public DbSet<MonthlyCommission> MonthlyCommission { get; set; }
-        public DbSet<HotelOrder> HotelOrders { get; set; }
+        public DbSet<CreditClients> CreditClients { get; set; }
+        public DbSet<AvanceClients> AvanceClients { get; set; }
+        public DbSet<DefaultConfigLog> DefaultConfigLogs { get; set; }
+
+    
+        public DbSet<Reglement_Acompte_Facture_Client> Reglement_Acompte_Facture_Clients { get; set; }
+        public DbSet<Reglement_Acompte_BA_Fournisseur> Reglement_Acompte_BA_Fournisseurs { get; set; }
+        public DbSet<VenteComptoir> VenteComptoirs { get; set; }
+        public DbSet<Caisses> Caisses { get; set; }
+
+        public DbSet<RetourProduitClient> RetourProduitClients { get; set; }
+        public DbSet<RetourProducts> RetourProducts { get; set; }
+
+        public DbSet<FactureAvoir> FactureAvoirs { get; set; }
+        public DbSet<RetourProductsAvoir> RetourProductsAvoirs { get; set; }
+        public DbSet<AjoutProductsAvoir> AjoutProductsAvoirs { get; set; }
+
+        public DbSet<MotifModification> MotifModifications { get; set; }
+        public DbSet<Bl> Bls { get; set; }
+        public DbSet<BlProducts> BlProducts { get; set; }
+        public DbSet<SocieteInfo> SocieteInfos { get; set; }
+
+        public DbSet<FactureProformat> factureProformats { get; set; }
+
+        public DbSet<Facture> Factures { get; set; }
+        public DbSet<BonCommandeClient> BonCommandeClients { get; set; }
+        public DbSet<BonCommandeFournisseur> BonCommandeFournisseurs { get; set; }
+        public DbSet<BonAchats> BonAchats { get; set; }
+        public DbSet<BAProducts> BAProducts { get; set; }
+
+        public DbSet<FacProducts> FacProducts { get; set; }
+        public DbSet<FacProProducts> FacProProducts { get; set; }
+        public DbSet<BcProducts> BcProducts { get; set; }
+        public DbSet<AbcProducts> AbcProducts { get; set; }
+        public DbSet<Depense> Depenses { get; set; }
+
+        public DbSet<VenteComptoirProducts> VenteComptoirProducts { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryAttribute> CategoryAttribute { get; set; }
+
+        public DbSet<ProductAttribute> ProductAttributes { get; set; }
+        public DbSet<AttributeValue> AttributeValues { get; set; }
+        public DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
+        public void DetachEntity<T>(T entity) where T : class
+        {
+            Entry(entity).State = EntityState.Detached;
+        }
+
+        public void UpdateEntity<T>(T entity) where T : class
+        {
+            Entry(entity).State = EntityState.Modified;
+        }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<FoodBusinessUser>()
-                .HasKey(o => new {o.ApplicationUserId, o.FoodBusinessId});
+
+            modelBuilder.Entity<Facture>().Property(u => u.Numero).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+            modelBuilder.Entity<Bl>().Property(u => u.Numero).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+
+            modelBuilder.Entity<Bl>()
+  .HasKey(vp => vp.Id);
+
+            modelBuilder.Entity<LignesInventaireFinal>()
+.HasKey(vp => vp.Id);
 
 
-            modelBuilder.Entity<HotelUser>()
-                .HasKey(o => new { o.ApplicationUserId, o.HotelId });
-            modelBuilder.Entity<IlnessUser>()
-               .HasKey(o => new { o.ApplicationUserId, o.IllnessId });
-            modelBuilder.Entity<DishIngredient>()
-                .HasKey(o => new { o.DishId, o.IngredientId });
-            modelBuilder.Entity<FoodBusinessUserRating>()
-               .HasKey(o => new { o.FoodBusinessId, o.ApplicationUserId }); 
-            modelBuilder.Entity<HotelUserRating>()
-               .HasKey(o => new { o.HotelId, o.ApplicationUserId });
+            modelBuilder.Entity<LignesInventaireEquipe>()
+.HasKey(vp => vp.Id);
 
-            modelBuilder.Entity<DishSupplement>()
-                .HasKey(o => new { o.DishId, o.SupplementId});
 
-            modelBuilder.Entity<DishSupplement>()
-                .HasOne(e => e.Dish)
-                .WithMany(e => e.Supplements)
-                .OnDelete(DeleteBehavior.Cascade);
+             modelBuilder.Entity<CategoryAttribute>()
+            .HasKey(ca => new { ca.CategoryId, ca.ProductAttributeId });
+            
+      
 
-            modelBuilder.Entity<DishSupplement>()
-                .HasOne(e => e.Supplement)
+            modelBuilder.Entity<Reglement_Acompte_Facture_Client>()
+  .HasKey(vp => vp.Id);
+            modelBuilder.Entity<BlProducts>()
+          .HasKey(vp => vp.Id);
+
+
+            modelBuilder.Entity<MotifModification>().HasKey(v => v.Id);
+            modelBuilder.Entity<Facture>()
+.HasKey(vp => vp.Id);
+            modelBuilder.Entity<FactureProformat>()
+.HasKey(vp => vp.Id);
+            modelBuilder.Entity<FacProducts>()
+          .HasKey(vp => vp.Id);
+
+            modelBuilder.Entity<MotifModification>()
+         .HasKey(vp => vp.Id);
+
+            modelBuilder.Entity<ClientFidelite>()
+     .HasKey(vp => vp.Id);
+            modelBuilder.Entity<NiveauFidelite>()
+     .HasKey(vp => vp.Id);
+
+            modelBuilder.Entity<FactureProformat>()
+           .HasKey(f => f.Id);          
+
+            modelBuilder.Entity<VenteComptoirProducts>()
+          .HasKey(vp => vp.Id);
+
+            modelBuilder.Entity<Client>()
+         .HasKey(cl => cl.Id);
+            modelBuilder.Entity<AjoutProductsAvoir>()
+    .HasOne(a => a.FactureAvoir)
+    .WithMany(f => f.ProduitsAjouterAuStock)
+    .HasForeignKey(a => a.FactureAvoirId)
+    .OnDelete(DeleteBehavior.Cascade);
+
+
+
+            
+         
+
+            modelBuilder.Entity<RetourProduitClient>()
+         .HasKey(cl => cl.Id);
+
+            modelBuilder.Entity<Caisses>()
+        .HasKey(cl => cl.Id);
+
+            modelBuilder.Entity<MouvementStock>()
+       .HasKey(cl => cl.Id);
+
+            modelBuilder.Entity<AvanceClients>()
+         .HasKey(vp => vp.Id);
+            modelBuilder.Entity<CreditClients>()
+         .HasKey(vp => vp.Id);
+            modelBuilder.Entity<VenteComptoir>()
+         .HasKey(vc => vc.Id);
+            modelBuilder.Entity<Stock>()
+         .HasKey(s => s.Id);
+            modelBuilder.Entity<SocieteInfo>()
+       .HasKey(s => s.Id);
+            modelBuilder.Entity<DefaultConfigLog>()
+      .HasKey(s => s.Id);
+
+
+
+
+
+
+
+            modelBuilder.Entity<MotifModification>()
+    .HasOne(m => m.FactureAvoir)
+    .WithMany(fa => fa.MotifsAvoir)
+    .HasForeignKey(m => m.IdAvoir);
+
+            modelBuilder.Entity<Facture>()
+    .HasMany(f => f.FactureAvoirs)
+    .WithOne(fa => fa.OriginalFacture)
+    .HasForeignKey(fa => fa.IdFactureOriginal);
+
+            modelBuilder.Entity<Facture>()
+            .HasMany(f => f.FacProducts)
+            .WithOne(fp => fp.Facture)
+            .HasForeignKey(fp => fp.FactureId);
+
+
+            modelBuilder.Entity<FacProducts>()
+           .HasOne(fp => fp.Facture)
+           .WithMany(f => f.FacProducts)
+           .HasForeignKey(fp => fp.FactureId);
+
+            modelBuilder.Entity<FacProducts>()
+                .HasOne(fp => fp.SelectedStock)
                 .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<SectionDish>()
-              .HasKey(o => new { o.SectionId, o.DishId });
-           
-
-            modelBuilder.Entity<SectionProduct>()
-              .HasKey(o => new { o.SectionId, o.ProductId });
-
-            modelBuilder.Entity<SubSectionDish>()
-             .HasKey(o => new { o.SubSectionId, o.DishId });
-
-            modelBuilder.Entity<SubSectionProduct>()
-              .HasKey(o => new { o.SubSectionId, o.ProductId });
-
-            modelBuilder.Entity<IngredientIllness>()
-                .HasKey(i => new { i.IllnessId, i.IngredientId });
-            modelBuilder.Entity<ServiceTechnique>()
-               .HasKey(i => i.ServiceTechniqueId);
-            modelBuilder.Entity<OrderComboBoxItemTranslation>()
-                .HasKey(o => o.OrderComboBoxItemTranslationId);
-            modelBuilder.Entity<OrderDestination>()
-              .HasKey(o => o.OrderDestinationId);
-
-            modelBuilder.Entity<DishComboBoxItemTranslation>()
-                .HasKey(o => o.DishComboBoxItemTranslationId);
-
-            modelBuilder.Entity<Hotel>()
-                .HasKey(o => o.Id);
-            modelBuilder.Entity<HotelOrder>()
-              .HasKey(o => o.Id);
-            modelBuilder.Entity<Room>()
-                .HasKey(o => o.Id);
-            modelBuilder.Entity<TypeReclamation>()
-             .HasKey(o => o.TypeReclamationId);
-            modelBuilder.Entity<Reclamation>()
-           .HasKey(o => o.Id);
+                .HasForeignKey(fp => fp.SelectedStockId);
 
 
-            modelBuilder.Entity<Building>()
-                .HasKey(o => o.Id);
-            modelBuilder.Entity<ParametresValue>()
-            .HasKey(o => o.Id);
+            modelBuilder.Entity<Reglement_Acompte_Facture_Client>()
+       .HasOne(r => r.Facture)
+       .WithMany(f => f.Reglement_Acompte_Facture_Clients) // One invoice can have many payments
+       .HasForeignKey(r => r.FactureId);
+
+
+            modelBuilder.Entity<Reglement_Acompte_Facture_Client>()
+       .HasOne(r => r.Facture)
+       .WithMany(f => f.Reglement_Acompte_Facture_Clients)
+       .HasForeignKey(r => r.FactureId)
+       .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+
+            modelBuilder.Entity<Reglement_Acompte_Facture_Client>()
+                .HasOne(r => r.Client)
+                .WithMany() // Assuming one client can have many payments
+                .HasForeignKey(r => r.ClientId)
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+
+
+            modelBuilder.Entity<Reglement_Acompte_BA_Fournisseur>()
+    .HasOne(r => r.Ba)
+    .WithMany(f => f.Reglement_Acompte_BA_Fournisseurs) // One invoice can have many payments
+    .HasForeignKey(r => r.BAId)
+     .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+
+
+            modelBuilder.Entity<CategoryAttribute>()
+    .HasKey(ca => new { ca.CategoryId, ca.ProductAttributeId });
+
+            modelBuilder.Entity<CategoryAttribute>()
+                .HasOne(ca => ca.Category)
+                .WithMany(c => c.CategoryAttributes)
+                .HasForeignKey(ca => ca.CategoryId);
+
+            modelBuilder.Entity<CategoryAttribute>()
+                .HasOne(ca => ca.ProductAttribute)
+                .WithMany(pa => pa.CategoryAttributes)
+                .HasForeignKey(ca => ca.ProductAttributeId);
+
+
+            modelBuilder.Entity<ProductAttributeValue>()
+           .HasOne(pav => pav.Stock)
+           .WithMany(s => s.ProductAttributeValues)
+           .HasForeignKey(pav => pav.StockId)
+           .OnDelete(DeleteBehavior.Cascade); // Configure cascade delete if needed
+
+            // Optionally, configure the primary key and foreign key constraints if necessary
+            modelBuilder.Entity<ProductAttributeValue>()
+                .HasKey(pav => pav.Id);
+
+            modelBuilder.Entity<Stock>()
+                .HasKey(s => s.Id);
+
+
+            modelBuilder.Entity<VenteComptoir>().Property(u => u.Numero).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+
+            modelBuilder.Entity<BonCommandeClient>().Property(u => u.Numero).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+            modelBuilder.Entity<FactureProformat>().Property(u => u.Numero).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+
+            modelBuilder.Entity<BcProducts>()
+        .HasOne(bc => bc.BonCommandeClient)
+        .WithMany(b => b.BcProducts)
+        .HasForeignKey(bc => bc.BcId);
+
+
+            modelBuilder.Entity<FacProProducts>()
+       .HasOne(bc => bc.FactureProformat)
+       .WithMany(b => b.FacProProducts)
+       .HasForeignKey(bc => bc.FactureProformatId);
+
+            modelBuilder.Entity<BonCommandeFournisseur>().Property(u => u.Numero).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+
+            modelBuilder.Entity<BonAchats>().Property(u => u.Numero).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+
             modelBuilder.Seed();
+
         }
     }
 }

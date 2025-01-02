@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SmartRestaurant.Domain.Identity.Enums;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
@@ -13,6 +14,7 @@ namespace SmartRestaurant.Application.Common.Dtos
 		public bool IsActive { get; set; }
 		public bool EmailConfirmed { get; set; }
 		public bool IsShowPhoneNumberInOdoo { get; set; }
-		
-	}
+
+
+    }
 }

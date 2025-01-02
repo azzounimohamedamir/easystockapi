@@ -12,33 +12,53 @@ using System.Dynamic;
 using System.Reflection;
 using System.Linq;
 using Newtonsoft.Json;
-using SmartRestaurant.Application.Common.Dtos.OrdersDtos;
 using System.Collections;
 
 namespace SmartRestaurant.Infrastructure.Services
 {
-    public class FirebaseConfig
+    //public class FirebaseConfig
+    //{
+    //    public string FoodBusinessBasePath { get; set; }
+    //    public string HotelBasePath { get; set; }
+    //    public string UserBasePath { get; set; }
+
+    //}
+
+    public static class FirebaseConfig
     {
-        public string BasePath { get; set; }
-        public string UserBasePath { get; set; }
-   
+        public static string FoodBusinessBasePath = "FoodBusinessTest";
+        public static string HotelBasePath = "HotelTest";
+        public static string UserBasePath = "UserTest";
+
     }
 
     public class FirebaseRepository : IFirebaseRepository
     {
-        readonly string _DataBaseBasepath;
+        readonly string _DataBaseFoodBusinessBasepath;
+        readonly string _DataBaseHotelBasepath;
         readonly string _DataBaseUserBasepath;
         readonly FirestoreDb _db;
-        public FirebaseRepository(IOptions<FirebaseConfig> conf)
+        public FirebaseRepository()
+        //public FirebaseRepository(FirebaseConfig conf)
         {
-            _DataBaseBasepath = conf.Value.BasePath;
+            //_DataBaseFoodBusinessBasepath = conf.Value.FoodBusinessBasePath;
+            _DataBaseFoodBusinessBasepath = FirebaseConfig.FoodBusinessBasePath;
 
-            if (string.IsNullOrEmpty(_DataBaseBasepath))
+            if (string.IsNullOrEmpty(_DataBaseFoodBusinessBasepath))
             {
-                throw new ArgumentNullException("fireBase Path not found in appsettings");
+                throw new ArgumentNullException("fireBase FoodBusiness Path not found in appsettings");
             }
 
-            _DataBaseUserBasepath = conf.Value.UserBasePath;
+            //_DataBaseHotelBasepath = conf.Value.HotelBasePath;
+            _DataBaseHotelBasepath = FirebaseConfig.HotelBasePath;
+
+            if (string.IsNullOrEmpty(_DataBaseHotelBasepath))
+            {
+                throw new ArgumentNullException("fireBase Hotel Path not found in appsettings");
+            }
+
+            //_DataBaseUserBasepath = conf.Value.UserBasePath;
+            _DataBaseUserBasepath = FirebaseConfig.UserBasePath;
             if (string.IsNullOrEmpty(_DataBaseUserBasepath))
             {
                 throw new ArgumentNullException("fireBase Client Path not found in appsettings");
@@ -48,11 +68,27 @@ namespace SmartRestaurant.Infrastructure.Services
             _db = FirestoreDb.Create("g22project-69454");
         }
 
-        public async Task<T> AddAsync<T>(string path, T data, CancellationToken cancellationToken)
+        public async Task<T> AddFoodBusinessAsync<T>(string path, T data, CancellationToken cancellationToken)
         {
             try
             {
-                DocumentReference doc = _db.Document(_DataBaseBasepath + "/" + path);
+                DocumentReference doc = _db.Document(_DataBaseFoodBusinessBasepath + "/" + path);
+                var objectTosend = getOrderToDictionary(data);
+                await doc.SetAsync(objectTosend, null, cancellationToken);
+                return data;
+            }
+            catch (Exception exe)
+            {
+                throw exe;
+            }
+             
+        }
+        
+        public async Task<T> AddHotelAsync<T>(string path, T data, CancellationToken cancellationToken)
+        {
+            try
+            {
+                DocumentReference doc = _db.Document(_DataBaseHotelBasepath + "/" + path);
                 var objectTosend = getOrderToDictionary(data);
                 await doc.SetAsync(objectTosend, null, cancellationToken);
                 return data;
@@ -64,11 +100,27 @@ namespace SmartRestaurant.Infrastructure.Services
              
         }
 
-        public async Task<T> AddCollectionAsync<T>(string path, T data, CancellationToken cancellationToken)
+        public async Task<T> AddFoodBusinessCollectionAsync<T>(string path, T data, CancellationToken cancellationToken)
         {
             try
             {
-                CollectionReference doc = _db.Collection(_DataBaseBasepath + "/" + path);
+                CollectionReference doc = _db.Collection(_DataBaseFoodBusinessBasepath + "/" + path);
+                var objectTosend = getOrderToDictionary(data);
+                await doc.AddAsync(objectTosend, cancellationToken);
+                return data;
+            }
+            catch (Exception exe)
+            {
+                throw exe;
+            }
+
+        }
+
+        public async Task<T> AddHotelCollectionAsync<T>(string path, T data, CancellationToken cancellationToken)
+        {
+            try
+            {
+                CollectionReference doc = _db.Collection(_DataBaseHotelBasepath + "/" + path);
                 var objectTosend = getOrderToDictionary(data);
                 await doc.AddAsync(objectTosend, cancellationToken);
                 return data;
@@ -159,11 +211,25 @@ namespace SmartRestaurant.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public async Task<T> UpdateAsync<T>(string path, T data, CancellationToken cancellationToken)
+        public async Task<T> UpdateFoodBusinessAsync<T>(string path, T data, CancellationToken cancellationToken)
         {
             try
             {
-                DocumentReference doc = _db.Document(_DataBaseBasepath + "/" + path);
+                DocumentReference doc = _db.Document(_DataBaseFoodBusinessBasepath + "/" + path);
+                var objectTosend = getOrderToDictionary(data);             
+                await doc.UpdateAsync(objectTosend, null, cancellationToken);
+                return data;
+            }
+            catch (Exception exe)
+            {
+                throw exe;
+            }
+        }
+        public async Task<T> UpdateHotelAsync<T>(string path, T data, CancellationToken cancellationToken)
+        {
+            try
+            {
+                DocumentReference doc = _db.Document(_DataBaseHotelBasepath + "/" + path);
                 var objectTosend = getOrderToDictionary(data);             
                 await doc.UpdateAsync(objectTosend, null, cancellationToken);
                 return data;

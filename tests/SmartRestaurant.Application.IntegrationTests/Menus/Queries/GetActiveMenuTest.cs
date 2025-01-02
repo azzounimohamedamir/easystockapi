@@ -23,7 +23,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
 
             for (var i = 0; i < 5; i++)
             {
-                await SendAsync(new CreateMenuCommand
+                await SendAsync(new CreateProductOnStockCommand
                 {
                     Name = "tacos Dz  " + i,
                     FoodBusinessId = fastFood.FoodBusinessId
@@ -31,14 +31,14 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
             }
 
             var menuId = Guid.NewGuid();
-            var CreateMenueCommand = new CreateMenuCommand
+            var CreateMenueCommand = new CreateProductOnStockCommand
             {
                 Id = menuId,
                 Name = "test menu",
                 FoodBusinessId = fastFood.FoodBusinessId
             };
             await SendAsync(CreateMenueCommand);
-            await SendAsync(new UpdateMenuCommand
+            await SendAsync(new UpdateProductOnStockCommand
             {
                 Id = menuId,
                 Name = "test menu -- enabled",

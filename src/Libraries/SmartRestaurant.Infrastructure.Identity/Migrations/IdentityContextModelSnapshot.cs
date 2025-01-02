@@ -144,6 +144,48 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         },
                         new
                         {
+                            Id = "20",
+                            ConcurrencyStamp = "1933aad7-120c-414f-a575-5681df13732f",
+                            Name = "Manager",
+                            NormalizedName = "MANAGER"
+                        },
+                        new
+                        {
+                            Id = "24",
+                            ConcurrencyStamp = "b9182488-5482-4051-af9d-5fea22182944",
+                            Name = "GestionnaireVente",
+                            NormalizedName = "GESTIONNAIREVENTE"
+                        },
+                        new
+                        {
+                            Id = "23",
+                            ConcurrencyStamp = "6f3d452f-28a5-42be-b474-716985d97820",
+                            Name = "GestionnaireStock",
+                            NormalizedName = "GESTIONNAIRESTOCK"
+                        },
+                        new
+                        {
+                            Id = "25",
+                            ConcurrencyStamp = "5050daa0-8870-4450-8004-23d11aa0cc4a",
+                            Name = "GestionnaireAchat",
+                            NormalizedName = "GESTIONNAIREACHAT"
+                        },
+                        new
+                        {
+                            Id = "22",
+                            ConcurrencyStamp = "0c845a63-6573-488a-9c89-a50484707e88",
+                            Name = "CaissierFacturier",
+                            NormalizedName = "CAISSIERFACTURIER"
+                        },
+                        new
+                        {
+                            Id = "21",
+                            ConcurrencyStamp = "27dcec7a-0048-4e46-9cf5-292a4a59c171",
+                            Name = "Caissier",
+                            NormalizedName = "CAISSIER"
+                        },
+                        new
+                        {
                             Id = "2",
                             ConcurrencyStamp = "emec7115-422c-487d-65b0-58cfa8e66a94",
                             Name = "SupportAgent",
@@ -304,6 +346,9 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("Mac")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -348,25 +393,25 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "3cbf3570-0d44-4673-8746-29b7cf568093",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "16e6dede-9520-4095-bc3a-eea4a8297138",
-                            Email = "SuperAdmin@SmartRestaurant.io",
+                            ConcurrencyStamp = "8ca5ec59-3a33-453a-beaa-aa9accaee29e",
+                            Email = "admin@easystock.com",
                             EmailConfirmed = true,
                             IsActive = true,
                             IsShowPhoneNumberInOdoo = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "SUPERADMIN@SMARTRESTAURANT.IO",
-                            NormalizedUserName = "SUPERADMIN@SMARTRESTAURANT.IO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAzFpmzMtMiw0wHV6b0aUzFLF9Pw7B2u+DswRHttAU2nH22NHBsc/hSSvKUqmRWGZA==",
+                            NormalizedEmail = "admin@EASYSTOCK.COM",
+                            NormalizedUserName = "admin@EASYSTOCK.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f7c1b6eb-5b55-466f-8ea6-a0132111d162",
+                            SecurityStamp = "04e7a503-5ffb-417d-881a-4871e4acedfd",
                             TwoFactorEnabled = false,
-                            UserName = "SuperAdmin@SmartRestaurant.io"
+                            UserName = "admin@easystock.com"
                         },
                         new
                         {
                             Id = "d466ef00-61f1-4e77-801a-b016f0f12323",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2e52f07f-e45b-4c1f-9cc0-6b5f8b379b61",
+                            ConcurrencyStamp = "9d2c0713-517f-47c3-b8c4-83626a3b1405",
                             Email = "SupportAgent@SmartRestaurant.io",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -376,7 +421,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "SUPPORTAGENT@SMARTRESTAURANT.IO",
                             PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "539a139c-421a-4d6d-a276-fe0b5be7b0b5",
+                            SecurityStamp = "d14ac469-1e92-4772-a2dc-ffa528333e9a",
                             TwoFactorEnabled = false,
                             UserName = "SupportAgent@SmartRestaurant.io"
                         },
@@ -384,7 +429,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "d466ef00-61f1-4e77-801a-b516f0f12323",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ea1c0a09-3c5c-40e2-9b36-0d90a55e08ad",
+                            ConcurrencyStamp = "61eab3ea-570d-4abc-85ca-a1eec66265bb",
                             Email = "Waiter@SmartRestaurant.io",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -394,7 +439,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "WAITER@SMARTRESTAURANT.IO",
                             PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9277899b-68cd-4e22-900a-e5a68f2e3e14",
+                            SecurityStamp = "aa2a72b4-4e6f-4d06-b36e-dd3071b3d3a3",
                             TwoFactorEnabled = false,
                             UserName = "Waiter@SmartRestaurant.io"
                         },
@@ -402,7 +447,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "3cbf3570-4444-4444-8746-29b7cf568093",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a7a065eb-0ad6-446f-8545-2b6e4d39c71a",
+                            ConcurrencyStamp = "427f3b86-f8b0-4143-a1eb-46811e024340",
                             Email = "FoodAdmin@SmartRestaurant.io",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -412,7 +457,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "FOODADMIN@SMARTRESTAURANT.IO",
                             PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e5014919-4cc4-42ae-9659-7799c4022c90",
+                            SecurityStamp = "ce692fab-5870-4d48-9773-51441ab2e226",
                             TwoFactorEnabled = false,
                             UserName = "FoodAdmin@SmartRestaurant.io"
                         },
@@ -420,7 +465,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "44bf3570-0d44-4673-8746-29b7cf568088",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9a22d0fb-f091-4a76-b0b7-1b33ab8f6deb",
+                            ConcurrencyStamp = "3ee53c9a-67df-41ad-bb49-ebde3201327c",
                             Email = "McdonaldFoodAdmin@SmartRestaurant.io",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -430,7 +475,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "MCDONALDFOODADMIN@SMARTRESTAURANT.IO",
                             PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "438e3746-cfff-4944-979b-9fb4fe217129",
+                            SecurityStamp = "e4604a4a-b009-43a3-8dad-9492dca8af85",
                             TwoFactorEnabled = false,
                             UserName = "McdonaldFoodAdmin@SmartRestaurant.io"
                         },
@@ -438,7 +483,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "08a1a626-7f8e-4b51-84fc-fc51b6302cca",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2308e4a7-d4fb-4cbd-a31e-47546496abf6",
+                            ConcurrencyStamp = "da83d7c0-213a-48c2-89ad-dd435fd5b2b2",
                             Email = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -448,7 +493,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "BIGMAMAFOODBUSINESSADMINISTRATOR@SMARTRESTAURANT.IO",
                             PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "182c9064-d859-4708-9238-65042da1e6c5",
+                            SecurityStamp = "6ad47f3e-0bd4-47cf-ba81-563f2a148636",
                             TwoFactorEnabled = false,
                             UserName = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io"
                         },
@@ -456,7 +501,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "a1997466-cedc-4850-b18d-0ac4f4102cff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e9fe81f5-66fe-4d15-b831-9f197aa5e97f",
+                            ConcurrencyStamp = "1b9cda06-db24-41df-b822-331816b1d365",
                             Email = "TajMhalFoodBusinessManager@SmartRestaurant.io",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -466,7 +511,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "TAJMHALFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
                             PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "13a11208-8d34-4dea-bf71-d5c2353fc3fd",
+                            SecurityStamp = "c4c4f216-739a-4f40-ac32-5ffffea22b9c",
                             TwoFactorEnabled = false,
                             UserName = "TajMhalFoodBusinessManager@SmartRestaurant.io"
                         },
@@ -474,7 +519,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "b2207466-ceda-4b50-b18d-0ac4f4102caa",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8175f756-d001-4b91-96af-0fc4ea753bac",
+                            ConcurrencyStamp = "b1135f91-5251-4164-b48d-b98fae48a839",
                             Email = "McdonaldFoodBusinessManager@SmartRestaurant.io",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -484,7 +529,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "MCDONALDFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
                             PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "77ecacba-89e5-4435-8849-caf07cb3eb92",
+                            SecurityStamp = "7c2dd9b7-d5f0-4657-b7ae-f59f1d562dd4",
                             TwoFactorEnabled = false,
                             UserName = "McdonaldFoodBusinessManager@SmartRestaurant.io"
                         },
@@ -492,7 +537,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "64fed988-6f68-49dc-ad54-0da50ec02319",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9ef2c3e8-9128-4335-931c-dc8f938081e8",
+                            ConcurrencyStamp = "6701e37d-5fe2-4a89-915c-664ffc5bb55f",
                             Email = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -502,7 +547,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "BIGMAMASALIMFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
                             PasswordHash = "AQAAAAEAACcQAAAAEO+ouwzSOa+AsCNZrVEhO6Su9q/fX/Q9c9havEvhs5QtXWA6tRdfmqOlemUQphqDnA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a9fbfabd-3cb0-4d45-a858-19276fa6d7d7",
+                            SecurityStamp = "53028de7-62cc-465b-885a-d4361da31181",
                             TwoFactorEnabled = false,
                             UserName = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io"
                         },
@@ -510,7 +555,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "5a84cd00-59f0-4b22-bfce-07c080829118",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1809e9de-2cd6-4e09-a214-33b91682b244",
+                            ConcurrencyStamp = "8b9dde9a-8186-47ba-87be-e8275ec18af4",
                             Email = "Diner_01@SmartRestaurant.io",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -520,7 +565,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "DINER_01@SMARTRESTAURANT.IO",
                             PasswordHash = "AQAAAAEAACcQAAAAEJFZbbuBIpvoyXKwrceuNsU4cXZ18LLAl8g7s48Pye4EAEXwA2hswtnLMhMS9Q7Cjw ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ab7941d0-6c5f-4de4-baff-1662bf567cfd",
+                            SecurityStamp = "7fff4d3e-85b2-4b4d-94ea-382d6c4d0069",
                             TwoFactorEnabled = false,
                             UserName = "Diner_01@SmartRestaurant.io"
                         },
@@ -528,7 +573,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "6b14cd00-59f0-4422-bfce-07c080829987",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c5affadf-cd00-4163-984e-001f10569b21",
+                            ConcurrencyStamp = "65c76457-39ff-4578-a47e-865f2ba2e35a",
                             Email = "Diner_02@SmartRestaurant.io",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -538,7 +583,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "DINER_02@SMARTRESTAURANT.IO",
                             PasswordHash = "AQAAAAEAACcQAAAAEJFZbbuBIpvoyXKwrceuNsU4cXZ18LLAl8g7s48Pye4EAEXwA2hswtnLMhMS9Q7Cjw ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "acbe6e78-98b4-4e37-989c-7749bdee32ac",
+                            SecurityStamp = "7bb157d8-768c-4842-b1de-7c439db0d933",
                             TwoFactorEnabled = false,
                             UserName = "Diner_02@SmartRestaurant.io"
                         },
@@ -546,7 +591,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "a3dbd500-eab0-4233-86fd-7f1a4195f9a9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5ac0997a-c101-4dfa-b3ac-be21fa3b5c70",
+                            ConcurrencyStamp = "af8b2ca5-c329-41c1-b4d8-a1ddd786ede0",
                             Email = "manager@sonatrach.com",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -556,7 +601,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "MANAGER@SONATRACH.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "07979016-b226-45c6-95b3-0809a6ced346",
+                            SecurityStamp = "c736ab42-035f-4b4d-95b9-0e80415d3660",
                             TwoFactorEnabled = false,
                             UserName = "manager@sonatrach.com"
                         },
@@ -564,7 +609,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "ba89dc5f-dfd1-4c87-9372-233c611cc756",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0c9fcf94-551e-4f08-b502-d49a95dba9d3",
+                            ConcurrencyStamp = "129ebfd9-6e44-4b31-bb78-e900b33de525",
                             Email = "manager@cevital.com",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -574,7 +619,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "MANAGER@CEVITAL.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a22c3be3-9ccf-4d58-ae01-ad430e9b20d6",
+                            SecurityStamp = "609eb8d4-9ec8-4148-8aa3-b25f2abec2e1",
                             TwoFactorEnabled = false,
                             UserName = "manager@cevital.com"
                         },
@@ -582,7 +627,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "6d215fd5-e7b4-4afd-aa6c-334a37d3874d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b3c916a1-a628-487e-890e-1e27115d0d62",
+                            ConcurrencyStamp = "d8d17be7-c8bb-4775-9525-36d40c55df6d",
                             Email = "HotelManager@gmail.com",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -592,7 +637,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "HOTELMANAGER@GMAIL.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "adf2b787-fe73-4049-9d04-7095c67d1e89",
+                            SecurityStamp = "397580be-5991-4a82-b5e9-700b081d0373",
                             TwoFactorEnabled = false,
                             UserName = "HotelManager@gmail.com"
                         },
@@ -600,7 +645,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "83e72357-25b8-4e2a-8728-3e25365608e2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f332a1cb-ef2e-4e8d-ad71-6ed5c8476f29",
+                            ConcurrencyStamp = "d449979c-9741-48be-a0f8-ddf1b288e8be",
                             Email = "HotelReceptionist@gmail.com",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -610,7 +655,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "HOTELRECEPTIONIST@GMAIL.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fd6bfa18-fa23-4674-8fd7-c7cd93187aa4",
+                            SecurityStamp = "d0808247-399f-4d9f-8710-fbbe80bade7a",
                             TwoFactorEnabled = false,
                             UserName = "HotelReceptionist@gmail.com"
                         },
@@ -618,7 +663,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "C4EAACBE-A5C5-47E8-8DED-508709D7A50F",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "806f24ba-aedd-4466-9693-e74dee437201",
+                            ConcurrencyStamp = "2b8b9efe-0793-44e4-a019-6d898c6b6dbd",
                             Email = "HotelServiceAdmin@gmail.com",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -628,7 +673,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "HOTELSERVICEADMIN@GMAIL.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f7b8f5d6-79f1-4099-9833-731c1b5c247e",
+                            SecurityStamp = "6e544a04-2c99-47d5-aeec-44471c1fcf56",
                             TwoFactorEnabled = false,
                             UserName = "HotelServiceAdmin@gmail.com"
                         },
@@ -636,7 +681,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "FB8EC84D-3A8F-4FC6-B21E-7141B48A164D",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7fd78a48-d44f-4058-b2d8-a610c49245ea",
+                            ConcurrencyStamp = "8fe0b46f-4a4d-4d8b-b672-8c938785e983",
                             Email = "ClientHotel@gmail.com",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -646,7 +691,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "CLIENTHOTEL@GMAIL.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6d2a14ac-9ddf-4b5d-9385-c34c0ff561b9",
+                            SecurityStamp = "93799947-29d6-4c81-8a43-d70466e55db2",
                             TwoFactorEnabled = false,
                             UserName = "ClientHotel@gmail.com"
                         },
@@ -654,7 +699,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "acd04fc6-99da-436f-a011-191b7e92aa23",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9ddd23cc-ecf5-4d28-a791-dbceb004c655",
+                            ConcurrencyStamp = "cb3efbba-bcd0-4163-91de-2dc9d881ff0f",
                             Email = "HotelServiceTechnique@gmail.com",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -664,7 +709,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "HOTELSERVICETECHNIQUE@GMAIL.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a2d0a577-900f-4b74-9cda-4deeec72591e",
+                            SecurityStamp = "48be9603-cdec-4bf0-aeb1-4ae1cf078f35",
                             TwoFactorEnabled = false,
                             UserName = "HotelServiceTechnique@gmail.com"
                         },
@@ -672,7 +717,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "7d33ae49-68a8-4c10-bc57-b09da6f9f016",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "20f05300-1355-4ab3-809e-355213bb1042",
+                            ConcurrencyStamp = "643d7a45-9595-48f4-a45d-3597e2831ca2",
                             Email = "HotelMaid@gmail.com",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -682,7 +727,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "HOTELMAID@GMAIL.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "42c06667-99c5-44e6-a2cf-d937ef53a7d9",
+                            SecurityStamp = "18bc96b5-d045-4f46-8114-7b3f6fd8b841",
                             TwoFactorEnabled = false,
                             UserName = "HotelMaid@gmail.com"
                         });
@@ -798,6 +843,150 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             UserId = "a3dbd500-eab0-4233-86fd-7f1a4195f9a9",
                             RoleId = "13"
                         });
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Identity.Entities.LicenceKeys", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ClientName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LicenceKey")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LicenceKeys");
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Identity.Entities.MyClients", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LicenceStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MacAdresse")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MyClients");
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Domain.Identity.Entities.Permissions", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ba")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Bca")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Bcv")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Bl")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Clients")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CreancesAss")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Fac")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("FacAvoir")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Facpro")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Familles")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Fournisseurs")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Gda")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Gde")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Gds")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Gdv")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Inventaires")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Inviter")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Marques")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("RegClients")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("RegFour")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("RetoursProdClient")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("RetoursProdFour")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("StockAlerte")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Stocks")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Unites")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Vc")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

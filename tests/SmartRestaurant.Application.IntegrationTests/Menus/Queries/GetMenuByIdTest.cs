@@ -20,7 +20,7 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Queries
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
-            var createMenuCommand = new CreateMenuCommand
+            var createMenuCommand = new CreateProductOnStockCommand
             {
                 Name = "tacos Dz ",
                 FoodBusinessId = fastFood.FoodBusinessId

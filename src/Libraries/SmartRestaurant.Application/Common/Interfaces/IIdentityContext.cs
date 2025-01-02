@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Domain.Identity.Entities;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace SmartRestaurant.Application.Common.Interfaces
 {
@@ -7,5 +9,10 @@ namespace SmartRestaurant.Application.Common.Interfaces
     {
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<ApplicationUserRole> UserRoles { get; set; }
+        public DbSet<Permissions> Permissions { get; set; }
+        public DbSet<LicenceKeys> LicenceKeys { get; set; }
+        public DbSet<MyClients> MyClients { get; set; }
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+
     }
 }

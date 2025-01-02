@@ -9,6 +9,5 @@ namespace SmartRestaurant.Domain.Entities.Globalisation
         public Guid LanguageId { get; set; }
         public string Name { get; set; }
         public bool IsRTL { get; set; }
-        public List<Property> Properties { get; set; }
     }
 }

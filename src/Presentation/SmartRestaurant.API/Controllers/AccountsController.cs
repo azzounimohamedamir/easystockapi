@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -35,18 +36,36 @@ namespace SmartRestaurant.API.Controllers
             _signInManager = signInManager;
             _configuration = configuration;
         }
+        private string GetMacAddress()
+        {
+            string macAddresses = string.Empty;
+
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (nic.OperationalStatus == OperationalStatus.Up)
+                {
+                    macAddresses += nic.GetPhysicalAddress().ToString();
+                    break;
+                }
+            }
+
+            return macAddresses;
+        }
 
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            var mac = this.GetMacAddress();
+
             if (!result.Succeeded) return Unauthorized();
             var user = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
+            user.Mac = mac;
             if (!user.IsActive) return Unauthorized();
             var token = await TokenGenerator.Generate(user, _userManager, _configuration);
             var roles = await _userManager.GetRolesAsync(user);
-            return Ok(new {token, user.Id, user.UserName, roles});
+            return Ok(new {token, user.Id, user.UserName,user.FullName,user.PhoneNumber,user.Mac, roles});
         }
 
         [AllowAnonymous]
@@ -138,8 +157,8 @@ namespace SmartRestaurant.API.Controllers
         {
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.Diner.ToString()).ConfigureAwait(false);
-                await _userManager.AddToRoleAsync(user, Roles.HotelClient.ToString()).ConfigureAwait(false);
+                await _userManager.AddToRoleAsync(user, Roles.Manager.ToString()).ConfigureAwait(false);
+
 
                 return Ok(HttpResponseHelper.Respond(ResponseType.OK));
             }

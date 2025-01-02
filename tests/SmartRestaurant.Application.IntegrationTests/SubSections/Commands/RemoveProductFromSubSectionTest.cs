@@ -58,9 +58,9 @@ namespace SmartRestaurant.Application.IntegrationTests.SubSections.Commands
         }
 
     
-        private static async Task<CreateMenuCommand> CreateMenu(Domain.Entities.FoodBusiness fastFood)
+        private static async Task<CreateProductOnStockCommand> CreateMenu(Domain.Entities.FoodBusiness fastFood)
         {
-            var createMenuCommand = new CreateMenuCommand
+            var createMenuCommand = new CreateProductOnStockCommand
             {
                 Name = "test menu",
                 FoodBusinessId = fastFood.FoodBusinessId

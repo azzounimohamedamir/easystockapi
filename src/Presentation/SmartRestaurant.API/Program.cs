@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace SmartRestaurant.API
 {
@@ -13,7 +14,14 @@ namespace SmartRestaurant.API
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+            return WebHost.CreateDefaultBuilder(args)
+                 .UseKestrel()  
+                 
+                 // important!
+                 .UseIISIntegration()
+                 .UseContentRoot(Directory.GetCurrentDirectory())
+                // important!
+                .UseStartup<Startup>();
         }
     }
 }

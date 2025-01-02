@@ -15,6 +15,10 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
         }
 
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<Permissions> Permissions { get; set; }
+        public DbSet<LicenceKeys> LicenceKeys { get; set; }
+        public DbSet<MyClients> MyClients { get; set; }
+
         public DbSet<ApplicationUserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -37,6 +41,9 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                 .HasOne(e => e.Role)
                 .WithMany(e => e.UserRoles)
                 .HasForeignKey(e => e.RoleId);
+
+            builder.Entity<Permissions>()
+               .HasKey(e => e.Id);
 
             builder.Seed();
         }

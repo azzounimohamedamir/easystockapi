@@ -4,7 +4,6 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using SendGrid.Helpers.Mail;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Email;
 
 namespace SmartRestaurant.Application
 {

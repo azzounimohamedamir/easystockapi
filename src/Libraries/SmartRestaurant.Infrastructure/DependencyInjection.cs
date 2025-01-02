@@ -17,13 +17,21 @@ namespace SmartRestaurant.Infrastructure
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                    sqlServerOptionsAction: sqlOptions =>
+                    {
+                        sqlOptions.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
+                        sqlOptions.EnableRetryOnFailure(
+                            maxRetryCount: 5, // Number of retry attempts
+                            maxRetryDelay: TimeSpan.FromSeconds(30), // Max delay between retries
+                            errorNumbersToAdd: null // List of error numbers to consider for retry
+                        );
+                    }
+                ).EnableSensitiveDataLogging(false)); // Disable sensitive data logging
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-            services.AddTransient < IFirebaseRepository, FirebaseRepository> ();
             services.AddTransient<IDateTime, DateTimeService>();
-            services.AddTransient<IOdooRepository, OdooRepository>();
             services.AddTransient<IEmailSender, EmailHelper>();
+
             return services;
         }
     }

@@ -21,10 +21,12 @@ namespace SmartRestaurant.Infrastructure.Identity
         {
             services.AddHttpContextAccessor();
             services.AddScoped<IUserService, UserService>();
+
             services.AddDbContext<IdentityContext>(options =>
                 options.UseSqlServer(
                     configuration.GetConnectionString("IdentityConnection"),
-                    b => b.MigrationsAssembly(typeof(IdentityContext).Assembly.FullName)));
+                    b => b.MigrationsAssembly(typeof(IdentityContext).Assembly.FullName))
+                .EnableSensitiveDataLogging(false)); // Disable sensitive data logging
 
             services.AddScoped<IIdentityContext>(provider => provider.GetService<IdentityContext>());
 
@@ -34,34 +36,36 @@ namespace SmartRestaurant.Infrastructure.Identity
 
             services.Configure<IdentityOptions>(opt =>
             {
-                opt.Password.RequiredLength = 6;
-                opt.Password.RequireDigit = false;
-                opt.Password.RequireNonAlphanumeric = false;
-                opt.Password.RequireLowercase = false;
-                opt.Password.RequireUppercase = false;
+                opt.Password.RequiredLength = 8; // Increased password length for security
+                opt.Password.RequireDigit = true; // Require at least one digit
+                opt.Password.RequireNonAlphanumeric = true; // Require non-alphanumeric character
+                opt.Password.RequireLowercase = true; // Require at least one lowercase letter
+                opt.Password.RequireUppercase = true; // Require at least one uppercase letter
                 opt.User.RequireUniqueEmail = true;
                 opt.SignIn.RequireConfirmedEmail = true;
             });
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(cfg =>
+            {
+                cfg.TokenValidationParameters = new TokenValidationParameters
                 {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(cfg =>
-                {
-                    cfg.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = configuration["JwtIssuer"],
-                        ValidAudience = configuration["JwtIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtKey"]))
-                    };
-                });
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = configuration["JwtIssuer"],
+                    ValidAudience = configuration["JwtIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtKey"]))
+                };
+            });
+
             services.Configure<DataProtectionTokenProviderOptions>(options =>
-                options.TokenLifespan = TimeSpan.FromMinutes(144));
+                options.TokenLifespan = TimeSpan.FromMinutes(144)); // Token lifespan
+
             return services;
         }
     }

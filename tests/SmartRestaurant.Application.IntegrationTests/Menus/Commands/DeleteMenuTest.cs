@@ -20,13 +20,13 @@ namespace SmartRestaurant.Application.IntegrationTests.Menus.Commands
             var foodBusinessAdministrator = await UsersTestTools.CreateFoodBusinessAdministrator();
             var fastFood = await FoodBusinessTestTools.CreateFoodBusiness(foodBusinessAdministrator.Id);
 
-            var createMenuCommand = new CreateMenuCommand
+            var createMenuCommand = new CreateProductOnStockCommand
             {
                 Name = "test menu1",
                 FoodBusinessId = fastFood.FoodBusinessId
             };
             await SendAsync(createMenuCommand);
-            await SendAsync(new DeleteMenuCommand {Id = createMenuCommand.Id});
+            await SendAsync(new DeleteProductFromStockCommand {Id = createMenuCommand.Id});
             var item = await FindAsync<Menu>(createMenuCommand.Id);
             item.Should().BeNull();
         }
