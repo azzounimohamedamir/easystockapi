@@ -7,6 +7,8 @@ using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Entities.Globalisation;
 using SmartRestaurant.Domain.Enums;
+using System.Drawing;
+using System;
 
 namespace SmartRestaurant.Infrastructure.Persistence
 {
@@ -115,8 +117,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 .HasKey(vp => vp.Id);
 
 
-             modelBuilder.Entity<CategoryAttribute>()
-            .HasKey(ca => new { ca.CategoryId, ca.ProductAttributeId });
+           
             
       
 
@@ -242,18 +243,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
      .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
 
 
-            modelBuilder.Entity<CategoryAttribute>()
-    .HasKey(ca => new { ca.CategoryId, ca.ProductAttributeId });
+         
 
-            modelBuilder.Entity<CategoryAttribute>()
-                .HasOne(ca => ca.Category)
-                .WithMany(c => c.CategoryAttributes)
-                .HasForeignKey(ca => ca.CategoryId);
-
-            modelBuilder.Entity<CategoryAttribute>()
-                .HasOne(ca => ca.ProductAttribute)
-                .WithMany(pa => pa.CategoryAttributes)
-                .HasForeignKey(ca => ca.ProductAttributeId);
+           
 
 
             modelBuilder.Entity<ProductAttributeValue>()
@@ -285,6 +277,68 @@ namespace SmartRestaurant.Infrastructure.Persistence
        .HasOne(bc => bc.FactureProformat)
        .WithMany(b => b.FacProProducts)
        .HasForeignKey(bc => bc.FactureProformatId);
+
+            // Category Configuration
+            modelBuilder.Entity<Category>()
+                .HasKey(c => c.Id);
+
+            modelBuilder.Entity<Category>()
+                .Property(c => c.Nom)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<Category>()
+                .HasMany(c => c.CategorieAttributs)
+                .WithOne(ca => ca.Category) // Specify the navigation property in CategoryAttribute
+                .HasForeignKey(ca => ca.CategoryId) // Use the actual property name
+                .OnDelete(DeleteBehavior.Cascade); // Cascade delete if a category is deleted
+
+            // CategoryAttribute Configuration
+            modelBuilder.Entity<CategoryAttribute>()
+                .HasKey(ca => ca.Id);
+
+            modelBuilder.Entity<CategoryAttribute>()
+                .Property(ca => ca.Nom)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<CategoryAttribute>()
+                .HasMany(ca => ca.ProductsAttributes)
+                .WithOne(pa => pa.CategoryAttribute) // Specify the navigation property in ProductAttribute
+                .HasForeignKey(pa => pa.CategoryAttributeId) // Use the actual property name
+                .OnDelete(DeleteBehavior.Cascade); // Cascade delete if a category attribute is deleted
+
+            // ProductAttribute Configuration
+            modelBuilder.Entity<ProductAttribute>()
+                .HasKey(pa => pa.Id);
+
+            modelBuilder.Entity<ProductAttribute>()
+                .Property(pa => pa.Nom)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<ProductAttribute>()
+                .HasMany(pa => pa.AttributeValues)
+                .WithOne(av => av.ProductAttribute) // Specify the navigation property in AttributeValue
+                .HasForeignKey(av => av.ProductAttributeId) // Use the actual property name
+                .OnDelete(DeleteBehavior.Cascade); // Cascade delete if a product attribute is deleted
+
+            // AttributeValue Configuration
+            modelBuilder.Entity<AttributeValue>()
+                .HasKey(av => av.Id);
+
+            modelBuilder.Entity<AttributeValue>()
+                .Property(av => av.Valeur)
+                .IsRequired()
+                .HasMaxLength(50);
+
+
+
+
+
+
+
+
 
             modelBuilder.Entity<BonCommandeFournisseur>().Property(u => u.Numero).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
 

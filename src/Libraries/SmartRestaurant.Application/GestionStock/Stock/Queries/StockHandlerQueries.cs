@@ -21,9 +21,8 @@ namespace SmartRestaurant.Application.Stock.Queries
         IRequestHandler<GetStockListQuery, PagedListDto<StockDto>>,
         IRequestHandler<GetCaisseStatsQuery,CaisseDto>,
         IRequestHandler<GetAllStockListQuery, List<StockDto>>,
-        IRequestHandler<GetAllCategoriesListQuery, List<CategoryDto>>,
+        IRequestHandler<GetAllCategoriesListQuery, List<CategoryDto>>
 
-                IRequestHandler<GetProductAttributesByIdCatQuery, List<ProductAttributeDto>>
 
     {
         private readonly IApplicationDbContext _context;
@@ -54,7 +53,7 @@ namespace SmartRestaurant.Application.Stock.Queries
                     //get prod ATTR VALUE
                     var pavreal= _context.ProductAttributeValues.FirstOrDefault(a=>a.Id==pav.Id);
                     pav.AttributeName = _mapper.Map < ProductAttributeDto > (_context.ProductAttributes.FirstOrDefault(p => p.Id == pavreal.ProductAttributeId)).Name;
-                    pav.AttributeValue = _context.AttributeValues.FirstOrDefault(av => av.Id == Guid.Parse(pavreal.Value)).Value;
+                    pav.AttributeValue = _context.AttributeValues.FirstOrDefault(av => av.Id == Guid.Parse(pavreal.Value)).Valeur;
                 }
             });
 
@@ -140,27 +139,7 @@ namespace SmartRestaurant.Application.Stock.Queries
         }
 
 
-        public async Task<List<ProductAttributeDto>> Handle(GetProductAttributesByIdCatQuery request, CancellationToken cancellationToken)
-        {
-            var categoryAttributes = await _context.CategoryAttribute
-                       .Include(ca => ca.ProductAttribute)
-                       .ThenInclude(pa => pa.AttributeValues)
-                       .Where(ca => ca.CategoryId == request.CategoryId)
-                       .ToListAsync();
-
-            var result = categoryAttributes.Select(ca => new ProductAttributeDto
-            {
-                Id = ca.ProductAttributeId,
-                Name = ca.ProductAttribute.Name,
-                Values = ca.ProductAttribute.AttributeValues.Select(av => new AttributeValueDto
-                {
-                    Id = av.Id,
-                    Value = av.Value
-                }).ToList()
-            }).ToList();
-
-            return result;
-        }
+        
 
 
      

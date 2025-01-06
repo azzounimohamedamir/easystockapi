@@ -7,12 +7,13 @@ namespace SmartRestaurant.Domain.Entities
 {
     public class ProductAttribute
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-
         // Navigation property
-        public ICollection<AttributeValue> AttributeValues { get; set; }
-        public ICollection<CategoryAttribute> CategoryAttributes { get; set; }
+        public Guid Id { get; set; }
+        public string Nom { get; set; } // Ex: Taille, Couleur, etc.
+        public Guid CategoryAttributeId { get; set; }
+        public CategoryAttribute CategoryAttribute { get; set; } // Navigation property back to CategoryAttribute
+
+        public List<AttributeValue> AttributeValues { get; set; } = new List<AttributeValue>();
     }
 
 }

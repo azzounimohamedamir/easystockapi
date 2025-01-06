@@ -11,6 +11,7 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using SmartRestaurant.Application.Common.Exceptions;
@@ -28,8 +29,7 @@ namespace SmartRestaurant.Application.Stock.Commands
     public class StockCommandsHandler :
         IRequestHandler<ImportStockFromExcelCommand>,
         IRequestHandler<CreateProductOnStockCommand, Created>,
-        IRequestHandler<AddAttrForCategoryCommand, Created>,
-        IRequestHandler<AddValuesForAttributCommand, Created>,
+        IRequestHandler<AddCategoryCommand, Created>,
         IRequestHandler<UpdateProductOnStockCommand, NoContent>,
         IRequestHandler<DeleteProductFromStockCommand, NoContent>
     {
@@ -95,71 +95,67 @@ namespace SmartRestaurant.Application.Stock.Commands
 
 
 
-        public async Task<Created> Handle(AddAttrForCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<Created> Handle(AddCategoryCommand request, CancellationToken cancellationToken)
         {
             // Validate the request
-            var validator = new AddAttrForCategoryCommandValidator();
+            var validator = new AddCategoryCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            // Handle non-perishable products
-
-            var newattribute = new Domain.Entities.ProductAttribute
+            // Create a new category entity
+            var category = new Category
             {
-                Id = Guid.NewGuid(),
-                Name = request.AttributName
+                Nom = request.Nom,
+                CategorieAttributs = new List<Domain.Entities.CategoryAttribute>()
             };
-            _context.ProductAttributes.Add(newattribute);
 
-            var catattr = new Domain.Entities.CategoryAttribute
+            // Loop through each CategorieAttribut in the request
+            foreach (var catAttr in request.CategorieAttributs)
             {
-                CategoryId = request.CategoryId,
-                ProductAttributeId = newattribute.Id,
-                Category = _context.Categories.FirstOrDefault(c => c.Id == request.CategoryId),
-                ProductAttribute=newattribute
-            };
-            _context.ProductAttributes.Add(newattribute);
-
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-           
-
-
-            // Add the stock entity and save changes
-
-
-            return default;
-        }
-
-
-        public async Task<Created> Handle(AddValuesForAttributCommand request, CancellationToken cancellationToken)
-        {
-            // Validate the request
-            var validator = new AddValuesForAttributCommandValidator();
-            var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!result.IsValid) throw new ValidationException(result);
-
-            // Handle non-perishable products
-
-            if(request.Values.Count != 0)
-            {
-                foreach (var item in request.Values)
+                var categoryAttribute = new Domain.Entities.CategoryAttribute
                 {
-                    var attrvalue = new AttributeValue
+                    Nom = catAttr.Nom,
+                    ProductsAttributes = new List<ProductAttribute>()
+                };
+
+                // Loop through each ProductsAttribute in the CategorieAttribut
+                foreach (var prodAttr in catAttr.ProductsAttributes)
+                {
+                    var productAttribute = new ProductAttribute
                     {
-                        Id = Guid.NewGuid(),
-                        Value = item,
-                        ProductAttributeId = request.AttributId,
-                        ProductAttribute = _context.ProductAttributes.FirstOrDefault(pr => pr.Id == request.AttributId)
+                        Nom = prodAttr.Nom,
+                        AttributeValues = new List<AttributeValue>()
                     };
-                    _context.AttributeValues.Add(attrvalue);
-                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+                    // Loop through each AttributeValue in the ProductsAttribute
+                    foreach (var attrValue in prodAttr.AttributeValues)
+                    {
+                        var attributeValue = new AttributeValue
+                        {
+                            Valeur = attrValue.Valeur
+                        };
+
+                        // Add the attribute value to the product attribute
+                        productAttribute.AttributeValues.Add(attributeValue);
+                    }
+
+                    // Add the product attribute to the category attribute
+                    categoryAttribute.ProductsAttributes.Add(productAttribute);
                 }
+
+                // Add the category attribute to the category
+                category.CategorieAttributs.Add(categoryAttribute);
             }
 
-         
-            return default;
+            // Assuming you have a DbContext instance named _dbContext
+            await _context.Categories.AddAsync(category, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return default; // Assuming Created has an Id property
         }
+
+
+     
 
 
 
