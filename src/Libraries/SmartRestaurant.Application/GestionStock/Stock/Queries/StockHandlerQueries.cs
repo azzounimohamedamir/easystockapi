@@ -21,7 +21,7 @@ namespace SmartRestaurant.Application.Stock.Queries
         IRequestHandler<GetStockListQuery, PagedListDto<StockDto>>,
         IRequestHandler<GetCaisseStatsQuery,CaisseDto>,
         IRequestHandler<GetAllStockListQuery, List<StockDto>>,
-        IRequestHandler<GetAllCategoriesListQuery, List<CategoryDto>>
+        IRequestHandler<GetCategorieQuery, CategoryDto>
 
 
     {
@@ -52,7 +52,7 @@ namespace SmartRestaurant.Application.Stock.Queries
                 {
                     //get prod ATTR VALUE
                     var pavreal= _context.ProductAttributeValues.FirstOrDefault(a=>a.Id==pav.Id);
-                    pav.AttributeName = _mapper.Map < ProductAttributeDto > (_context.ProductAttributes.FirstOrDefault(p => p.Id == pavreal.ProductAttributeId)).Name;
+                    pav.AttributeName = _mapper.Map < ProductAttributeDto > (_context.ProductAttributes.FirstOrDefault(p => p.Id == pavreal.ProductAttributeId)).Nom;
                     pav.AttributeValue = _context.AttributeValues.FirstOrDefault(av => av.Id == Guid.Parse(pavreal.Value)).Valeur;
                 }
             });
@@ -124,25 +124,33 @@ namespace SmartRestaurant.Application.Stock.Queries
             return  data;
         }
 
-        public async Task<List<CategoryDto>> Handle(GetAllCategoriesListQuery request, CancellationToken cancellationToken)
+        public async Task<CategoryDto> Handle(GetCategorieQuery request, CancellationToken cancellationToken)
         {
-            var validator = new GetAllCategoriesListQueryValidator();
+            // Validate the request
+            var validator = new GetCategorieQueryValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
+            // Query the database for categories including related attributes
+            var categories = await _context.Categories
+                .Include(c => c.CategorieAttributs) // Include CategoryAttributes
+                    .ThenInclude(ca => ca.ProductsAttributes) // Include ProductAttributes
+                        .ThenInclude(pa => pa.AttributeValues) // Include AttributeValues
+                .ToListAsync();
+            // Fetch all categories asynchronously
 
+            // Map the results to DTOs
+           
+            var data = _mapper.Map<CategoryDto>(categories[0]);
 
-            var query = _context.Categories.ToList();
-            var data = _mapper.Map<List<CategoryDto>>(query);
-
-            return data;
+            return data; // Return the mapped data
         }
 
 
-        
 
 
-     
+
+
 
         public async Task<CaisseDto> Handle(GetCaisseStatsQuery request, CancellationToken cancellationToken)
         {

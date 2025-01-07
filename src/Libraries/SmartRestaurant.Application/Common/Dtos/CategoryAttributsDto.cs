@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartRestaurant.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,8 +7,10 @@ namespace SmartRestaurant.Application.Common.Dtos
 {
     public class CategoryAttributsDto
     {
-        public Guid CategoryId { get; set; }
-        public Guid ProductAttributeId { get; set; }
      
+        public string Nom { get; set; } // Ex: Pantalon, Chaussures, etc.
+
+        public List<ProductAttributeDto> ProductsAttributes { get; set; } = new List<ProductAttributeDto>();
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
+using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.Stock.Commands
@@ -8,7 +9,7 @@ namespace SmartRestaurant.Application.Stock.Commands
     public class AddCategoryCommand : CreateCommand
     {
         public string Nom { get; set; }
-        public List<CategoryAttribute> CategorieAttributs { get; set; }
+        public List<CategoryAttributsDto> CategorieAttributs { get; set; }
     }
 
     public class AddCategoryCommandValidator : AbstractValidator<AddCategoryCommand>

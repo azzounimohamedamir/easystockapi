@@ -9,14 +9,14 @@ using SmartRestaurant.Application.Common.Tools;
 
 namespace SmartRestaurant.Application.Stock.Queries
 {
-    public class GetAllStockListQuery : IRequest<List<StockDto>>
+    public class GetCategorieQuery : IRequest<CategoryDto>
     {
 
     }
 
-    public class GetAllStockListQueryValidator : AbstractValidator<GetAllStockListQuery>
+    public class GetCategorieQueryValidator : AbstractValidator<GetCategorieQuery>
     {
-        public GetAllStockListQueryValidator()
+        public GetCategorieQueryValidator()
         {
             
         }

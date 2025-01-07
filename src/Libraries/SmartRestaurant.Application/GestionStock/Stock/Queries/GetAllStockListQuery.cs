@@ -10,14 +10,14 @@ using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.Stock.Queries
 {
-    public class GetAllCategoriesListQuery : IRequest<List<CategoryDto>>
+    public class GetAllStockListQuery : IRequest<List<StockDto>>
     {
 
     }
 
-    public class GetAllCategoriesListQueryValidator : AbstractValidator<GetAllCategoriesListQuery>
+    public class GetAllStockListQueryValidator : AbstractValidator<GetAllStockListQuery>
     {
-        public GetAllCategoriesListQueryValidator()
+        public GetAllStockListQueryValidator()
         {
             
         }

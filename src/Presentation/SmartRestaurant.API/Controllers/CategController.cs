@@ -80,9 +80,9 @@ namespace SmartRestaurant.API.Controllers
 
         [Route("{id:guid}")]
         [HttpGet]
-        public async Task<IActionResult> GetCategByid([FromRoute] Guid id)
+        public async Task<IActionResult> GetCateg()
         {
-            return await SendWithErrorsHandlingAsync(new GetFacturebyIdBlQuery { BlId = id });
+            return await SendWithErrorsHandlingAsync(new GetCategorieQuery {  });
         }
     }
 }

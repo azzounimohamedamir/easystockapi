@@ -105,6 +105,7 @@ namespace SmartRestaurant.Application.Stock.Commands
             // Create a new category entity
             var category = new Category
             {
+                Id = Guid.NewGuid(),
                 Nom = request.Nom,
                 CategorieAttributs = new List<Domain.Entities.CategoryAttribute>()
             };
@@ -114,6 +115,9 @@ namespace SmartRestaurant.Application.Stock.Commands
             {
                 var categoryAttribute = new Domain.Entities.CategoryAttribute
                 {
+                    Id = Guid.NewGuid(),
+                    CategoryId = category.Id,
+                    Category=category,
                     Nom = catAttr.Nom,
                     ProductsAttributes = new List<ProductAttribute>()
                 };
@@ -123,6 +127,9 @@ namespace SmartRestaurant.Application.Stock.Commands
                 {
                     var productAttribute = new ProductAttribute
                     {
+                        Id=Guid.NewGuid(),
+                        CategoryAttributeId=categoryAttribute.Id,
+                        CategoryAttribute=categoryAttribute,
                         Nom = prodAttr.Nom,
                         AttributeValues = new List<AttributeValue>()
                     };
@@ -132,6 +139,9 @@ namespace SmartRestaurant.Application.Stock.Commands
                     {
                         var attributeValue = new AttributeValue
                         {
+                            Id=Guid.NewGuid(),
+                            ProductAttributeId=productAttribute.Id,
+                            ProductAttribute=productAttribute,
                             Valeur = attrValue.Valeur
                         };
 
