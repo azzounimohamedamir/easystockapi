@@ -11,7 +11,6 @@ namespace SmartRestaurant.Application.Parametres.ConfigurationLogiciel.Commands
         public string Timbre { get; set; }
         public string Tva { get; set; }
         public string ModeVente { get; set; }
-        public Guid Categorie { get; set; }
 
         public string DeviseParDefault { get; set; }
         public string MargeBenifDetail { get; set; }

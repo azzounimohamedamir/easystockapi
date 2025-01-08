@@ -46,16 +46,7 @@ namespace SmartRestaurant.Application.Stock.Queries
             var filter = StockStrategies.GetFilterStrategy(request.CurrentFilter , request.FilterCriteriaData);
             var query = filter.FetchData(_context.Stocks, request);
             var data = _mapper.Map<List<StockDto>>(query.Data.ToList());
-            data.ForEach(item =>
-            {
-                foreach (var pav in item.ProductAttributeValues)
-                {
-                    //get prod ATTR VALUE
-                    var pavreal= _context.ProductAttributeValues.FirstOrDefault(a=>a.Id==pav.Id);
-                    pav.AttributeName = _mapper.Map < ProductAttributeDto > (_context.ProductAttributes.FirstOrDefault(p => p.Id == pavreal.ProductAttributeId)).Nom;
-                    pav.AttributeValue = _context.AttributeValues.FirstOrDefault(av => av.Id == Guid.Parse(pavreal.Value)).Valeur;
-                }
-            });
+           
 
             if (request.FilterCriteriaData.Count != 0)
             {
@@ -77,35 +68,35 @@ namespace SmartRestaurant.Application.Stock.Queries
         {
             var filteredData = new List<StockDto>();
 
-            foreach (var stock in data)
-            {
-                bool allCriteriaMatched = true;
+            //foreach (var stock in data)
+            //{
+            //    bool allCriteriaMatched = true;
 
-                foreach (var criteria in criteriaDict)
-                {
-                    bool criteriaMatched = false;
+            //    foreach (var criteria in criteriaDict)
+            //    {
+            //        bool criteriaMatched = false;
 
-                    foreach (var pav in stock.ProductAttributeValues)
-                    {
-                        if (pav.AttributeName == criteria.Key && pav.AttributeValue == criteria.Value)
-                        {
-                            criteriaMatched = true;
-                            break; // Exit the inner loop once a match is found
-                        }
-                    }
+            //        foreach (var pav in stock.ProductAttributeValues)
+            //        {
+            //            if (pav.AttributeName == criteria.Key && pav.AttributeValue == criteria.Value)
+            //            {
+            //                criteriaMatched = true;
+            //                break; // Exit the inner loop once a match is found
+            //            }
+            //        }
 
-                    if (!criteriaMatched)
-                    {
-                        allCriteriaMatched = false;
-                        break; // Exit the middle loop if any criteria is not matched
-                    }
-                }
+            //        if (!criteriaMatched)
+            //        {
+            //            allCriteriaMatched = false;
+            //            break; // Exit the middle loop if any criteria is not matched
+            //        }
+            //    }
 
-                if (allCriteriaMatched)
-                {
-                    filteredData.Add(stock);
-                }
-            }
+            //    if (allCriteriaMatched)
+            //    {
+            //        filteredData.Add(stock);
+            //    }
+            //}
 
             return filteredData;
         }

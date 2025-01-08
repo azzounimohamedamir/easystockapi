@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250108120924_changeStockTableShema")]
+    partial class changeStockTableShema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -747,7 +749,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             Id = new Guid("52a857b7-ee3c-42db-96a7-76d3042818ac"),
                             Addresse = "",
                             Commerce = "Client Comptoir",
-                            DateEcheance = new DateTime(2035, 1, 8, 13, 18, 37, 859, DateTimeKind.Local).AddTicks(1911),
+                            DateEcheance = new DateTime(2035, 1, 8, 13, 9, 22, 549, DateTimeKind.Local).AddTicks(8126),
                             Email = "guest-client@gmail.com",
                             FullName = "Client Comptoir",
                             IsBanned = false,
@@ -859,6 +861,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.Property<bool>("AutorisationQteNeg")
                         .HasColumnType("bit");
+
+                    b.Property<Guid>("Categorie")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DeviseParDefault")
                         .HasColumnType("nvarchar(max)");

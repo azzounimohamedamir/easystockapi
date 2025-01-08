@@ -69,14 +69,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
-        [HttpGet]
-        [Route("allcateg")]
-        public async Task<IActionResult> GetAllCatListNoPagine()
-        {
-            return await SendWithErrorsHandlingAsync(new GetAllCategoriesListQuery
-            {
-            });
-        }
+      
 
         [HttpGet("{categoryId}/attributes")]
         public async Task<ActionResult<List<ProductAttributeDto>>> GetAttributesByCategory(Guid categoryId)

@@ -34,14 +34,21 @@ namespace SmartRestaurant.Application.Common.Mappers
         public MappingProfile()
         {
             CreateMap<Domain.Entities.Stock, StockDto>()
-                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category)) // Map Category to CategoryDto
-            .ForMember(dest => dest.ProductAttributeValues, opt => opt.MapFrom(src => src.ProductAttributeValues)) // Map collection
+                
                     
                 .ReverseMap();
             CreateMap<FactureAvoir, FactureAvoirDto>()
                .ReverseMap();
             CreateMap<Facture, FactureDto>()
               .ReverseMap();
+            CreateMap<Category, CategoryDto>()
+            .ReverseMap();
+            CreateMap<CategoryAttribute, CategoryAttributsDto>()
+          .ReverseMap();
+            CreateMap<ProductAttribute, ProductAttributeDto>()
+          .ReverseMap();
+            CreateMap<AttributeValue, AttributeValueDto>()
+          .ReverseMap();
             CreateMap<ProductAttributeValue, ProductAttributeValueDto>()
              .ReverseMap();
             CreateMap<FactureAvoirDto, FactureDto>()

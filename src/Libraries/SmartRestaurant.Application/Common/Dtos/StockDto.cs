@@ -32,7 +32,6 @@ namespace SmartRestaurant.Application.Common.Dtos
         public int JourAlerte { get; set; }
         public bool PrintingBarcode { get; set; } = false;
         public int QuantityToPrint { get; set; } = 1;
-        public CategoryDto Category { get; set; }
-        public ICollection<ProductAttributeValueDto> ProductAttributeValues { get; set; }
+        public string ProductAttributeValues { get; set; }
     }
 }

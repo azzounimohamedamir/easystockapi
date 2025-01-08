@@ -36,11 +36,9 @@ namespace SmartRestaurant.Domain.Entities
         public DateTime DatePeremption { get; set; }
         public int JourAlerte { get; set; }
 
-        public Guid CategoryId { get; set; }
 
         // Navigation property
-        public Category Category { get; set; }
-        public ICollection<ProductAttributeValue> ProductAttributeValues { get; set; }
+        public string ProductAttributeValues { get; set; }
 
 
     }

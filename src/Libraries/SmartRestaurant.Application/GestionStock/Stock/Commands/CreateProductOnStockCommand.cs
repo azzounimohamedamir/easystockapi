@@ -31,9 +31,8 @@ namespace SmartRestaurant.Application.Stock.Commands
         public bool IsPerissable { get; set; }
         public DateTime DatePeremption { get; set; }
         public int JourAlerte { get; set; }
-        public Guid CategoryId { get; set; }
 
-        public List<AttributsNew> ProductAttributeValues { get;set;}
+        public string ProductAttributeValues { get;set;}
     }
 
     public class CreateProductOnStockCommandValidator : AbstractValidator<CreateProductOnStockCommand>

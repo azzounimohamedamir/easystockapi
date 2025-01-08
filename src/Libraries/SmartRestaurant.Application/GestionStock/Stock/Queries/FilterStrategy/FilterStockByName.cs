@@ -15,9 +15,7 @@ namespace SmartRestaurant.Application.Stock.Queries.FilterStrategy
         public PagedResultBase<Domain.Entities.Stock> FetchData(DbSet<Domain.Entities.Stock> stock, GetStockListQuery request)
         {
             // Start building the query with necessary includes
-            IQueryable<Domain.Entities.Stock> query = stock
-                .Include(s => s.Category)
-                .Include(s => s.ProductAttributeValues);
+            IQueryable<Domain.Entities.Stock> query = stock;
 
            
 

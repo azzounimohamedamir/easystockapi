@@ -78,7 +78,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
-        [Route("{id:guid}")]
+        [Route("getCat")]
         [HttpGet]
         public async Task<IActionResult> GetCateg()
         {

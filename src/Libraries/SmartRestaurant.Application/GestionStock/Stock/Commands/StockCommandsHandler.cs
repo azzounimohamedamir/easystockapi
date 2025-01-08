@@ -62,24 +62,12 @@ namespace SmartRestaurant.Application.Stock.Commands
 
                 // CASE: Single product without variants
                 var stock = _mapper.Map<Domain.Entities.Stock>(request);
-
+               
                 // Retrieve related entities asynchronously
-                stock.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == request.CategoryId, cancellationToken).ConfigureAwait(false);
+               
                
 
-                // Handle product attributes (if any)
-                if (request.ProductAttributeValues != null && request.ProductAttributeValues.Any())
-                {
-                    var productAttributeValues = request.ProductAttributeValues.Select(attr => new ProductAttributeValue
-                    {
-                        Id = Guid.NewGuid(),
-                        ProductAttributeId = attr.Id,
-                        Value = attr.ValueId.ToString(),
-                    }).ToList();
-
-                    // Add all ProductAttributeValues to the context
-                    stock.ProductAttributeValues = productAttributeValues;
-                }
+               
                 
 
                 // Add the stock entity and save changes
@@ -102,64 +90,75 @@ namespace SmartRestaurant.Application.Stock.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            // Create a new category entity
-            var category = new Category
+            var checkIfExistOldCat = _context.Categories.Any();
+            if (checkIfExistOldCat)
             {
-                Id = Guid.NewGuid(),
-                Nom = request.Nom,
-                CategorieAttributs = new List<Domain.Entities.CategoryAttribute>()
-            };
-
-            // Loop through each CategorieAttribut in the request
-            foreach (var catAttr in request.CategorieAttributs)
-            {
-                var categoryAttribute = new Domain.Entities.CategoryAttribute
+                // Get all categories and remove them
+                var allCategories = _context.Categories.ToList();
+                _context.Categories.RemoveRange(allCategories);
+              await  _context.SaveChangesAsync(cancellationToken); // Don't forget to save changes to persist the deletion
+            }
+           
+                // Create a new category entity
+                var category = new Category
                 {
                     Id = Guid.NewGuid(),
-                    CategoryId = category.Id,
-                    Category=category,
-                    Nom = catAttr.Nom,
-                    ProductsAttributes = new List<ProductAttribute>()
+                    Nom = request.Nom,
+                    CategorieAttributs = new List<Domain.Entities.CategoryAttribute>()
                 };
 
-                // Loop through each ProductsAttribute in the CategorieAttribut
-                foreach (var prodAttr in catAttr.ProductsAttributes)
+                // Loop through each CategorieAttribut in the request
+                foreach (var catAttr in request.CategorieAttributs)
                 {
-                    var productAttribute = new ProductAttribute
+                    var categoryAttribute = new Domain.Entities.CategoryAttribute
                     {
-                        Id=Guid.NewGuid(),
-                        CategoryAttributeId=categoryAttribute.Id,
-                        CategoryAttribute=categoryAttribute,
-                        Nom = prodAttr.Nom,
-                        AttributeValues = new List<AttributeValue>()
+                        Id = Guid.NewGuid(),
+                        CategoryId = category.Id,
+                        Category = category,
+                        Nom = catAttr.Nom,
+                        ProductsAttributes = new List<ProductAttribute>()
                     };
 
-                    // Loop through each AttributeValue in the ProductsAttribute
-                    foreach (var attrValue in prodAttr.AttributeValues)
+                    // Loop through each ProductsAttribute in the CategorieAttribut
+                    foreach (var prodAttr in catAttr.ProductsAttributes)
                     {
-                        var attributeValue = new AttributeValue
+                        var productAttribute = new ProductAttribute
                         {
-                            Id=Guid.NewGuid(),
-                            ProductAttributeId=productAttribute.Id,
-                            ProductAttribute=productAttribute,
-                            Valeur = attrValue.Valeur
+                            Id = Guid.NewGuid(),
+                            CategoryAttributeId = categoryAttribute.Id,
+                            CategoryAttribute = categoryAttribute,
+                            Nom = prodAttr.Nom,
+                            AttributeValues = new List<AttributeValue>()
                         };
 
-                        // Add the attribute value to the product attribute
-                        productAttribute.AttributeValues.Add(attributeValue);
+                        // Loop through each AttributeValue in the ProductsAttribute
+                        foreach (var attrValue in prodAttr.AttributeValues)
+                        {
+                            var attributeValue = new AttributeValue
+                            {
+                                Id = Guid.NewGuid(),
+                                ProductAttributeId = productAttribute.Id,
+                                ProductAttribute = productAttribute,
+                                Valeur = attrValue.Valeur
+                            };
+
+                            // Add the attribute value to the product attribute
+                            productAttribute.AttributeValues.Add(attributeValue);
+                        }
+
+                        // Add the product attribute to the category attribute
+                        categoryAttribute.ProductsAttributes.Add(productAttribute);
                     }
 
-                    // Add the product attribute to the category attribute
-                    categoryAttribute.ProductsAttributes.Add(productAttribute);
+                    // Add the category attribute to the category
+                    category.CategorieAttributs.Add(categoryAttribute);
                 }
 
-                // Add the category attribute to the category
-                category.CategorieAttributs.Add(categoryAttribute);
-            }
-
-            // Assuming you have a DbContext instance named _dbContext
-            await _context.Categories.AddAsync(category, cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken);
+                // Assuming you have a DbContext instance named _dbContext
+                await _context.Categories.AddAsync(category, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
+            
+           
 
             return default; // Assuming Created has an Id property
         }

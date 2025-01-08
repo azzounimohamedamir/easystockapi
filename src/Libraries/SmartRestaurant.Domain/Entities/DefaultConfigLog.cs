@@ -10,7 +10,6 @@ namespace SmartRestaurant.Domain.Entities
         public Guid Id { get; set; }
         public string Timbre { get; set; }
         public string Tva { get; set; }
-        public Guid Categorie {  get; set; }
         public string ModeVente { get; set; }
         public string SommeFacture { get; set; }
         public string PointsGagner { get; set; }

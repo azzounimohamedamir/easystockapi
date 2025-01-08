@@ -248,11 +248,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
            
 
 
-            modelBuilder.Entity<ProductAttributeValue>()
-           .HasOne(pav => pav.Stock)
-           .WithMany(s => s.ProductAttributeValues)
-           .HasForeignKey(pav => pav.StockId)
-           .OnDelete(DeleteBehavior.Cascade); // Configure cascade delete if needed
+          
 
             // Optionally, configure the primary key and foreign key constraints if necessary
             modelBuilder.Entity<ProductAttributeValue>()
