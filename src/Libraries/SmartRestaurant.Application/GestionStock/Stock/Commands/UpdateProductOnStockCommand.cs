@@ -32,9 +32,8 @@ namespace SmartRestaurant.Application.GestionStock.Stock.Commands
         public bool IsPerissable { get; set; }
         public DateTime? DatePeremption { get; set; }
         public int JourAlerte { get; set; }
-        public Guid CategoryId { get; set; }
 
-        public List<AttributsNew> Attributesnew { get; set; }
+        public string ProductAttributeValues { get; set; }
 
     }
 
