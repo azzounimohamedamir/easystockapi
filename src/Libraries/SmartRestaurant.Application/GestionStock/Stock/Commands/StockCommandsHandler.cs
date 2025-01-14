@@ -206,17 +206,18 @@ namespace SmartRestaurant.Application.Stock.Commands
                         // Set additional properties manually from the Excel data
                         stockEntity.Id = Guid.NewGuid();
                         stockEntity.Designaation = worksheet.Cells[row, 1].Value?.ToString();
-                        stockEntity.Rayonnage = worksheet.Cells[row, 2].Value?.ToString();
-
                         stockEntity.Image = worksheet.Cells[row, 2].Value?.ToString();
-                        stockEntity.CodeBar = Math.Floor(new Random().NextDouble() * 1000000).ToString();
-                       
-                        stockEntity.QteAlerte = Convert.ToInt32(worksheet.Cells[row, 4].Value);
-                        stockEntity.QteInitiale = Convert.ToInt32(worksheet.Cells[row, 3].Value);
-                        stockEntity.QteRestante = Convert.ToInt32(worksheet.Cells[row, 5].Value);
-                        stockEntity.PrixVenteDetail = Convert.ToDecimal(worksheet.Cells[row, 6].Value);
-                        stockEntity.PrixAchat = Convert.ToDecimal(worksheet.Cells[row, 8].Value);
-                        stockEntity.PrixVenteGros = Convert.ToDecimal(worksheet.Cells[row, 7].Value);
+                        stockEntity.CodeBar = worksheet.Cells[row, 3].Value?.ToString() != "" ? worksheet.Cells[row, 3].Value?.ToString() : Math.Floor(new Random().NextDouble() * 1000000).ToString();
+                        stockEntity.Rayonnage = worksheet.Cells[row, 4].Value?.ToString();
+
+                        stockEntity.QteInitiale = Convert.ToInt32(worksheet.Cells[row, 4].Value);
+
+                        stockEntity.QteAlerte = Convert.ToInt32(worksheet.Cells[row, 5].Value);
+                        stockEntity.QteRestante = Convert.ToInt32(worksheet.Cells[row, 6].Value);
+                        stockEntity.PrixVenteDetail = Convert.ToDecimal(worksheet.Cells[row, 7].Value);
+                        stockEntity.PrixVenteGros = Convert.ToDecimal(worksheet.Cells[row, 8].Value);
+
+                        stockEntity.PrixAchat = Convert.ToDecimal(worksheet.Cells[row, 9].Value);
                         stockEntity.Tva = 19;
                         stockEntity.IsPerissable = Convert.ToBoolean(worksheet.Cells[row, 9].Value);
                         stockEntity.DatePeremption = Convert.ToDateTime(worksheet.Cells[row, 16].Value);
