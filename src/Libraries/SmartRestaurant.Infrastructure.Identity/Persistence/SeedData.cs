@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
@@ -217,8 +218,8 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
             );
 
             #endregion
+            
 
-         
             #region Create applications users
 
             modelBuilder.Entity<ApplicationUser>().HasData(
@@ -233,241 +234,19 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                         "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                     EmailConfirmed = true
                 },
-                new ApplicationUser
-                {
-                    Id = "d466ef00-61f1-4e77-801a-b016f0f12323",
-                    UserName = "SupportAgent@SmartRestaurant.io",
-                    Email = "SupportAgent@SmartRestaurant.io",
-                    NormalizedUserName = "SUPPORTAGENT@SMARTRESTAURANT.IO",
-                    NormalizedEmail = "SUPPORTAGENT@SMARTRESTAURANT.IO",
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                    EmailConfirmed = true
-                },
-                new ApplicationUser
-                {
-                    Id = "d466ef00-61f1-4e77-801a-b516f0f12323",
-                    UserName = "Waiter@SmartRestaurant.io",
-                    Email = "Waiter@SmartRestaurant.io",
-                    NormalizedUserName = "WAITER@SMARTRESTAURANT.IO",
-                    NormalizedEmail = "WAITER@SMARTRESTAURANT.IO",
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                    EmailConfirmed = true
-                },
-
-                #region Create FoodBusinessAdministrator users
-
-                new ApplicationUser
-                {
-                    Id = TajMhal_FoodBusinessAdministrator_UserId,
-                    UserName = "FoodAdmin@SmartRestaurant.io",
-                    Email = "FoodAdmin@SmartRestaurant.io",
-                    NormalizedUserName = "FOODADMIN@SMARTRESTAURANT.IO",
-                    NormalizedEmail = "FOODADMIN@SMARTRESTAURANT.IO",
-                    // Real password is "Supportagent123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                    EmailConfirmed = true
-                },
-                new ApplicationUser
-                {
-                    Id = Mcdonald_FoodBusinessAdministrator_UserId,
-                    UserName = "McdonaldFoodAdmin@SmartRestaurant.io",
-                    Email = "McdonaldFoodAdmin@SmartRestaurant.io",
-                    NormalizedUserName = "MCDONALDFOODADMIN@SMARTRESTAURANT.IO",
-                    NormalizedEmail = "MCDONALDFOODADMIN@SMARTRESTAURANT.IO",
-                    // Real password is "Supportagent123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                    EmailConfirmed = true
-                },
-                new ApplicationUser
-                {
-                    Id = BigMama_FoodBusinessAdministrator_UserId,
-                    UserName = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io",
-                    Email = "BigMamaFoodBusinessAdministrator@SmartRestaurant.io",
-                    NormalizedUserName = "BIGMAMAFOODBUSINESSADMINISTRATOR@SMARTRESTAURANT.IO",
-                    NormalizedEmail = "BIGMAMAFOODBUSINESSADMINISTRATOR@SMARTRESTAURANT.IO",
-                    // Real password is "Supportagent123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                    EmailConfirmed = true
-                },
-
-                #endregion
-
-                #region Create FoodBusinessManager users
-
-                new ApplicationUser
-                {
-                    Id = TajMhal_FoodBusinessManager_UserId,
-                    UserName = "TajMhalFoodBusinessManager@SmartRestaurant.io",
-                    Email = "TajMhalFoodBusinessManager@SmartRestaurant.io",
-                    NormalizedUserName = "TAJMHALFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                    NormalizedEmail = "TAJMHALFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                    // Real password is "FoodBusinessManager123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                    EmailConfirmed = true
-                },
-                new ApplicationUser
-                {
-                    Id = Mcdonald_FoodBusinessManager_UserId,
-                    UserName = "McdonaldFoodBusinessManager@SmartRestaurant.io",
-                    Email = "McdonaldFoodBusinessManager@SmartRestaurant.io",
-                    NormalizedUserName = "MCDONALDFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                    NormalizedEmail = "MCDONALDFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                    // Real password is "FoodBusinessManager123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                    EmailConfirmed = true
-                },
-                new ApplicationUser
-                {
-                    Id = BigMama_SalimFoodBusinessManager_UserId,
-                    UserName = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io",
-                    Email = "BigMamaSalimFoodBusinessManager@SmartRestaurant.io",
-                    NormalizedUserName = "BIGMAMASALIMFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                    NormalizedEmail = "BIGMAMASALIMFOODBUSINESSMANAGER@SMARTRESTAURANT.IO",
-                    // Real password is "Salim123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEO+ouwzSOa+AsCNZrVEhO6Su9q/fX/Q9c9havEvhs5QtXWA6tRdfmqOlemUQphqDnA==",
-                    EmailConfirmed = true
-                },
-
-                #endregion
-
-                #region Create Diner users
-
-                new ApplicationUser
-                {
-                    Id = Diner_UserId_01,
-                    UserName = "Diner_01@SmartRestaurant.io",
-                    Email = "Diner_01@SmartRestaurant.io",
-                    NormalizedUserName = "DINER_01@SMARTRESTAURANT.IO",
-                    NormalizedEmail = "DINER_01@SMARTRESTAURANT.IO",
-                    // Real password is "Diner123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEJFZbbuBIpvoyXKwrceuNsU4cXZ18LLAl8g7s48Pye4EAEXwA2hswtnLMhMS9Q7Cjw ==",
-                    EmailConfirmed = true
-                },
-                new ApplicationUser
-                {
-                    Id = Diner_UserId_02,
-                    UserName = "Diner_02@SmartRestaurant.io",
-                    Email = "Diner_02@SmartRestaurant.io",
-                    NormalizedUserName = "DINER_02@SMARTRESTAURANT.IO",
-                    NormalizedEmail = "DINER_02@SMARTRESTAURANT.IO",
-                    // Real password is "Diner123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEJFZbbuBIpvoyXKwrceuNsU4cXZ18LLAl8g7s48Pye4EAEXwA2hswtnLMhMS9Q7Cjw ==",
-                    EmailConfirmed = true
-                },
-
-                #endregion
-
-                #region Create FoodBusinessClient Users
-                new ApplicationUser
-                {
-                    Id = Sonatrach_UserId,
-                    UserName = "manager@sonatrach.com",
-                    Email = "manager@sonatrach.com",
-                    NormalizedUserName = "MANAGER@SONATRACH.COM",
-                    NormalizedEmail = "MANAGER@SONATRACH.COM",
-                    // Real password is "Supportagent123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                    EmailConfirmed = true
-                },
-                new ApplicationUser
-                {
-                    Id = CEVITAL_UserId,
-                    UserName = "manager@cevital.com",
-                    Email = "manager@cevital.com",
-                    NormalizedUserName = "MANAGER@CEVITAL.COM",
-                    NormalizedEmail = "MANAGER@CEVITAL.COM",
-                    // Real password is "Supportagent123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
-                    EmailConfirmed = true
-                },
-                #endregion
-
-                #region Create Hotel Users
-                new ApplicationUser
-                {
-                    Id = HotelManager_userID,
-                    UserName = "HotelManager@gmail.com",
-                    Email = "HotelManager@gmail.com",
-                    NormalizedUserName = "HOTELMANAGER@GMAIL.COM",
-                    NormalizedEmail = "HOTELMANAGER@GMAIL.COM",
-                    // Real password is "FoodBusinessManager123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                    EmailConfirmed = true
-                },
-                new ApplicationUser
-                {
-                    Id = HotelReceptionist_UserId,
-                    UserName = "HotelReceptionist@gmail.com",
-                    Email = "HotelReceptionist@gmail.com",
-                    NormalizedUserName = "HOTELRECEPTIONIST@GMAIL.COM",
-                    NormalizedEmail = "HOTELRECEPTIONIST@GMAIL.COM",
-                    // Real password is "FoodBusinessManager123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                    EmailConfirmed = true
-                },
-                new ApplicationUser
-                {
-                    Id = HotelServiceAdmin_userId,
-                    UserName = "HotelServiceAdmin@gmail.com",
-                    Email = "HotelServiceAdmin@gmail.com",
-                    NormalizedUserName = "HOTELSERVICEADMIN@GMAIL.COM",
-                    NormalizedEmail = "HOTELSERVICEADMIN@GMAIL.COM",
-                    // Real password is "FoodBusinessManager123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                    EmailConfirmed = true
-                },
-                new ApplicationUser
-                {
-                    Id = ClientHotel_UserId,
-                    UserName = "ClientHotel@gmail.com",
-                    Email = "ClientHotel@gmail.com",
-                    NormalizedUserName = "CLIENTHOTEL@GMAIL.COM",
-                    NormalizedEmail = "CLIENTHOTEL@GMAIL.COM",
-                    // Real password is "FoodBusinessManager123@"
-                    PasswordHash =
-                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                    EmailConfirmed = true
-                },
                  new ApplicationUser
                  {
-                     Id = HotelServiceTechnique_UserId,
-                     UserName = "HotelServiceTechnique@gmail.com",
-                     Email = "HotelServiceTechnique@gmail.com",
-                     NormalizedUserName = "HOTELSERVICETECHNIQUE@GMAIL.COM",
-                     NormalizedEmail = "HOTELSERVICETECHNIQUE@GMAIL.COM",
-                     // Real password is "FoodBusinessManager123@"
+                     Id = "eed390c0-759f-4daa-856c-a0433345e8cd",
+                     UserName = "caisse01@easystock.com",
+                     Email = "caisse01@easystock.com",
+                     NormalizedUserName = "caisse01@EASYSTOCK.COM",
+                     NormalizedEmail = "caisse01@EASYSTOCK.COM",
                      PasswordHash =
-                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
+                        "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                      EmailConfirmed = true
-                 },
-                  new ApplicationUser
-                  {
-                      Id = HouseKeeping_UserId,
-                      UserName = "HotelMaid@gmail.com",
-                      Email = "HotelMaid@gmail.com",
-                      NormalizedUserName = "HOTELMAID@GMAIL.COM",
-                      NormalizedEmail = "HOTELMAID@GMAIL.COM",
-                      // Real password is "FoodBusinessManager123@"
-                      PasswordHash =
-                        "AQAAAAEAACcQAAAAEGsuHVzJHLS9jP+mo+zCHk22BZphE5WRR+o2C6Ct4Ektv8zW9DXj1nogD2OdNBjWPA==",
-                      EmailConfirmed = true
-                  }
-                  #endregion
+                 }
+
+
 
             );
 
@@ -484,117 +263,10 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
                 },
                 new ApplicationUserRole
                 {
-                    UserId = "d466ef00-61f1-4e77-801a-b016f0f12323",
-                    RoleId = "2"
-                },
-                new ApplicationUserRole
-                {
-                    UserId = "d466ef00-61f1-4e77-801a-b516f0f12323",
-                    RoleId = "10"
-                },
-
-                #region Assign the role FoodBusinessAdministrator to users accounts
-
-                new ApplicationUserRole
-                {
-                    UserId = TajMhal_FoodBusinessAdministrator_UserId,
-                    RoleId = "5"
-                },
-                new ApplicationUserRole
-                {
-                    UserId = Mcdonald_FoodBusinessAdministrator_UserId,
-                    RoleId = "5"
-                },
-                new ApplicationUserRole
-                {
-                    UserId = BigMama_FoodBusinessAdministrator_UserId,
-                    RoleId = "5"
-                },
-
-                #endregion
-
-                #region Assign the role FoodBusinessManager to users accounts
-
-                new ApplicationUserRole
-                {
-                    UserId = TajMhal_FoodBusinessManager_UserId,
-                    RoleId = "6"
-                },
-                new ApplicationUserRole
-                {
-                    UserId = Mcdonald_FoodBusinessManager_UserId,
-                    RoleId = "6"
-                },
-                new ApplicationUserRole
-                {
-                    UserId = BigMama_SalimFoodBusinessManager_UserId,
-                    RoleId = "6"
-                },
-
-                #endregion
-
-                #region Assign the role Diner to users accounts
-
-                new ApplicationUserRole
-                {
-                    UserId = Diner_UserId_01,
-                    RoleId = "11"
+                    UserId = "eed390c0-759f-4daa-856c-a0433345e8cd",
+                    RoleId = "21"
                 }
-                ,
-                new ApplicationUserRole
-                {
-                    UserId = Diner_UserId_02,
-                    RoleId = "11"
-                },
-
-                #endregion
-
-                #region Assign roles to Hotel users
-                new ApplicationUserRole
-                {
-                    UserId = HotelManager_userID,
-                    RoleId = "14"
-                },
-                new ApplicationUserRole
-                {
-                    UserId = HotelReceptionist_UserId,
-                    RoleId = "15"
-                },
-                new ApplicationUserRole
-                {
-                    UserId = HotelServiceAdmin_userId,
-                    RoleId = "16"
-                },
-                new ApplicationUserRole
-                {
-                    UserId = ClientHotel_UserId,
-                    RoleId = "17"
-                },
-                new ApplicationUserRole
-                {
-                    UserId = HotelServiceTechnique_UserId,
-                    RoleId = "18"
-                },
-                 new ApplicationUserRole
-                 {
-                     UserId = HouseKeeping_UserId,
-                     RoleId = "19"
-                 }
-
-                 #endregion
-                 #region add rols to organisation user
-                ,
-                new ApplicationUserRole
-                {
-                    UserId = CEVITAL_UserId,
-                    RoleId = "13"
-                },
-                new ApplicationUserRole
-                {
-                    UserId = Sonatrach_UserId,
-                    RoleId = "13"
-                }
-                #endregion
+               
 
             );
 

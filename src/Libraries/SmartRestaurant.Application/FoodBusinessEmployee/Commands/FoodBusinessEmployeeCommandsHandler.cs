@@ -197,7 +197,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         {
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var randomPassword = "A"+Guid.NewGuid().ToString();
+                var randomPassword = request.Password;
                 newUser.EmailConfirmed = true;
                 var userCreationResult = await _userManager.CreateAsync(newUser, randomPassword);
                 if (!userCreationResult.Succeeded)

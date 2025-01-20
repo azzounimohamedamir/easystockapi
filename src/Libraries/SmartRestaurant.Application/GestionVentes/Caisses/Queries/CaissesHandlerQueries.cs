@@ -60,9 +60,9 @@ namespace SmartRestaurant.Application.GestionVentes.Caisses.Queries
                 var vcRangeM = _context.VenteComptoirs.Where(v => v.Date.Date.Month == DateTime.Now.Date.Month && v.Caisse == item.Numero).ToList();
                 var facturesRangeM = _context.Factures.Where(v => v.Date.Date.Month == DateTime.Now.Date.Month && v.Caisse == item.Numero).ToList();
                 var blsrangeM= _context.Bls.Where(v => v.Date.Date.Month == DateTime.Now.Date.Month && v.Caisse == item.Numero).ToList();
-                item.SoldeJ = (vcRangeJ.Select(q => q.RestTotal).Sum())+ (facturesRangeJ.Select(q => q.RestTotal).Sum())                      +(blsrangeJ.Select(q => q.RestTotal).Sum());
-                item.SoldeM = (vcRangeM.Select(q => q.RestTotal).Sum())+ (facturesRangeM.Select(q => q.RestTotal).Sum()) +
-                              (blsrangeM.Select(q => q.RestTotal).Sum());
+                item.SoldeJ = (vcRangeJ.Select(q => q.MontantTotalTTC).Sum())+ (facturesRangeJ.Select(q => q.MontantTotalTTC).Sum())                      +(blsrangeJ.Select(q => q.MontantTotalTTC).Sum());
+                item.SoldeM = (vcRangeM.Select(q => q.MontantTotalTTC).Sum())+ (facturesRangeM.Select(q => q.MontantTotalTTC).Sum()) +
+                              (blsrangeM.Select(q => q.MontantTotalTTC).Sum());
             }
 
 
