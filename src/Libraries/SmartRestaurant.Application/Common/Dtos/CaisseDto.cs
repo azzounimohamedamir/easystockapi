@@ -32,5 +32,15 @@ namespace SmartRestaurant.Application.Common.Dtos
         public decimal MontantTotalRegelementsF { get; set; }
         public decimal MontantTotalAvancementsF { get; set; }
 
+
+        public decimal RecetteVentesNet { get; set; }
+        public decimal RecetteBenifice { get; set; }
+        public decimal RecetteBenificeNet { get; set; }
+
+        public decimal StockTotalValeurReste { get; set; }
+
+
+
+
     }
 }

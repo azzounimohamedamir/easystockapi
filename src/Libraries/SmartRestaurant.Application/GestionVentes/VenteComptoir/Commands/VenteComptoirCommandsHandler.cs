@@ -48,18 +48,31 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
                         var client = _context.Clients.Where(c => c.Id == request.ClientId).FirstOrDefault();
+            decimal benifice = 0;
 
+
+            foreach (var item in request.VenteComptoirIncludedProducts)
+            {
+                var stockMatch = await _context.Stocks
+                   .Where(u => u.Designaation == item.Designation)
+                   .FirstOrDefaultAsync(cancellationToken);
+                if (stockMatch != null)
+                {
+                    benifice = (item.Puv - stockMatch.PrixAchat)* item.Qte + benifice;
+                }
+            }
             var venteCompt = new Domain.Entities.VenteComptoir()
             {
                 Id = Guid.NewGuid(),
+
                 Date = DateTime.Now,
-                CodeVc=GenerateCodeVC(request.Caisse),
+                CodeVc = GenerateCodeVC(request.Caisse),
                 Heure = DateTime.Now.ToShortTimeString(),
                 VendeurId = new Guid(),
-                NomCaissier=request.NomCaissier,
-                Caisse=request.Caisse,
-                BlId=Guid.Empty,
-                IsDeleted=false,
+                NomCaissier = request.NomCaissier,
+                Caisse = request.Caisse,
+                BlId = Guid.Empty,
+                IsDeleted = false,
                 Remise = request.Remise,
                 CouponPrice = request.CouponPrice,
                 MontantTotalHT = decimal.Parse(request.MontantTotalHT.ToString()),
@@ -77,7 +90,11 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                 RestTotal = decimal.Parse(request.RestTotal.ToString()),
                 Rib = request.Rib,
                 Rip = request.Rip,
+                Benifice = benifice - request.Remise
             };
+
+
+
             _context.VenteComptoirs.Add(venteCompt);
 
             foreach (var item in request.VenteComptoirIncludedProducts)

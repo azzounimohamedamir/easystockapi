@@ -54,15 +54,12 @@ namespace SmartRestaurant.Application.GestionVentes.Caisses.Queries
             foreach(var item in query.Data)
             {
                 var vcRangeJ = _context.VenteComptoirs.Where(v => v.Date.Date == DateTime.Now.Date && v.Caisse==item.Numero).ToList();
-                var facturesRangeJ = _context.Factures.Where(v => v.Date.Date == DateTime.Now.Date && v.Caisse == item.Numero).ToList();
-                var blsrangeJ = _context.Bls.Where(v => v.Date.Date == DateTime.Now.Date && v.Caisse == item.Numero).ToList();
+               
 
                 var vcRangeM = _context.VenteComptoirs.Where(v => v.Date.Date.Month == DateTime.Now.Date.Month && v.Caisse == item.Numero).ToList();
-                var facturesRangeM = _context.Factures.Where(v => v.Date.Date.Month == DateTime.Now.Date.Month && v.Caisse == item.Numero).ToList();
-                var blsrangeM= _context.Bls.Where(v => v.Date.Date.Month == DateTime.Now.Date.Month && v.Caisse == item.Numero).ToList();
-                item.SoldeJ = (vcRangeJ.Select(q => q.MontantTotalTTC).Sum())+ (facturesRangeJ.Select(q => q.MontantTotalTTC).Sum())                      +(blsrangeJ.Select(q => q.MontantTotalTTC).Sum());
-                item.SoldeM = (vcRangeM.Select(q => q.MontantTotalTTC).Sum())+ (facturesRangeM.Select(q => q.MontantTotalTTC).Sum()) +
-                              (blsrangeM.Select(q => q.MontantTotalTTC).Sum());
+                
+                item.SoldeJ = (vcRangeJ.Select(q => q.MontantTotalTTC).Sum());
+                item.SoldeM = (vcRangeM.Select(q => q.MontantTotalTTC).Sum());
             }
 
 

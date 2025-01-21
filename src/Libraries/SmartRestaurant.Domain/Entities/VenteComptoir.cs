@@ -40,7 +40,7 @@ namespace SmartRestaurant.Domain.Entities
         public string Etat { get; set; }
         public Guid ClientId { get; set; }
         public Client Client { get; set; }
-
+        public decimal Benifice { get; set; }
         public long Rip { get; set; }
         public long Rib { get; set; }
         public bool IsDeleted { get; set; }

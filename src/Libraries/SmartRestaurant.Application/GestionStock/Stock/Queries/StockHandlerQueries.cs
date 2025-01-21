@@ -149,7 +149,7 @@ namespace SmartRestaurant.Application.Stock.Queries
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var vcRange = _context.VenteComptoirs.Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
+            var vcRange = _context.VenteComptoirs.Include(p=>p.VenteComptoirIncludedProducts).Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
             var facturesRange = _context.Factures.Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
             var blsrange = _context.Bls.Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
             var barange = _context.BonAchats.Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
@@ -157,27 +157,36 @@ namespace SmartRestaurant.Application.Stock.Queries
             var bcfrange = _context.BonCommandeFournisseurs.Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
             var fprange = _context.factureProformats.Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
 
-
+             
             var venteComptoirIds = vcRange.Select(vc => vc.Id).ToList();
             var FacIds = vcRange.Select(fac => fac.Id).ToList();
             var BlsIds = vcRange.Select(bl => bl.Id).ToList();
             var BAIds = barange.Select(ba => ba.Id).ToList();
-
-
+            var allstock = _context.Stocks.ToList();
+            decimal ValueOfStockRest = 0;
+            foreach (var item in allstock)
+            {
+                ValueOfStockRest = (item.QteRestante * item.PrixAchat) + ValueOfStockRest;
+            }
+            decimal recetteBenifice = 0;
+            foreach (var item in vcRange)
+            {
+              
+                    recetteBenifice = item.Benifice + recetteBenifice;
+                
+            }
             CaisseDto CaisseState = new CaisseDto
             {
                 TotalQteVendus = (_context.VenteComptoirProducts
             .Where(vp => venteComptoirIds.Contains(vp.VenteComptoirId))
             .Select(q => q.Qte)
-            .Sum())
-                + (_context.FacProducts.Where(vp => FacIds.Contains(vp.FactureId))
-            .Select(q => q.Qte).Sum()) +
-                (_context.BlProducts.Where(bl => BlsIds.Contains(bl.BlId))
-            .Select(q => q.Qte).Sum()),
+            .Sum()),
+                RecetteVentesNet = (vcRange.Select(q => q.MontantTotalHTApresRemise).Sum()),
+                StockTotalValeurReste = ValueOfStockRest,
+                RecetteBenifice = recetteBenifice ,
                 // Bénifice
                 BenificeNet = (vcRange.Select(q => q.MontantTotalTTC).Sum())
-            + (facturesRange.Select(q => q.MontantTotalTTC).Sum()) +
-            (blsrange.Select(q => q.MontantTotalTTC).Sum()) - ((barange.Select(q => q.MontantTotalTTC).Sum()) + (_context.Depenses.Where(v => v.CreatedAt.Date <= request.EndDate.Date && v.CreatedAt.Date >= request.StartDate.Date).Select(q => q.Somme).Sum())),
+ - ((barange.Select(q => q.MontantTotalTTC).Sum()) + (_context.Depenses.Where(v => v.CreatedAt.Date <= request.EndDate.Date && v.CreatedAt.Date >= request.StartDate.Date).Select(q => q.Somme).Sum())),
                 // Total Quantity Acheté
 
                 TotalQteAchete = _context.BAProducts.Where(vp => BAIds.Contains(vp.BAId)).Select(q => q.Qte).Sum(),
@@ -191,8 +200,7 @@ namespace SmartRestaurant.Application.Stock.Queries
                 //TOTAL REMISE
 
                 MontantTotalRemises = (vcRange.Select(q => q.Remise).Sum())
-            + (facturesRange.Select(q => q.Remise).Sum()) +
-            (blsrange.Select(q => q.Remise).Sum()),
+            ,
 
                 MontantTotalDepenses = (_context.Depenses.Where(v => v.CreatedAt.Date <= request.EndDate.Date && v.CreatedAt.Date >= request.StartDate.Date).Select(q => q.Somme).Sum()),
 
@@ -206,14 +214,12 @@ namespace SmartRestaurant.Application.Stock.Queries
                 MontantTotalReglementsC = _context.Reglement_Acompte_Facture_Clients.Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).Select(r => r.Montant).Sum(),
 
                 MontantTotalVentes = (vcRange.Select(q => q.MontantTotalTTC).Sum())
-            + (facturesRange.Select(q => q.MontantTotalTTC).Sum()) +
-            (blsrange.Select(q => q.MontantTotalTTC).Sum()),
+            ,
 
                 MontantTotalAchats = (barange.Select(q => q.MontantTotalTTC).Sum()),
                 MontantTotalRegelementsF = 0,
                 MontantCaisse = (vcRange.Select(q => q.MontantTotalTTC).Sum())
-            + (facturesRange.Select(q => q.MontantTotalTTC).Sum()) +
-            (blsrange.Select(q => q.MontantTotalTTC).Sum()),
+          ,
                 MontantTotalAvancementsF = (_context.Fournisseurs.Select(q => q.TotalAvances).Sum()),
                 TotalVc = vcRange.Count(),
             };
