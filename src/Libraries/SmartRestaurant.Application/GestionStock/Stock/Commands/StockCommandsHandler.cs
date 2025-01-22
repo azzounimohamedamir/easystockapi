@@ -31,6 +31,7 @@ namespace SmartRestaurant.Application.Stock.Commands
         IRequestHandler<CreateProductOnStockCommand, Created>,
         IRequestHandler<AddCategoryCommand, Created>,
         IRequestHandler<UpdateProductOnStockCommand, NoContent>,
+        IRequestHandler<AddProductToFavorite, NoContent>,
         IRequestHandler<DeleteProductFromStockCommand, NoContent>
     {
         private readonly IApplicationDbContext _context;
@@ -55,14 +56,14 @@ namespace SmartRestaurant.Application.Stock.Commands
                 request.DatePeremption = DateTime.Now;
                 request.JourAlerte = 0;
             }
-
+                
             var config = await _context.DefaultConfigLogs.FirstOrDefaultAsync().ConfigureAwait(false);
             if (config == null) throw new InvalidOperationException("Configuration not found.");
 
 
                 // CASE: Single product without variants
                 var stock = _mapper.Map<Domain.Entities.Stock>(request);
-               
+                 stock.IsFavoris = false;
                 // Retrieve related entities asynchronously
                
                
@@ -222,7 +223,7 @@ namespace SmartRestaurant.Application.Stock.Commands
                         stockEntity.IsPerissable = Convert.ToBoolean(worksheet.Cells[row, 9].Value);
                         stockEntity.DatePeremption = Convert.ToDateTime(worksheet.Cells[row, 16].Value);
                         stockEntity.JourAlerte = Convert.ToInt32(worksheet.Cells[row, 17].Value);
-
+                        stockEntity.IsFavoris = false;
                         // Add the stock entity to the list
                         stocks.Add(stockEntity);
                     }                  
@@ -295,6 +296,27 @@ namespace SmartRestaurant.Application.Stock.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
+        public async Task<NoContent> Handle(AddProductToFavorite request, CancellationToken cancellationToken)
+        {
+            // Retrieve the product from the database
+            var product = await _context.Stocks.AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken)
+                .ConfigureAwait(false);
 
+            // Check if the product exists
+            if (product == null)
+                throw new NotFoundException(nameof(Stock), request.Id);
+
+            // Toggle the IsFavoris property
+            product.IsFavoris = !product.IsFavoris;
+
+            // Update the product in the context
+            _context.Stocks.Update(product);
+
+            // Save changes to the database
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+            return default; // Return NoContent
+        }
     }
 }

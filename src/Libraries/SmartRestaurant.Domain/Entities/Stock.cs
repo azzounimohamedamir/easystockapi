@@ -35,7 +35,7 @@ namespace SmartRestaurant.Domain.Entities
         public bool IsPerissable { get; set; }
         public DateTime DatePeremption { get; set; }
         public int JourAlerte { get; set; }
-
+        public bool IsFavoris {  get; set; }
 
         // Navigation property
         public string ProductAttributeValues { get; set; }

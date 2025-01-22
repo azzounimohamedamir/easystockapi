@@ -187,9 +187,11 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<UpdateProductOnStockCommand, Domain.Entities.Stock>()
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
+            CreateMap<AddProductToFavorite, Domain.Entities.Stock>()
+               .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
+               .ReverseMap();
 
 
-         
             CreateMap<CreateDepenseCommand, Domain.Entities.Depense>()
             .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
             .ReverseMap();

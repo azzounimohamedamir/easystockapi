@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using SmartRestaurant.Application.Menus.Queries;
 using System.Linq;
 using Newtonsoft.Json;
+using SmartRestaurant.Application.GestionVentes.VenteParBl.Queries;
+using SmartRestaurant.Application.GestionStock.Stock.Queries;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -166,7 +168,12 @@ namespace SmartRestaurant.API.Controllers
         {
             return await SendWithErrorsHandlingAsync(command);
         }
-
+        [HttpPut]
+        [Route("addToFav/{id:guid}")]
+        public async Task<IActionResult> AddToFavoris([FromForm] AddProductToFavorite command)
+        {
+            return await SendWithErrorsHandlingAsync(command);
+        }
         /// <summary> DeleteBuilding() </summary>
         /// <remarks>This endpoint allows <b>Food Business Manager</b> to delete Building.</remarks>
         /// <param name="id">id of the building that would be deleted</param>
@@ -179,6 +186,12 @@ namespace SmartRestaurant.API.Controllers
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             return await SendWithErrorsHandlingAsync(new DeleteProductFromStockCommand { Id = id });
+        }
+
+        [HttpGet("{codeBar}")]
+        public async Task<IActionResult> GetFacByid([FromRoute] string codeBar)
+        {
+            return await SendWithErrorsHandlingAsync(new GetProductByCodebarQuery { CodeBar = codeBar });
         }
     }
 }

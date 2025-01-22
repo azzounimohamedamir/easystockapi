@@ -30,6 +30,7 @@ namespace SmartRestaurant.Application.Common.Dtos
         public bool IsPerissable { get; set; }
         public DateTime DatePeremption { get; set; } = DateTime.Now;
         public int JourAlerte { get; set; }
+        public bool IsFavoris {  get; set; }
         public bool PrintingBarcode { get; set; } = false;
         public int QuantityToPrint { get; set; } = 1;
         public string ProductAttributeValues { get; set; }

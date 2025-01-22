@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.GestionStock.Stock.Queries;
+using SmartRestaurant.Application.GestionVentes.VenteParBl.Queries;
 using SmartRestaurant.Application.Menus.Queries;
 using SmartRestaurant.Application.Stock.Queries;
 using SmartRestaurant.Application.Stock.Queries.FilterStrategy;
@@ -21,7 +23,8 @@ namespace SmartRestaurant.Application.Stock.Queries
         IRequestHandler<GetStockListQuery, PagedListDto<StockDto>>,
         IRequestHandler<GetCaisseStatsQuery,CaisseDto>,
         IRequestHandler<GetAllStockListQuery, List<StockDto>>,
-        IRequestHandler<GetCategorieQuery, CategoryDto>
+        IRequestHandler<GetCategorieQuery, CategoryDto>,
+        IRequestHandler<GetProductByCodebarQuery, StockDto>
 
 
     {
@@ -61,7 +64,12 @@ namespace SmartRestaurant.Application.Stock.Queries
             return new PagedListDto<StockDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
 
+        public async Task<StockDto> Handle(GetProductByCodebarQuery request, CancellationToken cancellationToken)
+        {
+            var produit = await _context.Stocks.FirstOrDefaultAsync(f => f.CodeBar == request.CodeBar);
 
+            return _mapper.Map<StockDto>(produit);
+        }
 
 
         public List<StockDto> FilterStockList(List<StockDto> data, Dictionary<string, string> criteriaDict)

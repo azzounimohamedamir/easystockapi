@@ -39,6 +39,7 @@
     <Compile Include="GestionStock\Stock\Queries\GetCaisseStatsQuery.cs" />
     <Compile Include="GestionStock\Stock\Queries\GetAllStockListQuery.cs" />
     <Compile Include="GestionStock\Stock\Queries\GetProductAttributesByIdCatQuery.cs" />
+    <Compile Include="GestionStock\Stock\Queries\GetProductByCodebarQuery.cs" />
     <Compile Include="GestionStock\Stock\Queries\GetStockListQuery.cs" />
     <Compile Include="GestionStock\Stock\Queries\StockHandlerQueries.cs" />
     <Compile Include="GestionVentes\Caisses\Queries\CaissesHandlerQueries.cs" />

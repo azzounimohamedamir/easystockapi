@@ -18,8 +18,11 @@ namespace SmartRestaurant.Application.Stock.Queries.FilterStrategy
             IQueryable<Domain.Entities.Stock> query = stock;
 
            
+            if(request.CurrentFilter == "OnlyFavoris")
+            {
+                query = query.Where(v => v.IsFavoris == true);
+            }
 
-           
 
             // Filter by current filter (designation search) if provided
             if (!string.IsNullOrEmpty(request.CurrentFilter))
