@@ -184,9 +184,10 @@ namespace SmartRestaurant.Application.Stock.Queries
                 RecetteVentesNet = (vcRange.Select(q => q.MontantTotalHTApresRemise).Sum()),
                 StockTotalValeurReste = ValueOfStockRest,
                 RecetteBenifice = recetteBenifice ,
+                RecetteBenificeNet = recetteBenifice -((barange.Select(q => q.MontantTotalTTC).Sum()) + (_context.Depenses.Where(v => v.CreatedAt.Date <= request.EndDate.Date && v.CreatedAt.Date >= request.StartDate.Date).Select(q => q.Somme).Sum())),
                 // Bénifice
-                BenificeNet = (vcRange.Select(q => q.MontantTotalTTC).Sum())
- - ((barange.Select(q => q.MontantTotalTTC).Sum()) + (_context.Depenses.Where(v => v.CreatedAt.Date <= request.EndDate.Date && v.CreatedAt.Date >= request.StartDate.Date).Select(q => q.Somme).Sum())),
+                BenificeNet = 0,
+ 
                 // Total Quantity Acheté
 
                 TotalQteAchete = _context.BAProducts.Where(vp => BAIds.Contains(vp.BAId)).Select(q => q.Qte).Sum(),
