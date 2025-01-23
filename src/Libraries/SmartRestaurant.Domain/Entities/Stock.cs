@@ -18,8 +18,9 @@ namespace SmartRestaurant.Domain.Entities
 
         public string CodeBar { get; set; }
 
-       
-       
+
+        public decimal TotalBenifice { get; set; }
+
 
         public string Rayonnage { get; set; }
 

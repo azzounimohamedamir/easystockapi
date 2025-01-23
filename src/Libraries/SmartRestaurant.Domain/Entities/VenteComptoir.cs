@@ -19,6 +19,11 @@ namespace SmartRestaurant.Domain.Entities
         public string Heure { get; set; }
         public int Caisse { get; set; }
         public string NomCaissier { get; set; }
+        public string NomVehicule { get; set; }
+        public string MatriculeVeh { get; set; }
+        public string Conducteur { get; set; }
+        public string ConditionDePaiment { get; set; }
+        public string LieuLivraison { get; set; }
         public decimal Remise { get; set; }
         public Guid VendeurId { get; set; }
         public List<VenteComptoirProducts> VenteComptoirIncludedProducts { get; set; }

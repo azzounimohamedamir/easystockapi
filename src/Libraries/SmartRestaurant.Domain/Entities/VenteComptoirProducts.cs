@@ -18,13 +18,37 @@ namespace SmartRestaurant.Domain.Entities
         public decimal LastPuv { get; set; }
         public bool HasReduction { get; set; }
         public float Reduction { get; set; }
-        public decimal Montant { get; set; }
-
 
         public Guid VenteComptoirId { get; set; }
         public Guid SelectedStockId { get; set; }
         [ForeignKey("SelectedStockId")]
         public Stock SelectedStock { get; set; }
+
+
+      
+        public decimal MontantHT { get; set; }
+        public decimal MontantTVA { get; set; }
+        public decimal MontantTTC { get; set; }
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }

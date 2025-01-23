@@ -12,6 +12,11 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
         public decimal Remise { get; set; }
         public decimal MontantTotal { get; set; }
         public decimal MontantAprRemise { get; set; }
+        public string NomVehicule { get; set; }
+        public string MatriculeVeh { get; set; }
+        public string Conducteur { get; set; }
+        public string ConditionDePaiment { get; set; }
+        public string LieuLivraison { get; set; }
         public string VendeurId { get; set; }
         public int Caisse { get; set; }
         public string NomCaissier { get; set; }

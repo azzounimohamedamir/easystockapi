@@ -44,6 +44,7 @@ namespace SmartRestaurant.Application.Famille.Queries
             var vcRange = _context.VenteComptoirs.Where(v => v.Date.Month == DateTime.Now.Month).ToList();
             var barange = _context.BonAchats.Where(v => v.Date.Month == DateTime.Now.Month).ToList();
 
+
           
 
             var venteComptoirIds = vcRange.Select(vc => vc.Id).ToList();
@@ -85,7 +86,14 @@ namespace SmartRestaurant.Application.Famille.Queries
 
 
 
-            
+
+            var productsrentables = _context.Stocks.GroupBy(p => p.Designaation)
+    .Select(g => new ProduitVQteDto
+    {
+        Designation = g.Key,
+        TotalQuantity = g.Sum(p => p.TotalBenifice)
+    }).ToList();
+
 
 
 
@@ -98,7 +106,10 @@ namespace SmartRestaurant.Application.Famille.Queries
     .Take(10)
     .ToList();
 
-
+            var top10ProductsRentable = productsrentables
+   .OrderByDescending(p => p.TotalQuantity)
+   .Take(10)
+   .ToList();
 
 
 
@@ -206,9 +217,10 @@ namespace SmartRestaurant.Application.Famille.Queries
 
             MonthStatsDto MonthStats = new MonthStatsDto()
             {
-                ProduitsVendus=allProducts,
-                ProduitsAchetes= baProductsCurrentMonth,
-                Top10ProductsV=top10ProductsV,
+                ProduitsVendus = allProducts,
+                ProduitsAchetes = baProductsCurrentMonth,
+                Top10ProductsV = top10ProductsV,
+                Top10ProductsRentable = top10ProductsRentable,
                 JanuaryVCA = (vcRange1.Select(q => q.MontantTotalTTC).Sum())
             ,
 
@@ -239,10 +251,10 @@ namespace SmartRestaurant.Application.Famille.Queries
         ,
 
                 JanuaryACA = (barange1.Select(q => q.MontantTotalTTC).Sum()),
-          
+
 
                 FebruaryACA = (barange2.Select(q => q.MontantTotalTTC).Sum()),
-           
+
 
                 MarchACA = (barange3.Select(q => q.MontantTotalTTC).Sum())
       ,

@@ -42,7 +42,7 @@ namespace SmartRestaurant.Domain.Entities
         public List<BlProducts> BlProducts { get; set; }
         public long Rip { get; set; }
         public long Rib { get; set; }
-
+        public Guid VcId { get; set; }
         public string PaymentMethod { get; set; }
     }
 }

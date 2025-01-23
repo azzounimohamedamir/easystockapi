@@ -439,6 +439,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
                         Id = newFactureId, // Use the generated Id
                         Date = request.Bl.Date,
                         BlId=request.Bl.Id,
+                        VcId=request.Bl.VcId,
                         CodeF = GenerateCodeF(request.Bl.Caisse),
                         NomCaissier=request.Bl.NomCaissier,
                         Heure = request.Bl.Date.ToShortTimeString(),

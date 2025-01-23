@@ -56,6 +56,8 @@ namespace SmartRestaurant.Application.Common.Dtos
         public List<ProduitVQteDto> ProduitsVendus{ get;set; }
         public List<ProduitVQteDto> ProduitsAchetes { get; set; }
         public List<ProduitVQteDto> Top10ProductsV { get; set; }
+        public List<ProduitVQteDto> Top10ProductsRentable { get; set; }
+
         public List<MarqueVQteDto> Top10MarquesV { get; set; }
         public List<FamilleVQteDto> Top10FamilleV { get; set; }
 

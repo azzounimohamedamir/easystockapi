@@ -17,6 +17,11 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
         public int Caisse { get; set; }
         public string NomCaissier { get; set; }
         public List<VenteComptoirProducts> VenteComptoirIncludedProducts { get; set; }
+        public string NomVehicule { get; set; }
+        public string MatriculeVeh { get; set; }
+        public string Conducteur { get; set; }
+        public string ConditionDePaiment { get; set; }
+        public string LieuLivraison { get; set; }
 
         public DateTime DateFermuture { get; set; }
         public DateTime DateEcheance { get; set; }

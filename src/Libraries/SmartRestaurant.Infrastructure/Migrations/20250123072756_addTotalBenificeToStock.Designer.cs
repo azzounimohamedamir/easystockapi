@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250123072756_addTotalBenificeToStock")]
+    partial class addTotalBenificeToStock
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -325,9 +327,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.Property<decimal>("TotalReglement")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("VcId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("VendeurId")
                         .HasColumnType("uniqueidentifier");
@@ -750,7 +749,7 @@ namespace SmartRestaurant.Infrastructure.Migrations
                             Id = new Guid("52a857b7-ee3c-42db-96a7-76d3042818ac"),
                             Addresse = "",
                             Commerce = "Client Comptoir",
-                            DateEcheance = new DateTime(2035, 1, 23, 15, 57, 41, 662, DateTimeKind.Local).AddTicks(1709),
+                            DateEcheance = new DateTime(2035, 1, 23, 8, 27, 54, 637, DateTimeKind.Local).AddTicks(8136),
                             Email = "guest-client@gmail.com",
                             FullName = "Client Comptoir",
                             IsBanned = false,
@@ -1038,9 +1037,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<string>("CodeF")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ConditionPaiement")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("CouponPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -1102,9 +1098,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.Property<decimal>("TotalReglement")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("VcId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("VendeurId")
                         .HasColumnType("uniqueidentifier");
@@ -1861,12 +1854,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<string>("CodeVc")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ConditionDePaiment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Conducteur")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("CouponPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -1888,12 +1875,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("LieuLivraison")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MatriculeVeh")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("MontantTotalHT")
                         .HasColumnType("decimal(18,2)");
 
@@ -1907,9 +1888,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("NomCaissier")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NomVehicule")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Numero")

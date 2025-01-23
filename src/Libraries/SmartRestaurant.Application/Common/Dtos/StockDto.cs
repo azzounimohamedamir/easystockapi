@@ -34,5 +34,6 @@ namespace SmartRestaurant.Application.Common.Dtos
         public bool PrintingBarcode { get; set; } = false;
         public int QuantityToPrint { get; set; } = 1;
         public string ProductAttributeValues { get; set; }
+        public decimal TotalBenifice { get; set; }
     }
 }

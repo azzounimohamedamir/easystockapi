@@ -9,6 +9,8 @@ namespace SmartRestaurant.Domain.Entities
     {
         public Guid Id { get; set; }
         public Guid BlId { get; set; }
+        public Guid VcId { get; set; }
+
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Numero { get; set; }
@@ -38,6 +40,7 @@ namespace SmartRestaurant.Domain.Entities
         public List<FacProducts> FacProducts { get; set; }
         public List<FactureAvoir> FactureAvoirs { get; set; }
         public List<Reglement_Acompte_Facture_Client> Reglement_Acompte_Facture_Clients { get; set; }
+        public string ConditionPaiement { get; set; }
 
         public long Rip { get; set; }
         public long Rib { get; set; }
