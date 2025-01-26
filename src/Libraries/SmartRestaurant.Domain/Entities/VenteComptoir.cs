@@ -32,7 +32,7 @@ namespace SmartRestaurant.Domain.Entities
         public decimal CouponPrice { get; set; }
         public DateTime DateFermuture { get; set; }
         public DateTime DateEcheance { get; set; }
-
+        public bool IsTransformed { get; set; }
         public decimal MontantTotalHT { get; set; }
         public decimal MontantTotalHTApresRemise { get; set; }
         public decimal MontantTotalTVA { get; set; }

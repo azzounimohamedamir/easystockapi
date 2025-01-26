@@ -169,7 +169,6 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
             if (!result.IsValid) throw new ValidationException(result);
 
             var newBlId = Guid.NewGuid(); // Generate a new unique Id
-
             // Check if a Bl with the same Id already exists (optional, depending on your requirements)
             var existingBl = await _context.Bls.FindAsync(newBlId);
             if (existingBl != null)
@@ -252,8 +251,10 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
 
 
                     }
-
-                   
+                    var vc =  _context.VenteComptoirs.FirstOrDefault(vc => vc.Id == request.Vc.Id);
+                    vc.IsTransformed = true;
+                    _context.VenteComptoirs.Update(vc);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
                     // Save changes to the database
                 }
@@ -410,8 +411,68 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                .FirstOrDefaultAsync(m => m.VcId == request.Id, cancellationToken)
                .ConfigureAwait(false);
             var client = _context.Clients.Where(c => c.Id == request.ClientId).FirstOrDefault();
-            if (bl == null)
-                throw new NotFoundException(nameof(Stock), request.Id);
+            if (bl != null)
+            {
+                // Remove old products included in bl
+                _context.BlProducts.RemoveRange(bl.BlProducts);
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+                // Add new products included in request
+                foreach (var item in request.VenteComptoirIncludedProducts)
+                {
+                    var stockMatch = _context.Stocks
+                        .Where(u => u.Designaation == item.Designation)
+                        .FirstOrDefault();
+
+                    var blp = new BlProducts
+                    {
+                        BlId = bl.Id,
+                        Designation = item.Designation,
+                        Qte = item.Qte,
+                        MontantTTC = item.MontantTTC,
+                        MontantTVA = item.MontantTVA,
+                        MontantHT = item.MontantHT,
+                        Puv = item.Puv,
+                        Image = stockMatch.Image,
+                        SelectedStockId = stockMatch.Id,
+                        SelectedStock = stockMatch
+                    };
+
+
+
+
+                    _context.BlProducts.Add(blp);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+
+
+
+
+
+                }
+
+                // Update old vente Comptoir with the new values
+
+                var entity = _mapper.Map<Domain.Entities.Bl>(request);
+
+                bl.MontantTotalHT = request.MontantTotalHT;
+                bl.MontantTotalTVA = request.MontantTotalTVA;
+                bl.MontantTotalTTC = request.MontantTotalTTC;
+                bl.RestTotal = request.RestTotal;
+                bl.MontantTotalHTApresRemise = request.MontantTotalHTApresRemise;
+                bl.Client = client;
+                bl.Remise = request.Remise;
+                bl.Conducteur = request.Conducteur;
+                bl.MatriculeVeh = request.MatriculeVeh;
+                bl.LieuLivraison = request.LieuLivraison;
+                bl.NomVehicule = request.NomVehicule;
+                bl.VendeurId = Guid.Parse(request.VendeurId);
+                bl.ClientId = client.Id;
+                bl.Timbre = request.Timbre;
+                bl.Heure = bl.Heure;
+                _context.Bls.Update(bl);
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            }
 
 
 
@@ -420,65 +481,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
 
 
 
-            // Remove old products included in bl
-            _context.BlProducts.RemoveRange(bl.BlProducts);
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-            // Add new products included in request
-            foreach (var item in request.VenteComptoirIncludedProducts)
-            {
-                var stockMatch = _context.Stocks
-                    .Where(u => u.Designaation == item.Designation)
-                    .FirstOrDefault();
-
-                var blp = new BlProducts
-                {
-                    BlId = bl.Id,
-                    Designation = item.Designation,
-                    Qte = item.Qte,
-                    MontantTTC = item.MontantTTC,
-                    MontantTVA = item.MontantTVA,
-                    MontantHT = item.MontantHT,
-                    Puv = item.Puv,
-                    Image = stockMatch.Image,
-                    SelectedStockId = stockMatch.Id,
-                    SelectedStock = stockMatch
-                };
-
-
-
-
-                _context.BlProducts.Add(blp);
-                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-
-
-
-
-
-            }
-
-            // Update old vente Comptoir with the new values
-
-            var entity = _mapper.Map<Domain.Entities.Bl>(request);
-
-            bl.MontantTotalHT = request.MontantTotalHT;
-            bl.MontantTotalTVA = request.MontantTotalTVA;
-            bl.MontantTotalTTC = request.MontantTotalTTC;
-            bl.RestTotal = request.RestTotal;
-            bl.MontantTotalHTApresRemise = request.MontantTotalHTApresRemise;
-            bl.Client = client;
-            bl.Remise = request.Remise;
-            bl.Conducteur = request.Conducteur;
-            bl.MatriculeVeh = request.MatriculeVeh;
-            bl.LieuLivraison = request.LieuLivraison;
-            bl.NomVehicule = request.NomVehicule;
-            bl.VendeurId = Guid.Parse(request.VendeurId);
-            bl.ClientId = client.Id;
-            bl.Timbre = request.Timbre;
-            bl.Heure = bl.Heure;
-            _context.Bls.Update(bl);
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+          
 
 
 
@@ -513,156 +516,157 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                .ThenInclude(s => s.SelectedStock)
                .FirstOrDefaultAsync(m => m.VcId == request.Id, cancellationToken)
                .ConfigureAwait(false);
-            fac.Etat = "Modifié";
-            _context.Factures.Update(fac);
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-
-            var clientForReq = _context.Clients.Where(c => c.Id == request.ClientId).FirstOrDefault();
-
-
-            if (fac == null)
-            {
-                // Log or handle the case where the Facture is not found
-                throw new NotFoundException(nameof(Stock), request.Id);
-            }
-
-
-            // créer un avoir sur cette facture ancienne a partir des nouveeaux modification
-            var facAvoir = new Facture()
-            {
-                Date = DateTime.Now,
-                Heure = DateTime.Now.ToShortTimeString(),
-                VendeurId = Guid.NewGuid(),
-                NomCaissier = request.NomCaissier,
-                Caisse = request.Caisse,
-                CouponPrice = request.CouponPrice,
-                MontantTotalHT = -1 * request.MontantTotalHT, // Inverting MontantTotalHT
-                MontantTotalTTC = -1 * request.MontantTotalTTC, // Inverting MontantTotalTTC
-                MontantTotalTVA = -1 * request.MontantTotalTVA, // Inverting MontantTotalTVA
-                ClientId = clientForReq.Id,
-                Client = clientForReq,
-                TotalReglement = -1 * request.TotalReglement,
-                Numero = 0,
-                ConditionPaiement = request.ConditionDePaiment,
-                CodeF = GenerateCodeF(request.Caisse, "AV"),
-                Timbre = request.Timbre, // Inverting Timbre
-                DateEcheance = request.DateEcheance,
-                DateFermuture = request.DateFermuture,
-                Etat = "✏️ Avoir Sur " + fac.CodeF,
-                PaymentMethod = request.PaymentMethod,
-                Remise = request.Remise, // Inverting Remise
-                MontantTotalHTApresRemise = -1 * request.MontantTotalHTApresRemise, // Inverting MontantTotalHTApresRemise
-                RestTotal = -1 * request.RestTotal, // Inverting RestTotal
-                Rib = request.Rib,
-                Rip = request.Rip
-            };
-
-            _context.Factures.Add(facAvoir);
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-
-            // ne pas supprimer les items inclus ds Facture anc pour garder les tracabilités de la facture ancienne
-            //_context.FacProducts.RemoveRange(fac.FacProducts);
-            //await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            // reStocker les elements de la facture ancienne
+            if ( fac != null)
            
 
-            foreach (var item in request.VenteComptoirIncludedProducts)
-            {
-                var stockMatch = await _context.Stocks
 
-                                    .Where(u => u.Designaation == item.Designation)
-                                    .FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
-                var flp = new FacProducts
+            if (fac != null)
                 {
-                    Id = Guid.NewGuid(),
-                    FactureId = facAvoir.Id,
-                    Designation = item.Designation,
-                    Qte = item.Qte,
-                    MontantHT = -1 * item.MontantHT,
-                    MontantTTC = -1 * item.MontantTTC,
-                    MontantTVA=item.MontantTVA,
-                    Puv = -1 * item.Puv,
-                    Image = item.Image,
-                    SelectedStockId = stockMatch.Id,
-                    SelectedStock = stockMatch
+                    fac.Etat = "Modifié";
+                    _context.Factures.Update(fac);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+
+                    var clientForReq = _context.Clients.Where(c => c.Id == request.ClientId).FirstOrDefault();
+                    // créer un avoir sur cette facture ancienne a partir des nouveeaux modification
+                    var facAvoir = new Facture()
+                {
+                    Date = DateTime.Now,
+                    Heure = DateTime.Now.ToShortTimeString(),
+                    VendeurId = Guid.NewGuid(),
+                    NomCaissier = fac.NomCaissier,
+                    Caisse = fac.Caisse,
+                    CouponPrice = fac.CouponPrice,
+                    MontantTotalHT = -1 * fac.MontantTotalHT, // Inverting MontantTotalHT
+                    MontantTotalTTC = -1 * fac.MontantTotalTTC, // Inverting MontantTotalTTC
+                    MontantTotalTVA = -1 * fac.MontantTotalTVA, // Inverting MontantTotalTVA
+                    ClientId = clientForReq.Id,
+                    Client = clientForReq,
+                    TotalReglement = -1 * fac.TotalReglement,
+                    Numero = 0,
+                    ConditionPaiement = vc.ConditionDePaiment,
+                    CodeF = GenerateCodeF(fac.Caisse, "AV"),
+                    Timbre = fac.Timbre, // Inverting Timbre
+                    DateEcheance = fac.DateEcheance,
+                    DateFermuture = fac.DateFermuture,
+                    Etat = "✏️ Avoir Sur " + fac.CodeF,
+                    PaymentMethod = fac.PaymentMethod,
+                    Remise = fac.Remise, // Inverting Remise
+                    MontantTotalHTApresRemise = -1 * fac.MontantTotalHTApresRemise, // Inverting MontantTotalHTApresRemise
+                    RestTotal = -1 * fac.RestTotal, // Inverting RestTotal
+                    Rib = fac.Rib,
+                    Rip = fac.Rip
                 };
-                _context.FacProducts.Add(flp);
+
+                _context.Factures.Add(facAvoir);
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+
+                // ne pas supprimer les items inclus ds Facture anc pour garder les tracabilités de la facture ancienne
+                //_context.FacProducts.RemoveRange(fac.FacProducts);
+                //await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                // reStocker les elements de la facture ancienne
+
+
+                foreach (var item in vc.VenteComptoirIncludedProducts)
+                {
+                    var stockMatch = await _context.Stocks
+
+                                        .Where(u => u.Designaation == item.Designation)
+                                        .FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+                    var flp = new FacProducts
+                    {
+                        Id = Guid.NewGuid(),
+                        FactureId = facAvoir.Id,
+                        Designation = item.Designation,
+                        Qte = item.Qte,
+                        MontantHT = -1 * item.MontantHT,
+                        MontantTTC = -1 * item.MontantTTC,
+                        MontantTVA = item.MontantTVA,
+                        Puv = -1 * item.Puv,
+                        Image = item.Image,
+                        SelectedStockId = stockMatch.Id,
+                        SelectedStock = stockMatch
+                    };
+                    _context.FacProducts.Add(flp);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                }
+
+
+
+
+
+
+
+
+
+                // ADD NEW FACTURE AFTER AVOIR 
+
+
+                var newFacture = new Facture()
+                {
+                    Date = facAvoir.Date,
+                    Heure = facAvoir.Date.ToShortTimeString(),
+                    VendeurId = facAvoir.VendeurId,
+                    NomCaissier = request.NomCaissier,
+                    Caisse = request.Caisse,
+                    ConditionPaiement = request.ConditionDePaiment,
+                    CouponPrice = request.CouponPrice,
+                    MontantTotalHT = request.MontantTotalHT, // Inverting MontantTotalHT
+                    MontantTotalTTC = request.MontantTotalTTC, // Inverting MontantTotalTTC
+                    MontantTotalTVA = request.MontantTotalTVA, // Inverting MontantTotalTVA
+                    ClientId = clientForReq.Id,
+                    Client = clientForReq,
+                    TotalReglement = request.TotalReglement,
+                    Numero = 0,
+                    CodeF = GenerateCodeF(request.Caisse, "F"),
+                    Timbre = request.Timbre, // Inverting Timbre
+                    DateEcheance = request.DateEcheance,
+                    DateFermuture = request.DateFermuture,
+                    Etat = request.RestTotal == 0 ? "Reglé" : "Non Réglé",
+                    PaymentMethod = request.PaymentMethod,
+                    Remise = request.Remise, // Inverting Remise
+                    MontantTotalHTApresRemise = request.MontantTotalHTApresRemise, // Inverting MontantTotalHTApresRemise
+                    RestTotal = request.RestTotal, // Inverting RestTotal
+                    Rib = request.Rib,
+                    Rip = request.Rip
+                };
+
+                _context.Factures.Add(newFacture);
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+
+                foreach (var item in request.VenteComptoirIncludedProducts)
+                {
+                    var stockMatch = await _context.Stocks
+
+                    .Where(u => u.Designaation == item.Designation)
+                    .FirstOrDefaultAsync(cancellationToken)
+                    .ConfigureAwait(false);
+
+
+                    var flp = new FacProducts
+                    {
+                        Id = Guid.NewGuid(),
+                        FactureId = newFacture.Id,
+                        Designation = item.Designation,
+                        Qte = item.Qte,
+                        MontantHT = item.MontantHT,
+                        MontantTTC = item.MontantTTC,
+                        MontantTVA = item.MontantTVA,
+                        Puv = item.Puv,
+                        Image = item.Image,
+                        SelectedStockId = stockMatch.Id,
+                        SelectedStock = stockMatch
+                    };
+                    _context.FacProducts.Add(flp);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+                }
+
             }
 
 
-
-
-
-
-
-
-
-            // ADD NEW FACTURE AFTER AVOIR 
-
-
-            var newFacture = new Facture()
-            {
-                Date = facAvoir.Date,
-                Heure = facAvoir.Date.ToShortTimeString(),
-                VendeurId = facAvoir.VendeurId,
-                NomCaissier = request.NomCaissier,
-                Caisse = request.Caisse,
-                ConditionPaiement = request.ConditionDePaiment,
-                CouponPrice = request.CouponPrice,
-                MontantTotalHT = request.MontantTotalHT, // Inverting MontantTotalHT
-                MontantTotalTTC = request.MontantTotalTTC, // Inverting MontantTotalTTC
-                MontantTotalTVA = request.MontantTotalTVA, // Inverting MontantTotalTVA
-                ClientId = clientForReq.Id,
-                Client = clientForReq,
-                TotalReglement = request.TotalReglement,
-                Numero = 0,
-                CodeF = GenerateCodeF(request.Caisse, "F"),
-                Timbre = request.Timbre, // Inverting Timbre
-                DateEcheance = request.DateEcheance,
-                DateFermuture = request.DateFermuture,
-                Etat = request.RestTotal == 0 ? "Reglé" : "Non Réglé",
-                PaymentMethod = request.PaymentMethod,
-                Remise = request.Remise, // Inverting Remise
-                MontantTotalHTApresRemise = request.MontantTotalHTApresRemise, // Inverting MontantTotalHTApresRemise
-                RestTotal = request.RestTotal, // Inverting RestTotal
-                Rib = request.Rib,
-                Rip = request.Rip
-            }; 
-
-            _context.Factures.Add(newFacture);
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-
-            foreach (var item in request.VenteComptoirIncludedProducts)
-            {
-                var stockMatch = await _context.Stocks
-
-                .Where(u => u.Designaation == item.Designation)
-                .FirstOrDefaultAsync(cancellationToken)
-                .ConfigureAwait(false);
-
-
-                var flp = new FacProducts
-                {
-                    Id = Guid.NewGuid(),
-                    FactureId = newFacture.Id,
-                    Designation = item.Designation,
-                    Qte = item.Qte,
-                    MontantHT = item.MontantHT,
-                    MontantTTC = item.MontantTTC,
-                    MontantTVA = item.MontantTVA,
-                    Puv = item.Puv,
-                    Image = item.Image,
-                    SelectedStockId = stockMatch.Id,
-                    SelectedStock = stockMatch
-                };
-                _context.FacProducts.Add(flp);
-                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-            }
 
 
 
