@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartRestaurant.Infrastructure.Identity.Persistence;
 
 namespace SmartRestaurant.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    partial class IdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20250218084308_AddPermissionOfAdminInSeed")]
+    partial class AddPermissionOfAdminInSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -393,7 +395,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "3cbf3570-0d44-4673-8746-29b7cf568093",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c57547cc-5c37-43fa-adc0-95e6b99a7d9e",
+                            ConcurrencyStamp = "84eda78c-f266-49e0-87d7-aaf674fd942c",
                             Email = "admin@easystock.com",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -403,7 +405,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "admin@EASYSTOCK.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "66de48cd-3cae-4e2b-bbde-17c4493d3f93",
+                            SecurityStamp = "f0886dd2-f3aa-483b-8661-314f4cdbf64a",
                             TwoFactorEnabled = false,
                             UserName = "admin@easystock.com"
                         },
@@ -411,7 +413,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                         {
                             Id = "eed390c0-759f-4daa-856c-a0433345e8cd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4234d6cf-b56e-4502-b802-13c44b2b093c",
+                            ConcurrencyStamp = "9014e44f-d7dc-4a9c-9260-0d6ac5dc829b",
                             Email = "caisse01@easystock.com",
                             EmailConfirmed = true,
                             IsActive = true,
@@ -421,7 +423,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             NormalizedUserName = "caisse01@EASYSTOCK.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEE2YnCbwcY+aBvcZq2dTXfaPqZnSgNoXFKtyI0hIdVJI3tTBvln+3oc+p1Ijr/ckMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "64515e25-3b14-4101-af52-662c5a491f1a",
+                            SecurityStamp = "d99cad9e-a82b-4249-9d3e-d659e776f577",
                             TwoFactorEnabled = false,
                             UserName = "caisse01@easystock.com"
                         });
@@ -623,7 +625,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Migrations
                             RegFour = true,
                             RetoursProdClient = true,
                             RetoursProdFour = true,
-                            Role = "SuperAdmin",
+                            Role = "Super Admin",
                             StockAlerte = true,
                             Stocks = true,
                             Unites = true,

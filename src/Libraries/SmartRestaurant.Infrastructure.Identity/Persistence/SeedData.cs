@@ -271,6 +271,47 @@ namespace SmartRestaurant.Infrastructure.Identity.Persistence
             );
 
             #endregion
+            #region Set Users Permissions
+
+            modelBuilder.Entity<Permissions>().HasData(
+                new Permissions
+                {
+                    Id = Guid.Parse("ed2bc9e3-6f4d-428a-be99-106d6e728734"),
+                    Role = "SuperAdmin",
+                    Ba = true,
+                    Vc = true,
+                    Clients = true,
+                    Bca = true,
+                    Bcv = true,
+                    StockAlerte = true,
+                    Bl = true,
+                    Stocks = true,
+                    CreancesAss = true,
+                    Fac = true,
+                    FacAvoir = true,
+                    Facpro = true,
+                    Familles = true,
+                    Fournisseurs = true,
+                    Gda = true,
+                    Gde = true,
+                    Gds = true,
+                    Gdv = true,
+                    Inventaires = true,
+                    Inviter = true,
+                    Marques = true,
+                    RegFour = true,
+                    RetoursProdClient = true,
+                    RetoursProdFour = true,
+                    Unites = true,
+                    RegClients = true,
+                    
+                }
+               
+
+            );
+
+            #endregion
+
         }
     }
 }
