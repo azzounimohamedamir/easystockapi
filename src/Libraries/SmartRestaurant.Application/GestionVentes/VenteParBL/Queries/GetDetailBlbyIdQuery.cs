@@ -1,7 +1,6 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Domain.Entities;
+using System;
 
 namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Queries
 {

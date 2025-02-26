@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Users.Queries
 {
@@ -38,9 +36,9 @@ namespace SmartRestaurant.Application.Users.Queries
             _mapper = mapper;
         }
 
-    
 
-     
+
+
 
 
 
@@ -68,14 +66,14 @@ namespace SmartRestaurant.Application.Users.Queries
 
             await AppendRolesToListOfFoodBusinessManagers(pagedUsersList, foodBusinessManagersDto)
                 .ConfigureAwait(false);
-           
+
             return ConstructPagedFoodBusinessManagers(pagedUsersList, foodBusinessManagersDto);
         }
 
         private List<string> GetUsersIdsByFoodBusinessAdministratorId(string foodBusinessAdministratorId)
         {
             return _identityContext.ApplicationUser
-               
+
                 .Select(foodBusinesses => foodBusinesses.Id)
                 .ToList();
         }
@@ -96,18 +94,31 @@ namespace SmartRestaurant.Application.Users.Queries
                 pagedUsersList.PageCount, pagedUsersList.PageSize, pagedUsersList.RowCount, foodBusinessEmployeesDto);
         }
 
-        private async Task AppendRolesToListOfFoodBusinessManagers(PagedResultBase<ApplicationUser> pagedUsersList,
-            List<EmployeDto> data)
+        private async Task AppendRolesToListOfFoodBusinessManagers(PagedResultBase<ApplicationUser> pagedUsersList, List<EmployeDto> data)
         {
+            // Create a dictionary for quick lookup of EmployeDto by Id
+            var employeDtoLookup = data
+                .GroupBy(e => e.Id) // Group by Id
+                .ToDictionary(g => g.Key, g => g.ToList()); // Create a dictionary with lists
+
             foreach (var user in pagedUsersList.Data)
             {
+                // Retrieve user roles
                 var userRoles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
-                var foodBusinessManager = data.FirstOrDefault(FoodBusinessManager => FoodBusinessManager.Id == user.Id);
-                foodBusinessManager.Roles = (List<string>)userRoles;
+
+                // Check if the food business manager exists in the data list
+                if (employeDtoLookup.TryGetValue(user.Id, out var foodBusinessManagers))
+                {
+                    // Assign roles to each corresponding EmployeDto
+                    foreach (var foodBusinessManager in foodBusinessManagers)
+                    {
+                        foodBusinessManager.Roles = userRoles.ToList(); // Convert to List<string>
+                    }
+                }
             }
         }
 
-       
+
         #endregion
 
 
@@ -116,11 +127,11 @@ namespace SmartRestaurant.Application.Users.Queries
 
 
 
-      
 
-     
 
-       
+
+
+
 
 
     }

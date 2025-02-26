@@ -1,16 +1,14 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.Common.Tools;
-using SmartRestaurant.Domain.Entities;
+using System;
 
 namespace SmartRestaurant.Application.ProgrammeFidelite.Queries
 {
     public class GetClientFideliteByIdQuery : IRequest<ClientFideliteDto>
     {
-     public Guid Id { get; set; } 
-       
+        public Guid Id { get; set; }
+
     }
 
     public class GetClientFideliteByIdQueryValidator : AbstractValidator<GetClientFideliteByIdQuery>

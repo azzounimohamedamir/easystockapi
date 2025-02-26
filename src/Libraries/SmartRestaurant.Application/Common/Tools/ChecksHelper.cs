@@ -1,12 +1,12 @@
-﻿using System;
+﻿using FluentValidation;
+using SmartRestaurant.Application.Common.Exceptions;
+using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Domain.Identity.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentValidation;
-using SmartRestaurant.Application.Common.Exceptions;
-using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Domain.Identity.Entities;
 using ValidationException = SmartRestaurant.Application.Common.Exceptions.ValidationException;
 
 namespace SmartRestaurant.Application.Common.Tools

@@ -1,30 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
-using FluentValidation;
+﻿using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http.Internal;
-using Newtonsoft.Json;
-
 using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
 using SmartRestaurant.Application.Common.Exceptions;
-
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
-using SmartRestaurant.Application.Stock.Commands;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System.Threading;
+using System.Threading.Tasks;
 using ValidationException = SmartRestaurant.Application.Common.Exceptions.ValidationException;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
-using Microsoft.AspNetCore.Routing;
-using SmartRestaurant.Application.GestionVentes.Caisses.Commands;
 
 namespace SmartRestaurant.Application.GestionVentes.Caisses.Commands
 {
@@ -54,7 +36,7 @@ namespace SmartRestaurant.Application.GestionVentes.Caisses.Commands
         }
 
 
-       
+
 
         public async Task<NoContent> Handle(DeleteCaisseCommand request, CancellationToken cancellationToken)
         {
@@ -89,7 +71,7 @@ namespace SmartRestaurant.Application.GestionVentes.Caisses.Commands
             if (cs == null)
                 throw new NotFoundException(nameof(cs), request.Id);
             cs.Vendeur = request.Vendeur;
-            cs.Status= request.Status;
+            cs.Status = request.Status;
             cs.Numero = request.Numero;
             cs.SoldeJ = request.SoldeJ;
             cs.SoldeM = request.SoldeM;
@@ -98,7 +80,7 @@ namespace SmartRestaurant.Application.GestionVentes.Caisses.Commands
             return default;
         }
 
-       
+
 
 
 

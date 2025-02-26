@@ -1,29 +1,18 @@
-﻿using System;
+﻿using AutoMapper;
+using FluentValidation;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Common.Exceptions;
+using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Enums;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using FluentValidation;
-using MediatR;
-using Microsoft.AspNetCore.Http.Internal;
-using Newtonsoft.Json;
-
-using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
-using SmartRestaurant.Application.Common.Exceptions;
-
-using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
-using SmartRestaurant.Application.Stock.Commands;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
 using ValidationException = SmartRestaurant.Application.Common.Exceptions.ValidationException;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
-using Microsoft.AspNetCore.Routing;
 
 namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
 {
@@ -47,7 +36,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
             var validator = new CreateVenteComptoirCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-                        var client = _context.Clients.Where(c => c.Id == request.ClientId).FirstOrDefault();
+            var client = _context.Clients.Where(c => c.Id == request.ClientId).FirstOrDefault();
             decimal benifice = 0;
 
 
@@ -58,9 +47,9 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                    .FirstOrDefaultAsync(cancellationToken);
                 if (stockMatch != null)
                 {
-                    benifice = (item.Puv - stockMatch.PrixAchat)* item.Qte + benifice;
+                    benifice = (item.Puv - stockMatch.PrixAchat) * item.Qte + benifice;
                 }
-                stockMatch.TotalBenifice = (item.Puv - stockMatch.PrixAchat) * item.Qte + stockMatch.TotalBenifice; 
+                stockMatch.TotalBenifice = (item.Puv - stockMatch.PrixAchat) * item.Qte + stockMatch.TotalBenifice;
                 _context.Stocks.Update(stockMatch);
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
@@ -72,7 +61,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                 LieuLivraison = request.LieuLivraison,
                 MatriculeVeh = request.MatriculeVeh,
                 NomVehicule = request.NomVehicule,
-                ConditionDePaiment= request.ConditionDePaiment,
+                ConditionDePaiment = request.ConditionDePaiment,
                 Date = DateTime.Now,
                 CodeVc = GenerateCodeVC(request.Caisse),
                 Heure = DateTime.Now.ToShortTimeString(),
@@ -118,9 +107,9 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                         VenteComptoirId = venteCompt.Id,
                         Designation = item.Designation,
                         Qte = item.Qte,
-                        LastPuv= item.LastPuv,
-                        HasReduction=item.HasReduction,
-                        Reduction= item.Reduction,
+                        LastPuv = item.LastPuv,
+                        HasReduction = item.HasReduction,
+                        Reduction = item.Reduction,
                         MontantHT = item.MontantHT,
                         Puv = item.Puv,
                         Image = stockMatch.Image,
@@ -181,7 +170,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                 // Ensure that request.Client is not null and contains valid data
                 if (request.Client != null && request.Client.Id != Guid.Empty)
                 {
-                    var clientBl= _context.Clients.FirstOrDefault(c=>c.Id==request.Client.Id);
+                    var clientBl = _context.Clients.FirstOrDefault(c => c.Id == request.Client.Id);
                     // Create a new Bl entity
                     var bl = new Domain.Entities.Bl()
                     {
@@ -189,7 +178,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                         Date = request.Vc.Date,
                         CodeBl = request.Vc.CodeVc.Replace("VC", "BL"),
                         VcId = request.Vc.Id,
-                        NomCaissier=request.Vc.NomCaissier,
+                        NomCaissier = request.Vc.NomCaissier,
                         Heure = request.Vc.Date.ToShortTimeString(),
                         VendeurId = new Guid(),
                         MontantTotalHTApresRemise = request.Vc.MontantTotalHTApresRemise,
@@ -198,7 +187,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                         LieuLivraison = request.Vc.LieuLivraison,
                         MatriculeVeh = request.Vc.MatriculeVeh,
                         NomVehicule = request.Vc.NomVehicule,
-
+                        CouponPrice = request.Vc.CouponPrice,
                         Remise = request.Vc.Remise,
                         ClientId = clientBl.Id, // Assign the ClientId property
                         Client = clientBl, // Assign the Client property
@@ -241,7 +230,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                                 Image = stockMatch.Image,
                                 SelectedStockId = stockMatch.Id,
                                 SelectedStock = stockMatch
-                              
+
                             };
                             _context.BlProducts.Add(blp);
                             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -251,7 +240,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
 
 
                     }
-                    var vc =  _context.VenteComptoirs.FirstOrDefault(vc => vc.Id == request.Vc.Id);
+                    var vc = _context.VenteComptoirs.FirstOrDefault(vc => vc.Id == request.Vc.Id);
                     vc.IsTransformed = true;
                     _context.VenteComptoirs.Update(vc);
                     await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -279,14 +268,14 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
             if (!result.IsValid) throw new ValidationException(result);
 
             var vc = await _context.VenteComptoirs
-                .Include(v => v.VenteComptoirIncludedProducts).Include(c=>c.Client)
+                .Include(v => v.VenteComptoirIncludedProducts).Include(c => c.Client)
                 .FirstOrDefaultAsync(v => v.Id == request.Id, cancellationToken)
                 .ConfigureAwait(false);
 
             if (vc == null)
                 throw new NotFoundException(nameof(VenteComptoir), request.Id);
 
-            List<RetourProducts> retours =new List<RetourProducts>();
+            List<RetourProducts> retours = new List<RetourProducts>();
             foreach (var item in vc.VenteComptoirIncludedProducts)
             {
                 await Restorer(item, cancellationToken);
@@ -304,10 +293,10 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                     MontantTTC = item.MontantTTC,
                     Qte = item.Qte,
                     MontantTVA = 0,
-                    
+
                 };
-          
-                    retours.Add(retour);
+
+                retours.Add(retour);
             }
 
 
@@ -323,15 +312,15 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
             {
                 Id = new Guid(),
                 DocumentId = vc.Id,
-                ReturnedFrom="Vente Comptoir ( Suppression )",
-                Client= vc.Client,
-                Date=DateTime.Now.Date,
+                ReturnedFrom = "Vente Comptoir ( Suppression )",
+                Client = vc.Client,
+                Date = DateTime.Now.Date,
                 Heure = DateTime.Now.ToString("HH:mm:ss"),
-                MontantTotalTTC=vc.MontantTotalTTC,
-                Numero=vc.Numero,
-                RestTotal=vc.RestTotal,
-                RetourProducts=retours,
-                ClientId= vc.Client.Id
+                MontantTotalTTC = vc.MontantTotalTTC,
+                Numero = vc.Numero,
+                RestTotal = vc.RestTotal,
+                RetourProducts = retours,
+                ClientId = vc.Client.Id
             };
             _context.RetourProduitClients.Add(retourProduitClient);
 
@@ -361,7 +350,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             }
 
-          
+
 
             //
             // old products included in vc
@@ -384,7 +373,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                         Qte = item.Qte,
                         MontantHT = item.MontantHT,
                         MontantTTC = item.MontantTTC,
-                        MontantTVA= item.MontantTVA,
+                        MontantTVA = item.MontantTVA,
                         Puv = item.Puv,
                         Image = stockMatch.Image,
                         SelectedStockId = stockMatch.Id,
@@ -392,7 +381,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                     };
 
 
-                   
+
 
 
                     _context.VenteComptoirProducts.Add(vcp);
@@ -476,12 +465,12 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
 
 
 
-           
 
 
 
 
-          
+
+
 
 
 
@@ -516,11 +505,11 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                .ThenInclude(s => s.SelectedStock)
                .FirstOrDefaultAsync(m => m.VcId == request.Id, cancellationToken)
                .ConfigureAwait(false);
-            if ( fac != null)
-           
-
-
             if (fac != null)
+
+
+
+                if (fac != null)
                 {
                     fac.Etat = "Modifié";
                     _context.Factures.Update(fac);
@@ -530,141 +519,141 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                     var clientForReq = _context.Clients.Where(c => c.Id == request.ClientId).FirstOrDefault();
                     // créer un avoir sur cette facture ancienne a partir des nouveeaux modification
                     var facAvoir = new Facture()
-                {
-                    Date = DateTime.Now,
-                    Heure = DateTime.Now.ToShortTimeString(),
-                    VendeurId = Guid.NewGuid(),
-                    NomCaissier = fac.NomCaissier,
-                    Caisse = fac.Caisse,
-                    CouponPrice = fac.CouponPrice,
-                    MontantTotalHT = -1 * fac.MontantTotalHT, // Inverting MontantTotalHT
-                    MontantTotalTTC = -1 * fac.MontantTotalTTC, // Inverting MontantTotalTTC
-                    MontantTotalTVA = -1 * fac.MontantTotalTVA, // Inverting MontantTotalTVA
-                    ClientId = clientForReq.Id,
-                    Client = clientForReq,
-                    TotalReglement = -1 * fac.TotalReglement,
-                    Numero = 0,
-                    ConditionPaiement = vc.ConditionDePaiment,
-                    CodeF = GenerateCodeF(fac.Caisse, "AV"),
-                    Timbre = fac.Timbre, // Inverting Timbre
-                    DateEcheance = fac.DateEcheance,
-                    DateFermuture = fac.DateFermuture,
-                    Etat = "✏️ Avoir Sur " + fac.CodeF,
-                    PaymentMethod = fac.PaymentMethod,
-                    Remise = fac.Remise, // Inverting Remise
-                    MontantTotalHTApresRemise = -1 * fac.MontantTotalHTApresRemise, // Inverting MontantTotalHTApresRemise
-                    RestTotal = -1 * fac.RestTotal, // Inverting RestTotal
-                    Rib = fac.Rib,
-                    Rip = fac.Rip
-                };
-
-                _context.Factures.Add(facAvoir);
-                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-
-                // ne pas supprimer les items inclus ds Facture anc pour garder les tracabilités de la facture ancienne
-                //_context.FacProducts.RemoveRange(fac.FacProducts);
-                //await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-                // reStocker les elements de la facture ancienne
-
-
-                foreach (var item in vc.VenteComptoirIncludedProducts)
-                {
-                    var stockMatch = await _context.Stocks
-
-                                        .Where(u => u.Designaation == item.Designation)
-                                        .FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
-                    var flp = new FacProducts
                     {
-                        Id = Guid.NewGuid(),
-                        FactureId = facAvoir.Id,
-                        Designation = item.Designation,
-                        Qte = item.Qte,
-                        MontantHT = -1 * item.MontantHT,
-                        MontantTTC = -1 * item.MontantTTC,
-                        MontantTVA = item.MontantTVA,
-                        Puv = -1 * item.Puv,
-                        Image = item.Image,
-                        SelectedStockId = stockMatch.Id,
-                        SelectedStock = stockMatch
+                        Date = DateTime.Now,
+                        Heure = DateTime.Now.ToShortTimeString(),
+                        VendeurId = Guid.NewGuid(),
+                        NomCaissier = fac.NomCaissier,
+                        Caisse = fac.Caisse,
+                        CouponPrice = fac.CouponPrice,
+                        MontantTotalHT = -1 * fac.MontantTotalHT, // Inverting MontantTotalHT
+                        MontantTotalTTC = -1 * fac.MontantTotalTTC, // Inverting MontantTotalTTC
+                        MontantTotalTVA = -1 * fac.MontantTotalTVA, // Inverting MontantTotalTVA
+                        ClientId = clientForReq.Id,
+                        Client = clientForReq,
+                        TotalReglement = -1 * fac.TotalReglement,
+                        Numero = 0,
+                        ConditionPaiement = vc.ConditionDePaiment,
+                        CodeF = GenerateCodeF(fac.Caisse, "AV"),
+                        Timbre = fac.Timbre, // Inverting Timbre
+                        DateEcheance = fac.DateEcheance,
+                        DateFermuture = fac.DateFermuture,
+                        Etat = "✏️ Avoir Sur " + fac.CodeF,
+                        PaymentMethod = fac.PaymentMethod,
+                        Remise = fac.Remise, // Inverting Remise
+                        MontantTotalHTApresRemise = -1 * fac.MontantTotalHTApresRemise, // Inverting MontantTotalHTApresRemise
+                        RestTotal = -1 * fac.RestTotal, // Inverting RestTotal
+                        Rib = fac.Rib,
+                        Rip = fac.Rip
                     };
-                    _context.FacProducts.Add(flp);
-                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-                }
 
-
-
-
-
-
-
-
-
-                // ADD NEW FACTURE AFTER AVOIR 
-
-
-                var newFacture = new Facture()
-                {
-                    Date = facAvoir.Date,
-                    Heure = facAvoir.Date.ToShortTimeString(),
-                    VendeurId = facAvoir.VendeurId,
-                    NomCaissier = request.NomCaissier,
-                    Caisse = request.Caisse,
-                    ConditionPaiement = request.ConditionDePaiment,
-                    CouponPrice = request.CouponPrice,
-                    MontantTotalHT = request.MontantTotalHT, // Inverting MontantTotalHT
-                    MontantTotalTTC = request.MontantTotalTTC, // Inverting MontantTotalTTC
-                    MontantTotalTVA = request.MontantTotalTVA, // Inverting MontantTotalTVA
-                    ClientId = clientForReq.Id,
-                    Client = clientForReq,
-                    TotalReglement = request.TotalReglement,
-                    Numero = 0,
-                    CodeF = GenerateCodeF(request.Caisse, "F"),
-                    Timbre = request.Timbre, // Inverting Timbre
-                    DateEcheance = request.DateEcheance,
-                    DateFermuture = request.DateFermuture,
-                    Etat = request.RestTotal == 0 ? "Reglé" : "Non Réglé",
-                    PaymentMethod = request.PaymentMethod,
-                    Remise = request.Remise, // Inverting Remise
-                    MontantTotalHTApresRemise = request.MontantTotalHTApresRemise, // Inverting MontantTotalHTApresRemise
-                    RestTotal = request.RestTotal, // Inverting RestTotal
-                    Rib = request.Rib,
-                    Rip = request.Rip
-                };
-
-                _context.Factures.Add(newFacture);
-                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-
-                foreach (var item in request.VenteComptoirIncludedProducts)
-                {
-                    var stockMatch = await _context.Stocks
-
-                    .Where(u => u.Designaation == item.Designation)
-                    .FirstOrDefaultAsync(cancellationToken)
-                    .ConfigureAwait(false);
-
-
-                    var flp = new FacProducts
-                    {
-                        Id = Guid.NewGuid(),
-                        FactureId = newFacture.Id,
-                        Designation = item.Designation,
-                        Qte = item.Qte,
-                        MontantHT = item.MontantHT,
-                        MontantTTC = item.MontantTTC,
-                        MontantTVA = item.MontantTVA,
-                        Puv = item.Puv,
-                        Image = item.Image,
-                        SelectedStockId = stockMatch.Id,
-                        SelectedStock = stockMatch
-                    };
-                    _context.FacProducts.Add(flp);
+                    _context.Factures.Add(facAvoir);
                     await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-                }
 
-            }
+                    // ne pas supprimer les items inclus ds Facture anc pour garder les tracabilités de la facture ancienne
+                    //_context.FacProducts.RemoveRange(fac.FacProducts);
+                    //await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                    // reStocker les elements de la facture ancienne
+
+
+                    foreach (var item in vc.VenteComptoirIncludedProducts)
+                    {
+                        var stockMatch = await _context.Stocks
+
+                                            .Where(u => u.Designaation == item.Designation)
+                                            .FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+                        var flp = new FacProducts
+                        {
+                            Id = Guid.NewGuid(),
+                            FactureId = facAvoir.Id,
+                            Designation = item.Designation,
+                            Qte = item.Qte,
+                            MontantHT = -1 * item.MontantHT,
+                            MontantTTC = -1 * item.MontantTTC,
+                            MontantTVA = item.MontantTVA,
+                            Puv = -1 * item.Puv,
+                            Image = item.Image,
+                            SelectedStockId = stockMatch.Id,
+                            SelectedStock = stockMatch
+                        };
+                        _context.FacProducts.Add(flp);
+                        await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                    }
+
+
+
+
+
+
+
+
+
+                    // ADD NEW FACTURE AFTER AVOIR 
+
+
+                    var newFacture = new Facture()
+                    {
+                        Date = facAvoir.Date,
+                        Heure = facAvoir.Date.ToShortTimeString(),
+                        VendeurId = facAvoir.VendeurId,
+                        NomCaissier = request.NomCaissier,
+                        Caisse = request.Caisse,
+                        ConditionPaiement = request.ConditionDePaiment,
+                        CouponPrice = request.CouponPrice,
+                        MontantTotalHT = request.MontantTotalHT, // Inverting MontantTotalHT
+                        MontantTotalTTC = request.MontantTotalTTC, // Inverting MontantTotalTTC
+                        MontantTotalTVA = request.MontantTotalTVA, // Inverting MontantTotalTVA
+                        ClientId = clientForReq.Id,
+                        Client = clientForReq,
+                        TotalReglement = request.TotalReglement,
+                        Numero = 0,
+                        CodeF = GenerateCodeF(request.Caisse, "F"),
+                        Timbre = request.Timbre, // Inverting Timbre
+                        DateEcheance = request.DateEcheance,
+                        DateFermuture = request.DateFermuture,
+                        Etat = request.RestTotal == 0 ? "Reglé" : "Non Réglé",
+                        PaymentMethod = request.PaymentMethod,
+                        Remise = request.Remise, // Inverting Remise
+                        MontantTotalHTApresRemise = request.MontantTotalHTApresRemise, // Inverting MontantTotalHTApresRemise
+                        RestTotal = request.RestTotal, // Inverting RestTotal
+                        Rib = request.Rib,
+                        Rip = request.Rip
+                    };
+
+                    _context.Factures.Add(newFacture);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+
+                    foreach (var item in request.VenteComptoirIncludedProducts)
+                    {
+                        var stockMatch = await _context.Stocks
+
+                        .Where(u => u.Designaation == item.Designation)
+                        .FirstOrDefaultAsync(cancellationToken)
+                        .ConfigureAwait(false);
+
+
+                        var flp = new FacProducts
+                        {
+                            Id = Guid.NewGuid(),
+                            FactureId = newFacture.Id,
+                            Designation = item.Designation,
+                            Qte = item.Qte,
+                            MontantHT = item.MontantHT,
+                            MontantTTC = item.MontantTTC,
+                            MontantTVA = item.MontantTVA,
+                            Puv = item.Puv,
+                            Image = item.Image,
+                            SelectedStockId = stockMatch.Id,
+                            SelectedStock = stockMatch
+                        };
+                        _context.FacProducts.Add(flp);
+                        await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+                    }
+
+                }
 
 
 
@@ -689,8 +678,8 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
             vc.MontantTotalHTApresRemise = request.MontantTotalHTApresRemise;
             vc.MontantTotalTTC = request.MontantTotalTTC;
             vc.MontantTotalTVA = request.MontantTotalTVA;
-            vc.TotalReglement=request.TotalReglement;
-            vc.Timbre=request.Timbre;
+            vc.TotalReglement = request.TotalReglement;
+            vc.Timbre = request.Timbre;
             vc.CouponPrice = request.CouponPrice;
             vc.MontantTotalHT = request.MontantTotalHT;
             vc.Remise = request.Remise;
@@ -699,7 +688,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
             vc.Conducteur = request.Conducteur;
             vc.MatriculeVeh = request.MatriculeVeh;
             vc.ConditionDePaiment = request.ConditionDePaiment;
-            
+
             _context.VenteComptoirs.Update(vc);
 
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -741,11 +730,11 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
                 .Where(p => p.Designaation == vcp.Designation)
                 .FirstOrDefaultAsync(cancellationToken)
                 .ConfigureAwait(false);
-            
+
 
             if (DestockedProduct != null)
             {
-               
+
                 DestockedProduct.QteRestante = DestockedProduct.QteRestante - vcp.Qte;
                 _context.Stocks.Update(DestockedProduct);
 
@@ -759,7 +748,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
             DestockedProduct.QteRestante = DestockedProduct.QteRestante - blp.Qte;
             _context.Stocks.Update(DestockedProduct);
         }
-        public async Task AddSortieStock(VenteComptoirProducts vcp,Domain.Entities.VenteComptoir venteComptoir, CancellationToken cancellationToken)
+        public async Task AddSortieStock(VenteComptoirProducts vcp, Domain.Entities.VenteComptoir venteComptoir, CancellationToken cancellationToken)
         {
             var SortieProduct = await _context.Stocks
                 .Where(p => p.Designaation == vcp.Designation)
@@ -781,20 +770,20 @@ namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
 
         public async Task DestockerBl(BlProducts blp, CancellationToken cancellationToken)
         {
-            
-                var DestockedProduct = _context.Stocks
-                    .Where(p => p.Designaation == blp.Designation)
-                    .FirstOrDefault();
 
-                if (DestockedProduct != null)
-                {
-                    // Update the entity without trying to detach it
-                    DestockedProduct.QteRestante = DestockedProduct.QteRestante - blp.Qte;
+            var DestockedProduct = _context.Stocks
+                .Where(p => p.Designaation == blp.Designation)
+                .FirstOrDefault();
 
-                    // Save changes to the database
-                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-                }
-            
+            if (DestockedProduct != null)
+            {
+                // Update the entity without trying to detach it
+                DestockedProduct.QteRestante = DestockedProduct.QteRestante - blp.Qte;
+
+                // Save changes to the database
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            }
+
         }
 
         public async Task Restorer(VenteComptoirProducts vcp, CancellationToken cancellationToken)

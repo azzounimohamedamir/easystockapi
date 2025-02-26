@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Commands
 {
@@ -42,7 +41,7 @@ namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Comma
         public UpdateBCFCommandValidator()
         {
             RuleFor(m => m.Id).NotEmpty().Must(id => id != Guid.Empty);
-           
+
         }
     }
 }

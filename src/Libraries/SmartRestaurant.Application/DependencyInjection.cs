@@ -1,9 +1,7 @@
-﻿using System.Reflection;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using SendGrid.Helpers.Mail;
-using SmartRestaurant.Application.Common.Interfaces;
+using System.Reflection;
 
 namespace SmartRestaurant.Application
 {

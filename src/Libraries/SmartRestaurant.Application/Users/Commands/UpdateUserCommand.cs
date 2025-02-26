@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using MediatR;
+using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
 using System;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Users.Commands
@@ -30,7 +30,7 @@ namespace SmartRestaurant.Application.Users.Commands
                 .NotEqual(Guid.Empty.ToString())
                 .Must(ValidatorHelper.ValidateGuid).WithMessage("'User Id' must be a valid GUID");
 
-            RuleForEach(updateUser => updateUser.Roles)            
+            RuleForEach(updateUser => updateUser.Roles)
                 .ChildRules(role => role.RuleFor(x => x)
                     .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotEmpty().WithMessage("'Role' can not be empty")

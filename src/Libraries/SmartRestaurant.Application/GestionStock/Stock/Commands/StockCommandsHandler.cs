@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections;
+﻿using AutoMapper;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
+using SmartRestaurant.Application.Common.Exceptions;
+using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Application.GestionStock.Stock.Commands;
+using SmartRestaurant.Domain.Entities;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using FluentValidation;
-using MediatR;
-using Microsoft.AspNetCore.Http.Internal;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
-using SmartRestaurant.Application.Common.Exceptions;
-
-using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Application.GestionStock.Stock.Commands;
-using SmartRestaurant.Application.Stock.Commands;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
 using ValidationException = SmartRestaurant.Application.Common.Exceptions.ValidationException;
 
 namespace SmartRestaurant.Application.Stock.Commands
@@ -51,38 +42,122 @@ namespace SmartRestaurant.Application.Stock.Commands
             if (!result.IsValid) throw new ValidationException(result);
 
             // Handle non-perishable products
-            if (request.IsPerissable == false)
+            if (!request.IsPerissable)
             {
-                request.DatePeremption = DateTime.Now;
+                request.DatePeremption = DateTime.Now.AddYears(100);
                 request.JourAlerte = 0;
             }
-                
-            var config = await _context.DefaultConfigLogs.FirstOrDefaultAsync().ConfigureAwait(false);
+
+            var config = await _context.DefaultConfigLogs.FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
             if (config == null) throw new InvalidOperationException("Configuration not found.");
 
+            // CASE: Single product without variants
+            var stock = _mapper.Map<Domain.Entities.Stock>(request);
+            stock.IsFavoris = false;
 
-                // CASE: Single product without variants
-                var stock = _mapper.Map<Domain.Entities.Stock>(request);
-                 stock.IsFavoris = false;
-                // Retrieve related entities asynchronously
-               
-               
+            // Add the stock entity and save changes
+            _context.Stocks.Add(stock);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-               
-                
+            if (request.QteInitiale != 0)
+            {
+                var lastBonAchat = await _context.BonAchats.OrderByDescending(a => a.Numero).FirstOrDefaultAsync(cancellationToken);
+                var selectedNumero = (lastBonAchat?.Numero ?? 0) + 1;
 
-                // Add the stock entity and save changes
-                _context.Stocks.Add(stock);
-               await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            
+                var fr = await _context.Fournisseurs.FindAsync(request.FournisseurId);
+                if (fr == null) throw new InvalidOperationException("Fournisseur not found.");
 
-            return default;
+                var montantTotal = request.QteInitiale * request.PrixAchat;
+
+                var bonachat = new Domain.Entities.BonAchats
+                {
+                    Date = DateTime.Now,
+                    Heure = DateTime.Now.ToShortTimeString(),
+                    VendeurId = Guid.NewGuid(),
+                    CodeBA = GenerateCodeBA(),
+                    CreatedBy = "Admin",
+                    MontantTotalHT = montantTotal,
+                    MontantTotalTTC = montantTotal,
+                    MontantTotalTVA = 0,
+                    FournisseurId = request.FournisseurId,
+                    Fournisseur = fr,
+                    TotalReglement = montantTotal,
+                    Timbre = 0,
+                    DateEcheance = DateTime.Now.AddYears(20),
+                    DateFermuture = DateTime.Now.AddYears(20),
+                    Etat = "Acheté",
+                    PaymentMethod = "Espece",
+                    Remise = 0,
+                    MontantTotalHTApresRemise = montantTotal,
+                    RestTotal = 0,
+                    Rib = 52154125421,
+                    Rip = 65561515455,
+                };
+
+                _context.BonAchats.Add(bonachat);
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+                var bcp = new BAProducts
+                {
+                    BAId = bonachat.Id,
+                    Newpua = request.PrixAchat,
+                    Pmp = request.PrixAchat,
+                    Designation = request.Designaation,
+                    Qte = request.QteInitiale,
+                    MontantHT = montantTotal,
+                    MontantTTC = montantTotal,
+                    MontantTVA = 0,
+                    Pua = request.PrixAchat,
+                    Image = stock?.Image,
+                    SelectedStock = stock,
+                    SelectedStockId = stock.Id,
+                };
+
+                _context.BAProducts.Add(bcp);
+                await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+                var existingStock = await _context.Stocks.FirstOrDefaultAsync(u => u.Designaation == request.Designaation, cancellationToken);
+                if (existingStock != null && config != null)
+                {
+                    existingStock.PrixAchat = request.PrixAchat;
+                    var margBenifDetail = (decimal.Parse(config.MargeBenifDetail)) / 100 * existingStock.PrixAchat;
+                    var margBenifGros = (decimal.Parse(config.MargeBenifGros)) / 100 * existingStock.PrixAchat;
+
+                    existingStock.PrixVenteDetail = Math.Round(existingStock.PrixAchat + margBenifDetail);
+                    existingStock.PrixVenteGros = Math.Round(existingStock.PrixAchat + margBenifGros);
+                    existingStock.QteRestante = request.QteInitiale;
+
+                    _context.Stocks.Update(existingStock);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                }
+
+            }
+
+            return new Created(); // Ensure a Created instance is returned
         }
 
+        public string GenerateCodeBA()
+        {
+            const string codeBCprefix = "BA";
+            const int codeBCLength = 6;
 
+            // Format Numero as a string with leading zeros
+            string formattedNumero = GetNextInvoiceNumberFromDatabase().ToString($"D{codeBCLength - 1}");
 
-
-
+            // Concatenate the prefix and formatted Numero
+            return $"{codeBCprefix}{formattedNumero}";
+        }
+        private int GetNextInvoiceNumberFromDatabase()
+        {
+            // Retrieve the current invoice number from the database
+            // This could involve querying the database or using a dedicated service to manage invoice numbers
+            // In this example, let's assume you have a method to retrieve the next sequential number
+            // You may need to implement this based on your database structure and business rules
+            // For simplicity, I'm using a placeholder value here
+            if (_context.BonAchats.Count() == 0) return 1;
+            else
+                return _context.BonAchats.Max(f => f.Numero) + 1;
+        }
 
         public async Task<Created> Handle(AddCategoryCommand request, CancellationToken cancellationToken)
         {
@@ -97,75 +172,75 @@ namespace SmartRestaurant.Application.Stock.Commands
                 // Get all categories and remove them
                 var allCategories = _context.Categories.ToList();
                 _context.Categories.RemoveRange(allCategories);
-              await  _context.SaveChangesAsync(cancellationToken); // Don't forget to save changes to persist the deletion
+                await _context.SaveChangesAsync(cancellationToken); // Don't forget to save changes to persist the deletion
             }
-           
-                // Create a new category entity
-                var category = new Category
+
+            // Create a new category entity
+            var category = new Category
+            {
+                Id = Guid.NewGuid(),
+                Nom = request.Nom,
+                CategorieAttributs = new List<Domain.Entities.CategoryAttribute>()
+            };
+
+            // Loop through each CategorieAttribut in the request
+            foreach (var catAttr in request.CategorieAttributs)
+            {
+                var categoryAttribute = new Domain.Entities.CategoryAttribute
                 {
                     Id = Guid.NewGuid(),
-                    Nom = request.Nom,
-                    CategorieAttributs = new List<Domain.Entities.CategoryAttribute>()
+                    CategoryId = category.Id,
+                    Category = category,
+                    Nom = catAttr.Nom,
+                    ProductsAttributes = new List<ProductAttribute>()
                 };
 
-                // Loop through each CategorieAttribut in the request
-                foreach (var catAttr in request.CategorieAttributs)
+                // Loop through each ProductsAttribute in the CategorieAttribut
+                foreach (var prodAttr in catAttr.ProductsAttributes)
                 {
-                    var categoryAttribute = new Domain.Entities.CategoryAttribute
+                    var productAttribute = new ProductAttribute
                     {
                         Id = Guid.NewGuid(),
-                        CategoryId = category.Id,
-                        Category = category,
-                        Nom = catAttr.Nom,
-                        ProductsAttributes = new List<ProductAttribute>()
+                        CategoryAttributeId = categoryAttribute.Id,
+                        CategoryAttribute = categoryAttribute,
+                        Nom = prodAttr.Nom,
+                        AttributeValues = new List<AttributeValue>()
                     };
 
-                    // Loop through each ProductsAttribute in the CategorieAttribut
-                    foreach (var prodAttr in catAttr.ProductsAttributes)
+                    // Loop through each AttributeValue in the ProductsAttribute
+                    foreach (var attrValue in prodAttr.AttributeValues)
                     {
-                        var productAttribute = new ProductAttribute
+                        var attributeValue = new AttributeValue
                         {
                             Id = Guid.NewGuid(),
-                            CategoryAttributeId = categoryAttribute.Id,
-                            CategoryAttribute = categoryAttribute,
-                            Nom = prodAttr.Nom,
-                            AttributeValues = new List<AttributeValue>()
+                            ProductAttributeId = productAttribute.Id,
+                            ProductAttribute = productAttribute,
+                            Valeur = attrValue.Valeur
                         };
 
-                        // Loop through each AttributeValue in the ProductsAttribute
-                        foreach (var attrValue in prodAttr.AttributeValues)
-                        {
-                            var attributeValue = new AttributeValue
-                            {
-                                Id = Guid.NewGuid(),
-                                ProductAttributeId = productAttribute.Id,
-                                ProductAttribute = productAttribute,
-                                Valeur = attrValue.Valeur
-                            };
-
-                            // Add the attribute value to the product attribute
-                            productAttribute.AttributeValues.Add(attributeValue);
-                        }
-
-                        // Add the product attribute to the category attribute
-                        categoryAttribute.ProductsAttributes.Add(productAttribute);
+                        // Add the attribute value to the product attribute
+                        productAttribute.AttributeValues.Add(attributeValue);
                     }
 
-                    // Add the category attribute to the category
-                    category.CategorieAttributs.Add(categoryAttribute);
+                    // Add the product attribute to the category attribute
+                    categoryAttribute.ProductsAttributes.Add(productAttribute);
                 }
 
-                // Assuming you have a DbContext instance named _dbContext
-                await _context.Categories.AddAsync(category, cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
-            
-           
+                // Add the category attribute to the category
+                category.CategorieAttributs.Add(categoryAttribute);
+            }
+
+            // Assuming you have a DbContext instance named _dbContext
+            await _context.Categories.AddAsync(category, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+
+
 
             return default; // Assuming Created has an Id property
         }
 
 
-     
+
 
 
 
@@ -226,7 +301,7 @@ namespace SmartRestaurant.Application.Stock.Commands
                         stockEntity.IsFavoris = false;
                         // Add the stock entity to the list
                         stocks.Add(stockEntity);
-                    }                  
+                    }
                 }
 
                 // Add the list of stock entities to the context and save changes
@@ -236,8 +311,8 @@ namespace SmartRestaurant.Application.Stock.Commands
                 // Return a successful result
                 return Unit.Value;
             }
-           
-                 catch (DbUpdateException ex)
+
+            catch (DbUpdateException ex)
             {
                 // Get the inner exception
                 Exception innerException = ex.InnerException;
@@ -255,10 +330,10 @@ namespace SmartRestaurant.Application.Stock.Commands
 
                 // You might also want to throw a custom exception or handle this error
                 throw; // Rethrow the exception or handle it as appropriate for your application
-            
+
+            }
         }
-        }
-            public async Task<NoContent> Handle(DeleteProductFromStockCommand request, CancellationToken cancellationToken)
+        public async Task<NoContent> Handle(DeleteProductFromStockCommand request, CancellationToken cancellationToken)
         {
             var validator = new DeleteProductFromStockCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
@@ -285,7 +360,7 @@ namespace SmartRestaurant.Application.Stock.Commands
                 .ConfigureAwait(false);
             if (product == null)
                 throw new NotFoundException(nameof(Stock), request.Id);
-            if(request.IsPerissable == false)
+            if (request.IsPerissable == false)
             {
                 request.DatePeremption = DateTime.Now;
                 request.JourAlerte = 0;

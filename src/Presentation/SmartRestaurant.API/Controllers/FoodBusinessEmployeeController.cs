@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
 using SmartRestaurant.Application.GestionEmployees.Employees.Clients.Commands;
-using SmartRestaurant.Domain.Enums;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {

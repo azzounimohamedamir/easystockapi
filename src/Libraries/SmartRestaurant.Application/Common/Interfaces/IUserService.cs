@@ -1,5 +1,3 @@
-using System;
-
 namespace SmartRestaurant.Application.Common.Interfaces
 {
     public interface IUserService

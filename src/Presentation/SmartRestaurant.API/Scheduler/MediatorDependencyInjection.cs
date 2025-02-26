@@ -9,7 +9,7 @@ namespace SmartRestaurant.API.Scheduler
         {
             IServiceScopeFactory _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
             var scope = _scopeFactory.CreateScope();
-            
+
             var mediator = scope.ServiceProvider.GetService<IMediator>();
             new MediatorService(mediator);
             return services;

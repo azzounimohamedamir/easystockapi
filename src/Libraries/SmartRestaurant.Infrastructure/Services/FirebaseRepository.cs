@@ -1,18 +1,13 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Google.Cloud.Firestore;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Domain.Entities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Google.Cloud.Firestore;
-using System.IO;
-using System.Dynamic;
-using System.Reflection;
-using System.Linq;
-using Newtonsoft.Json;
-using System.Collections;
 
 namespace SmartRestaurant.Infrastructure.Services
 {
@@ -81,9 +76,9 @@ namespace SmartRestaurant.Infrastructure.Services
             {
                 throw exe;
             }
-             
+
         }
-        
+
         public async Task<T> AddHotelAsync<T>(string path, T data, CancellationToken cancellationToken)
         {
             try
@@ -97,7 +92,7 @@ namespace SmartRestaurant.Infrastructure.Services
             {
                 throw exe;
             }
-             
+
         }
 
         public async Task<T> AddFoodBusinessCollectionAsync<T>(string path, T data, CancellationToken cancellationToken)
@@ -147,60 +142,61 @@ namespace SmartRestaurant.Infrastructure.Services
 
         }
 
-        public Dictionary<string, object>  getOrderToDictionary<T>(T orderDto)
+        public Dictionary<string, object> getOrderToDictionary<T>(T orderDto)
         {
-           var result = orderDto.GetType()
-            .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-            .ToDictionary(prop =>
-                {
-                    return prop.Name.Substring(0,2).ToLower()+ prop.Name.Substring(2);
-                }    
-                , 
-                prop =>
-                {
-                    var valueToConvert = prop.GetValue(orderDto, null);
-                    var type = prop.PropertyType;
-                    if (valueToConvert == null)
-                        return null;
-                    if (type == typeof(string) || type == typeof(String) || type == typeof(int) || type == typeof(Single)
-                    || type == typeof(float)|| type == typeof(double))
-                    {
-                        return valueToConvert;
-                    }
-                    if (type == typeof(bool))
-                    {
-                        return Convert.ToBoolean(valueToConvert) == true ? 1 : 0;
-                    }
-                    else if (type == typeof(DateTime) || type == typeof(DateTime?))
-                    {
-                        DateTime value =Convert.ToDateTime(valueToConvert);
-                        return DateTime.SpecifyKind(value, DateTimeKind.Utc);
-                    }else if (type.IsEnum)
-                    {
-                        object underlyingValue = Convert.ChangeType(valueToConvert, Enum.GetUnderlyingType(valueToConvert.GetType()));
-                        return underlyingValue;
+            var result = orderDto.GetType()
+             .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+             .ToDictionary(prop =>
+                 {
+                     return prop.Name.Substring(0, 2).ToLower() + prop.Name.Substring(2);
+                 }
+                 ,
+                 prop =>
+                 {
+                     var valueToConvert = prop.GetValue(orderDto, null);
+                     var type = prop.PropertyType;
+                     if (valueToConvert == null)
+                         return null;
+                     if (type == typeof(string) || type == typeof(String) || type == typeof(int) || type == typeof(Single)
+                     || type == typeof(float) || type == typeof(double))
+                     {
+                         return valueToConvert;
+                     }
+                     if (type == typeof(bool))
+                     {
+                         return Convert.ToBoolean(valueToConvert) == true ? 1 : 0;
+                     }
+                     else if (type == typeof(DateTime) || type == typeof(DateTime?))
+                     {
+                         DateTime value = Convert.ToDateTime(valueToConvert);
+                         return DateTime.SpecifyKind(value, DateTimeKind.Utc);
+                     }
+                     else if (type.IsEnum)
+                     {
+                         object underlyingValue = Convert.ChangeType(valueToConvert, Enum.GetUnderlyingType(valueToConvert.GetType()));
+                         return underlyingValue;
 
-                    }
-                    else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>))
-                    {
-                        var Colection = new ArrayList();
-                        var elementCollection = (IEnumerable)valueToConvert;
-                        foreach (var item in elementCollection)
-                        {
-                            var elementColl = getOrderToDictionary(item);
-                            Colection.Add(elementColl);
-                        }
-                        return Colection;
-                    }
-                    else
-                    {
-                        return getOrderToDictionary(valueToConvert);
-                    }
-                }
-            );
+                     }
+                     else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>))
+                     {
+                         var Colection = new ArrayList();
+                         var elementCollection = (IEnumerable)valueToConvert;
+                         foreach (var item in elementCollection)
+                         {
+                             var elementColl = getOrderToDictionary(item);
+                             Colection.Add(elementColl);
+                         }
+                         return Colection;
+                     }
+                     else
+                     {
+                         return getOrderToDictionary(valueToConvert);
+                     }
+                 }
+             );
             return result;
         }
-   
+
         public Task<T> GetAsync<T>(string path, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
@@ -216,7 +212,7 @@ namespace SmartRestaurant.Infrastructure.Services
             try
             {
                 DocumentReference doc = _db.Document(_DataBaseFoodBusinessBasepath + "/" + path);
-                var objectTosend = getOrderToDictionary(data);             
+                var objectTosend = getOrderToDictionary(data);
                 await doc.UpdateAsync(objectTosend, null, cancellationToken);
                 return data;
             }
@@ -230,7 +226,7 @@ namespace SmartRestaurant.Infrastructure.Services
             try
             {
                 DocumentReference doc = _db.Document(_DataBaseHotelBasepath + "/" + path);
-                var objectTosend = getOrderToDictionary(data);             
+                var objectTosend = getOrderToDictionary(data);
                 await doc.UpdateAsync(objectTosend, null, cancellationToken);
                 return data;
             }

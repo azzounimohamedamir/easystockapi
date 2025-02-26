@@ -1,29 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
+﻿using AutoMapper;
+using FluentValidation;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Common.Exceptions;
+using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Domain.Entities;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using FluentValidation;
-using MediatR;
-using Microsoft.AspNetCore.Http.Internal;
-using Newtonsoft.Json;
-
-using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
-using SmartRestaurant.Application.Common.Exceptions;
-
-using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
-using SmartRestaurant.Application.Stock.Commands;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
 using ValidationException = SmartRestaurant.Application.Common.Exceptions.ValidationException;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
-using static System.Net.WebRequestMethods;
 
 namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Commands
 {
@@ -81,25 +68,25 @@ namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Comma
                 Heure = DateTime.Now.ToShortTimeString(),
                 VendeurId = new Guid(),
                 CreatedBy = request.CreatedBy,
-                CodeBC=GenerateCodeBC(),
+                CodeBC = GenerateCodeBC(),
                 MontantTotalHT = decimal.Parse(request.MontantTotalHT.ToString()),
                 MontantTotalTTC = decimal.Parse(request.MontantTotalTTC.ToString()),
                 MontantTotalTVA = decimal.Parse(request.MontantTotalTVA.ToString()),
-                FournisseurId=request.FournisseurId,
+                FournisseurId = request.FournisseurId,
                 Fournisseur = fr,
-                TotalReglement=request.TotalReglement,
-                Numero=request.Numero,
-                Timbre=request.Timbre,
-                DateEcheance=request.DateEcheance,
-                DateFermuture=request.DateFermuture,
-                Etat=request.Etat,
-                PaymentMethod=request.PaymentMethod,
-                Remise=request.Remise,
-                MontantTotalHTApresRemise= decimal.Parse(request.MontantTotalHTApresRemise.ToString()),
-                RestTotal= decimal.Parse(request.RestTotal.ToString()),
-                Rib=request.Rib,
-                Rip=request.Rip,
-             
+                TotalReglement = request.TotalReglement,
+                Numero = request.Numero,
+                Timbre = request.Timbre,
+                DateEcheance = request.DateEcheance,
+                DateFermuture = request.DateFermuture,
+                Etat = request.Etat,
+                PaymentMethod = request.PaymentMethod,
+                Remise = request.Remise,
+                MontantTotalHTApresRemise = decimal.Parse(request.MontantTotalHTApresRemise.ToString()),
+                RestTotal = decimal.Parse(request.RestTotal.ToString()),
+                Rib = request.Rib,
+                Rip = request.Rip,
+
             };
             _context.BonCommandeFournisseurs.Add(boncommandefournisseur);
             request.AbcProducts.ForEach(async item =>
@@ -110,12 +97,12 @@ namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Comma
                     BcaId = boncommandefournisseur.Id,
                     Designation = item.Designation,
                     Qte = item.Qte,
-                    MontantHT= item.MontantHT,
-                    MontantTTC=item.MontantTTC,
-                    MontantTVA=item.MontantTVA,
+                    MontantHT = item.MontantHT,
+                    MontantTTC = item.MontantTTC,
+                    MontantTVA = item.MontantTVA,
                     Pua = item.Pua,
                     Image = stockMatch.Image,
-                    SelectedStockId= stockMatch.Id,
+                    SelectedStockId = stockMatch.Id,
                 };
                 _context.AbcProducts.Add(bcp);
             }
@@ -156,7 +143,7 @@ namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Comma
                         Date = request.Bon.Date,
                         Heure = request.Bon.Date.ToShortTimeString(),
                         VendeurId = new Guid(),
-                        CreatedBy=request.Bon.CreatedBy,
+                        CreatedBy = request.Bon.CreatedBy,
                         MontantTotalHTApresRemise = request.Bon.MontantTotalHTApresRemise,
                         MontantTotalHT = request.Bon.MontantTotalHT,
                         Remise = request.Bon.Remise,
@@ -196,7 +183,7 @@ namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Comma
                                 Qte = item.Qte,
                                 MontantHT = item.MontantHT,
                                 MontantTTC = item.MontantTTC,
-                                MontantTVA = item.MontantTVA,                     
+                                MontantTVA = item.MontantTVA,
                                 Pua = item.Pua,
                                 Image = stockMatch.Image,
                                 SelectedStockId = stockMatch.Id,
@@ -220,7 +207,7 @@ namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Comma
 
                         // Retrieve the VenteComptoir entity you want to delete
                         var BonCommandeUpdateEtatToReceptionne = _context.BonCommandeFournisseurs
-                            .Where(a => a.Id==request.Bon.Id)
+                            .Where(a => a.Id == request.Bon.Id)
                             .FirstOrDefault();
 
                         if (BonCommandeUpdateEtatToReceptionne != null)
@@ -228,7 +215,7 @@ namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Comma
                             BonCommandeUpdateEtatToReceptionne.Etat = "Receptionné";
 
                             // Remove the related items from the collection
-                            
+
 
                             // Delete the VenteComptoir entity
                             _context.BonCommandeFournisseurs.Update(BonCommandeUpdateEtatToReceptionne);
@@ -271,7 +258,7 @@ namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Comma
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var bon =  _context.BonCommandeFournisseurs.Include(v=>v.AbcProducts).FirstOrDefault();
+            var bon = _context.BonCommandeFournisseurs.Include(v => v.AbcProducts).FirstOrDefault();
             if (bon == null)
                 throw new NotFoundException(nameof(BonCommandeFournisseur), request.Id);
 
@@ -294,7 +281,7 @@ namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Comma
             if (bonToUpdate == null)
                 throw new NotFoundException(nameof(Domain.Entities.BonCommandeFournisseur), request.Id);
 
-           
+
 
             // Remove old products included in vc
             _context.AbcProducts.RemoveRange(bonToUpdate.AbcProducts);
@@ -313,8 +300,8 @@ namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Comma
                     Designation = item.Designation,
                     Qte = item.Qte,
                     MontantTTC = item.MontantTTC,
-                    MontantHT= item.MontantHT,
-                    MontantTVA= item.MontantTVA,
+                    MontantHT = item.MontantHT,
+                    MontantTVA = item.MontantTVA,
                     Pua = item.Pua,
                     Image = stockMatch.Image,
                     SelectedStockId = stockMatch.Id,
@@ -331,14 +318,14 @@ namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Comma
             bonToUpdate.MontantTotalHT = request.MontantTotalHT;
             bonToUpdate.MontantTotalTVA = request.MontantTotalTVA;
             bonToUpdate.MontantTotalTTC = request.MontantTotalTTC;
-            bonToUpdate.Fournisseur=request.Fournisseur;
-            bonToUpdate.Heure=request.Heure;
+            bonToUpdate.Fournisseur = request.Fournisseur;
+            bonToUpdate.Heure = request.Heure;
             bonToUpdate.CreatedBy = request.CreatedBy;
-            bonToUpdate.Date=request.Date;
-            bonToUpdate.Numero=request.Numero;
-            bonToUpdate.VendeurId=request.VendeurId;
-            bonToUpdate.FournisseurId=request.FournisseurId;
-            bonToUpdate.Timbre=request.Timbre;
+            bonToUpdate.Date = request.Date;
+            bonToUpdate.Numero = request.Numero;
+            bonToUpdate.VendeurId = request.VendeurId;
+            bonToUpdate.FournisseurId = request.FournisseurId;
+            bonToUpdate.Timbre = request.Timbre;
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
             return default;
@@ -348,6 +335,6 @@ namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Comma
 
 
 
-     
+
     }
 }

@@ -1,19 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Clients.Commands;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Application.GestionEmployees.Employees.Clients.Commands;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.GestionEmployees.Employees.Clients.Commands
 {

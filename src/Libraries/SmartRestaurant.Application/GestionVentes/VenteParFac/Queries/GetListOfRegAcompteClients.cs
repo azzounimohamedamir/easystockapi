@@ -1,9 +1,6 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.Common.Tools;
-using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Queries
 {
@@ -11,7 +8,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Queries
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
-       
+
     }
 
     public class GetListOfRegAcompteClientsValidator : AbstractValidator<GetListOfRegAcompteClients>

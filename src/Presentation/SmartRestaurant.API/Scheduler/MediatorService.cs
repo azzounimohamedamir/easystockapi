@@ -9,14 +9,14 @@ namespace SmartRestaurant.API.Scheduler
 
         public MediatorService(IMediator mediator)
         {
-            if(_mediator == null)
+            if (_mediator == null)
             {
                 _mediator = mediator;
             }
         }
 
         public MediatorService()
-        {           
+        {
         }
 
         public IMediator Mediator()

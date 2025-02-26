@@ -1,24 +1,23 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using SmartRestaurant.Application.Common.Configuration;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Application.GestionEmployees.Employees.Clients.Commands;
-using Microsoft.Extensions.Options;
-using SmartRestaurant.Application.Common.Configuration;
-using Microsoft.AspNetCore.Identity;
 using SmartRestaurant.Domain.Identity.Entities;
-using System.Security;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.GestionEmployees.Employees.Permissions.Commands
 {
     public class PermissionsCommandsHandler :
         IRequestHandler<AjouterPermRoleCommand, Created>,
         IRequestHandler<UpdatePermRoleCommand, NoContent>
-       
+
 
     {
         private readonly IApplicationDbContext _context;
@@ -44,7 +43,7 @@ namespace SmartRestaurant.Application.GestionEmployees.Employees.Permissions.Com
             _emailSender = emailSender;
         }
 
-    public async Task<Created> Handle(AjouterPermRoleCommand request, CancellationToken cancellationToken)
+        public async Task<Created> Handle(AjouterPermRoleCommand request, CancellationToken cancellationToken)
         {
             var validator = new AjouterPermRoleCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
@@ -73,7 +72,7 @@ namespace SmartRestaurant.Application.GestionEmployees.Employees.Permissions.Com
             return default;
         }
 
-      
+
 
         public async Task<NoContent> Handle(UpdatePermRoleCommand request, CancellationToken cancellationToken)
         {
@@ -94,7 +93,7 @@ namespace SmartRestaurant.Application.GestionEmployees.Employees.Permissions.Com
             return default;
         }
 
-      
+
 
     }
 }

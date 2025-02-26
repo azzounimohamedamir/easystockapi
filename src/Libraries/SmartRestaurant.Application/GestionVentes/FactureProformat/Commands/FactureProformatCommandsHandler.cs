@@ -1,29 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
+﻿using AutoMapper;
+using FluentValidation;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Common.Exceptions;
+using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Application.GestionVentes.FactureProformat.Commands;
+using SmartRestaurant.Domain.Entities;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using FluentValidation;
-using MediatR;
-using Microsoft.AspNetCore.Http.Internal;
-using Newtonsoft.Json;
-
-using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
-using SmartRestaurant.Application.Common.Exceptions;
-
-using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
-using SmartRestaurant.Application.Stock.Commands;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
 using ValidationException = SmartRestaurant.Application.Common.Exceptions.ValidationException;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
-using SmartRestaurant.Application.GestionVentes.FactureProformat.Commands;
 
 namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
 {
@@ -76,30 +64,30 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                 Date = DateTime.Now,
                 Heure = DateTime.Now.ToShortTimeString(),
                 VendeurId = new Guid(),
-                CodeFP=GenerateCodeFP(),
+                CodeFP = GenerateCodeFP(),
                 MontantTotalHT = decimal.Parse(request.MontantTotalHT.ToString()),
                 MontantTotalTTC = decimal.Parse(request.MontantTotalTTC.ToString()),
                 MontantTotalTVA = decimal.Parse(request.MontantTotalTVA.ToString()),
-                ClientId=request.ClientId,
-                CreatedBy=request.CreatedBy,
+                ClientId = request.ClientId,
+                CreatedBy = request.CreatedBy,
                 Client = client,
-                TotalReglement=request.TotalReglement,
-                Numero=request.Numero,
-                Timbre=request.Timbre,
-                DateEcheance=request.DateEcheance,
-                DateFermuture=request.DateFermuture,
-                Etat=request.Etat,
-                PaymentMethod=request.PaymentMethod,
-                Remise=request.Remise,
-                MontantTotalHTApresRemise= decimal.Parse(request.MontantTotalHTApresRemise.ToString()),
-                RestTotal= decimal.Parse(request.RestTotal.ToString()),
-                Rib=request.Rib,
-                Rip=request.Rip,
-             
+                TotalReglement = request.TotalReglement,
+                Numero = request.Numero,
+                Timbre = request.Timbre,
+                DateEcheance = request.DateEcheance,
+                DateFermuture = request.DateFermuture,
+                Etat = request.Etat,
+                PaymentMethod = request.PaymentMethod,
+                Remise = request.Remise,
+                MontantTotalHTApresRemise = decimal.Parse(request.MontantTotalHTApresRemise.ToString()),
+                RestTotal = decimal.Parse(request.RestTotal.ToString()),
+                Rib = request.Rib,
+                Rip = request.Rip,
+
             };
             _context.factureProformats.Add(fac);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            request.FacProProducts.ForEach( item =>
+            request.FacProProducts.ForEach(item =>
             {
                 var stockMatch = _context.Stocks.Where(u => u.Designaation == item.Designation).AsNoTracking().FirstOrDefault();
                 var flp = new FacProProducts
@@ -107,13 +95,13 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                     FactureProformatId = fac.Id,
                     Designation = item.Designation,
                     Qte = item.Qte,
-                    MontantHT= item.MontantHT,
-                    MontantTTC=item.MontantTTC,
-                    MontantTVA=item.MontantTVA,
+                    MontantHT = item.MontantHT,
+                    MontantTTC = item.MontantTTC,
+                    MontantTVA = item.MontantTVA,
                     Puv = item.Puv,
                     Image = stockMatch.Image,
                     SelectedStockId = stockMatch.Id,
-                   
+
                 };
                 _context.FacProProducts.Add(flp);
             }
@@ -125,20 +113,20 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
 
 
 
-       
-      
-        
+
+
+
         public async Task<NoContent> Handle(DeleteFactureProformatCommand request, CancellationToken cancellationToken)
         {
             var validator = new DeleteFactureProformatCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var facpro =  _context.factureProformats.Include(v=>v.FacProProducts).FirstOrDefault();
+            var facpro = _context.factureProformats.Include(v => v.FacProProducts).FirstOrDefault();
             if (facpro == null)
                 throw new NotFoundException(nameof(Stock), request.Id);
 
-           
+
             _context.factureProformats.Remove(facpro);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
@@ -158,7 +146,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
             if (fac == null)
                 throw new NotFoundException(nameof(Stock), request.Id);
 
-          
+
 
             // Remove old products included in vc
             _context.FacProProducts.RemoveRange(fac.FacProProducts);
@@ -177,8 +165,8 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                     Designation = item.Designation,
                     Qte = item.Qte,
                     MontantTTC = item.MontantTTC,
-                    MontantHT= item.MontantHT,
-                    MontantTVA= item.MontantTVA,
+                    MontantHT = item.MontantHT,
+                    MontantTVA = item.MontantTVA,
                     Puv = item.Puv,
                     Image = stockMatch.Image,
                     SelectedStockId = stockMatch.Id,
@@ -197,14 +185,14 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
             fac.MontantTotalHT = request.MontantTotalHT;
             fac.MontantTotalTVA = request.MontantTotalTVA;
             fac.MontantTotalTTC = request.MontantTotalTTC;
-            fac.Client=request.Client;
+            fac.Client = request.Client;
             fac.CreatedBy = request.CreatedBy;
-            fac.Heure=request.Heure;
-            fac.Date=request.Date;
-            fac.Numero=request.Numero;
-            fac.VendeurId=request.VendeurId;
-            fac.ClientId=request.ClientId;
-            fac.Timbre=request.Timbre;
+            fac.Heure = request.Heure;
+            fac.Date = request.Date;
+            fac.Numero = request.Numero;
+            fac.VendeurId = request.VendeurId;
+            fac.ClientId = request.ClientId;
+            fac.Timbre = request.Timbre;
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
             return default;
@@ -214,7 +202,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
 
 
 
-     
+
 
     }
 }

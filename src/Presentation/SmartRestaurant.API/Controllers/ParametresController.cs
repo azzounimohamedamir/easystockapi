@@ -1,18 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
-using SmartRestaurant.Application.Common.Dtos;
-using Swashbuckle.AspNetCore.Annotations;
-using System;
-using SmartRestaurant.Application.GestionAchats.Employees.Clients.Queries;
-using SmartRestaurant.Application.GestionEmployees.Employees.Clients.Commands;
-using SmartRestaurant.Application.Clients.Commands;
-using SmartRestaurant.Application.GestionEmployees.Employees.Clients.Queries;
+using SmartRestaurant.Application.Parametres.ConfigurationLogiciel.Commands;
+using SmartRestaurant.Application.Parametres.ConfigurationLogiciel.Queries;
 using SmartRestaurant.Application.Parametres.SocieteInfo.Commands;
 using SmartRestaurant.Application.Parametres.SocieteInfo.Queries;
-using SmartRestaurant.Application.Parametres.ConfigurationLogiciel.Queries;
-using SmartRestaurant.Application.Parametres.ConfigurationLogiciel.Commands;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -31,10 +24,10 @@ namespace SmartRestaurant.API.Controllers
         [Route("societeInfo")]
         public async Task<IActionResult> GetInfoSociete()
         {
-           return await SendWithErrorsHandlingAsync(new GetSocieteInfoQuery
+            return await SendWithErrorsHandlingAsync(new GetSocieteInfoQuery
             {
 
-               
+
             });
         }
 
@@ -53,7 +46,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost("societeInfo")]
         // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
-        public async Task<IActionResult> Create( [FromForm] CreateSocieteInfoCommand command)
+        public async Task<IActionResult> Create([FromForm] CreateSocieteInfoCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }

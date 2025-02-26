@@ -1,8 +1,6 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
 
 namespace SmartRestaurant.Application.Parametres.SocieteInfo.Commands
 {
@@ -14,16 +12,18 @@ namespace SmartRestaurant.Application.Parametres.SocieteInfo.Commands
 
         public string Timbre { get; set; }
         public string Tva { get; set; }
-        public string SommeFacture { get; set; }
-        public string PointsGagner { get; set; }
+        public decimal SommeFacture { get; set; }
+        public decimal PointsGagner { get; set; }
         public string ModeVente { get; set; }
         public Guid Categorie { get; set; }
+        public decimal Recompense { get; set; }
 
         public string DeviseParDefault { get; set; }
         public string MargeBenifDetail { get; set; }
         public string MargeBenifGros { get; set; }
         public bool AutorisationQteNeg { get; set; }
         public bool PrixAchatMoyPondere { get; set; }
+        public decimal MinimumPointsToWithdraw { get; set; }
 
     }
 
@@ -32,7 +32,7 @@ namespace SmartRestaurant.Application.Parametres.SocieteInfo.Commands
         public UpdateDefaultConfigCommandValidator()
         {
             RuleFor(m => m.Id).NotEmpty().Must(id => id != Guid.Empty);
-          
+
         }
     }
 }

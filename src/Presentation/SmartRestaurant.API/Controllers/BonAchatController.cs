@@ -1,16 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
-using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.GestionAchats.BonsAchat.Commands;
+using SmartRestaurant.Application.GestionAchats.BonsAchat.Queries;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-
-using Microsoft.AspNetCore.Http;
-using System.IO;
-
-using SmartRestaurant.Application.GestionAchats.BonsAchat.Queries;
-using SmartRestaurant.Application.GestionAchats.BonsAchat.Commands;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -28,16 +22,16 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllBA(string currentFilter, int page, int pageSize)
         {
-           return await SendWithErrorsHandlingAsync(new GetBAListQuery
+            return await SendWithErrorsHandlingAsync(new GetBAListQuery
             {
 
-               Page = page,
-               PageSize = pageSize,
-               CurrentFilter= currentFilter,
+                Page = page,
+                PageSize = pageSize,
+                CurrentFilter = currentFilter,
             });
         }
 
-       
+
 
 
         /// <summary> AddNewBA </summary>
@@ -50,7 +44,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
-       // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
+        // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         public async Task<IActionResult> Create(CreateBACommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -58,7 +52,7 @@ namespace SmartRestaurant.API.Controllers
 
 
 
-     
+
 
 
         /// <summary> UpdateBA() </summary>
@@ -73,7 +67,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<IActionResult> Update( UpdateBACommand command)
+        public async Task<IActionResult> Update(UpdateBACommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Clients.Commands;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.GestionEmployees.Employees.Fournisseurs.Commands
 {
@@ -34,8 +30,8 @@ namespace SmartRestaurant.Application.GestionEmployees.Employees.Fournisseurs.Co
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
             var emp = _mapper.Map<Fournisseur>(request);
-            
-             
+
+
             _context.Fournisseurs.Add(emp);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
@@ -51,7 +47,7 @@ namespace SmartRestaurant.Application.GestionEmployees.Employees.Fournisseurs.Co
             if (fr == null)
                 throw new NotFoundException(nameof(Fournisseur), request.Id);
 
-           
+
             _context.Fournisseurs.Remove(fr);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;

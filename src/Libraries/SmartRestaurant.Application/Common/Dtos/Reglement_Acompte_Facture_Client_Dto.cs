@@ -1,7 +1,5 @@
 ﻿using SmartRestaurant.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
@@ -15,8 +13,8 @@ namespace SmartRestaurant.Application.Common.Dtos
         public string Libelle { get; set; }
 
         public string Type { get; set; }
-        public Facture Facture { get; set; }
-        public Client Client { get; set; }
+        public FactureDto Facture { get; set; }
+        public ClientDto Client { get; set; }
     }
 
 }

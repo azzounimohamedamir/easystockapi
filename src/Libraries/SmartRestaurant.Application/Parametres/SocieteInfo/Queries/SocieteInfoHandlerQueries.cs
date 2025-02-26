@@ -1,16 +1,16 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 
 namespace SmartRestaurant.Application.Parametres.SocieteInfo.Queries
 {
     public class SocieteInfoHandlerQueries :
-        IRequestHandler<GetSocieteInfoQuery,Domain.Entities.SocieteInfo>
+        IRequestHandler<GetSocieteInfoQuery, Domain.Entities.SocieteInfo>
 
     {
         private readonly IApplicationDbContext _context;
@@ -22,7 +22,7 @@ namespace SmartRestaurant.Application.Parametres.SocieteInfo.Queries
             _mapper = mapper;
         }
 
-       
+
         public async Task<Domain.Entities.SocieteInfo> Handle(GetSocieteInfoQuery request, CancellationToken cancellationToken)
         {
             var validator = new GetSocieteInfoQueryValidator();
@@ -40,10 +40,9 @@ namespace SmartRestaurant.Application.Parametres.SocieteInfo.Queries
                 return null;
             }
 
-           
+
         }
 
-       
-            }
-        }
-    
+
+    }
+}

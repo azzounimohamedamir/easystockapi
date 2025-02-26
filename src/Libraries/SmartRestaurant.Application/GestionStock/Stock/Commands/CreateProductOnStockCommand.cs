@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
 
 namespace SmartRestaurant.Application.Stock.Commands
 {
@@ -15,12 +11,13 @@ namespace SmartRestaurant.Application.Stock.Commands
 
         public string CodeBar { get; set; }
 
-      
+
 
         public string Rayonnage { get; set; }
 
         public int QteAlerte { get; set; }
         public int QteInitiale { get; set; }
+        public Guid FournisseurId { get; set; }
 
         public int QteRestante { get; set; }
         public decimal PrixVenteDetail { get; set; }
@@ -32,7 +29,7 @@ namespace SmartRestaurant.Application.Stock.Commands
         public DateTime DatePeremption { get; set; }
         public int JourAlerte { get; set; }
 
-        public string ProductAttributeValues { get;set;}
+        public string ProductAttributeValues { get; set; }
     }
 
     public class CreateProductOnStockCommandValidator : AbstractValidator<CreateProductOnStockCommand>
@@ -41,7 +38,7 @@ namespace SmartRestaurant.Application.Stock.Commands
         {
             RuleFor(m => m.Designaation).NotEmpty().MaximumLength(200);
             RuleFor(m => m.Id).NotEmpty().Must(id => id != Guid.Empty);
-         
+
 
         }
     }

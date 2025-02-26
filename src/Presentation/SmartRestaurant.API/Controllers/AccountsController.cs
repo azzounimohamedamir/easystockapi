@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Net.NetworkInformation;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +12,9 @@ using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Infrastructure.Identity.Enums;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Linq;
+using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -65,7 +65,7 @@ namespace SmartRestaurant.API.Controllers
             if (!user.IsActive) return Unauthorized();
             var token = await TokenGenerator.Generate(user, _userManager, _configuration);
             var roles = await _userManager.GetRolesAsync(user);
-            return Ok(new {token, user.Id, user.UserName,user.FullName,user.PhoneNumber,user.Mac, roles});
+            return Ok(new { token, user.Id, user.UserName, user.FullName, user.PhoneNumber, user.Mac, roles });
         }
 
         [AllowAnonymous]
@@ -76,16 +76,44 @@ namespace SmartRestaurant.API.Controllers
             {
                 UserName = model.Email,
                 Email = model.Email,
-                FullName = model.FullName
+                FullName = model.FullName,
+                EmailConfirmed = true,
+                PhoneNumber = model.PhoneNumber,
+                
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
-                await SendEmailConfirmation(user, token).ConfigureAwait(false);
+               // await ConfirmEmailCommad(user, token).ConfigureAwait(false);
+            }
+            foreach (var item in model.Role)
+            {
+                if (model.Role.Contains("GestionnaireStock"))
+                {
+                     await GrantGDSRole(user, result);
+                }
+                if (model.Role.Contains("GestionnaireVente"))
+                {
+                     await GrantGDVRole(user, result);
+                }
+                if (model.Role.Contains("Caissier"))
+                {
+                     await GrantCaissierRole(user, result);
+                }
+                if (model.Role.Contains("GestionnaireAchat"))
+                {
+                     await GrantGDARole(user, result);
+                }
+                if (model.Role.Contains("Manager"))
+                {
+                     await GrantManagerRole(user, result);
+                }
+                return Ok(HttpResponseHelper.Respond(ResponseType.OK));
+
             }
 
-            return await GrantPublicClientsRole(user, result);
+            return BadRequest(HttpResponseHelper.Respond(ResponseType.BadRequest));
         }
 
         /// <summary> AuthenticateViaSocialMedia() </summary>
@@ -153,24 +181,73 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(command);
         }
 
-        private async Task<IActionResult> GrantPublicClientsRole(ApplicationUser user, IdentityResult result)
+        private async Task GrantManagerRole(ApplicationUser user, IdentityResult result)
         {
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, Roles.Manager.ToString()).ConfigureAwait(false);
 
 
-                return Ok(HttpResponseHelper.Respond(ResponseType.OK));
             }
 
-            return Ok(HttpResponseHelper.Respond(ResponseType.BadRequest));
+        }
+
+        private async Task GrantGDSRole(ApplicationUser user, IdentityResult result)
+        {
+           
+                await _userManager.AddToRoleAsync(user, Roles.GestionnaireStock.ToString()).ConfigureAwait(false);
+           
+
+        }
+
+        private async Task GrantGDVRole(ApplicationUser user, IdentityResult result)
+        {
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Roles.GestionnaireVente.ToString()).ConfigureAwait(false);
+
+
+              
+            }
+
+        }
+
+        private async Task GrantCaissierRole(ApplicationUser user, IdentityResult result)
+        {
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Roles.Caissier.ToString()).ConfigureAwait(false);
+
+
+            }
+
+        }
+        private async Task GrantMagasinierRole(ApplicationUser user, IdentityResult result)
+        {
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Roles.Magasinier.ToString()).ConfigureAwait(false);
+
+
+            }
+
+        }
+        private async Task GrantGDARole(ApplicationUser user, IdentityResult result)
+        {
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Roles.GestionnaireAchat.ToString()).ConfigureAwait(false);
+
+
+            }
+
         }
 
         [Route("/api/accounts/confirmEmail/{userId}")]
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail([FromRoute] string userId, string token, string fullName)
         {
-            return await SendWithErrorsHandlingAsync(new ConfirmEmailCommad() {UserId= userId,Token=token,FullName=fullName });
+            return await SendWithErrorsHandlingAsync(new ConfirmEmailCommad() { UserId = userId, Token = token, FullName = fullName });
         }
     }
 }

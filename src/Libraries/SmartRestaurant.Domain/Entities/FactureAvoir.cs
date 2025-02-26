@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Entities
 {
@@ -30,7 +28,7 @@ namespace SmartRestaurant.Domain.Entities
 
     }
 
-    public class MotifModification 
+    public class MotifModification
     {
         public Guid Id { get; set; }
         public Guid IdAvoir { get; set; } // Identifiant de l'avoir lié à cette modification
@@ -74,7 +72,7 @@ namespace SmartRestaurant.Domain.Entities
         ProduitChange,
         PrixUnitaireVente,
         MontantHT
-        
+
         // Add other properties as needed
     }
 }

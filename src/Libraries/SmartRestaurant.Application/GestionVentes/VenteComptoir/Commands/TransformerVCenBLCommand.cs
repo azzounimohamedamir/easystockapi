@@ -3,12 +3,10 @@ using MediatR;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands
 {
-    public class TransformerBLenFactureCommand: IRequest<Created>
+    public class TransformerBLenFactureCommand : IRequest<Created>
     {
         public Client Client { get; set; }
         public Domain.Entities.Bl Bl { get; set; }

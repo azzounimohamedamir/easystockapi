@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
 using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Application.Common.Enums;
-using SmartRestaurant.Application.Common.Tools;
-using SmartRestaurant.Domain.Identity.Entities;
 
 namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {
@@ -27,12 +22,12 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             RuleFor(u => u.Id).NotEmpty();
 
 
-           
+
 
 
 
             RuleFor(invitedUser => invitedUser.Roles).NotEmpty();
-            
+
         }
     }
 }

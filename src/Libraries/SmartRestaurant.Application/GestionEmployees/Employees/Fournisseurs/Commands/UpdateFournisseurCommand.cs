@@ -1,9 +1,6 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Domain.Common.Enums;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
 
 namespace SmartRestaurant.Application.GestionEmployees.Employees.Fournisseurs.Commands
 {
@@ -31,7 +28,7 @@ namespace SmartRestaurant.Application.GestionEmployees.Employees.Fournisseurs.Co
         public UpdateFournisseurCommandValidator()
         {
             RuleFor(m => m.Id).NotEmpty().Must(id => id != Guid.Empty);
-          
+
         }
     }
 }

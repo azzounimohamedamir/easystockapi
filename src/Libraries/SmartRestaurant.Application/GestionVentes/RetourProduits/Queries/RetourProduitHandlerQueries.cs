@@ -1,31 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.GestionVentes.BonCommandeClient.Queries;
-using SmartRestaurant.Application.GestionVentes.BonCommandeClient.Queries.FilterStrategy;
-using SmartRestaurant.Application.GestionVentes.FactureProformat.Queries.FilterStrategy;
-using SmartRestaurant.Application.GestionVentes.FactureProformat.Queries;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
-using SmartRestaurant.Application.GestionAchats.BonsAchat.Queries.FilterStrategy;
-using SmartRestaurant.Application.GestionVentes.VenteParFac.Queries.FilterStrategy;
-using SmartRestaurant.Application.GestionVentes.VenteParFac.Queries;
 using SmartRestaurant.Application.GestionAchats.BonsAchat.Queries;
+using SmartRestaurant.Application.GestionAchats.BonsAchat.Queries.FilterStrategy;
 using SmartRestaurant.Application.GestionVentes.RetourProduits.Queries.FilterStrategy;
+using SmartRestaurant.Domain.Entities;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.GestionVentes.RetourProduits.Queries
 {
     public class RetourProduitHandlerQueries :
         IRequestHandler<GetListOfRetourProduitsQuery, PagedListDto<Domain.Entities.RetourProduitClient>>
-     
+
 
 
     {
@@ -42,8 +34,8 @@ namespace SmartRestaurant.Application.GestionVentes.RetourProduits.Queries
         public async Task<PagedListDto<Domain.Entities.RetourProduitClient>> Handle(GetListOfRetourProduitsQuery request, CancellationToken cancellationToken)
         {
             var validator = new GetListOfRetourProduitsQueryValidator();
-            
-            
+
+
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
@@ -53,7 +45,7 @@ namespace SmartRestaurant.Application.GestionVentes.RetourProduits.Queries
 
             var data = await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false);
 
-            
+
 
             return new PagedListDto<Domain.Entities.RetourProduitClient>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
@@ -95,4 +87,3 @@ namespace SmartRestaurant.Application.GestionVentes.RetourProduits.Queries
 
     }
 }
-    

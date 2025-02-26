@@ -2,9 +2,6 @@
 using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.GestionEmployees.Employees.Clients.Queries
 {

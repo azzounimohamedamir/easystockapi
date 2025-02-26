@@ -6,8 +6,8 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Queries.FilterSt
     {
         public static IFacFilterStrategy GetFilterStrategy()
         {
-            
-                    return new FilterFacByName();
+
+            return new FilterFacByName();
 
         }
     }

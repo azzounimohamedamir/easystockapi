@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using SmartRestaurant.Application.Common.Interfaces;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Email
 {
@@ -23,7 +22,7 @@ namespace SmartRestaurant.Application.Email
 
         public void SendEmail(string email, string subject, string message)
         {
-           
+
         }
 
         public Task Execute(string apiKey, string subject, string message, string email)

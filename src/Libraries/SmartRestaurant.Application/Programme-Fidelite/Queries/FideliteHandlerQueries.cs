@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Famille.Queries;
 using SmartRestaurant.Application.ProgrammeFidelite.Queries.FilterStrategy;
-using SmartRestaurant.Application.Stock.Queries;
-using SmartRestaurant.Application.Stock.Queries.FilterStrategy;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.ProgrammeFidelite.Queries
 {
@@ -34,14 +28,14 @@ namespace SmartRestaurant.Application.ProgrammeFidelite.Queries
             _mapper = mapper;
         }
 
-       
+
         public async Task<PagedListDto<ClientFideliteDto>> Handle(GetClientFideliteListQuery request, CancellationToken cancellationToken)
         {
             var validator = new GetClientFideliteListQueryValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-           
+
 
             var filter = FideliteStrategies.GetFilterStrategy(request.CurrentFilter);
             var query = filter.FetchData(_context.ClientFidelites, request);
@@ -58,8 +52,8 @@ namespace SmartRestaurant.Application.ProgrammeFidelite.Queries
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var clientFid = _context.ClientFidelites.FirstOrDefault(a=>a.Id== request.Id);
-                
+            var clientFid = _context.ClientFidelites.FirstOrDefault(a => a.Id == request.Id);
+
 
             var data = _mapper.Map<ClientFideliteDto>(clientFid);
 
@@ -84,5 +78,4 @@ namespace SmartRestaurant.Application.ProgrammeFidelite.Queries
 
 
     }
-        }
-    
+}

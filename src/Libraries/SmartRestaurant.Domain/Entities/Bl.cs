@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Entities
 {
@@ -15,6 +14,7 @@ namespace SmartRestaurant.Domain.Entities
         public string CodeBl { get; set; }
         public int Caisse { get; set; }
         public string NomCaissier { get; set; }
+        public decimal CouponPrice { get; set; }
 
         public DateTime Date { get; set; }
         public string Heure { get; set; }

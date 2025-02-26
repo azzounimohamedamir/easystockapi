@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
-using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Domain.Entities;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Stock.Queries
 {
     public class GetAllVenteComptoirListQuery : IRequest<List<VenteComptoir>>
     {
-      
+
 
 
     }
@@ -19,7 +16,7 @@ namespace SmartRestaurant.Application.Stock.Queries
     {
         public GetAllVenteComptoirListQueryValidator()
         {
-           
+
         }
     }
 }

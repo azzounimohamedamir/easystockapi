@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Options;
-using MimeKit.Text;
+﻿using MailKit.Net.Smtp;
+using Microsoft.Extensions.Options;
 using MimeKit;
+using MimeKit.Text;
 using SmartRestaurant.Application.Common.Interfaces;
 using System;
 using System.Threading.Tasks;
-using MailKit.Net.Smtp;
 
 namespace SmartRestaurant.Infrastructure.Email
 {

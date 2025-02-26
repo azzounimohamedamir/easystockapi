@@ -3,12 +3,10 @@ using MediatR;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Commands
 {
-    public class TransformerBCFenBACommand: IRequest<Created>
+    public class TransformerBCFenBACommand : IRequest<Created>
     {
         public Client Employe { get; set; }
         public Domain.Entities.BonCommandeFournisseur Bon { get; set; }

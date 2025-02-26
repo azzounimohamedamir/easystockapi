@@ -1,8 +1,7 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
+using System;
 
 namespace SmartRestaurant.Application.Depenses.Commands
 {
@@ -19,7 +18,7 @@ namespace SmartRestaurant.Application.Depenses.Commands
         public CreateDepenseCommandValidator()
         {
             RuleFor(m => m.Id).NotEmpty().Must(id => id != Guid.Empty);
-           
+
         }
     }
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Domain.Common.Enums;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
 
 namespace SmartRestaurant.Application.AdminArea.Commands
 {
@@ -22,7 +19,7 @@ namespace SmartRestaurant.Application.AdminArea.Commands
         public ResetLicenceCommandValidator()
         {
             RuleFor(m => m.Id).NotEmpty().Must(id => id != Guid.Empty);
-          
+
         }
     }
 }

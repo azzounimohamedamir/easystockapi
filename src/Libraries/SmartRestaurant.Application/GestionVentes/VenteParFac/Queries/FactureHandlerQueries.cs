@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.GestionVentes.VenteComptoir.Queries.FilterStrategy;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Queries.FilterStrategy;
 using SmartRestaurant.Application.GestionVentes.VenteParFac.Queries.FilterStrategy;
-using SmartRestaurant.Application.Stock.Queries;
-using SmartRestaurant.Application.Stock.Queries.FilterStrategy;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Queries
 {
@@ -35,20 +28,20 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Queries
             _mapper = mapper;
         }
 
-       
+
         public async Task<PagedListDto<FactureDto>> Handle(GetFacturesListQuery request, CancellationToken cancellationToken)
         {
             var validator = new GetFacturesListQueryValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-           
+
 
             var filter = FacStrategies.GetFilterStrategy();
             var query = filter.FetchData(_context.Factures, request);
 
-            var data = _mapper.Map<List<FactureDto>> (await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
-                
+            var data = _mapper.Map<List<FactureDto>>(await query.Data.ToListAsync(cancellationToken).ConfigureAwait(false));
+
             return new PagedListDto<FactureDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
 
@@ -88,4 +81,3 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Queries
 
     }
 }
-    

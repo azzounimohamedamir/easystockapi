@@ -1,12 +1,10 @@
 ﻿using SmartRestaurant.Domain.Common;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Domain.ValueObjects
 {
     public class Names : ValueObject
-    { 
+    {
         public string AR { get; set; }
         public string EN { get; set; }
         public string FR { get; set; }
@@ -19,7 +17,7 @@ namespace SmartRestaurant.Domain.ValueObjects
                 AR,
                 EN,
                 FR,
-                TR, 
+                TR,
                 RU
             };
         }

@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Dashboard.Queries;
-using SmartRestaurant.Application.Stock.Queries;
-using SmartRestaurant.Application.Stock.Queries.FilterStrategy;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Famille.Queries
 {
@@ -30,7 +24,7 @@ namespace SmartRestaurant.Application.Famille.Queries
             _mapper = mapper;
         }
 
-       
+
         public async Task<MonthStatsDto> Handle(GetMonthStatsQuery request, CancellationToken cancellationToken)
         {
 
@@ -45,7 +39,7 @@ namespace SmartRestaurant.Application.Famille.Queries
             var barange = _context.BonAchats.Where(v => v.Date.Month == DateTime.Now.Month).ToList();
 
 
-          
+
 
             var venteComptoirIds = vcRange.Select(vc => vc.Id).ToList();
             var BAIds = barange.Select(ba => ba.Id).ToList();
@@ -73,10 +67,10 @@ namespace SmartRestaurant.Application.Famille.Queries
                     TotalQuantity = g.Sum(p => p.Qte)
                 }).ToList();
 
-           
+
 
             var allProducts = vcProductsCurrentMonth
-   
+
     .GroupBy(p => p.Designation)
     .Select(g => new ProduitVQteDto
     {
@@ -297,7 +291,6 @@ namespace SmartRestaurant.Application.Famille.Queries
             return MonthStats;
         }
 
-       
-            }
-        }
-    
+
+    }
+}

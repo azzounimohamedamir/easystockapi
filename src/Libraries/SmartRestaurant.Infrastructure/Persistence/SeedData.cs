@@ -9,7 +9,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-           
+
 
             modelBuilder.Entity<Client>().HasData(new Client
             {
@@ -19,7 +19,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 Email = "guest-client@gmail.com",
                 DateEcheance = DateTime.Now.AddYears(10),
                 IsDisabled = false,
-                Addresse = "",
+                Addresse = "Adresse",
                 FullName = "Client Comptoir",
                 IsBanned = false,
                 Nic = 45421845214,
@@ -28,7 +28,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
                 Numarticle = 0,
                 Tel = "0561596837",
                 TotalAvances = 0,
-                TotalCredits = 0
+                TotalCredits = 0,
+
             });
 
 
@@ -36,4 +37,4 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
     }
 }
-    
+

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Application.Common.Dto;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
 
 namespace SmartRestaurant.Application.GestionVentes.Caisses.Commands
 {
@@ -23,7 +19,7 @@ namespace SmartRestaurant.Application.GestionVentes.Caisses.Commands
         public CreateCaisseCommandValidator()
         {
             RuleFor(m => m.Id).NotEmpty().Must(id => id != Guid.Empty);
-           
+
 
         }
     }

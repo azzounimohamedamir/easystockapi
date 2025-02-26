@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Transactions;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -13,11 +7,13 @@ using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
-
-using SmartRestaurant.Application.Common.Enums;
-using SmartRestaurant.Domain.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Transactions;
 
 namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {
@@ -51,11 +47,11 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             _emailSender = emailSender;
         }
 
-     
 
-       
 
-      
+
+
+
 
         #region UserAcceptsInvitationToJoinOrganizationHandler
 
@@ -106,7 +102,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             if (!IsExist)
             {
                 await CreateUserAndAssignRolesToHim(request, newUser).ConfigureAwait(false);
-                
+
                 await SendConfirmationEmail(newUser);
                 return default;
             }
@@ -115,7 +111,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
                 var newapplicationUser = _identcontext.ApplicationUser.Where(a => a.Email == newUser.Email).FirstOrDefault();
                 var newapplicationUserId = newapplicationUser.Id;
 
-               
+
                 await SendConfirmationEmail(newapplicationUser);
 
                 return default;
@@ -129,7 +125,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         public async Task<NoContent> Handle(UpdateProfilUserCommand request,
            CancellationToken cancellationToken)
         {
-          
+
             var newUser = _mapper.Map<ApplicationUser>(request);
             var user = _identcontext.ApplicationUser.FirstOrDefault(a => a.Id == request.Id.ToString());
 
@@ -182,15 +178,15 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);// Save changes to 
 
 
-          
+
 
 
 
 
             return default;
-            }
+        }
 
-        
+
 
         private async Task CreateUserAndAssignRolesToHim(InviteUserToJoinOrganizationCommand request,
             ApplicationUser newUser)
@@ -215,7 +211,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
             {
                 return true;
             }
-                return false;
+            return false;
 
         }
 
@@ -223,7 +219,7 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
         {
             foreach (var role in roles) await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
         }
-       
+
         private async Task SendConfirmationEmail(ApplicationUser user)
         {
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -242,6 +238,6 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 
         #endregion
 
-      
+
     }
 }

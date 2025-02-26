@@ -1,20 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
-using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.GestionVentes.FactureProformat.Commands;
+using SmartRestaurant.Application.GestionVentes.FactureProformat.Queries;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
-using SmartRestaurant.Application.Stock.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteParFac.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteParFac.Commands;
-using SmartRestaurant.Application.GestionVentes.FactureProformat.Queries;
-using SmartRestaurant.Application.GestionVentes.FactureProformat.Commands;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -32,16 +22,16 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllFacturesProformat(string currentFilter, int page, int pageSize)
         {
-           return await SendWithErrorsHandlingAsync(new GetFacturesProListQuery
+            return await SendWithErrorsHandlingAsync(new GetFacturesProListQuery
             {
 
-               Page = page,
-               PageSize = pageSize,
-               CurrentFilter= currentFilter,
+                Page = page,
+                PageSize = pageSize,
+                CurrentFilter = currentFilter,
             });
         }
 
-       
+
 
 
         /// <summary> AddNewFactureProformat </summary>
@@ -54,7 +44,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
-       // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
+        // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         public async Task<IActionResult> Create(CreateFactureProformatCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -62,9 +52,9 @@ namespace SmartRestaurant.API.Controllers
 
 
 
-   
 
-    
+
+
 
 
         /// <summary> UpdateFacPro() </summary>
@@ -79,7 +69,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<IActionResult> Update( UpdateFactureProformatCommand command)
+        public async Task<IActionResult> Update(UpdateFactureProformatCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }

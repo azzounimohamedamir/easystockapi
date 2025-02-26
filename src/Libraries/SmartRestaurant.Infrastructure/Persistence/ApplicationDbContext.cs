@@ -1,14 +1,8 @@
-﻿using Google.Api;
-using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Entities.Globalisation;
-using SmartRestaurant.Domain.Enums;
-using System.Drawing;
-using System;
 
 namespace SmartRestaurant.Infrastructure.Persistence
 {
@@ -37,7 +31,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<LignesInventaireEquipe> LignesInventaireEquipes { get; set; }
         public DbSet<InventaireEquipe> InventaireEquipes { get; set; }
         public DbSet<LignesInventaireFinal> LignesInventaireFinals { get; set; }
-       
+
 
         public DbSet<MouvementStock> MouvementStocks { get; set; }
 
@@ -50,7 +44,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
         public DbSet<AvanceClients> AvanceClients { get; set; }
         public DbSet<DefaultConfigLog> DefaultConfigLogs { get; set; }
 
-    
+
         public DbSet<Reglement_Acompte_Facture_Client> Reglement_Acompte_Facture_Clients { get; set; }
         public DbSet<Reglement_Acompte_BA_Fournisseur> Reglement_Acompte_BA_Fournisseurs { get; set; }
         public DbSet<VenteComptoir> VenteComptoirs { get; set; }
@@ -117,9 +111,9 @@ namespace SmartRestaurant.Infrastructure.Persistence
 .HasKey(vp => vp.Id);
 
 
-           
-            
-      
+
+
+
 
             modelBuilder.Entity<Reglement_Acompte_Facture_Client>()
   .HasKey(vp => vp.Id);
@@ -144,7 +138,7 @@ namespace SmartRestaurant.Infrastructure.Persistence
      .HasKey(vp => vp.Id);
 
             modelBuilder.Entity<FactureProformat>()
-           .HasKey(f => f.Id);          
+           .HasKey(f => f.Id);
 
             modelBuilder.Entity<VenteComptoirProducts>()
           .HasKey(vp => vp.Id);
@@ -159,8 +153,8 @@ namespace SmartRestaurant.Infrastructure.Persistence
 
 
 
-            
-         
+
+
 
             modelBuilder.Entity<RetourProduitClient>()
          .HasKey(cl => cl.Id);
@@ -243,12 +237,12 @@ namespace SmartRestaurant.Infrastructure.Persistence
      .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
 
 
-         
-
-           
 
 
-          
+
+
+
+
 
             // Optionally, configure the primary key and foreign key constraints if necessary
             modelBuilder.Entity<ProductAttributeValue>()

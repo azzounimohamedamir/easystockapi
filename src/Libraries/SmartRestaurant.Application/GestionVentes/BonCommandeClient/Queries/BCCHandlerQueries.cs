@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.GestionVentes.BonCommandeClient.Queries;
 using SmartRestaurant.Application.GestionVentes.BonCommandeClient.Queries.FilterStrategy;
-using SmartRestaurant.Application.GestionVentes.FactureProformat.Queries.FilterStrategy;
-using SmartRestaurant.Application.GestionVentes.FactureProformat.Queries;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Queries
 {
@@ -45,12 +39,12 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Queries
             foreach (var item in data)
             {
                 var bonProductsList = _context.BcProducts.Where(fac => fac.BcId == item.Id).ToList();
-                item.BcProducts = _mapper.Map<List<BcProductsDto>>( bonProductsList);
+                item.BcProducts = _mapper.Map<List<BcProductsDto>>(bonProductsList);
 
                 foreach (var BonProItem in item.BcProducts)
                 {
                     var selectedStock = _context.Stocks.FirstOrDefault(s => s.Id == BonProItem.SelectedStockId);
-                    BonProItem.SelectedStock = _mapper.Map<StockDto>(selectedStock); 
+                    BonProItem.SelectedStock = _mapper.Map<StockDto>(selectedStock);
                 }
             }
 
@@ -59,5 +53,4 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Queries
 
 
     }
-        }
-    
+}

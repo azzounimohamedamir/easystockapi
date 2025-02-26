@@ -1,13 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
-using SmartRestaurant.Application.Common.Dtos;
-using Swashbuckle.AspNetCore.Annotations;
-using System;
 using SmartRestaurant.Application.GestionVentes.Caisses.Commands;
 using SmartRestaurant.Application.GestionVentes.Caisses.Queries;
-using SmartRestaurant.Application.Stock.Queries;
+using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -25,12 +23,12 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCaisseList(string currentFilter, int page, int pageSize)
         {
-           return await SendWithErrorsHandlingAsync(new GetCaissesListQuery
+            return await SendWithErrorsHandlingAsync(new GetCaissesListQuery
             {
 
-               Page = page,
-               PageSize = pageSize,
-               CurrentFilter= currentFilter,
+                Page = page,
+                PageSize = pageSize,
+                CurrentFilter = currentFilter,
             });
         }
 

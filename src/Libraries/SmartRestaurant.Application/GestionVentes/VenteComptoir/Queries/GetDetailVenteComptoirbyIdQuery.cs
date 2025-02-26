@@ -1,7 +1,6 @@
-﻿using System;
-using MediatR;
-using SmartRestaurant.Application.Common.Dtos;
+﻿using MediatR;
 using SmartRestaurant.Domain.Entities;
+using System;
 
 namespace SmartRestaurant.Application.Menus.Queries
 {

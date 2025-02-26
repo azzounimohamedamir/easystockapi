@@ -1,8 +1,6 @@
-using System;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Infrastructure.Identity.Enums;
+using System.Security.Claims;
 
 namespace SmartRestaurant.Infrastructure.Identity.Services
 {
@@ -36,7 +34,7 @@ namespace SmartRestaurant.Infrastructure.Identity.Services
                 return oldrole;
         }
 
-       public void SetNewRole(string role)
+        public void SetNewRole(string role)
         {
             oldrole = role;
         }

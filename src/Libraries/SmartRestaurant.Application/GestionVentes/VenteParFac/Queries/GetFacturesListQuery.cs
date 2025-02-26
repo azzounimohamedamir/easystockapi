@@ -1,10 +1,6 @@
-﻿using System;
-using FluentValidation;
-using MediatR;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Common.Tools;
-using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Queries
 {
@@ -16,7 +12,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Queries
         public int Caisse { get; set; }
 
     }
-   
+
 
     public class GetFacturesListQueryValidator : AbstractValidator<GetFacturesListQuery>
     {

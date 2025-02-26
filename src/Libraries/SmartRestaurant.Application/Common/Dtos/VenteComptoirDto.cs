@@ -1,9 +1,8 @@
 ﻿using SmartRestaurant.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
@@ -42,7 +41,7 @@ namespace SmartRestaurant.Application.Common.Dtos
         public ClientDto Client { get; set; }
 
         // You may choose to include only relevant information about the products, not the entire list
-        
+
 
     }
 }

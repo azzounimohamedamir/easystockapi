@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Entities
 {
@@ -14,9 +12,7 @@ namespace SmartRestaurant.Domain.Entities
         public decimal Withdraw { get; set; }
 
 
-        // Relations
-        public Guid NiveauFideliteId { get; set; }
-        public NiveauFidelite NiveauFidelite { get; set; }
+       
 
     }
 }

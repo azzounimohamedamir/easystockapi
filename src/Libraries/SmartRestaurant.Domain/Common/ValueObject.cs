@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace SmartRestaurant.Domain.Common
 {
@@ -24,7 +24,7 @@ namespace SmartRestaurant.Domain.Common
         {
             if (obj == null || obj.GetType() != GetType()) return false;
 
-            var other = (ValueObject) obj;
+            var other = (ValueObject)obj;
             var thisValues = GetAtomicValues().GetEnumerator();
             var otherValues = other.GetAtomicValues().GetEnumerator();
 

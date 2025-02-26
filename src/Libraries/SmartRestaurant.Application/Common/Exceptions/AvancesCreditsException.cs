@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Application.Common.Exceptions
+﻿namespace SmartRestaurant.Application.Common.Exceptions
 {
     public class AvancesCreditsException : BaseException
     {

@@ -1,6 +1,4 @@
-﻿using SmartRestaurant.Application.GestionVentes.Caisses.Queries.FilterStrategy;
-
-namespace SmartRestaurant.Application.GestionVentes.Caisses.Queries.FilterStrategy
+﻿namespace SmartRestaurant.Application.GestionVentes.Caisses.Queries.FilterStrategy
 {
     public static class CaisseStrategies
     {

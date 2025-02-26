@@ -1,9 +1,7 @@
-﻿using System;
+﻿using SmartRestaurant.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using SmartRestaurant.Domain.Entities;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {

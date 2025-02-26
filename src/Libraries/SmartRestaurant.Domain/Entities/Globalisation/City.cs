@@ -1,6 +1,5 @@
-﻿using System;
-using SmartRestaurant.Domain.Common;
-using SmartRestaurant.Domain.ValueObjects;
+﻿using SmartRestaurant.Domain.Common;
+using System;
 
 namespace SmartRestaurant.Domain.Entities.Globalisation
 {

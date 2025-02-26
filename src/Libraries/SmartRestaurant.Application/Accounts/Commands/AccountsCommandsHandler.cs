@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿using FluentValidation.Results;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
-using FluentValidation.Results;
 using SmartRestaurant.Application.Common.Configuration;
 using SmartRestaurant.Application.Common.Configuration.SocialMedia;
 using SmartRestaurant.Application.Common.Dtos;
@@ -14,19 +14,17 @@ using SmartRestaurant.Domain.Identity.Entities;
 using SmartRestaurant.Domain.Identity.Enums;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
-using System.Linq;
-using SmartRestaurant.Application.Email;
-using System.Net.NetworkInformation;
 
 namespace SmartRestaurant.Application.Accounts.Commands
 {
-    public class AccountsCommandsHandler : 
+    public class AccountsCommandsHandler :
         IRequestHandler<ForgetPasswordCommand, NoContent>,
         IRequestHandler<ResetPasswordCommand, NoContent>,
-        IRequestHandler<AuthenticateViaSocialMediaCommand, LoginResponseDto>,
         IRequestHandler<SendEmailConfirmationCommand, NoContent>,
         IRequestHandler<ConfirmEmailCommad, NoContent>
     {
@@ -39,7 +37,7 @@ namespace SmartRestaurant.Application.Accounts.Commands
         private readonly IEmailSender _emailSender;
         public AccountsCommandsHandler(UserManager<ApplicationUser> userManager,
             IOptions<WebPortal> webPortal, IOptions<EmailTemplates> emailTemplates, IUserService userService,
-            IOptions<Authentication> authentication, IMemoryCache cache,IEmailSender emailSender)
+            IOptions<Authentication> authentication, IMemoryCache cache, IEmailSender emailSender)
         {
             _userManager = userManager;
             _webPortal = webPortal;
@@ -63,14 +61,14 @@ namespace SmartRestaurant.Application.Accounts.Commands
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false); ;
             SendResetPasswordEmail(user, token);
-            
+
             return default;
         }
 
-       
+
 
         private void SendResetPasswordEmail(ApplicationUser user, string token)
-        {   
+        {
             var webPortalHost = _webPortal.Value.host;
             var webPortalPathToResetPassword = _webPortal.Value.pathToResetPassword
                 .Replace("{id}", user.Id)
@@ -108,57 +106,6 @@ namespace SmartRestaurant.Application.Accounts.Commands
         #endregion
 
         #region Authenticate via social media handler
-        public async Task<LoginResponseDto> Handle(AuthenticateViaSocialMediaCommand request, CancellationToken cancellationToken)
-        {
-            var user = await _userManager.FindByEmailAsync(request.Email);
-            var mac = this.GetMacAddress();
-
-            if (user != null && (user.EmailConfirmed == false || user.IsActive == false))
-            {
-                throw new UnauthorizedException();
-            }
-            else if (user == null)
-            {
-                user = new ApplicationUser
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    UserName = request.Email,
-                    Email = request.Email,
-                    FullName = request.Name,
-                    IsActive = true,
-                    EmailConfirmed = true
-                };
-
-                using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    var userCreationResult = await _userManager.CreateAsync(user);
-                    if (!userCreationResult.Succeeded)
-                        throw new AccountCreationException(userCreationResult.Errors);
-                  
-                    var AddRoleManagerToUserResult = await _userManager.AddToRoleAsync(user, Roles.Manager.ToString()).ConfigureAwait(false);
-
-                    if (!AddRoleManagerToUserResult.Succeeded)
-                        throw new UserManagerException(AddRoleManagerToUserResult.Errors);
-                   
-
-                    transaction.Complete();
-                }
-            }
-            var roles = await _userManager.GetRolesAsync(user);
-                
-            var AddRoleManagerToUserResult2 = await _userManager.AddToRoleAsync(user, Roles.SuperAdmin.ToString()).ConfigureAwait(false);
-            roles.Remove(Roles.Diner.ToString());
-            roles.Remove(Roles.Diner.ToString());
-            var token = await TokenGenerator.Generate(user, _userManager, _authentication.Value.Jwt);
-            return new LoginResponseDto
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Roles = (List<string>)roles,
-                Token = token,
-                EmailConfirmed = user.EmailConfirmed
-            };
-        }
 
         private string GetMacAddress()
         {
@@ -200,7 +147,7 @@ namespace SmartRestaurant.Application.Accounts.Commands
 
 
         #endregion
-        
+
         #region Confirmation Email
         public async Task<NoContent> Handle(ConfirmEmailCommad request, CancellationToken cancellationToken)
         {
@@ -209,7 +156,7 @@ namespace SmartRestaurant.Application.Accounts.Commands
             if (!result.IsValid) throw new ValidationException(result);
             var user = await _userManager.FindByIdAsync(request.UserId).ConfigureAwait(false);
             if (user == null)
-                throw new NotFoundException("User",HexaDecimalHelper.FromHexString(request.FullName));
+                throw new NotFoundException("User", HexaDecimalHelper.FromHexString(request.FullName));
             var convertedTocken = Application.Common.Tools.HexaDecimalHelper.FromHexString(request.Token);
             var Confirmresult = await _userManager.ConfirmEmailAsync(user, convertedTocken).ConfigureAwait(false);
             if (!Confirmresult.Succeeded && Confirmresult.Errors.Any())
@@ -221,8 +168,8 @@ namespace SmartRestaurant.Application.Accounts.Commands
 
         protected Task SendPassword(string email, string password)
         {
-           _emailSender.SendEmail(email, "Password", $"Please use this Password: {password} to sign in to your account");
-           return default;
+            _emailSender.SendEmail(email, "Password", $"Please use this Password: {password} to sign in to your account");
+            return default;
         }
         #endregion
 

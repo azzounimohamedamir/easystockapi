@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using FluentValidation.Results;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using SmartRestaurant.Application.Accounts.Commands;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Domain.Identity.Entities;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -52,14 +48,19 @@ namespace SmartRestaurant.API.Controllers
                     if (exception is BaseException result)
                         return StatusCode(result.StatusCode, new
                         {
-                            result.Message, result.Errors
+                            result.Message,
+                            result.Errors
                         });
 
                 return StatusCode(500, exception.Message);
             }
         }
 
-
+        protected Task ConfirmEmailCommad(ApplicationUser user, string code)
+        {
+            Mediator.Send(new ConfirmEmailCommad() { UserId = user.Id, Token = code , FullName = user.FullName });
+            return Task.CompletedTask;
+        }
         protected Task SendEmailConfirmation(ApplicationUser user, string code)
         {
             Mediator.Send(new SendEmailConfirmationCommand() { User = user, token = code });

@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.GestionStock.Stock.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Queries;
-using SmartRestaurant.Application.Menus.Queries;
-using SmartRestaurant.Application.Stock.Queries;
 using SmartRestaurant.Application.Stock.Queries.FilterStrategy;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Stock.Queries
 {
     public class StockHandlerQueries :
         IRequestHandler<GetStockListQuery, PagedListDto<StockDto>>,
-        IRequestHandler<GetCaisseStatsQuery,CaisseDto>,
+        IRequestHandler<GetCaisseStatsQuery, CaisseDto>,
         IRequestHandler<GetAllStockListQuery, List<StockDto>>,
         IRequestHandler<GetCategorieQuery, CategoryDto>,
         IRequestHandler<GetProductByCodebarQuery, StockDto>
@@ -37,19 +31,19 @@ namespace SmartRestaurant.Application.Stock.Queries
             _mapper = mapper;
         }
 
-       
+
         public async Task<PagedListDto<StockDto>> Handle(GetStockListQuery request, CancellationToken cancellationToken)
         {
             var validator = new GetStockListQueryValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-           
 
-            var filter = StockStrategies.GetFilterStrategy(request.CurrentFilter , request.FilterCriteriaData);
+
+            var filter = StockStrategies.GetFilterStrategy(request.CurrentFilter, request.FilterCriteriaData);
             var query = filter.FetchData(_context.Stocks, request);
             var data = _mapper.Map<List<StockDto>>(query.Data.ToList());
-           
+
 
             if (request.FilterCriteriaData.Count != 0)
             {
@@ -57,9 +51,9 @@ namespace SmartRestaurant.Application.Stock.Queries
                 var criteriaDict = request.FilterCriteriaData
                     .ToDictionary(item => item.Attribute, item => item.Value);
 
-                 data= FilterStockList(data, criteriaDict);
+                data = FilterStockList(data, criteriaDict);
 
-   
+
             }
             return new PagedListDto<StockDto>(query.CurrentPage, query.PageCount, query.PageSize, query.RowCount, data);
         }
@@ -120,7 +114,7 @@ namespace SmartRestaurant.Application.Stock.Queries
             var query = _context.Stocks.ToList();
             var data = _mapper.Map<List<StockDto>>(query);
 
-            return  data;
+            return data;
         }
 
         public async Task<CategoryDto> Handle(GetCategorieQuery request, CancellationToken cancellationToken)
@@ -139,7 +133,7 @@ namespace SmartRestaurant.Application.Stock.Queries
             // Fetch all categories asynchronously
 
             // Map the results to DTOs
-           
+
             var data = _mapper.Map<CategoryDto>(categories[0]);
 
             return data; // Return the mapped data
@@ -157,7 +151,7 @@ namespace SmartRestaurant.Application.Stock.Queries
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var vcRange = _context.VenteComptoirs.Include(p=>p.VenteComptoirIncludedProducts).Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
+            var vcRange = _context.VenteComptoirs.Include(p => p.VenteComptoirIncludedProducts).Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
             var facturesRange = _context.Factures.Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
             var blsrange = _context.Bls.Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
             var barange = _context.BonAchats.Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
@@ -165,7 +159,7 @@ namespace SmartRestaurant.Application.Stock.Queries
             var bcfrange = _context.BonCommandeFournisseurs.Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
             var fprange = _context.factureProformats.Where(v => v.Date.Date <= request.EndDate.Date && v.Date.Date >= request.StartDate.Date).ToList();
 
-             
+
             var venteComptoirIds = vcRange.Select(vc => vc.Id).ToList();
             var FacIds = vcRange.Select(fac => fac.Id).ToList();
             var BlsIds = vcRange.Select(bl => bl.Id).ToList();
@@ -179,9 +173,9 @@ namespace SmartRestaurant.Application.Stock.Queries
             decimal recetteBenifice = 0;
             foreach (var item in vcRange)
             {
-              
-                    recetteBenifice = item.Benifice + recetteBenifice;
-                
+
+                recetteBenifice = item.Benifice + recetteBenifice;
+
             }
             CaisseDto CaisseState = new CaisseDto
             {
@@ -191,11 +185,11 @@ namespace SmartRestaurant.Application.Stock.Queries
             .Sum()),
                 RecetteVentesNet = (vcRange.Select(q => q.MontantTotalHTApresRemise).Sum()),
                 StockTotalValeurReste = ValueOfStockRest,
-                RecetteBenifice = recetteBenifice ,
-                RecetteBenificeNet = recetteBenifice -((barange.Select(q => q.MontantTotalTTC).Sum()) + (_context.Depenses.Where(v => v.CreatedAt.Date <= request.EndDate.Date && v.CreatedAt.Date >= request.StartDate.Date).Select(q => q.Somme).Sum())),
+                RecetteBenifice = recetteBenifice,
+                RecetteBenificeNet = recetteBenifice - ((barange.Select(q => q.MontantTotalTTC).Sum()) + (_context.Depenses.Where(v => v.CreatedAt.Date <= request.EndDate.Date && v.CreatedAt.Date >= request.StartDate.Date).Select(q => q.Somme).Sum())),
                 // Bénifice
                 BenificeNet = 0,
- 
+
                 // Total Quantity Acheté
 
                 TotalQteAchete = _context.BAProducts.Where(vp => BAIds.Contains(vp.BAId)).Select(q => q.Qte).Sum(),
@@ -243,4 +237,3 @@ namespace SmartRestaurant.Application.Stock.Queries
 
     }
 }
-    

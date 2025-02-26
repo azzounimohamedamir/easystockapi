@@ -23,7 +23,7 @@ namespace SmartRestaurant.API.Swagger
                     Default = new OpenApiString("en"),
                     Type = "string"
                 }
-            }); 
+            });
         }
     }
 }

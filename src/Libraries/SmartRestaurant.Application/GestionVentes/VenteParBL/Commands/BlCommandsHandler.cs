@@ -1,29 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Http.Internal;
-using Newtonsoft.Json;
-
 using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
 using SmartRestaurant.Application.Common.Exceptions;
-
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
-using SmartRestaurant.Application.Stock.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using ValidationException = SmartRestaurant.Application.Common.Exceptions.ValidationException;
-using static System.Net.WebRequestMethods;
-using Org.BouncyCastle.Crypto.Generators;
 
 namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
 {
@@ -55,10 +45,10 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
                 Id = Guid.NewGuid(),
                 Date = DateTime.Now,
                 Heure = DateTime.Now.ToString("hh:mm:ss"),
-                Conducteur=request.Conducteur,
-                MatriculeVeh=request.MatriculeVeh,
-                LieuLivraison=request.LieuLivraison,
-                NomVehicule=request.NomVehicule,
+                Conducteur = request.Conducteur,
+                MatriculeVeh = request.MatriculeVeh,
+                LieuLivraison = request.LieuLivraison,
+                NomVehicule = request.NomVehicule,
                 VendeurId = new Guid(),
                 NomCaissier = request.NomCaissier,
                 Caisse = request.Caisse,
@@ -93,18 +83,18 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
                     Qte = item.Qte,
                     MontantHT = item.MontantHT,
                     MontantTTC = item.MontantTTC,
-                    MontantTVA= item.MontantTVA,
-                    HasReduction= item.HasReduction,
-                    LastPuv=item.LastPuv,
-                    Reduction=item.Reduction,
+                    MontantTVA = item.MontantTVA,
+                    HasReduction = item.HasReduction,
+                    LastPuv = item.LastPuv,
+                    Reduction = item.Reduction,
                     Puv = item.Puv,
                     Image = stockMatch.Image,
-                    SelectedStockId= stockMatch.Id,
-                    SelectedStock= stockMatch
+                    SelectedStockId = stockMatch.Id,
+                    SelectedStock = stockMatch
                 };
                 _context.BlProducts.Add(blp);
                 await AddSortieStock(blp, bl, cancellationToken);
-                await Destocker(blp,cancellationToken);
+                await Destocker(blp, cancellationToken);
 
             }
             );
@@ -115,7 +105,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
 
         public async Task AddSortieStock(BlProducts blp, Domain.Entities.Bl bl, CancellationToken cancellationToken)
         {
-            
+
 
 
             MouvementStock mvt = new MouvementStock
@@ -163,26 +153,27 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
             if (_context.Bls.Count() == 0)
             {
                 return 1;
-            }else
+            }
+            else
             {
                 return _context.Bls.Max(f => f.Numero) + 1;
             }
         }
 
-        public async Task  Destocker ( BlProducts blp, CancellationToken cancellationToken)
+        public async Task Destocker(BlProducts blp, CancellationToken cancellationToken)
         {
             var DestockedProduct = _context.Stocks.Where(p => p.Designaation == blp.Designation).FirstOrDefault();
-           
+
             DestockedProduct.QteRestante = DestockedProduct.QteRestante - blp.Qte;
             _context.Stocks.Update(DestockedProduct);
         }
 
-      
+
 
         public async Task Restorer(BlProducts blp, CancellationToken cancellationToken)
         {
             var RestoredProduct = _context.Stocks.Where(p => p.Designaation == blp.Designation).FirstOrDefault();
-            
+
             RestoredProduct.QteRestante = RestoredProduct.QteRestante + blp.Qte;
             _context.Stocks.Update(RestoredProduct);
         }
@@ -193,7 +184,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var bl =  _context.Bls.Include(v=>v.BlProducts).FirstOrDefault();
+            var bl = _context.Bls.Include(v => v.BlProducts).FirstOrDefault();
             if (bl == null)
                 throw new NotFoundException(nameof(Stock), request.Id);
 
@@ -222,7 +213,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
 
 
             _context.Bls.Remove(bl);
-            
+
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
@@ -234,15 +225,15 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
             if (!result.IsValid) throw new ValidationException(result);
 
             var bl = await _context.Bls
-                .Include(vp => vp.BlProducts).Include(c=>c.Client)
+                .Include(vp => vp.BlProducts).Include(c => c.Client)
                 .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken)
                 .ConfigureAwait(false);
-            var client = _context.Clients.Where(c => c.Id == request.ClientId).FirstOrDefault(); 
+            var client = _context.Clients.Where(c => c.Id == request.ClientId).FirstOrDefault();
             if (bl == null)
                 throw new NotFoundException(nameof(Stock), request.Id);
 
 
-           
+
             // Restore old products quantities to stock
             foreach (var item in bl.BlProducts)
             {
@@ -250,7 +241,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             }
 
-            
+
 
 
             // Remove old products included in bl
@@ -270,8 +261,8 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
                     Designation = item.Designation,
                     Qte = item.Qte,
                     MontantHT = item.MontantHT,
-                    MontantTTC= item.MontantTTC,
-                    MontantTVA= item.MontantTVA,
+                    MontantTTC = item.MontantTTC,
+                    MontantTVA = item.MontantTVA,
                     Puv = item.Puv,
                     Image = stockMatch.Image,
                     SelectedStockId = stockMatch.Id,
@@ -279,7 +270,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
                 };
 
 
-               
+
 
                 _context.BlProducts.Add(blp);
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -341,7 +332,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
             bl.MontantTotalHT = request.MontantTotalHT;
             bl.MontantTotalTVA = request.MontantTotalTVA;
             bl.MontantTotalTTC = request.MontantTotalTTC;
-            bl.RestTotal=request.RestTotal;
+            bl.RestTotal = request.RestTotal;
             bl.MontantTotalHTApresRemise = request.MontantTotalHTApresRemise;
             bl.Client = client;
             bl.Remise = request.Remise;
@@ -354,7 +345,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
             bl.VendeurId = request.VendeurId;
             bl.ClientId = client.Id;
             bl.Timbre = request.Timbre;
-            bl.Heure=bl.Heure;
+            bl.Heure = bl.Heure;
             _context.Bls.Update(bl);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
@@ -371,7 +362,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var Bls = _context.Bls.Where(c => c.ClientId == request.Client.Id && c.Date<=request.Datef && c.Date >= request.Dated).Include(a=>a.BlProducts).ToList();
+            var Bls = _context.Bls.Where(c => c.ClientId == request.Client.Id && c.Date <= request.Datef && c.Date >= request.Dated).Include(a => a.BlProducts).ToList();
             var blgrouped = new Domain.Entities.Bl()
             {
                 Id = Guid.NewGuid(),
@@ -382,13 +373,13 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
                 MontantTotalTTC = Bls.Select(s => s.MontantTotalTTC).Sum(),
                 MontantTotalTVA = Bls.Select(s => s.MontantTotalTVA).Sum(),
                 DateEcheance = DateTime.Now,
-                DateFermuture= DateTime.Now,
+                DateFermuture = DateTime.Now,
                 MontantTotalHT = Bls.Select(s => s.MontantTotalHT).Sum(),
                 Remise = Bls.Select(s => s.Remise).Sum(),
                 ClientId = request.Client.Id,
                 Client = request.Client,
                 RestTotal = 0,
-                BlProducts= null
+                BlProducts = null
             };
 
             blgrouped.BlProducts = Bls
@@ -406,7 +397,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
                     MontantTVA = group.Sum(product => product?.MontantTVA ?? 0),
                     // Handle null Montant by using a default value (e.g., 0)
                     Puv = group.First()?.Puv ?? 0, // Handle null Puv by using a default value (e.g., 0)
-                    Image= group.First()?.Image                             // Image and SelectedStock properties can be set similarly
+                    Image = group.First()?.Image                             // Image and SelectedStock properties can be set similarly
                 })
                 .ToList();
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -438,15 +429,16 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
                     {
                         Id = newFactureId, // Use the generated Id
                         Date = request.Bl.Date,
-                        BlId=request.Bl.Id,
-                        VcId=request.Bl.VcId,
+                        BlId = request.Bl.Id,
+                        VcId = request.Bl.VcId,
                         CodeF = GenerateCodeF(request.Bl.Caisse),
-                        NomCaissier=request.Bl.NomCaissier,
+                        NomCaissier = request.Bl.NomCaissier,
                         Heure = request.Bl.Date.ToShortTimeString(),
                         VendeurId = new Guid(),
                         MontantTotalHTApresRemise = request.Bl.MontantTotalHTApresRemise,
                         MontantTotalHT = request.Bl.MontantTotalHT,
                         Remise = request.Bl.Remise,
+                        CouponPrice = request.Bl.CouponPrice,
                         ClientId = request.Client.Id, // Assign the ClientId property
                         Client = null, // Assign the Client property
                         Timbre = 0,
@@ -479,8 +471,8 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
                                 Designation = item.Designation,
                                 Qte = item.Qte,
                                 MontantHT = item.MontantHT,
-                                MontantTTC= item.MontantTTC,
-                                MontantTVA= item.MontantTVA,   
+                                MontantTTC = item.MontantTTC,
+                                MontantTVA = item.MontantTVA,
                                 Puv = item.Puv,
                                 Image = stockMatch.Image,
                                 SelectedStockId = stockMatch.Id,
@@ -491,7 +483,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParBl.Commands
 
 
 
-                            var bl =  _context.Bls.Where(code => code.Id == request.Bl.Id).FirstOrDefault();
+                            var bl = _context.Bls.Where(code => code.Id == request.Bl.Id).FirstOrDefault();
                             bl.Etat = "Facturé";
                             _context.Bls.Update(bl);
                             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

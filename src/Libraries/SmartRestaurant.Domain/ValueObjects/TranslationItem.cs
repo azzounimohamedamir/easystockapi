@@ -1,9 +1,4 @@
-﻿using SmartRestaurant.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Domain.ValueObjects
+﻿namespace SmartRestaurant.Domain.ValueObjects
 {
     public class TranslationItem
     {

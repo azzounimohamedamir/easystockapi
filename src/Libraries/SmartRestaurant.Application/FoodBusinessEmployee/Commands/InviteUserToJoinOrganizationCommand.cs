@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
 using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Tools;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {
@@ -20,18 +18,18 @@ namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
     {
         public InviteUserToJoinOrganizationCommandValidator()
         {
-            
+
 
             RuleFor(invitedUser => invitedUser.Email).NotEmpty().Must(ValidatorHelper.ValidateEmail)
                 .WithMessage("'Email' is invalide");
 
 
-           
+
 
 
 
             RuleFor(invitedUser => invitedUser.Roles).NotEmpty();
-            
+
         }
     }
 }

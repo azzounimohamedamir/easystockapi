@@ -1,20 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Clients.Commands;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Application.GestionEmployees.Employees.Clients.Commands;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
 using SmartRestaurant.Domain.Identity.Entities;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.AdminArea.Commands
 {
@@ -46,13 +39,13 @@ namespace SmartRestaurant.Application.AdminArea.Commands
             var validator = new CreateClientAppCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-            var cl = _mapper.Map<MyClients>(request);           
+            var cl = _mapper.Map<MyClients>(request);
             _context.MyClients.Add(cl);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
 
-       
+
 
         public async Task<Created> Handle(CreateLicenceCommand request, CancellationToken cancellationToken)
         {
@@ -114,13 +107,13 @@ namespace SmartRestaurant.Application.AdminArea.Commands
                 .ConfigureAwait(false);
             if (cl == null)
                 throw new NotFoundException(nameof(Client), request.Id);
-           
+
             _context.LicenceKeys.Update(cl);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             return default;
         }
 
-      
+
 
     }
 }

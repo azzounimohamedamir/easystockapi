@@ -1,16 +1,9 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.API.Swagger.Exception;
-using SmartRestaurant.Application.Common.Dtos;
-using Swashbuckle.AspNetCore.Annotations;
-using System;
-using SmartRestaurant.Application.GestionAchats.Employees.Clients.Queries;
-using SmartRestaurant.Application.GestionEmployees.Employees.Clients.Commands;
 using SmartRestaurant.Application.AdminArea.Commands;
 using SmartRestaurant.Application.AdminArea.Queries;
-
-using SmartRestaurant.Application.GestionEmployees.Employees.Clients.Queries;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -30,12 +23,12 @@ namespace SmartRestaurant.API.Controllers
 
         public async Task<IActionResult> GetAllAppClientsList(string currentFilter, int page, int pageSize)
         {
-           return await SendWithErrorsHandlingAsync(new GetClientsAppListQuery
+            return await SendWithErrorsHandlingAsync(new GetClientsAppListQuery
             {
 
-               Page = page,
-               PageSize = pageSize,
-               CurrentFilter= currentFilter,
+                Page = page,
+                PageSize = pageSize,
+                CurrentFilter = currentFilter,
             });
         }
 
@@ -142,7 +135,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="400">The payload data sent to the backend-server in order to delete a building is invalid.</response>
         /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
-       
+
 
 
     }

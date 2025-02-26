@@ -1,10 +1,7 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.Common.Tools;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
 
 namespace SmartRestaurant.Application.Rapports.MvtStock.Queries
 {

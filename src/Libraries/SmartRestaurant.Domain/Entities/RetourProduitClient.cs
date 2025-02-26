@@ -1,7 +1,5 @@
-﻿using SmartRestaurant.Domain.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Entities
 {

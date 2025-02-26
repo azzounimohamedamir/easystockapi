@@ -6,5 +6,5 @@ namespace SmartRestaurant.Application.Common.Exceptions
         {
             Errors.Add($"The activity named '{foodBusinessName}' has been Frozen, please contact application administrator for more informations");
         }
-    }  
+    }
 }

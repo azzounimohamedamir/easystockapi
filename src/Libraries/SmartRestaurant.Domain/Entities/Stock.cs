@@ -1,23 +1,19 @@
-﻿using SmartRestaurant.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System;
 
 namespace SmartRestaurant.Domain.Entities
 {
     public class Stock
     {
-        
+
         public Guid Id { get; set; }
-        public string CodeP{ get; set; }
+        public string CodeP { get; set; }
 
         public string Designaation { get; set; }
         public string Image { get; set; }
 
         public string CodeBar { get; set; }
 
+        public Guid FournisseurId { get; set; }
 
         public decimal TotalBenifice { get; set; }
 
@@ -36,7 +32,7 @@ namespace SmartRestaurant.Domain.Entities
         public bool IsPerissable { get; set; }
         public DateTime DatePeremption { get; set; }
         public int JourAlerte { get; set; }
-        public bool IsFavoris {  get; set; }
+        public bool IsFavoris { get; set; }
 
         // Navigation property
         public string ProductAttributeValues { get; set; }

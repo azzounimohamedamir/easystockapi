@@ -1,15 +1,14 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Entities.Globalisation;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Common.Interfaces
 {
-	public interface IApplicationDbContext
-	{
-        
+    public interface IApplicationDbContext
+    {
+
         public DbSet<Domain.Entities.Stock> Stocks { get; set; }
         public DbSet<Inventaire> Inventaires { get; set; }
         public DbSet<NiveauFidelite> NiveauFidelites { get; set; }
@@ -29,11 +28,11 @@ namespace SmartRestaurant.Application.Common.Interfaces
         public DbSet<AvanceClients> AvanceClients { get; set; }
         public DbSet<DefaultConfigLog> DefaultConfigLogs { get; set; }
 
-      
+
         public DbSet<Reglement_Acompte_Facture_Client> Reglement_Acompte_Facture_Clients { get; set; }
         public DbSet<Reglement_Acompte_BA_Fournisseur> Reglement_Acompte_BA_Fournisseurs { get; set; }
         public DbSet<VenteComptoir> VenteComptoirs { get; set; }
-     
+
 
         public DbSet<RetourProduitClient> RetourProduitClients { get; set; }
         public DbSet<RetourProducts> RetourProducts { get; set; }
@@ -75,5 +74,5 @@ namespace SmartRestaurant.Application.Common.Interfaces
             return Entry(entity);
         }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-	}
+    }
 }

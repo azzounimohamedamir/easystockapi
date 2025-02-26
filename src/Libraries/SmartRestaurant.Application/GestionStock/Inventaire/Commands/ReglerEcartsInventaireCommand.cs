@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.GestionStock.Inventaire.Commands
 {
     public class ReglerEcartsInventaireCommand : UpdateCommand
     {
-       public List<LignesInventaireFinal>  Ecarts { get; set; }
+        public List<LignesInventaireFinal> Ecarts { get; set; }
 
     }
 
@@ -17,7 +15,7 @@ namespace SmartRestaurant.Application.GestionStock.Inventaire.Commands
     {
         public ReglerEcartsInventaireCommandValidator()
         {
-           
+
         }
     }
 }

@@ -1,29 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
+﻿using AutoMapper;
+using FluentValidation;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Common.Exceptions;
+using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Domain.Entities;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using FluentValidation;
-using MediatR;
-using Microsoft.AspNetCore.Http.Internal;
-using Newtonsoft.Json;
-
-using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
-using SmartRestaurant.Application.Common.Exceptions;
-
-using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
-using SmartRestaurant.Application.Stock.Commands;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
 using ValidationException = SmartRestaurant.Application.Common.Exceptions.ValidationException;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
-using static System.Net.WebRequestMethods;
 
 namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
 {
@@ -58,26 +45,26 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
                 Date = DateTime.Now,
                 Heure = DateTime.Now.ToShortTimeString(),
                 VendeurId = new Guid(),
-                CreatedBy=request.CreatedBy,
-                CodeBC=GenerateCodeBC(),
+                CreatedBy = request.CreatedBy,
+                CodeBC = GenerateCodeBC(),
                 MontantTotalHT = decimal.Parse(request.MontantTotalHT.ToString()),
                 MontantTotalTTC = decimal.Parse(request.MontantTotalTTC.ToString()),
                 MontantTotalTVA = decimal.Parse(request.MontantTotalTVA.ToString()),
                 MontantTotalHTApresRemise = decimal.Parse(request.MontantTotalHTApresRemise.ToString()),
                 RestTotal = decimal.Parse(request.RestTotal.ToString()),
-                ClientId =request.ClientId,
+                ClientId = request.ClientId,
                 Client = client,
-                TotalReglement=request.TotalReglement,
-                Numero=request.Numero,
-                Timbre=request.Timbre,
-                DateEcheance=request.DateEcheance,
-                DateFermuture=request.DateFermuture,
-                Etat=request.Etat,
-                PaymentMethod=request.PaymentMethod,
-                Remise=request.Remise,
-                Rib=request.Rib,
-                Rip=request.Rip,
-             
+                TotalReglement = request.TotalReglement,
+                Numero = request.Numero,
+                Timbre = request.Timbre,
+                DateEcheance = request.DateEcheance,
+                DateFermuture = request.DateFermuture,
+                Etat = request.Etat,
+                PaymentMethod = request.PaymentMethod,
+                Remise = request.Remise,
+                Rib = request.Rib,
+                Rip = request.Rip,
+
             };
             _context.BonCommandeClients.Add(boncommande);
             request.BcProducts.ForEach(async item =>
@@ -88,12 +75,12 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
                     BcId = boncommande.Id,
                     Designation = item.Designation,
                     Qte = item.Qte,
-                    MontantHT= item.MontantHT,
-                    MontantTTC=item.MontantTTC,
-                    MontantTVA=item.MontantTVA,
+                    MontantHT = item.MontantHT,
+                    MontantTTC = item.MontantTTC,
+                    MontantTVA = item.MontantTVA,
                     Puv = item.Puv,
                     Image = stockMatch.Image,
-                    SelectedStockId= stockMatch.Id,
+                    SelectedStockId = stockMatch.Id,
                 };
                 _context.BcProducts.Add(bcp);
             }
@@ -134,7 +121,7 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
                         Date = request.Bon.Date,
                         Heure = request.Bon.Date.ToShortTimeString(),
                         VendeurId = new Guid(),
-                        NomCaissier = request.Bon.CreatedBy!=""? request.Bon.CreatedBy:"",
+                        NomCaissier = request.Bon.CreatedBy != "" ? request.Bon.CreatedBy : "",
                         MontantTotalHTApresRemise = request.Bon.MontantTotalHTApresRemise,
                         MontantTotalHT = request.Bon.MontantTotalHT,
                         Remise = request.Bon.Remise,
@@ -171,7 +158,7 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
                                 Qte = item.Qte,
                                 MontantHT = item.MontantHT,
                                 MontantTTC = item.MontantTTC,
-                                MontantTVA = item.MontantTVA,                     
+                                MontantTVA = item.MontantTVA,
                                 Puv = item.Puv,
                                 Image = stockMatch.Image,
                                 SelectedStockId = stockMatch.Id,
@@ -190,7 +177,7 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
                     {
                         // Retrieve the VenteComptoir entity you want to delete
                         var BCUpdateEtatToLivre = _context.BonCommandeClients
-                            .Where(a => a.Id==request.Bon.Id)
+                            .Where(a => a.Id == request.Bon.Id)
                             .FirstOrDefault();
 
                         if (BCUpdateEtatToLivre != null)
@@ -198,7 +185,7 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
                             BCUpdateEtatToLivre.Etat = "Livré";
 
                             // Remove the related items from the collection
-                            
+
 
                             // Delete the VenteComptoir entity
                             _context.BonCommandeClients.Update(BCUpdateEtatToLivre);
@@ -259,7 +246,7 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var bon =  _context.BonCommandeClients.Include(v=>v.BcProducts).FirstOrDefault();
+            var bon = _context.BonCommandeClients.Include(v => v.BcProducts).FirstOrDefault();
             if (bon == null)
                 throw new NotFoundException(nameof(BonCommandeClient), request.Id);
 
@@ -282,7 +269,7 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
             if (bonToUpdate == null)
                 throw new NotFoundException(nameof(Domain.Entities.BonCommandeClient), request.Id);
 
-           
+
 
             // Remove old products included in vc
             _context.BcProducts.RemoveRange(bonToUpdate.BcProducts);
@@ -301,8 +288,8 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
                     Designation = item.Designation,
                     Qte = item.Qte,
                     MontantTTC = item.MontantTTC,
-                    MontantHT= item.MontantHT,
-                    MontantTVA= item.MontantTVA,
+                    MontantHT = item.MontantHT,
+                    MontantTVA = item.MontantTVA,
                     Puv = item.Puv,
                     Image = stockMatch.Image,
                     SelectedStockId = stockMatch.Id,
@@ -317,20 +304,20 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
             var entity = _mapper.Map<Domain.Entities.BonCommandeClient>(request);
 
             bonToUpdate.MontantTotalHT = decimal.Parse(request.MontantTotalHT.ToString());
-                bonToUpdate.MontantTotalTTC = decimal.Parse(request.MontantTotalTTC.ToString());
+            bonToUpdate.MontantTotalTTC = decimal.Parse(request.MontantTotalTTC.ToString());
             bonToUpdate.MontantTotalTVA = decimal.Parse(request.MontantTotalTVA.ToString());
             bonToUpdate.MontantTotalHTApresRemise = decimal.Parse(request.MontantTotalHTApresRemise.ToString());
             bonToUpdate.RestTotal = decimal.Parse(request.RestTotal.ToString());
-            bonToUpdate.Client=request.Client;
+            bonToUpdate.Client = request.Client;
             bonToUpdate.Remise = request.Remise;
-            bonToUpdate.CreatedBy=request.CreatedBy;
-            bonToUpdate.Heure=request.Heure;
-            bonToUpdate.Date=request.Date;
-            bonToUpdate.Numero=request.Numero;
-            bonToUpdate.VendeurId=request.VendeurId;
-            bonToUpdate.ClientId=request.ClientId;
-            bonToUpdate.Timbre=request.Timbre;
-            bonToUpdate.TotalReglement=request.TotalReglement;
+            bonToUpdate.CreatedBy = request.CreatedBy;
+            bonToUpdate.Heure = request.Heure;
+            bonToUpdate.Date = request.Date;
+            bonToUpdate.Numero = request.Numero;
+            bonToUpdate.VendeurId = request.VendeurId;
+            bonToUpdate.ClientId = request.ClientId;
+            bonToUpdate.Timbre = request.Timbre;
+            bonToUpdate.TotalReglement = request.TotalReglement;
             _context.BonCommandeClients.Update(bonToUpdate);
 
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -342,6 +329,6 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
 
 
 
-     
+
     }
 }

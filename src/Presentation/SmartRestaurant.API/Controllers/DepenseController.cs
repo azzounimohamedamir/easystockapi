@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
-using Swashbuckle.AspNetCore.Annotations;
-using System;
 using SmartRestaurant.Application.Depenses.Commands;
 using SmartRestaurant.Application.Depenses.Queries;
+using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -42,8 +42,8 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
-       // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
-        public async Task<IActionResult> Create( CreateDepenseCommand command)
+        // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
+        public async Task<IActionResult> Create(CreateDepenseCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }
@@ -62,7 +62,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpPut]
         [Route("{id:guid}")]
 
-        public async Task<IActionResult> Update( UpdateDepenseCommand command)
+        public async Task<IActionResult> Update(UpdateDepenseCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }

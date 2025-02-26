@@ -1,22 +1,19 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.Common.Dtos;
-using Swashbuckle.AspNetCore.Annotations;
-using System;
+using SmartRestaurant.Application.GestionStock.Stock.Commands;
+using SmartRestaurant.Application.GestionStock.Stock.Queries;
+using SmartRestaurant.Application.Menus.Queries;
+using SmartRestaurant.Application.Rapports.MvtStock.Queries;
 using SmartRestaurant.Application.Stock.Commands;
 using SmartRestaurant.Application.Stock.Queries;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using SmartRestaurant.Application.GestionStock.Stock.Commands;
-using SmartRestaurant.Application.Rapports.MvtStock.Queries;
+using Swashbuckle.AspNetCore.Annotations;
+using System;
 using System.Collections.Generic;
-using SmartRestaurant.Application.Menus.Queries;
-using System.Linq;
-using Newtonsoft.Json;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Queries;
-using SmartRestaurant.Application.GestionStock.Stock.Queries;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -66,12 +63,12 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(new GetAllStockListQuery
             {
 
-               
+
             });
         }
 
 
-      
+
 
         [HttpGet("{categoryId}/attributes")]
         public async Task<ActionResult<List<ProductAttributeDto>>> GetAttributesByCategory(Guid categoryId)
@@ -93,7 +90,7 @@ namespace SmartRestaurant.API.Controllers
 
         [HttpGet]
         [Route("mvtstocks")]
-        public async Task<IActionResult> GetAllMvtStockList(string currentFilter, int page, int pageSize , int type , DateTime dateDebut , DateTime dateFin)
+        public async Task<IActionResult> GetAllMvtStockList(string currentFilter, int page, int pageSize, int type, DateTime dateDebut, DateTime dateFin)
         {
             return await SendWithErrorsHandlingAsync(new GetMvtStockListQuery
             {
@@ -101,10 +98,10 @@ namespace SmartRestaurant.API.Controllers
                 Page = page,
                 PageSize = pageSize,
                 CurrentFilter = currentFilter,
-                 Type = type ,
-                 DateDebut=dateDebut,
-                 DateFin=dateFin
-                
+                Type = type,
+                DateDebut = dateDebut,
+                DateFin = dateFin
+
             });
         }
 
@@ -118,7 +115,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
-       // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
+        // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         public async Task<IActionResult> Create([FromForm] CreateProductOnStockCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -152,17 +149,17 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(command);
 
         }
-            /// <summary> UpdateBuilding() </summary>
-            /// <remarks>
-            ///     This endpoint allows SM user to update building.<br></br>
-            /// </remarks>
-            /// <param name="id">id of the building that would be updated</param>
-            /// <param name="command">This is the payload object used to update building</param>
-            /// <response code="204">The building has been successfully updated.</response>
-            /// <response code="400">The payload data sent to the backend-server in order to update a building is invalid.</response>
-            /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
-            /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
-            [HttpPut]
+        /// <summary> UpdateBuilding() </summary>
+        /// <remarks>
+        ///     This endpoint allows SM user to update building.<br></br>
+        /// </remarks>
+        /// <param name="id">id of the building that would be updated</param>
+        /// <param name="command">This is the payload object used to update building</param>
+        /// <response code="204">The building has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to update a building is invalid.</response>
+        /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
+        [HttpPut]
         [Route("{id:guid}")]
         public async Task<IActionResult> Update([FromForm] UpdateProductOnStockCommand command)
         {

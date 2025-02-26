@@ -22,16 +22,16 @@ namespace SmartRestaurant.Application.Accounts.Commands
     {
         public AuthenticateViaSocialMediaCommandValidator()
         {
-             RuleFor(foodBusiness => foodBusiness.Email)
-               .Cascade(CascadeMode.StopOnFirstFailure)
-               .NotEmpty()
-               .MaximumLength(200)
-               .Must(ValidatorHelper.ValidateEmail).WithMessage("'{PropertyName}: {PropertyValue}' is invalide");
+            RuleFor(foodBusiness => foodBusiness.Email)
+              .Cascade(CascadeMode.StopOnFirstFailure)
+              .NotEmpty()
+              .MaximumLength(200)
+              .Must(ValidatorHelper.ValidateEmail).WithMessage("'{PropertyName}: {PropertyValue}' is invalide");
 
             RuleFor(foodBusiness => foodBusiness.Name)
                .Cascade(CascadeMode.StopOnFirstFailure)
                .NotEmpty()
-               .MaximumLength(200);          
+               .MaximumLength(200);
         }
     }
 }

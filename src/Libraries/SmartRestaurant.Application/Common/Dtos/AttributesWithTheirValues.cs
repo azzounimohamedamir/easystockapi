@@ -1,9 +1,4 @@
-﻿using SmartRestaurant.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Application.Common.Dtos
+﻿namespace SmartRestaurant.Application.Common.Dtos
 {
     public class AttributesWithTheirValuesDto
     {

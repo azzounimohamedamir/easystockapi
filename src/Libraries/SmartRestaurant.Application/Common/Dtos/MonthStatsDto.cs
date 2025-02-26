@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
@@ -53,7 +51,7 @@ namespace SmartRestaurant.Application.Common.Dtos
         public decimal DecemberVCA { get; set; }
         public decimal DecemberACA { get; set; }
 
-        public List<ProduitVQteDto> ProduitsVendus{ get;set; }
+        public List<ProduitVQteDto> ProduitsVendus { get; set; }
         public List<ProduitVQteDto> ProduitsAchetes { get; set; }
         public List<ProduitVQteDto> Top10ProductsV { get; set; }
         public List<ProduitVQteDto> Top10ProductsRentable { get; set; }

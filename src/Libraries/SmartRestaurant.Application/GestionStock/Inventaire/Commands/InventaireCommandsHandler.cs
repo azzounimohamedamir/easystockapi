@@ -1,25 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Http.Internal;
-using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
-using SmartRestaurant.Application.Common.Exceptions;
-
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
 using SmartRestaurant.Application.GestionStock.Inventaire.Commands;
-using SmartRestaurant.Application.GestionStock.Stock.Commands;
-using SmartRestaurant.Application.Stock.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using ValidationException = SmartRestaurant.Application.Common.Exceptions.ValidationException;
 
 namespace SmartRestaurant.Application.Stock.Commands
@@ -44,13 +34,13 @@ namespace SmartRestaurant.Application.Stock.Commands
         public async Task<Created> Handle(CreateInventaireParEquipeCommand request, CancellationToken cancellationToken)
         {
 
-            
+
             var validator = new CreateInventaireParEquipeCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            
-             
+
+
             // ajouter l'invetaire equipe
             var inventaireEquipe = _mapper.Map<Domain.Entities.InventaireEquipe>(request);
             _context.InventaireEquipes.Add(inventaireEquipe);
@@ -71,7 +61,7 @@ namespace SmartRestaurant.Application.Stock.Commands
 
             var invEquipeCount = _context.InventaireEquipes.Count();
 
-            if(invEquipeCount == 2)
+            if (invEquipeCount == 2)
             {
                 var lignesInventaireFinalList = _context.LignesInventaireEquipes.ToList()
     .GroupBy(l => new { l.CodeProduit, l.NomProduit, l.Rayonnage, l.CodeBar })
@@ -85,9 +75,9 @@ namespace SmartRestaurant.Application.Stock.Commands
         QuantiteTrouveeA = g.FirstOrDefault(e => e.Equipe == Equipe.A)?.QuantiteTrouvee ?? 0,
         QuantiteTrouveeB = g.FirstOrDefault(e => e.Equipe == Equipe.B)?.QuantiteTrouvee ?? 0,
         QuantiteTrouveeReel = 0,
-        QuantiteStockLogiciel = _context.Stocks.Where(s => s.CodeP == g.Key.CodeProduit).Select(s=>s.QteRestante).FirstOrDefault(),
+        QuantiteStockLogiciel = _context.Stocks.Where(s => s.CodeP == g.Key.CodeProduit).Select(s => s.QteRestante).FirstOrDefault(),
         QteEcart = 0,
-        Manque =false,
+        Manque = false,
         Surnombre = false,
         Egaux = false,
         Observation = "" // Ajoutez la logique d'observation si nécessaire
@@ -95,21 +85,21 @@ namespace SmartRestaurant.Application.Stock.Commands
     .ToList();
                 foreach (var ligne in lignesInventaireFinalList)
                 {
-                   
-                        var stock = _context.Stocks
-                            .FirstOrDefault(s => s.Id.ToString() == ligne.CodeProduit);
+
+                    var stock = _context.Stocks
+                        .FirstOrDefault(s => s.Id.ToString() == ligne.CodeProduit);
 
 
-                        if (stock != null)
-                        {
-                            ligne.QuantiteStockLogiciel = stock.QteRestante;
-                            _context.LignesInventaireFinals.Add(ligne);
-                        }
-                    
+                    if (stock != null)
+                    {
+                        ligne.QuantiteStockLogiciel = stock.QteRestante;
+                        _context.LignesInventaireFinals.Add(ligne);
+                    }
+
                 };
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-               
+
 
 
 
@@ -118,7 +108,7 @@ namespace SmartRestaurant.Application.Stock.Commands
             return default;
         }
 
-     
+
         //    public async Task<NoContent> Handle(DeleteProductFromStockCommand request, CancellationToken cancellationToken)
         //{
         //    var validator = new DeleteProductFromStockCommandValidator();
@@ -164,8 +154,8 @@ namespace SmartRestaurant.Application.Stock.Commands
 
             request.Ecarts.ForEach(ligne =>
             {
-                var entityAttached = _context.LignesInventaireFinals.FirstOrDefault(c=>c.CodeProduit== ligne.CodeProduit);
-                    entityAttached.QuantiteTrouveeReel = ligne.QuantiteTrouveeReel;
+                var entityAttached = _context.LignesInventaireFinals.FirstOrDefault(c => c.CodeProduit == ligne.CodeProduit);
+                entityAttached.QuantiteTrouveeReel = ligne.QuantiteTrouveeReel;
                 if (entityAttached.QuantiteStockLogiciel >= 0)
                 {
                     if (entityAttached.QuantiteStockLogiciel > entityAttached.QuantiteTrouveeReel)
@@ -201,7 +191,7 @@ namespace SmartRestaurant.Application.Stock.Commands
                     entityAttached.Egaux = false;
                     entityAttached.Observation = "Stock Négative , Calcul de stock faux , erreur de saisie ...etc ";
                 }
-                   _context.LignesInventaireFinals.Update(entityAttached);
+                _context.LignesInventaireFinals.Update(entityAttached);
             }
             );
 
@@ -266,9 +256,9 @@ namespace SmartRestaurant.Application.Stock.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            if(request.Equipe == Equipe.A)
+            if (request.Equipe == Equipe.A)
             {
-                var deletedLignesInvEquipeA = _context.LignesInventaireEquipes.Where(e=>e.Equipe==Equipe.A).ToList();
+                var deletedLignesInvEquipeA = _context.LignesInventaireEquipes.Where(e => e.Equipe == Equipe.A).ToList();
                 if (deletedLignesInvEquipeA.Count != 0)
 
                     _context.LignesInventaireEquipes.RemoveRange(deletedLignesInvEquipeA);
@@ -281,28 +271,28 @@ namespace SmartRestaurant.Application.Stock.Commands
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             }
 
-            if(request.Equipe==Equipe.B)
+            if (request.Equipe == Equipe.B)
             {
                 var deletedLignesInvEquipeB = _context.LignesInventaireEquipes.Where(e => e.Equipe == Equipe.B).ToList();
 
-                if(deletedLignesInvEquipeB.Count !=0)
-                _context.LignesInventaireEquipes.RemoveRange(deletedLignesInvEquipeB);
+                if (deletedLignesInvEquipeB.Count != 0)
+                    _context.LignesInventaireEquipes.RemoveRange(deletedLignesInvEquipeB);
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-                    var deleteInvEquipeB = _context.InventaireEquipes.Where(e => e.Equipe == Equipe.B).FirstOrDefault();
+                var deleteInvEquipeB = _context.InventaireEquipes.Where(e => e.Equipe == Equipe.B).FirstOrDefault();
                 if (deleteInvEquipeB != null)
 
                     _context.InventaireEquipes.Remove(deleteInvEquipeB);
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
                 var lignesFinalRemoved = _context.LignesInventaireFinals.ToList();
-                if(lignesFinalRemoved.Count!=0)
-                _context.LignesInventaireFinals.RemoveRange(lignesFinalRemoved);
+                if (lignesFinalRemoved.Count != 0)
+                    _context.LignesInventaireFinals.RemoveRange(lignesFinalRemoved);
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
                 var inv = _context.Inventaires.ToList();
-                if(inv.Count!=0)
-                _context.Inventaires.RemoveRange(inv);
+                if (inv.Count != 0)
+                    _context.Inventaires.RemoveRange(inv);
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             }
 

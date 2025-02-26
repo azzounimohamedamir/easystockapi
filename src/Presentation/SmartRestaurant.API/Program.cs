@@ -15,8 +15,8 @@ namespace SmartRestaurant.API
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
-                 .UseKestrel()  
-                 
+                 .UseKestrel()
+
                  // important!
                  .UseIISIntegration()
                  .UseContentRoot(Directory.GetCurrentDirectory())

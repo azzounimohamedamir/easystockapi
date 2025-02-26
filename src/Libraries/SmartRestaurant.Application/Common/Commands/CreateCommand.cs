@@ -1,8 +1,8 @@
-using System;
 using MediatR;
 using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.WebResults;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 
 namespace SmartRestaurant.Application.Common.Commands
 {
@@ -14,7 +14,7 @@ namespace SmartRestaurant.Application.Common.Commands
         }
 
         [SwaggerSchema(ReadOnly = true)]
-        [JsonIgnore] 
+        [JsonIgnore]
         public Guid Id { get; set; }
     }
 }

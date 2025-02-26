@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Interfaces;
 using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Net.Http;
 
 namespace SmartRestaurant.Infrastructure.Services
 {
@@ -28,9 +28,9 @@ namespace SmartRestaurant.Infrastructure.Services
     public class TranslationService : ITranslationService
     {
         readonly TranslationApiConfig _apiConfig;
-        
-        public TranslationService(IOptions<TranslationApiConfig> conf) 
-        { 
+
+        public TranslationService(IOptions<TranslationApiConfig> conf)
+        {
             _apiConfig = conf.Value ?? throw new ArgumentNullException(nameof(conf));
         }
 
@@ -71,7 +71,7 @@ namespace SmartRestaurant.Infrastructure.Services
 
         }
 
-        
+
     }
 }
 

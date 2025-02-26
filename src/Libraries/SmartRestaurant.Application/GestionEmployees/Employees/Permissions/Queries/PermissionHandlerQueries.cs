@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
-
 using SmartRestaurant.Application.GestionEmployees.Employees.Permissions.Queries.FilterStrategy;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.GestionEmployees.Employees.Permissions.Queries
 {
@@ -56,10 +54,10 @@ namespace SmartRestaurant.Application.GestionEmployees.Employees.Permissions.Que
 
 
             if (permission == null)
-                throw new NotFoundException(nameof(permission),"ss");
+                throw new NotFoundException(nameof(permission), "ss");
 
 
-           
+
 
             return permission;
         }

@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Domain.Entities;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Stock.Commands
 {

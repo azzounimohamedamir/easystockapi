@@ -1,7 +1,4 @@
-﻿using SmartRestaurant.Domain.Common.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace SmartRestaurant.Domain.Entities
 {
@@ -11,8 +8,11 @@ namespace SmartRestaurant.Domain.Entities
         public string Timbre { get; set; }
         public string Tva { get; set; }
         public string ModeVente { get; set; }
-        public string SommeFacture { get; set; }
-        public string PointsGagner { get; set; }
+        public decimal SommeFacture { get; set; }
+        public decimal PointsGagner { get; set; }
+        public decimal MinimumPointsToWithdraw { get; set; }
+        public decimal Recompense { get; set; }
+
         public string DeviseParDefault { get; set; }
         public string MargeBenifDetail { get; set; }
         public string MargeBenifGros { get; set; }

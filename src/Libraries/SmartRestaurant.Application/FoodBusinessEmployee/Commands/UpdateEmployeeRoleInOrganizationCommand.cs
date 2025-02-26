@@ -1,9 +1,9 @@
-using System;
 using FluentValidation;
 using MediatR;
 using Newtonsoft.Json;
 using SmartRestaurant.Application.Common.Tools;
 using SmartRestaurant.Application.Common.WebResults;
+using System;
 
 namespace SmartRestaurant.Application.FoodBusinessEmployee.Commands
 {

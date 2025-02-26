@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Domain.Entities;
-using System;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace SmartRestaurant.Application.ProgrammeFidelite.Queries.FilterStrategy
 {
@@ -15,7 +13,7 @@ namespace SmartRestaurant.Application.ProgrammeFidelite.Queries.FilterStrategy
 
 
             return fidelite
-                .Include(a=>a.NiveauFidelite)
+                
                .OrderByDescending(s => s.Points)
                .GetPaged(request.Page, request.PageSize);
 

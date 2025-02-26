@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Domain.Entities.Globalisation
 {

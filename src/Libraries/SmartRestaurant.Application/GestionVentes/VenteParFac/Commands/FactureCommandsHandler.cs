@@ -1,45 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Aspose.Pdf;
 using AutoMapper;
+using DinkToPdf.Contracts;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Http.Internal;
-using Newtonsoft.Json;
-
 using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
+using Microsoft.Extensions.Configuration;
 using SmartRestaurant.Application.Common.Exceptions;
-
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
-using SmartRestaurant.Application.Stock.Commands;
+using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
-using ValidationException = SmartRestaurant.Application.Common.Exceptions.ValidationException;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using System.Xml.Linq;
-using static System.Net.WebRequestMethods;
-using System.Net.Mail;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net;
-using SendGrid.Helpers.Mail;
-using SendGrid;
-using System.Net.Http;
-using Microsoft.Extensions.Configuration;
-using DinkToPdf.Contracts;
-using DinkToPdf;
-using static SmartRestaurant.Application.GestionVentes.VenteParFac.Commands.FactureCommandsHandler;
-using EllipticCurve.Utils;
+using System.Net.Mail;
 using System.Text;
-using SendGrid.Helpers.Mail.Model;
-using Aspose.Pdf;
-using Org.BouncyCastle.Asn1.Ocsp;
+using System.Threading;
+using System.Threading.Tasks;
+using ValidationException = SmartRestaurant.Application.Common.Exceptions.ValidationException;
 
 namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
 {
@@ -58,7 +39,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
         private readonly string _sendGridKey;
         private readonly string _sendGridUser;
         private readonly IConfiguration _configuration;
-        public FactureCommandsHandler( IConverter pdfConverter,IConfiguration configuration, IApplicationDbContext context , IApplicationDbContext context2, IMapper mapper)
+        public FactureCommandsHandler(IConverter pdfConverter, IConfiguration configuration, IApplicationDbContext context, IApplicationDbContext context2, IMapper mapper)
         {
 
             _context = context;
@@ -66,9 +47,9 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
             _configuration = configuration;
             _mapper = mapper;
 
-    }
+        }
 
-    public async Task<Created> Handle(CreateFactureCommand request, CancellationToken cancellationToken)
+        public async Task<Created> Handle(CreateFactureCommand request, CancellationToken cancellationToken)
         {
             var validator = new CreateFactureCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
@@ -83,7 +64,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                 VendeurId = new Guid(),
                 NomCaissier = request.NomCaissier,
                 Caisse = request.Caisse,
-                CouponPrice=request.CouponPrice,
+                CouponPrice = request.CouponPrice,
                 MontantTotalHT = decimal.Parse(request.MontantTotalHT.ToString()),
                 MontantTotalTTC = decimal.Parse(request.MontantTotalTTC.ToString()),
                 MontantTotalTVA = decimal.Parse(request.MontantTotalTVA.ToString()),
@@ -91,7 +72,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                 Client = client,
                 TotalReglement = request.TotalReglement,
                 Numero = request.Numero,
-                CodeF = GenerateCodeF(request.Caisse,"F"),
+                CodeF = GenerateCodeF(request.Caisse, "F"),
                 Timbre = request.Timbre,
                 DateEcheance = request.DateEcheance,
                 DateFermuture = request.DateFermuture,
@@ -107,14 +88,12 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
 
             _context.Factures.Add(fac);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            if(request.CouponPrice!=0)
+            if (request.CouponPrice != 0)
             {
                 var clientRemoveCoupon = _context.ClientFidelites.FirstOrDefault(c => c.Id == fac.ClientId);
                 clientRemoveCoupon.Withdraw = 0;
-                clientRemoveCoupon.NiveauFidelite = _context.NiveauFidelites.Where(a => a.MinPointsRequis == 0).FirstOrDefault();
-                clientRemoveCoupon.NiveauFideliteId = _context.NiveauFidelites.Where(a => a.MinPointsRequis == 0).FirstOrDefault().Id;
-                clientRemoveCoupon.Points = 0;
-                _context.ClientFidelites.Update(clientRemoveCoupon);
+               
+                clientRemoveCoupon.Points =0;
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             }
 
@@ -131,9 +110,9 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                     MontantTTC = item.MontantTTC,
                     MontantTVA = item.MontantTVA,
                     Puv = item.Puv,
-                    LastPuv= item.LastPuv,
-                    Reduction= item.Reduction,
-                    HasReduction=item.HasReduction,
+                    LastPuv = item.LastPuv,
+                    Reduction = item.Reduction,
+                    HasReduction = item.HasReduction,
                     Image = stockMatch.Image,
                     SelectedStockId = stockMatch.Id,
                     SelectedStock = stockMatch
@@ -144,9 +123,9 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                 await Destocker(flp, cancellationToken);
 
             });
-            
 
-            
+
+
             if (request.RestTotal == 0) // avances encore existe
             {
                 await UpdateAvanceClient(request.Client, cancellationToken);
@@ -154,7 +133,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
             else // client n'as pas davance =0 , donc son credit augmente
             {
 
-                await UpdateCreditClient(fac, null,client, cancellationToken);
+                await UpdateCreditClient(fac, null, client, cancellationToken);
             }
 
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -164,7 +143,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
 
         public async Task AddSortieStock(FacProducts flp, Domain.Entities.Facture fac, CancellationToken cancellationToken)
         {
-            var SortieProduct =  _context.Stocks
+            var SortieProduct = _context.Stocks
                 .Where(p => p.Designaation == flp.Designation)
                 .FirstOrDefault();
 
@@ -180,7 +159,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
             };
             _context.MouvementStocks.Add(mvt);
         }
-        public string GenerateCodeF(int caisse , string type)
+        public string GenerateCodeF(int caisse, string type)
         {
             if (type == "F")
             {
@@ -206,11 +185,11 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
             }
             else
                 return default;
-           
+
         }
 
 
-        public int generateAvoirNumero (int facNum)
+        public int generateAvoirNumero(int facNum)
         {
             // Generate a random number between 0 and 99
             Random rnd = new Random();
@@ -241,7 +220,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
             var validator = new AjouterRegAcompteFactureCommandValidator();
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
-
+            var config = _context.DefaultConfigLogs.FirstOrDefault();
             var facture = _context.Factures.Where(f => f.Id == request.FactureId).FirstOrDefault();
             var client = _context.Clients.Where(f => f.Id == request.Client.Id).FirstOrDefault();
 
@@ -262,40 +241,52 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                 var acompte = _mapper.Map<Domain.Entities.Reglement_Acompte_Facture_Client>(request);
                 acompte.Client = client;
                 _context.Reglement_Acompte_Facture_Clients.Add(acompte);
-                await UpdateCreditClient(null, acompte,client, cancellationToken);
+                await UpdateCreditClient(null, acompte, client, cancellationToken);
 
-                if(facture.BlId != Guid.Empty)
+                if (facture.BlId != Guid.Empty)
                 {
                     var blAssocied = _context.Bls.FirstOrDefault(bl => bl.Id == facture.BlId);
                     blAssocied.TotalReglement = facture.RestTotal;
                     blAssocied.RestTotal = facture.RestTotal;
                     _context.Bls.Update(blAssocied);
                 }
-                
+
 
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             }
             else if (request.Type == "Reglement")
             {
+                if (facture.CouponPrice != 0)
+                {
+                    var clientRemoveCoupon = _context.ClientFidelites.FirstOrDefault(c => c.Id == facture.ClientId);
+                    clientRemoveCoupon.Withdraw = 0;
+                   
+                    clientRemoveCoupon.Points = (int)((Convert.ToDecimal(clientRemoveCoupon.Points))-((facture.CouponPrice/config.Recompense)*config.MinimumPointsToWithdraw));
+                    _context.ClientFidelites.Update(clientRemoveCoupon);
+                    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+                }
+
+
                 facture.RestTotal = 0;
                 facture.Etat = "Reglé";
                 facture.TotalReglement = facture.RestTotal;
                 _context.Factures.Update(facture).Property(x => x.Numero).IsModified = false;
-                
+
 
 
                 var blAssocied = _context.Bls.FirstOrDefault(bl => bl.Id == facture.BlId);
-                if ( blAssocied != null)
-                 {    
+                if (blAssocied != null)
+                {
                     blAssocied.TotalReglement = facture.RestTotal;
                     blAssocied.RestTotal = facture.RestTotal;
                     _context.Bls.Update(blAssocied);
                 }
-               
+
                 var reglement = _mapper.Map<Domain.Entities.Reglement_Acompte_Facture_Client>(request);
                 var clientReg = _context.Clients.FirstOrDefault(c => c.Id == client.Id);
                 reglement.Client = clientReg;
-                _context.Reglement_Acompte_Facture_Clients.Add(reglement);
+                reglement.Libelle = "Règlement sur la facture " + facture.CodeF;
+               _context.Reglement_Acompte_Facture_Clients.Add(reglement);
                 await UpdateCreditClient(null, reglement, clientReg, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             }
@@ -307,11 +298,11 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
 
 
 
-       
 
-          
 
-        
+
+
+
 
         public async Task<Created> Handle(SendFactureByEmailCommand request, CancellationToken cancellationToken)
         {
@@ -443,13 +434,13 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
         public async Task Destocker(FacProducts flp, CancellationToken cancellationToken)
         {
             var DestockedProduct = _context.Stocks.Where(p => p.Designaation == flp.Designation).FirstOrDefault();
-           
+
             DestockedProduct.QteRestante = DestockedProduct.QteRestante - flp.Qte;
             _context.Stocks.Update(DestockedProduct);
         }
 
 
-        public async Task UpdateCreditClient(Facture fac, Reglement_Acompte_Facture_Client reglement , Client client, CancellationToken cancellationToken)
+        public async Task UpdateCreditClient(Facture fac, Reglement_Acompte_Facture_Client reglement, Client client, CancellationToken cancellationToken)
         {
 
             if (fac != null && reglement == null)
@@ -471,7 +462,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                 }
                 _context.Clients.Update(fac.Client);
             }
-            else if (reglement != null  && fac == null && client != null)
+            else if (reglement != null && fac == null && client != null)
             {
                 if (client != null)
                 {
@@ -520,14 +511,14 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
             var fac = _context.Factures
                 .Where(f => f.Id == request.Id)
                 .Include(v => v.FacProducts)
-                .Include(c=>c.Client)
+                .Include(c => c.Client)
                 .FirstOrDefault();
             fac.Etat = "Annulé";
             _context.Factures.Update(fac);
-            if(fac.CouponPrice!=0 && fac.CouponPrice !=null)
+            if (fac.CouponPrice != 0 && fac.CouponPrice != null)
             {
-              var  restorPointToClient = _context.ClientFidelites.Where(c => c.Nom == fac.Client.FullName).FirstOrDefault();
-                restorPointToClient.Withdraw= restorPointToClient.Points + (int)(fac.CouponPrice);
+                var restorPointToClient = _context.ClientFidelites.Where(c => c.Nom == fac.Client.FullName).FirstOrDefault();
+                restorPointToClient.Withdraw = restorPointToClient.Points + (int)(fac.CouponPrice);
                 _context.ClientFidelites.Update(restorPointToClient);
                 restorPointToClient.Points = restorPointToClient.Points + (int)(fac.CouponPrice);
                 _context.ClientFidelites.Update(restorPointToClient);
@@ -570,20 +561,20 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
 
             // Synchronously restore each item
             foreach (var item in fac.FacProducts)
-            {   
+            {
                 await Restorer(item, cancellationToken).ConfigureAwait(false);
 
                 var stockAvoir = _context.Stocks.Where(u => u.Designaation == item.Designation).AsNoTracking().FirstOrDefault();
                 var flp = new FacProducts
                 {
-                    Id= Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     FactureId = facAvoir.Id,
                     Designation = item.Designation,
                     Qte = item.Qte,
-                    MontantHT = -1*item.MontantHT,
-                    MontantTTC = -1*item.MontantTTC,
-                    MontantTVA = -1*item.MontantTVA,
-                    Puv = -1*item.Puv,
+                    MontantHT = -1 * item.MontantHT,
+                    MontantTTC = -1 * item.MontantTTC,
+                    MontantTVA = -1 * item.MontantTVA,
+                    Puv = -1 * item.Puv,
                     Image = item.Image,
                     SelectedStockId = item.SelectedStock.Id,
                     SelectedStock = item.SelectedStock
@@ -683,7 +674,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
 
             var fac = await _context.Factures
                 .Include(vp => vp.FacProducts)
-                .ThenInclude(s=>s.SelectedStock)
+                .ThenInclude(s => s.SelectedStock)
                  .Include(vp => vp.FacProducts)
                 .ThenInclude(s => s.SelectedStock)
                  .Include(vp => vp.FacProducts)
@@ -695,7 +686,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
 
-            var clientForReq = _context.Clients.Where(c=>c.Id==request.ClientId).FirstOrDefault();
+            var clientForReq = _context.Clients.Where(c => c.Id == request.ClientId).FirstOrDefault();
 
 
             if (fac == null)
@@ -704,7 +695,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                 throw new NotFoundException(nameof(Stock), request.Id);
             }
 
-           
+
             // créer un avoir sur cette facture ancienne a partir des nouveeaux modification
             var facAvoir = new Facture()
             {
@@ -713,8 +704,8 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                 VendeurId = Guid.NewGuid(),
                 NomCaissier = request.NomCaissier,
                 Caisse = request.Caisse,
-                CouponPrice=request.CouponPrice,
-                MontantTotalHT = -1*request.MontantTotalHT, // Inverting MontantTotalHT
+                CouponPrice = request.CouponPrice,
+                MontantTotalHT = -1 * request.MontantTotalHT, // Inverting MontantTotalHT
                 MontantTotalTTC = -1 * request.MontantTotalTTC, // Inverting MontantTotalTTC
                 MontantTotalTVA = -1 * request.MontantTotalTVA, // Inverting MontantTotalTVA
                 ClientId = clientForReq.Id,
@@ -759,10 +750,10 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                     FactureId = facAvoir.Id,
                     Designation = item.Designation,
                     Qte = item.Qte,
-                    MontantHT =  -1*item.MontantHT,
-                    MontantTTC = -1*item.MontantTTC,
-                    MontantTVA =  -1*item.MontantTVA,
-                    Puv =  -1*item.Puv,
+                    MontantHT = -1 * item.MontantHT,
+                    MontantTTC = -1 * item.MontantTTC,
+                    MontantTVA = -1 * item.MontantTVA,
+                    Puv = -1 * item.Puv,
                     Image = item.Image,
                     SelectedStockId = stockMatch.Id,
                     SelectedStock = stockMatch
@@ -829,10 +820,10 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                     FactureId = newFacture.Id,
                     Designation = item.Designation,
                     Qte = item.Qte,
-                    MontantHT =  item.MontantHT,
+                    MontantHT = item.MontantHT,
                     MontantTTC = item.MontantTTC,
                     MontantTVA = item.MontantTVA,
-                    Puv =  item.Puv,
+                    Puv = item.Puv,
                     Image = item.Image,
                     SelectedStockId = stockMatch.Id,
                     SelectedStock = stockMatch
@@ -893,10 +884,10 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
             return avoir;
         }
 
-        private async Task ProcessFacProduct(Facture fac,FacProducts item, CancellationToken cancellationToken)
+        private async Task ProcessFacProduct(Facture fac, FacProducts item, CancellationToken cancellationToken)
         {
             var stockMatch = await _context.Stocks
-           
+
                 .Where(u => u.Designaation == item.Designation)
                 .FirstOrDefaultAsync(cancellationToken)
                 .ConfigureAwait(false);
@@ -984,31 +975,31 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                 switch (modificationType)
                 {
                     case Motif.Client:
-                        CheckAndAddModification(avoir,originalFacture.Client, updatedFacture.Client, motifModificationList, modificationType);
+                        CheckAndAddModification(avoir, originalFacture.Client, updatedFacture.Client, motifModificationList, modificationType);
                         break;
 
                     case Motif.Timbre:
-                        CheckAndAddModification(avoir,originalFacture.Timbre, updatedFacture.Timbre, motifModificationList, modificationType);
+                        CheckAndAddModification(avoir, originalFacture.Timbre, updatedFacture.Timbre, motifModificationList, modificationType);
                         break;
 
                     case Motif.Remise:
-                        CheckAndAddModification(avoir,originalFacture.Remise, updatedFacture.Remise, motifModificationList, modificationType);
+                        CheckAndAddModification(avoir, originalFacture.Remise, updatedFacture.Remise, motifModificationList, modificationType);
                         break;
 
                     case Motif.RestTotal:
-                        CheckAndAddModification(avoir,originalFacture.RestTotal, updatedFacture.RestTotal, motifModificationList, modificationType);
+                        CheckAndAddModification(avoir, originalFacture.RestTotal, updatedFacture.RestTotal, motifModificationList, modificationType);
                         break;
 
                     case Motif.TVA:
-                        CheckAndAddModification(avoir,originalFacture.MontantTotalTVA, updatedFacture.MontantTotalTVA, motifModificationList, modificationType);
+                        CheckAndAddModification(avoir, originalFacture.MontantTotalTVA, updatedFacture.MontantTotalTVA, motifModificationList, modificationType);
                         break;
 
                     case Motif.DateEcheance:
-                        CheckAndAddModification(avoir,originalFacture.DateEcheance, updatedFacture.DateEcheance, motifModificationList, modificationType);
+                        CheckAndAddModification(avoir, originalFacture.DateEcheance, updatedFacture.DateEcheance, motifModificationList, modificationType);
                         break;
 
                     case Motif.LigneFacture:
-                        CheckAndAddLigneFactureModifications(avoir,originalFacture.FacProducts, updatedFacture.FacProducts, motifModificationList);
+                        CheckAndAddLigneFactureModifications(avoir, originalFacture.FacProducts, updatedFacture.FacProducts, motifModificationList);
                         break;
 
                     // Add other cases for additional properties
@@ -1022,7 +1013,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
             return motifModificationList;
         }
 
-        private void CheckAndAddLigneFactureModification( FactureAvoir avoir,FacProducts originalValue, FacProducts updatedValue, List<MotifModification> motifModificationList , Motif modificationtype)
+        private void CheckAndAddLigneFactureModification(FactureAvoir avoir, FacProducts originalValue, FacProducts updatedValue, List<MotifModification> motifModificationList, Motif modificationtype)
         {
 
             // check QTE 
@@ -1036,7 +1027,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                     AncienneValeur = originalValue.Qte.ToString(),
                     NouvelleValeur = updatedValue.Qte.ToString(),
                     LigneFactureItem = LigneFactureItems.Qte,
-                    IdAvoir=avoir.Id
+                    IdAvoir = avoir.Id
                 });
             }
             // check price changed 
@@ -1080,7 +1071,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                 });
             }
         }
-        private void CheckAndAddLigneFactureModifications(FactureAvoir avoir,List<FacProducts> originalFacture,List<FacProducts> updatedFacture, List<MotifModification> motifModificationList)
+        private void CheckAndAddLigneFactureModifications(FactureAvoir avoir, List<FacProducts> originalFacture, List<FacProducts> updatedFacture, List<MotifModification> motifModificationList)
         {
             // Your complex verification logic for "LigneFacture" case
             // You can access FacProducts or other relevant properties
@@ -1096,16 +1087,16 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                     // ...
 
                     // Example:
-                    CheckAndAddLigneFactureModification(avoir,originalLigneFacture, updatedLigneFacture, motifModificationList , Motif.LigneFacture);
-                   
+                    CheckAndAddLigneFactureModification(avoir, originalLigneFacture, updatedLigneFacture, motifModificationList, Motif.LigneFacture);
+
                 }
             }
         }
 
 
-        private void CheckAndAddModification<T>(FactureAvoir avoir,T originalValue, T updatedValue, List<MotifModification> motifModificationList, Motif modificationType)
+        private void CheckAndAddModification<T>(FactureAvoir avoir, T originalValue, T updatedValue, List<MotifModification> motifModificationList, Motif modificationType)
         {
-            if (!EqualityComparer<T>.Default.Equals(originalValue, updatedValue) && originalValue !=null && updatedValue!=null)
+            if (!EqualityComparer<T>.Default.Equals(originalValue, updatedValue) && originalValue != null && updatedValue != null)
             {
                 motifModificationList.Add(new MotifModification
                 {
@@ -1127,20 +1118,20 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var factures = _context.Factures.Where(c => c.ClientId == request.Client.Id && c.Date<=request.Datef && c.Date >= request.Dated).Include(a=>a.FacProducts).ToList();
+            var factures = _context.Factures.Where(c => c.ClientId == request.Client.Id && c.Date <= request.Datef && c.Date >= request.Dated).Include(a => a.FacProducts).ToList();
             var facgrouped = new Domain.Entities.Facture()
             {
                 Id = Guid.NewGuid(),
                 Date = DateTime.Now,
                 Heure = DateTime.Now.ToShortTimeString(),
                 VendeurId = new Guid(),
-                MontantTotalHT= factures.Select(s => s.MontantTotalHT).Sum(),
+                MontantTotalHT = factures.Select(s => s.MontantTotalHT).Sum(),
                 MontantTotalTTC = factures.Select(s => s.MontantTotalTTC).Sum(),
                 MontantTotalTVA = factures.Select(s => s.MontantTotalTVA).Sum(),
-                Numero= factures[0].Numero,
+                Numero = factures[0].Numero,
                 ClientId = request.Client.Id,
                 Client = request.Client,
-                FacProducts= null
+                FacProducts = null
             };
 
             facgrouped.FacProducts = factures
@@ -1157,7 +1148,7 @@ namespace SmartRestaurant.Application.GestionVentes.VenteParFac.Commands
                     MontantTTC = group.Sum(product => product?.MontantTTC ?? 0), // Handle null Montant by using a default value (e.g., 0)
                     MontantTVA = group.Sum(product => product?.MontantTVA ?? 0), // Handle null Montant by using a default value (e.g., 0)
                     Puv = group.First()?.Puv ?? 0, // Handle null Puv by using a default value (e.g., 0)
-                    Image= group.First()?.Image                             // Image and SelectedStock properties can be set similarly
+                    Image = group.First()?.Image                             // Image and SelectedStock properties can be set similarly
                 })
                 .ToList();
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
 
 namespace SmartRestaurant.Application.GestionStock.Stock.Commands
 {
@@ -15,7 +11,8 @@ namespace SmartRestaurant.Application.GestionStock.Stock.Commands
 
         public string CodeBar { get; set; }
 
-      
+
+        public Guid FournisseurId { get; set; }
 
 
         public string Rayonnage { get; set; }

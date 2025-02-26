@@ -1,9 +1,5 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Domain.Common.Enums;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.GestionEmployees.Employees.Clients.Commands
 {
@@ -44,7 +40,7 @@ namespace SmartRestaurant.Application.GestionEmployees.Employees.Clients.Command
         {
             RuleFor(m => m.Role).NotEmpty();
 
-          
+
         }
     }
 }

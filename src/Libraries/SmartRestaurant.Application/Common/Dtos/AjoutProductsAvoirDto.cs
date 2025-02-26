@@ -1,9 +1,4 @@
-﻿using SmartRestaurant.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System;
 
 namespace SmartRestaurant.Application.Common.Dtos
 {
@@ -22,6 +17,6 @@ namespace SmartRestaurant.Application.Common.Dtos
         public Guid FactureAvoirId { get; set; }
 
         public Guid DocumentId { get; set; }
-       
+
     }
 }

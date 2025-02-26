@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using MediatR;
+﻿using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Domain.Entities;
+using System;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.Menus.Queries
 {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SmartRestaurant.Domain.ValueObjects
 {
-    public class EnergeticValue : ValueObject 
+    public class EnergeticValue : ValueObject
     {
         public float Fat { get; set; }
         public float Protein { get; set; }

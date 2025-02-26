@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using SmartRestaurant.API.Models.MediaModels;
+using System.Collections.Generic;
 using System.IO;
-using SmartRestaurant.API.Models.MediaModels;
 
 namespace SmartRestaurant.API.Helpers
 {

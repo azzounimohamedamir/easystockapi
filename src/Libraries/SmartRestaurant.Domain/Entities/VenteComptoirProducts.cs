@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Entities
 {
@@ -25,13 +23,13 @@ namespace SmartRestaurant.Domain.Entities
         public Stock SelectedStock { get; set; }
 
 
-      
+
         public decimal MontantHT { get; set; }
         public decimal MontantTVA { get; set; }
         public decimal MontantTTC { get; set; }
 
-      
-      
+
+
 
 
 

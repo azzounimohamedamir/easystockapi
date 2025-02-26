@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Extensions;
-using SmartRestaurant.Application.Stock.Queries;
-using SmartRestaurant.Domain.Entities;
-using System;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace SmartRestaurant.Application.GestionVentes.Caisses.Queries.FilterStrategy
 {
@@ -18,12 +13,12 @@ namespace SmartRestaurant.Application.GestionVentes.Caisses.Queries.FilterStrate
 
             return cs
                 .OrderBy(s => s.Numero)
-              
+
                        .GetPaged(request.Page, request.PageSize);
-            
+
         }
 
-      
+
 
     }
 }

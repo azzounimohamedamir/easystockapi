@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Entities
 {
@@ -33,7 +32,7 @@ namespace SmartRestaurant.Domain.Entities
         public decimal TotalReglement { get; set; }
 
         public decimal Remise { get; set; }
-        public string Etat  {get; set; }
+        public string Etat { get; set; }
         public Guid VendeurId { get; set; }
         public Guid ClientId { get; set; }
         public Client Client { get; set; }

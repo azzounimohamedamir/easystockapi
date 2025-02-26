@@ -1,16 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
-using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
+using SmartRestaurant.Application.Stock.Queries;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
-using SmartRestaurant.Application.GestionVentes.VenteComptoir.Queries;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using SmartRestaurant.Application.Stock.Queries;
-using SmartRestaurant.Application.Stock.Commands;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -26,15 +20,15 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="401">The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [HttpGet]
-        public async Task<IActionResult> GetAllVC(string currentFilter, int page, int pageSize , int caisse)
+        public async Task<IActionResult> GetAllVC(string currentFilter, int page, int pageSize, int caisse)
         {
-           return await SendWithErrorsHandlingAsync(new GetVenteComptoirListQuery
+            return await SendWithErrorsHandlingAsync(new GetVenteComptoirListQuery
             {
 
-               Page = page,
-               PageSize = pageSize,
-               CurrentFilter= currentFilter,
-               Caisse=caisse
+                Page = page,
+                PageSize = pageSize,
+                CurrentFilter = currentFilter,
+                Caisse = caisse
             });
         }
 
@@ -46,7 +40,7 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(new GetAllVenteComptoirListQuery
             {
 
-                
+
             });
         }
 
@@ -61,7 +55,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
-       // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
+        // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         public async Task<IActionResult> Create(CreateVenteComptoirCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -102,7 +96,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<IActionResult> Update( UpdateVenteComptoirCommand command)
+        public async Task<IActionResult> Update(UpdateVenteComptoirCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }

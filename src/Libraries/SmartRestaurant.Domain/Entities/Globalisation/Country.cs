@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SmartRestaurant.Domain.Common;
+using System;
 using System.Collections.Generic;
-using SmartRestaurant.Domain.Common;
 
 namespace SmartRestaurant.Domain.Entities.Globalisation
 {

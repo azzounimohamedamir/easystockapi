@@ -14,7 +14,7 @@ namespace SmartRestaurant.API.Helpers
         {
             return new JsonResponseModel
             {
-                StatusCode = (int) response,
+                StatusCode = (int)response,
                 Message = response.ToString()
             };
         }

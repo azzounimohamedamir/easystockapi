@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace SmartRestaurant.Domain.Entities
 {
@@ -23,7 +20,7 @@ namespace SmartRestaurant.Domain.Entities
         public FactureAvoir FactureAvoir { get; set; }
 
         public Guid DocumentId { get; set; }
-        
+
     }
 }
 

@@ -1,9 +1,6 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Domain.Common.Enums;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
 
 namespace SmartRestaurant.Application.GestionEmployees.Employees.Clients.Commands
 {
@@ -17,7 +14,7 @@ namespace SmartRestaurant.Application.GestionEmployees.Employees.Clients.Command
         public AssainirClientCommandValidator()
         {
             RuleFor(m => m.Id).NotEmpty().Must(id => id != Guid.Empty);
-          
+
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartRestaurant.Application.Common.Dtos
+﻿namespace SmartRestaurant.Application.Common.Dtos
 {
     public class CaisseDto
     {
@@ -18,14 +14,14 @@ namespace SmartRestaurant.Application.Common.Dtos
         public decimal TotalBa { get; set; }
         public decimal TotalQteAchete { get; set; }
 
-        public decimal TotalBcc{ get; set; }
+        public decimal TotalBcc { get; set; }
         public decimal TotalBca { get; set; }
 
         public decimal MontantTotalVentes { get; set; }
 
         public decimal MontantTotalRemises { get; set; }
         public decimal MontantTotalReglementsC { get; set; }
-        public decimal MontantTotalAvancementsC{ get; set; }
+        public decimal MontantTotalAvancementsC { get; set; }
         public decimal MontantTotalAchats { get; set; }
 
         public decimal MontantTotalDepenses { get; set; }

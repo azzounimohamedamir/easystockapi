@@ -1,18 +1,7 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.API.Swagger.Exception;
-using SmartRestaurant.Application.Common.Dtos;
-using Swashbuckle.AspNetCore.Annotations;
-using System;
-
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
-using SmartRestaurant.Application.Stock.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Application.GestionVentes.RetourProduits.Queries;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -40,6 +29,6 @@ namespace SmartRestaurant.API.Controllers
         }
 
 
-     
+
     }
 }

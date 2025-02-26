@@ -1,9 +1,7 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Application.Common.Enums;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
 
 namespace SmartRestaurant.Application.GestionEmployees.Employees.Fournisseurs.Commands
 {
@@ -22,7 +20,7 @@ namespace SmartRestaurant.Application.GestionEmployees.Employees.Fournisseurs.Co
         public decimal Nic { get; set; }
 
         public decimal Numarticle { get; set; }
-      
+
     }
 
     public class CreateFournisseurCommandValidator : AbstractValidator<CreateFournisseurCommand>
@@ -30,7 +28,7 @@ namespace SmartRestaurant.Application.GestionEmployees.Employees.Fournisseurs.Co
         public CreateFournisseurCommandValidator()
         {
             RuleFor(m => m.Id).NotEmpty().Must(id => id != Guid.Empty);
-           
+
         }
     }
 }

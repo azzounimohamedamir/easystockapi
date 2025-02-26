@@ -6,5 +6,5 @@ namespace SmartRestaurant.Application.Common.Exceptions
         {
             Errors.Add(message);
         }
-    }  
+    }
 }

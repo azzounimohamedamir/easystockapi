@@ -21,13 +21,13 @@
         HotelClient = 17,
         HotelServiceTechnique = 18,
         HouseKeeping = 19,
-        Manager=20,
+        Manager = 20,
         Caissier = 21,
-        CaissierFacturier=22,
-        GestionnaireStock=23,
-        GestionnaireVente=24,
-        GestionnaireAchat=25,
-        Magasinier=26
+        CaissierFacturier = 22,
+        GestionnaireStock = 23,
+        GestionnaireVente = 24,
+        GestionnaireAchat = 25,
+        Magasinier = 26
 
     }
 }

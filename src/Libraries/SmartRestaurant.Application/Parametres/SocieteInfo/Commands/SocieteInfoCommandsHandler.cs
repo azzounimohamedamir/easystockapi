@@ -1,11 +1,11 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Parametres.SocieteInfo.Commands
 {
@@ -34,7 +34,7 @@ namespace SmartRestaurant.Application.Parametres.SocieteInfo.Commands
             return default;
         }
 
-      
+
 
         public async Task<NoContent> Handle(UpdateSocieteInfoCommand request, CancellationToken cancellationToken)
         {

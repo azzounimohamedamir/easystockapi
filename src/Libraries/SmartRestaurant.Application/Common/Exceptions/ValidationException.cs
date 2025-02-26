@@ -1,5 +1,5 @@
-using System.Linq;
 using FluentValidation.Results;
+using System.Linq;
 
 namespace SmartRestaurant.Application.Common.Exceptions
 {

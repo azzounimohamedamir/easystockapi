@@ -1,23 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
-using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Commands;
+using SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Queries;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
-using SmartRestaurant.Application.Stock.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteParFac.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteParFac.Commands;
-using SmartRestaurant.Application.GestionVentes.BonCommandeClient.Queries;
-using SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands;
-using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
-using SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Queries;
-using SmartRestaurant.Application.GestionAchats.BonCommandeFournisseur.Commands;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -35,16 +22,16 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllBCF(string currentFilter, int page, int pageSize)
         {
-           return await SendWithErrorsHandlingAsync(new GetBCFListQuery
+            return await SendWithErrorsHandlingAsync(new GetBCFListQuery
             {
 
-               Page = page,
-               PageSize = pageSize,
-               CurrentFilter= currentFilter,
+                Page = page,
+                PageSize = pageSize,
+                CurrentFilter = currentFilter,
             });
         }
 
-       
+
 
 
         /// <summary> AddNewBCF </summary>
@@ -57,7 +44,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
-       // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
+        // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         public async Task<IActionResult> Create(CreateBCFCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -65,7 +52,7 @@ namespace SmartRestaurant.API.Controllers
 
 
 
-     
+
 
 
         /// <summary> UpdateBCF() </summary>
@@ -80,7 +67,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<IActionResult> Update( UpdateBCFCommand command)
+        public async Task<IActionResult> Update(UpdateBCFCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Interfaces;
 using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Application.Parametres.ConfigurationLogiciel.Commands;
 using SmartRestaurant.Application.Parametres.SocieteInfo.Commands;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Application.Parametres.ConfigurationLogiciel.Commands
 {
@@ -40,7 +35,7 @@ namespace SmartRestaurant.Application.Parametres.ConfigurationLogiciel.Commands
             return default;
         }
 
-      
+
 
         public async Task<NoContent> Handle(UpdateDefaultConfigCommand request, CancellationToken cancellationToken)
         {

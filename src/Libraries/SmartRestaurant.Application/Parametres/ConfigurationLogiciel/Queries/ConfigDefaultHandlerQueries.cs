@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
+using MediatR;
+using SmartRestaurant.Application.Common.Exceptions;
+using SmartRestaurant.Application.Common.Interfaces;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Application.Common.Exceptions;
-using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Stock.Queries;
-using SmartRestaurant.Application.Stock.Queries.FilterStrategy;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
 
 namespace SmartRestaurant.Application.Parametres.ConfigurationLogiciel.Queries
 {
     public class ConfigDefaultHandlerQueries :
-        IRequestHandler<GetDefaultConfigQuery,Domain.Entities.DefaultConfigLog>
+        IRequestHandler<GetDefaultConfigQuery, Domain.Entities.DefaultConfigLog>
 
     {
         private readonly IApplicationDbContext _context;
@@ -29,7 +21,7 @@ namespace SmartRestaurant.Application.Parametres.ConfigurationLogiciel.Queries
             _mapper = mapper;
         }
 
-       
+
         public async Task<Domain.Entities.DefaultConfigLog> Handle(GetDefaultConfigQuery request, CancellationToken cancellationToken)
         {
             var validator = new GetDefaultConfigQueryValidator();
@@ -47,10 +39,9 @@ namespace SmartRestaurant.Application.Parametres.ConfigurationLogiciel.Queries
                 return null;
             }
 
-           
+
         }
 
-       
-            }
-        }
-    
+
+    }
+}

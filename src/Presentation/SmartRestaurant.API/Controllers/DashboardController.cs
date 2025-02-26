@@ -1,17 +1,7 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SmartRestaurant.API.Swagger.Exception;
-using SmartRestaurant.Application.Common.Dtos;
-using Swashbuckle.AspNetCore.Annotations;
-using System;
-using SmartRestaurant.Application.Stock.Commands;
-using SmartRestaurant.Application.Stock.Queries;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using SmartRestaurant.Application.GestionStock.Stock.Commands;
-using SmartRestaurant.Application.Rapports.MvtStock.Queries;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Application.Dashboard.Queries;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -30,13 +20,13 @@ namespace SmartRestaurant.API.Controllers
         [Route("CAstats")]
         public async Task<IActionResult> GetAllMonthlyStatCA()
         {
-           return await SendWithErrorsHandlingAsync(new GetMonthStatsQuery
+            return await SendWithErrorsHandlingAsync(new GetMonthStatsQuery
             {
 
-               
+
             });
         }
 
-    
+
     }
 }

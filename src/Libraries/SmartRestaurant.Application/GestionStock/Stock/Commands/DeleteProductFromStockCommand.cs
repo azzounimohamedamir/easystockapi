@@ -1,6 +1,6 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
+using System;
 
 namespace SmartRestaurant.Application.Stock.Commands
 {

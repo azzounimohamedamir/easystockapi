@@ -1,13 +1,9 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
-using SmartRestaurant.Application.Common.Dtos;
-using Swashbuckle.AspNetCore.Annotations;
-using System;
-using SmartRestaurant.Application.GestionEmployees.Employees.Permissions.Commands;
-using SmartRestaurant.Application.GestionEmployees.Employees.Permissions.Queries;
 using SmartRestaurant.Application.GestionEmployees.Employees.Clients.Commands;
+using SmartRestaurant.Application.GestionEmployees.Employees.Permissions.Queries;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -25,12 +21,12 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllPermList(string currentFilter, int page, int pageSize)
         {
-           return await SendWithErrorsHandlingAsync(new GetPermissionsListQuery
+            return await SendWithErrorsHandlingAsync(new GetPermissionsListQuery
             {
 
-               Page = page,
-               PageSize = pageSize,
-               CurrentFilter= currentFilter,
+                Page = page,
+                PageSize = pageSize,
+                CurrentFilter = currentFilter,
             });
         }
 
@@ -45,7 +41,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
-       // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
+        // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         public async Task<IActionResult> Create([FromForm] AjouterPermRoleCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -56,7 +52,7 @@ namespace SmartRestaurant.API.Controllers
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpGet]
         [Route("{role:string}")]
-        
+
         public Task<IActionResult> Get([FromRoute] string role)
         {
             return SendWithErrorsHandlingAsync(new GetPermissionByRoleQuery { Role = role });

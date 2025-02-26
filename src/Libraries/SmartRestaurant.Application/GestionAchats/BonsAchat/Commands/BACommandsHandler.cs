@@ -1,30 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
+﻿using AutoMapper;
+using FluentValidation;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using SmartRestaurant.Application.Common.Exceptions;
+using SmartRestaurant.Application.Common.Interfaces;
+using SmartRestaurant.Application.Common.WebResults;
+using SmartRestaurant.Domain.Entities;
+using SmartRestaurant.Domain.Enums;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using FluentValidation;
-using MediatR;
-using Microsoft.AspNetCore.Http.Internal;
-using Newtonsoft.Json;
-
-using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
-using SmartRestaurant.Application.Common.Exceptions;
-
-using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Common.WebResults;
-using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
-using SmartRestaurant.Application.Stock.Commands;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
 using ValidationException = SmartRestaurant.Application.Common.Exceptions.ValidationException;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
-using static System.Net.WebRequestMethods;
-using SmartRestaurant.Application.GestionVentes.VenteParFac.Commands;
 
 namespace SmartRestaurant.Application.GestionAchats.BonsAchat.Commands
 {
@@ -188,7 +175,7 @@ namespace SmartRestaurant.Application.GestionAchats.BonsAchat.Commands
             var result = await validator.ValidateAsync(request, cancellationToken).ConfigureAwait(false);
             if (!result.IsValid) throw new ValidationException(result);
 
-            var bon =  _context.BonAchats.Include(v=>v.BAProducts).FirstOrDefault();
+            var bon = _context.BonAchats.Include(v => v.BAProducts).FirstOrDefault();
             if (bon == null)
                 throw new NotFoundException(nameof(BonAchats), request.Id);
 
@@ -211,7 +198,7 @@ namespace SmartRestaurant.Application.GestionAchats.BonsAchat.Commands
             if (bonToUpdate == null)
                 throw new NotFoundException(nameof(Domain.Entities.BonAchats), request.Id);
 
-           
+
 
             // Remove old products included in vc
             _context.BAProducts.RemoveRange(bonToUpdate.BAProducts);
@@ -230,8 +217,8 @@ namespace SmartRestaurant.Application.GestionAchats.BonsAchat.Commands
                     Designation = item.Designation,
                     Qte = item.Qte,
                     MontantTTC = item.MontantTTC,
-                    MontantHT= item.MontantHT,
-                    MontantTVA= item.MontantTVA,
+                    MontantHT = item.MontantHT,
+                    MontantTVA = item.MontantTVA,
                     Pua = item.Pua,
                     Image = stockMatch.Image,
                     SelectedStockId = stockMatch.Id,
@@ -248,14 +235,14 @@ namespace SmartRestaurant.Application.GestionAchats.BonsAchat.Commands
             bonToUpdate.MontantTotalHT = request.MontantTotalHT;
             bonToUpdate.MontantTotalTVA = request.MontantTotalTVA;
             bonToUpdate.MontantTotalTTC = request.MontantTotalTTC;
-            bonToUpdate.Fournisseur=request.Fournisseur;
-            bonToUpdate.Heure=request.Heure;
-            bonToUpdate.Date=request.Date;
+            bonToUpdate.Fournisseur = request.Fournisseur;
+            bonToUpdate.Heure = request.Heure;
+            bonToUpdate.Date = request.Date;
             bonToUpdate.CreatedBy = request.CreatedBy;
-            bonToUpdate.Numero=request.Numero;
-            bonToUpdate.VendeurId=request.VendeurId;
-            bonToUpdate.FournisseurId=request.FournisseurId;
-            bonToUpdate.Timbre=request.Timbre;
+            bonToUpdate.Numero = request.Numero;
+            bonToUpdate.VendeurId = request.VendeurId;
+            bonToUpdate.FournisseurId = request.FournisseurId;
+            bonToUpdate.Timbre = request.Timbre;
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
             return default;

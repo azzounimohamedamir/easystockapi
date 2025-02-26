@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Enums;
+using System;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.GestionStock.Inventaire.Commands
 {
@@ -19,7 +19,7 @@ namespace SmartRestaurant.Application.GestionStock.Inventaire.Commands
     {
         public CreateInventaireParEquipeCommandValidator()
         {
-          
+
 
         }
     }

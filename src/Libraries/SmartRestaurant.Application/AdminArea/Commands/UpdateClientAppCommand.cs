@@ -1,9 +1,6 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Domain.Common.Enums;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
 
 namespace SmartRestaurant.Application.AdminArea.Commands
 {
@@ -25,7 +22,7 @@ namespace SmartRestaurant.Application.AdminArea.Commands
 #pragma warning restore CS0111 // Le type 'UpdateClientAppCommandValidator' définit déjà un membre appelé 'UpdateClientAppCommandValidator' avec les mêmes types de paramètre
         {
             RuleFor(m => m.Id).NotEmpty().Must(id => id != Guid.Empty);
-          
+
         }
     }
 }

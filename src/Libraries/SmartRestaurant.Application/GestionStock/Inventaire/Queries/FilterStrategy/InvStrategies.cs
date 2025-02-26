@@ -1,6 +1,4 @@
-﻿using SmartRestaurant.Application.GestionStock.Inventaire.Queries.FilterStrategy;
-
-namespace SmartRestaurant.Application.GestionStock.Inventaire
+﻿namespace SmartRestaurant.Application.GestionStock.Inventaire
 .Queries.FilterStrategy
 {
     public static class InvStrategies

@@ -1,11 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using SmartRestaurant.Application.Common.Dtos;
-using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartRestaurant.Application.AdminArea.Queries
 {

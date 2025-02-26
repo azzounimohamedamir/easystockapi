@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using AutoMapper;
-using Newtonsoft.Json;
+﻿using AutoMapper;
 using SmartRestaurant.Application.AdminArea.Commands;
-using SmartRestaurant.Application.Clients.Commands;
 using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Depenses.Commands;
 using SmartRestaurant.Application.FoodBusinessEmployee.Commands;
@@ -25,7 +21,6 @@ using SmartRestaurant.Application.ProgrammeFidelite.Commands;
 using SmartRestaurant.Application.Stock.Commands;
 using SmartRestaurant.Domain.Entities;
 using SmartRestaurant.Domain.Identity.Entities;
-using SmartRestaurant.Domain.ValueObjects;
 
 namespace SmartRestaurant.Application.Common.Mappers
 {
@@ -34,8 +29,8 @@ namespace SmartRestaurant.Application.Common.Mappers
         public MappingProfile()
         {
             CreateMap<Domain.Entities.Stock, StockDto>()
-                
-                    
+
+
                 .ReverseMap();
             CreateMap<FactureAvoir, FactureAvoirDto>()
                .ReverseMap();
@@ -166,6 +161,8 @@ namespace SmartRestaurant.Application.Common.Mappers
 
             CreateMap<Domain.Entities.FactureProformat, FactureProformatDto>()
                .ReverseMap();
+            CreateMap<Domain.Entities.Client, ClientDto>()
+               .ReverseMap();
             CreateMap<Domain.Entities.AttributeValue, AttributeValueDto>()
               .ReverseMap();
             CreateMap<Domain.Entities.ProductAttribute, ProductAttributeDto>()
@@ -200,11 +197,11 @@ namespace SmartRestaurant.Application.Common.Mappers
                 .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
                 .ReverseMap();
 
-           
 
-            
 
-          
+
+
+
 
 
 
@@ -247,7 +244,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             .ReverseMap();
             CreateMap<UpdateBlCommand, Bl>()
              .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
-            
+
              .ReverseMap();
 
             CreateMap<CreateFactureCommand, Facture>()
@@ -298,7 +295,7 @@ namespace SmartRestaurant.Application.Common.Mappers
             CreateMap<CreateClientCommand, Domain.Entities.Client>()
              .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
              .ReverseMap();
-           
+
             CreateMap<UpdateClientCommand, Domain.Entities.Client>()
              .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
              .ReverseMap();
@@ -326,7 +323,7 @@ namespace SmartRestaurant.Application.Common.Mappers
              .ForMember(x => x.Id, o => o.MapFrom(p => p.Id))
              .ReverseMap();
 
-          
+
 
 
 
@@ -347,7 +344,7 @@ namespace SmartRestaurant.Application.Common.Mappers
         .ReverseMap();
 
 
-          
+
         }
 
 

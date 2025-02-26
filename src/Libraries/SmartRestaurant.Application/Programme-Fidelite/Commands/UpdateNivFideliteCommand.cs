@@ -1,8 +1,6 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
-using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
 
 namespace SmartRestaurant.Application.ProgrammeFidelite.Commands
 {
@@ -21,7 +19,7 @@ namespace SmartRestaurant.Application.ProgrammeFidelite.Commands
         {
 
             RuleFor(m => m.Id).NotEmpty().Must(id => id != Guid.Empty);
-          
+
         }
     }
 }

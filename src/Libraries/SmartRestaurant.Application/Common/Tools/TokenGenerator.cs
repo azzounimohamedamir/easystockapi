@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using SmartRestaurant.Application.Common.Configuration.SocialMedia;
+using SmartRestaurant.Domain.Identity.Entities;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using SmartRestaurant.Application.Common.Configuration.SocialMedia;
-using SmartRestaurant.Domain.Identity.Entities;
 
 namespace SmartRestaurant.Application.Common.Tools
 {

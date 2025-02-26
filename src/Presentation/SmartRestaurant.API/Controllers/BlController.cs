@@ -1,17 +1,11 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
-using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
+using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
+using SmartRestaurant.Application.GestionVentes.VenteParBl.Queries;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
-using SmartRestaurant.Application.Stock.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteComptoir.Commands;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -29,13 +23,13 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllBLs(string currentFilter, int page, int pageSize, int caisse)
         {
-           return await SendWithErrorsHandlingAsync(new GetBonLivraisonsListQuery
+            return await SendWithErrorsHandlingAsync(new GetBonLivraisonsListQuery
             {
 
-               Page = page,
-               PageSize = pageSize,
-               CurrentFilter= currentFilter,
-               Caisse=caisse
+                Page = page,
+                PageSize = pageSize,
+                CurrentFilter = currentFilter,
+                Caisse = caisse
             });
         }
 
@@ -50,7 +44,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
-       // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
+        // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         public async Task<IActionResult> Create(CreateBlCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -107,7 +101,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<IActionResult> Update( UpdateBlCommand command)
+        public async Task<IActionResult> Update(UpdateBlCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }

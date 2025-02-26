@@ -1,9 +1,9 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Domain.Identity.Enums;
+using System;
+using System.Text.RegularExpressions;
 
 namespace SmartRestaurant.Application.Common.Tools
 {
@@ -52,17 +52,17 @@ namespace SmartRestaurant.Application.Common.Tools
                 $"|{Roles.GestionnaireVente.ToString()}" +
                 $"|{Roles.GestionnaireAchat.ToString()}" +
                 $"|{Roles.Manager.ToString()}" +
-                $"|{Roles.CaissierFacturier.ToString()}" 
+                $"|{Roles.CaissierFacturier.ToString()}"
                ;
             return new Regex(regex).Match(role).Success;
         }
 
-        
+
 
         public static bool ValidateUsersRoles(string role)
-    {
-        if (role == null)
-            return false;
+        {
+            if (role == null)
+                return false;
 
             var regex =
                  $"^(?:{Roles.SuperAdmin.ToString()}" +
@@ -113,14 +113,14 @@ namespace SmartRestaurant.Application.Common.Tools
             if (role == null)
                 return false;
 
-              var regex =
-                $"^(?:{Roles.SuperAdmin.ToString()}" +
-                $"|{Roles.GestionnaireStock.ToString()}" +
-                $"|{Roles.GestionnaireVente.ToString()}" +
-                $"|{Roles.GestionnaireAchat.ToString()}" +
-                $"|{Roles.Manager.ToString()}" +
-                $"|{Roles.Caissier.ToString()}"
-               ;
+            var regex =
+              $"^(?:{Roles.SuperAdmin.ToString()}" +
+              $"|{Roles.GestionnaireStock.ToString()}" +
+              $"|{Roles.GestionnaireVente.ToString()}" +
+              $"|{Roles.GestionnaireAchat.ToString()}" +
+              $"|{Roles.Manager.ToString()}" +
+              $"|{Roles.Caissier.ToString()}"
+             ;
             return new Regex(regex).Match(role).Success;
         }
 

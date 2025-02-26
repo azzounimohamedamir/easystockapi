@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Transactions;
-using MailKit;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,11 +10,15 @@ using SmartRestaurant.Application.Common.Enums;
 using SmartRestaurant.Application.Common.Exceptions;
 using SmartRestaurant.Application.Common.Extensions;
 using SmartRestaurant.Application.Common.Interfaces;
-using SmartRestaurant.Application.Depenses.Queries;
 using SmartRestaurant.Application.Users.Commands;
 using SmartRestaurant.Application.Users.Queries;
 using SmartRestaurant.Domain.Identity.Entities;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Transactions;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -40,7 +38,7 @@ namespace SmartRestaurant.API.Controllers
             _identityContext = identityContext;
         }
 
-        
+
         [Authorize(Roles = "SuperAdmin,SupportAgent")]
         [HttpGet]
         public async Task<IActionResult> GetAll(int page, int pageSize)
@@ -67,7 +65,7 @@ namespace SmartRestaurant.API.Controllers
         [Authorize(Roles = "SuperAdmin,SupportAgent,HotelClient")]
         [HttpGet]
         public async Task<IActionResult> GetAllByRole([FromRoute] string role, int page, int pageSize)
-        {                   
+        {
             var query = new GetUsersByRoleQuery
             {
                 Role = role,
@@ -77,7 +75,7 @@ namespace SmartRestaurant.API.Controllers
             return await SendWithErrorsHandlingAsync(query);
         }
 
-      
+
 
         private async Task<PagedListDto<UserWithRolesModel>> GetPagedListOfUsers(
             PagedResultBase<ApplicationUser> result)
@@ -95,7 +93,7 @@ namespace SmartRestaurant.API.Controllers
             return pagedResult;
         }
 
-     
+
 
 
 
@@ -137,7 +135,7 @@ namespace SmartRestaurant.API.Controllers
                 PageSize = pageSize,
             });
         }
-        
+
 
 
 
@@ -161,9 +159,9 @@ namespace SmartRestaurant.API.Controllers
             {
                 using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-                        await CreateUser(model, user).ConfigureAwait(false);
-                        await AssignRolesToUser(model, user).ConfigureAwait(false);
-                        transaction.Complete();                                
+                    await CreateUser(model, user).ConfigureAwait(false);
+                    await AssignRolesToUser(model, user).ConfigureAwait(false);
+                    transaction.Complete();
                 }
             }
             catch (Exception ex)
@@ -175,17 +173,17 @@ namespace SmartRestaurant.API.Controllers
                             result.Message,
                             result.Errors
                         });
-                if (ex .GetType() == typeof(InvalidOperationException))
-                        return StatusCode(400, new
-                        {
-                            Message = "Errors related to user manager",
-                            Errors = new List<string> { ex.Message }
-                        });
+                if (ex.GetType() == typeof(InvalidOperationException))
+                    return StatusCode(400, new
+                    {
+                        Message = "Errors related to user manager",
+                        Errors = new List<string> { ex.Message }
+                    });
 
                 return StatusCode(500, new
                 {
                     Message = "Internal Server Error",
-                    Errors = new List<string> { ex.Message}
+                    Errors = new List<string> { ex.Message }
                 });
             }
             return Ok();
@@ -193,12 +191,12 @@ namespace SmartRestaurant.API.Controllers
 
         private async Task AssignRolesToUser(ApplicationUserModel model, ApplicationUser user)
         {
-                foreach (var role in model.Roles)
-                {
-                    var AddRolesToUserResult = await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
-                    if (!AddRolesToUserResult.Succeeded)
-                        throw new UserManagerException(AddRolesToUserResult.Errors);
-                }   
+            foreach (var role in model.Roles)
+            {
+                var AddRolesToUserResult = await _userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
+                if (!AddRolesToUserResult.Succeeded)
+                    throw new UserManagerException(AddRolesToUserResult.Errors);
+            }
         }
 
         private async Task CreateUser(ApplicationUserModel model, ApplicationUser user)
@@ -225,6 +223,30 @@ namespace SmartRestaurant.API.Controllers
             command.Id = id;
             return await SendWithErrorsHandlingAsync(command);
         }
+
+
+
+
+        /// <summary> Update User Info  </summary>
+        /// <remarks> This endpoint is used to update user account.</remarks>
+        /// <param name="id">This is the user id.</param>
+        /// <param name="command"> This is the payload object used to update user account</param>
+        /// <response code="204">User account has been successfully updated.</response>
+        /// <response code="400">The payload data sent to the backend-server in order to update user account is invalid.</response>
+        /// <response code="401"> The cause of 401 error is one of two reasons: Either the user is not logged into the application or authentication token is invalid or expired.</response>
+        /// <response code="403">The user account you used to log into the application, does not have the necessary privileges to execute this request. </response>
+        [ProducesResponseType(typeof(ExceptionResponse), 400)]
+        [Route("organization/updateInfos/{id}")]
+        [Authorize(Roles = "SuperAdmin,SupportAgent")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateInfoUser([FromRoute] string id, UpdateUserCommand command)
+        {
+            command.Id = id;
+            return await SendWithErrorsHandlingAsync(command);
+        }
+
+
+
 
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpDelete("{id}")]
@@ -258,7 +280,7 @@ namespace SmartRestaurant.API.Controllers
         }
         [Authorize(Roles = "SupportAgent,SuperAdmin")]
         [HttpPatch("{id}/forceEmailConfirmed")]
-        public async Task<IActionResult> ForceEmailConfirmed([FromRoute]string id, [FromQuery] bool stateEmailConfirmed)
+        public async Task<IActionResult> ForceEmailConfirmed([FromRoute] string id, [FromQuery] bool stateEmailConfirmed)
         {
             var user = await _userManager.FindByIdAsync(id);
             user.EmailConfirmed = stateEmailConfirmed;
@@ -277,12 +299,12 @@ namespace SmartRestaurant.API.Controllers
                 : HttpResponseHelper.Respond(ResponseType.InternalServerError));
         }
 
-       
 
 
-      
 
-     
+
+
+
 
 
 

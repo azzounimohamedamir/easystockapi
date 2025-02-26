@@ -258,6 +258,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<string>("Conducteur")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("CouponPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -748,9 +751,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("52a857b7-ee3c-42db-96a7-76d3042818ac"),
-                            Addresse = "",
+                            Addresse = "Adresse",
                             Commerce = "Client Comptoir",
-                            DateEcheance = new DateTime(2035, 1, 23, 20, 14, 5, 986, DateTimeKind.Local).AddTicks(9458),
+                            DateEcheance = new DateTime(2035, 2, 25, 8, 3, 34, 243, DateTimeKind.Local).AddTicks(3488),
                             Email = "guest-client@gmail.com",
                             FullName = "Client Comptoir",
                             IsBanned = false,
@@ -778,9 +781,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("NiveauFideliteId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Nom")
                         .HasColumnType("nvarchar(max)");
 
@@ -791,8 +791,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("NiveauFideliteId");
 
                     b.ToTable("ClientFidelites");
                 });
@@ -872,17 +870,23 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<string>("MargeBenifGros")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("MinimumPointsToWithdraw")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("ModeVente")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PointsGagner")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("PointsGagner")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("PrixAchatMoyPondere")
                         .HasColumnType("bit");
 
-                    b.Property<string>("SommeFacture")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Recompense")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SommeFacture")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Timbre")
                         .HasColumnType("nvarchar(max)");
@@ -1483,9 +1487,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.Property<int>("MaxPointsRequis")
                         .HasColumnType("int");
 
-                    b.Property<int>("MinPointsRequis")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nom")
                         .HasColumnType("nvarchar(max)");
 
@@ -1792,6 +1793,9 @@ namespace SmartRestaurant.Infrastructure.Migrations
 
                     b.Property<string>("Designaation")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("FournisseurId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -2126,15 +2130,6 @@ namespace SmartRestaurant.Infrastructure.Migrations
                     b.HasOne("SmartRestaurant.Domain.Entities.Category", "Category")
                         .WithMany("CategorieAttributs")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Domain.Entities.ClientFidelite", b =>
-                {
-                    b.HasOne("SmartRestaurant.Domain.Entities.NiveauFidelite", "NiveauFidelite")
-                        .WithMany()
-                        .HasForeignKey("NiveauFideliteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

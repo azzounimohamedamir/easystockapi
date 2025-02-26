@@ -1,12 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartRestaurant.Application.Common.Dtos;
 using SmartRestaurant.Application.Common.Extensions;
-using SmartRestaurant.Application.Stock.Queries;
-using SmartRestaurant.Domain.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace SmartRestaurant.Application.Stock.Queries.FilterStrategy
 {
@@ -17,8 +11,8 @@ namespace SmartRestaurant.Application.Stock.Queries.FilterStrategy
             // Start building the query with necessary includes
             IQueryable<Domain.Entities.Stock> query = stock;
 
-           
-            if(request.CurrentFilter == "OnlyFavoris")
+
+            if (request.CurrentFilter == "OnlyFavoris")
             {
                 query = query.Where(v => v.IsFavoris == true);
             }
@@ -36,7 +30,7 @@ namespace SmartRestaurant.Application.Stock.Queries.FilterStrategy
                 .GetPaged(request.Page, request.PageSize);
 
             // Handle potential nulls in ProductAttribute -> AttributeValues mapping
-           
+
 
             return result;
         }

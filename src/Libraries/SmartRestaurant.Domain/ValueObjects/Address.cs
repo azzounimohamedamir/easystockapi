@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using SmartRestaurant.Domain.Common;
+﻿using SmartRestaurant.Domain.Common;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Domain.ValueObjects
 {

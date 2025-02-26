@@ -1,19 +1,13 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.API.Swagger.Exception;
 using SmartRestaurant.Application.Common.Dtos;
+using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
+using SmartRestaurant.Application.GestionVentes.VenteParFac.Commands;
+using SmartRestaurant.Application.GestionVentes.VenteParFac.Queries;
+using SmartRestaurant.Domain.Entities;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteParBl.Commands;
-using SmartRestaurant.Application.Stock.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteParFac.Queries;
-using SmartRestaurant.Application.GestionVentes.VenteParFac.Commands;
-using SmartRestaurant.Domain.Entities;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -31,19 +25,19 @@ namespace SmartRestaurant.API.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(PagedListDto<Facture>), 200)]
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
-        public async Task<IActionResult> GetAllFactures(string currentFilter, int page, int pageSize , int caisse)
+        public async Task<IActionResult> GetAllFactures(string currentFilter, int page, int pageSize, int caisse)
         {
-           return await SendWithErrorsHandlingAsync(new GetFacturesListQuery
+            return await SendWithErrorsHandlingAsync(new GetFacturesListQuery
             {
 
-               Page = page,
-               PageSize = pageSize,
-               CurrentFilter= currentFilter,
-               Caisse=caisse
+                Page = page,
+                PageSize = pageSize,
+                CurrentFilter = currentFilter,
+                Caisse = caisse
             });
         }
 
-       
+
         /// <summary> GetAllRegelements/Acomptes List Of Client by Facture Id() </summary>
         /// <remarks>This endpoint allows us to fetch list of Bls </remarks>
         /// <response code="200"> BLs list has been successfully fetched.<br></br></response>
@@ -52,13 +46,13 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [HttpGet]
         [Route("reglementAcompteList")]
-        public async Task<IActionResult> GetAllregelementsByFactureIdAndClient(int page, int pageSize,string clientId , string factureId)
+        public async Task<IActionResult> GetAllregelementsByFactureIdAndClient(int page, int pageSize, string clientId, string factureId)
         {
             return await SendWithErrorsHandlingAsync(new GetListOfRegAcompteClientByFactureIdQuery
             {
 
-                FactureId=Guid.Parse(factureId),
-                ClientId= Guid.Parse(clientId),
+                FactureId = Guid.Parse(factureId),
+                ClientId = Guid.Parse(clientId),
                 Page = page,
                 PageSize = pageSize,
             });
@@ -112,7 +106,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [ProducesResponseType(typeof(ExceptionResponse), 400)]
         [HttpPost]
-       // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
+        // [Authorize(Roles = "FoodBusinessManager,FoodBusinessAdministrator,SuperAdmin,SupportAgent")]
         public async Task<IActionResult> Create(CreateFactureCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
@@ -120,7 +114,7 @@ namespace SmartRestaurant.API.Controllers
 
 
 
-      
+
 
         /// <summary> GroupBL() </summary>
         /// <remarks>
@@ -152,7 +146,7 @@ namespace SmartRestaurant.API.Controllers
         /// <response code="403"> The user account you used to log into the application, does not have the necessary privileges to execute this request.</response>
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<IActionResult> Update( UpdateFactureCommand command)
+        public async Task<IActionResult> Update(UpdateFactureCommand command)
         {
             return await SendWithErrorsHandlingAsync(command);
         }

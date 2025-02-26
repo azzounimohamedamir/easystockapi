@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentValidation;
+﻿using FluentValidation;
 using SmartRestaurant.Application.Common.Commands;
 using SmartRestaurant.Domain.Entities;
-using SmartRestaurant.Domain.Enums;
+using System;
+using System.Collections.Generic;
 
 namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
 {
@@ -43,7 +42,7 @@ namespace SmartRestaurant.Application.GestionVentes.BonCommandeClient.Commands
         public UpdateBCCommandValidator()
         {
             RuleFor(m => m.Id).NotEmpty().Must(id => id != Guid.Empty);
-           
+
         }
     }
 }
